@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Positioning — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Positioning</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Positioning</div>
+    
+    <div class="article-meta">2021-01-26<span>·</span>4,171 words</div>
+    <div class="tags-row"><span class="mini-tag">市場推廣</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2B</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a> and welcome to a ✨ </em><em>once-a-month free edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<p><em>If you’re not a paid subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennyrachitsky.com/p/increasing-velocity-issue-61">15 ways to increase your team’s velocity</a></em></li>
+<li><em><a href="https://www.lennyrachitsky.com/p/the-most-important-consumer-subscription">The most important consumer subscription metrics to track</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/become-a-product-manager">Should you become a product manager?</a></em></li>
+</ol>
+<blockquote>
+<h2>Q: I keep hearing that I need to improve my product’s positioning, but I’m not sure what that means and how to do this. Where do I start?</h2>
+</blockquote>
+<p>When I think positioning, I immediately think of one person: <a href="https://twitter.com/aprildunford">April Dunford</a>. April is the author of the best-selling book <em><a href="https://www.amazon.com/Obviously-Awesome-Product-Positioning-Customers/dp/1999023005/">Obviously Awesome</a></em>, which to me is the definitive book on positioning, and spends her days working with companies of all shapes and sizes helping them nail their positioning.</p>
+<p>When I received this question, I cold-DM’d April to see if she’d be interested in tackling it, and thankfully she agreed 🎉</p>
+<p>Below, you’ll find what I believe is the most succinct and practical guide to nailing your product’s positioning. Let’s dive in!</p>
+<p><em>For more from April, check out her <a href="https://twitter.com/aprildunford">Twitter</a>, <a href="https://www.aprildunford.com/">website</a>, and <a href="https://www.amazon.com/Obviously-Awesome-Product-Positioning-Customers/dp/1999023005/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">book</a>.</em></p>
+<h1>A quickstart guide to positioning</h1>
+<p>by <a href="https://twitter.com/aprildunford">April Dunford</a></p>
+<p><img alt="Image from Positioning" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2b74e4ff-5023-4068-9ef7-ea7bf0713ea8_5467x3657.jpeg" /></p>
+<p>My first job out of school 20 years ago was as a product marketer at a startup. I was assigned to work on a product that had been conceived as a “Microsoft Access killer” that supported SQL and could run on people’s desktops. Back then, SQL databases only ran on big servers. But after a significant marketing effort, we had barely sold 200 copies. We knew it was time to wind it down, but before we did, we decided to check in with buyers to see how upset they would be when we did. Being the new gal, I got the job to make the calls.</p>
+<p>The first 20 conversations I had were exactly the same:</p>
+<blockquote>
+<p><em><strong>Me:</strong> Hi, I’m calling to find out how you’re using our product.</em></p>
+<p><em><strong>Customer:</strong> Sorry, lady, we don’t have that.</em></p>
+<p><em><strong>Me:</strong> Um, well, my records show you paid $100 for it on Jan 22nd?</em></p>
+<p><em><strong>Customer:</strong> Oh,</em> that <em>thing—yeah, we tried it, we don’t use it now.</em></p>
+</blockquote>
+<p>Our decision to kill the product was going to be easy.</p>
+<p>But then I did call 21. “Your product made me the hero of the sales team!” the customer shouted. At his company, sales folks traveled to their customer, took orders on paper, and then returned to the office to enter them in the order system. Orders were often incomplete or full of errors. Our product was installed on laptops with the order system, allowing sales to take orders in the field and then sync with the SQL database back in the office. “We’re doubling sales! That SQL feature was a game changer for us!” he raved. I thanked him and carried on with my calls.</p>
+<p>I had 20 more conversations with 20 more customers who barely remembered purchasing before I hit another fan of the product. His story was similar—he used our product on mobile devices for field service agents who could update their system in the field, then sync with the database at headquarters. “We’ve increased service capacity by 60%. Your product is a game changer!” he said.</p>
+<p>In the end, I talked to 100 customers: 94 didn’t even know they had it, 6 had transformed their business with it. We didn’t exactly have product-market fit <a href="https://pmfsurvey.com/">in the Sean Ellis sense</a>.</p>
+<p>I relayed my findings back to the exec team. Instead of killing the product straight away, they decided to take a shot at repositioning our “Microsoft Access killer” as an “<strong>embeddable database for mobile devices</strong>.” The product took off.</p>
+<p>A year of massive growth later, we were acquired by a big database company, where the product spawned a product family that generated hundreds of millions in revenue. Over 20 years later, this “failed” product <a href="https://www.sap.com/products/sql-anywhere.html">still runs</a> on mobile devices all over the world.</p>
+<h3><strong>Positioning isn’t new—but it’s deeply misunderstood</strong></h3>
+<p>This experience sparked my lifelong obsession with positioning. How could we have known in advance that our product was simply mispositioned? Was there a way for us to figure out what really set our product apart, what our value for customers really was, and what customers we should be targeting?</p>
+<p>Positioning is not as well understood as you might think. If I put a dozen senior marketers in a room together and asked them to define positioning, I’d get a dozen different answers. When I talk about positioning at conferences, I sometimes start by defining what positioning is <em>not</em>: Positioning is not equivalent to messaging. It isn’t a tagline. It’s not your <a href="https://www.aprildunford.com/post/storytelling-vs-positioning">brand story</a>, nor is it your vision or your “why.” It is not, as one CEO attempted to convince me, “everything you marketers cook up over there.”</p>
+<p>So what is it, and, more importantly, how do we <em>do</em> it?</p>
+<h3><strong>Defining positioning</strong></h3>
+<p>Here’s how I define positioning:</p>
+<blockquote>
+<p><strong>‍“Positioning defines how your product is a leader at delivering something that a well-defined set of customers cares a lot about.”</strong></p>
+</blockquote>
+<p>Yeah, that sounds a bit complex, but positioning is made up of a distinct set of components. Those components and their relationship to each other is where the magic happens. We will get to that in a minute.</p>
+<h3><strong>Positioning as context setting</strong></h3>
+<p>Positioning is like <a href="https://www.aprildunford.com/post/how-to-transform-your-product-by-giving-it-context">context setting</a> for products. It’s a bit like the opening scene of a movie. The opening scene gets us oriented. It answers the big questions: Where are we? What year is this? What’s happening? How should I feel? Who are these people? Once we have established some context, we can settle in and pay attention to the story’s finer details.</p>
+<p>Let’s take the opening scene of <em>Apocalypse Now</em>. We see a grove of peaceful palm trees swaying the breeze and maybe you’re thinking, “Hey, maybe it’s not apocalypse right now,” but then you notice some smoke and a helicopter quickly flies past. Suddenly the palm trees burst into flames as Jim Morrison screams, “This is the end, my friend!”</p>
+<p><img alt="Image from Positioning" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/96da736e-421d-40ef-9e4c-f60615895aef_478x200.gif" /></p>
+<p>We realize we are in the middle of the Vietnam War and it’s the apocalypse right now alright. Then slowly, the scene shifts and we see Martin Sheen’s face. He’s drinking and smoking, his hotel room is a total mess, and he’s clearly in psychological distress. He walks over to the window and we get the first line of dialogue in the movie: “Saigon. Shit. I’m still only in Saigon. Every time I think I’m gonna wake up back in the jungle.”</p>
+<p>We are exactly 4 minutes and 45 seconds into the movie, but we know a lot about what’s happening. We are in the middle of the Vietnam War, and in Saigon specifically. Our lead character has been there before and has some pretty bad PTSD as a result. We also get the tone of the movie and we know it’s going to be an intense couple of hours. The opening scene positions the movie by answering our big questions about who, what, where, and why so that we can settle in and focus on the details of the story within that context.</p>
+<p><strong>Similarly, positioning your product in a market orients the customers and conveys a lot of valuable information.</strong> Your positioning context sets off a really powerful set of assumptions about who your product competes with, what features your product should have, who the product is intended for, and even things like what the product should cost.</p>
+<p>Suppose I pitch you my product, and all I tell you is that it’s a “CRM” and that’s it. What assumptions would you make about my product before I got to page two of my pitch? You would assume my competition is Salesforce—they are the leader in that market. You would assume I sell to the head of sales. You would assume my product has a set of features—tracking deals and accounts, for example. You would even make pricing assumptions. Salesforce is the leader in the market, so you would assume my product costs less than that.</p>
+<blockquote>
+<h4><strong>Good positioning sets off a set of assumptions about my product that are true. Bad positioning sets off a set of assumptions about my product that aren’t true—leaving your sales and marketing teams to do the work of undoing the damage your positioning has already done.</strong></h4>
+</blockquote>
+<p>If I were to tell you my product was “email,” you would have a very different set of assumptions than if I positioned it as “chat.” There is a large overlap in features between the two, but as buyers, we expect email to filter spam, allow us to organize and store conversations, and integrate with a calendar. Our expectations for chat are different. We expect instant delivery, a way to see if someone has received or viewed our message, etc. A new product could be positioned in either market, but great chat is lousy email and vice versa. <strong>A shift in positioning can completely transform how we perceive a product and can mean the difference between success and failure.</strong></p>
+<h3><strong>A positioning statement can’t help you</strong></h3>
+<p>So if positioning is so important, how do we do it? Let’s start with what not to do.</p>
+<p>For many people, positioning was taught to them in school using the “positioning statement.” It’s a sort of Mad Libs fill-in-the-blanks exercise. The blanks are things like market category, value, competitors, etc. Typically it looks something like this:</p>
+<p><img alt="Image from Positioning" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b4cc5dc0-db9c-49e1-a6db-bf61bdcfcde0_1830x566.png" /></p>
+<p><strong>‍I believe this exercise is not only pointless but potentially dangerous</strong>. The exercise assumes that there is only one answer for each of the blanks and you simply “know” what it is. However, most products could easily be positioned in multiple different market categories, with different competitors, providing a different value for different kinds of customers. How would this exercise help me understand that my “Microsoft Access killer” was really an “embeddable database for mobile devices?” The answer is that it would not.</p>
+<h3><strong>The 5 components of positioning</strong></h3>
+<p>So how do we find the best positioning for our offerings? This question vexed me as a marketing executive across seven successful startups (and the six big companies that acquired them). I read books! I took courses! Everyone agreed that positioning was the marketing bedrock we built our entire go-to-market strategy around, and yet there didn’t seem to be a methodology for actually getting it done. I decided to figure it out.</p>
+<p>I started with an engineering mindset. I decided we could break positioning up into its component pieces, find the best answer for each piece, bring the pieces back together, and voilà—great positioning.</p>
+<p>Breaking positioning up isn’t hard, because we generally agree on the components. These are, in essence, the blanks in the positioning statement. The components are:</p>
+<blockquote>
+<ol>
+<li><strong>Competitive alternatives</strong></li>
+<li><strong>Differentiated “features” or “capabilities”</strong></li>
+<li><strong>Value for customers</strong></li>
+<li><strong>Target customer segmentation</strong></li>
+<li><strong>Market category</strong></li>
+</ol>
+</blockquote>
+<p>Easy. Now all we have to do is figure out how to get the best answer for each component. Here’s where things get a little tricky.</p>
+<h3><strong>Each component depends on the others</strong></h3>
+<p>If you look at the pieces, you quickly understand that each component has a relationship with the others. For example, the unique value that you can provide to customers is completely dependent on your differentiated features. Your differentiated features are only “differentiated” when you compare them to competitive alternatives. Your best-fit target customers are customers who really care a lot about your unique value. And lastly, your best market category is the context you position your product in such that your unique value is obvious to your target customers. So if every piece has a relationship to every other piece, where do we start?</p>
+<p>For two years, I didn’t think there was a starting point. I attempted to find the best positioning for my products by picking an arbitrary starting point (for example, differentiated features) and then working my way through the others to get a “candidate positioning.” I would then test it on prospects, and if it worked, we ran with it. If it didn’t, I tossed it out and repeated the process to get another candidate to test.</p>
+<p>The drawback to this method are obvious to anyone who’s worked at a startup: it just took too long! While I was out testing candidate after candidate, the sales, marketing, and product teams were stuck in a holding pattern waiting.</p>
+<h3><strong>A customer-centric methodology</strong></h3>
+<p>Eventually, Clayton Christensen solved this problem for me. I was reading everything I could get my hands on about the Jobs to Be Done theory, and I had the realization that the starting point had to be competitive alternatives. If it wasn’t, what we ended up with was positioning that sounded good in the office but didn’t work with customers because it wasn’t differentiated. The flow has to look like this:</p>
+<p><img alt="Image from Positioning" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dc597ea0-acf1-4a8b-b18e-30c59d2f9616_1593x912.png" /></p>
+<p>We start with <strong>competitive alternatives</strong>, or what customers would do if our solution didn’t exist. Once we have that, we can ask ourselves, “What do we have that the alternatives do not?” That gives us a list of differentiated features or <strong>key unique attributes</strong>. We can then go down that list and ask ourselves, “<em>So what</em> for customers?” Put another way, what is the <strong>value</strong> those capabilities enable for our buyers? Once we understand what our differentiated value is, then we can move to customer segmentation, or who the <strong>customers who care</strong> a lot about our value are. There is likely a wide range of buyers who care about that value, but certain customers care a lot more than others. What are the characteristics of a customer that makes them care a lot about your differentiated value? That gives us an idea of who our best-fit customers are. Lastly, we move to market category. Our best market category is the context we position our product in such that our value is obvious to our target customers. Put another way, it is the definition of the <strong>market we intend to win</strong>.</p>
+<p><strong>An example: Janna Systems</strong></p>
+<p>Let’s walk through an example of how this works. Early in my career, I ran marketing for a company that positioned its product as an enterprise CRM. This was ages ago when Salesforce was still focused on SMBs, and the gorilla in the enterprise CRM market at the time was Siebel Systems. Unsurprisingly, every time we got a meeting with a customer we got the question, “So how are you better than Siebel?” That was a bad question for us because, by almost every measure, they were better than we were. They had 8,000 employees and we had a couple dozen. They had $2 billion in revenue; we did less than $2 million. They had 400 customers and we had 6. We did, however, have two differentiators.</p>
+<p>The first was a feature that they couldn’t match. Specifically, we could model relationships in a different way. Most CRMs model the relationship between people and an organization. Our CRM let you model relationships between people, independent of their organization. An example would be that we could show that two people sat on a board together even though they work for separate companies. No CRM then (or even today, for that matter) could do that. The problem was that, for the most part, we didn’t do a good job of articulating the value of that. We showed the feature in every demo, and when customers asked us what they would do with that feature, our reply was “Anything you want!”</p>
+<p>Coming back to the process I laid out in the previous section—our competitor was obvious; it was Siebel. Our differentiator was the ability to model relationships in a different way. What we hadn’t figured out was what the value of that feature was and what types of customers cared a lot about it.</p>
+<p>Eventually, we landed a deal with an investment bank. Working with that customer helped us understand that the value of our feature was that companies could get insight into interpersonal relationships, which sales teams could use to start new sales conversations and understand who might have influence over a deal in process. For companies that relied heavily on personal relationships (e.g. investment banking, private client services), our product was a game changer.</p>
+<p>Going back to the positioning process, we could now fill in <strong>value</strong> and <strong>customers who care</strong>. This was super-important for our go-to-market strategy. We shifted our sales and marketing efforts to selling to investment banks, where we had a distinct advantage over Siebel.</p>
+<p>Lastly, we decided to make a change to the market category. Clearly, we couldn’t win Enterprise CRM, but we could win CRM for Investment Banks. Positioning ourselves that way helped banks find us and helped us clearly differentiate from Siebel. This shift in positioning allowed us to grow very quickly over the next 18 months, from under $2M to close to $80M. Our plan was to shift the positioning to CRM for Financial Services as we expanded to retail banks and insurance companies. We didn’t get the chance to test that positioning evolution, however—Siebel acquired us for $1.3B.</p>
+<h3><strong>Common mistakes</strong></h3>
+<p>Once you understand the flow conceptually, it’s pretty easy. But that doesn’t mean there aren’t a lot of ways you can mess this process up. Here are the three most common traps:</p>
+<p><strong>Trap 1: Defining competitive alternatives as any possible competitor</strong></p>
+<p>The most common mistake I see startups make is in how they define the competitive alternatives in the first step. A better way to think about competitive alternatives is to ask yourself, “What would a customer do if your offering didn’t exist?” Sometimes the answer to that question is “Do nothing.” What that really means is the customer would stick with their current way of solving the problem. That could mean using a spreadsheet, using a manual process, or hiring an intern to do it. In enterprise software, we typically lose 25% of deals to “no decision.” Your positioning needs to position you against the status quo if you want to convince customers to act.</p>
+<p><strong>Trap 2: Creating “phantom competitors”</strong></p>
+<p>Next, I see companies listing what I would call “phantom competitors” in step 1. <a href="https://twitter.com/aprildunford/status/1334143529573081089?s=20">Phantom competitors</a> are companies that theoretically could compete with you; you just never actually see them or lose to them in deals. Until you do, you are watering down your positioning by trying to position against them. Step 1 in the positioning process is to identify what your customers see as alternatives. This isn’t a test of your internet research skills, and just because a company could compete with you doesn’t mean they ever will. The product team might want to keep an eye on them as a future competitive threat, and if you do start to see them in deals, you can adjust your positioning at that time. Until then, you will weaken your positioning by trying to position against competitors your customers never even consider.</p>
+<p><strong>Trap 3: Assuming that you have to create a new market category to grow</strong></p>
+<p>When selecting a market category, you can either choose to position your product in an existing market category or attempt to create a new category in customers’ minds and then position your product as the leader in it.</p>
+<p>The first option allows you to use what customers already know and understand about a market to help them understand what your product is and what makes it uniquely special. If I tell you my product is an “embeddable database for mobile devices,” you have the benefit of understanding what a database is. “Embeddable” and “for mobile devices” narrows down the field of alternatives to a market niche where this product is not only different from the leaders in the more generic “database” market category, but much better for a particular kind of buyer.</p>
+<p>Creating a new market category, on the other hand, is where you invent a new frame of reference for customers. The obvious downside to this strategy is that you first have to make the category mean something in the customer’s mind before it can serve as a meaningful context. So instead of being an “embeddable database for mobile devices,” you choose to be a fluflommer. Yep, a fluflommer. Customers have no idea what that is because you’ve just invented it, so be prepared to spend a significant amount of time and effort making that term mean what you want it to mean.</p>
+<p>There is an assumption that the payoff for creating a new market category is that you will dominate the market as it grows. <a href="https://www.amazon.com/Obviously-Awesome-Product-Positioning-Customers/dp/1999023005/">In my book</a>, I tell the story of Eloqua and how founder Mark Organ created the Marketing Automation category and did exactly that.</p>
+<blockquote>
+<h4>Unfortunately, history teaches us that companies that create market categories often lose in the long run to companies that gained a market foothold after the hard work of creating the category was already done.</h4>
+</blockquote>
+<p>This is why we use Google and not Ask Jeeves. This is why we use Facebook and not Myspace. In fact, 90% of tech companies that have gone public over the past five years have been positioned in existing markets rather than creating new ones. Many of the examples of category creators started out positioning themselves in existing markets before they later stretched the boundaries of that category. Salesforce was a niche play in the CRM space until it had hundreds of millions of revenue. Gainsight was in the survey software market until it had hundreds of millions of revenue. It’s much more common for startups to start out positioning themselves in an existing category until they have the money and momentum required to re-draw the lines around that category.</p>
+<h3><strong>Positioning—you’ve got this!</strong></h3>
+<p>Positioning is a misunderstood concept, but I believe that if you master it, it can be the most powerful strategic tool you have at your disposal. If you are interested in learning more, I go deeper on this topic in my <a href="https://www.amazon.com/Obviously-Awesome-Product-Positioning-Customers/dp/1999023005/">book</a>, and I’ve got a set of <a href="https://www.aprildunford.com/obviously-awesome">templates</a> to go with it that you might find helpful.</p>
+<h2><strong>🔥 Job opening of the week: Airtable</strong></h2>
+<blockquote>
+<p><strong>✨ Airtable is hiring for a <a href="https://grnh.se/0725e0b52us">Full-Stack Engineer</a> and an <a href="https://grnh.se/402aac172us">Engineering Manager</a></strong> ✨</p>
+</blockquote>
+<p><strong>Additional opportunities:</strong></p>
+<ol>
+<li><strong>Product</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4313154003">Cerebral</a>, <a href="https://kudo.bamboohr.com/jobs/view.php?id=32">Kudo</a>, <a href="https://www.linkedin.com/jobs/view/2344670919/?trackingId=YHvRTxoetClV7013SkxEAQ%3D%3D">Plume</a>, <a href="https://apply.workable.com/prenda/j/63270A44BB/">Prenda</a>, <a href="https://jobs.ashbyhq.com/Rocketplace/11bc424f-e80f-4bab-aa96-517c01a6d511">Rocketplace</a>, <a href="https://boards.greenhouse.io/userleap/jobs/4279026003">UserLeap</a></li>
+<li><strong>Growth</strong>: <a href="https://apply.workable.com/alloy-automation/j/A0909506B0/">Alloy</a>, <a href="https://www.basisone.com/careers/growth-strategy-lead">BasisOne</a>, <a href="https://apply.workable.com/prenda/j/AC98C5FDFB/">Prenda</a>, <a href="https://boards.greenhouse.io/spacex/jobs/5032353002?gh_jid=5032353002&amp;gh_src=seekorswimcom">SpaceX Starlink</a></li>
+<li><strong>Design</strong>: <a href="https://jobs.ashbyhq.com/ashby/145ff46b-1441-4773-bcd3-c8c90baa598a">Ashby</a>, <a href="https://jobs.lever.co/berbix/ba8af3cd-d797-492b-9849-13b37df0f6b2">Berbix</a>, <a href="https://jobs.lever.co/office-hours/13d73541-b5b7-405a-9ad8-1d3f0edf9c92">Office Hours</a>, <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Lead-Designer-14ceaa685100486b824665e1320fc9af">Levels</a>, <a href="https://www.notion.so/Designer-San-Francisco-CA-327a70b082714933aef3c58ef63b54ab">Primer</a>, <a href="https://www.notion.so/A-Product-Designer-baa24543701f472bb291d4429812064a">Runway</a>, <a href="https://www.notion.so/Designer-Watershed-7cb7bf8bd750432399d36e83e4e32391">Watershed</a></li>
+<li><strong>Engineering manager</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4076598003">Cerebral</a></li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Front-end-Developer-929e1933b9b4432a851043adbb7bff04">Practice</a>, <a href="https://www.linkedin.com/jobs/view/2323962506/">Tome</a></li>
+<li><strong>Backend engineer</strong>: <a href="https://www.notion.so/Driveway-Senior-Engineer-758d5ce4ce764f9ea920c5728ee136f3">Driveway</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Backend-6d954206f00b446289f18bf51960ca34">Pogo</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li><strong>Fullstack engineer</strong>: <a href="https://apply.workable.com/alloy-automation/j/27639ECE80/">Alloy</a>, <a href="https://www.cascade.io/jobs/full-stack-product-engineer">Cascade</a>, <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://icebreaker.video/product-engineer">Icebreaker</a>, <a href="https://www.notion.so/askiggy/Full-Stack-Engineer-IggyAPI-5a8c1825028e421b9587538718f370b4">Iggy</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Full-stack-web-San-Francisco-CA-3a0af35008104def82836a5b9a5a88e1">Primer</a>, <a href="https://www.notion.so/A-Product-first-Full-stack-Engineer-5e056689b68048aeb1ccfea6ac73eb9e">Runway</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpas</a>s, <a href="https://jobs.lever.co/stytch/00c92a1b-36c2-46f6-8af1-885a6bbd6bd4">Stytch</a>, <a href="https://jobs.wrkhq.com/sunroom/17233">Sunroom</a></li>
+<li><strong>iOS engineer</strong>: <a href="https://www.notion.so/Senior-Software-Engineer-iOS-San-Francisco-CA-87f0fd3ee3dc4c3f8d0419c07fcdd434">Primer</a>, <a href="https://jobs.lever.co/stytch/d3bf3860-4aaa-4a23-8e28-dad20957be44">Stytch</a></li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

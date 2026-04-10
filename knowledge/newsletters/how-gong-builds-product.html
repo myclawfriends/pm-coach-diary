@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Gong builds product — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Gong builds product</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Gong builds product</div>
+    
+    <div class="article-meta">2024-01-23<span>·</span>4,691 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2B</span> <span class="mini-tag">組織</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Don’t miss </em><em><a href="https://www.lennybot.com/">Lennybot</a></em><em> ✨ (an AI chatbot trained on my newsletter posts, podcast interviews, and more) and my new </em><em><a href="https://lennyswag.com/">swag store</a></em><em> (great gifts for your favorite PM, or yourself!).</em></p>
+<p>I was speaking with one of my favorite B2B founders and asked her what company she’d most love to learn from. Her immediate answer:</p>
+<blockquote>
+<p><strong>“Gong! I want to know everything about that company.”</strong></p>
+</blockquote>
+<p><a href="https://www.gong.io/">Gong</a> is one of the fastest SaaS companies in history to reach $100 million in ARR, has over 4,000 customers—including companies like Snowflake, Shopify, HubSpot, and LinkedIn—and has raised more than $500 million from Tier 1 investors like Sequoia Capital, Coatue, and Thrive Capital.</p>
+<p>To get an inside look at how Gong builds product, I sat down with <a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a>, the co-founder and chief product officer. <strong>Here’s what stood out to me most about Gong’s approach to product:</strong></p>
+<ol>
+<li>The incredibly high amount of autonomy teams have</li>
+<li>Teams being organized around outcomes (aka “problem areas”), not features</li>
+<li>The “W”-framework yearly planning process, the quarterly “M” process</li>
+<li>Their dislike for OKRs and Scrum</li>
+<li>Engineers, not PMs, owning prioritization of bugs</li>
+<li>How closely teams work with design partners when developing new product lines, and their “slice” strategy for new products</li>
+<li>The almost-real-life assignment principle for interviewing</li>
+</ol>
+<p>To learn more about Gong, check out their <a href="https://www.gong.io/">website</a>, <a href="https://www.gong.io/demo/">demo page</a>, and new <a href="https://www.gong.io/product/ai/">AI platform</a>.</p>
+<p><em>For more stories of how the best product teams operate, don’t miss my deep dives into <a href="https://www.lennysnewsletter.com/p/how-linear-builds-product">Linear</a>, <a href="https://www.lennysnewsletter.com/p/how-shopify-builds-product">Shopify</a>, <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">Notion</a>, <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>, <a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">Ramp</a>, <a href="https://www.lennysnewsletter.com/p/how-miro-builds-product">Miro</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, and <a href="https://www.lennysnewsletter.com/p/how-snowflake-builds-product">Snowflake</a>.</em></p>
+<h1>How Gong builds product</h1>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/166b5927-a571-48f5-b014-33fa2562ca8f_6000x4000.jpeg" /></p>
+<h3><strong>1. How far out do you plan in detail, and how has that evolved over the years?</strong></h3>
+<p>We have two main planning cycles: annual and quarterly.</p>
+<p>The annual process works along a “W” shape, similar to the framework Lenny suggested <a href="https://review.firstround.com/the-secret-to-a-great-planning-process-lessons-from-airbnb-and-eventbrite">here</a>.</p>
+<p>It starts at the top, with the Gong management team setting up top company priorities—usually three or four. Based on these priorities, product and engineering determine the capacity for the different products and product areas. So for example, if we’ve decided to enter a new category, we will assign several pods that would be focused on this new category. When we decided to build our sales engagement product, for example, we reallocated some existing pods toward that goal.</p>
+<p>Initially, a straw-man plan is built (bottom-up), with the “big rocks” that are planned for the year. It is presented to the leadership team for high-level feedback. Then a more detailed plan is put together. That plan includes more specific feature descriptions and more concrete timelines.</p>
+<p>The output of this process is guidance for the plan one year ahead, at a decreasing level of certainty: good certainty for the upcoming quarter, lower certainty the following quarter, and a very rough sketch of the second half.</p>
+<p>Once the plan is prepared, it is communicated broadly throughout the company. We found out that it’s helpful to have a single person on the product team (within the product operations team) assigned to handle the collection and communication of these plans.</p>
+<p>Of course, we also involve teams other than management in the process. Over time, we’ve built various workshops with different teams (e.g. sales, customer success) to reduce the chances of having blind spots. For example, as part of our 2024 planning, we ran a workshop with the revenue leadership team, which brought up certain opportunities for addressing the needs of revenue leaders within our customer base; not all those needs were identified within the planning process.</p>
+<p>Each quarter, we run a trimmed-down version of this process. Oftentimes, there isn’t new top-down guidance, so the process looks more like an “M,” starting from the product pods. We then create a pretty substantial document—north of 20 pages—that details the plan and what is expected to be built during the upcoming quarter.</p>
+<p>Here’s the first page of our FY2024 Q3 plan (8-10/2023):</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/344853f9-6385-4566-965e-3ec272ab71bc_597x791.png" /></p>
+<p>We also provide an abridged version of the high-level rocks, for executive consumption:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/39fb50b2-f12b-4555-824a-fb329101fc0d_924x519.png" /></p>
+<p>Also during this process, we provide (relatively light) updates to the annual plan. In principle, we aim to provide a rolling 12-month window of the plan, with a decreasing level of clarity.</p>
+<p>We do not plan monthly or biweekly. Both the engineering leader and I dislike the Scrum methodology. We feel it’s trying to drive urgency via artificial deadlines versus via value to the customer. And by forcing “commitment” to deliverables within a time window, it essentially inhibits on-the-fly trade-offs between content, quality, and timelines. Yet we have internal reviews with the different groups on a monthly basis.</p>
+<p>What’s interesting is that the process hasn’t changed materially over the years. That is, we had annual and quarterly planning almost from day one. But the process has become more structured over time: distribution across teams, deeper documentation and information dissemination, and so on.</p>
+<h3><strong>2. How do you structure your product teams? Has this changed over the years?</strong></h3>
+<p>When we started Gong, I built what we now call a pod: a product manager (which was initially me), a product designer, and a handful of engineers (front-end, back-end, and generalists).</p>
+<p>Later on, as we started to scale, we debated how to structure the pods. In my prior life, I’ve seen org structures built around engineering specialization (back-end vs. front-end or platform vs. applications). Even back in 2017, we realized that we wanted to optimize for customer-centricity and velocity instead of optimizing for specialization.</p>
+<p>So we’ve continued to build autonomous multi-skill teams (pods) around product areas—what is now known as “empowered product teams.”</p>
+<p>Each pod is focused on a problem area (for example, “sales forecasting”), which roughly aligns with a set of “jobs” that are carried out either by a given persona (e.g. a sales coach) or by multiple people doing a business process (e.g. a pipeline review).</p>
+<p>Now that we’re bigger, pods are assembled into “groups,” and each group roughly aligns with a product. For better or worse, products are usually aligned with an industry definition of a category (e.g. “conversation intelligence” or “sales engagement”). And in most cases, those products span multiple user types across a set of strongly connected workflows. For example, our “Engage” product is a sales engagement product, which serves account executives (working with new or existing customers), sales development managers (prospecting to new accounts), managers (driving the teams), and revenue operations (who set up the playbooks).</p>
+<p>The structure is along the lines below:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/b20d1ef8-4a09-41d8-a1a6-16b267008d07_1600x580.png" /></p>
+<p>While this works in theory, we do have exceptions.</p>
+<p>Most notably, we have a data platform group, which is responsible for all data capture, data export, and data integrations. These tend to span multiple products, and we found out that it makes more sense to centralize those.</p>
+<p>Another cross-functional group is a user journey group, which also spans all products and drives the user journey (home page, targeting, recommendations, and so on). That team also drives the (naturally cross-functional) mobile application.</p>
+<p>The product group nowadays also includes non-“build” functions. I have leaders who drive new products’ go-to-market, field product management, product partnerships, and, most recently, product marketing.</p>
+<h3><strong>3. How do your product/design review meetings work?</strong></h3>
+<p>We are relatively extreme in letting the teams autonomously drive their own agendas. That is, once a pod has been assigned an area of responsibility, a great outcome is that they come up with the respective product design. So the leadership team is hardly involved in the detailed design or the iterations with customers along the way.</p>
+<p>For example, one of our core technologies is a studio that lets business users calibrate what they care to know about in sales conversations. In technical terms, they build a machine-learning model unique to them that mines key elements from conversations. This involves underlying data science work and a very particular user experience, simplifying the workflow. This capability was built end-to-end by the team, while iterating with customers. While as a CPO I was involved in the process, the involvement was loose and the planning, design, and launch were all led by the teams.</p>
+<p>This, however, is a two-edged sword. It lets the teams run much faster: a pod may pre-launch a feature, get feedback, and iterate without waiting for approvals. However, the challenge is to avoid duplicate work and build consistently across groups.</p>
+<p>When the groups observe that what they’re working on may overlap with other groups, or perhaps there are knowledge or skill gaps within the group, they flag this for attention.</p>
+<p>We operationalize this via a quarterly meeting of all the product group leaders, in which each group leader highlights the areas that either require platform-wide support or areas that are applicable to additional teams. We then translate this into a more concrete plan that determines which group leads the capability and when other groups get involved.</p>
+<p>In such cases, the decision-making process is more subtle, and decisions would sometimes bubble up to me or to the head of UX. For example, one group is building general-purpose analytics capabilities. Another group needs such capabilities, but perhaps in a different time frame. Or one group is building some AI capabilities and needs them to show up across the system. But other groups have tight plans. We don’t have a recipe for resolving such conflicts, so we found out that the most practical approach is to review those as a team ahead of each quarterly plan and ensure alignment.</p>
+<h3><strong>4. Do you use OKRs in some form?</strong></h3>
+<p>We don’t use OKRs on the product team.</p>
+<p>We tried using OKRs at Gong at some stage across the company, but we found out that the process of updating OKRs to align with reality was time-consuming and the framework did not provide us with enough benefits to justify the effort. However, we review this decision annually. We may decide to give OKRs another shot at a company level in the coming year or two, since we haven’t found a better mechanism to drive cross-functional goal alignment.</p>
+<p>Individual groups within the product team set up KPIs or metrics to track product progress. These are usually not managed top-down but serve as a vehicle for tracking and optimization rather than a true objective.</p>
+<p>During periods preceding new product launches, we’ve set up more structured KPIs to ensure we launch with confidence. That ensures that both internal metrics (e.g. stability) and external metrics (e.g. number of successful customers) would drive a successful launch.</p>
+<p>For example, when we recently launched our sales engagement product, we initially looked at metrics such as connect rates for our web dialer (a stability metric). As we became convinced that the product is stable, we focused our attention more on outcome metrics. For example, since the product helps sellers book meetings, we looked at the number of meetings booked by a typical seller to ensure that we deliver the intended value. As we became convinced that the product delivers value, we focused our attention on more operational metrics, for example, how long it takes a new customer to launch. And naturally, business metrics such as attach rates to existing customers, ARPU [average revenue per user], and similar.</p>
+<h3><strong>5. Are product and design part of the same org? And who do PMs ultimately report to?</strong></h3>
+<p>Product and product design both report to me, i.e. the CPO. Other functions (analytics, operations) also report to me directly.</p>
+<p>Very intentionally, all people report up through a professional chain. That is, all product designers report to the head of product design (who reports to me), all analysts report to the head of analytics (who reports to me), and so on.</p>
+<p>The reason we’ve followed this model is that I strongly believe that most knowledge professionals prefer reporting to someone with the same career path. That is, if I’m a product analyst, I’d much rather report to a product analyst, who understands my profession, than to a product manager, who will naturally be more interested in delivery per se.</p>
+<p>I also believe that the tension between product managers and other functions is a healthy one. Product managers are often focused on getting a product out on time. Other functions—like designers—may also be worried about quality or other aspects. So the tension is healthy, and I believe that if we aligned the reporting structure to each domain (i.e. designers reporting to PMs), it would steer the ship too close to delivery per se.</p>
+<p>We decided to put the writing function within the UX team. We felt that there was a strong connection between writing and the product’s UX. At the end of the day, it’s all about ensuring that end users understand what they need to do on a page, be it via self-explanatory UI or with more explanations.</p>
+<h3><strong>6. How many PMs are there at Gong?</strong></h3>
+<p>We have 24 PMs, organized into six groups.</p>
+<h3><strong>7. What’s your primary tool for task management, and bug tracking?</strong></h3>
+<p>The engineering team uses Jira for the development lifecycle, which includes bug tracking. Using a true workflow system is crucial to formalize the CI/CD process, aligning with best practices around the software development lifecycle.</p>
+<p>Here’s a typical Jira case:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a90ab930-9795-4485-9f16-bb3b03ff9a37_1260x399.png" /></p>
+<p>However, the product team does not “live” in Jira. In fact, some product managers create Jira cases for features. Some don’t even do this.</p>
+<p>We bifurcate very clearly between new product capabilities and bugs.</p>
+<p>For new product capabilities, the PM and UX teams use Productboard to collect inbound customer requests. We have multiple entry points into Productboard: customer requests, customer requests in calls, requests in online reviews, and more. Then product managers collect those as an input to the planning process.</p>
+<p>Here’s a typical view of our Productboard instance:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/baeb5573-a970-4480-9a06-eddd2bfaaefe_1441x394.png" /></p>
+<p>As we’ve scaled, we found out that having a dedicated person to filter and route the Productboard features is helpful, since this way the PMs can focus on the substance versus the mechanics of that tool.</p>
+<p>We use Airtable quite heavily to organize our high-level feature release plan. At the beginning of each quarterly cycle, the product managers input all of the planned features into the table. That table tracks the full lifecycle of a feature, soup to nuts, and provides more information to the non-product teams: short business rationale, links to longer documents, status, impact, and more. If anyone at Gong ever wants to know where a feature is in terms of its lifecycle, this would be the place to look.</p>
+<p>Here’s a partial view of our release tracker:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a0837971-54e9-4655-b9f4-020bc054bce0_1600x350.png" /></p>
+<p>In terms of bugs, we’ve taken a pretty aggressive approach (some may say controversial) and decided that bugs would be handled by engineering, versus product. Our assumption is that engineers have enough business context to assess the severity and priority of each bug. And that most bugs take less time to fix than to prioritize. This way, the engineering teams (and oftentimes the engineering team manager) prioritize and fix the bugs. If a bug requires a disproportionate amount of time, they’d flag it to the product manager and they’d make a joint decision.</p>
+<h3><strong>8. What percentage of ideas come top-down and what percentage come bottom-up, roughly?</strong></h3>
+<p>New directions vary by type.</p>
+<p>For new products (we’ve launched two products since our original product), the decision, and even the initiation, is mostly top-down. As an executive team, we identify adjacent use cases or markets and work with the teams to ensure that we have the resources to support them.</p>
+<p>For new capabilities within current products, this is usually a collaborative effort between the PMs, Group PMs, and leadership. Rarely would leadership come up with a need (e.g. “we need customizable dashboards”) in a vacuum. In most cases, customers bring it up as a need. The PMs and Group PMs understand it’s a need and initiate a discussion around it. It then gets prioritized as part of the annual or quarterly process. Then the specifics are usually led by the product teams. As a CPO, I sometimes get involved in the “how” as well, mostly in new capabilities that the team is not yet well-versed in. So to follow the example above, the team may not have experience building customizable dashboards, so in case I do, I would get more involved than in other cases.</p>
+<h3><strong>9. You build one of the most beloved, and successful, products out there. What would you say is unique or central to your approach to product that leads to such a great and successful product?</strong></h3>
+<p>The ingredient that positively impacts the product quality from a customer standpoint is our continuous work with customers.</p>
+<p>Literally every feature we develop is being designed with a set of design partners—companies and users—with whom we jointly develop the feature.</p>
+<p>This is particularly important in our domain, which is built on data AI. We can present mocks all day long, but only once a customer sees their data in context can they make a true determination if a certain recommendation or action is valuable.</p>
+<p>Once we identify a feature as worthy (also based on discussions with customers), we develop a first “slice,” and make it available in what we call “limited availability.” This is essentially what other companies might call an alpha or beta (depending on maturity). We continue to iterate and may leave a feature in limited availability for months, until we feel it provides the expected impact. We are less concerned about this long beta process, because customers who express a need can be put in “limited availability” for any given feature, so even though a feature is not officially “generally available,” customers can still achieve the value. We’ve had many cases where we had hundreds of customers in a limited availability status until we were happy with the result and released it.</p>
+<p>We have very little—if any—work that is done completely inspirationally without involving customers at an earlier stage. And even when we do incubate a capability, it would go through this cycle.</p>
+<p>For example, when we decided to build our Forecast product (a revenue analytics solution), we knew the problem we wanted to solve for customers (increase predictability and improve the operational rhythm) but we didn’t know what was top-of-mind for them.</p>
+<p>Rather than spec out a product, we reached out to half a dozen design partners who had this need. Over the course of a few months, we gave them access to early versions of the software in an embarrassing state (that is, very far from being a “product”). We asked them initially for high-level feedback, and then for feedback based on use. I recall chatting with the PM who drove this product, and he told me he gave a design partner access to a feature that I knew wasn’t slated until a month later. When I asked him about it, he confirmed that the “Save” button didn’t work yet but he was eager to see what type of error message would pop up. I later spoke with one of the design partners, who said he truly enjoyed the process. When I asked him to elaborate, he said he met with the product manager on our end on a weekly basis, gave him ideas and suggestions, and then a week later the product manager would show up with different approaches to solve the problem, which the PM had assembled from multiple design partners. He said that being a design partner helped him better nail down his internal needs and processes, seeing how his peers were essentially guiding Gong through building our product.</p>
+<p>When we developed our sales engagement product a year later, the approach was similar. In this case, though, the product team was bigger, so we were able to work with some 20 to 30 design partners in parallel, split out between three or four PMs.</p>
+<h3><strong>10. I assume much of your success has been thanks to hiring well and keeping a very high bar. In your product hires, what do you most look for (that maybe others don’t), and, broadly, what does your interview process look like?</strong></h3>
+<p>We perfected the hiring process over the years, and the anchor is an almost-real-life assignment, which all new candidates go through. This is a process that I’ve instilled across the product organization and has made its way into additional organizations at Gong.</p>
+<p>Conceptually, the idea is to give the candidate an assignment that, as much as possible, reflects their real-life work. This means that the assignment would by nature be ambiguous (like our day-to-day life) and it would not have a right or wrong answer.</p>
+<p>Very typically, we would present a true customer pain that is or was in our product, and ask the candidate to show us their thought process around how they’d approach it. For example, when we were going to tackle adding collaboration as part of the pipeline management process (supported by Gong), we basically posed this need to candidates.</p>
+<p>A couple of years ago, I documented the principles behind the assignment:</p>
+<ul>
+<li>We would like to evaluate the candidate in a situation that is as real-life as possible, meaning: the more the assignment simulates working at Gong, the better.</li>
+<li>The assignment and the process around it are meant (almost) as much to let the candidate experience what it is to work at Gong as for us to experience how the candidate works. If Gong is not a great fit for the candidate, it’s great if they know that during the process.</li>
+<li>We want to respect candidates’ time, and limit the work required. Ideally the assignment can be completed in hours, not days, and the feedback we’ve received is that people spend up to 10 hours. While some candidates may drill even deeper, we should minimize the body of work required.</li>
+<li>We feel it’s our obligation to spend our own time to prepare the right assignment, so that the candidate’s time would be well spent.</li>
+<li>We want the assignment to be interesting for the candidate.</li>
+</ul>
+<p>Here’s an example of a business background we gave candidates a while back.</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/27537e88-1c29-4c0d-94ae-8becfb2cade1_1238x696.png" /></p>
+<p>And the customer needs:</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/e0e4906d-5ba9-44ba-b762-24b87fb03b2a_1238x696.png" /></p>
+<p>Given that Gong’s solution includes a conversation intelligence product, and given that all our customer meetings are recorded, we always give candidates snippets of related conversations with customers, so they can sense the real need.</p>
+<p>We give candidates as much time as needed to prepare for the discussion. Once ready, the assignment is then discussed with a panel in the same way any proposal would be discussed or brainstormed internally. We do realize, of course, that the candidate doesn’t have the full context, so we don’t expect a “correct” answer. In fact, we’ve hired candidates who we felt had a pretty poor solution but who we felt were going through the right steps but making inaccurate assumptions. And vice versa—people who came up with great product solutions but who we weren’t certain could replicate it consistently or couldn’t collaborate well with others.</p>
+<p>What we found out over time is that this process lets us understand the candidate’s thought process and assess their interpersonal style. We expect candidates to approach the problem with a healthy and balanced approach (i.e. how much to spend on “discovery” versus solutioning, how much to assume up-front and how much to leave out, and so on). And because of our customer-centric approach, we pay special attention to candidates who enjoy working directly with customers (versus, say, the project management aspect).</p>
+<p>One area that we pay attention to is to ensure that we don’t ask candidates for a lengthy investment: we ask candidates about the time investment, and we refine the assignment to fit, in most cases, less than 10 hours.</p>
+<h3><strong>11. Your processes, org structure, people, and most everything else will change over time—what do you think will stay the same?</strong></h3>
+<p>The main thing that we’ll attempt to keep is the autonomous nature of the teams, so that each pod drives their agenda and the “how” behind it. This becomes harder over time, since it (by definition) limits our ability as a business to obtain visibility into timelines and even content.</p>
+<p>We’ve recently started to put in more mechanisms to balance autonomy with top-down thinking that ensures global direction. For example, each quarter we’re now aligning on cross-product needs, and those needs are determined to be “top-down” and the various teams have less control over them. We’re also continuously adding more checkpoints with the different groups (sales, customer success, and so on), with the goal of ensuring that priorities aren’t missed by the pods.</p>
+<p>I’m still bullish on the autonomous model, since I believe it has a profound impact on the quality of the output and on team morale (e.g. on the product team, we have one of the lowest attrition rates in the industry). But this is an area that we’ll need to calibrate to make sure there is alignment between pods and company strategy.</p>
+<h3><strong>12. What are some fun/unique rituals or traditions you have on the product team, or at the company broadly?</strong></h3>
+<p>When we were smaller, when newly onboarded people completed their first real task (for product managers, feature launched; for engineers, first code to production), we brought a bottle of alcohol of choice for the whole team or group.</p>
+<p>Now that the company is bigger, this is hard to maintain. But several team members still follow this tradition, and it’s always fun to watch a midday toast by a team for a newcomer.</p>
+<p>Here’s a photo I was able to dig up from one of the toasts. You’ll see the alcohol and, this time, also some cakes.</p>
+<p><img alt="Image from How Gong builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/eac6c978-3c4f-4a95-8835-e61e9ef75ef9_1600x1200.jpeg" /></p>
+<p><em>Thank you, Eilon! Follow him on <a href="https://www.linkedin.com/in/eilonreshef/">LinkedIn</a> and <a href="https://twitter.com/eilonreshef">X</a>, and to learn more about Gong, check out their <a href="https://www.gong.io/">website</a>, <a href="https://www.gong.io/demo/">demo page</a>, and new <a href="https://www.gong.io/product/ai/">AI platform</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

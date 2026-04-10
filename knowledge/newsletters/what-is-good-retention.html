@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is good retention? — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What is good retention?</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What is good retention?</div>
+    
+    <div class="article-meta">2020-06-09<span>·</span>2,698 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2B</span> <span class="mini-tag">B2C</span> <span class="mini-tag">定價</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>Hello, and welcome to the </em><em>free monthly edition</em><em>of my weekly newsletter. I’m <a href="https://twitter.com/lennysan">Lenny</a>, and each week I tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<h1>Q: What do you consider GOOD and GREAT retention?</h1>
+<blockquote>
+<p><em>“Great retention is</em> the <em>scalable way to grow a product. It’s the best indicator of product-market fit, it is the most important factor in a user’s lifetime value, and high retention drives all of the best acquisition strategies. It’s growth’s equivalent of the triple word score.”</em></p>
+<p>—<a href="https://twitter.com/onecaseman">Casey Winters</a></p>
+</blockquote>
+<p><strong>Although retention is widely considered to be the most important metric to get right when building (and investing in) a business, it’s also one of the least understood.</strong> Why? Because unless you’re a growth expert or an experienced investor, you’re often relying on anecdotes, dated blog posts, and misguided benchmarks. I ran into this problem myself many times when working with startups.</p>
+<p>So when <a href="https://www.linkedin.com/in/caseywinters">Casey Winters</a> (former head of growth at Pinterest and Grubhub, and now CPO at Eventbrite) brought up this question in a conversation we were having, we decided to take the opportunity to do some new research. Together, we reached out to 20 of the most experienced growth practitioners we know and asked them two simple questions:</p>
+<ol>
+<li><strong>What do you consider GOOD and GREAT user retention (at 6 months)</strong>?</li>
+<li><strong>What do you consider GOOD and GREAT net revenue retention (at 12 months)</strong>?</li>
+</ol>
+<p>Taking these insights and combining them with available public data, <strong>we’ve come up with a set of concrete recommendations for GOOD and GREAT retention across most types of businesses</strong>. Below you’ll find a visual summary of these conclusions, along with detailed recommendations from each of the experts, and public comps from many of today’s biggest companies.</p>
+<p>As a companion to this post, <a href="https://caseyaccidental.com/what-is-good-retention">Casey also published an essay</a> delving into ways to increase retention, among other topics, that you should definitely check out.</p>
+<p>Without further ado, let’s dive in.</p>
+<h2><strong>What is GOOD and GREAT retention?</strong></h2>
+<h4><strong>GOOD and GREAT user retention</strong></h4>
+<ul>
+<li><strong>Consumer social:</strong> ~25% is GOOD, ~45% is GREAT</li>
+<li><strong>Consumer transactional</strong>: ~30% is GOOD, ~50% is GREAT</li>
+<li><strong>Consumer SaaS:</strong> ~40% is GOOD, ~70% is GREAT</li>
+<li><strong>SMB/mid-market SaaS:</strong> ~60% is GOOD, ~80% is GREAT</li>
+<li><strong>Enterprise SaaS:</strong> ~70% is GOOD, ~90% is GREAT</li>
+</ul>
+<h4><strong>GOOD and GREAT net revenue retention</strong></h4>
+<ul>
+<li><strong>Consumer SaaS:</strong> ~55% is GOOD, ~80% is GREAT</li>
+<li><strong>Bottom-up SaaS:</strong> ~100% is GOOD, ~120% is GREAT</li>
+<li><strong>Land and expand VSB SaaS:</strong> ~80% is GOOD, ~100% is GREAT</li>
+<li><strong>Land and expand SMB/mid-market SaaS:</strong> ~90% is GOOD, ~110% is GREAT</li>
+<li><strong>Enterprise SaaS:</strong> ~110% is GOOD, ~130% is GREAT</li>
+</ul>
+<p>Here’s a handy visual guide, which links to a high-res PDF:</p>
+<p><img alt="Image from What is good retention?" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/56c42120-3472-426c-bc68-6498d214944a_2550x2944.png" /></p>
+<h2><strong>Big thank-you to the experts</strong></h2>
+<p><strong><a href="https://www.linkedin.com/in/adamjfishman/">Adam Fishman</a></strong> (Patreon, Imperfect Foods), <strong><a href="https://twitter.com/andrewchen">Andrew Chen</a></strong> (Uber, a16z), <strong><a href="https://www.linkedin.com/in/andrewjohns/">Andy Johns</a></strong> (Twitter, Facebook, Wealthfront), <strong><a href="https://brianbalfour.com">Brian Balfour</a></strong> (Reforge), <strong><a href="https://brianrothenberg.com/">Brian Rothenberg</a>)</strong> (Eventbrite, TaskRabbit), <strong><a href="https://www.linkedin.com/in/chenliw/">ChenLi Wang</a></strong> (Dropbox), <strong><a href="https://twitter.com/danhockenmaier">Dan Hockenmaier</a></strong> (Thumbtack), <strong><a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a></strong> (SurveyMonkey, Miro), <strong><a href="https://www.linkedin.com/in/fareed/">Fareed Mosavat</a></strong> (Slack), <strong><a href="https://twitter.com/jamiequint?lang=en">Jamie Quint</a></strong> (Notion, Reddit), <strong><a href="https://www.linkedin.com/in/jeff-chang-82467459/">Jeff Chang</a></strong> (Pinterest), <strong><a href="https://www.linkedin.com/in/julieyizhou/">Julie Zhou</a></strong> (Hipmunk, Yik Yak, AdRoll), <strong><a href="https://www.linkedin.com/in/kevinakwok/">Kevin Kwok</a></strong> (Greylock), <strong><a href="https://twitter.com/ljin18">Li Jin</a></strong> (a16z), <strong><a href="https://www.linkedin.com/in/merci/">Merci Grace</a></strong> (Slack), <strong><a href="https://twitter.com/mduboe">Mike Duboe</a></strong> (Stitch Fix, Greylock), <strong><a href="https://www.linkedin.com/in/naomipilosofionita/">Naomi Ionita</a></strong> (Evernote, Menlo Ventures), <strong><a href="https://www.linkedin.com/in/nicksoman/">Nick Soman</a></strong> (Gusto, Decent), <strong><a href="https://twitter.com/saranormous">Sarah Guo</a></strong> (Greylock), <strong><a href="https://www.linkedin.com/in/shaun-clowes-80795014">Shaun Clowes</a></strong> (Atlassian, MuleSoft), and <strong><a href="https://www.linkedin.com/in/yuriytimen/">Yuriy Timen</a></strong> (Grammarly). And, of course, my incredible partner on this research, <strong><a href="https://www.linkedin.com/in/caseywinters">Casey Winters</a></strong>.</p>
+<h3><strong>Disclaimer: Why it may be OK for your retention to be low</strong></h3>
+<p>To some, these retention benchmarks will seem high. This is because the bar to build a massively successful business is high. Frankly, it’s why most startups fail. However, although <strong>retention is an important metric to get right, it doesn’t live in a vacuum</strong>. There are cases when a lower retention rate is OK:</p>
+<ol>
+<li><strong>You’re just starting out:</strong> Don’t despair if you don’t see this level of retention immediately. Use these benchmarks as a guide to prioritize between retention versus acquisition, and <a href="https://caseyaccidental.com/what-is-good-retention">read Casey’s post</a> for three ways to approach increasing retention. But just know, startups rarely increase retention significantly.</li>
+<li><strong>You have low CAC and marginal costs:</strong> Growth is a balancing act between CAC, retention, and unit economics. If you can acquire new users cheaply (e.g. SEO, word of mouth, or virality), you can afford to lose more users. <a href="https://twitter.com/danhockenmaier/status/1270376412642373633">This thread by Dan Hockenmaier</a> explains why low retention for businesses like Shopify and Twitter is OK.</li>
+<li><strong>You’re not building a venture-scale business:</strong> These benchmarks are coming from people who helped build iconic, massively scalable businesses. This level of retention is <em>not</em> required for product-market fit or to build a sustainable business. Though the upside will be limited, a flat retention curve that drives a scalable acquisition strategy is enough to keep your business alive.</li>
+</ol>
+<blockquote>
+<p><strong>Ultimately, what matters is that your retention supports sustained growth.</strong></p>
+<p>—<a href="https://www.linkedin.com/in/fareed/">Fareed Mosavat</a></p>
+</blockquote>
+<p>Now let’s get into the details.</p>
+<h1>1. What is good user retention?</h1>
+<p>Let’s define <em>user retention</em> as the percentage of users who signed up and are still active (i.e. using the product, making a purchase, posting a photo) six months later.</p>
+<h3>Consumer <strong>social: ~25% is GOOD, ~45% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Snapchat</strong>, <strong>Twitter</strong>, and <strong>Instagram</strong> that are free to use and are generally supported by advertising. The denominator in this category is registered users.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Jeff Chang</strong>: Over 25% is GOOD, over 40% is GREAT</li>
+<li><strong>Casey Winters</strong>: Over 25% is GOOD, over 45% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 25% is GOOD, over 50% is GREAT</li>
+<li><strong>Jamie Quint:</strong> Over 30% is GOOD, over 40% is GREAT</li>
+<li><strong>ChenLi Wang</strong>: Over 30% is GOOD, over 50% is GREAT</li>
+<li><strong>Julie Zhou</strong>: Over 30% is GOOD, over 60% is GREAT</li>
+<li><strong>Kevin Kwok</strong>: Over 30% is GOOD, over 60% is GREAT</li>
+<li><strong>Andrew Chen</strong>: Over 50% is GOOD, over 75% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Facebook</strong>: 60%-70% 6-month user retention</li>
+<li><strong>Instagram</strong>: 50%-60% 6-month user retention</li>
+<li><strong>Snapchat</strong>: 33% 3-month user retention, 30% 24-month (<a href="https://www.theinformation.com/articles/which-apps-retail-their-users-and-which-ones-dont">source</a>, <a href="https://www.statista.com/statistics/523845/highest-retention-social-android-apps/">source</a>)</li>
+<li><strong>Twitter</strong>: 31% 3-month user retention, 22% 24-month (<a href="https://www.theinformation.com/articles/which-apps-retail-their-users-and-which-ones-dont">source</a>, <a href="https://www.statista.com/statistics/523845/highest-retention-social-android-apps/">source</a>)</li>
+</ul>
+<h3>Consumer <strong>transactional: ~30% is GOOD, ~50% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Airbnb</strong>, <strong>Lyft</strong>, and <strong>TurboTax</strong> that are generally supported by one-off purchases. The denominator in this category is users who have made at least one transaction.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Casey Winters</strong>: Over 15% is GOOD, over 35% is GREAT</li>
+<li><strong>Kevin Kwok</strong>: Over 30% is GOOD, over 50% is GREAT</li>
+<li><strong>Dan Hockenmaier</strong>: Over 30% is GOOD, over 50% is GREAT</li>
+<li><strong>Li Jin:</strong> Over 30% is GOOD, over 50% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 30% is GOOD, over 60% is GREAT</li>
+<li><strong>ChenLi Wang</strong>: Over 30% is GOOD, over 70% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>TurboTax</strong>: 77% 12-month customer retention (<a href="https://www.hbs.edu/openforum/openforum.hbs.org/goto/challenge/understand-digital-transformation-of-business/intuit-s-turbotax-price-discrimination-is-effective.1.html">source</a>)</li>
+<li><strong>Lyft</strong>: 22% 12-month customer retention (<a href="https://www.thetaequity.com/lyft-ipo">source</a>)</li>
+</ul>
+<h3>Consumer SaaS: <strong>~40% is GOOD, ~70% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Netflix</strong>, <strong>Spotify</strong>, and <strong>Hulu</strong> that sell a monthly/yearly subscription to consumers. The denominator in this category is users who have started a paid subscription.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Dan Hockenmaier:</strong> Over 40% is GOOD, over 60% is GREAT</li>
+<li><strong>Adam Fishman:</strong> Over 40% is GOOD, over 70% is GREAT</li>
+<li><strong>Jeff Chang:</strong> Over 50% is GOOD, over 70% is GREAT</li>
+<li><strong>Mike Duboe:</strong> Over 50% is GOOD, over 70% is GREAT</li>
+<li><strong>Elena Verna</strong>: Over 70% is GOOD, over 80% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Amazon Prime</strong>: 93% 12-month customer retention (<a href="https://www.twice.com/retailing/amazon-prime-subscribers-2019">source</a>)</li>
+<li><strong>Dropbox:</strong> ~80% 12-month customer retention</li>
+<li><strong>Spotify</strong>: 72% 6-month customer retention (<a href="https://blog.measurable.ai/2019/11/04/exceptional-purchase-retention-of-spotify-and-its-new-podcast-strategy/">source</a>, <a href="https://www.statista.com/statistics/241424/dau-and-mau-of-spotifys-facebook-app/">source</a>)</li>
+<li><strong>Netflix</strong>: 66% 12-month customer retention (<a href="https://secondmeasure.com/datapoints/netflix-disney-plus-apple-customer-retention/">source</a>)</li>
+<li><strong>Hulu</strong>: 53% 12-month customer retention (<a href="https://secondmeasure.com/datapoints/netflix-disney-plus-apple-customer-retention/">source</a>)</li>
+</ul>
+<h3><strong>SMB/mid-market SaaS: ~60% is GOOD, ~80% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Asana</strong>, <strong>Slack</strong>, and <strong>Atlassian</strong> that primarily sell a subscription product to companies of roughly 100 to 1,000 employees. The denominator in this category is companies that have started a paid subscription.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Yuriy Timen</strong>: Over 60% is GOOD, over 80% is GREAT</li>
+<li><strong>Mike Duboe</strong>: Over 60% is GOOD, 80% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 70% is GOOD, over 80% is GREAT</li>
+<li><strong>Fareed Mosavat:</strong> Over 70% is GOOD, over 85% is GREAT</li>
+<li><strong>ChenLi Wang</strong>: Over 70% is GOOD, over 85% is GREAT</li>
+<li><strong>Andy Johns</strong>: Over 70% is GOOD, 90% is GREAT</li>
+<li><strong>Dan Hockenmaier</strong>: Over 70% is GOOD, over 90% is GREAT</li>
+<li><strong>Merci Grace</strong>: Over 80% is GOOD, 90% is GREAT</li>
+</ul>
+<p><strong>Public companies</strong></p>
+<ul>
+<li><strong>Atlassian</strong>: 98% 12-month customer retention (<a href="https://seekingalpha.com/article/4289582-atlassian-is-repositioning-for-future">source</a>)</li>
+<li><strong>Slack:</strong> 90%-95% 12-month customer retention (<a href="https://www.rocketblocks.me/blog/slack-metrics.php">source</a>, <a href="https://www.thetaequity.com/slack-ipo">source</a>)</li>
+<li><strong>QuickBooks</strong>: 79% 12-month customer retention (<a href="https://analysisreport.morningstar.com/stock/research/c-report?t=XNAS%3AINTU&amp;region=usa&amp;culture=zh-CN&amp;productcode=QS&amp;cur=&amp;urlCookie=8056723522&amp;e=eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.jRbbMI400Bb9ZooVDzRwlWTjZLVQK8Wuoe4MTNuK_HRhEGWQC7iTj6RNX_QkUhRaIakTpCwLhioYtggMawqPo_MQQU9oqP5dJxQh_4aQBR9MdISHGljBgRaItM-6xRSIfSxa5GgnDmcwLALZe1tkPz0YI5rXlvXPDOflJOXHEuY.yO-n-CczhDqdbPMI.MPLk1bS9rMP369DrL5Q-RcyIIBeMhHp5svZmp0VIsOjaG0J9Sjk53Uq9PrFqk883utblUw2UqRXSn0ORFuXLSfQcS7fD1y1Y9a7VlubYNWqVfoBlbRZNxjaGidgk62ToWSvSkVztsyLfwQMbaBp1_G3ITrQ-Ud0GTNbK7oCzTZ7IMHwcvonZRt5gnVFRcSpe1EFT7Z3oZt3GtfwoNrI-mq8faPGpqForBnxtrDo.1-3ri8thKyjDFOjF2CIn2Q">source</a>)</li>
+</ul>
+<h3><strong>Enterprise SaaS: ~75% is GOOD, ~90% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Salesforce</strong>, <strong>Workday</strong>, and <strong>ADP</strong> that primarily sell a subscription product to large enterprise companies (i.e. over 1,000 employees).</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Andy Johns</strong>: Over 70% is GOOD, over 90% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 75% is GOOD, over 90% is GREAT</li>
+<li><strong>Jeff Chang</strong>: Over 80% is GOOD, over 90% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 85% is GOOD, over 95% is GREAT</li>
+<li><strong>Nick Soman</strong>: Over 85% is GOOD, over 95% is GREAT</li>
+<li><strong>Shaun Clowes:</strong> Over 85% is GOOD, over 95% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Workday:</strong> 95% 12-month customer retention (<a href="https://www.workday.com/content/dam/web/en-us/documents/investor/workday-financial-analyst-day-2018.pdf">source</a>)</li>
+<li><strong>Salesforce:</strong> 90% 12-month customer retention (<a href="https://seekingalpha.com/article/4308906-salesforce-buy">source</a>)</li>
+<li><strong>ADP:</strong> 90%+ 12-month customer retention (<a href="https://www.forbes.com/sites/greatspeculations/2019/02/01/key-takeaways-from-adps-q2/#549ea1ac4877">source</a>)</li>
+</ul>
+<h1>2. What is good net revenue retention?</h1>
+<p>Let’s define <em>net revenue retention</em> as a company’s monthly recurring revenue (MRR) one year ago divided into the current month’s MRR <em>from that same group of customers</em>. Essentially, how much revenue are you driving from one cohort of customers over time?</p>
+<p>You’ll notice this section has slightly different categories from the previous section. This is because of the way the customers a business sells to impacts revenue retention (unlike user retention). For example, the network effects in bottom-up SaaS often drive up retention, while the involuntary churn of very small businesses (VSB) is common because many go out of business, and land-and-expand models increase revenue per user in ways that can make up for high user churn.</p>
+<p>Now let’s look at what good and great net revenue retention looks like for each type of business.</p>
+<h3><strong>Consumer SaaS: ~55% is GOOD, ~80% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Netflix</strong>, <strong>Spotify</strong>, and <strong>Hulu</strong> that sell a monthly/yearly subscription to consumers. The denominator in this category is users who have started a paid subscription.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Casey Winters:</strong> Over 50% is GOOD, over 70% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 55% is GOOD, over 75% is GREAT</li>
+<li><strong>Yuriy Timen:</strong> Over 60% is GOOD, over 80% is GREAT</li>
+<li><strong>Dan Hockenmaier</strong>: Over 65% is GOOD, over 75% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 70% is GOOD, over 80% is GREAT</li>
+<li><strong>Andy Johns</strong>: Over 70% is GOOD, over 90% is GREAT</li>
+<li><strong>Mike Duboe:</strong> Over 70% is GOOD, over 90% is GREAT</li>
+</ul>
+<h3><strong>Bottom-up SaaS: ~100% is GOOD, ~120% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Slack</strong>, <strong>Figma</strong>, and <strong>Zoom</strong> that offer a self-serve prosumer subscription product to individual contributors inside of a company.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Jeff Chang</strong>: Over 100% is GOOD, over 110% is GREAT</li>
+<li><strong>Brian Balfour</strong>: Over 100% is GOOD, over 120% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 100% is GOOD, over 120% is GREAT</li>
+<li><strong>Fareed Mosavat:</strong> Over 110% is GOOD, over 130% is GREAT</li>
+<li><strong>Naomi Ionita</strong>: Over 110% is GOOD, over 130% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 110% is GOOD, over 130% is GREAT</li>
+<li><strong>Jamie Quint</strong>: Over 120% is GOOD, over 140% is GREAT</li>
+<li><strong>Merci Grace</strong>: Over 120% is GOOD, over 140% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Twilio</strong>: 140%-170% (<a href="https://tomtunguz.com/benchmarking-zoom-s-s-1-how-7-key-metrics-stack-up/">source</a>, <a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>, <a href="https://www.saastr.com/twilio-crossed-1-billion-in-arr-growing-86-yes-1-billion/">source</a>)</li>
+<li><strong>Zoom</strong>: 140% (<a href="https://www.forbes.com/sites/patricksalyer/2019/06/19/the-secret-behind-slacks-runaway-success/#43d192e04248">source</a>)</li>
+<li><strong>Slack</strong>: 135%-155% (<a href="https://www.fool.com/investing/2019/11/20/slack-investors-are-focusing-too-much-on-user-metr.aspx">source</a>, <a href="https://www.forbes.com/sites/patricksalyer/2019/06/19/the-secret-behind-slacks-runaway-success/#43d192e04248">source</a>)</li>
+<li><strong>PagerDuty</strong>: 139% (<a href="https://www.saastr.com/5-interesting-learnings-from-pagerduty/">source</a>)</li>
+<li><strong>Datadog:</strong> 130% (<a href="https://www.publiccomps.com/tickers/DDOG">source</a>)</li>
+<li><strong>New Relic</strong>: 115% (<a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>)</li>
+<li><strong>Dropbox</strong>: ~100% (<a href="https://www.key.com/kco/images/Public_SaaS_Company_Retention_Metrics_2019.pdf">source</a>)</li>
+</ul>
+<h3><strong>Land and expand VSB SaaS: ~80% is GOOD, ~100% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Gusto</strong> that sell a subscription service to early-stage companies, roughly under 100 employees.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Brian Balfour</strong>: Over 80% is GOOD, over 90% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 85% is GOOD, over 105% is GREAT</li>
+<li><strong>Fareed Mosavat:</strong> Over 90% is GOOD, over 110% is GREAT</li>
+</ul>
+<h3><strong>Land and expand SMB/mid-market SaaS: ~90% is GOOD, ~110% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Atlassian</strong>, <strong>Box</strong>, and <strong>Zendesk</strong> that sell a subscription service to companies with roughly 100 to 1,000 employees.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Mike Duboe</strong>: 85% is GOOD, 110% is GREAT</li>
+<li><strong>Sarah Guo</strong>: Over 90% is GOOD, over 110% is GREAT</li>
+<li><strong>Brian Balfour</strong>: Over 100% is GOOD, over 120% is GREAT</li>
+<li><strong>Brian Rothenberg</strong>: Over 100% is GOOD, over 120% is GREAT</li>
+<li><strong>Adam Fishman:</strong> Over 100% is GOOD, over 125% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Atlassian</strong>: 100%-148% (<a href="https://tomtunguz.com/benchmarking-zoom-s-s-1-how-7-key-metrics-stack-up/">source</a>)</li>
+<li><strong>Box</strong>: 130% (<a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>)</li>
+<li><strong>Zendesk</strong>: 123% (<a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>)</li>
+<li><strong>SendGrid</strong>: 116% (<a href="https://www.key.com/kco/images/Public_SaaS_Company_Retention_Metrics_2019.pdf">source</a>)</li>
+</ul>
+<h3><strong>Enterprise SaaS: ~110% is GOOD, ~130% is GREAT</strong></h3>
+<p>This includes companies such as <strong>Salesforce</strong>, <strong>Workday</strong>, and <strong>ADP</strong> that primarily sell a subscription product to large enterprise companies, roughly over 1,000 employees.</p>
+<p><strong>Expert recommendations</strong></p>
+<ul>
+<li><strong>Jeff Chang:</strong> Over 110% is GOOD, over 120% is GREAT</li>
+<li><strong>Naomi Ionita</strong>: Over 120% is GOOD, over 140% is GREAT</li>
+</ul>
+<p><strong>Public comps</strong></p>
+<ul>
+<li><strong>Alteryx</strong>: 135% (<a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>)</li>
+<li><strong>Fastly</strong>: 130% (<a href="https://www.saastr.com/5-interesting-learnings-from-fastly-as-it-gets-ready-to-ipo/">source</a>)</li>
+<li><strong>Okta</strong>: 124% (<a href="https://docs.google.com/spreadsheets/d/1ogELPtct2s6jj9wRBpOgqGUE5k4cO73XXcvqmEZE89M/edit#gid=0">source</a>)</li>
+<li><strong>Anaplan</strong>: 124% (<a href="https://www.key.com/kco/images/Public_SaaS_Company_Retention_Metrics_2019.pdf">source</a>)</li>
+<li><strong>Workday</strong>: 100%+ (<a href="https://www.workday.com/content/dam/web/en-us/documents/investor/workday-financial-analyst-day-2018.pdf">source</a>)</li>
+<li><strong>ServiceNow</strong>: 97% (<a href="https://www.publiccomps.com/tickers/NOW">source</a>)</li>
+</ul>
+<h1>In summary</h1>
+<p>If you take nothing else away from this post, it should be that retention matters. A lot. No other metric is as singularly telling of whether your business will thrive or die. And so the better you understand what good retention looks like for your business, the better shot you have at the former. We hope this research proves useful to you whether you’re building, investing, or just curious.</p>
+<p>Please <a href="https://twitter.com/lennysan">ping me</a> if you have any feedback, suggestions, or questions about this post. And don’t forget to <a href="https://caseyaccidental.com/what-is-good-retention">go read Casey’s companion post</a>.</p>
+<p><strong>If you’ve found this newsletter valuable, consider sharing it with friends, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

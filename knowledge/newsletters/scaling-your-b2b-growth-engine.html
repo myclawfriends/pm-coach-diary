@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scaling your B2B growth engine — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Scaling your B2B growth engine</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Scaling your B2B growth engine</div>
+    
+    <div class="article-meta">2023-10-24<span>·</span>7,243 words</div>
+    <div class="tags-row"><span class="mini-tag">B2B</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">定價</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Welcome to part seven of our (now complete!) seven-part series on kickstarting and scaling a B2B business 🥳</p>
+<p>Here’s an overview of the series so far:</p>
+<ul>
+<li><strong>Part 1:</strong> <a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How to come up with a great B2B startup idea</a></li>
+<li><strong>Part 2:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-validate-your-b2b-startup">How to validate your idea</a></li>
+<li><strong>Part 3:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-identify-your-ideal-customer">How to identify your ICP</a></li>
+<li><strong>Part 4</strong>: <a href="https://www.lennysnewsletter.com/p/how-to-win-your-first-10-b2b-customers">How to find and win your first 10 customers</a></li>
+<li><strong>Part 5:</strong> <a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">A guide for finding product-market fit</a></li>
+<li><strong>Part 6:</strong> <a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">How, and when, to hire your early team</a></li>
+<li><strong>Part 7:</strong> How to scale your growth engine <em>← This post</em></li>
+</ul>
+<p>Let’s do this.</p>
+<p><em>A huge thank-you to </em><em><a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a></em><em> (COO of Notion), </em><em><a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a></em><em> (CEO of Databricks), </em><em><a href="https://www.linkedin.com/in/aofstad/">Andrew Ofstad</a></em><em> (co-founder of Airtable), </em><em><a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a></em><em> (CEO of Hex), </em><em><a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a></em><em> (CEO of Census), </em><em><a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a></em><em> (co-founder of Segment), </em><em><a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a></em><em> (co-founder and CPO of Canva), </em><em><a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a></em><em> (CEO of Vanta), </em><em><a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a></em><em> (CEO of Retool), </em><em><a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a></em><em> (CPO of Gong), </em><em><a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a></em><em> (CEO of Ramp), </em><em><a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a></em><em> (CEO of Snyk), </em><em><a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a></em><em> (co-founder of Linear), </em><em><a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a></em><em> and </em><em><a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a></em><em> (co-founders of Stytch), </em><em><a href="https://www.linkedin.com/in/keenanrice/">Keenan Rice</a></em><em> (founding team), </em><em><a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a></em><em> (CEO of Front), </em><em><a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a></em><em> (CEO of Persona), </em><em><a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a></em><em> and </em><em><a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a></em><em> (co-founders of Zip), </em><em><a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a></em><em> (CEO of Sprig), </em><em><a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a></em><em> (co-founder of Loom), </em><em><a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a></em><em> (CEO of Coda), </em><em><a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a></em><em> (VP of Product of Figma), </em><em><a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a></em><em> (co-founder and CEO of Amplitude), </em><em><a href="https://www.linkedin.com/in/mojombo/">Tom Preston-Werner</a></em><em> (co-founder of GitHub), and </em><em><a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a></em><em> (co-founder and CPO of Gusto) for contributing to this series. Art by <a href="https://www.natalieharney.com/">Natalie Harney</a>.</em></p>
+<p>Although we’ve reached the end of this journey, we’re on a journey that never ends. Building a venture-scale business means endless challenges, surprises, and an unrelenting need for growth. I like to think of the startup journey as a huge puzzle board, where every challenge, decision, and opportunity is a piece of the puzzle. My job is to (slowly but surely) fill in this board and help you through every challenge, decision, and opportunity you’ll face.</p>
+<p>For reference, here are some puzzle pieces I’ve already put into place to help you scale your B2B startup prior to this series:</p>
+<ul>
+<li>
+<p><strong>On growth and GTM</strong></p>
+</li>
+<li>
+<p><a href="https://www.lennysnewsletter.com/p/gtm-motions">GTM motions of 30 B2B SaaS companies</a></p>
+</li>
+<li><a href="https://www.lennysnewsletter.com/p/wedge">Picking a wedge</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-differentiate">Differentiating</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/positioning">Positioning</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/the-racecar-growth-frameworkexpanded">The Racecar Framework</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">What is good retention</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-a-good-activation-rate">What is a good activation rate</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/payback-period">What is a good payback period</a></li>
+<li>
+<p><strong>On sales</strong></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=cZd5234Eem0">How to do founder-led sales</a></p>
+</li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-build-a-killer-sales-pitch">How to build a killer sales pitch</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/sales-bottom-up">Layering sales on top of a PLG motion</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/five-steps-to-starting-your-plg-motion">Adding a PLG motion on top of a sales-led motion</a></li>
+<li><a href="https://www.youtube.com/watch?v=pYZ0S7a72po&amp;t=1s">How to hit revenue targets in a recession</a></li>
+<li>
+<p><strong>On pricing strategy</strong></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=A6veeCbKIzw">The art and science of pricing</a></p>
+</li>
+<li><a href="https://www.lennysnewsletter.com/p/saas-pricing-strategy">Pricing strategy for your SaaS product</a></li>
+<li>
+<p><strong>On fundraising</strong></p>
+</li>
+<li>
+<p><a href="https://www.lennysnewsletter.com/p/a-playbook-for-fundraising">A playbook for fundraising</a></p>
+</li>
+<li><a href="https://www.lennysnewsletter.com/p/your-startup-idea-probably-isnt-venture">Your startup idea probably isn’t venture-scale</a></li>
+</ul>
+<p>Today, I’ll answer four additional questions:</p>
+<ol>
+<li><strong>What’s a good timeline to get to $1 million ARR?</strong></li>
+<li><strong>What are the most common growth channels for B2B startups?</strong></li>
+<li><strong>When should you start charging for your product?</strong></li>
+<li><strong>What should you charge?</strong></li>
+</ol>
+<p>Let’s get into it.</p>
+<h2>Typical times to get to $1M ARR</h2>
+<p>On average, it took top B2B startups ~<strong>2 years</strong> from founding to hit $1m ARR, and roughly <strong>1.5 years after closing their first customer.</strong> There are exceptions, like Ramp, Linear, Census, and Zip, that got there more quickly (some within months), and also companies like Loom and Vanta that took 2+ years.</p>
+<p>My takeaway is that once you’ve signed your first customer, you should <strong>strive to hit $1m ARR within 1.5 years</strong> if you want to be on pace with the top B2B companies.</p>
+<p>Interestingly, there isn’t a large difference in timelines between companies with large ACVs (e.g. Looker, Gong, Sprig, Vanta) and low ACVs (e.g. Loom, Figma).</p>
+<p>Also, in some instances, there’s good reason to push out monetization. In the case of Loom, co-founder Shahed Khan shared, “We didn’t monetize Loom for several years intentionally, as <strong>our focus was to become a ubiquitous tool within organizations</strong>. Thus it took us four years to hit $1m ARR.” With the <a href="https://techcrunch.com/2023/10/12/atlassian-to-acquire-former-unicorn-loom-for-975m/">recent acquisition news</a>, seems like a good call.</p>
+<h2>How B2B startups grow as they scale</h2>
+<p>Broadly, the biggest growth channel for top B2B companies (at least the 20+ I researched) is <strong>organic</strong> <strong>inbound</strong>. Essentially, word of mouth. This connects with a key lesson from part five of this series—that strong product-market fit often looks like <a href="https://www.lennysnewsletter.com/i/119122450/step-start-noticing-a-shift-from-push-to-pull-and-organic-growth">strong organic growth</a>. That being said, as we saw in <a href="https://www.lennysnewsletter.com/i/135973645/when-to-hire-a-salesperson-and-what-to-look-for">part six</a>, eventually 100% of B2B businesses build a sales team.</p>
+<p>Below I’ll explore all six B2B growth channels: self-serve organic inbound, sales-assist organic inbound, outbound sales, content/SEO, paid ads, and partnerships. This summary doesn’t get into revenue expansion (e.g. growing revenue from existing customers), since it didn’t come up in my interviews, but this is also a massive growth lever for scaling B2B SaaS companies, and I’ll spend more time here in future posts.</p>
+<p>Use this list not as “we should do all of these,” but instead as inspiration for one new channel to explore for your own product. You’re likely already growing primarily through one of the first three channels; ask yourself which of the remaining channels might be a new opportunity.</p>
+<h4>1. Organic inbound: Self-serve (aka Product-Led Growth)</h4>
+<p>This channel is simply users hearing about your product from someone else (or being invited) and signing up on their own. No one from your company helps them through the funnel. This isn’t to say salespeople never talk to these leads (check out <a href="https://www.lennyspodcast.com/the-ultimate-guide-to-product-led-sales-elena-verna/">this podcast episode</a> on product-led sales), but it does mean new customers come primarily from them first trying the product on their own. Companies like Loom, Figma, Segment, Gusto, Hex, and Linear grow primarily in this way.</p>
+<p><strong>What this looks like:</strong></p>
+<ul>
+<li>“People in trials are checking out with credit cards, without us talking to them.”</li>
+<li>“Signing up for Loom after watching someone else’s Loom (typically coworkers), within Slack or in Salesforce, Linear task, or Notion doc.”</li>
+<li>“We’ve always had a strong stream of inbound users who had found out about us via our open source work and propelled us through our early revenue milestones.”</li>
+</ul>
+<h4>2. Organic inbound: Sales-assist</h4>
+<p>Similar to the above channel, new customers come to you, but in this case, your sales team hand-holds leads through the process. Companies like Looker, Ramp, Vanta, Hex, Census, Persona, and some portion of Amplitude and Segment grow through this channel. The key determinant of whether you go self-service or sales-assist is how successfully new users can get activated without handholding.</p>
+<p><strong>What this looks like:</strong></p>
+<ul>
+<li>“Our biggest growth channel by far is organic, with visitors to our site clicking the ‘Request a demo’ button.”</li>
+<li>“Customer referrals continues to be one of our strongest channels, which funnels into our inbound sales pipeline.”</li>
+<li>“All of our growth is inbound, but it’s all sales-touch.”</li>
+</ul>
+<h4>3. Outbound sales</h4>
+<p>This is what you think of when you think of sales-led growth—your sales team reaches out to prospects, pitches them, and closes them. Companies that grow primarily through this channel include Gong and Zip, along with a meaningful portion of growth for Ramp and Segment. I’ll be doing more writing on this topic in the coming months, so stay tuned.</p>
+<h4>4. Content/SEO</h4>
+<p>A surprisingly popular growth channel for top B2B companies is content. Companies like Vanta, Amplitude, Figma, Persona, and, famously, HubSpot have all found success using content (aka SEO) to grow. I’ve covered this topic in depth previously, so <a href="https://www.lennysnewsletter.com/p/content-driven-growth-strategy">go read this</a> if you’re looking to invest here.</p>
+<h4>5. Paid ads</h4>
+<p>They may be boring, but paid ads work. For B2B, this means running ads on Google, Facebook, and LinkedIn, along with the occasional ad on podcasts, newsletters, and other less-scalable channels. Companies that have found success here include both large (Figma and Amplitude) and smaller (Vanta and Census). For advice on running paid ads, <a href="https://www.lennysnewsletter.com/p/mastering-paid-growth-jonathan-becker">here’s a good podcast episode</a> to check out.</p>
+<h4>6. <strong>Partnerships</strong></h4>
+<p>Partnerships: huge if successful, massive time suck if not. This is a meaningful growth channel for companies like Census, Hex, and Zip, but as one founder shared, “We have a big channel partnership with Snowflake, and though this doesn’t drive a big percentage of our leads, it does help to have that relationship.” I’ve written about channel partnerships before, <a href="https://www.lennysnewsletter.com/i/31258917/channel-partnerships">so go read this</a> if you’d like more examples and advice.</p>
+<h4><strong>A few additional takeaways</strong></h4>
+<ol>
+<li>Most of your growth will come from one of the top three: inbound self-service, inbound sales-assist, or outbound sales. Spend most of your time optimizing that channel.</li>
+<li>No matter how you start, you’ll be building a sales team. It’s a question of when, not if.</li>
+<li>Creating content (e.g. blog posts, LinkedIn posts, viral tweets, a great podcast) seems to be effective for a number of companies, so it’s worth exploring. But think about the system that can allow this to scale, versus one-off efforts. <a href="https://www.lennysnewsletter.com/i/75292796/the-growth-engine">Think engines, not turbo boosts</a>.</li>
+<li>Be careful about forcing PLG. Here’s <a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a> (founder and CEO of Databricks)’s cautionary tale:</li>
+</ol>
+<blockquote>
+<p>“The whole vision of Databricks was we don’t want to have sales in the company. It’s going to all be product-led growth. So it’s a hundred percent product-led-growth motion. And in 2015, we kind of doubled down on it. We actually said, ‘Let’s do what Amazon did. Let’s just make it really slick, and you swipe your credit card and you can start using this stuff.’ We called it the zero-touch effort. We were going to touch the customers zero times from a sales perspective. No human needed to touch the customer. We’re very excited about that and we built it all, we automated it all. And I think around Q2 of 2015, we told sales, ‘Stop engaging with the customers. This is going to be zero-touch. Focus all your attention on automating this stuff and let’s set it up for that kind of motion.’</p>
+<p><strong>And actually, revenue flatlined. Revenue was growing, and then in Q2, Q3 of 2015, it started flattening. So around Q4 it was starting to become kind of clear that, okay, this product-led-growth thing—nice story, but in practice, it doesn’t really work.</strong> Which is actually, by the way, my view. I think for all practical purposes, PLG doesn’t work. It’s a ‘don’t try it at home’ kind of thing. Maybe it works for Atlassian. Maybe if you can swipe a credit card and use the product in five minutes, it’ll work. But if you think this is how you can sell to enterprises, without a sales force, good luck.”</p>
+</blockquote>
+<h2>When and how much to charge</h2>
+<p>These are the four key lessons that came up again and again when I talked to founders about their pricing strategy:</p>
+<ol>
+<li>Charge <em>sooner</em> than you think</li>
+<li>Charge <em>more</em> than you think</li>
+<li>Keep it very <em>simple</em>, to start</li>
+<li><em>Revisit</em> pricing every year or so</li>
+</ol>
+<h3>On when to start charging</h3>
+<p>A lesson learned by the founders of <strong>Amplitude</strong>, <strong>Front</strong>, <strong>Zip</strong>, and many others is to charge sooner than you think you should:</p>
+<blockquote>
+<p><strong>“My number one piece of advice is to ask for money earlier. We wasted a year. We could have been a year further along on the journey.</strong> If I build this, are you willing to pay for it? You’re going to get a lot of no’s, and that’s fine. Just move on.</p>
+<p>I remember arguing with a user. They were using it for free. I was like, ‘All right, now it’s time to pay.’ And they’re like, ‘Oh no, we don’t have any money.’ And I’m like, ‘Well, you have to pay something, so what are you going to pay?’ And they’re like, ‘All right, I’ll pay you like $10/month.’ I’m like, ‘What the f*ck? No.’ We ended up negotiating to $150/month. But compared to our regular deals (thousands a month), that’s nothing. I shouldn’t have wasted the time. <strong>The market is massive, and there are always more people out there for you to talk to. Just keep at it until you find someone who’s interested in paying. That is the number one thing I would’ve told myself. Spend half my time talking to prospective customers and asking them for money.</strong> It’s uncomfortable for you to do, but that’s okay. That is exactly the point.” —<a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a>, co-founder and CEO of Amplitude</p>
+<p>“<strong>If you’re not willing to pay, then you should take their input with a grain of salt.</strong> We spoke to enough founders to know that people who want to give you advice don’t want to pay. So we never did not charge.” —<a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a> and <a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a>, co-founders of Zip</p>
+<p>“Most companies <strong>charge too late</strong>. We started charging from day one.” —<a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a>, CEO of Front</p>
+</blockquote>
+<p>As <a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a>, co-founder of <strong>Notion</strong>, explained, one of the biggest side benefits of early revenue is <em>freedom</em>:</p>
+<blockquote>
+<p><strong>“One of my biggest lessons looking back is that I’m just glad we charged for Notion early on. It gave us so much leverage over the years.</strong></p>
+<p>What ended up happening was that by charging for it, we became profitable, and became cash-flow-positive from the get-go. When I joined in the middle of 2018, we were eight people, profitable, never needing to raise money again. That meant that 100% of our time was focused on just getting new customers.</p>
+<p>It was kind of an interesting time because we didn’t take many meetings with VCs or investors, and I still remember a lot of VCs, a lot of investors thought that Notion was a nice lifestyle business because it’s not taking more venture money. I tried to defend that, telling them that money is not really a constraint for what we’re trying to do right now. But when it will be, we will not be shy to raise it. Eventually I sort of gave up and we were like, ‘You know what? Let’s just get to enough scale and then we can tell our story.’</p>
+<p>In my time here now, we’ve raised three times, and all three times, we’ve diluted less than 2% to 3% in each round. A big reason for that is because we’ve charged money from the start. We also have not used a single dollar of the money that we’ve raised. There’s more money in the bank than we’ve collectively raised. This has actually made us a fairly disciplined company, which is very rare in the Valley.”</p>
+</blockquote>
+<h3>On how much to charge</h3>
+<h4>Charge <em>more</em> than you think you should</h4>
+<blockquote>
+<p>“<strong>A big lesson learned was we undercharged like crazy in the beginning</strong>. It came from just founder lack of confidence. <strong>The rational advice here is, hey, you are a founder. You are biased because you’ve built it from scratch, you are biased to think that it’s not worthwhile, that it’s less valuable than it actually is. Whatever you think the price should be, you should probably increase it.</strong> You built it because it’s valuable, and what you charge should correlate to the value and service you provide. Believe in the value you provide and charge accordingly.”</p>
+<p>—<a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a>, co-founder and CPO of <strong>Gusto</strong></p>
+<p>“<strong>As a founder, you’re always way underpricing.</strong> We hired our first AE and she was quoting prices I wouldn’t have even have considered. ​Going to a prospect and asking for over seven figures. I would’ve never fathomed this price point. It’s one of the big advantages of bringing a salesperson is that you get way bigger deals. For me, it was just trying to look at what I thought was fair.”</p>
+<p>—<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, founder and CEO of <strong>Sprig</strong></p>
+</blockquote>
+<h4>Keep doubling prices until it stops working</h4>
+<blockquote>
+<p>“We were woefully undercharging initially, because we had no real idea what people would pay for a startup. <strong>Eventually we hired a sales advisor who told us, ‘Double your price. If they say yes, keep doubling,’ so we did that a number of times as we talked to bigger customers.</strong> Pricing was always a contentious issue for us, but we charged roughly on either the reduction in headcount needed for similar infrastructure (engineers are expensive!) or our ability to help grow revenue in some meaningful way.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a>, co-founder of <strong>Segment</strong></p>
+<p>“<strong>The first customer was $100 a month. The second customer was like $500 a month. Then $2,000 a month.</strong> Then, soon enough, $12,000 a month. You kind of start to triangulate based on the usage, and we started to fill out a pricing matrix based on what we were seeing working and not working.”</p>
+<p>—<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, founder and CEO of <strong>Sprig</strong></p>
+</blockquote>
+<h4>Keep it simple at first—you can change prices later</h4>
+<blockquote>
+<p>“<strong>Whenever people ask me for advice, I always say, don’t worry about pricing initially. You want to get people who love the software above all else at first.</strong></p>
+<p>For example, we use Segment today. I’ve loved them from day one. I subscribed to it when they were just an alpha product. And to this date, Gong is a Segment customer; they’re instrumented across all of our applications, with tens of thousands of users. We pay them a hefty amount of $39 a month.</p>
+<p>I respect the fact that they never came back to us and said you have to pay more. They told us we’re one of their 50 first customers, and enjoy the ride. If you ever want to get a new feature, you’re going to have to upgrade because we have a limited set of functionality based on what we bought at the time. But we’re happy.</p>
+<p>My advice is go be friends with your first customers. They took the time to work with crappy software that isn’t ready. This is how I think we should be—like people should be—doing business.”</p>
+<p>—<a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a>, CPO and co-founder of <strong>Gong</strong></p>
+<p>“<strong>My only takeaway is: don’t overthink it. It’s really easy to worry too much about like, ‘Oh, how will I ever change the price on this customer?’ The reality is that if you are anywhere close to right about your company and your idea and your product being worth a damn, the first few deals you do will be 0.1% of your ultimate revenue.</strong> If you’re just spending one second worrying about how you’re going to change the pricing down the road on this customer, don’t. Do something that feels like a fair exchange of value. Make it clear to them that it’s valid for one year and move on. You’ve got bigger sh*t to worry about.”</p>
+<p>—<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, founder and CEO of <strong>Hex</strong></p>
+<p>“<strong>We didn’t overthink or optimize the pricing initially. There’s industry pricing for this tool. Let’s just put it on that and not overthink about it.</strong> We should probably charge more. But that’s not the challenge that we want to focus on right now. It’s more that we still need to make these larger companies extremely happy about using Linear.”</p>
+<p>—<a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a>, co-founder of <strong>Linear</strong></p>
+</blockquote>
+<h4>But make sure to revisit your pricing strategy regularly</h4>
+<blockquote>
+<p>“I remember I put together this presentation of other pricing models with four tiers, and it was very complicated. Even though we had very few products. I showed it to our board and they’re like, ‘no.’ They told us to just literally give one simple pay-as-you-go tier. Charge 10 cents per MAU, and ‘Contact us’ for enterprise pricing. It was super-simple, and I think that actually is the way to go early on.</p>
+<p><strong>The mistake we made was not that we went with this simple approach early on but that we didn’t revisit it three to six months later.</strong> We’re only revisiting it now, a year and a half later. Early on, it was super-simple, almost stupid simple, and if I had to do it over again, I think I would do the same, but then <strong>make the expectation that we would iterate on pricing every six months</strong>, or at least revisit it to make sure we felt like this is where it should be right now.”</p>
+<p>—<a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a> and <a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a>, co-founders of <strong>Stytch</strong></p>
+</blockquote>
+<h4>Look at benchmarks for inspiration</h4>
+<blockquote>
+<p>“<strong>We used a benchmark to get to $50/user/month. CRM was always a benchmark for us. Salesforce was something like $70-$100/user/month, or $1,500 in a year. So at the time we couldn’t charge close (though nowadays, we can). People perceived Salesforce as the king; we’re the add-on, so to speak. So we decided to go for about half of what Salesforce list price was.</strong> We said this should be a reasonable price and people should be able to pay that much. So we felt pretty comfortable with it, and of course, the prices went up over the years.”</p>
+<p>—<a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a>, CPO and co-founder of <strong>Gong</strong></p>
+<p><strong>“I looked at competitors and priced similarly.</strong> I optimized for getting something on the market sooner than later that people could react to.”</p>
+<p>—<a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a>, CEO of <strong>Front</strong></p>
+</blockquote>
+<h4>Consider pricing surveys and regression analysis</h4>
+<blockquote>
+<p>“We weren’t sure what the product was worth, so we just asked users! <strong>We ran what’s called a <a href="https://en.wikipedia.org/wiki/Van_Westendorp%27s_Price_Sensitivity_Meter">Van Westendorp survey</a>, where we basically tried to find the price curves that made sense for all customers, and told users we’d give them a good deal if they filled it out.</strong> I think we netted out to a $9, a $39, and a $79 per month plan.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a>, co-founder of <strong>Segment</strong></p>
+<p><strong>“We did a pricing matrix survey with tens of thousands of users</strong>, asking users various questions to get to a number that made sense for Loom. This was a multi-sprint process from research, parsing results, user interviews, to A/B testing landing pages. We <em>shockingly</em> landed on $10/month if paid monthly, and $8/month paid annually—a very common figure seen in the SaaS world.”<br />
+—<a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a>, co-founder of <strong>Loom</strong></p>
+<p><strong>“</strong>To figure out the price, we looked at usage per month, and then based on what I was seeing for what the market would bear, I kind of was like, ‘Okay, well, they’re paying this much, and these guys are paying this much, and those guys are paying this much.’ <strong>You get a few data points, and then I plotted them. You then fill in the rest of the gaps, and then over time kind of triangulate on a good price point.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, founder and CEO of <strong>Sprig</strong></p>
+</blockquote>
+<h4>If you’re going usage-based, focus on your “utility metric”</h4>
+<blockquote>
+<p>“Census is different than a generic SaaS product, where you charge per seat and then you call it a day. You can try to be fancy, but by and large, it’s about how many people use the product. <strong>But products like Census are usage-driven, and the big question is ‘What is the utility metric?’ And what will make sense to users? We didn’t know for a long time.</strong></p>
+<p>The first year, we would make up pricing. We would just be making it up every time we sold the product, but through that we could learn, okay, do they understand what this metric is? Do they agree with where they are at the margins? All that stuff was super-helpful.”</p>
+<p>—<a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a>, co-founder and CEO of <strong>Census</strong></p>
+</blockquote>
+<h3>Early pricing strategies of select companies</h3>
+<p>Stories from <strong>Figma</strong>, <strong>Databricks</strong>, <strong>Snyk,</strong> <strong>Coda</strong>, and <strong>Retool</strong> that illustrate many of the lessons above.</p>
+<p><strong>Figma</strong></p>
+<blockquote>
+<p>“There are a couple of steps in that journey. The first step was easier, and the second step was harder.</p>
+<p>The first step was going from zero to something. We had a lot of comparables. Sketch existed and other kinds of tools like that exist. Roughly speaking, they were all around a hundred bucks, and they come out with a new version every year or something like that. You can just do the math. We decided we’re going to charge $12 if you go month by month, and $8 a month if you buy an annual plan. We actually talked to a lot of pricing consultants to try to help with this decision, but at the end of the day, they were kind of like: you’ve got to just try and figure it out as best you can, and you can always change it later. So we didn’t feel a lot of pressure to get it right in the beginning. But we also haven’t ever changed it.</p>
+<p>Then the harder step was once we came up with the Orgs tier, which was our first tier for larger companies. You make features and you’re like, okay, I actually don’t know if this set of features is worth $45/month, because $45/month is a lot of money. It turns out you can ask people how much they’d be willing to pay. You can say, okay, here are these features; would you be willing to pay? And they’ll tell you. You would think they would lie to you to get you to lower the price, but generally speaking, they’ll tell you, ‘Here’s how we think about our business. If it saved us this much money, we’ll pay this much money. Here’s other software that we purchased; it costs about this much. If it’s in this range, it’s fine.’ So we had some confidence in a direction, but the feature set that we had still felt thin (e.g. single sign-on, security features, etc.). We were nervous when we launched it. Is this really going to work? But it worked great. People really resonated with it.”</p>
+<p>—<a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a>, VP of Product</p>
+</blockquote>
+<p><strong>Databricks</strong></p>
+<blockquote>
+<p>“We were academics and we’re data scientists, so pricing was always a hot topic. We had huge fights about how to price the product. Even in 2012, before we even started the company, before we even had the product, there were fierce debates on how should you price and what’s the optimal pricing model. So pricing has been something that we’ve spent a huge amount of time on at Databricks ever since the beginning, and we’re still spending a lot of time on it. But two of us in particular spent a lot of time with customers in 2015 and ’16 just trying to see what sticks. We experimented with different models and we would see which one is easy to explain, which one is not easy to explain. We had one pricing model that was awful that we had to quickly deprecate, which was a suggestion from a customer.</p>
+<p>The customer said, ‘I’ll pay for it if you construct it this way.’ It turned out it was a terrible pricing model. By the way, the pricing model was ‘I’ll pay you this much and you reserve this many machines for me, but since it’s the cloud, I want to be able to use more. So if I use more, but only 10% of the time, I go 10x more than what I had bought; that’s okay. But what if I use more than 10x 10% of the time?’ It turned out it’s very hard to put in legal contracts. And it turns out all the pricing systems out there in the world that you have to leverage to charge people, none of them support this weird pricing model. We have to sort of phase that out.</p>
+<p>But one thing in hindsight that no one had told me, which makes it much easier if you’re thinking about pricing, is if there are big dominant players in the market that price in a certain way, then you should seriously consider that, because they’ve trained the market on that pricing model. If you’re going to deviate away from that, you’d better have really good reasons. And in our case, Amazon existed and they had launched this pay-as-you-go pricing model and that was sort of how people were used to buying software and selling software. So we should have just, honestly, by default gone with that unless there were really good reasons to deviate. We ended up actually eventually going with the pricing model that was like that [usage-based pricing].</p>
+<p>I remember we did a hackathon in 2014, and me and the leadership felt like this product is not ready to be... we can’t really start charging. No one will really pay for it. So we did a survey in the company and it turned out the engineers working on the products who were building it, they were like, ‘Yeah, this is a pretty cool service. We should charge for it.’ Everyone else who was not building the product was like, ‘Ahh, it’s not ready.’ And I remember we said, ‘Well, if the engineers think that we can do it, we should try it.’ And we started charging people, and it turned out people would pay for it. Keep in mind we had modest expectations those days. So for us, someone paying us $10,000 or $20,000, we thought: that’s a lot of money.”</p>
+<p>—<a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a>, co-founder and CEO</p>
+</blockquote>
+<p><strong>Snyk</strong></p>
+<blockquote>
+<p>“Pricing was tricky. The lowest common denominator for our actions was the number of tests. Every time you ask, ‘Am I vulnerable?’ you’re performing a test, whether you ask that question as a one-off test, a recurring test in your build, or a background test you run every week to see if new vulnerabilities affect the app you scanned before. This metric is a great billing unit, as it’s easily measured and fairly easily explained. We still use it today to limit the free-tier allowance due to this simplicity.</p>
+<p>However, while measuring tests is easy, test counts do not align well to the value we provide, and incentivize the wrong behavior. For instance, we want you to test your application on every build, to help you find security mistakes as early as possible. However, if you’re trying to shrink your bill, you may choose to only test weekly, defeating the value we’re trying to provide. Another example is modularity—if you split a monolith app into 10 micro-services, and build each of them separately, you’ll run 10 times more tests but get roughly the same value.</p>
+<p>We wanted to charge based on the ‘amount of application’ we’re protecting, but there’s no good way to measure that. Number of lines of code, which our competitors use, has long been a terrible way to measure app size—why would moving a variable assignment to a new line suddenly cost more? Other competitors used ‘number of apps’ or domains to measure, which was also poor, as some apps were huge and others were tiny, and it’s very hard to quantify. Lastly, a user-based model didn’t work well for us either. If a single developer registers to Snyk and adds Snyk into a CI system doing builds for 100 developers, we can’t charge for a single user…</p>
+<p>After much deliberation, we decided to measure on ‘contributing developers’ as our unit of value—developers who contributed code to the apps we protect in the last 90 days. If we’re protecting the work of more developers, we’re providing more value by making more developers productive and reducing more risk. This measure is not the easiest to measure, but it has the best correlation to value, which we think is more important. Over time, we’ve seen many in the industry embrace this measure, likely for the same reason.”</p>
+<p>—<a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a>, co-founder and CEO</p>
+</blockquote>
+<p><strong>Coda</strong></p>
+<blockquote>
+<p><strong>“</strong>We do a thing at Coda called ‘maker billing,’ which is basically, if you look at all the documents products, they have the same three personas. They have viewers, editors, and makers—people who can see things, people who can change things, and people who can create new things. Everybody charges you for the top two, editors and makers. That’s Office and Google Docs, Notion and Airtable and Quip and Dropbox and Figma and Miro, and so on. They all charge you for: if you can make changes, you pay. And I didn’t like that. I thought that it was squashing the growth cycle. There’s a viral cycle: you share a doc; you create a doc; you share a doc; you create a doc. That’s the cycle of spread. And basically, everyone in our industry had put a big dollar sign on sharing a doc.</p>
+<p>Imagine if you had to put a dollar sign on ‘share an Airbnb listing’ or ‘share a story on Facebook.’ It just seemed crazy to me. And so we decided that we are going to charge for creation, not for sharing. Very controversial, and I didn’t want to do it until we had a strong instinct that we wanted to head this way. I also didn’t want to do it until we had enough of the scaffolding together to get that unit right. And so we waited.</p>
+<p>Eventually we launched it, and we were super-scared. The big fear with ‘maker billing’ is: won’t people abuse it? Won’t people create a doc, share it with hundreds and hundreds of people, and then every other company would monetize all of that? We’d get to monetize just one license. So we actually launched with this kind of halfway model. We launched with this governor. We would only charge for makers, but makers come with this many editor seats. Every maker can have five editors, 10 editors, so on. And it was so complicated. But my main philosophy was: no dollar signs in the share dialogue. The fundamental philosophy on pricing for Coda was: sharing is your moment of expression. It’s actually the thing we look for in terms of product-market fit.</p>
+<p>So we launch it, and then we get all this customer feedback, and it was really easy to interpret. We had a lot of negative customer feedback—in fact, from some of our deepest users. And it was really easy to say, the lazy view was: oh, they just don’t want to be charged for a product they’ve been using for free for so long.</p>
+<p>And it took us a while to come to terms with it. I was like, we launched it on a Thursday, got all this feedback. My head of support calls me on Sunday and she says, ‘Look, I’ve been reading through this feedback, and I’ve got to tell you, I don’t think they’re wrong. I don’t think this is just people who are being cheap. These people are quite happy to pay for this thing they’ve been using for free. They all knew they were going to pay someday, and they even think the pricing is reasonable, but they think we got this mechanic wrong. I think we should reconsider.’ And it was actually kind of a brave moment for her. It’s not easy. So we went and thought about it and we ran a bunch of numbers, and we basically came and we relaunched the whole thing in three weeks and we simplified the model. And now it’s very simple. It’s just: makers pay, nobody else does. And it’s easy to explain, easy to understand. And we took the risk. And so far, it seems to have worked out fine.”</p>
+<p>—<a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a>, co-founder and CEO</p>
+</blockquote>
+<p><strong>Retool</strong></p>
+<blockquote>
+<p>“The alternative to Retool is, basically, you build software by writing code. And writing code is good in some ways, but it’s actually really painful in many other ways. So for that reason, there was basically relatively little competition and there was no sort of benchmark that we could charge at, necessarily. There’s sort of a variety of ways to a good price. Whereas, for example, I think for something like Figma, Sketch might be an obvious comp. Or if you’re Notion, Google Docs might be an obvious comp. For Coda, similarly, Airtable. For Retool, there’s really nothing like it. And so for us, we experimented a lot on pricing. Just kind of started quoting really cheap prices, then we started moving more expensive, just to understand the market. To understand the willingness to pay. This process was very helpful because it allowed us to tell the value story a lot better. Because then we could say, ‘Oh, well, the value of Retool is not just X or Y. Instead, it’s actually Z, because...’ And we’d ask people, sort of, ‘How do you justify the value? How do you think about it?’ And we’d just kind of play back what other customers told us. So it was a first-principles way of understanding the value that you deliver. And those conversations were enormously helpful, because for sales, it allowed us to just tell a story better. Even though we might charge someone far less money or give them a fairly cheap product, nevertheless, people understand how to talk about the value. And then we could be like, ‘Getting 100x ROI here, so you should probably buy this product.’ ”</p>
+<p>—<a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a>, founder and CEO</p>
+</blockquote>
+<p>With that, we’re done! Seven parts promised, seven parts delivered.</p>
+<p>This series was a boatload of work, and I’m incredibly proud of it. I hope you’ve found it valuable. If you’re on this journey, I encourage you to read through each step a couple of times. There’s a lot of content within each step, and I promise you’ll find something you missed the first time.</p>
+<p>Here’s the full series, again, for reference:</p>
+<ul>
+<li><strong>Part 1:</strong> <a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How to come up with a great B2B startup idea</a></li>
+<li><strong>Part 2:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-validate-your-b2b-startup">How to validate your idea</a></li>
+<li><strong>Part 3:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-identify-your-ideal-customer">How to identify your ICP</a></li>
+<li><strong>Part 4</strong>: <a href="https://www.lennysnewsletter.com/p/how-to-win-your-first-10-b2b-customers">How to find and win your first 10 customers</a></li>
+<li><strong>Part 5:</strong> <a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">A guide for finding product-market fit</a></li>
+<li><strong>Part 6:</strong> <a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">How, and when, to hire your early team</a></li>
+<li><strong>Part 7:</strong> How to scale your growth engine <em>← This post</em></li>
+</ul>
+<p>Thank you for reading.</p>
+<p>And again, a <em>huge</em> thank-you to everyone who contributed to this series: <strong><a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a></strong> (COO of Notion), <strong><a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a></strong> (CEO of Databricks), <strong><a href="https://www.linkedin.com/in/aofstad/">Andrew Ofstad</a></strong> (co-founder of Airtable), <strong><a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a></strong> (CEO of Hex), <strong><a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a></strong> (CEO of Census), <strong><a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a></strong> (co-founder of Segment), <strong><a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a></strong> (co-founder and CPO of Canva), <strong><a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a></strong> (CEO of Vanta), <strong><a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a></strong> (CEO of Retool), <strong><a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a></strong> (CPO of Gong), <strong><a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a></strong> (CEO of Ramp), <strong><a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a></strong> (CEO of Snyk), <strong><a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a></strong> (co-founder of Linear), <strong><a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a></strong> and <strong><a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a></strong> (co-founders of Stytch), <strong><a href="https://www.linkedin.com/in/keenanrice/">Keenan Rice</a></strong> (founding team), <strong><a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a></strong> (CEO of Front), <strong><a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a></strong> (CEO of Persona), <strong><a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a></strong> and <strong><a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a></strong> (co-founders of Zip), <strong><a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a></strong> (CEO of Sprig), <strong><a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a></strong> (co-founder of Loom), <strong><a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a></strong> (CEO of Coda), <strong><a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a></strong> (VP of Product of Figma), <strong><a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a></strong> (co-founder and CEO of Amplitude), <strong><a href="https://www.linkedin.com/in/mojombo/">Tom Preston-Werner</a></strong> (co-founder of GitHub), and <strong><a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a></strong> (co-founder and CPO of Gusto). Art by <a href="https://www.natalieharney.com/">Natalie Harney</a>.</p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

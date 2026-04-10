@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>State of the product job market, part 2 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">State of the product job market, part 2</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">State of the product job market, part 2</div>
+    
+    <div class="article-meta">2024-09-24<span>·</span>2,398 words</div>
+    <div class="tags-row"><span class="mini-tag">產品管理</span> <span class="mini-tag">職涯</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Lots of questions came up after publishing <a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market">my last product jobs report</a>, so I’m back with a follow-up.</p>
+<p>This analysis is based on exclusive data from two companies that I’m partnering with:</p>
+<ol>
+<li><strong><a href="https://www.trueup.io/">TrueUp</a></strong>, which tracks <em>new</em> <em>job</em> <em>openings</em> across all tech companies globally</li>
+<li><strong><a href="https://www.livedatatechnologies.com/">Live Data Technologies</a></strong>, which tracks job changes (hires, departures, and promotions<em>)</em> across all companies in the U.S.</li>
+</ol>
+<p>Combining these two data sources reveals a whole new perspective on what’s really happening in the job market.</p>
+<h4>Some of my biggest takeaways from this data:</h4>
+<ol>
+<li>There’s indeed a shift to hiring more senior PMs</li>
+<li>Remote PM jobs are shrinking fast (down 35% from peak, and still shrinking)</li>
+<li>More than one in five open PM roles is based in the San Francisco Bay Area (and still growing)</li>
+<li>Bengaluru, India, is now the most popular location outside the U.S. for PM roles</li>
+<li>The three most common hard skills that hiring managers are looking for from PMs are SQL, Jira, and experience with LLMs</li>
+<li>The fastest-shrinking roles right now are diversity and scrum masters</li>
+<li>Machine-learning engineers and data engineers are the most in-demand tech functions right now</li>
+</ol>
+<p>Loads more surprises and insights in the data below.</p>
+<p>I’m going to continue working with these companies to track job market data and share regular updates on what’s changing in the product hiring market every few months or so. If there’s any data or questions you want us to dig into, please let me know in the comments.</p>
+<p><em>Big thank-you to <a href="https://www.linkedin.com/in/amittaylor/">Amit Taylor</a> from <a href="https://www.trueup.io/">TrueUp</a> and <a href="https://www.linkedin.com/in/jason-salt/">Jason Saltzman</a> from <a href="https://www.linkedin.com/in/jason-salt/">Live Data Technologies</a>. To learn more about TrueUp, check out <a href="https://trueup.io/lenny">this custom one-stop page</a> they made for me that includes every product and growth job at every top tech startup and big tech company (16,500 open roles). They scan every open job at every top tech company in real time and then use AI to categorize and tag each role. To learn more about Live Data Technologies, <a href="https://www.livedatatechnologies.com/">check them out here</a>. To collect their data, they use prompt engineering in major search engines (Google, Bing, Baidu, Yandex, etc.) to capture near-real-time data on employment changes in the U.S. Leveraging this publicly available information, they use a proprietary process to monitor the most up-to-date employment status for white-collar workers and millions of job changes monthly.</em></p>
+<h2>How’s the PM job market looking overall?</h2>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/0657f3ee-8017-4452-88b7-8237fce3ad0d_1760x1712.png" /></p>
+<p>We are in the middle of a slow recovery that started in Q1 of this year, and the recovery is holding steady.</p>
+<p>After a peak in early 2022 (with over 10,000 open roles) and a significant slowdown through 2023 (to about 4,000 open roles), there are currently 5,752 open product manager roles at tech companies globally.</p>
+<h2>Has there been a shift to hiring more senior product roles?</h2>
+<p>Indeed there has. But, the shift isn’t huge.</p>
+<p>Below are two charts showing roles by PM level at tech companies globally. The first chart shows the proportion of open jobs by level over time, and the second chart shows the absolute number of open jobs by level.</p>
+<p>The data shows that, yes, new Senior and above PM roles do appear to be growing at a faster rate than other levels. If you look at the light blue and dark blue segments below (i.e. <strong>Senior</strong> and <strong>Lead/Senior++</strong> roles), you can see they have definitely grown from early 2023 in the percentage of PMs being hired. In particular, <strong>Lead/Senior++</strong> roles are growing their percentage of open roles the fastest. And the share of <strong>Entry/Mid-level roles</strong> (the pink segment) has decreased the most since early 2023.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/3f6f7720-24cf-4dec-a65c-bc3b0635f914_1486x804.png" /></p>
+<p>That being said, <strong>Entry/Mid-level</strong> make up over a third of open PM roles and are recovering at a rate similar to Senior roles. So there are still plenty of opportunities for early-career PMs.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/e45a1b59-d487-4ca4-b11d-d698a06e4724_1488x836.png" /></p>
+<p>Drilling into the down-leveling question, here’s an amazing chart from Live Data Technologies showing <strong>the number of hires who went down a level in their new job</strong>. This down-leveling spiked in early 2022 and is now at nearly the lowest levels since 2019. That’s great news.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/545a19b2-bcbd-41c2-8ad3-60705b27d400_1588x1150.png" /></p>
+<h2>Which companies are hiring PMs most?</h2>
+<p>If you’re currently looking for a job, here’s the latest data on which tech companies have the most open PM roles:</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/a5e5310a-0819-49c1-a16d-8181a93f8eaa_1760x3104.png" /></p>
+<p>Here’s a bonus chart that will blow your mind: the top places candidates are coming <em>from</em> when they are hired at one of the top companies hiring PMs. The left side of the chart includes the top five places people come from, meaning that many companies hire from business schools, but for Amazon, it’s their number one source of new hires.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/a883c707-3b9d-4393-ae40-eba6e52989e1_1184x1600.png" /></p>
+<h2>Which cities have the most open PM roles?</h2>
+<p>The San Francisco Bay Area continues to be the leading location for open product jobs at tech companies (see below). Seattle (mostly Amazon and Microsoft roles) is at #2 and New York is #4.</p>
+<p>Interestingly, Bengaluru, India, is now the most popular location for PM jobs outside the U.S., and the fourth most popular location globally (not counting “remote”).</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/2f673843-2543-4f4a-a84b-eb8d4b02f75f_1760x1836.png" /></p>
+<p>The San Francisco Bay Area is ascendant. In just the past two years, the share of open PM roles in the Bay Area went from 15.4% to over 20%—up 25% year over year! Over a fifth of all open PM roles at tech companies are in the Bay Area, and that share seems to be growing.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/1be75ef8-3ae1-4381-96f8-0527f397a1c7_1760x1724.png" /></p>
+<h2>What about remote product jobs?</h2>
+<p>Over a fifth of open PM roles globally are OK with remote, but this number is quickly declining—from over 35% of open PM roles two years ago to 22.5% today—nearly a 35% drop. This will be an interesting metric to track.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/50cb2c6e-8494-48b6-acd9-3b9a4b6e2af6_1760x1724.png" /></p>
+<h2>What hard skills are most in demand for PMs?</h2>
+<p>Here are the most mentioned skills, technologies, and products in PM job descriptions:</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/a738634b-a85e-453a-9009-d0442e0a3350_1120x858.png" /></p>
+<p>SQL is (and continues to be) the most mentioned hard skill in PM job descriptions. Although it’s declining over time, it’s still far above any other term. <a href="https://www.lennysnewsletter.com/i/41371152/learn-the-basics">Here’s some advice on getting more technical</a>, including recommended SQL courses.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/914c2e9e-71df-4fb5-81ce-f3ffe2112a76_552x420.png" /></p>
+<p>The fastest-growing term in PM job descriptions is, unsurprisingly, LLMs. <a href="https://www.lennysnewsletter.com/i/146639061/how-to-set-yourself-up-to-thrive-in-a-world-of-ai">Here’s advice for getting better with LLM tools</a>.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/6efbb1cc-6464-4673-bae4-8eeb238d0bac_552x420.png" /></p>
+<p>Jira is staying strong throughout the turbulence of the job market, but there does appear to be a decline recently. . .</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/3d53f046-451f-4485-b733-aa75b8fd2b27_552x420.png" /></p>
+<p>Blockchain was an extremely common term in PM job descriptions in 2022 and is now fading—though not as quickly as you’d expect. The TrueUp team’s theory here is that 100% of web3/crypto companies mention this term, which increases the absolute number of mentions of the term in the data. However, the number of roles at web3/crypto companies is down 40% year over year.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/f7412f74-aca7-42bb-9e8a-4d8a22e43427_552x420.png" /></p>
+<p>Other common technologies that companies are looking for PMs to have experience with:</p>
+<ul>
+<li>AWS/Azure/Google Cloud</li>
+<li>Python</li>
+<li>Tableau</li>
+<li>Salesforce</li>
+</ul>
+<h2>Zooming out, which tech roles are growing fastest, and which slowest?</h2>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/34d74a79-7589-4ba6-9845-00d3ed048d24_978x1147.png" /></p>
+<p>It won’t surprise anyone that machine learning and data engineering roles are the fastest-growing in tech right now, growing 79% and 55% year over year, respectively. This is building on the growth of last year, when companies were already getting excited about AI, so there’s only increasing demand for these roles.</p>
+<p>The next-fastest-growing role right now is, interestingly, recruiters. This because the role essentially fell off a cliff in 2022 (-73%), and it’s nice to see it rebounding. However, it’s still down more than 48% from its peak.</p>
+<p>Two roles that are shrinking the fastest are diversity and scrum masters. There are only 70 open “diversity” roles in tech right now, and 74 scrum master jobs (not a single one at a FAANG).</p>
+<p>Other functions that are growing slowest at tech companies currently:</p>
+<ul>
+<li>Design</li>
+<li>User research</li>
+<li>Security (surprisingly!)</li>
+</ul>
+<p>Here’s a fascinating look at how various HR roles have fared over the past five years. DEI is 📉, while planning and analytics is 📈.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/65317ca2-64c6-4cb9-8fe0-78312edaff5b_1588x1150.png" /></p>
+<p>If you read <a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market">my previous post on the job market</a>, you may be wondering why in that post I showed growth, user research, and product owners as the fastest-growing roles, while here we’re not seeing that. The explanation is that in my previous post, we looked at roles across <em>all</em> companies hiring in the U.S. The findings I’m sharing here are narrowly focused on just tech companies. So what this tells us is that there is indeed an acceleration in these roles—just not at tech companies. Instead, companies like banks, telecoms, and packaged-goods companies are hiring for these roles. More on this below.</p>
+<h2>What have layoffs looked like over the past year?</h2>
+<p>The good news is that we are on pace to have 30% <em>fewer</em> people affected by layoffs in tech this year. So far in 2024, there have been 859 layoff events at tech companies, with 213,879 people impacted. Still not great, but a positive trend.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/9b3cb108-ed25-4e7c-be6e-13ba9c163929_1486x956.png" /></p>
+<h2>I want to work in AI—what roles are AI companies hiring for?</h2>
+<p>AI companies are hiring like mad:</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/9c6d4840-d3eb-4be8-9528-3e7aefcb8850_1588x1150.png" /></p>
+<p>However, they are almost exclusively hiring engineers and data scientists. Of the <a href="https://trueup.io/ai">16,935 job openings</a> at the top AI companies (including AI teams at non-AI-first companies), most of the open roles are engineering and data science, followed by business ops and then sales. However, there are <a href="https://trueup.io/ai/product">456 AI PM openings</a>, so if you’re a PM, there’s a chance.</p>
+<h2>Are there any emerging job types I should consider exploring?</h2>
+<p>Two that I want to follow:</p>
+<ol>
+<li><strong>AI product managers:</strong> Of the 456 open AI PM roles mentioned above, 178 are at AI-first companies, and the remaining 278 roles are at tech companies that are not primarily AI-focused but have PM roles dedicated to AI projects. It’ll be interesting to see how quickly these PM roles grow.</li>
+<li>
+<p><strong>Prompt engineer:</strong> This is still a relatively rare role, but I want to see if this becomes a thing or stays tiny. For now, here are a few open roles for prompt engineers:</p>
+</li>
+<li>
+<p><a href="https://www.amazon.jobs/en/jobs/2724134/sr-prompt-engineer-selling-partner-protection-operations-sepo-product-team">Amazon—Sr. Prompt Engineer</a></p>
+</li>
+<li><a href="https://careers.tiktok.com/position/7353507805650127154/detail">TikTok—Product Operation Manager, AI Ops (Prompt Engineering Specialization)</a></li>
+<li><a href="https://jobs.ashbyhq.com/klarity/9b1a72b6-285a-4e07-91bd-c5300d2e684f">Klarity—GenAI Automation–Prompt Engineer</a></li>
+</ol>
+<h2>What’s going on with the product owner role?</h2>
+<p>Finally, in the last report, I shared that <a href="https://www.lennysnewsletter.com/i/146638817/product-owners-are-owning-it">product owners are the third-fastest-growing role in tech</a>. Digging further with this new data, there are two parts to the story:</p>
+<ol>
+<li>POs are indeed growing quickly at non-tech companies (e.g. banks, telecoms)</li>
+<li>POs are essentially irrelevant at tech companies. There are only 230 open product owner roles at tech companies, and not a single one at a FAANG company</li>
+</ol>
+<p>Out of curiosity, we dug into what roles POs come from, and most of them were previously business analysts, project managers, and . . . product managers.</p>
+<p><img alt="Image from State of the product job market, part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/7ac02bee-3208-4ce0-968b-af87a3a33cb8_1588x1150.png" /></p>
+<p>I’m super-excited to be bringing you this data, and I’m going to continue doing it. If there’s anything you’d love to see more of or less of, or to dig into further, please let me know in the comments 🙏</p>
+<p><a href="https://www.lennysnewsletter.com/p/state-of-the-product-job-market-part/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’ve got a white-glove recruiting service for senior product roles, working with a few select companies at a time. If you’re hiring, apply below.</p>
+<p><a href="https://www.lennysjobs.com/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

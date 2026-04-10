@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The secret to better AI prototypes: Why Tinder’s CPO starts with JSON, not design | Ravi Mehta (product advisor, previously EIR at Reforge) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">The secret to better AI prototypes: Why Tinder’s C…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">The secret to better AI prototypes: Why Tinder’s CPO starts with JSON, not design | Ravi Mehta (product advisor, previously EIR at Reforge)</div>
+    
+    <div class="article-meta">2025-09-29<span>·</span>16,757 words<span>·</span>Ravi Mehta</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">B2C</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=_yQMGHHl49g" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Ravi Mehta</strong> (00:00:00):<br />
+The framework I like to use with product leaders that I'm coaching is to think about a matrix. Your ideal goal is to lead in a scalable way, which means you feel really confident about the direction of your team and your team has the autonomy to move in that direction. There's another really effective way of leading, which is selective micromanagement, which if you don't feel confident in the direction that your team is moving, the right answer is not to be hands-off and to let them go in that wrong direction. The right answer is to micromanage, but do it in a very tactical and a very temporary way so that you can help them understand what is the right direction moving forward so that you can then pull back.<br />
+<strong>Lenny</strong> (00:00:46):<br />
+Welcome to Lenny's Podcast. I'm Lenny and my goal here is to help you get better at the craft of building and growing products. I interview world-class product leaders and growth experts to learn from their hard one experiences building and scaling today's most successful companies.<br />
+<strong>Ravi Mehta</strong> (00:04:00):<br />
+Yeah, thank you for having me. I'm excited to be here.<br />
+<strong>Lenny</strong> (00:04:02):<br />
+So I've been a huge fan of your writing for a long time. And this may sound a little weird, but I just feel like not enough people know about you and I'm just excited to learn from you and also just to share your wisdom with more people.<br />
+<strong>Ravi Mehta</strong> (00:04:14):<br />
+Oh, thank you. That means a lot. I've been a fan of all of your work as well. I've been following the podcast. It's been great to see how it's evolved over the years.<br />
+<strong>Lenny</strong> (00:04:20):<br />
+Awesome, man. I really appreciate that. It continues evolving. So just to start with a little bit of your background, can you just take a minute to share just like an overview of your career arc and touch on some of the wonderful things you've done and then just talk a little bit about what you're up to these days.<br />
+<strong>Ravi Mehta</strong> (00:04:36):<br />
+Yeah, I've been in the tech industry for a long time, so I will date myself. I started in the mid-90's. My dad was at American Express and he had just done a big buy of computers, one of their first big installations of computers, and he brought home an Apple TC computer, and back then there wasn't much to do on it other than to learn to code. So I started coding really young. I was nine, 10 years old and really just fell in love with technology and that's persisted with me today.<br />
+<strong>Ravi Mehta</strong> (00:05:03):<br />
+I started a game company in high school. I did that full time and part time in college, so I dropped out for a little bit during college. Went back and finished up my degree. And then my first role out of school was Microsoft, and so I joined Microsoft at a really interesting time when they were making a pretty significant investment in games. And so I joined as one of the first few people on the Xbox Live team. Really focused on thinking about how does a company that's building its future on the internet think about where gaming is going. And that was really different than how other companies in the space like Nintendo or Sony were thinking about gaming.<br />
+<strong>Ravi Mehta</strong> (00:05:36):<br />
+Spent about six years there, worked on stuff on the platform side, on the content side. It was a really great experience, but I knew I wanted to go earlier stage. So straight after Microsoft, I went to business school, dabbled a little bit in management consulting, but decided I really wanted to build things and so I went back into an early stage startup right after business school. I started as employee number one at a FinTech startup. Shortly after that I joined Brian Balfour, who's the CEO of Reforge at his first startup.<br />
+<strong>Ravi Mehta</strong> (00:06:03):<br />
+And my most recent few roles have been product leadership roles at Tripadvisor where I was head of the consumer product team, product leadership role at Facebook, and then I was the chief product officer at Tinder. And for the last couple of years I've gone back into the startup side of things and happy to talk about that some more.<br />
+<strong>Lenny</strong> (00:06:18):<br />
+Yeah, let's talk a little bit about what you're doing now and just to kind of put that out there and then we'll keep going.<br />
+<strong>Ravi Mehta</strong> (00:06:22):<br />
+That sounds good. So I spent about 10 years or so at bigger companies working with large product management teams and large engineering teams. I find that work incredibly fulfilling in terms of the ability to impact people at scale, but I was also really missing the idea of building something new and really thinking about where things are going and not having to solve for some of the legacy constraints that large businesses have to solve for. So I decided to leave Tinder and at that point started to explore what I wanted to do next.<br />
+<strong>Ravi Mehta</strong> (00:06:48):<br />
+I spent about 18 months working with Reforge as an entrepreneur in residence or an executive in residence with Reforge, helping them build and launch the product leadership program and helping them launch the product strategy program. And during the process of doing that, I had conversations with dozens of people that were at the middle point of their career and found a really interesting common challenge in that there's lots of ways to learn new skills. Now there's great podcasts and blogs. There's great cohort-based courses like Reforge. But one of the things I found incredibly helpful in my career that really helped me level up was one-on-one coaching. There was nothing that could really replace the opportunity to have a conversation with someone who had the ability to ask the right questions, had the ability to help you see around corners, do the experiences that they had had. And coaching had just not gotten any more accessible over the years.<br />
+<strong>Ravi Mehta</strong> (00:07:39):<br />
+And so about 18 months ago, I decided to start Outpace, which is a company focused on making elite expert-driven coaching available to everyone. And we're using a combination of really focusing on the product, using a lot of systems and content to structure the coaching process. We're also using AI to make coaches more efficient with the goal of making expertise-driven coaching a lot more accessible for folks.<br />
+<strong>Lenny</strong> (00:08:04):<br />
+Awesome. So a first area I wanted to spend a little time on is you talked about your career arc, you're CPO at Tinder, product director at Facebook, VP at Tripadvisor, and now you started a company and you've started companies in the past. A lot of PMs listening to this have a hope that they will start a company someday and they're probably working at a company like a big tech company somewhere or not, or they're starting a company right now and they're kind of in the process of starting a company. And I'm curious what you found to be the biggest differences between being a product leader at a bigger company versus a startup, especially your own startup, and especially what are maybe the biggest surprises you've felt from moving and making that transition?<br />
+<strong>Ravi Mehta</strong> (00:08:43):<br />
+There's been a couple of really interesting mind shifts I've had to go through over the last 18 months as I moved from a product leadership role to a founder role. The first one is really thinking differently about speed. I think there's this common, I would say it's a misconception that startups are faster than larger companies. And what I found initially is actually things felt slower when I started my own company because I didn't have as many engineers to work with. I didn't have a team built around things. We didn't have momentum around existing users to be able to research and target.<br />
+<strong>Ravi Mehta</strong> (00:09:15):<br />
+And what I realized as I've kind of been through the journey over the last 18 months is that the speed that startups have is not really about velocity. Bigger companies can always get more done, they can always spend more, they can always move with a higher degree of velocity than smaller companies. The advantage a smaller company has really is in latency. You can have an idea one day, you can test it the next day, and as a result you can have this really short cycle time between an assumption or a hypothesis and being able to validate that hypothesis. And that's just not true at larger companies where there's a lot more momentum.<br />
+<strong>Ravi Mehta</strong> (00:09:49):<br />
+The analogy I like to use, it's like driving a car. If a car is going really, really fast, it can't turn as quickly, the turning radius is lower. And so startups have a really tight turning radius and bigger companies have a really high rate of velocity. And so that was one of the things that for me took some adjustment in terms of thinking about how to boil down what would've been a pretty big ambitious plan at a larger company into something that has much smaller pieces and where you can iterate towards things and get data every day or every couple of weeks rather than have a bigger project that might take a quarter long to execute.<br />
+<strong>Lenny</strong> (00:10:23):<br />
+Just so folks understand what you mean by that, this interesting difference between speed and latency. So what exactly is the difference? Latency is basically how fast you can make decisions and change courses. Is that how you think about it?<br />
+<strong>Ravi Mehta</strong> (00:10:34):<br />
+I think about velocity is sort of the quantity of work and latency is how quickly you can go from an idea to actually being able to test that idea and learn whether or not that idea was the right one.<br />
+<strong>Lenny</strong> (00:10:46):<br />
+Cool.<br />
+<strong>Ravi Mehta</strong> (00:10:47):<br />
+One of the questions to test out latency that I likes to ask PMs is if there's a really simple change that you want to make to a product, like being able to change a button so you can test two different texts on a particular button, how long does it take to go from we think that this change is worth making to actually getting the results of whether or not it was the right change?<br />
+<strong>Lenny</strong> (00:11:07):<br />
+Got it. Cool.<br />
+<strong>Ravi Mehta</strong> (00:11:08):<br />
+The second thing is really thinking differently about how to make decisions. I think a lot of really effective companies today that have large audiences get to rely on an experimental way of making decisions. So you throw things out there, you run an experiment, you get to see what's statistically significant, and based on that, that provides a really nice way to learn about what users want and iterate towards an optimal product.<br />
+<strong>Ravi Mehta</strong> (00:11:33):<br />
+At a startup, you can't do that. You just don't have those users to test with. And I think a lot of startups make the mistake of trying to use an experimental approach too early where it just takes either way too long to get statistically significant results, which reduces that latency, or those results aren't as valid because you have to use a much smaller sample set. And so I've had to shift my mindset from an experimental-oriented approach to making decisions to much more of a conviction-oriented approach.<br />
+<strong>Ravi Mehta</strong> (00:12:02):<br />
+And I've often found myself asking the question of like, do we just have enough data to have informed conviction and we should move forward and stop digging, move forward in a particular direction, and then see whether or not that turns out to be the right one? Because too often in a startup you can spend a lot of time in paralysis around analyzing market research or going through all of the different things you could do strategically, thinking about all the different potential variants that you could build, all the different pricing strategies, whereas instead, a startup just makes sense to kind of get to a point where you have conviction, execute on that, and then move on to whether or not that felt like the right thing, in which case you can double down, or that was the wrong thing, in which case you can shift direction and do that pretty quickly.<br />
+<strong>Lenny</strong> (00:12:44):<br />
+Awesome. What else?<br />
+<strong>Ravi Mehta</strong> (00:12:45):<br />
+One of the things that I've found really surprising is the networks are pretty different. So I've gotten a chance to work with an incredible amount of great people over the years and when I was starting a company, I was excited to reach out to people, tell them what I was doing, and there were a number of people that I'd worked with at larger companies that I was potentially excited about working with.<br />
+<strong>Ravi Mehta</strong> (00:13:04):<br />
+And what I found was that the people sort of really build their lifestyles and their careers around a particular stage. And there are some people that like to move between stages, but the majority of people don't. A lot of people that are at larger companies, they like the benefits that come with that. They like the types of problems that they're working on, yet there's a whole other community of people who love to work earlier stage. It could be founders. It's also freelancers who like to help to build startups. It's investors and angels. And so that's been a really interesting part of the journey is meeting new people, getting to know those networks and starting to build out a group of people that are as passionate about that earlier stage as I am.<br />
+<strong>Lenny</strong> (00:13:45):<br />
+Got it. So you're finding that the network you may have had from say Tinder or Facebook aren't like the entrepreneurial type that maybe aren't... They're not necessarily as useful as hiring potential and things like that? Is that what you're finding?<br />
+<strong>Ravi Mehta</strong> (00:13:58):<br />
+Yeah. I think a lot of times people that are at larger companies, they're used to working in a particular way. They've mastered their craft. In terms of how they think about the next thing in their career, they really want to go deeper into that craft. And people who like the earlier stage or much more generalist, they're fine with kind of moving back in time. You're not going to find a lot of senior engineering leaders or senior product leaders that want to write codes and specs at big companies, but you will find those in those networks of people that are founders and that are interested in the earlier stage.<br />
+<strong>Lenny</strong> (00:14:30):<br />
+That's a really interesting insight that you think you're building this huge network from a big company you're working at and it may not be the network you need when you want to start a company. Do you have any other pieces of advice for a founder that's like, "Hey, I want to start a company in the future in the next few years, let's say at Facebook or Google"? Any other things you think they could be doing now to set themselves up for success?<br />
+<strong>Ravi Mehta</strong> (00:14:49):<br />
+I think it's important to plug into an early stage network as soon as possible. There's a bunch of different ways to do that today. There's communities that are focused on founder dating, there's communities focused on just being a place where founders can spend time. There's a great community of people in the indie hacker community and a few other related communities. And so I think it's important to connect with folks that are builders that are excited about entrepreneurship both on the development side and the operations side, as well as on the investment side. Connecting with angels and investors who are seeing what's happening within earlier stage companies. What are the things that are top of mind? What are the technology trends that people are really taking advantage of?<br />
+<strong>Ravi Mehta</strong> (00:15:31):<br />
+Another really interesting, I think, difference is the way that you market and grow for an early stage company is very different than how you might market or grow for a later stage company where you have much larger budgets. And so the people that might be great at building out marketing campaigns at a larger company are going to be very different than the people who are more sort of earlier stage. More hackers that are looking at. There's these really interesting new channels of distribution that you can take advantage of or interesting techniques on TikTok or interesting SEO techniques that you can take advantage of. So it's really two different networks as well as two different bases of knowledge. And so I think it's important for people that want to eventually found something to work on fostering that network so that you can connect into that community at the moment that you're ready to make that leap.<br />
+<strong>Lenny</strong> (00:16:15):<br />
+Are there any other specific communities that come to mind as places that either you found valuable or that you think are worth checking on for folks that are like, "Cool, indie hackers. I'll check that out"? Is there anything else that comes to mind as a really good place to spend some time right now?<br />
+<strong>Ravi Mehta</strong> (00:16:29):<br />
+Yeah, I think two of the best communities are the indie hacker community. What I really like about that is it's a lot of people who are thinking about how do I build something solo? And that's really different from being at a larger company. If you can think about a spectrum of you have a larger company, somewhere in the middle, you have VC-backed startups where you can take some of the ways of thinking about things that you learn at a bigger company and apply it because you have the ability to invest a significant amount of resources. And then at the opposite side, there's one person who's got a dream. They want to start something. They're trying to figure out how to do everything themselves. They're entirely generalists in terms of being both builders and sellers, as well as figuring out all the logistics. So I like the indie hacker community.<br />
+<strong>Ravi Mehta</strong> (00:17:08):<br />
+Another really good community is Everything Marketplaces. Mike, the founder of that community, has just done a fantastic job of bringing together a set of founders. He's specifically focused on marketplace businesses, which have some unique dynamics to them, especially in the very early stage. But it's a great example of even if you're not into marketplaces, I think it's worth looking at what they're creating, the events that they're running, and the people that are involved. They've just done a great job of curating that whole experience to provide a really great foundation for founders.<br />
+<strong>Lenny</strong> (00:17:38):<br />
+I'm also a huge fan of the community. I love Mike. We're internet friends. He'll love hearing this. I think the site is everythingmarketplaces.com to check out the community. And if it's not, you can just Google it. We'll also put in the show notes.<br />
+<strong>Lenny</strong> (00:17:49):<br />
+So Reforge, you brought it up a couple times, and this kind of gets to what I want to spend the meat of our conversation around. You built the Reforge product leadership program, the product strategy program. So those are two areas you spend a lot of time thinking about product leadership, product strategy.<br />
+<strong>Lenny</strong> (00:18:05):<br />
+So starting with product strategy. Every PM, every founder, every leader would say that they want to get better at strategy. I guarantee if I ask every PM, do you want to get better product strategy? A hundred percent would say absolutely. But it's this very mushy, vague, general idea of strategy. I'm going to get better at strategy. I'm going to be better. I'm going to be more strategic. You have this really cool kind of framework, mental model that you call the product strategy stack. And so I want to spend a little time on just talking about what is this concept and how does it help you think about strategy, mission, vision, all these things and how these things play together. So let's just start with what is the product strategy stack?<br />
+<strong>Ravi Mehta</strong> (00:18:43):<br />
+The goal of the product strategy stack is to help people take a set of terms that are normally conflated together, like goals, roadmap, strategy, and separate them into really clearly defined parts. And the reason I first started using this concept is I would often have PMs come to me and they wouldn't know whether to decide between doing A or B. So it might be that there's two features, they're roughly the same opportunity size, and they wouldn't know whether or not they should execute the first feature or execute the second feature.<br />
+<strong>Ravi Mehta</strong> (00:19:16):<br />
+And more often than not, when I talked to teams and helped to debug that issue, what it came down to was that there wasn't a deep enough understanding of what the strategy is. So what is the framework that should actually inform that prioritization? And so oftentimes I was seeing difficulty prioritizing as well as tactical issues surface in the day-to-day and be able to be tracked back to pretty fundamental gaps in terms of an individual PM's understanding of strategy. And oftentimes those gaps were not just because the person might not understand the strategy, it may also be because the strategy hasn't been completely defined.<br />
+<strong>Ravi Mehta</strong> (00:19:55):<br />
+And so the private strategy stack is a system that helps people understand what framework they're using in order to make decisions and what's going to drive value for the business. So the top of the stack is the company mission and the company mission is the change the company wants to bring to the world. It's really a qualitative aspirational statement of what is the company's purpose. And in some cases it might not be a company, it might be a particular team within a company or it might be a particular subsidiary depending on the environment you're in. But it's basically the overarching mission that helps to guide the process of moving forward.<br />
+<strong>Ravi Mehta</strong> (00:20:33):<br />
+The second thing is strategy. So whereas a mission is aspirational, strategy is rigorously logical. The strategy is the logical plan that your company's going to use to bring that mission into being. And so it's got to be very specific, it's got to be very rigorous, and it's basically the approach of the plan that the company will use to make progress on achieving its mission. And so the mission and the strategy at the company level really define what is the company trying to accomplish. And so the next level of the strategy stack is the product strategy. And the product strategy is the connective tissue between what is the company trying to accomplish and what are the day-to-day things that the product team is doing. And so underneath the product strategy, the product strategy informs a roadmap and the roadmap ultimately informs the goals.<br />
+<strong>Ravi Mehta</strong> (00:21:20):<br />
+And so those five pieces, the company mission, the company strategy, the product strategy, the product roadmap, and the product goals all work together as a system where if a PM is looking to define strategy, they can work top to bottom, and if they're looking to debug strategy, they can actually work bottom to top. And so if you're having trouble meeting your goals, it might be because the roadmap isn't set up so that it can help move those goals forward. If the roadmap isn't right, it might be because the product strategy hasn't been really clearly articulated. If the product strategy isn't right, it might be because the team doesn't understand deeply enough what the company's strategy is, how the product fits into it, and ultimately the company's mission that it's trying to make progress on.<br />
+<strong>Lenny</strong> (00:22:04):<br />
+Super cool. I have a bunch of questions. One is, interestingly, vision doesn't come up in the stack. Does it roll...<br />
+<strong>Ravi Mehta</strong> (00:22:11):<br />
+Yeah.<br />
+<strong>Lenny</strong> (00:22:11):<br />
+... into one of these? Or do you just no vision necessary?<br />
+<strong>Ravi Mehta</strong> (00:22:14):<br />
+I think about vision as part of mission.<br />
+<strong>Lenny</strong> (00:22:14):<br />
+Cool. That's what I thought.<br />
+<strong>Ravi Mehta</strong> (00:22:17):<br />
+I always get confused about what the difference is between vision and mission. And so when I was originally working on this, there was a version of this that had the mission and the vision together. There were versions that kept it separate. Often what I've heard of as the distinction is the vision is sort of the vision that the company sees for the future, and then the mission is the mission that the company has in light of that vision. And I think you can really bring those two together and you can both describe that world and the role that the company plays in a single statement. And that's usually enough to make progress and help to start to define the strategy.<br />
+<strong>Lenny</strong> (00:22:55):<br />
+Cool.<br />
+<strong>Ravi Mehta</strong> (00:22:55):<br />
+But I know you've written about this as well and you've put a spotlight on vision. So I'd be curious as to how you see the mission and the vision playing together.<br />
+<strong>Lenny</strong> (00:23:04):<br />
+Yeah. I think the most important thing is people just get stuck on these and try to define them and make them perfect. And I think the most important thing is just don't overthink it. Just put something that sounds right and people are excited about it in a [inaudible 00:23:16]. That's the most important thing. The way I think about it is mission is just like what are you trying to achieve in the world? And then the vision is what is the world look like once you've achieved it? What is the vision of the future? And the mission is what are you trying to do in this future? So that's the way I think about it. What are you trying to do? What does it look like? But I think keeping it as one thing is great. Like whatever works. There's no one way to do it.<br />
+<strong>Lenny</strong> (00:23:38):<br />
+I also know that you're a big believer in the vision when you think about a vision and define a vision, making it very visual versus just like a doc. Can you talk about that?<br />
+<strong>Ravi Mehta</strong> (00:23:47):<br />
+This framework originally started when I was at Tripadvisor and we had to develop a plan for what we wanted the strategy to be for trip planning. This was going to be a really big new feature for the company and for product. Trip planning is one of these intractable problems or been a number of startups that started as trip planning startups and nobody had really nailed it. Google at the time had a trip planning app that had some interesting elements to it, but it wasn't really clear that they were nailing it. And so we knew that there was both a really valuable problem to solve here, but also a really difficult problem. And we wanted to take an end-to-end approach to solving for this where rather than just kind of working bottoms up and getting to things experimentally where we might not actually ladder up to a clear product strategy, we had said we wanted to work top down, define what do we want to achieve, how we're going to achieve it, and what are the incremental steps we're going to use to get there.<br />
+<strong>Ravi Mehta</strong> (00:24:41):<br />
+And one of the things that we said with stake that we put in the ground was the strategy doc wouldn't be complete without wireframes. This was the first time that we were doing that in the context of strategy. And the thing that we were really trying to solve for is the fact that oftentimes when you talk about strategy in words alone, everyone takes away a different interpretation of that strategy, whereas when you actually can show people wireframes of what the product will look like when that strategy is implemented, it creates much more alignment.<br />
+<strong>Ravi Mehta</strong> (00:25:14):<br />
+And so the analogy I like to use, it's a little bit like working with an architect. You would never work with an architect that didn't provide you a blueprint of the house that they want to build for you because being able to describe a house in words alone is not enough. Everyone will come away from that with sort of a different interpretation of what is needed. But once you can see the blueprint, and the blueprint doesn't need to be high fidelity, it's a conceptual framework that shows you how things are laid out, it helps you understand how the pieces are going to come together. And most products are ultimately rendered in terms of visuals. They're pixels on a screen. And so it's important for you to understand how are those pixels going to be organized.<br />
+<strong>Ravi Mehta</strong> (00:25:56):<br />
+I think an interesting litmus test question for this is, and a lot of mobile apps can only have four or five things on their nav bar. What are the four or five things? If you just describe your strategy in words, people might come up with one nav bar that's completely different than another nav bar. And as a result, you then find that the moment that you're implementing your mobile app, that there's completely different perceptions of what's valuable to the company and how the functionality should be organized. And so the process of setting your strategy and then defining it really crisply in wireframes helps to get really specific and concrete about what it is that you're building, what's going to fulfill the strategy, and what are some of the trade-offs that you need to make in order to bring that into fruition because there's always going to be a limited number of pixels on the screen.<br />
+<strong>Lenny</strong> (00:26:43):<br />
+Imagine PMs listening to this might feel. "Okay, yes, I would love wireframes in all of my vision documents, full fidelity designs of everything I want to do. Here's what I'm doing." I imagine they often don't have a designer available, they don't have lists together for some review that's coming up. What do you suggest to these folks? Is it like as a PM, just sketch it out briefly is something better than nothing? What do you suggest for when there's like just not anyone to help them do this well?<br />
+<strong>Ravi Mehta</strong> (00:27:10):<br />
+I think it's great if you're able to work with a designer, but I also think it's really important for PMs to understand design, to understand UX and UI. You can always just sketch things on paper if you don't have design skills. I've also, time and time again throughout my career, I've gone back to Balsamiq, which is a really good wireframing tool. It's been around for a while. It's incredibly fast to work with, and often in an afternoon you can create a set of very high level conceptual wireframes that you can put in front of people that will give them a much clearer understanding of what it is you're trying to build than if you were just to share them with them a spec that is words alone.<br />
+<strong>Ravi Mehta</strong> (00:27:51):<br />
+So I would suggest learn how to sketch, learn Balsamiq. Having that ability to think at a conceptual level about how UI and UX works is I think a critical part of being a product manager. And if it's a skill that you don't have today, there's great resources to be able to work on that skill. And I think it'll make you feel a lot more empowered as a product manager as well if you don't need to feel like you've got to depend on a designer to help you visually think through your product each and every time.<br />
+<strong>Lenny</strong> (00:28:18):<br />
+Cool. No excuses PMs.<br />
+<strong>Ravi Mehta</strong> (00:28:19):<br />
+Exactly.<br />
+<strong>Lenny</strong> (00:28:20):<br />
+Okay. So coming back to the product strategy stack, can you share an example of a company you worked at and how that stack kind of all played out? Like an example, and just to come back to its mission strategy, product strategy, roadmap, goals. And while you're talking, I'm going to try something new. I'm going to pull up a window that shows your visual of this thing and it'll show up I think in my screen. Look at that. And so if you're on YouTube. Or you can actually watch these videos on Spotify now in case yet people that are listening have notice...<br />
+<strong>Ravi Mehta</strong> (00:28:47):<br />
+Oh, cool.<br />
+<strong>Lenny</strong> (00:28:48):<br />
+... [inaudible 00:28:48] new feature they just unlocked for my podcast or these videos are on Spotify. So cool opportunity to check it out on Spotify or YouTube. But let me come back to you with the question. Basically, is there an example you could share maybe from Tinder or Facebook or something like that of the product strategy stack in action?<br />
+<strong>Ravi Mehta</strong> (00:29:05):<br />
+So the article itself has an example, which I won't go through now, of Slack versus Discord. I think that's a really interesting example because the products are so similar and yet the company strategies and the missions are so different. They're serving incredibly different audiences despite the fact that many of the items on those teams roadmaps are likely the same. Threading, reactions, channels, video chat, things of that sort. I think a really interesting example from my past life is comparing Tinder versus Hinge.<br />
+<strong>Lenny</strong> (00:29:32):<br />
+What's that?<br />
+<strong>Ravi Mehta</strong> (00:29:33):<br />
+Both of them are dating apps, but they have missions that are really different. So Hinge's mission is almost created in response to Tinder. Hinge's mission is designed to be deleted. This is something that is prevalent throughout all of the marketing, which is, come to our app, we know that if our app works for you, you're going to find someone, you're going to kick off a long-term relationship and you're going to delete our app. And we consider that a success, versus Tinder's mission is really to make single life more fun. Tinder's mission is to be an app that's on people's phone whenever they're single and often throughout their 20s and into their early 30s. And so those missions are really different. One is a temporary use case, the other is a continuous use case. And so despite the fact that they're serving the same underlying use case, which is to help people meet each other, they have very different missions.<br />
+<strong>Ravi Mehta</strong> (00:30:24):<br />
+The company strategies are also pretty different. They have some similarity around how the apps are monetized. Both apps are freemium. You can use the product for free. And then there's particular features that are monetized. The features that are monetized share some commonality. So there's some commonality in terms of monetization model. There's a really big difference in terms of customer acquisition model. Hinge relies a lot on television ads that helps them reach the audience that is likely to use their product. Tinder relies much more on influencer marketing and event-based marketing. So there's some interesting similarities between the companies in terms of their strategies and some interesting and important differences.<br />
+<strong>Ravi Mehta</strong> (00:31:04):<br />
+The product strategies for Tinder and Hinge are actually really different. So Tinder was the original swipe-based dating app. It was built to be a really lightweight experience where swiping is really fast, getting into a match is really easy, chatting is really easy. And Hinge is one of the first really successful post swipe dating apps. So they deliberately did not build a product around the mechanic of swiping. Instead, they wanted people to spend more time on each other's profiles. They wanted to create more tools for those profiles. So Tinder profiles are very simple. Hinge profiles have prongs. Those prongs allow people to get to know each other. That sparks interesting conversations, that leads to deeper conversations that ultimately leads to long-term relationships. And so because of that difference in product strategy, there's some differences in product roadmap, but there's also some similarity in product roadmap. Both Tinder and Hinge made a significant investment in video chat post pandemic, knowing that people were going to spend a lot more time online before they met in person. And so as a result, they needed to enable people to talk with each other via video within the product.<br />
+[NEW_PARAGRAPH]And then the last piece is on goals. So ultimately both companies have very similar goals in terms of they measure success based on meaningful conversations. So they want people to match, they want people to chat with each other, but the specific product mechanics that enable people to get into those conversations are different. So the high level product goals are really similar. Some of the more detailed product goals are really different. And so using the strategy stack, you can get a really good feel for where strategy is informing particular decisions and when a decision should look like competitors and when a decision should be different than what one of your competitors or comparables is doing.<br />
+<strong>Lenny</strong> (00:32:42):<br />
+I have so many questions about Tinder. It feels it's such an interesting company and journey and product. I guess one question is you shared some examples of product features that you built because of the specific strategy. Is there any others that come to mind of just like, we built this thing and Hinge would never build it because we have such different strategies?<br />
+<strong>Ravi Mehta</strong> (00:33:01):<br />
+There's a counter example, which I think is really interesting, which is almost every dating app has filters and a whole set of filters. So you can filter based on occupation, income, religion, height, smoking preference. And Tinder, it's now got some ability to filter, but for the large part has resisted the urge to put those filters into place. And the reason was from a product philosophy standpoint, they wanted people to get to know each other and chat rather than to feel like Tinder's a search engine for people where you plug in a bunch of criteria, you can go into that specific filtered list, and then meet only the people that you want to meet.<br />
+<strong>Ravi Mehta</strong> (00:33:43):<br />
+And that really reflects in the product as well. A lot of people like using that product because they meet people that they say they never would've met otherwise. Because if they were given the ability to put their criteria in, of course they're going to put their criteria in and they're going to look at a filtered, narrower set of people. And so by keeping the product experience really lightweight, really serendipitous, they were able to create a way of meeting each other that's really different than the other dating products, which are more of those search engines for people.<br />
+<strong>Lenny</strong> (00:34:10):<br />
+When you think back on your time at Tinder, what's like a memory or story or wild experience that comes to mind if there's something that comes to mind?<br />
+<strong>Ravi Mehta</strong> (00:34:19):<br />
+So Tinder was always interesting in terms of product discovery. We did a lot of focus groups when I was there. We had people talk about their preferences around dating both one-on-one and ending groups, and those always led to really interesting conversations. One of the things that to me was the most surprising is when I was there, we noticed that there was a small set of Tinder that were spending a lot on Tinder. And so you'll often see this behavior in social games where you have users that are essentially whales, who your average ARPU might be $30 and a whale is spending $200 or $300. And so we noticed that a really significant percentage of a la carte revenue, which is microtransactions, was coming from a very small single digit percentage of users. And when we looked at how much people were spending, our hypothesis was these must be high net worth people that are looking to flaunt their wealth and they don't really care about the money.<br />
+<strong>Lenny</strong> (00:35:11):<br />
+What are they spending on, by the way, just to make that clear, because it's been a long time since I've tried with Tinder. What are you buying in Tinder? What are the microtransactions?<br />
+<strong>Ravi Mehta</strong> (00:35:18):<br />
+Yeah, so Tinder's monetization model has two pieces to it. It's got a subscription. There's a couple of different tiers to the subscription. There's a base subscription called Tinder Plus. And then there's the default subscription or the main subscription called Tinder Gold. And Tinder Gold, the advantage of Tinder Gold is it essentially allows you to break the rules of Tinder. So Tinder, normally you can't see who swiped on you and you're only going to match with someone if you swiped right on them and they've swiped right on you. Tinder Gold allows you to see all of the people who have swiped right on you, so you can go through those people and determine do you want to match with them. So really important sort of fundamental capability that people are willing to pay for.<br />
+<strong>Ravi Mehta</strong> (00:35:57):<br />
+On top of that, there's a set of a la carte products where you can buy... You can essentially buy them in bulk. You can use one of them. You can buy multiple of them. The two primary ones are super like. So super like allows you to send a super like to an individual person. If you send that super like, they're three times more likely to match with you. So it's a really good way, in a very targeted way, say that you want to meet and match with someone.<br />
+<strong>Ravi Mehta</strong> (00:36:22):<br />
+The other product is boost. And so boost works the same way that Facebook boost works or any other boost product works where your profile is going to show up a certain amount of times within the feed. If you pay to boost it, it will show up more often. And so what we noticed was that there was a set of people that were spending hundreds of dollars a month on boost and super like. Let's just identify some of these users, put together a usability study and start to talk to some of them and understand why they're using Tinder and that why and why they're willing to spend so much money.<br />
+<strong>Ravi Mehta</strong> (00:36:55):<br />
+And so what we found was actually it was very different than what we had assumed. It was essentially people saying, "I really want to meet someone." They have a use case. So sometimes these were folks that were in the military, so they were moving around a lot, or they were sales folks, they were often in different cities, or they were someone that was new to a particular city. And it wasn't that they were higher net worth. They weren't earning any more than the average Tinder user. They just had a much more intense use case. They wanted to meet someone. And what they were framing the cost of Tinder on was not the cost of other subscriptions. They were framing it on the cost of dating. And they were saying, "If I go on a few dates a month, that's probably a couple hundred dollars." Anyway, could be even more than that depending on whether you're in New York City or other places. And so they thought about that spend of a couple hundred dollars a month on Tinder as a small investment to make sure that they could date the people that they wanted.<br />
+<strong>Ravi Mehta</strong> (00:37:48):<br />
+And so it was a really interesting example of we identified something quantitatively that was really interesting that we knew was potentially a lever to grow the business. Our assumptions about why that use case was that use case were wrong. And when we ended up talking to users, we had some really surprising and fun conversations as a result, and we were also able to recalibrate and understand what those people were solving for. They're really solving for the utility of meeting people more effectively and not having to spend as much of their time to do it. And they were framing the price in very different ways than the average user.<br />
+<strong>Lenny</strong> (00:38:18):<br />
+I always love these examples where you see something in the data, you think it's something and then ends up being something else after you talk to customers. Can you share what you built or changed in the product because of that? Or is that a private?<br />
+<strong>Ravi Mehta</strong> (00:38:31):<br />
+Yeah, so there were two things that came out of those conversations. One is Tinder Platinum. So that's a third tier of the product that is a little bit more expensive and then comes with some additional features, as well as a bundle of these consumables that you can use within the product, additional super likes and boost.<br />
+<strong>Ravi Mehta</strong> (00:38:49):<br />
+And the other feature that came out of that is it's almost like a super swipe. It's the ability to, instead of just send a super like, you can send a super like with a note. And so it costs a lot more than a super like does, but it essentially allows you to break another rule of Tinder, which is you can't chat with anyone before you match. This allows you to send that first chat message to a person before you've matched. Basically to show that you're really interested in matching with that person further increases the likelihood that you'll match with them. And we were able to price it at a point which was much higher than we thought the pricing was going to be because we knew that people were thinking very differently about what the utility of that would be.<br />
+<strong>Lenny</strong> (00:39:26):<br />
+That is awesome. What a success story of a product team, product experience going through discovery research, data, designs, launch, revenue. Nice work.<br />
+<strong>Ravi Mehta</strong> (00:39:37):<br />
+And it was great. And the [inaudible 00:39:38] was working on it for about a week. She was running into my office a couple times every time she had a call with one of these folks to share what she learned. And so those are the high level takeaways, but it was really interesting to get to know this demographic better. And then just talk to users. I think oftentimes people don't spend enough time just picking up the phone and having a conversation one-on-one with the user of a product and getting into understanding their psychology, what value they're getting and how to really optimize for that.<br />
+<strong>Lenny</strong> (00:40:05):<br />
+<strong>Ravi Mehta</strong> (00:41:11):<br />
+Absolutely. One of the things that was unexpected when I started at Tinder was a couple times a week I would meet someone or I'd be in an Uber and the Uber driver would tell me, people would share like, "Oh, I met my boyfriend or girlfriend, or I met my wife or my husband on the platform." And it was really great to hear the stories. One of the things I didn't realize is the degree to which because of Tinder's very lightweight designs, it's been able to support the LGBTQ community much better than other dating products. And so some of my most fulfilling conversations with people who felt like they wouldn't have met their significant other without Tinder because there was just no place to do that.<br />
+<strong>Lenny</strong> (00:41:43):<br />
+Wow, man. Fulfilling, impactful, interesting, surprising. What a role. Actually met my wife online on a defunct dating site app called howaboutwe.com. Do you remember that one at all?<br />
+<strong>Ravi Mehta</strong> (00:41:56):<br />
+No. I haven't even heard that.<br />
+<strong>Lenny</strong> (00:41:58):<br />
+It was too good. It just matches people. It's like it reached Hinge's vision too well where they just... nobody needed to stay on. We don't just spend a lot of time on it, but basically the concept was how about we? And it's like a date concept. So instead of browsing profiles, you browse date ideas and then you say, "Hey, I want to do this date with you and let's go out and try it out." And it worked out for us.<br />
+<strong>Ravi Mehta</strong> (00:42:19):<br />
+That's really cool. There's so much opportunity. I think there's a lot of really good dating ideas that haven't been explored yet.<br />
+<strong>Lenny</strong> (00:42:25):<br />
+Mm-hmm. Interesting. All right. Good investment tip. Coming back to the product stack, getting back on track. One interesting thing about your product stack that's a little bit contrarian is you put goals after roadmap. And I'm curious why that is? Why you think goals should come after having a roadmap?<br />
+<strong>Ravi Mehta</strong> (00:42:45):<br />
+Yeah, it's definitely a contrarian point of view. I've had a few people yell at me about this. Typically, what happens is goals are almost the start of a strategic process rather than the end of it. A company will say, "We need to increase our revenue by X, or we need to increase our retention by Y. What's our strategy to be able to do that?" And what I've found over the years is that that goals first approach puts the entire energy of the product team on moving the goals without any sort of structure of what success looks like and why.<br />
+<strong>Ravi Mehta</strong> (00:43:17):<br />
+The analogy I like to use, it's a little bit like taking a road trip and starting out by saying, "Hey, we need to drive 250 miles." It's like, no, if you're going to take a road trip, you first decide where you want to drive to. If you're in LA, you might take a road trip to Vegas. And so our destination is Vegas, and we'll know whether or not we reach there if we've driven 250 miles. Because that 250-mile goal is in the context of a destination.<br />
+<strong>Ravi Mehta</strong> (00:43:42):<br />
+And so I think about all of the pieces of the strategy stack as being really clear about what is the end destination that you're solving for, and then you should work on goals to the extent that they help you reach that destination. And if you find that achieving your goal is actually pulling away from the destination, then there's a really important conversation to be had about do we leave that gain on the table because it's not aligned with our destination, or do we need to change our destination? And I think what happens too often when people start with goals and then create the roadmap is that the goal takes precedence and there's no context, there's no principles that are ultimately driving that. And so those decisions about the direction of the product come and go without even really being noticed because there's nothing to calibrate against.<br />
+<strong>Lenny</strong> (00:44:31):<br />
+So I a hundred percent agree that strategy should come ahead of goals. What's interesting is, so if your approach is strategy then figure out what you're building and then figure out your goals, how do you prioritize the roadmap? Because from my perspective, come up with your strategy how are we going to get to where we're going to get. Goals to me are how we measure progress towards that. And then the roadmap comes out of what's going to help us achieve this goal, and how do we prioritize based on what's going to most impact this goal that we have. So how do you approach prioritizing and picking what's going to be in the roadmap if you don't have your goals? Is it more like, here's the main KPI, or you have a rough sense of KPIs and metrics you're going to watch and use that to prioritize? Or how do you think about that?<br />
+<strong>Ravi Mehta</strong> (00:45:13):<br />
+Yeah, I think as part of the strategy, you'll typically have some quantifiable elements of that strategy. So for example, for Tripadvisor, our strategy was with trip planning, we wanted people to come directly to Tripadvisor and spend more time on Tripadvisor. And so what was happening was that most of a person's usage of Tripadvisor was interleaved with visits to Google. And so people would search for something, Boston hotels, come to Tripadvisor. They might say, "No, I want to look at New York." They Google New York hotels, and they come and look at Tripadvisor. And Tripadvisor's in a really good position to actually not have a person go back to Google because we knew about the preferences, we knew about their states, we knew who else they might be traveling with. And so more of that planning activity could happen directly within the product.<br />
+<strong>Ravi Mehta</strong> (00:46:01):<br />
+And so the problem was that at a company like Tripadvisor, which is very experimental, very quantitatively focused, the product teams were constantly optimizing for what's going to drive bookings in the moment. And so the thing that drives bookings from a visit to Google naturally moves a person down a transaction path and gets them to the booking and doesn't have them stop along the way to set up their trip and start to add things to their trip and create their wishlist. That actually gets in the way of the transaction itself. And so in the absence of that strategy around, we actually want to get people to come directly to Tripadvisor more often. We were doing so many things that ultimately undermined that strategy and got people to sort of leapfrog through the product instead of stay with the product.<br />
+<strong>Ravi Mehta</strong> (00:46:50):<br />
+And so that's a really good example of where if we know we want to generate that long-term continuous relationship with the user, there's a set of things from a roadmap standpoint that we can do to do that. We can prioritize those things, we can use numbers, we can opportunity size them, we can prioritize based on that, and then we can measure whether or not we're made progress based on that strategic and very conceptual understanding of where we want to go.<br />
+<strong>Lenny</strong> (00:47:14):<br />
+So the biggest takeaway I think we both fully agree on is your strategy should come ahead of having goals and coming up with your goals and aligning on goals. No question.<br />
+<strong>Lenny</strong> (00:47:25):<br />
+Speaking of goals, you also have some really interesting insights on just how to come up with goals and best practices for aligning and setting goals. I'd love to dig into that a little bit and then I have another topic I want to talk about.<br />
+<strong>Ravi Mehta</strong> (00:47:36):<br />
+Yeah, that sounds good. So I've done a little bit of writing about goals, which came out of... I've been at multiple companies that have put OKRs into practice and had a really hard time with that. And I've talked to a lot of product teams who have had a hard time. So the question I started asking is, why are companies having a hard time with OKRs? What's happening that is preventing teams from being able to set goals that they really understand how to achieve and achieving those goals?<br />
+<strong>Ravi Mehta</strong> (00:48:01):<br />
+And one of the things that I found, which I think was sort of a first principle that's happening at a lot of companies, is this idea of always focusing on outcomes over outputs and comes from a good place, which is ultimately, and I think this is the case, ultimately, a PM needs to measure their success based on whether or not they generate valuable outcomes for the business. But that doesn't necessarily mean that in this quarter we need to commit to a specific outcome or that we should commit to a specific outcome that we may or may not know how to move.<br />
+And so I think ultimately the goal is to drive outcomes, but oftentimes there's things that come before that that need to be addressed ahead of time so that you can really understand what the plan for meeting those outcomes is going to look like. And so I refer to that as the frontier of understanding. There's a point at which what the team knows and what the team doesn't know. There's a junction point there, which is this frontier. And it could be actually we don't know what moves retention. If you ask me to remove retention, I can brainstorm 10 experiments, but I don't actually know why people are continuing to use our product. And so then it doesn't make sense to commit to a retention goal because you're going to sort of throw a spaghetti against the wall, have a bunch of experiments, [inaudible 00:49:16] will stick, and maybe you'll be able to move the metric, but you won't have understood exactly why, or you might move the metric in a way that is not tied to the strategy that you have as a business.<br />
+<strong>Ravi Mehta</strong> (00:49:27):<br />
+So the first type of risk is really understanding risk. And if you don't understand how to move a particular metric, then the right goal is to set a goal to increase your understanding not to move that metric. Once you have an understanding of how to move the metric, your team may or may not be able to execute very well. It might not be able to execute those sorts of experiments. It may not have the resources that it needs to execute. And so then you might want to set an execution goal. So we want to hit 20 experiments this quarter, and if you can hit those 20 experiments, you'll know that you're executing really, really well. And even if those experiments don't work, that moves that frontier a little bit forward.<br />
+<strong>Ravi Mehta</strong> (00:50:04):<br />
+And then finally the ultimate frontier is strategic risk. We understand how to move retention or we think we understand how to move retention. We're going to do a set of things to do that. And then either we'll learn that our understanding is correct, in which case we can pull that lever more, or we'll learn that it's not correct, in which case we need to go back to understanding and goal ourselves based on that.<br />
+<strong>Lenny</strong> (00:50:24):<br />
+That is really interesting. So the term is frontier of understanding, right?<br />
+<strong>Ravi Mehta</strong> (00:50:28):<br />
+Yeah, exactly.<br />
+<strong>Lenny</strong> (00:50:29):<br />
+And there's four buckets that you just described of types of goals. Can you repeat them again?<br />
+<strong>Ravi Mehta</strong> (00:50:33):<br />
+Yeah. So the four buckets are, it starts with understanding risk, which is we have something that we want to do but we don't really understand what the levers are. Then the next thing is dependency risk, which is we understand what we think the levers are, but we may or may not have the tools that we need in order to make progress. Then there's execution risk, which is we have all the resources that we need, we have a really strong hypothesis, and then we may or may not be able to execute against those hypotheses. And the last thing is strategic risk, which is we have a hypothesis and it might turn out that that was not the right hypothesis.<br />
+<strong>Lenny</strong> (00:51:07):<br />
+Oh man. I wanted to move on to a different topic, but I want to dig into this a little bit because it's really interesting. So a lot of people work at companies where their product manager, leader is not going to be like, "Cool, let's spend a quarter understanding if we can move this metric." That seems like you have to be a really evolved leader to be okay with that, or is that even not a good idea to spend a quarter doing that? How do you think about not actually having a goal that is moving a metric that people care about and focusing on understanding and kind of pushing this frontier of understanding further versus just moving a metric that people actually want you to move?<br />
+<strong>Ravi Mehta</strong> (00:51:41):<br />
+It might be that for the quarter, the way that the company works, the things that it's focused on. You need to actually commit to a goal to move retention or a goal to move your follower count or something like that. There's two ways to do that. One is you can commit to that goal and then in three months kind of hope for the best and just do a lot of work that you think might actually move the lever. The other thing is to say actually that journey towards hitting that particular goal, we can break into. Initially let's spend a couple of weeks understanding. We'll talk to customers. We'll do some analysis. We'll form some really good hypotheses. And then based on those hypotheses we'll start to figure out what do we need to execute on in order to start to validate those hypotheses. And then we can execute on those things and validate those hypotheses.<br />
+<strong>Ravi Mehta</strong> (00:52:28):<br />
+And depending on where in the quarter things start to go off the rails, you'll have a feeling for where that frontier is. And when you miss the goal, you can then go back to the team or the leadership and say, "We missed our goal, but I think I know why. Here's the things that we did within the quarter and here's where things started to go off the rails. Here's what I'd suggest that we commit to for the next quarter so that we can be much more sure that we're going to hit our goal."<br />
+And leadership is always going to be outcome driven, but they also want to have a lot of confidence that we're going to be able to hit those outcomes. And so if you can clearly convey the learning and provide a really clear path that will get them that confidence, they're often going to be much more [inaudible 00:53:07] than you anticipate. I think the desire to always set outcome-based goals is just shorthand for we want you to move the needle and we want you to be thinking about that. That doesn't mean that you do that in the absence of really detailed understanding and really honing your execution process so that you can execute flawlessly. So approaching things in that way can help you change the conversation and make it much more specific.<br />
+<strong>Lenny</strong> (00:53:31):<br />
+And you also have a post about this exact topic, right?<br />
+<strong>Ravi Mehta</strong> (00:53:33):<br />
+I do, yeah. I've got a post on the Reforge blog. Can't remember the title. I think it's Set Better Goal with NCTs instead of OKRs.<br />
+<strong>Lenny</strong> (00:53:40):<br />
+Okay, cool. So if your manager is not buying what you're saying, that could be interesting to share with them and see if that'll change their mind. Your first point is worst case, you just hope for the best. You know that your frontier understanding is not that far, but still set that ambitious outcome-based goal and then hopefully works out. But in reality, it may not be realistic.<br />
+<strong>Ravi Mehta</strong> (00:54:00):<br />
+I think we can think about it as two by two matrix. On one axis of the matrix you have, did we hit our goals? And on the other access we have, do we know why? And ultimately you want to be in the upper right quadrant. You want to hit your goals and know why you hit your goals. Some teams are in the quadrant where they hit their goals, but they don't know why, which is good for now, but it's eventually going to catch up with you. And then an important thing to be in is if you didn't hit your goals to make sure that you're at least understanding why or at least you're making progress on understanding why. And I think too often teams get so focused on the goals, they get less focused on the learning.<br />
+<strong>Lenny</strong> (00:54:33):<br />
+Okay, final topic, product management competencies. So this is a post you wrote a while ago. It's the post I've shared most of your many writings online, and I'm going to pull up this image on my screen. So another plug to check it out on YouTube or Spotify. Can you talk about what this is and why it's important for PMs to think of their career in this view and in general just understand what the components of a great PM are?<br />
+<strong>Ravi Mehta</strong> (00:55:02):<br />
+Yeah, definitely. So we developed this at Tripadvisor. When I joined Tripadvisor, the company was newly public and as part of being a newly public company and wanted to grow different teams really quickly including the product team. And what we were finding is that hiring a product out of industry, and at the time we were based in Boston. So hiring a really good experience PM in Boston was taking between three and six months, and that just was too long to reach the sort of growth goals that we wanted to hit from a team perspective and a headcount perspective.<br />
+<strong>Ravi Mehta</strong> (00:55:34):<br />
+And so the head of product there came up with this program called the product rotational program, where we would hire people directly out of business school and out of undergrad into their first product role regardless of whether or not they had prior product experience. And they would go through two years of rotations. So four six-month rotations where they would be able to focus on teams that are zero to one teams or growth teams or infrastructure teams. So the goal was in about two years to get a person to be able to experience various different parts of product management and have them come out with the skills to be a senior and effective product manager.<br />
+<strong>Ravi Mehta</strong> (00:56:12):<br />
+And so as part of that, we really needed to define very clearly what is product management and how do we help people identify the skills that they need to be an effective product manager and give them a plan so that they can grow those skills. And so that's how this framework initially came to be. The framework consists of 12 competencies in four different areas. These competencies I think are the same for APMs as they are for CPOs, and I can talk a little bit about how they change as a person gets more senior. But these 12 areas are equally important regardless of where you are within your product management journey. The specifics might change, but the overlying structure remains the same.<br />
+<strong>Ravi Mehta</strong> (00:56:51):<br />
+The first thing that's really important is product execution. So PMs need to be able to work with their teams to build product, and that breaks down into three sub-competencies. The first is functional specification. So that's the ability to work with your team to define what is the PRD or the functional specification that defines what you want to build. The second thing is product delivery, which is the ability to work with engineering and design and the other teams to take that specification and turn it into working product. And the third piece, which I've changed from quality assurance is now product quality, is making sure that what you build is high quality, not just from a technical perspective, but also from a design perspective, a usability perspective and a business perspective.<br />
+<strong>Ravi Mehta</strong> (00:57:34):<br />
+And so ultimately that's the foundation of being a successful product manager is being able to execute. And that's as true for an APM as it is for a VP or a CPO. An APM is going to think about product execution in terms of their day-to-day individual contribution. But a CPO is going to think about product execution in terms of the systems that they create to enable teams to define really good specifications, to deliver products really effectively, to execute flawlessly and to deliver products that have a very high bar of quality.<br />
+<strong>Ravi Mehta</strong> (00:58:04):<br />
+The second area is customer insight. So in addition to being able to build products, you need to understand customers so you can figure out what to build. The three subcomponents here are fluency with data, which is the ability to use all of the data at your fingertips to make decisions about what customers need. The second one is voice of the customer, which is the ability to have the conversations with the customer so that the product manager can be the advocate for the customer throughout the entire company as well as the advocate within the product.<br />
+<strong>Ravi Mehta</strong> (00:58:31):<br />
+The third is user experience design. And so this goes back to our earlier conversation about wireframes. I think a fundamental part of being a really good product manager is the ability to think about the user experience in a very detailed way to make sure that you're not just defining functionality, but you're really clearly understanding how that functionality turns into user experience. And this is very explicitly user experience design and not user interface design because the experience of your product may vary. If you're building APIs, then your experience is actually the API spec. If you're building ML models, then your experience might be the training models or the other systems that you're using to identify the effectiveness of those training models. So this can be a skill that you can think about really broadly across a lot of different product roles.<br />
+The third piece is product strategy, and that breaks down into three things. The first one is being able to own business outcomes. So it's really important to move away from thinking about product as shipping features to driving business outcomes. And so this competency is about understanding how does your product or the features that you're working on plug into the business and drive value for the business. The next competency is product vision and road mapping. So that's the ability to take the individual pieces of work that you're doing for a product and put those together into a coherent vision and roadmap that allows you to build towards the product strategy and the company strategy over time. The third one is strategic impact. You're just like product road mapping as a sequence of features. I think about strategic impact as a sequence of business outcomes. So initially [inaudible 01:00:08] really focused on owning business outcomes and delivering business outcomes. But ultimately what's really important is does that sequence of business outcomes move the strategy forward and help you deliver impact on that strategy?<br />
+<strong>Ravi Mehta</strong> (01:00:21):<br />
+And then the fourth and final piece is all about leadership. So it's influencing people. The first up competency is stakeholder inclusion, so that's being able to work with all of the different people throughout your organization to rally them around the work that you're doing. The second one is team leadership. This is one that doesn't actually come into play until you have direct reports, but once you have direct reports, being able to help those direct reports become really great product managers is a critical skill. And the last one, which is always really important for PMs, is being able to manage up so that you can win the support of the leadership within your organization.<br />
+<strong>Lenny</strong> (01:00:53):<br />
+Amazing. What a crazy-ass job this product management job is.<br />
+<strong>Ravi Mehta</strong> (01:00:57):<br />
+It's crazy, isn't it?<br />
+<strong>Lenny</strong> (01:00:58):<br />
+Look at this thing.<br />
+<strong>Ravi Mehta</strong> (01:00:58):<br />
+You just got to do that and then you're good.<br />
+<strong>Lenny</strong> (01:01:02):<br />
+Oh man. This is an incredible framework. I've never found a simpler, more beautiful, very clear, easy to consume and share version of what the PM role is. So if people are looking for some inspiration for figuring out how to define the PM role with their company, set up their career ladders, I always point them to this and we'll definitely link to this in the show notes. And thank you for doing such a great job walking through it. There's a lot there.<br />
+<strong>Ravi Mehta</strong> (01:01:27):<br />
+Yeah, definitely. And then on my website I've got a downloadable kit that's got tools to evaluate yourself. It goes into each of the competencies in more detail. It talks about some of the different archetypes. So you'll find certain styles of PMs have certain clusters of competencies. If you're a growth PM, you might have a certain focus that might include a lot of focus on data and outcome ownership. If you're more of a product discovery or product innovation PM, you may have a different set of skills. So being able to map yourself out. We'll help you understand where you want to grow and what types of roles are a really good fit for you.<br />
+<strong>Lenny</strong> (01:02:01):<br />
+Plug the site while you're at it. Where do they find this exactly?<br />
+<strong>Ravi Mehta</strong> (01:02:03):<br />
+They can find it at ravi-mehta.com. So M-E-H-T-A.<br />
+<strong>Lenny</strong> (01:02:07):<br />
+Sweet. You have this kind of concept of exponential feedback that kind of relates to this and just partly touches on why this is so important for PMs to think about. Can you talk a bit about that?<br />
+<strong>Ravi Mehta</strong> (01:02:16):<br />
+Yeah, definitely. So this is something we talked about in the product leadership program. One of the most challenging things I think for both a PM as well as a product leader is to figure out how to grow yourself and grow your team. And a key way to do that is through feedback. It's really important to provide people with good feedback to help them understand how to grow. But the problem is, and this is true in a casual one-on-one, as much as it's true in an annual performance review, it's oftentimes the feedback that people provide is very surface level. It may focus on particular symptoms but not root causes.<br />
+<strong>Ravi Mehta</strong> (01:02:53):<br />
+And so one of the ways that this framework can help is, I'll often encourage people when they're first starting to use the framework, just to go through each competency and rate themselves needs focus, on track or outperforming on each of the competencies to quickly get a read on where you feel like you're landing. You can ask your manager to do that same thing. You can do that in five or 10 minutes. And then the areas where your manager and you see eye to eye and the areas where you guys see differently is stimulus for a really deep conversation.<br />
+<strong>Ravi Mehta</strong> (01:03:25):<br />
+And so I think that is like the entry point to providing exponential feedback. And I think about exponential feedback as feedback that has compounding returns. So if you give someone feedback on a particular symptom or you give them feedback on something that's tactical and they fix that in a moment, the feedback, the conclusion of that feedback, it just happens and then it's gone. But if instead you help a person understand the underlying behaviors that led to that particular situation, then they can focus on growing themselves. They can also focus on helping to diagnose their own performance more effectively, and that leads to compounding returns where they just keep getting better and better over time.<br />
+[NEW_PARAGRAPH]And so the ability to kind of apply the competencies as a lens helps you move out of that abstract, kind of surface level feedback into very specific categorizations of things that a person might need to work on, which I think gets to the root cause of areas a person can grow in and that ultimately leads to more effective feedback that has those compounding returns.<br />
+<strong>Lenny</strong> (01:04:25):<br />
+On that thread, just maybe a last question here. If your manager isn't good at this and isn't giving you this sort of feedback, do you have any advice for how to get feedback from people like this, mentors, anything like that? If your manager just kind of isn't doing that, isn't filling that role for you.<br />
+<strong>Ravi Mehta</strong> (01:04:40):<br />
+One of the things you can do if you are in a product role is ask them to do this exercise and evaluate you. Your manager will almost certainly have some impression of your performance that they haven't necessarily... If they're not doing it proactively, they probably have it intuitively. And helping them get it down on paper and getting it more specific can be a really good way to start that conversation. So that's one thing that you can do.<br />
+<strong>Ravi Mehta</strong> (01:05:06):<br />
+A second thing is I think oftentimes people refrain from giving feedback when they feel like that feedback is going to be intrusive. So just inviting your manager to say, "Look, I'm really looking to level up. Please give me feedback whenever you see something. You can give it to me in real time. Don't worry about wordsmithing it. I just want to make sure that I'm getting better." That agreement with your manager and giving them permission to give you that feedback will make sure that the stream of feedback has a much higher volume and starting with the quantity of feedback as a way to get eventually to quality of feedback as well.<br />
+<strong>Lenny</strong> (01:05:40):<br />
+As you're talking, I'm thinking of the advice Jules Walter shared on this podcast a couple episodes ago of when you get feedback, no matter how it makes you feel, whether you're melting inside or not, just be very enthusiastically. Thank you so much for that. That was really helpful.<br />
+<strong>Ravi Mehta</strong> (01:05:52):<br />
+It's so key because then you've rewarded the person for giving you feedback, even if it hurts inside, and then they'll want to do it in the future.<br />
+<strong>Lenny</strong> (01:05:59):<br />
+Yeah. Anything else that you want to touch on or share before we get to our very exciting lightning round?<br />
+<strong>Ravi Mehta</strong> (01:06:05):<br />
+One of the challenges I hear PMs that are moving into leadership roles is they often worry about micromanaging their teams. And so I kind of see two failure modes for people that are taking on their first leadership role. The first one is that they do actually micromanage, and so they don't let the person on their team have the autonomy that they need to figure out a path forward. And there's two problems in that, one that really makes that person feel like you don't trust them. The second thing is that rate limits the size of the team that you can manage because you can only do that for a finite set of people before you yourself are tapped out on bandwidth. And it's usually a couple of folks. So that's one failure mode where people sort of treat their first direct reports as an extension of themselves.<br />
+<strong>Ravi Mehta</strong> (01:06:51):<br />
+The second failure mode that I commonly see is just a completely hands-off mode of leadership where a person assumes that the new person on their team, they trust them, they give them a lot of autonomy, but as part of that, they don't give them the context that they need. So that person may be able to be successful but may actually lack the guard rails and the frameworks to channel their efforts. And so I think the right solution here is to say, actually micromanagement is not a bad thing. Some of the most innovative leaders in tech are famous micromanagers. Steve Jobs is a micromanager. Elon Musk is a micromanager. Mark Zuckerberg's a micromanager. Ultimately as product builders and products innovators, the details matter and sometimes you need to zoom into what does the text on a particular button say, and you might have a strong opinion on that. And so it's okay to engage at that level.<br />
+<strong>Ravi Mehta</strong> (01:07:46):<br />
+I often encourage product leaders to think about their process of becoming more senior, not as a matter of getting more and more high level, but of increasing their dynamic range. So a CPO, it's not that a CPO never thinks about tactical issues, it's that they spend a lot of time on strategy, but they also can zoom into specific issues. And so a framework I like to use with product leaders that I'm coaching is to think about a matrix. Your ideal goal is to lead in a scalable way, which means you feel really confident about the direction of your team and your team has the autonomy to move in that direction.<br />
+<strong>Ravi Mehta</strong> (01:08:22):<br />
+There's another really effective way of leading which is selective micromanagement, which if you don't feel confident in the direction that your team is moving, the right answer is not to be hands-off and to let them go in that wrong direction. The right answer is to micromanage, but do it in a very tactical, in a very temporary way so that you can help them understand what is the right direction moving forward, so that you can then pull back. And the two failure modes are if you're hands-off and you let that team go off the rails, that hands-off mode of leadership might feel really good in the short term. It might help you avoid micromanaging in the short term, but ultimately it's going to mean that that team doesn't get to where they need to go.<br />
+<strong>Ravi Mehta</strong> (01:09:03):<br />
+And then what we commonly think of as micromanagement, I think more of as micro mismanagement, which is you don't feel like you've got a sense of control or a sense of confidence about what the team's doing. The team doesn't feel like they have a sense of autonomy. There's not a clear end in sight, and ultimately both the leader and the team are frustrated. So I think the two really effective functional ways of leading are scalable leadership where the team has autonomy, you have confidence or selective micromanagement where for a brief period of time you might take away some of the team's autonomy to set them on the right track, but with the goal of getting back into that scalable leadership mode.<br />
+<strong>Lenny</strong> (01:09:40):<br />
+I really like this topic. I feel like this could be a whole other thread. Maybe one quick question along these lines. Would you call it selective micromanagement?<br />
+<strong>Ravi Mehta</strong> (01:09:47):<br />
+Yeah.<br />
+<strong>Lenny</strong> (01:09:48):<br />
+Is there a heuristic you have in mind of just like what does that mean in practice? Like one out of every 10 decisions, maybe you push them in a direction that you'd need them to go. How do you figure out what's selective enough or is there in your experience?<br />
+<strong>Ravi Mehta</strong> (01:10:02):<br />
+I think it often comes down to being overly detailed at the moment that you see a problem. So helping the team get back on track by any means necessary, including potentially you're getting really detailed about the decisions that the team is making. But as you do that, think about the frameworks that you're using to help the team make decisions and help the team understand that framework. And so over time, the goal is to replace you actively kind of going in and guiding the team's decisions with them having a framework that they really understand so that they can make the decisions that are aligned with where you think the right direction is to go. And the ultimate success is that you give enough of a framework and the team has enough autonomy that they get to answers that are even better than you could come up with. And so that gives the team an incredible feeling of power and that gives you as a leader an incredible feeling of confidence in the team's ability.<br />
+<strong>Lenny</strong> (01:10:59):<br />
+Got it. Yeah. Well, this makes me think about it as a product leader. Most of the time you need to push your team to do the thing that you believe is right, and maybe once in a while let them make a mistake and have them learn from it. But it's not the other way. It's not like, "Cool, let them make all the mistakes and once in a while correct." It's the opposite. Your ass is on the line if they waste time and resources and fail. So yea</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

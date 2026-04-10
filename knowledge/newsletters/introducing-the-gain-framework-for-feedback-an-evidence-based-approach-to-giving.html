@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introducing the GAIN framework for feedback: an evidence-based approach to giving feedback that people love, appreciate, and act on — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Introducing the GAIN framework for feedback: an ev…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Introducing the GAIN framework for feedback: an evidence-based approach to giving feedback that people love, appreciate, and act on</div>
+    
+    <div class="article-meta">2025-09-30<span>·</span>7,328 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">AI</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Courses</a></em>**</p>
+<p><em>Annual subscribers get a </em><em>free year</em><em> of 15+ premium products: </em><em><a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, and ChatPRD</a></em><em> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>If feedback is a gift, why is it so hard to receive? And to give.</p>
+<p>It’s because no one taught us how to give feedback.</p>
+<p>I was introduced to <a href="https://www.linkedin.com/in/jackadamcohen/">Jack Cohen</a> by (frequent collaborator) <a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Tal Raviv</a>, who told me, “Jack is the single biggest influence on my personal productivity and ‘inner game.’ ” Over the past 11 years, Jack has coached hundreds of founders, executives, and managers to help them grow themselves and their colleagues as fast as their startups.</p>
+<p>Growth hinges on getting honest and ongoing feedback. Through thousands of feedback conversations and hundreds of hours of research, Jack’s developed an evidence-based, immediately applicable framework for giving feedback that he calls <strong>GAIN</strong>. As Jack puts it, “GAIN is both a useful acronym and the core of the philosophy.” When you tell people what theystand to gain from the feedback, it suddenly starts feeling like a gift again.</p>
+<p>This guide is essentially a how-to for Radical Candor, and the most specific (and easy-to-remember) framework for giving great feedback that you’ll find anywhere. It’s going to blow your mind. Enjoy.</p>
+<p><em>For more, Jack teaches a highly rated course, <a href="https://bit.ly/3VK5fGt">ManagerGPT: The AI Tools and Human Systems to Scale Yourself and Your Team Fast</a>, focused on helping high-growth leaders build their individual operating systems and interpersonal skills to stop fighting fires (or each other) and start creating what matters most: great products and great teams. For a taste of the course and a demo of both GAIN feedback and the AI tool Jack built to support it, check out his free 30-minute lightning lesson, “<a href="https://bit.ly/3VIywRW">FeedbackGPT: Give Feedback People Thank You For</a>.”</em></p>
+<p><em>You can also listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/7b25c4ee-fe49-4add-99c2-a5ed8d37079f_1456x970.png" /></p>
+<p>Over my past 11 years coaching several hundred people from dozens of organizations and teaching thousands more, there’s one challenge I’ve seen people struggle with across every level, industry, company stage, personality type, and culture: giving feedback.</p>
+<p>Many people come to coaching and workshops already describing themselves as “conflict-averse,” dreading having difficult conversations and giving direct feedback. A good number arrive fed up with failed attempts to get people to change their behavior, with many missing the irony as they bemoan, “I keep giving them the same feedback, and <em>they</em> never change. Maybe they just don’t want to.”</p>
+<p>What these folks miss is their own power to catalyze change by shifting the framing and approach of the feedback they give.</p>
+<p>I’ve seen and felt firsthand the difference between the “feedback masters” and “feedback disasters.” After every feedback conversation from one colleague who I had initially respected, I felt deflated. As a result, everything suffered: our product, our relationship, and my overall well-being.</p>
+<p>Later, I worked with another colleague whose feedback left me elated every time (actually!). I couldn’t wait for meetings with her because I enjoyed them so much and I knew that her feedback would help even my best work reach another level.</p>
+<p>On reflection, I realized that the content of the feedback from these two colleagues was strikingly similar, but the way my second colleague framed and delivered hers lifted me up instead of shutting me down.</p>
+<p>That difference answered an age-old question: How on earth do you get someone to change or grow? And how can you do that in ways that strengthen your connection instead of breaking it? By mastering the art (and science) of giving great feedback.</p>
+<p>The good news is that this is a learnable skill—and one that is core to my work as an executive coach and organizational behavior consultant.</p>
+<p>On a daily basis, I give feedback to clients and help them give feedback to their colleagues, as well as establish effective feedback systems across their teams and organizations.</p>
+<p>At my company, we also practice this in almost every meeting, and the growth it elicits is remarkable. One colleague said that after regularly getting and giving feedback using the GAIN framework, he felt “much more driven by purpose, rather than by fear.”</p>
+<p>So what is the difference between the feedback masters and disasters? How can you shift your framing and approach to ensure that the feedback you offer inspires people to take action and keep growing? My experience, informed by a wealth of research from multiple fields, shows that effective feedback shares several key qualities:</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/45cece91-fb95-4310-bf40-8d03869336f4_1476x971.png" /></p>
+<p>I call this feedback approach the <strong>GAIN framework</strong>. GAIN is both a useful acronym for remembering these essential ingredients in effective feedback and the core of the philosophy.</p>
+<p><strong>It is profoundly more effective and inspiring to frame feedback based on the experiences or results we want to move toward (the</strong> <strong><em>gain</em></strong><strong>) instead of focusing only on what we want to move away from (the</strong> <strong><em>pain</em></strong><strong>).</strong></p>
+<p>We can often do this in just a few short sentences. Say an engineering lead is frustrated with a PM’s sloppy handoffs and the resulting delays. The engineering lead’s feedback to the PM might sound like: “I want us to reduce handoff friction so we can ship faster. The last handoff meeting we had, you didn’t share any background customer research, which I failed to flag at the time. Lacking that context led to multiple rounds of engineers pinging you with questions instead of making empowered decisions on their own. Can you include that next time?”</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/79b9d2c5-5959-433d-914a-8827e9c1ace6_1456x1072.png" /></p>
+<p>The challenge is that feedback doesn’t typically show up in our brains in such a crisply articulated, ready-for-prime-time state. It might start as “Product just threw this over the wall; they don’t care about our time.” Or “They’re lazy; they always do this!” It takes some translating to get our raw reactions into a form that’s more likely to have the desired impact (the “gain”). That form must include:</p>
+<ul>
+<li>What both parties ultimately care about (the <strong>G</strong>oal)</li>
+<li>What needs to change to get there (the <strong>A</strong>ctions)</li>
+<li>Why (the <strong>I</strong>mpacts)</li>
+<li><em>Who</em> will do <em>what</em> by <em>when</em> to start making progress (<strong>N</strong>ext actions)</li>
+</ul>
+<p>Thinking through the GAIN elements is a powerful way to understand and channel those raw reactions constructively. This often starts by using your feelings as a clarifying signal pointing to what you really care about, which should inform your Goal for the conversation. In cases where your feelings are particularly strong or unwieldy, preparation that’s even more focused on your “inner game” (a topic for a different post) becomes an essential step in leveraging the GAIN framework.</p>
+<p>Especially with complex or sensitive topics, including each of these GAIN elements in the conversation—often, but not always, in order—leads to greater receptivity and, consequently, more behavior change and more satisfying results.</p>
+<p>Once my clients understand how GAIN works, they see the ways they themselves have been unintentionally eliciting defensiveness and resistance and how, very practically, they can flip that on its head.</p>
+<p>One founder said, “GAIN helped me have structured conversations that have proven to be successful especially with ‘fragile’ team members. I’ve done this successfully with more than five people in just the past two weeks.”</p>
+<p>Another client, startup veteran <a href="https://www.linkedin.com/in/brian-e-martin-50575a2b/">Brian Martin</a>, described his experience this way: “After I gave feedback once or twice in this new way and saw people actually listen and change and drive the business results or the behavior that I was trying to help them toward, I was like, ‘This is great. I can do this.’ It created a positive feedback loop, and now it’s something I just do that I think people really appreciate about me.”</p>
+<p>As Brian notes, people start to realize that the function of feedback isn’t just for behavior change. When shared with skill and engaged with vulnerability, a substantive feedback conversation builds immense trust, meaningful connection, and deep gratitude. (For example, <a href="https://www.lennysnewsletter.com/p/he-saved-openai-bret-taylor">many</a> <a href="https://www.lennysnewsletter.com/p/making-meta-andrew-boz-bosworth-cto">guests</a> on Lenny’s Podcast and beyond rave about that exact impact that Sheryl Sandberg’s feedback had on them and their relationship with her.)</p>
+<p>This post will help you build confidence, fluidity, and effectiveness in giving feedback that people end up thanking you for.</p>
+<p>I’ll walk through a real scenario from a client who applied the framework within a challenging interpersonal context (with a micromanaging founder), explaining each “move” she makes. Then I’ll review phrases and principles you can use, and wrap up with three ways AI can help you prepare and master feedback.</p>
+<p>But first, where did GAIN come from?</p>
+<h2>Why GAIN? The evidence behind the framework</h2>
+<p>GAIN represents the convergence of principles that I encountered in research across over a dozen diverse domains, ranging from couples therapy to decision-making to workplace collaboration to teaching, all focused on how to inspire enduring behavior change.</p>
+<p>They all orient to the same thesis: Communicating what we all want more of (the gain) is more effective than communicating what we want less of (the pain). They don’t say that speaking about pain is bad, just that it’s helpful to contextualize it as the gap between where we are and where we want to be.</p>
+<p>First, let’s look at communication in the most sensitive domain: marriage. Watching just three minutes of a conversation, marriage researcher <a href="https://psycnet.apa.org/record/1999-01159-003">John Gottman</a> was able to predict with 93% accuracy which couples would be happy, distressed, or divorced six years down the road; most people, even couples therapists, averaged <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1741-3737.2003.00130.x">50% accuracy</a>. How does Gottman distinguish the relationship masters from the disasters? His meticulous research, filming couples’ conflicts and tracking the couples over years, shows that couples with long-term happy, stable relationships open conflict conversations with more positive and less negative emotions than doomed ones, especially <strong>focusing on sharing the “dream within the conflict.” Instead of just complaining, they articulate what it is they want more of and why (the</strong> <strong><em>Goal</em></strong> <strong>in GAIN)</strong>. Hearing what you both want more of makes it easier to feel motivated and excited about the future rather than frustrated about what’s not working in the present. When <a href="https://www.amazon.com/Founders-Dilemmas-Anticipating-Foundation-Entrepreneurship/dp/0691158304">65% of startup failures</a> are attributed to problems <em>within</em> management team dynamics, Gottman’s relationship research is also worth paying attention to at work.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/80a5a5aa-56aa-42d5-9a06-988560ea3636_1457x1283.png" /></p>
+<p>The GAIN framing not only leads to behavior change, it can also elicit better decisions. <a href="https://pubmed.ncbi.nlm.nih.gov/7070445/">One study</a> by Amos Tversky and colleagues showed that doctors given data with an <em>avoid</em> framing (“The mortality rate is 10%”) made the most effective treatment decision only 50% of the time, whereas those with the same inputs but using an <em>approach</em> framing (“The survival rate is 90%”) made the most effective decision 84% of the time. The meaning of the framing is identical (10% rate of mortality is the same as 90% rate of survival), but the <em>avoid</em> framing and its threat mindset distort our ability to think and process information clearly. This is precisely the ability we want people to be engaging when receiving feedback and considering a change in behavior.</p>
+<p>This dynamic plays out elsewhere in the workplace as well (and in a way I keep thinking about as leaders fret over AI adoption strategies). Amy Edmonson’s <a href="https://med.stanford.edu/content/dam/sm/CME/documents/Edmondson-20Amy-20C.-20-E2-80-93-202003-20Framing-20for-20Learning-20Lessons-20in-20Successful-20Technology-20Implementation.pdf">research</a> compared teams in 16 different organizations implementing the same new technology. She showed that teams whose leaders pitched it using an “aspirational” framing (e.g. “This will help patients recuperate faster”) were far more effective than those using a “defensive” framing (e.g. “The reason for doing this . . . is to avoid being blindsided by competitive pressures in the future”). The successful leaders not only emphasized what to move toward, they also framed getting there as a team effort.</p>
+<p>Our brains are engaged in a constant calculus: approach or avoid, friend or foe? When we frame a conversation with the potential benefits of change and acknowledge what we need to change ourselves, it sends a strong approach signal—a powerful “we’re on the same team” message—to the other party. They are then more likely to hear it as “Hey, this information can be really useful to me, and I want to help this person too.”</p>
+<p>To explore what all this theory looks like in a real feedback conversation, see the case of one of my clients below.</p>
+<h2>GAIN in the real world: Giving feedback to a micromanaging founder</h2>
+<p>Laura is a VP of Business Development at a high-growth startup, where she reports to a founder who practiced micromanagement like it was her religion. Unsurprisingly, this was quite frustrating for Laura. It would have been tempting to approach this challenge by telling the founder how deflating this experience was and asking her to change (or by just avoiding the conversation altogether, growing resentful over time, and eventually looking for another job). Instead, Laura processed her own raw reaction first, using her emotions to uncover what she actually wanted to get out of a feedback conversation: the founder to give her more space. Laura understood Gottman’s “dream within a conflict” principle, so when the founder was complaining to her yet again about other teams—this time the sales team—Laura seized the moment.</p>
+<p>When she began the conversation, she named the founder’s <strong>actions</strong> and the <strong>impacts</strong> that mattered <em>to the founder</em>, and empathized with her on those points. Then, instead of dwelling on the founder’s pain or going into her own, Laura turned toward the possible <strong>goal</strong> <em>for the founder</em>, emphasizing the benefits for the founder in a way that aligned with her own goal. (GAIN conversations don’t have to present the goal first to be effective, as long as they are in the spirit of GAIN and the goal is clarified soon after.) Finally, she guided the conversation toward <strong>next actions</strong> that would accomplish <em>both</em> of their goals.</p>
+<p>Here’s how she masterfully led the conversation, as she reported it to me:</p>
+<p><strong>Actions and Impacts:</strong> <em>“Right now, I can see you are on every sales call, email, in all of the Slack channels across every team, and I can only imagine how exhausting that must be.</em></p>
+<p><em>I imagine that you feel like you have to do it because you feel the job won’t get done unless you do.”</em></p>
+<p><strong>Goal:</strong> <em>“I think there might be another approach here that could create more time for you to focus on the areas where your impact is greatest and, at the same time, help the team step up, do better work, and feel more motivated. It could even reduce some of the stress and burnout you were talking about.”</em></p>
+<p>The founder responded honestly, <em>“I know, I know, and I want to fix it. But I just don’t see any other way of doing things, and I don’t see the sales team getting the results.”</em></p>
+<p>A feedback opening line is an invitation, and Laura’s was so inviting, the founder accepted and immediately engaged with it. The response, though brief, revealed lots of useful information: the founder’s desire to change, the obstacle to that change, and what matters most to her—getting results. Laura can leverage this to move the dialogue forward toward her desired outcomes.</p>
+<p>Next, Laura took her founder’s concern seriously and engaged her further, asking more questions that invite the founder to reflect more deeply on the obstacle she’s raising while emphasizing the importance of trust:</p>
+<p><em>“If that’s the case, do you have the right people? If you can’t trust people to do the work, are they the right people?”</em></p>
+<p><em>“Yeah,”</em> the founder said, <em>“I think that’s the bigger question—the thing I need to think about.”</em></p>
+<p>Having built a sense of “I’m on your team” in the conversation, Laura continued and challenged her:</p>
+<p><em>“The interesting thing is, though, I know you trust</em> me <em>a lot—you’ve mentioned it, and I’ve even observed it—but you still sometimes do it with me.”</em></p>
+<p>Here, Laura doesn’t judge or criticize; she just references her observation of the founder’s pattern of actions (participating in all calls, emails, Slack channels), as well as the exceptions to that pattern (“You’ve mentioned [your trust in me], and I’ve even observed it”).</p>
+<p>The founder acknowledged, <em>“I know. It’s just my way; I’m so used to doing it. I get everything done myself. I push, push, push.”</em></p>
+<p>So Laura asked, <em>“What would be more helpful for you, so you don’t have to do that?”</em></p>
+<p>Instead of solely focusing on what the founder can do differently, Laura’s question broadens the possible levers for change to include herself and others. Some people are wary that this approach might mean less accountability for the feedback recipient, letting them off the hook. Rather, more levers means more leverage to get what we want.</p>
+<p><strong>Next actions:</strong> The founder replied, <em>“I really appreciate when you proactively send me updates—which I know you already do. But also, you can just tell me when I’m doing it.”</em></p>
+<p>Laura confirmed: <em>“Sounds great. So moving forward, I’ll continue proactively sending you updates, you’ll work on stepping back—i.e. not jumping in or pinging me with status checks—and I’ll name it in the moment if the old pattern rears its head.”</em></p>
+<p>These are clear, concrete actions that they can both take to change the feedback recipient’s pattern of checking in unnecessarily. The founder conveyed her intent to stop while also acknowledging her imperfection and inviting Laura to help her make this change—which was particularly empowering given the power dynamic.</p>
+<p>The improvement took time to sink in, though Laura felt full agency to help move it forward. A month later, she shared that the founder had reverted to micromanagement mode three times that week, but then stopped after Laura told her when she would send an update. Over time, the micromanaging pattern ceased almost completely, and not only that; Laura told me that she felt newly confident in her ability to initiate challenging conversations.</p>
+<p>Laura navigated a tough dynamic with someone holding greater organizational power and emerged with both the founder’s commitment to change and an invitation to support that change—while building her own confidence and skills.</p>
+<h2>GAIN feedback principles and phrases</h2>
+<p>This example models both the practical steps of the GAIN framework and the spirit of it: care <em>and</em> challenge, offering empathy <em>and</em> expressing what the feedback giver wants—in that order.</p>
+<p>Here’s a simple breakdown of Laura’s conversation through the lens of GAIN, though her goal comes in the third sentence, not the first:</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/25f99121-c4fb-4045-a637-d7a1d9c6c88c_1456x1567.png" /></p>
+<p>You can download the GAIN template <a href="https://maven.com/p/ad08cc/the-gain-feedback-template">here</a>, with prompts to guide you.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/1204b96c-a179-4f1e-9711-e935c8c28fe6_1456x1583.png" /></p>
+<p>Let’s dive into the nuances and some helpful phrases and principles you can consider, drawing on Laura’s example and others.</p>
+<h3>G: The Goal</h3>
+<p>The essence of the Goal section is naming the topic and pointing to the possible benefits of making a change in such a way that they feel you’re on their team.</p>
+<p>These benefits can be for you too, but they <em>must</em> be appealing to the feedback recipient. This is not what you want them to <em>do</em> differently; it’s the impact created by them doing it. What will they gain from making a change?</p>
+<p>If they understand that motivation up front, they’re hooked, and everything else flows from there.</p>
+<p>What struck me most in the way Laura shared her feedback is that it didn’t sound like a complaint or criticism at all. Instead, she shared it in a way that genuinely came across as a desirable opportunity for both the founder and her. She mentioned the current pain but oriented to the possible gain, “the dream within the conflict” that Gottman’s research showed to be so effective.</p>
+<p>Here are a few ways to approach this.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/c8a0f66f-a2b2-436e-be95-2f2099bde854_1457x1173.png" /></p>
+<p>If you can find even one instance of someone already using the desired behavior, it will help them recognize what that looks and feels like. Further, they will feel more confident in their ability to act in that way. The impact of that behavior serves as the Goal for the feedback.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/257ec72b-4f53-4d1d-8044-31a37eedc02e_1456x1177.png" /><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/ddb2ce8d-b4be-4d9d-8723-a361dd5439a2_1456x795.png" /></p>
+<p>“Even more” conveys that they both have some foundations to build on and that they’re not there yet.</p>
+<p>Sometimes it’s important to emphasize the “not yet,” the gap between where performance is now and where it needs to be. In those cases, we must offer both challenge and support. These qualities are usually understood as opposites (“I’m either extremely honest or extremely caring”), but that is a misconception.</p>
+<p>One randomized, double-blind controlled <a href="https://psycnet.apa.org/record/2013-28213-001">study</a> from Stanford tested the impact of integrating these two qualities using the sentence “I’m giving you these comments because I have very high expectations [challenge] and I know that you can reach them [support].” Compared with a placebo—“I’m giving you these comments so that you’ll have feedback on your paper”—the first sentence more than <em>quadrupled</em> the number of revisions to the original work that one group of students did, and the revisions themselves were on average 26% better.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/d5e14e86-d0df-459a-a3aa-ac29efbdf401_1457x1164.png" /><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/8ae28986-c36d-4a44-831f-76a08ed5887e_1456x1495.png" /></p>
+<p>Each of the phrases above can engage people’s interest in the conversation, but the key is that it be an actual conversation—a dialogue, not a monologue. One of the most common mistakes I see people make is <em>delivering</em> feedback instead of exploring it together.</p>
+<p>The point is not you giving the feedback; it’s them getting it—and ideally, you getting some insights too. In this way, communication is like a game of catch: the other person needs to actually receive and hear the feedback in order for the game to be successful. GAIN largely focuses on throwing better so it’s easier for them to catch whatever you’re throwing, but ultimately, effective communication is an alternating rhythm of throwing and catching.</p>
+<p>You can initiate this rhythm by pausing routinely and asking a question that elicits their reflections, reactions, and their own feedback for you. This creates two benefits: (1) it can reveal what message they are actually getting, giving you the opportunity to clarify immediately if needed, and (2), equally important, it can expand your understanding of root causes, revealing blind spots you may have (and keeping you from putting your foot in your mouth).</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/a3e32712-7780-4381-a2a8-9045cee75633_1456x1588.png" /></p>
+<p>Especially if you’re not clear yet on why they would care or what <em>their</em> goal is, listen before you talk.</p>
+<h3>A &amp; I: Actions &amp; Impacts</h3>
+<p>It’s not just the goal that determines receptivity or defensiveness. The most common move I see that leads people to put up their shields is hearing critical judgments. They’re an almost guaranteed way to trigger people and derail the conversation.</p>
+<p>Feedback is effective when it’s actionable. To make it actionable instead of objectionable, feedback masters share <em>observations</em> of people’s actions and their impacts, not judgments. “Response times to client emails averaged 4.2 days last month” lands very differently than “You’re being unprofessional.”</p>
+<p>Even if this seems obvious, it becomes challenging when we’re annoyed and feeling justified in our annoyance (“Product just threw this over the wall; they don’t care about our time!”). <a href="https://speakerdeck.com/jackcohen/cycle-of-conflict-or-cycle-of-connection?slide=13">Our judgments feed our emotions</a>, which then amplify our judgments.</p>
+<p>And what seems straightforward in theory can be deceptively difficult in the face of real-world situations. In over 50 feedback workshops across dozens of tech companies, I’ve asked people to share real-world feedback examples, and there hasn’t been a single workshop in which everyone agreed on whether every example we talked through was a judgment or observation.</p>
+<p>Fortunately, recognizing and translating our judgments is a skill easily developed with practice, one even more easily practiced now with AI. To do so, you can use this <a href="https://chatgpt.com/g/g-68821735dc108191a1829abc763ad284-distinguishing-observations-from-judgments">custom GPT</a> or just input this prompt:</p>
+<ul>
+<li><em>Give me examples to practice identifying whether something is an observation or a judgment. Explain why I’m right or wrong after I answer, then give another example, making them increasingly ambiguous each time.</em></li>
+</ul>
+<p>There’s a strong correlation here: the more clearly we see what is impacting progress, the more quickly we can identify new strategies to move toward our Goal.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/8eafbb85-16e4-4557-ae79-b69c19ee2dcf_1456x1404.png" /></p>
+<p>Laura never called it “micromanagement” to the founder. She didn’t even use the word “feedback”; she just described the actions and their effects as she observed them.</p>
+<p><strong>This gets to the essence of feedback as I define it: creating visibility into people’s actions and their impacts</strong>. Simple cause and effect is a line of sight that the actor often lacks. Often, not only do we lack visibility into how we are impacting others; we lack the ability to step back from and see our own behavior.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/9c4ca3c3-0d48-410c-b614-7ed6b3400736_1456x1303.png" /></p>
+<p><strong>Avoid flattering judgments too</strong></p>
+<p>Even for well-practiced feedback masters, it can be tempting to deploy critical judgment’s close cousin, flattering judgment. Well-intentioned people might offer praise and compliments, like “You’re a rockstar PM” or “You’re so brilliant. You have such a gift,” to motivate or thank colleagues. But just as critical judgments can trigger defensiveness, flattering ones can destroy growth mindset, autonomy, and productivity, and foster people-pleasing.</p>
+<p>The “rockstar PM” worries about maintaining that image if she fails, turning challenges into threats rather than opportunities to learn and grow. Carol Dweck’s <a href="https://pubmed.ncbi.nlm.nih.gov/9686450/">mindset research</a> explains why: <strong>If the cause of my success is my brilliance, what does that imply about the cause of my potential failures?</strong> This is especially pernicious in contexts that require experimentation, where failure—however temporary—is inevitable. This dynamic is exacerbated when the flattering judgments come from a manager or executive.</p>
+<p>That rockstar PM’s focus reorients from iteration and impact to seeking approval.</p>
+<p>She could spend a lot of energy trying to get an “Exceeds Expectations” on her next report card—I mean performance review—instead of focusing on influencing user behavior or being more effective in her work relationships.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/8c344f4a-e721-4f7a-8b1d-9e9654526d48_1517x1330.png" /></p>
+<p>By contrast, observations of people’s actions and impacts point them to what is within their control—the actions they can change or keep doing and the potential impacts of those actions. They see how to increase their own ability to create their desired outcomes. This means that giving this kind of actionable feedback can actually <em>evoke</em> feedback recipients’ growth mindsets, or <a href="https://nextbigideaclub.com/magazine/conversation-microsofts-ceo-on-the-power-of-being-a-learn-it-all/17851/">as Satya Nadella frames it</a>, help them shift from know-it-alls to learn-it-alls. If you want greater openness and motivation, share impacts, not judgments! <a href="https://actionablewisdom.beehiiv.com/p/how-to-motivate-your-team-for-free">Here’s how</a>.</p>
+<p><strong>Acknowledge your own actions and their impacts</strong></p>
+<p>Judgments aren’t the only trigger for defensiveness. When you as the feedback giver have contributed to a situation but you aren’t noting that, the recipient’s attention can latch onto this gap. “Yeah, but what about <em>your</em> actions?” they wonder. You can preempt this reaction by simply and directly acknowledging your contribution.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/1b54dee2-c911-4433-b843-104d56822bd1_1457x1484.png" /></p>
+<p>As a social species, humans unconsciously mirror the behavior we see in others around us. The crowd waits at a light, and so do we; we start jaywalking, and others are more likely to as well. This plays out interpersonally too. Far too often, we approach feedback conversations with the implicit attitude of “You are the one who needs to change.” From this angle, it’s no surprise that what we get back is the other person looking at us thinking, “No, <em>you</em> are the one who needs to change.” We tend to get what we give.</p>
+<p>But this human instinct is actually good news: if you want to lead a conversation and a relationship in a specific direction, just start moving in that direction yourself. The message switches to “I think we can both shift some things that will make it easier to change and move toward that Goal.”</p>
+<p>This is one of most disarming feedback approaches I’ve ever encountered—and one of the least-used. Once we have acknowledged our contribution and shown that we are monitoring our own behavior, the other person can release their focus on our actions, freeing up their attention to concentrate on their own actions.</p>
+<p>There’s an added benefit here for the feedback giver: shifts that I make in one relationship often apply to other relationships too. When I was frustrated with one client constantly rescheduling, I realized how I was contributing to and even encouraging the problem by always saying yes to requests. Quick check-ins with all my clients around minimizing changes dropped rescheduling requests to zero across the board. More levers, more leverage.</p>
+<h3>N: Next actions</h3>
+<p>What do we do with those levers we identified? Once feedback has been shared and received, the final step in an effective feedback conversation is defining next actions. These could be actions for the feedback recipient, the feedback giver, or both.</p>
+<p>The clearer and more concrete our action-and-impact observations are, the more obvious the potential next actions become.</p>
+<p>Sometimes it’s a very direct link: “Hey, when you don’t schedule interviews in the time frame you said you would, it slows down our hiring process. Can you schedule those this week and let me know if there are any blockers?”</p>
+<p>Other times, arriving at next actions is more complex and uncomfortable. Our insides are screaming, “This conversation is awkward. Get me out of here already!” But even an otherwise-great feedback conversation will often amount to nothing if we don’t close it clearly and concretely.</p>
+<p>There are a few ways of doing this that increase buy-in and follow-through.</p>
+<p><strong>First, ask for their ideas</strong></p>
+<p>In an often-maddening phenomenon, people will resist change that they themselves want if it appears to come at the expense of their autonomy. We may want to change, but we want to choose it.</p>
+<p>One simple way of supporting someone’s sense of autonomy is to ask for their ideas of what to change before offering our own. When the other person is really on board with the Goal and open to hearing what we’ve shared, given even a few moments of brainstorming, I have found that they regularly come up with useful options I had not considered. They also tend to be more motivated to pursue ideas they have generated themselves.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/a7c9b9af-7867-4feb-86cb-e783612f1820_1457x907.png" /></p>
+<p>For feedback that is difficult to hear regardless of how it’s shared, a feedback conversation might actually be a series of conversations, so it’s often best to sleep on it and schedule a future time to return and commit to next actions (not just “later”).</p>
+<p><strong>Co-create through brainstorming together</strong></p>
+<p>If you are itching to share your own idea but also want to involve them, this option opens up the opportunity for both. It also lets you build on each other’s ideas.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/a779ab49-f7e7-47c0-b212-19e9f51a3422_1457x690.png" /></p>
+<p><strong>Make specific requests—and make it easy to say no</strong></p>
+<p>Sometimes asking for the other person’s ideas can feel disingenuous when all you want is to propose your own. In that case, share your idea, and offer it as a suggestion or a request in a way that still honors their autonomy—in other words, not as a demand.</p>
+<p>To support this feeling, make it easy for them to say no to or edit the request. A <a href="https://www.researchgate.net/publication/344807911_The_effectiveness_of_the_But-you-are-free_technique_Meta-analysis_and_re-examination_of_the_technique">meta-analysis</a> of 52 studies showed that “Feel free to say no” doubled the percentage of time that people said <em>yes</em> to a request. Supporting autonomy conveys real respect, which preempts resistance, engenders goodwill, and helps people think clearly about the suggestion on its own merits. If they actually say no, you will get to learn what’s blocking them and how to incorporate that in the next actions. (And if you’re feeling attached to your idea and actually want to demand it, remember that it’s the Goal you care about, not the way they get there.)</p>
+<p>It’s also important to ensure that your specific request includes what you want more of, not just less of. As psychologist Marshall Rosenberg, the author of <em>Nonviolent Communication</em>, said, “You can’t do a don’t.” Otherwise, when they find themselves in the same situation again, they’ll be unclear about what alternative behavior to engage in.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/f57e47a0-0e33-4194-89ba-ffb48e805918_1457x1102.png" /></p>
+<p><strong>Frame it as an experiment</strong></p>
+<p>When someone is considering a new behavior, that means there’s an element of uncertainty. Understandably, there can be some hesitance about committing to do something they’ve never done before, no matter how much they follow the logic. Instead of committing to something new “forever,” explicitly acknowledge it as an experiment for a set time period.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/d2ef4a74-80f7-41a6-bf29-9311f2acd5b2_1457x850.png" /></p>
+<p><strong>WWW:</strong> <strong><em>Who</em></strong> <strong>will do</strong> <strong><em>What</em></strong> <strong>by</strong> <strong><em>When</em></strong><strong>?</strong></p>
+<p>This question moves growth, progress, and whole companies forward faster than any other one I know.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/954bd6ef-863a-4891-b32c-1c66b7e33e6f_1457x693.png" /></p>
+<p>“Let’s” and “should” are insidious impostors when it comes to action items. <em>Let’s</em>: Is that you or me? <em>Should</em>: Is that an idea we’re considering or a commitment? When you hear these words, use them as an automatic signal to pause and clarify who will do what by when.</p>
+<p><strong>Schedule a check-in</strong></p>
+<p>If you don’t set a clear check-in, you run the risk of not seeing the change you were hoping for and having to initiate a follow-up feedback conversation if you still want to close the gap. The discomfort of this is higher, so it’s easier to avoid, and the frustration festers into resentment and helplessness. If instead you establish a time and date to check in, you set up three more desirable possibilities:</p>
+<ul>
+<li>An agreed-upon check-in time often increases the accountability and expectation of change.</li>
+<li>The behavior may have changed, and you have a built-in moment to appreciate the impacts you’re seeing and the progress toward the Goal, encouraging even more development. This reinforces a growth mindset.</li>
+<li>If the behavior hasn’t changed or hasn’t had the desired impact, you will recognize this sooner and be able to troubleshoot and course-correct faster.</li>
+</ul>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/80049542-eea3-427c-8b89-3fefbaca8f78_1457x805.png" /></p>
+<h1>AI in feedback</h1>
+<p>That’s a lot to digest and consider when preparing and leading a feedback conversation. Fortunately, you’re not on your own anymore.</p>
+<p>While many people fear AI will erode human connection, I see the opposite happening with clients and in <a href="https://maven.com/actionablefeedback/managergpt">our workshops</a>: <strong>People are using AI as a tool for expanding interpersonal skills and deepening human relationships.</strong></p>
+<p>Here are three ways AI can support you in using the GAIN approach and having much more effective, connective feedback conversations:</p>
+<ol>
+<li>FeedbackGPT (see below): Help you prepare what to say</li>
+<li>Voice Mode: Help you practice</li>
+<li>Post-conversation retrospective: Help you reflect and improve</li>
+</ol>
+<h3>1. FeedbackGPT: Help you <strong>prepare</strong> what to say</h3>
+<p>You can build custom GPTs that <a href="https://www.lennysnewsletter.com/p/how-to-become-a-supermanager-with">give feedback for you</a> in some situations. But when you can’t replace yourself with it, AI can help you prepare much higher quality feedback. You can vent your raw, unfiltered material into any LLM and prompt it to craft more effective feedback. While you’ll often get smooth responses from an LLM, one big risk is that they won’t challenge you to examine your own contributions to the situation or help you learn.</p>
+<p>You can overcome this by asking for it specifically in your prompt. You can also use <a href="https://actionablewisdom.beehiiv.com/p/feedbackgpt-b453">FeedbackGPT</a>, a custom GPT I created using the GAIN principles, which takes you step by step through the reflection process and then crafts GAIN-framed feedback for you.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/c28cc3e3-0b7b-4860-9e28-91503bca8881_512x375.gif" /></p>
+<h3>2. Voice Mode: Help you practice</h3>
+<p>As we discussed earlier in this post, feedback is a dialogue, not a monologue.</p>
+<p>As such, preparing what you are going to say is only half the equation. The rest is practicing how to actually engage another voice in an interaction, listen to their perspective, and respond in a way that integrates points from both parties. Feedback conversations are more powerful when everyone leaves with some perspective or takeaway they didn’t have before.</p>
+<p>But all these skills take practice. For the conversation above, Laura told me that while our preparation clarified her message, role-playing it together and on her own several times beforehand helped her approach the actual conversation with confidence and respond flexibly in the moment.</p>
+<p>The single greatest growth catalyst I have seen in clients and workshop participants comes when they practice, we give them immediate feedback and coaching on their practice, and then they do it again. This is now possible for everyone with the availability of 24/7 support for the practice-feedback-practice loop—and it extends beyond practicing what to say, to <a href="https://www.linkedin.com/posts/jackadamcohen_radical-idea-for-husbands-everywhere-stop-activity-7296180121894297601-DnmJ?rcm=ACoAAAMhRhgB8w9ICmC6Uistv-GiSYOH_tHzxB0">how to listen</a>.</p>
+<p>With a simple prompt, you can practice in chat form or engage Voice Mode. You could easily get in three or four simple practice reps in just 15 minutes and feel much more confident going into the actual conversation.</p>
+<h4><strong>Here’s a sample prompt template:</strong></h4>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/e95bb328-38bf-4f43-8a4e-66cf759b5d99_1457x2157.png" /></p>
+<p>Alternatively, you can flip roles and ask AI to take on your role while you play the feedback recipient. This will model some possibilities for you with the side benefit of helping you access the feedback recipient’s perspective.</p>
+<p>It’s very easy to become completely absorbed in our own perspective and focused only on our side of the dance. I keep noticing that preparing and practicing with AI in these ways can help us consider both the other party’s potential reaction and their perspective, increasing our empathy in the process.</p>
+<h3>3. Post-conversation retrospective: Help you reflect and improve</h3>
+<p>Once you have had the feedback conversation, you can continue to up your feedback game. If your call recorder joined, upload the transcript into a general LLM or FeedbackGPT and ask it for feedback or coaching on your feedback.</p>
+<p>Prompt: <em>You’re a world-class master executive coach with a specialty in the art and science of feedback. Analyze the transcript attached and give me feedback on this feedback conversation. For each of the growth areas, give me some specific, evidence-informed suggestions that world-class practitioners use in those areas. (Use only real evidence, not hallucinations.) Include time-stamped references and quotes.</em></p>
+<p>This will yield insights about how to improve, but insights alone are often not enough for change. They need to be practiced. You can then return to #2 and ask AI to role-play the conversation, or a segment of it, as you focus on that skill.</p>
+<h2>Recap: Unlocking growth with the GAIN framework</h2>
+<p>Just as user feedback is indispensable for improving a product, teammate feedback is indispensable for improving a team and the people on it. Unfortunately, feedback is not always shared.</p>
+<p>One founder I coach, <a href="https://www.linkedin.com/in/nishchaln/">Nischal Nadhamuni</a>, summarized both sides of the feedback equation: On one hand, “The key to everyone’s growth is buried in someone else’s head—and they know it.” On the other hand, “People know <em>exactly</em> whatfeedback they want to give—they’re just withholding it.”</p>
+<p>Our work is to make it easier to give and get that feedback so we can grow ourselves, iterate our products, and improve the teams that build them.</p>
+<p>What’s more, the level of depth and connection that comes from sharing feedback skillfully can be electric. Here’s what two co-founders said after their whole executive team gave them feedback in a <a href="https://actionablewisdom.beehiiv.com/p/live-360s">Live 360</a>.</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/a79a7df3-e66c-4f1a-9987-b6e329b527a6_498x568.png" /></p>
+<p>GAIN offers a simple, straightforward, science-based framework for communicating that immediately establishes a sense of shared purpose and—even if someone isn’t making progress toward that purpose right now—conveys that “I’m here, on your team, to help you get there.”</p>
+<p><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/bdea2422-920d-4adb-941a-bff9c8cf95ed_1456x1886.png" /><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/45054717-5b85-4b7d-bd7d-643b2c86307a_1457x1286.png" /><img alt="Image from Introducing the GAIN framework for feedback: an evidence-based approach to" src="https://substack-post-media.s3.amazonaws.com/public/images/505d9026-3631-414d-a527-475802d5e973_1457x1568.png" /></p>
+<p><em>Thanks, Jack! For more, check out his course <a href="https://bit.ly/3VK5fGt">ManagerGPT: The AI Tools and Human Systems to Scale Yourself and Your Team Fast</a>, and for a demo of both GAIN feedback and the AI tool Jack built to support it, check out his free 30-minute lightning lesson, “<a href="https://maven.com/p/6f79f8/feedback-gpt-give-feedback-people-thank-you-for">FeedbackGPT: Give Feedback People Thank You For</a>.”</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

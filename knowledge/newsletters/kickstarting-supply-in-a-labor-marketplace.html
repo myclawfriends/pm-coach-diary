@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kickstarting supply in a labor marketplace — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Kickstarting supply in a labor marketplace</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Kickstarting supply in a labor marketplace</div>
+    
+    <div class="article-meta">2021-07-13<span>·</span>2,731 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span> <span class="mini-tag">B2C</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a>, and welcome to this month’s</em>✨ <strong><em>free edition</em></strong> ✨ <em>of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<p><em>Here’s what you missed this month if you aren’t a subscriber:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/distribution-advantages">Finding your distribution advantage</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/doing-a-good-job-product-manager">How to know if you're doing a good job as a product manager</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/early-stage-hiring">Winning at early-stage hiring</a></em></li>
+</ol>
+<p><em>Subscribers also get <a href="https://twitter.com/lennysan/status/1413559565354819588">access to a private Slack community</a>, fireside chats with folks like <a href="https://mobile.twitter.com/ttorres">Teresa Torres</a>, <a href="https://www.lennysnewsletter.com/?sort=top">the full archive of past posts</a>, <a href="https://twitter.com/lennysan/status/1411031645788901378">hundreds of discounts on all kinds of software (including 20% off posts to my job board</a>), and much more.</em></p>
+<blockquote>
+<h2>Q: <strong>I’m building a labor marketplace (kind of like Thumbtack or Hired</strong>) <strong>and I’m wondering—how do labor marketplaces generally find their supply?</strong></h2>
+</blockquote>
+<p>I’ve spent a lot of time <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">thinking about marketplaces</a>, but I’ve never dug deeply into labor marketplaces specifically. What makes labor marketplaces interesting is that instead of connecting people to a <em>product</em> (e.g. Airbnb and homes, DoorDash and food, Etsy and crafts), they connect people to <em>people</em>. How cool!</p>
+<p>For example, <a href="https://themomproject.com/">The Mom Project</a> connects mothers who are returning to the workforce with flexible job opportunities. <a href="https://roo.vet/">Roo</a> connects on-demand veterinarians with understaffed veterinary hospitals. <a href="https://www.instawork.com/">Instawork</a> connects small businesses with vetted hourly workers. Many of these marketplaces are all exploding right now as people reenter the workforce post-pandemic.</p>
+<p><img alt="Image from Kickstarting supply in a labor marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d77405b5-de05-44d0-8faa-3d25d33fefe3_2048x1024.png" /></p>
+<p>Labor marketplaces are generally heavily supply-constrained—meaning their growth is bottlenecked by their lack of supply—so it’s crucial that founders of labor marketplaces nail their supply growth strategy.</p>
+<p>To answer your question, I researched about a dozen of today’s most successful and fastest-growing labor marketplaces and found there are essentially four primary ways to drive your supply in the early days:</p>
+<p><img alt="Image from Kickstarting supply in a labor marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fe964627-5ac4-49c4-a8e6-e576f33292fb_2400x1704.png" /></p>
+<p>Below are first-hand stories and tactics from the founders and early team members behind these amazing companies (plus a bunch of great one-off ideas that anyone may find helpful). Enjoy!</p>
+<p><em>Huge thank-you to <a href="https://twitter.com/techladyallison">Allison Esposito Medina</a>, <a href="https://twitter.com/mrsrobinson_a?lang=en">Allison Robinson</a>, <a href="https://twitter.com/davelu?lang=en">Dave Lu</a>, <a href="https://www.linkedin.com/in/ericvishria">Eric Vishria</a>, <a href="https://www.linkedin.com/in/imanabuzeid">Iman Abuzeid</a>, <a href="https://twitter.com/jaimegetto?lang=en">Jaime Getto</a>, <a href="https://www.linkedin.com/in/lisa-hu-26a6233">Lisa Hu</a>, <a href="https://www.linkedin.com/in/mslagh">Mike Slagh,</a> <a href="https://www.linkedin.com/in/peterfaist?originalSubdomain=ca">Peter Faist</a>, <a href="https://www.linkedin.com/in/romeen-sheth-07494427">Romeen Sheth</a>, <a href="https://www.linkedin.com/in/ryanmapes">Ryan Mapes</a>, <a href="https://www.linkedin.com/in/sander-daniels-44bb0324/">Sander Daniels</a>, <a href="https://www.linkedin.com/in/sarah-holmes-164b14a6">Sarah Holmes</a>, <a href="https://www.linkedin.com/in/sumirmeghani">Sumir Meghani</a>, and <a href="https://www.linkedin.com/in/dengwei">Wei Deng</a> for sharing your insights with me.</em></p>
+<h2>How to kickstarting supply in a labor marketplace</h2>
+<h3>1. Job boards</h3>
+<p>No question, the single most popular channel for early supply growth in a labor marketplace, particularly for companies that focus on one type of role (e.g. nurses), is posting a generic role to an existing job board like Indeed, ZipRecruiter, or Craigslist. For example:</p>
+<p><img alt="Image from Kickstarting supply in a labor marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/98a203a8-c188-458f-b151-f0fa4ba5668c_530x175.png" /></p>
+<blockquote>
+<p>“<strong>Our customers tell us they use job boards when looking for work</strong>, so we go where our customers go: job boards (like <a href="https://Indeed.com">Indeed</a>). In the early days, we got a major portion of supply this way.” —Wei Deng, <a href="https://clipboardhealth.com/">Clipboard Health</a></p>
+<p>“<strong>We used <a href="https://Indeed.com">Indeed.com</a> and <a href="https://simplyhired.com">simplyhired.com</a></strong> to get started on supply growth.” —Sander Daniels, <a href="https://www.thumbtack.com/">Thumbtack</a></p>
+<p>“<strong>Job boards like <a href="https://Indeed.com">Indeed</a>, <a href="https://www.ziprecruiter.com/">ZipRecruiter</a></strong>, and others provided approximately 50% of our supply early on.” —Peter Faist, <a href="https://staffy.com/">Staffy</a></p>
+<p>“<strong>We used job boards</strong> like <a href="https://craigslist.org">Craigslist</a> to find supply. Honestly, we tried <a href="https://Indeed.com">Indeed</a> and other sites, but Craigslist was by far the best for us.” —Dave Lu, <a href="https://www.pared.com/">Pared</a></p>
+<p>“<strong>In the early days, we were able to leverage job boards</strong> to recruit candidates at scale. But as we became more of a known player in the space, these relationships became more restricted/complicated. As you can imagine, many job boards don’t want a competitor openly advertising on their platform.” —Ryan Mapes, <a href="https://hired.com/">Hired</a></p>
+</blockquote>
+<p><strong>Advice:</strong> Figure out if (and where) your potential supply looks for work, and go post roles there.</p>
+<h3>2. Targeted <strong>direct outreach</strong></h3>
+<p>Whether it was cold outreach to strangers or reconnecting with former colleagues, the second most common growth channel for these marketplaces was reaching out to potential “supply” and convincing them to join:</p>
+<blockquote>
+<p>“<strong>We acquired most of our early Pros through direct outreach, often in person</strong>. For example, we would visit San Francisco restaurants in the morning and in the late evening, waiting outside the back door to recruit cooks, dishwashers, and servers who were taking the trash out or on a break. We would walk them through our onboarding flow (speaking Spanish if needed!) and help them sign up immediately.” —Sumir Meghani, <a href="https://www.instawork.com/">Instawork</a></p>
+</blockquote>
+<p><img alt="Image from Kickstarting supply in a labor marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1f82a69f-5ac1-483a-86d2-8c032ffbe490_1907x1430.png" /></p>
+<blockquote>
+<p>“<strong>We started with the nurses in our network (family and friends, and friends of friends)</strong> and asked each of them to refer 5 more nurses, and asked those for 5 more etc. That got us to the first 100-200. We did it that way so we could stay in touch with the first few, hear about their experience on the platform, and have really fast feedback loops.” —Iman Abuzeid, <a href="https://www.incrediblehealth.com/">Incredible Health</a></p>
+<p>“A successful growth channel for us in the early days was me <strong>personally reaching out to moms via social channels</strong> with a personalized invite.” —Allison Robinson, <a href="https://themomproject.com/">The Mom Project</a></p>
+<p>“<strong>Early on, it was a lot of direct reach-out.</strong> Scrapping LinkedIn, GitHub, etc. for lists of engineers and then reaching out directly to get them on the platform.” —Sarah Holmes, <a href="https://blog.vettery.com/">Vettery</a></p>
+<p>“<strong>We’d first focus on our network of vets</strong> that my co-founders or colleagues may know in that city and then rely immediately upon word of mouth and referrals, getting them to start talking to others in the beginning.” —Lisa Hu, <a href="https://roo.vet/">Roo</a></p>
+<p>“There are 800 US Military bases in the world and they each have initiatives to help service members transition to civilian life. <strong>We identified the top 100 bases and personally reached out</strong> to offer sharing back successful outcomes and average salary data if they referred soon-to-be veterans into our programs.” —Mike Slagh, <a href="https://www.shift.org/">Shift</a></p>
+</blockquote>
+<p><strong>Advice:</strong> Do things that don’t scale—go direct to your potential supply and convince them to try your platform.</p>
+<h3>3. Word of mouth + paid referrals</h3>
+<p>The third most common growth channel, and one that’s hard to engineer if your product doesn’t yet have strong product-market fit, is word of mouth, often with a referral program layered on top:</p>
+<blockquote>
+<p>“<strong>Word of mouth has been by far the biggest driver</strong> of growth for us.” —Iman Abuzeid, <a href="https://www.incrediblehealth.com/">Incredible Health</a></p>
+<p>“<strong>A lot of our supply came from word of mouth.</strong> The flywheel started to happen when they would go work at a restaurant and other workers would find out about it. Later, we had a two-sided referral program where if supply referred new supply, we would pay them $50 for each activated pro (after completing their first gig). If they referred a restaurant we would give them something like $300.” —Dave Lu, <a href="https://www.pared.com/">Pared</a></p>
+<p>“<strong>Word of mouth is huge in B2B labor marketplaces</strong> (i.e. a vet will tell his/her friends about Roo) so we ensure that the vet shift user experience on our platform is excellent, which helps to naturally have active vets tell other vets to try out Roo.</p>
+<p>We also couple that with referral promos/bonuses to try to further incentivize (e.g. ‘Refer a vet and once that vet completes her first shift, you get $300!’ type of referral promos).” —Lisa Hu, <a href="https://roo.vet/">Roo</a></p>
+<p>“We built some really clever components here, including the <strong>ability to look at a given user’s contacts and suggest which ones to invite</strong> based on their probability of also being a great candidate for our platform (e.g. an engineer).” —Ryan Mapes, <a href="https://hired.com/">Hired</a></p>
+</blockquote>
+<p>As Lisa noted above, B2B marketplaces often have the benefit of their supply (e.g. nurses, restaurant workers, plumbers) hanging out and sharing what’s working for them—an excellent breeding ground for word of mouth. If you have this, well done. If not, life will be tougher.</p>
+<p><strong>Advice:</strong> Build something so great that your “supply” can’t help but tell their friends about it.</p>
+<h3>4. Paid social</h3>
+<p>The final commonly-used growth channel turned out to be paid ads on social networks, particularly LinkedIn:</p>
+<blockquote>
+<p>“<strong>Paid social was extremely effective</strong> for us early on. Particularly LinkedIn Sponsored Updates and Text Ad placements, targeting by role/company/etc. Also, Facebook custom audience targeting. We scaled this up by spreading budget across a ton of other platforms, but LinkedIn was by far the top performer.</p>
+<p>We also sponsored a ton of newsletters and eventually built a decent process for event lead gen, but that worked better for the demand side.” —Jamie Getto, <a href="https://blog.vettery.com/">Vettery</a></p>
+<p>“<strong>We saw a lot of success with ads on LinkedIn, FB, and Google.</strong> Also niche podcasts and newsletters. Surprisingly effective and low CAC.” —Ryan Mapes, <a href="https://hired.com/">Hired</a></p>
+</blockquote>
+<p><strong>Advice:</strong> Experiment with running ads on LinkedIn.</p>
+<p>Beyond these four common tactics, founders also shared a bunch of great one-off ideas that worked well in their particular market.</p>
+<h3>Additional tactics that worked for at least one labor marketplace:</h3>
+<h4>1. Upskill your supply</h4>
+<blockquote>
+<p>“<strong>We built cohort-based courses for transitioning service members</strong> (<a href="https://www.shift.org/navigating-next">Navigating Next</a> to figure out your goals with supportive peers) and experienced veterans (<a href="https://shift.org/career-accelerator">Career Accelerator</a> to focus on group interview prep and storytelling). These programs are talent magnets and allow us to ensure we’re only featuring ready-to-interview candidates who are actively on the market—which has become a major unique selling proposition.” —Mike Slagh, <a href="https://www.shift.org/">Shift</a></p>
+</blockquote>
+<h4>2. First build a community</h4>
+<blockquote>
+<p>“<strong>For us, we started by building a community</strong>. We started as a meet-up like 6 years ago and then I kept running into issues in my own career in tech like sexual harassment and being underpaid etc., so at first I was like: I need to make my career safe by having an insanely good network of women who are going through the same things.</p>
+<p>And then it grew to be a huge community, and this is back when every tech company said they had a pipeline problem, but we just kept growing, so we were like—we have the pipeline right here. Then we built the product for hiring from the community, which we’d been honing for 5 years.” —Allison Esposito Medina, <a href="https://www.hiretechladies.com/">Tech Ladies</a></p>
+</blockquote>
+<h4>3. Make certain there is demand</h4>
+<blockquote>
+<p><strong>“We learned that to get the initial supply activated, we actually need to have some solid high-quality hospital shifts (demand) listed first to attract vet interest</strong>. So even before we recruit the supply, we get some demand drumming (setting strong messaging/expectations to hospitals that they may not see a lot of vet requests in the beginning). But they’re OK with that, as they’re used to having very little traction getting their shifts fulfilled from non-Roo methods.” —Lisa Hu, <a href="https://roo.vet/">Roo</a></p>
+</blockquote>
+<h4><strong>4. Get press</strong></h4>
+<blockquote>
+<p>“<strong>In the early days, we saw a lot of success pitching the stories of our users to press.</strong> When we launched the business, <a href="https://www.chicagotribune.com/business/ct-mom-project-0420-biz-20160419-story.html">the</a> <em><a href="https://www.chicagotribune.com/business/ct-mom-project-0420-biz-20160419-story.html">Chicago Tribune</a></em> <a href="https://www.chicagotribune.com/business/ct-mom-project-0420-biz-20160419-story.html">profiled a mom on our marketplace, Phoebe</a>, who left her job at Google. Phoebe’s story resonated so strongly with so many women, and overnight we acquired thousands of users as this article became syndicated across other outlets and mom blogs, etc.” —Allison Robinson, <a href="https://themomproject.com/">The Mom Project</a></p>
+</blockquote>
+<h4>5. Do manual onboarding</h4>
+<blockquote>
+<p>“<strong>Candidates only had to submit partial information and then someone like me would build out their profile on a 20-minute call.</strong> After that, they did not have to do anything but accept interview requests.” —Sarah Holmes, <a href="https://blog.vettery.com/">Vettery</a></p>
+</blockquote>
+<h4>6. Concentrate on a geo</h4>
+<blockquote>
+<p>“<strong>Focused heavily on a select set of geos and roles</strong>—this was key for establishing supply/demand density … which we could later leverage through lifecycle campaigns. I can’t overstate this point enough. This aligned both the supply and demand sides and was critical for our ability to scale.” —Ryan Mapes, <a href="https://hired.com/">Hired</a></p>
+</blockquote>
+<h4>7. Get the messaging right</h4>
+<blockquote>
+<p>“I learned from <a href="https://www.nfx.com/team/james-currier/">James Currier</a> that everything starts with language. We set up landing pages and Facebook ads but didn’t do it randomly. We used the Wayback Machine and studied the messaging used by every known labor and non-labor marketplace … and tracked how the messaging changed over the years. So that helped make our first Facebook tests quite successful and cost-efficient: great messaging influenced by our predecessors.” —Iman Abuzeid, <a href="https://www.incrediblehealth.com/">Incredible Health</a></p>
+</blockquote>
+<p>Have any questions, comments, or other ideas? Leave a comment!</p>
+<p><a href="https://www.lennysnewsletter.com/p/labor-marketplace-supply-growth/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Pine Park Health:</strong> <a href="https://jobs.lever.co/pineparkhealth/dc86eb02-bf53-4340-a31f-5b65845a226c">Senior Product Manager</a> (Berkeley, CA)</li>
+<li><strong>Quidax:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/fd33811d-4b9d-40e5-b041-46db566f2d95">Product Director</a> (Toronto)</li>
+<li><strong>Cord:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/67d8080e-c51b-4574-ade8-cab0693984a5">Head of Product</a> (London)</li>
+<li><strong>Rally:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/55e10d59-13ea-461a-bdaa-fe8ad989b41b">Founding Product Manager</a> (Remote—Global)</li>
+<li><strong>Crusoe Energy Systems:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/4bd3b894-fa7b-4f31-9022-04ca611ceaeb">Senior Product Manager</a> (SF, Denver)</li>
+<li><strong>Squarespace:</strong><a href="https://pallet.xyz/job/84d30ce6-d293-4de6-a1bc-b9b7f0656440?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager/Product Manager</a> (NYC)</li>
+<li><strong>Piñata Farms:</strong><a href="https://pallet.xyz/job/9f90d5d9-288a-477d-b14b-8b4a9c589a87?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (LA)</li>
+<li><strong>Properly:</strong><a href="https://pallet.xyz/job/beefb83d-8775-4052-96e6-72d8f62ca3ef?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Toronto, Remote—US)</li>
+<li><strong>Clearco</strong>: <a href="https://pallet.xyz/job/82497ce0-6faa-4aa7-a321-86d525a23cd7?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager - Capital Partnerships</a> (Remote—US)</li>
+<li><strong>Frame.io:</strong><a href="https://pallet.xyz/job/4846ad99-c62d-4b4f-979a-a558342d6a68?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Sr. Product Manager</a> (Remote—Global)</li>
+<li><strong>SnapStream Media</strong>: <a href="https://pallet.xyz/job/8bec1419-8512-4c77-b7a9-3351dfea8afe?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager</a> (Remote—Global)</li>
+<li><strong>Pragli:</strong><a href="https://pallet.xyz/job/75075700-7078-4664-a498-df280d166a9e?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Designer #1</a> (Remote—US)</li>
+</ol>
+<p><em>Browse many more open roles (or add your own) at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch</strong>: <a href="https://youtu.be/Dgmmje5WHWA">The 5 things that kill startups after their seed rounds</a> by Michael Seibel, CEO of Y Combinator</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=Dgmmje5WHWA">Watch on YouTube</a></p>
+<ol>
+<li>
+<p><strong>Learn</strong>: <a href="https://twitter.com/joulee/status/1407902488838119431">How to get better at design feedback</a> by Julie Zhou</p>
+</li>
+<li>
+<p><strong>Read</strong>: <a href="https://marginalrevolution.com/marginalrevolution/2021/06/how-do-you-ask-good-questions.html">How do you ask good questions?</a> by Tyler Cowen</p>
+</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

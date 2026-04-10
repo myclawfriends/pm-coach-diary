@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to identify your ideal customer profile (ICP) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to identify your ideal customer profile (ICP)</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to identify your ideal customer profile (ICP)</div>
+    
+    <div class="article-meta">2023-08-29<span>·</span>6,612 words</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">B2B</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">工程</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/c572ff61-0f24-4cf5-b1f1-4e705e9fd94a_2014x1007.png" /></p>
+<p>Welcome to part three of our series on how to kickstart and scale a B2B business:</p>
+<ul>
+<li><strong>Part 1:</strong> <a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How to come up with a great B2B startup idea</a></li>
+<li><strong>Part 2:</strong> <a href="https://open.substack.com/pub/lenny/p/how-to-validate-your-b2b-startup">How to validate your idea</a></li>
+<li><strong>Part 3:</strong> How to identify your ICP <em>← This post</em></li>
+<li><strong>Part 4:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-win-your-first-10-b2b-customers">How to find and win your first 10 customers</a></li>
+<li><strong>Part 5:</strong> <a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">How to find product-market fit</a></li>
+<li><strong>Part 6:</strong> <a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">How, and when, to hire your early team</a></li>
+<li><strong>Part 7:</strong> <a href="https://www.lennysnewsletter.com/p/scaling-your-b2b-growth-engine">How to scale your growth engine</a></li>
+</ul>
+<p>Let’s jump right in.</p>
+<p><em>A huge thank-you to </em><em><a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a></em><em> (COO of Notion), </em><em><a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a></em><em> (CEO of Databricks), </em><em><a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a></em><em> (CEO of Hex), </em><em><a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a></em><em> (CEO of Census), </em><em><a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a></em><em> (co-founder of Segment), </em><em><a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a></em><em> (co-founder and CPO of Canva), </em><em><a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a></em><em> (CEO of Vanta), </em><em><a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a></em><em> (CEO of Retool), </em><em><a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a></em><em> (CPO of Gong), </em><em><a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a></em><em> (CEO of Ramp), </em><em><a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a></em><em> (CEO of Snyk), </em><em><a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a></em><em> (co-founder of Linear), </em><em><a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a></em><em> and </em><em><a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a></em><em> (co-founders of Stytch), </em><em><a href="https://www.linkedin.com/in/keenanrice/">Keenan Rice</a></em><em> (founding team), </em><em><a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a></em><em> (CEO of Front), </em><em><a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a></em><em> (CEO of Persona), </em><em><a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a></em><em> and </em><em><a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a></em><em> (co-founders of Zip), </em><em><a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a></em><em> (CEO of Sprig), </em><em><a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a></em><em> (co-founder of Loom), </em><em><a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a></em><em> (CEO of Coda), </em><em><a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a></em><em> (VP of Product of Figma), </em><em><a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a></em><em> (co-founder and CEO of Amplitude), and </em><em><a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a></em><em> (co-founder and CPO of Gusto) for contributing to this series. Art by <a href="https://www.natalieharney.com">Natalie Harney</a>.</em></p>
+<p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/b7f6244b-8cdb-4c50-946a-726255a31b5e_2010x1005.png" /></p>
+<p>We’ve so far spent all of our time finding and validating a problem, but surprisingly, many (perhaps most?) of the B2B companies I researched spent just as much time on picking the problem as they did on figuring out <em>who</em> to solve the problem for. When they didn’t do this, they often regretted it.</p>
+<p>“We did not think about ICP. I wish we did earlier on. It’s one of my biggest mistakes.”<br />
+—<a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a>, co-founder and CEO of Front</p>
+<p>If you’ve got a killer idea but you’re talking to the wrong people, you’ll come away thinking your idea stinks, and give up. But the same idea pitched to different people can change everything.</p>
+<p>Below, I’ll share a guide for nailing your ideal customer profile (ICP), dozens of stories of how founders identified their ICP, and as always, templates and tons of examples.</p>
+<h3><strong>A few of my biggest takeaways and surprises from this step</strong></h3>
+<ol>
+<li>Most founders initially got their ICP wrong.</li>
+<li>Everyone landed on at least <em>three</em> attributes to describe their ICP.</li>
+<li>Data from <em>outbound sales</em> is the best signal for what’s working, versus leads from investors and friends.</li>
+<li>
+<p>There are four common signs that you’re getting closer to your ICP:</p>
+</li>
+<li>
+<p>A significant increase in your conversion rate</p>
+</li>
+<li>A significant increase in enthusiasm</li>
+<li>A much stronger desire to take action now</li>
+<li>The nod (see below)</li>
+</ol>
+<h3>Initial ICPs for some of today’s biggest B2B companies</h3>
+<p>Through my interviews, I’ve gathered the initial ICPs of over a dozen startups. In the chart, and in the stories below, notice how most companies landed on exactly three attributes. Some had more, but no one had fewer. Also notice how specific these attributes get.</p>
+<p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/c2b296c3-8bd6-4088-8219-c0086e8ea22b_2276x4584.png" /></p>
+<h2>How to identify your ICP</h2>
+<p>To identify your own ICP, go through the list below and take your best guess at picking the three most <em>unique</em> and <em>important</em> characteristics of your potential ideal customer (<a href="https://docs.google.com/spreadsheets/d/1DAajOv4KKm_cVMFgA694sP7mfFvieAPasWZVK_9TOcg/edit#gid=0">here’s a template to get you started</a>):</p>
+<ol>
+<li>Company size (e.g. 1,000-5,000 employees)</li>
+<li>Job title (e.g. engineering manager, social media manager)</li>
+<li>Pain point you’re solving (e.g. compliance, internal transparency)</li>
+<li>Company’s unique way of working (e.g. design-driven, operationally heavy)</li>
+<li>Specific tech used (e.g. data warehouse, GitLab)</li>
+<li>Type of business (e.g. B2B SaaS, e-commerce)</li>
+<li>Price point (e.g. sells software that’s $10k ARR)</li>
+<li>Geo (e.g. urban centers, LatAm)</li>
+<li>A unique place the user spends time (e.g. Node.js community)</li>
+</ol>
+<h4>Try to get <em>super</em>-specific and <em>super</em>-narrow with your ICP. Almost comically narrow.</h4>
+<p><strong>Gusto</strong> found the most success with <em>six</em> ICP attributes initially:</p>
+<blockquote>
+<p>“We started really, really, really, really, really, really, really narrow. Here’s how narrow:</p>
+<ol>
+<li>Only companies that are five or fewer employees</li>
+<li>in California</li>
+<li>that offer no benefits</li>
+<li>that have only salaried employees and no contractors</li>
+<li>that have any other deductions</li>
+<li>and that agree to get paid eight days after they run payroll</li>
+</ol>
+<p>That ended up being a specific set of companies. The reason they chose us, and why we went after them, is because of the value that we provided.</p>
+<p>Slowly, we expanded to where we felt ready. Let’s begin to serve hourly employees. Okay, now let’s help businesses provide benefits. Okay, now let’s move to additional states. We knew we were ready to expand when we felt like, one, we were getting customer love and, two, we had sufficient engineering bandwidth to go and build the features and products without letting go of the previous customer audience.</p>
+<p>Today Gusto handles the bulk of what HR teams do, as well as some work of finance teams—payroll, insurance, benefits, onboarding, performance reviews, state registrations, tax credits, and more—for over 300,000 businesses with 1 to 500 employees in the U.S. and in 120 other countries. We’re 11 years in, but I still feel we are just getting started.”</p>
+<p>—<a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a>, co-founder and CPO</p>
+</blockquote>
+<p>The founders of <strong>Gong</strong> landed on three highly nuanced attributes:</p>
+<blockquote>
+<p>“We tried to narrow it down as much as possible. We said we’re only going to sell to software companies that are:</p>
+<ol>
+<li>Selling in the U.S. in English, so we could start with just one language.</li>
+<li>Selling via video conferencing (it was Webex at the time), so we had the most amount of data to analyze.</li>
+<li>Selling software that is worth somewhere between $1,000 to $100,000, because beyond $100k, we assumed it was going to be a different sales cycle, and less than $1,000, it would be too transactional.</li>
+</ol>
+<p>There are probably 5,000 companies with this profile in the world. And exactly like the book <em>Crossing the Chasm</em> suggests, we thought, let’s get this small group working and get them excited. They would be the early adopters. We knew that we would understand their pain, and they’re typically advanced, so they would be early adopters.</p>
+<p>And then of course, over time, we went wider, adding phone calls versus video conferencing, and then different company categories and geographies.”</p>
+<p>—<a href="https://www.linkedin.com/in/eilonreshef/?originalSubdomain=il">Eilon Reshef</a>, co-founder and CPO</p>
+</blockquote>
+<p>As did <strong>Snyk</strong>:</p>
+<blockquote>
+<p>“Our initial target audience was a developer building with Node.js who was very security-conscious.</p>
+<p>This depth-first approach was really important to validate the solution on the path to product-market fit. A JavaScript developer won’t care if you support Golang or Rust. Nailing the narrow and deep use case before expanding wider was critical.</p>
+<p>The initial problem Snyk set out to solve was specific too: tracking and securing dependencies in the Node ecosystem. The community there would often discuss the inadequacies of the NPM dependency management capabilities. At the time, Node.js was gaining traction with increasing adoption in the enterprise, dedicated conferences, and the like, but it was still small enough that Snyk could meaningfully influence things. Here’s actually the first public showing of Snyk at Velocity Amsterdam in late 2015.”</p>
+<p>—<a href="https://www.linkedin.com/in/semanticben/">Ben Williams</a>, former VP of Product</p>
+</blockquote>
+<p>And <strong>Looker</strong>:</p>
+<blockquote>
+<p>“Looker was a technical product, created right at the very start of data moving to the cloud and large, event style data being treated as business critical for analysis. So in 2013-2015, our core ICP was technical data teams—not end users or business analysts—who were starting to adopt cloud with large data sizes and complex analytical requirements AND the need to support a larger base on less technical end users within all functions of the company. These data teams tended to look at themselves more as engineering vs analysts, which aligned very well to our engineering first product design (code LookML, github built in, and all aspects of the product accessible via APIs). The companies tended to be startups with around 50-400 employees, with either engineering leading data or the data team being very technical.”</p>
+<p>—<a href="https://www.linkedin.com/in/keenanrice/">Keenan Rice</a>, founding team</p>
+</blockquote>
+<h4><strong>Don’t stress if you can’t figure out your ICP for a while.</strong></h4>
+<p>Here’s <a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a>, co-founder and CEO of <strong>Databricks (</strong>which is now worth over $30B) on their complete lack of an ICP early on:</p>
+<blockquote>
+<p>“We didn’t have an ICP at all. In those years at Berkeley, we just wanted to change the world, honestly. We just wanted to have impact. That was the most important thing. We worked with all kinds of different companies. We worked with a hospital that was using this stuff, and they were doing genomic stuff. We worked with folks that were using us to determine earthquake magnitudes using Twitter. These are completely different customers and different user profiles. So, no, we didn’t have an ideal customer profile. We were just trying out whoever wanted to use it.”</p>
+</blockquote>
+<p>And <a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, co-founder and CEO of Persona:</p>
+<blockquote>
+<p>“We did the ICP exercise 17 times in the early days. So many times. Because at that time, all of the advice we ever got was like, ‘Know your ICP.’ So we kept trying to know who it was, and I also desperately did not want our ICP to just be startups. So we tried a lot. I think in earnest we never really had one, but we tried for sure.”</p>
+</blockquote>
+<h4><strong>But the sooner you figure out your ICP, the faster things will fall into place.</strong></h4>
+<blockquote>
+<p>“I didn’t think about ICPs whatsoever. However, looking back, that’s part of the reason PMF took so much time.” —<a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a>, co-founder and CEO of Census</p>
+<p>“We did not think about ICP. I wish we did earlier on. It’s one of my biggest mistakes.” —<a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a>, co-founder and CEO of Front</p>
+</blockquote>
+<h4>Eventually, you’ll be forced to figure it out.</h4>
+<blockquote>
+<p>“We didn’t focus on ICP at all, but once we did our public launch, we started getting a flood of different people coming in. Filtering through the leads spurred me into putting a much tighter definition around qualification for deals.” —<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, co-founder and CEO of Hex</p>
+</blockquote>
+<h4>Start by paying attention to <em>who</em> gets most excited about what you’re building.</h4>
+<p>For <strong>Canva</strong>, here’s<a href="https://www.linkedin.com/in/themaninblue/?originalSubdomain=au">Cameron Adams</a>, co-founder and CPO, sharing their path to identifying an ICP:</p>
+<blockquote>
+<p>“We didn’t have any target persona until about six months into building the product. <strong>Through the conversations that we had with people, we began to see a certain segment really get excited about it. These social media managers, these people who were (a) figuring out what social media actually was, and then (b) having to scale this work across multiple clients and customers.</strong></p>
+<p>In 2012, Instagram had only really started. Pinterest had just come out. This whole notion of visual social media was still emerging. And Canva was, I think, the perfect tool at the right time for people who were grappling with what visual social media was. <strong>The social media manager/blogger audience was definitely the perfect one for us to start building a community around—especially freelancers, who were building their own social media management business.</strong> We gave them early demos of the product and then helped shape the feature set through their feedback. They were probably the ideal launch customer.”</p>
+</blockquote>
+<p>For <strong>Sprig</strong>,<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, founder and CEO, on narrowing in on their unusual initial segment:</p>
+<blockquote>
+<p>“We found pretty early that our ICP was companies with millions of users. Being an early-stage startup selling to larger companies was actually one of our biggest early challenges. You have product-market fit for companies that are more difficult to sell to.</p>
+<p>Our first customer, Thunkable, had millions of users. Square and Robinhood—also two of our early customers—had millions of users. I was getting very strong pull with companies like these. <strong>The larger the user base, the more excited they were about Sprig.</strong> ​​<strong>Robinhood agreed to a large contract even though we were early. They’re like, ‘We love it. We’ll install tomorrow.’</strong> They installed it as we were building the first version, basically. So that told us to go after these larger companies, with millions of users.”</p>
+</blockquote>
+<h4><strong>Be careful not to pattern-match too quickly.</strong></h4>
+<blockquote>
+<p>“We actually got pushed off track initially. The very first user of Census was a unicorn person, unlike anyone else we met, which I didn’t know at the time. His title was business ops, and I thought—incorrectly—that he was the prototype of what every business ops person should be. He totally bought into a data-driven, system-oriented way to do business operations.</p>
+<p>But when I talked to people who had this same ‘biz ops’ title, which initially became our ICP, it proved to be really hit-or-miss. A lot of people would ask, ‘What’s a Redshift?’ We couldn’t find enough sophisticated people who wanted this until we found the data persona: data scientists, analytics people, and heads of data. Which is our ICP now.</p>
+<p><strong>We started to recognize this once it started to be noticeable that the data persona was just much more of a fan of Census. They were just getting much more</strong> <strong><em>enthused</em></strong><strong>.</strong> The ICP shifted to that persona, and that’s when things started to click.”</p>
+<p>—<a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a>, co-founder and CEO of Census</p>
+<p>“One of the things we were good at was, once we had success with one type of customer, we would generalize the idea and not build something that just worked for them.</p>
+<p><strong>When we found somebody in a specific space, we wouldn’t go after any more customers of that ilk until we found another customer of a very different type. We’d rewrite everything such that our product worked for both of them. And we kept doing that for our first 10 customers.</strong></p>
+<p>There are a lot of identity companies that emerge as like, ‘Hey, we just do finance.’</p>
+<p>My belief was, what if you focus on just a narrow ICP, then you keep specializing towards them and you build your platform entirely around them? And then you’re always like, oh, eventually I’ll spread off and branch off in different niches. But I think actually that process is borderline impossible without a fair degree of foresight.”</p>
+<p>—<a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, co-founder and CEO of Persona</p>
+</blockquote>
+<h4>Pay attention to which <em>roles</em> are <strong>most successfully</strong> implementing your product.</h4>
+<p>For <strong>Stytch</strong>, it proved to be IC to mid-level engineers:</p>
+<blockquote>
+<p>“We used to think that our buyer persona could be either the technical buyer, like the engineering manager or the senior IC or even CTO at a smaller company, or the growth product persona, who owns the funnel and really cares about conversion, offloads, etc.</p>
+<p>We kept both of those personas as our ICP for a while because we signed some pretty significant deals with the growth product persona, but then <strong>we realized we had a only 5% to 10% conversion rate with those types of ICPs, versus a 40% to 50% rate with technical buyers.</strong> Once we realized that, we just deprioritized the growth persona because, yes, they mattered as stakeholders and it was helpful to have them on calls, but they weren’t going to have enough of the carry on the technical organization to determine which vendor to go with.”</p>
+<p>—<a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a>, co-founder and CTO, and <a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a>, co-founder and CEO</p>
+</blockquote>
+<p>For <strong>Retool,</strong> it was engineering execs:</p>
+<blockquote>
+<p>“In figuring out who wanted Retool, we had a lot of hypotheses. Probably 50% to 60% of the hypotheses were wrong, 20% to 30% of the hypotheses kind of worked, and then 10% really paid off. With product-market fit, it’s actually not just about the product; it’s about the market as well.</p>
+<p>The CTO or VP of Engineering at a fast-growing, operations-heavy company being a good buyer for us is an example of a hypothesis that we didn’t know was going to be right. In fact, we probably had about as much traction from those teams as the ops team at that same startup. And so it was kind of a toss-up at that point. We’d just reach out to both and see what happened. <strong>We found out that outreach to CTOs was much more successful. Once we noticed that, we just iterated on the pitch and approach from there.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a>, co-founder and CEO</p>
+</blockquote>
+<h4>Then, pay attention to the <em>size</em> of the company that’s the best fit for your solution.</h4>
+<p>For <strong>Vanta</strong>, they found a sweet spot at 20 to 60 people:</p>
+<blockquote>
+<p>“I didn’t know what our ICP should be, so I just tried everything.</p>
+<p><strong>What it ended up being was a probably 20- to 60-person company, B2B SaaS, going through compliance for the first time, and that did not have an in-house expert.</strong></p>
+<p>To find this ICP, I just talked to everybody for a while, probably most of three or four months. In those days, you’re just so glad if anybody ever answers your email. We worked closely with a few larger companies, like AppDynamics, Segment, Front, but they ended up being just design partners and not customers at that stage because we realized they were maturing at a rate faster than we were in 2017.”</p>
+<p>—<a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a>, founder and CEO</p>
+</blockquote>
+<p><strong>Linear</strong> found their initial ideal audience were startups with 2 to 5 people:</p>
+<blockquote>
+<p>“Broadly, we always only focused on product companies with two to five people. Small teams building products. For example, consultancies were wanting to use us, but we always prioritized founder-led product companies.</p>
+<p>We also focused on only companies using Google Auth and GitHub, because we had only built for GitHub Authenticator or Google Authentication. With these constraints, it was very easy to target our ideal customer and only invite them off the waitlist.</p>
+<p>Something I thought we did really well, looking back, was the sign-up flow asked a bunch of key questions that helped us figure out who to go after. We asked what’s the size of your company, what’s your role, and which tools are you using. Are you GitHub or GitLab, or something else? Do you use Slack, or Microsoft Teams? From that we were able to cherry-pick the first customers. This allowed us to stay very narrow initially, e.g. only allow Google authentication and only integrate with GitHub to start.”</p>
+<p>—<a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a>, co-founder</p>
+</blockquote>
+<p><strong>Persona</strong> took a while to recognize how strongly correlated company size was to their success rate:</p>
+<blockquote>
+<p><strong>“My biggest lesson is to be very realistic on who would want to buy your thing. Early on, we knew very quickly that we couldn’t sell to anyone large. Size truly is a consideration, especially for certain types of products, like security and user identity in our case. Depending on the type of security, there’s a lot of opportunities out there, but it’s so difficult early on because the very nature of your team might not be able to support them.</strong></p>
+<p>I actually wouldn’t go and try to retrofit the ICP, like, ‘Hey, this person bought us, so could we find more people with that role who resemble them?’ I think what was much more useful was actually being able to think through, ‘Hey, what are the common characteristics of people who’ve bought us to date (e.g. company size, pain points), and what are the theories we have now about the next set of people we could get?’”</p>
+<p>—<a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, co-founder and CEO</p>
+</blockquote>
+<p>And <strong>Ramp</strong> found Series A to late-stage was the right spot, versus early-stage startups:</p>
+<blockquote>
+<p>“We thought about our ICP all the time. We paid a lot of attention to what customers were telling us on calls.</p>
+<p>Early on, when we were focusing on early-stage startups, the asks were like, ‘I want a sign-up bonus. I want lounge access. I’m not paying myself enough.’ These perks were how a lot of the market was competing and what everyone was focusing on.</p>
+<p>Over time, we started seeing this mix shift: once you started getting into the Series A, B, and later-stage startups, the needs were different. They’d say, ‘Points aren’t going to change my business. I am spending too much. I want to be more profitable. I want to close my books on time.’</p>
+<p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/65082ddf-cb29-4ea3-a29c-1e77190288ba_1820x932.png" /></p>
+<p>The revenue in this group was also an order to two orders of magnitude more. So we made a very explicit decision early on to focus on this group.</p>
+<p>We would welcome customers outside of this ICP, but we wanted to be really clear about who we were building for, which was the series A, B, or mid-market companies.</p>
+<p>What we actually were competing against wasn’t a credit card. It was ‘I hate Expensify or Concur. Or bill payment software. I can’t close my books on time.’ So we could compete in a different way and grow differently.”</p>
+<p>—<a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a>, co-founder and CEO</p>
+</blockquote>
+<h4>Look for patterns in the unique <em>ways</em> companies work.</h4>
+<p>The founders of <strong>Figma</strong> recognizedthat they were most successful with design-forward and internally transparent companies:</p>
+<blockquote>
+<p>“<strong>Our notion of who our initial customer was is basically in-house design teams at companies that place a premium on design, or where the design is an important part of the company</strong>. <strong>We also started with targeting (not on purpose, but a little bit by accident) just startups, because startups tend to have less history of stuff that they have to deal with.</strong> There aren’t thousands of years of files that they have to deal with. They want to move fast; they are willing to adopt new things. And obviously most startups are software startups. With software, there’s a lot of design involved. So for that reason, we tended to get those people.</p>
+<p><strong>What ends up happening over time is you get a sense of which companies are just kicking the tires and which companies actually are considering switching over</strong>. The reason Uber became a customer is that there was this guy, Michael Gough, whom I had worked with at Adobe in Macromedia and who became their head of design. At the time, Uber was a relatively siloed company. The rider and driver product teams weren’t sharing a lot, because they didn’t want leaks.</p>
+<p>And so Michael was like, we have to change the culture. And <strong>when we showed them Figma, they checked it out, and relatively quickly they went all in because they thought that it was a way to radically change the transparency of design within their company</strong>. And they actually put up monitors throughout their building that showed designs and progress based on what was going on in Figma.</p>
+<p>Twitter was another early company that wanted to use Figma seriously from the beginning, and after a few of these conversations, you build a sense when someone reaches out to you, if they’re serious. If they are trying to deploy this across their whole team or if they’re only marginally interested. Whenever we see the former, we’d rush over and are like, ‘Okay, what’s going on? How can we help out? How are you trying to use it?’ And help them figure it out.”</p>
+<p>—<a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a>, VP of Product</p>
+</blockquote>
+<p>The founders of <strong>Hex</strong> found they were most successful with companies that had a specific data workflow:</p>
+<blockquote>
+<p>“When people think about ICP, a lot of times they think about customer size or customer type, and that is really important. But <strong>I think just as important is, what is the type of workflow and what is the type of pain that you want to solve?</strong> This is the most interesting thing, which our first salesperson and I really zeroed in on: ‘What are the qualification signals we want to hear in terms of the pain they feel today?’</p>
+<p>There were people we talked to who didn’t feel the pain, and even if they could get some marginal utility out of Hex, they weren’t the people we wanted to prioritize. <strong>It was the people who, when we’d talk about the pain we were solving, would nod their heads and salivate. Those are the people we really wanted to spend time with.</strong></p>
+<p><strong>Where we landed was startups with data warehouses and using dbt. If they had those things, we’d probably have a really good conversation. There was a user ICP but also a workflow ICP. We were looking for folks who were primarily interested in analytics and data science. We weren’t looking to serve generic ‘I want to be doing machine learning engineering.’</strong></p>
+<p><strong>I distinctly remember that I was looking for a specific type of nod.</strong> I’d be talking to them, doing my pitch: ‘We see a lot of customers who have this problem where they’re sharing primarily by screenshotting charts and pasting it in a Google Doc or exporting a CSV or sending around PDFs.’ I’d say that line and you’d see people nod—the knowing ‘Yep, that’s us too.’ That was always the thing. If I just got that nod, we were on the same wavelength, and the rest of it would go really well.”</p>
+<p>—<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, co-founder and CEO</p>
+</blockquote>
+<h4><strong>Pay the most attention to signals from</strong> <strong><em>outbound sales</em></strong> <strong>instead of leads coming through your network.</strong></h4>
+<blockquote>
+<p>“<strong>One of my biggest lessons is to pay the closest attention to signal from outbound sales.</strong> With outbound sales, the data is quite clean. For example, if you’re an investor at Retool, I’d ask you, ‘Hey, can you try to connect us with a few companies that might be building internal tools?’ Or ‘Can I ask you to forward an email on?’ They’d probably say yes. But then if you forwarded to a bunch of different companies, probably some of them would reply, even though they had really no interest in Retool. They were often thinking, ‘I want to meet another founder’ or ‘I’m lonely and I want to make friends.’ It kind of feels good in the moment, but it’s actually fake interest. It’s not helpful. You kind of muddy the experiment, actually, quite a bit, because then one might say, ‘Well, that company didn’t like using Retool.’ But why was that? They weren’t ever really interested.</p>
+<p>It’s just much purer to pay attention to signal from pure outbound, with no other incentives attached.”</p>
+<p>—<a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a>, co-founder and CEO</p>
+</blockquote>
+<h4>Keep at it—it often takes many months.</h4>
+<p>The founders of <strong>Zip</strong> spent six months listening, and bouncing between various personas, until they figured it out:</p>
+<blockquote>
+<p>“<strong>It was actually pretty unclear for a while because it was between procurement, IT, and sometimes finance. We kind of confused ourselves quite a bit. And then it wasn’t until maybe five months in that we got pretty clear it was procurement. We just had a lot of conversations and kept pitching it over and over again until we nailed down the pitch and nailed down the ICP.</strong> I think we just had a large volume of customer calls. We would ask them about problems and then try to guide them to what we were building and see if it would come up organically. If it didn’t, then we’d guide it there and then ask. We just talked nonstop to hundreds of people over the first six months.</p>
+<p>Eventually, we created a category out of this space (‘intake to procure’) and identified our ICP persona (finance and procurement), which is what we sell today. But it took us those six months to know even what to say. For a long time we were like, ‘Are we just being really dumb? Are we just creating the same software, making it look better, and then thinking it’s innovative?’ Because people don’t buy stuff just because it looks better. We didn’t really know for half a year, probably.”</p>
+<p>—<a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a> and <a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a>, co-founders</p>
+</blockquote>
+<p>For <strong>Notion</strong>, it took years:</p>
+<blockquote>
+<p>“<strong>Figuring out an ICP is one of the biggest challenges of building a horizontal tool. Every quarter, you feel like the persona that’s most important changes. And we definitely went through all of those cycles—and we still go through some of it—although we’ve now landed on something that feels like it will stick (the product, engineering, design, data world).</strong></p>
+<p>But in the early days, it was everything. We went back and forth between personal users versus business users versus students all the time. And every quarter we’d be like, ‘Oh my God, this other persona is the persona that’s struggling most. We need to focus on that.’ And so it was a bit of a trial by fire, just learning on the job what felt the most important thing to do.</p>
+<p>Our focus now, as we think about it in terms of landing inside companies and inside usage, is the product engineering, design, data world. It doesn’t mean that’s the only end users we support, but we found those people to be the early champions inside companies. So we typically land with them and then we grow from there on out.”</p>
+<p>—<a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a>, co-founder and COO</p>
+</blockquote>
+<h4>Know that your ICP will evolve—stay flexible.</h4>
+<blockquote>
+<p>“In the very early days, our ICP was engineers at small startups who thought, ‘This is the right way to collect data.’ It was intuitive to them that this was a better way to do analytics.</p>
+<p>Mid-stage, our ICP was directors or heads of engineering at growth-stage startups who couldn’t hire engineers quickly enough to meet growth. Think Glossier or DoorDash.</p>
+<p>Recently, our ICP has become big enterprises focused on doing ‘digital transformation,’ often via a core innovation group. Think 21st Century Fox trying to move to streaming or Anheuser-Busch trying to figure out more D2C options.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a>, co-founder of Segment</p>
+</blockquote>
+<h4>And if all else fails, focus on what you can sell this month.</h4>
+<blockquote>
+<p>“Mitch [our sales coach] was always saying, ‘<strong>Only focus on people who can buy this month. This month is the thing. If someone says the project is a few months out, don’t talk to them.’</strong></p>
+<p>When they ask for a price, quote a really high price. Say, ‘Hey, my software is $100,000 a year.’ When they say, ‘Oh, I can only pay you $20k,’ you say, ‘Cool. Can you do it this month? If you can, then let’s go.’</p>
+<p>It’s all about just getting customers to pay something and as soon as possible, and then prioritizing your time in that way.”</p>
+<p>—<a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a>, co-founder and CEO of Amplitude</p>
+</blockquote>
+<h3>Here’s a summary of the above steps</h3>
+<ol>
+<li>Get super-specific and super-narrow with your ICP. Almost comically narrow.</li>
+<li>Start by paying attention to <em>who</em> gets most excited about what you’re building.</li>
+<li>Pay attention to which <em>roles</em> are most successfully implementing your product.</li>
+<li>Pay attention to the <em>size</em> of the company that’s the best fit for your solution.</li>
+<li>Look for patterns in the <em>ways</em> the company works.</li>
+<li>Be careful not to pattern-match too quickly.</li>
+<li>Pay the most attention to signals from <em>outbound sales</em>, instead of leads coming through your network.</li>
+<li>Keep at it—it often takes many months.</li>
+<li>If all else fails, focus on what you can sell this month.</li>
+</ol>
+<h3>Signs you’re on the right track</h3>
+<p>To support each point, I’ve included select segments of the quotes above here again.</p>
+<h4>1. Increased conversion rate</h4>
+<blockquote>
+<p>“We kept both of those personas as our ICP for a while because we signed some pretty significant deals with the growth product persona, but then we realized we had only a 5% to 10% conversion rate with those types of ICPs versus a 40% to 50% rate with technical buyers. Once we realized that, we just deprioritized the growth persona because, yes, they mattered as stakeholders and it was helpful to have them on calls, but they weren’t going to have enough of the carry on the technical organization to determine which vendor to go with.” —<a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a> and <a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a>, co-founders of <strong>Stytch</strong></p>
+<p>“We found out that outreach to CTOs was much more successful. Once we noticed that, we just iterated on the pitch and approach from there.” —<a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a>, founder and CEO of <strong>Retool</strong></p>
+</blockquote>
+<h4>2. Increased enthusiasm</h4>
+<blockquote>
+<p>“We started to recognize this once it started to be noticeable that the data persona was just much more of a fan of Census. They were just getting much more <em>enthused</em>.” —<a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a>, co-founder and CEO of <strong>Census</strong></p>
+<p>“Through the conversations that we had with people, we began to see a certain segment really get excited about it. These social media managers, these people who were (a) figuring out what social media actually was, and then (b) having to scale this work across multiple clients and customers.” —<a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a>, co-founder and CPO of <strong>Canva</strong></p>
+</blockquote>
+<h4>3. More desire to take action now</h4>
+<blockquote>
+<p>“Robinhood agreed to a large contract even though we were early. They’re like, ‘We love it. We’ll install tomorrow.’ They installed it as we were building the first version.” So that told us to go after these larger companies, with millions of users.” —<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, founder and CEO of <strong>Sprig</strong></p>
+</blockquote>
+<h4>4. The nod</h4>
+<blockquote>
+<p>“<strong>It was the people who, when we’d talk about the pain we were solving, would nod their heads and salivate. Those are the people we really wanted to spend time with. I distinctly remember that I was looking for a specific type of nod.</strong> I’d be talking to them, doing my pitch: ‘We see a lot of customers who have this problem where they’re sharing primarily by screenshotting charts and pasting it in a Google Doc or exporting a CSV or sending around PDFs.’ I’d say that line and you’d see people nod—the knowing ‘Yep, that’s us too.’ That was always the thing. If I just got that nod, we were on the same wavelength, and the rest of it would go really well.” —<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, co-founder and CEO of <strong>Hex</strong></p>
+</blockquote>
+<p>“You have to change the audience to whom you target the product, to try to find who is desperate for what you do.” <strong>—<a href="https://www.linkedin.com/in/rachleff/">Andy Rachleff</a></strong></p>
+<h3>To summarize</h3>
+<ol>
+<li>
+<p>Start by taking your best shot at picking the three most <em>unique</em> and <em>important</em> characteristics of your potential ideal customer <a href="https://docs.google.com/spreadsheets/d/1DAajOv4KKm_cVMFgA694sP7mfFvieAPasWZVK_9TOcg/edit#gid=0">using this template</a>:</p>
+</li>
+<li>
+<p>Company size (e.g. 1,000-5,000 employees)</p>
+</li>
+<li>Job title (e.g. engineering manager, social media manager)</li>
+<li>Pain point you’re solving (e.g. compliance, internal transparency)</li>
+<li>Company’s unique way of working (e.g. design-driven, operationally heavy)</li>
+<li>Specific tech used (e.g. data warehouse, GitHub)</li>
+<li>Type of business (e.g. B2B SaaS)</li>
+<li>Price point (e.g. sells software that’s $10k ARR)</li>
+<li>Geo (e.g. urban centers, LatAm)</li>
+<li>A unique place the user spends time (e.g. Node.js community)</li>
+<li>
+<p>Signs you’re on the right track</p>
+</li>
+<li>
+<p>Increased conversion rate</p>
+</li>
+<li>Increased enthusiasm</li>
+<li>Desire to take action now</li>
+<li>The nod</li>
+<li>Try to get <em>super</em>-specific and <em>super</em>-narrow.</li>
+<li>Pay the most attention to signals from <em>outbound sales</em>, instead of leads coming through your network.</li>
+<li>Keep at it—it often takes many months.</li>
+<li>And if all else fails, focus on what you can sell this month.</li>
+</ol>
+<p>As a bonus, for inspiration, <a href="https://docs.google.com/spreadsheets/d/1DAajOv4KKm_cVMFgA694sP7mfFvieAPasWZVK_9TOcg/edit#gid=691141091">here’s an ever-evolving doc</a> showing the initial ICPs of every B2B startup I can get my hands on:</p>
+<p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/89227feb-20db-4e56-ae46-fa196364a116_2280x914.png" /></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://docs.google.com/spreadsheets/d/1QZ8sNT7aP3TWHDsrK8k1vN_HDohxQUQaPok1BfVh0Uo/edit#gid=0">Ideal Customer Profile (ICP) template</a> by Patrick Campbell</li>
+<li><a href="https://review.firstround.com/what-i-learned-from-developing-branding-for-airbnb-dropbox-and-thumbtack#:~:text=global%20mobility%20services.%E2%80%9D-,Find%20Your%20HXC,-It%E2%80%99s%20no%20exaggeration">Find your HXC</a> by Julie Supan</li>
+<li><a href="https://www.mykpono.com/ideal-customer-profile-icp-how-to-create-a-comprehensive-customer-profile/">Ideal Customer Profile (ICP): How to Create a Comprehensive Customer Profile</a> by Myk Pono</li>
+<li><a href="https://www.carolineclark.xyz/gtm-nirvana">GTM nirvana</a> by Caroline Clark</li>
+</ol>
+<h3>Next: <a href="https://www.lennysnewsletter.com/p/how-to-win-your-first-10-b2b-customers">How to win your first 10 customers</a></h3>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How to identify your ideal customer profile (ICP)" src="https://substack-post-media.s3.amazonaws.com/public/images/8638d278-ac01-4f28-b2c9-39f1dd6e4724_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. Check out <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

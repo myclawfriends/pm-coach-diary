@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Week #6: Cultivating good relationships with distributed co-workers, building trust to accelerate growth, and leveling up as a PM when you have extra time — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">This Week #6: Cultivating good relationships with …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">This Week #6: Cultivating good relationships with distributed co-workers, building trust to accelerate growth, and leveling up as a PM when you have extra time</div>
+    
+    <div class="article-meta">2019-10-22<span>·</span>2,344 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello and welcome to my humble newsletter, where I attempt to answer your questions and offer candid advice about building product, driving growth, working with other humans, and anything else that’s stressing you out at the office. 🤝</p>
+<p>If you’re returning from last week, thank you! If you’re new, nice to have you! Help spread the word by telling your friends to <a href="https://www.lennyrachitsky.com/">sign up here</a>. 🙏</p>
+<p><strong>New this week:</strong>The one and only <a href="https://twitter.com/hnshah">Hiten Shah</a> guest-answering one of your questions. Don’t miss it! <strong>😍</strong></p>
+<p>On to this week’s questions…</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!B2he!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F84d8b63e-afb9-4c7e-baae-14c69b8e4227_480x206.gif"><img alt="Image from This Week #6: Cultivating good relationships with distributed co-workers" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/84d8b63e-afb9-4c7e-baae-14c69b8e4227_480x206.gif" /></a></p>
+<h3>Q: In the next year, more and more of the engineers and designers I’ll be interacting with will be remote. What advice do you have for cultivating a good relationship with remote engineers and designers?</h3>
+<p>Since I have very little experience with extended remote work myself, I decided to ask someone who has lived (and written about) this life for years, <a href="https://twitter.com/hnshah">Hiten Shah</a>, to take this question. He immediately (and generously) agreed. If you don’t know Hiten, he’s a legend. Not only is he one of the nicest, most insightful, and most helpful people you’ll ever meet, he also co-founded four companies (KISSmetrics, Crazy Egg, Quick Sprout, and most recently <a href="https://usefyi.com/">FYI</a>), has invested in 100+ more, and for years has been putting out loads of rich content about <a href="https://usefyi.com/notion-history/">startups</a>, <a href="https://thestartupchat.com/">growth</a> , and appropriately . . . <a href="https://usefyi.com/remote-work-resources/">remote work</a>. Here’s Hiten’s take:</p>
+<p>—</p>
+<p>On a distributed team, you are not in the same physical space, so you don’t get to see each other in-person. You don’t get to just walk up to someone’s desk and show them something, or ask them a quick question. Instead, all of the forms of communication with your team are digital: text, voice, and video.</p>
+<p>As a result, <strong>remote work leads to an increase in miscommunication</strong>.</p>
+<p>For engineers and designers, the number one impact of miscommunication is being forced to redo work, and make unexpected changes after you think you are done. All because of something that got lost in translation.</p>
+<p><strong>Good relationships with remote engineers and designers require ensuring that there are methods for avoiding miscommunication. You do this by maintaining clarity.</strong> Your goal on a remote team is to create a culture where it’s OK to ask for clarification when something feels unclear. This is the key to successfully working on a remote team. Ensuring that everyone is on the same page about exactly what needs to be done.</p>
+<p>Here are a few tactical best practices to help you build good relationships with your co-workers:</p>
+<ol>
+<li><strong>Always write things down</strong>: Whenever you’re on a call, make sure that anything that’s important gets written down. Options that were discussed, decisions that were made and next steps, plus who is going to do them. Go even further for your recurring meetings and have a single document that incorporates an agenda and structured meeting notes of what was discussed each time. It’s also important to fully and clearly document specs to ensure understanding. The more that gets documented, the better.</li>
+<li><strong>Screenshare when possible:</strong> If you’re talking about work that an engineer or designer is doing, screenshare and go right into the tool where their work and tasks are documented. For example, this could be your ticketing system, a spec document or even an Invision prototype. Work together by having a discussion, going back and forth on the feedback and ideally collaborating in the appropriate tool while on the call. This way nobody has to remember to update things later.</li>
+<li><strong>Postmortem everything that’s shipped</strong>: Especially whenever larger bodies of work are completed and shipped to customers. Marketing, product, big customer wins. It should all be postmortemed to understand what went well and what didn’t. This way you are constantly assessing how things are going and are able to discuss how to improve them. Having great process and documentation is the key to remote work. You can’t just come up with a process and expect it to work well for you without reviewing and iterating it.</li>
+</ol>
+<p>For more remote work best practices that are backed by research that we’ve done, <a href="https://usefyi.com/remote-work-best-practices/">read these 11 best practices for working remotely written by my co-founder Marie</a>.</p>
+<p><em>—</em></p>
+<p><em>Thanks <a href="https://twitter.com/hnshah">Hiten</a>!</em></p>
+<h3>Q: I work at a Fintech company — how would you think about growth here? Our main challenge is building trust with users (because without that they won’t want to share any of their information), and not being a daily use product.</h3>
+<p>First of all, let’s talk about a few ways you can build trust with users:</p>
+<ol>
+<li><strong>Social proof:</strong> If people that you trust are using a product, you’ll certainly be more likely to trust it. <a href="https://blog.hubspot.com/marketing/social-proof-examples">Some examples of this in action</a>. How might you leverage data and testimonials from people already using your service to create social proof — how many people are using it, what kind of people, from where, and for what purpose? Help your users immediately see that people just like them are already using and loving your product.</li>
+<li><strong>Authority</strong>: If someone in authority has vetted a product, you’ll be much more likely to trust it. <a href="https://www.nngroup.com/articles/authority-principle/">Some examples of this in action</a>. How might you surface your certifications, approvals, badges, awards, seals, or endorsements from authority figures? How might you acquire more of these? Whatever you have — make sure your users see these early and often.</li>
+<li><strong>Guarantees</strong>: If something goes wrong, who’s got my back? What’s the downside of giving this product a shot? How might you make your users feel like they’ll be safe and protected no matter what? The <a href="https://www.airbnb.com/guarantee">Airbnb Host Guarantee</a> was an incredibly powerful tool for getting new hosts over the hump of opening their home up to strangers.</li>
+<li><strong>Reputation</strong>: This is likely less relevant to your business, but reviews from other users (e.g. Yelp reviews, Uber reviews, Airbnb reviews) are one of the most powerful ways to communicate trust. If many other people have had a good experience, it’s likely you will too. <a href="https://sloanreview.mit.edu/article/online-reputation-systems-how-to-design-one-that-does-what-you-need/">Here’s a good read on this topic</a>.</li>
+<li><strong>Great UX:</strong> A badly designed site/app immediately introduces suspicion. Particularly when dealing with money. Pay attention to the details — the resolution of images, padding, grammar, performance, and general visual polish. Listen for these issues in user research. Little things can make a big psychological impact here. <a href="https://www.ted.com/talks/joe_gebbia_how_airbnb_designs_for_trust?language=en">Watch Joe Gebbia’s TED talk about how Airbnb designs for trust</a>.</li>
+<li><strong>Deliver:</strong> With our increasing interconnectedness, word-of-mouth spreads quickly. Particularly if you do something wrong. Nothing destroys trust in your brand more quickly. At the same time, if you consistently provide a great experience, and deliver on your promise — that’s how you’ll build real long-term trust. <a href="https://fourweekmba.com/amazon-flywheel/">The Amazon Flywheel</a> is a good example of this in action.</li>
+</ol>
+<p>With that in mind, three growth levers I’d suggest you explore:</p>
+<ol>
+<li><strong>Top-of-funnel: Referrals</strong>. For a product that relies on trust, there’s nothing more powerful than an endorsement from a friend. Airbnb had a similar trust challenge, both on the guest side (“stay in a stranger’s home, are you crazy?”) and on the host side (“have a stranger stay in my home, are you crazy??”). <a href="https://www.airbnb.com/refer">Referrals</a> proved to be the single biggest attributable growth lever on both sides of the marketplace. When designing your referrals program, it’s important that (1) the referer has a meaningful incentive, be it cash or credits, that (2) this program is easily discoverable, and that (3) you are incentivizing the right behavior — the referral reward should only pay out once the new user has hit a valuable milestone.</li>
+<li><strong>Mid-funnel: Landing page(s).</strong> Start building trust from the first moment a user visits your site. How might you leverage some of the ideas I referenced above to instill a strong sense of trust in your product immediately? How might you continue that message throughout the remaining experience? What concerns do people have, at which stage of the flow, and what are you doing to address them? Also, no matter what you’re selling — is the value prop for your product crystal clear? What will compel users to stick around? Make sure to show these pages to real users and listen to their reactions. Continue iterating on this indefinitely.</li>
+<li><strong>End-of-funnel: Remind users of the value you’re providing.</strong> Without knowing what exactly it is your product is, I’ll take a guess and assume that it’s a “set it and forget it” kind of service, where you sign-up, connect your financial accounts, and good things happen for me. If true, then find ways to remind users of all of the good that you’re doing, and why they’d be fools for quitting. Wealthfront and Betterment do a great of this with a regular email showing me how much interest I’ve earned lifetime with them.</li>
+</ol>
+<h3>Q: I’ve been a PM at a startup for about 18 months. A few months ago the business shut down, and for a variety of reasons I’ve decided to take some time off to do some extended travel. With months of travel ahead of me, I’d like to use this time to level up my PM game, and I wanted to get your advice on what you think would be the highest leverage learning opportunities during this time.</h3>
+<p>Truthfully, it’s tough to get significantly better at product management without actually doing product management. No amount of reading, classes, or discussions will be as good a teacher as doing the actual work. However, having time to step back, to process, to read deeply, and to build complementary skills is a rare gift and can indeed accelerate your progress once you return to the job. Here are a few things I’d suggest for your time off:</p>
+<ol>
+<li><strong>Follow your energy:</strong> What have you been yearning to do or learn while employed, but have been unable to because you’ve been too busy or lacked the energy? Maybe it’s learning to design, or learning to code, or getting better with data. <em>Do that. Do the thing that you are most pulled towards.</em> Even if it’s not directly beneficial to your job today, at the worst you’ll feel much better finally having scratched that itch.</li>
+<li><strong>Read, with a goal:</strong> Determine 2-3 skills you most want to develop (strategy? execution? leadership?), pick a set of books and articles that speak to these skills, and work through them. <a href="https://www.lennyrachitsky.com/p/how-to-get-into-product-management">Here’s a set of curated articles and books I previously put together for each of the primary PM skills</a>. I’m happy to share more if you let me know what skills you’d like to focus on. Be careful adding too many items to your list, or book/articles that you aren’t excited about, because you’ll quickly get bored or overwhelmed, and lose motivation.</li>
+<li><strong>Read, without a goal:</strong> Not all things need to be goal-oriented. Make time to read stuff you’re super excited about even if it’s only tangentially related. <a href="https://www.amazon.com/dp/B00KVI76ZS/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Biographies</a>, <a href="https://www.amazon.com/Sapiens-Humankind-Yuval-Noah-Harari-ebook/dp/B00ICN066A/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=1571439116&amp;sr=8-1">history books,</a> and <a href="https://www.generalmagicthemovie.com/">documentaries</a> are great for this. As an example of this in action, <a href="https://www.fastcompany.com/3002813/how-snow-white-helped-airbnbs-mobile-mission">here’s the story about how Walt Disney’s biography changed Airbnb’s strategy</a>.</li>
+<li><strong>Write:</strong> One of the main reasons I’ve started writing is because it helps me learn. Consider doing some writing, reflecting both on what you’ve learned over the past 18 months, and on the reading that you’re doing on your time off. This can be as simple as a bullet list of PM learnings, or as in-depth as a Medium article.</li>
+<li><strong>Take experiential classes:</strong> At a high level, product management, as a skillset, is a combination of leadership + business thinking + product design. Instead of reading about these skills, find some local classes that will help you build them in a different context. Want to work on leadership — maybe take a class on teaching an adventure sport. Want to work on business thinking — maybe take a class on running a local business. Want to work on product design — maybe take a class making pottery. Use this opportunity to look beyond the digital world.</li>
+</ol>
+<p>That’s it for this week!</p>
+<h3>Inspirations for the week ahead</h3>
+<ol>
+<li>Read: <a href="https://a16z.com/2019/10/17/how-to-be-effective-ceo-leader/">Which Way Do You Run? by Ben Horowitz</a> — “Almost all CEOs know where the problems are, but only the truly elite ones run towards the fear.” 💪</li>
+<li>Listen: <a href="https://podcasts.apple.com/us/podcast/8-andrew-yang-dangerously-different-candidate-media/id1469999563?i=1000452045633https%3A%2F%2Fpodcasts.apple.com%2Fus%2Fpodcast%2Fthe-portal%2Fid1469999563">The Portal by Eric Weinstein</a> — An fantastic new podcast that will make you smarter. Start with the episodes with <a href="https://podcasts.apple.com/us/podcast/8-andrew-yang-dangerously-different-candidate-media/id1469999563?i=1000452045633">Andrew Yang</a>, <a href="https://podcasts.apple.com/us/podcast/3-werner-herzog/id1469999563?i=1000445326690">Werner Herzog</a>, or <a href="https://podcasts.apple.com/us/podcast/1-peter-thiel/id1469999563?i=1000444670908">Peter Thiel</a>.</li>
+<li>Watch: <a href="https://www.youtube.com/watch?v=AamACDnwRts">Optical grape sorting</a> 😳</li>
+</ol>
+<p><strong>If you’re finding value here, please <a href="https://www.lennyrachitsky.com/">share this newsletter with your friends</a>.</strong></p>
+<p><a href="https://www.lennyrachitsky.com/?action=share">Share Lenny's Newsletter</a></p>
+<p>And if you’d like some advice yourself, or just want to say hi, just reply to this email. I’ll tackle three reader questions each week (keeping your name and company anonymous) until you quit sending me questions. I definitely won’t have all of the answers, but hey, it’s free 🤷‍♂️</p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

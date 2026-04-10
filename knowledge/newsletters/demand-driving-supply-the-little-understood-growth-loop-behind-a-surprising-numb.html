@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demand driving supply: The little-understood growth loop behind a surprising number of iconic billion-dollar companies — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Demand driving supply: The little-understood growt…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Demand driving supply: The little-understood growth loop behind a surprising number of iconic billion-dollar companies</div>
+    
+    <div class="article-meta">2021-09-14<span>·</span>5,354 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2C</span> <span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out about work. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/gtm-motions">GTM motions of 30 B2B SaaS companies</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/prds-1-pagers-examples">Templates and examples of 1-Pagers and PRDs</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/marketplace-city-expansion">A guide to marketplace city expansion</a></em></li>
+</ol>
+<p><em>Subscribe to get this newsletter every week 👇</em></p>
+<h4>Book of the month: <em><a href="https://www.amazon.com/Cold-Start-Problem-Andrew-Chen/dp/0062969749/ref=tmm_hrd_swatch_0">The Cold Start Problem</a></em>, by Andrew Chen</h4>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4b7999be-12bf-47cf-a5d2-36dc5702c082_1024x938.jpeg" /></p>
+<p>Did you know that <a href="https://andrewchen.com/">Andrew Chen</a> has a book coming out?? Yes, the same Andrew Chen who’s written some of the most well-known growth essays out there (and who for the past three years has been working on this book instead of blogging):</p>
+<ol>
+<li><a href="https://andrewchen.com/how-to-be-a-growth-hacker-an-airbnbcraigslist-case-study/">Growth Hacker is the new VP Marketing</a></li>
+<li><a href="https://andrewchen.com/how-to-build-a-growth-team/">How to build a growth team</a></li>
+<li><a href="https://andrewchen.com/the-law-of-shitty-clickthroughs/">The Law of Shitty Clickthroughs</a></li>
+<li><a href="https://andrewchen.com/power-user-curve/">The Power User Curve: The best way to understand your most engaged users</a></li>
+</ol>
+<p>I’ve read a preview copy of Andrew’s book, and I can tell you it’s <em>very good</em>. It’s full of real-life examples, actionable advice, and concrete takeaways (basically, all the same reasons you subscribe to this newsletter). Pre-order now to make sure you get a copy as soon as it ships 👇👇👇</p>
+<p><a href="https://www.amazon.com/Cold-Start-Problem-Andrew-Chen/dp/0062969749/ref=tmm_hrd_swatch_0">Pre-order The Cold Start Problem</a></p>
+<p>On to this week’s post…</p>
+<blockquote>
+<h2>Q: I’ve noticed that some of my customers end up signing up to become “supply” in my marketplace, which helps me grow the marketplace faster. Amazing! Any advice for leaning into this behavior?</h2>
+</blockquote>
+<p>Marketplaces have the most interesting growth loops. Your supply can drive your demand, your demand can drive your supply, demand can drive more demand, and supply can drive more supply. What a world! If you can find, nurture, and accelerate one or two of these loops, you’ll find a powerful new growth lever that your competition may not have.</p>
+<p>To study the growth loop you’ve identified within your business—where your demand is directly driving your supply—I’ve pulled in Brian Rothenberg, who presented a memorable talk on this very topic at a recent conference. Brian has spent the past 15 years starting, growing, and investing in marketplaces, and he personally founded two marketplace startups. He also led customer acquisition at TaskRabbit, spent over six years scaling Eventbrite to its IPO as VP of Growth, and is now a Partner at <a href="https://defy.vc/">Defy</a>. We’re lucky to have him share his insights, and I hope you find this as informative as I did.</p>
+<p><em>For more from Brian, you can find him on <a href="https://twitter.com/bmrothenberg">Twitter</a>, <a href="https://www.linkedin.com/in/brianrothenberg/">LinkedIn</a>, and <a href="https://brianrothenberg.com/">his website</a>.</em></p>
+<h1>Demand driving supply</h1>
+<p><em>by Brian Rothenberg</em></p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/387b4e1f-d078-4803-8a1d-d61bc3d0b776_5694x4174.jpeg" /></p>
+<p>A surprisingly large number of iconic billion-dollar-plus companies—including Airbnb, DocuSign, Uber, Lyft, Square, Eventbrite, GoFundMe, and SurveyMonkey—share a unique and little-understood growth loop: <strong>demand driving supply</strong>.</p>
+<p>In Lenny’s post <a href="https://www.lennyrachitsky.com/p/magical-growth-loops">“Magical growth loops,”</a> he shares several examples of this in action. For instance, Lyft:</p>
+<ol>
+<li>Lyft gets a new rider</li>
+<li>This rider takes a ride, meets the driver, and gets excited about driving</li>
+<li>The rider becomes a driver</li>
+</ol>
+<p>Lenny and I have discussed this dynamic with other growth leaders, but there hasn’t been much written about how these companies have actually attacked this opportunity. In this guide I’m going to share my learnings around how to identify this powerful growth loop, how to determine whether it can benefit your business, and how to use it to power your own organic growth.</p>
+<p>To help bring this to life in the most tangible way possible, I’m going to explore a specific demand-driving-supply growth loop that we identified and successfully amplified during Eventbrite’s startup to scale-up days:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8b6662ab-bb41-4979-99a6-88b7882e10b0_1368x1238.png" /></p>
+<ol>
+<li>Eventbrite recruits an event creator</li>
+<li>An attendee buys ticket(s) to the event through Eventbrite and gets excited about organizing their own event</li>
+<li>The attendee becomes a creator</li>
+</ol>
+<p>At Eventbrite’s IPO, this viral loop was important enough to be listed as the first of four key components of our GTM strategy. From our S-1:</p>
+<blockquote>
+<p><em>A significant number of creators become aware of us through either word of mouth or interacting with our platform as attendees. In a 2016 internal survey of more than 3,000 global creators, 36% of creators reported first learning about Eventbrite through word of mouth and </em><em>34% of creators reported first learning of Eventbrite by attending events produced by other Eventbrite creators</em><em>.Both of these factors have helped us grow organically with low creator acquisition costs.</em></p>
+</blockquote>
+<p>Other hugely successful startups have benefited from this built-in dynamic as well. For example, former Square COO <a href="https://www.linkedin.com/in/keith/">Keith Rabois</a> once shared that in the early days, approximately 1% of people who bought through the Square reader (demand side) later became Square merchants (supply side), becoming a powerful viral distribution mechanism for Square. As Square added more merchants, those merchants shared Square with more buyers, of which a portion of buyers converted into merchants, and so the flywheel spins. Fast-forward to today, and Square is valued at around $120 billion.</p>
+<h3>How to identify this growth dynamic</h3>
+<p>Eventbrite’s Series A investor and board member <a href="https://www.sequoiacap.com/people/roelof-botha/">Roelof Botha</a> from Sequoia Capital first saw this growth opportunity in his diligence process and talked about it in a 2009 TechCrunch interview with Kevin and Julia Hartz (13:01 in <a href="https://techcrunch.com/2009/11/30/eventibrite-sequoia-roelof-botha-hartz-venture-capital/">video</a>):</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3be8f689-98e0-4a2f-b1f4-356c091b1c9f_1874x1006.png" /></p>
+<p>Building on anecdotes and qualitative evidence that buyer-to-seller conversion was already happening even at a very early stage, early employees <a href="https://www.linkedin.com/in/feliciayiu">Felicia Evans</a>, <a href="https://www.linkedin.com/in/tamaramendelsohn">Tamara Mendelsohn</a>, <a href="https://www.linkedin.com/in/nels-gilbreth-36a9821/">Nels Gilbreth</a>, and others conducted important preliminary data analysis, research, and initial experiments to further vet the opportunity for this growth loop. After I joined as Eventbrite’s first head of growth, our initial growth team chose to prioritize this as our top area for experimentation. Given our existing attendee-to-creator conversion, we hypothesized that we could materially increase this rate of conversion, and our modeling showed that doing so could provide a material lift to our organic growth.</p>
+<p>If you’re thinking about exploring this viral loop for your business, my number one piece of advice is to <strong>first see if it’s already happening. Only lean into it if you’re already seeing this behavior</strong>, rather than trying to force it from a cold start.</p>
+<h3><strong>How?</strong></h3>
+<p>Start by looking at your data, to see if demand-to-supply conversion is already happening (e.g. Lyft riders converting to drivers). How many and what percent of your supply side first interacted with your product as demand-side users?</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9961f41e-6894-4b62-a1b9-677cd439e477_936x748.png" /></p>
+<p>This can start small at the earliest stages of your company. A seed-stage company I recently evaluated as a potential investment has just 38 sellers on its platform, but five of them started out as buyers on the platform. This at least gives me some early indication that this powerful demand-to-supply growth loop could emerge as a future growth driver. A small sample size is OK to start; you just want to see evidence that it’s happening organically.</p>
+<h3><strong>What kind of conversion rate should I be looking for?</strong></h3>
+<p>I’ve asked friends at companies that have experienced this demand-to-supply loop what they’ve seen in terms of conversion rates. I’ve heard a pretty broad range, from roughly 0.5% to around 5% of users, starting as demand-side users and then converting to supply-side users. But I have seen rare companies with even higher rates. For example, <a href="https://aalto.com/">Aalto</a> (disclaimer: I’m an investor), a new real estate marketplace that connects homeowners and buyers directly, is moving substantial volume in part because 11% of buyers who join (to access Aalto’s exclusive housing inventory) also want to sell via its streamlined sales experience.</p>
+<p>While there are cases of double-digit conversion rates, it’s more likely to be a relatively small percentage that you can expect to convert. Because the conversion rate tends to be small, this loop is often more apparent and becomes a more powerful lever as the demand side of your business increases in scale. In the earliest days, when your startup has just hundreds or single-digit thousands of demand-side users, this may not materially move the needle in terms of supply-side growth. Where it becomes really powerful is when the volume of demand-side users ramps up into the hundreds of thousands and millions. It’s around this time when the data will tell you some interesting things.</p>
+<p>For many businesses with this demand-to-supply dynamic, there tends to be some latency. As such, I’d start by looking at the following:</p>
+<ol>
+<li><strong>Buyer-to-seller conversion rates in the first month, after the second month, and so on.</strong> Again, to start you are primarily looking to see if it’s happening even at very small numbers, say 0.1%. Then I’d suggest looking at whether this conversion rate holds constant, or ideally increases, over time. In the example chart below, looking at the blue line you can see that for Eventbrite some percent of attendees created their first event (became the supply side) in the same month that they bought a ticket. That percentage then grows after the first month (red line) and again after the second month (green line). So from this analysis we learned that demand-side users converted in the same month in which they attended an event, and also that this conversion continued to happen over subsequent months.</li>
+</ol>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/39d21023-f389-40e9-b63c-f41b9be29d6d_862x674.png" /></p>
+<ol>
+<li><strong>Look at cohort-based views.</strong> You want to see cohorts following a reasonably consistent pattern in terms of the rate at which they convert, and how quickly. Why? If you know when your buyers are naturally converting, that may be a good guide in terms of when to concentrate your efforts around trying to convert more of them. In the example below, the conversion rate is highest in the same month that they bought a ticket, before stabilizing around month 5 or 6, so we focused our efforts on the first months after someone bought a ticket.</li>
+</ol>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/88a0675e-c1fb-48cb-9e36-4bbc5c9e3de0_1736x738.png" /></p>
+<p>If you aren’t yet at a stage or scale where you have this type of data, there are still directional signals you can look for. Just as Roelof at Sequoia did, you can ask customers where they learned about your product, either by directly talking with them or through a survey (e.g. “Where did you first learn about us?”). Sometimes this will also come through in sales conversations where a sales prospect will mention how they interacted with your platform from the demand side first.</p>
+<p>If demand-to-supply conversion isn’t happening organically, even as a very small percentage, it probably isn’t right for your network or marketplace.</p>
+<h3>It’s happening. Time to figure out why—and why not</h3>
+<p>When you do see this growth loop happening and you want to see if you can increase the rate of conversion, <strong>it’s imperative to figure out why, and also why not</strong>. Why aren’t <em>more</em> users converting? One of the most important questions to answer is whether or not the demand side of your user base understands your full product offering, namely, how it’s used on the supply side.</p>
+<p>In our quest to better understand Eventbrite’s opportunity, we conducted a survey of our attendees. In doing so, we learned that attendee understanding of Eventbrite was not good. For example, about 50% of respondents did not know whether to agree with the statement “Anyone organizing an event can sell tickets through Eventbrite.” If your demand side doesn’t understand the basics, you have little chance to convert them. We then spoke with 20 users who had converted and we tried to understand the reasons they switched over, as well as the barriers they faced along the way. From those interviews, we were able to formulate hypotheses to set the stage for future testing. For example, we learned that many people who had converted from an attendee into an event creator often did so after having attended more than one Eventbrite event. So we formed a hypothesis that focusing our efforts on users who had attended two or more events may be a promising segment to experiment with.</p>
+<p>All of these qualitative learnings gave us confidence that helping attendees better understand how Eventbrite works as an events platform could dramatically improve our demand-to-supply conversion rate. So we made it our growth team’s goal to help attendees understand that they can easily organize an event on Eventbrite, and measured our success based on increasing demand-to-supply conversion rate as well as growing the number of new event creators who first started as event attendees on the platform.</p>
+<h3>Prioritizing focus when leaning into this growth loop</h3>
+<p>Optimizing for demand-to-supply conversion requires a few basic things. Potential users who may convert to supply need to:</p>
+<ol>
+<li><strong>Know who you are</strong></li>
+<li><strong>Know what you do and how you help them</strong>—the “aha” of your value, specifically in context of the supply-side use case</li>
+<li><strong>Keep you top-of-mind when that need arises</strong></li>
+</ol>
+<p>I recommend starting with the higher-traffic and/or most contextually relevant parts of your product where your branding and positioning can be improved. There are probably a million different things you could do to try to achieve those sub-goals, so focus on changes that seem most likely to create material changes in the conversion rate. The goal is to convert as many demand users into supply users as possible—so the pages that the demand-side users interact with are a natural starting point.</p>
+<p>And in terms of how to improve your branding and positioning, it’s a good idea to listen to your users. Ask users who have converted to the supply side, and use their reasons for switching to draw in new converts. Drawing from our prior user interviews:</p>
+<blockquote>
+<p><em>“I was seeking a better way than forms and PayPal.”</em> —Kelsey</p>
+</blockquote>
+<p>Messaging to test: “Save time: there’s a better way.”</p>
+<blockquote>
+<p><em>“As a consumer buying tickets for my kids, I thought ‘This was easy and it worked,’ and that was enough for me to try Eventbrite.” —Ronnit</em></p>
+</blockquote>
+<p>Messaging to test: “It’s easy. You had a great experience with Eventbrite. So can your own attendees.”</p>
+<h3>How to measure</h3>
+<p>It’s tough to experiment without measuring, so let’s start there. In my experience, measuring these efforts to improve buyer-to-seller conversion is not as straightforward as A/B testing a landing page or an onboarding flow. For one thing, we had a fairly long tail in terms of latency of conversion: Just because you’re going to an event today doesn’t mean you have a need to host your own event the next day, and many demand-to-supply conversions happened months or even years after buying their first ticket. To help combat the sometimes long latency in converting, we looked for leading indicators.</p>
+<p>To see if we were making progress, we’d look at low-latency cohorts as a leading indicator that we were on the right path as we rolled out improvements or tests. Low-latency cohort analysis involves looking at sets of users who take the key demand-side action (in Eventbrite’s case, buying a ticket) in a given period and then looking at how they convert into the supply side across recent time intervals (could be days, weeks, or months).</p>
+<p>Whether you should look at days, weeks, or months depends on a couple factors. One factor is the natural frequency of usage for your product. For a product category like grocery delivery with pretty high natural weekly usage, you might get a lot of signal looking at weekly cohorts (e.g. how many consumers who had groceries delivered in a given week and then converted into a delivery driver within the same week, second week, and so on). Another factor is your product’s scale and whether you have a large enough data set to draw conclusions from daily or weekly data (requires larger scale), or if you’re better off looking at longer-latency but higher volume of data cohorts like monthly or quarterly (requires less scale).</p>
+<p>Using a low-latency cohort example from Eventbrite below, we’d look at our demand-to-supply conversion rate for users converting in the same week (e.g. buy a ticket, and then publish an event in the same 7-day period). This is the blue line, or “0 week,” on the chart below. We’d also look at conversion rates for users converting within 14 days (red line: “1 week”) and 21 days (green line: “2 week”). We were looking to see if there was an uptick in the fastest-converting users, as that was often a leading indicator that our changes would drive more sustained lifts in conversion.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1add7858-852c-4f36-83c9-07d943ef6e26_1016x620.png" /></p>
+<p>To be honest, at times it was not entirely scientific, but we were able over time to measure pre/post lift from our efforts in terms of when we made changes, and if we saw conversion lifts that sustained over time:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d365d933-3cd7-4b4b-b575-a4e19ff58f0e_1170x592.png" /></p>
+<h3><strong>Time to start experimenting: learnings from Eventbrite, SurveyMonkey, Airbnb, and more</strong></h3>
+<p>As I noted above, a core part of the effort here is showing prospective converts who you are (your brand) and what you do (your product’s value). To do so, it’s crucial to emphasize consistent branding and key messaging throughout the demand-side journey. For Eventbrite, most of our traffic initially flowed through our event ticketing pages. Early on, most of these pages had little to no branding, or were so customizable that they ended up looking like “Myspace for events,” making it nearly impossible for people who visited these pages to even know what Eventbrite was. Over time, we shifted to greater consistency, including more prominent branding.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4e33d2e0-f779-4d7e-a0f1-9434a764dd8d_1554x858.png" /></p>
+<p>For some products for which the creator/customer is using and promoting your product to <em>their</em> customers (e.g. Patreon, DocuSign, SurveyMonkey, WordPress), I’ve observed a common tension where the creator/customer often wants to promote their branding and downplay/remove your product’s brand, effectively white-labeling your product. This customer desire is obviously at odds with my advice above. When trying to go from minimal to more branding, increase your logo size, or add in key messages and calls to action, do so slowly over time. These changes tend to not be as big of a deal as people think, but they’d likely overreact if you were to make them all at once.</p>
+<p>SurveyMonkey is another business that was able to drive meaningful growth through demand-to-supply conversion. One of SurveyMonkey’s most important user journeys is its core demand-side experience: taking a survey. SurveyMonkey used this important demand-side user flow to reinforce: (1) <em>who</em> it is (its brand), (2) <em>what</em> it does (“see how easy it is to create a survey”), and (3) a CTA to actually create a survey (introducing the supply-side funnel to the demand side).</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/63528aac-e771-4a15-9bec-86c67be1805c_1178x744.png" /></p>
+<p><a href="https://www.lennysnewsletter.com/p/demand-driving-supply-marketplaces">Continue reading online 👉</a></p>
+<p>When the survey taker clicks “Done” to submit their survey responses, they see the following page:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b040092b-4910-49e2-9161-afb7227b1d44_1021x584.png" /></p>
+<p>Is that the homepage? Nope, it’s the “survey complete” page. What it lacks in subtlety it likely makes up for in effectiveness. I’ve heard from former SurveyMonkey employees that these efforts were highly impactful in dialing up the product’s built-in virality and conversion from survey takers (demand) to survey makers (supply).</p>
+<p>Similarly, at Eventbrite, immediately after a person completed their ticket purchase, we used part of the page to message that the platform could be used “to organize events of all kinds! Eventbrite makes it easy to create an event page and manage who’s coming.”</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/17fc68c9-77b4-445b-9564-bed8e363d857_866x686.png" /></p>
+<p>Here’s an Airbnb experiment that I thought was clever. I assume the prospective-guest-to-host messaging flow is a pretty important flow for guests. In the example below, after sending a message to a host on Airbnb, it displays a modal urging you to “list your home in order to pay for your trip” (I didn’t capture the modal, but you get the point). I thought this was pretty smart, as they know you’re planning to be out of your home, so why not use your space to help pay for your trip?</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2301d33e-ae7b-42d1-86cd-7a1b17c74bfa_1248x1234.png" /></p>
+<p>For most marketplaces, product listings pages tend to see the highest traffic of any single page type. Furthermore, the people most likely to participate in your product on the supply side are often the same people who are already using (or will someday use) your product from the demand side. Put these two together, and it makes logical sense to use some of this screen real estate to promote the sell-side experience. Here’s an example from Etsy:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ecfe8007-991a-452f-8361-585e0f970ee7_1192x684.png" /></p>
+<p><a href="https://shopthrilling.com/">Thrilling</a>, the leading marketplace for quality vintage clothing, helping 20,000+ small retailers digitize and sell their unique products online (disclaimer: I’m an investor), benefits from this viral loop as well. Below you can see a more prominent example of this type of messaging:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/bd5f962b-fb1a-4300-a21b-36f8cfdfa65b_984x720.png" /></p>
+<p>Continuing with other high-impact areas of your product that you can use to position your service as being applicable to both the demand and supply side, let’s look at the header and/or primary navigation within your app. Again, your goal is to communicate: (1) “who” you are (your brand), (2) “what” you do (key things the demand and/or supply side should do), and (3) provide a CTA to take those key actions. While this falls into general best practice, it can be supremely beneficial in helping your demand-side users understand that they can also use your platform in a supply-side experience. For websites, the header is above-the-fold, it’s generally on all/most pages of the site, and helps users with not only literal site navigation but also in navigating “what’s this product do?”</p>
+<p>Let’s look at an old Airbnb example. I see (1) the “who” in terms of Airbnb’s brand and (2) the “what” in terms of users being able to either find local listings or become a host.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2349a743-8443-4ec3-b98b-3c2026fd1998_1254x736.png" /></p>
+<p>Early on at Eventbrite, we did a pretty poor job of this. For a while we only had a tiny logo with messaging to contact the event organizer directly:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8ce6a3fb-7212-40d4-9128-922e8d80292d_1576x558.png" /></p>
+<p>We made this simple header change to “Create an event” or “Find events,” and it turned out to be one of our most impactful changes in terms of both general product understanding and also in lifting demand-to-supply conversion:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dbbc2375-a27a-4e03-87c2-1dd19a89a756_928x748.png" /></p>
+<p>If those header changes seem too subtle, check out the old Airbnb experiment that my former growth team colleague <a href="https://www.linkedin.com/in/feliciayiu/">Felicia</a> captured:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fe9ea286-7355-47da-8ddc-ebf3e4942b70_767x240.png" /></p>
+<p>Beyond the general awesomeness of using a large pop-up with social proof to call attention to “List your space,” I love that <a href="https://www.linkedin.com/in/gustafalstromer">Gustaf Alstromer</a>, Airbnb’s former growth product lead, is the first person to show up. How meta is that to show up in your own experiment? :-)</p>
+<p>And here’s a native app example where Uber’s rider app is using their primary navigation to call out “Drive with Uber”:</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/cc2c2561-bd81-431b-9378-6c77d48b28cc_739x1600.jpeg" /></p>
+<p>OK, so you’ve got your key user flows and high-traffic areas of your product covered. If you want to keep going from there, think through what other real estate you have.</p>
+<p>I mentioned earlier how Eventbrite’s event pages received a lot of traffic. Given that events naturally expire after their date, we had a lot of expired event pages that people would still organically find and continue to visit. We used this as an opportunity to (1) help those users find relevant live and upcoming events (the product experience improved greatly over time relative to the below), and (2) again communicate that they too can use the platform to “create an event.”</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dac9dcf2-a904-49b9-89b8-149435cc2454_1782x1058.png" /></p>
+<p>In my final example, we even got creative with the paper tickets that people used to download, print, and bring with them to events. When standing in line waiting for an event, why not reiterate that the event-goer can also use Eventbrite to organize their own events?</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6a4879cf-0238-4a0e-8cbb-c6b7a6aa51a4_898x1202.png" /></p>
+<p>OK, so we were a little shameless, but it worked :-)</p>
+<h3>How to get more targeted</h3>
+<p>Some of the above examples involve pretty broad strokes across large parts of your product and user base. Driving buyer-to-seller conversion tends to be a volume game, but you can and should get more targeted. Segmentation and deeper data analysis can help you home in on driving more impact with the right users at the right times.</p>
+<p>Ask questions like:</p>
+<ol>
+<li><strong>Who are the users who have a higher propensity to convert?</strong> What are their shared attributes, and how are they different from the overall user base?</li>
+<li><strong>When are they most likely to convert?</strong> Is there a tipping point for users to convert?</li>
+<li><strong>Are users who do convert high-value or lower-value?</strong> If low-value, is it worth the investment?</li>
+</ol>
+<p>At Eventbrite, we looked at the data for predictive markers of the “aha” moment when buyers were converting at a higher rate.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a5103201-72d4-4232-ad69-a956b2c96dd8_764x640.png" /></p>
+<p>We found a point where this conversion rate jumped by many multiples. This was a pretty good signal to focus on this point within the user journey, and we piled our efforts into doing so.</p>
+<p>Another insight I’ve heard from multiple more horizontal marketplaces is how cross-category usage often drives the aha moment of “Oh, I can sell almost anything on this platform!”</p>
+<p>So for example, a first-time buyer who googles “handmade necklace,” finds Etsy, and purchases a piece of jewelry, may think, “I’ve bought on Etsy. They sell handmade jewelry.”</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e2b3e968-4891-43da-8998-0c438e0237c3_1654x516.png" /></p>
+<p>Whereas when that same buyer later receives a link from a friend to a handmade toy on Etsy, they experience the “aha” that Etsy sells all kinds of handmade items.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/208912ea-f517-4469-b891-578b3ddbc9c5_1660x518.png" /></p>
+<p>I have seen and heard multiple examples of cross-category purchase/usage being an unlock in terms of the demand side understanding the breadth of offerings, and thereby that the platform is more accessible to many/all categories and different use cases.</p>
+<p>Putting together the ideas from the above examples, at Eventbrite we created programmatic emails that went out to users right when they crossed the aha moment that we had uncovered in the data. Furthermore, we personalized the emails to each user, reminding them of the events they had previously bought tickets for. And then we tested different value propositions and wording, often using the exact words that prior users who had converted used to describe the key value of converting.</p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0028de71-5005-4b1b-83da-9db7e4d262a5_1502x672.png" /></p>
+<p>Deeply understanding your users’ behavior can help you make additional optimizations, whether that be through more targeted and personalized notifications or well-timed calls to action.</p>
+<h3>In closing</h3>
+<p>If it’s naturally happening in your product, demand-to-supply conversion is your friend. When you find it, embrace it. At Eventbrite, through sustained iteration we more than tripled our demand-to-supply conversion rate, and in doing so were able to unlock material organic growth for the business. Many of the great marketplaces of our time have used and leaned into this growth loop to accelerate their journey toward building iconic billion-dollar businesses. I hope this guide helps you on your journey as well.</p>
+<p>Are you seeing this demand-to-supply growth loop emerging in your startup? <a href="https://twitter.com/bmrothenberg">Let me know!</a></p>
+<p><img alt="Image from Demand driving supply: The little-understood growth loop behind a surprising" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/185f6df9-f982-4261-ba6e-3c5261b0fe33_1584x760.png" /></p>
+<p><em>Thanks, Brian!</em></p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c4bde52c-d66e-4b42-96fb-2ba861f72e27">Senior Growth Product Manager</a> (Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/b6da1eaa-5a2b-4ad4-92f9-5ac4b9f764e5">Product Lead, Internal Tools</a> (Remote-US)</li>
+<li><strong>CHPTR:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c96f89cb-0288-4028-ae4d-f380567449de">Founding Back-End Engineer</a> (Remote-US)</li>
+<li><strong>Permutive:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/1ff1e376-ab34-4138-ba4a-822475672a93">Senior Product Manager</a> (NYC)</li>
+<li><strong>CloudTrucks:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/68d092da-db3a-4f25-8b95-2072342c18fe">Product Manager-Console (Workflows &amp; Automations)</a> (SF)</li>
+<li><strong>Fairchain:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/f2963b88-7eaf-4b4d-9788-4b58f5c6b785">Software Engineer, Full Stack</a> (NYC)</li>
+<li><strong>HomeLight:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/48c02f5e-e681-4b83-9012-fb08ae2c1e52">Senior Product Manager, Listing Management</a> (SF, Phoenix, Seattle)</li>
+<li><strong>Perfect Recall:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/7ac1bf05-0aa6-436e-8546-6e14c5222f7e">Founding Fullstack Engineer</a> (Waterloo)</li>
+<li><strong>Spatial:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/9424b997-d1e3-4eb1-8b0a-e9f1cc622fb5">Backend Engineer</a> (Remote-US)</li>
+<li><strong>Maven:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/de48b7e9-782d-4c3e-a354-6abd66fb7d0d">Product Lead</a> (Remote-US)</li>
+<li><strong>Republic:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/da2ec715-1731-4709-9194-e4c630709ab1">Product Manager</a> (NYC, Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

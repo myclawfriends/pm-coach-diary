@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is a good growth rate — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What is a good growth rate</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What is a good growth rate</div>
+    
+    <div class="article-meta">2022-04-26<span>·</span>2,793 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">B2C</span> <span class="mini-tag">創業</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">定價</span> <span class="mini-tag">設計</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: What growth rates do investors expect at each stage of the business?</h2>
+</blockquote>
+<p>To get you a clear answer, I reached out to two dozen of the smartest investors I know and asked them what they consider GOOD and GREAT growth rate by stage of business. Below is what I learned.</p>
+<p><em>Huge thank-you to the following amazing people for sharing their insights: <a href="https://lsvp.com/team/alex-taussig/">Alexander Taussig</a> and <a href="https://lsvp.com/team/arsham-memarzadeh/">Arsham Memarzadeh</a> (Lightspeed), <a href="https://a16z.com/author/andrew-chen/">Andrew Chen</a> and <a href="https://www.linkedin.com/in/oliviamoore94/">Olivia Moore</a> (a16z), <a href="https://www.craftventures.com/team/arra-malekzadeh">Arra Malekzadeh</a> (Craft), <a href="https://www.crv.com/team/caitlin-bolnick-rellas">Caitlin Bolnick Rellas</a> (CRV), <a href="https://www.accel.com/people/daniel-levine">Daniel Levine</a> (Accel), <a href="https://twitter.com/eladgil">Elad Gil</a>, <a href="https://ellenchisa.com/">Ellen Chisa</a> (Boldstart), <a href="https://www.menlovc.com/grace-ge">Grace Ge</a> (Menlo), <a href="https://www.linkedin.com/in/grant-ebenger-8558b224/">Grant Ebenger</a> (Tiger), <a href="https://foundersfund.com/team/john-luttig/">John Luttig</a> (Founders Fund), <a href="https://www.nea.com/team/jonathan-golden">Jonathan Golden</a> (NEA), <a href="https://kindredventures.com/about">Kanyi Maqubela</a> (Kindred), <a href="https://www.linkedin.com/in/kimberlywtan/">Kimberly Tan</a> (a16z), <a href="https://twitter.com/lpolovets">Leo Polovets</a> (Susa), <a href="https://greylock.com/team/mike-duboe/">Mike Duboe</a> (Greylock), <a href="https://www.sequoiacap.com/people/mike-vernal/">Mike Vernal</a> (Sequoia), <a href="https://twitter.com/bonatsos">Niko Bonatsos</a> (GC), <a href="https://www.indexventures.com/team/nina-achadjian/">Nina Achadjian</a> (Index), <a href="https://www.redpoint.com/our-people/patrick-chase/">Patrick Chase</a> (Redpoint), <a href="https://www.usv.com/people/rebecca-kaden/">Rebecca Kaden</a> (USV), <a href="https://www.linkedin.com/in/sandhyahegde/">Sandhya Hegde</a> (Unusual Ventures), and <a href="https://firstround.com/person/todd-jackson/#mystory">Todd Jackson</a> (First Round) 🙏</em></p>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8911046e-9cad-455e-a1d0-dde3dbeb5139_4636x7788.png" /></p>
+<h2>Takeaways</h2>
+<h4><strong>1. In the early stages, investors don’t care about month-over-month growth</strong></h4>
+<p>Why? Because percentages with a small base don’t mean much. This sentiment was true across every investor I talked to, e.g.:</p>
+<blockquote>
+<p><em>“I look at MoM only really as a proxy for how fast it ramps to $1m ARR.</em></p>
+<p><em>We don’t anchor on the specific percentages for MoM growth because the percentage represents a pretty small dollar difference with small denominators. For example, 10% vs. 20% growth at $100K ARR isn’t substantial. Every percentage means different things in an absolute sense when the denominator is small.</em></p>
+<p><em>Another way of thinking about it through a MoM lens is that we’d want to see accelerating MoM growth (it going from 10% to 12% to 15%, for instance) to see that the company is picking up momentum.”</em></p>
+<p><em>—Kimberly Tan, a16z</em></p>
+</blockquote>
+<p>That being said, if you’re looking for a month-over-month benchmark below $1m ARR, answers typically fell in the 15%-25% range.</p>
+<h4>2. Instead, <strong>for early-stage B2B businesses, investors focus on how quickly they ramp to $1m ARR after going live</strong></h4>
+<p>As John Luttig (Founders Fund) put it:</p>
+<blockquote>
+<p><em>“In the early stages it’s mostly about time from launch to your current ARR.</em></p>
+<p><em>If you grew to $500k ARR in 3mo post-launch, that’s more impressive than $1m in 24mo post-launch. Generally, 0 to $1m ARR in 12mo or shorter is great. There are obvious exceptions to this—not every company’s success can be measured in ARR since launch (Figma, OSS, etc.).”</em></p>
+</blockquote>
+<p>Broadly, the expectation is that getting to $1m ARR within a year of launch is GOOD, and getting there in three quarters (9 months) is GREAT.</p>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/683db424-e114-4c61-a69b-e012241da0bd_4572x1060.png" /></p>
+<p>As Sandhya Hegde (Unusual Ventures) said, “You start the growth clock the month you go GA.”</p>
+<p>Grace Ge (Menlo) shared a similar point:</p>
+<blockquote>
+<p><em>“Velocity is everything post-launch. As the company matures, it’s less about convincing investors to dream the dream and more about proving the dream is real, executable, and monetizable.”</em></p>
+</blockquote>
+<p>For this reason, you want to be strategic about when you launch:</p>
+<blockquote>
+<p><em>“The great irony is that once you start having numbers, investors start to really care what those numbers are.”</em></p>
+<p><em>—Caitlin Bolnick Rellas, CRV</em></p>
+<p><em>“If you’ve launched and have very little traction, it’s worse than being pre-launch, because it shows the market/value prop is already demonstrably weak. This is why no data is better than bad/small data.”</em></p>
+<p><em>—John Luttig, Founders Fund</em></p>
+</blockquote>
+<p>However, a couple of investors specifically said that they don’t care about how long it takes you to get going, as long as when you do get going, it really gets going:</p>
+<blockquote>
+<p><em>“We’re less concerned about ramp to $1mm of ARR, or growth rates every year after launch. Some of our biggest winners took several years to really get going and find strong PMF. But once they do, we want them to take off. In other words, if a business grew revenues from $500k &gt; $5mm this year, I wouldn’t care whether it was launched 1 or 5 years ago.”</em></p>
+</blockquote>
+<p>And if you get out of the gate slowly, you can sometimes still catch up:</p>
+<blockquote>
+<p><em>“Investors tend to prize early velocity. This makes sense: it increases the likelihood that you will compound to very high revenues. But speed of 0 to $1M of ARR has, in my experience, been less predictive than speed from $500K to $5M ARR. The latter is indicative of having ‘minimum viable durability’ of your revenue, which will compound over a longer period. Oftentimes, during the 0 to $1M phase, a company is still working to optimize retention, experimenting with efficiency, and initially segmenting their customers.”</em></p>
+<p><em>—Kanyi Maqubela, Kindred</em></p>
+</blockquote>
+<h4>3. If you don’t have strong immediate ARR growth, you can show success in other ways</h4>
+<p>Without fast ARR growth, you’ll need to show strong signals that people really want your product—through high retention and efficiency:</p>
+<blockquote>
+<p><em>“Revenue growth is really an output for what else is happening in the business—basically how much customers love the product and how efficient it is to get more of them. Cohorted revenue retention and/or purchase behavior (ideally U-shaped cohorts where net revenue retention goes up over a year) and marketing spend/revenue (efficiency) are the most important factors to the health and velocity of a business.”</em></p>
+<p><em>—Rebecca Kaden, USV</em></p>
+<p><em>“The key thing is that there’s some leading indicator of ARR that is intrinsically compounding at a high rate. It’s often early users with taste representative of future users loving something. For example, if the business is going to be sales-led, are our salespeople incredibly productive (or do I think they will be)? Are sales cycles oddly short, do customers rave about us and tell their friends (typically leading to oddly low CAC), etc.?”</em></p>
+</blockquote>
+<p>And Ellen Chisa (Boldstart) reminds us that in the early days, it’s often a trap to focus too much on growth:</p>
+<blockquote>
+<p><em>“It’s a huge mistake to focus on the growth number before getting retention. You can often hit the ‘great’ number at an early stage by brute force because the numbers are so small. Unfortunately, that won’t translate to continued growth, and then you’ll end up in a worse place than if you’d spent longer to hit the fundamentals.”</em></p>
+</blockquote>
+<p>And the quality of your ARR often matters just as much as your growth rate:</p>
+<blockquote>
+<p><em>“Beyond simply growth, it’s equally important to look at components of ARR (new, retained, expansion, resurrection, contraction, churn) and customer concentration, and be mindful of the sustainability of growth (e.g. how’s sales efficiency and CAC payback? How does new ARR compare to sales and marketing spend?).”</em></p>
+<p><em>—Arra Malekzadeh, Craft</em></p>
+</blockquote>
+<h4>4. Along those same lines, for early-stage <em>consumer</em> businesses, it’s all about intensity of engagement, virality, and retention—not revenue</h4>
+<p>For B2C businesses, early-stage consumer investors look for how intensely people use the product, and share the product, versus revenue growth. For example, Mike Vernal (Sequoia) shared:</p>
+<blockquote>
+<p><em>“For consumer, I focus on </em><em>engagement</em><em> and </em><em>retention</em><em> first and foremost. &gt;50% DAU/MAU or &gt;50% D30 retention is excellent. If you have both of those, only then do I worry about whether you can grow it.”</em></p>
+</blockquote>
+<p>Another investor had a similar sentiment:</p>
+<blockquote>
+<p><em>“If it’s a consumer productivity app with less of a clear product-led </em><em>virality</em><em>, do people use it a ton and rave? An example would be an email app. MAUs don’t matter at all. A much more valuable metric would be something like people who </em><em>use the app 10 times per day</em><em>, every day. If it’s a consumer messaging app, then it should be </em><em>growing exponentially</em><em> by default.”</em></p>
+</blockquote>
+<p>As did Niko Bonatsos (GC):</p>
+<blockquote>
+<p><em>“For non-transactional consumer companies (i.e. consumer media), I would love to see an </em><em>awesome <a href="https://en.wikipedia.org/wiki/K-factor_(marketing)">K-factor</a></em><em> that would lead to a distribution advantage over time. For transactional consumer companies (i.e. marketplaces or e-commerce), I’m super-eager to see if they have </em><em>‘organic’ growth</em><em> of 20% MoM or more, and understand if it’s sustainable. This again would lead to a distribution advantage over time.”</em></p>
+</blockquote>
+<p>Along those lines, Olivia Moore and Andrew Chen at a16z generously pulled data on what growth rates they’ve been seeing recently across three categories of consumer businesses approaching Series A:</p>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/56165a4d-9e49-4e77-af59-d7bca327b78e_4636x2188.png" /></p>
+<p>Prior to Series A, Olivia and Andrew similarly focus on engagement, retention, and virality (i.e. organic growth):</p>
+<blockquote>
+<p><em>“For all three consumer categories, we look at the </em><em>acquisition breakdown between paid and organic channels</em><em>, as well as how acquisition costs are trending over time. This is particularly important for social—given how fast a social app needs to grow, </em><em>ideally all or almost all of their acquisition is organic</em><em>.</em></p>
+<p><em>For these three categories, we also index heavily on </em><em>engagement and retention</em><em>. For social, this is looking at how many users are still on the app at d1, d7, d30, and beyond—as well as time on app, frequency of posting, etc. For subscriptions, we often look at </em><em>‘inflection’ points</em><em> such as m12, when annual subscribers have to decide whether or not to convert to a second year. </em><em>Usage retention</em><em> in the months prior can give good hints towards this. And for marketplaces, we look at both user and </em><em>GMV retention</em><em> on the supply and demand sides.</em>”</p>
+<p><em>—Olivia Moore and Andrew Chen, a16z</em></p>
+</blockquote>
+<p>In case these benchmarks scare you, Todd Jackson (First Round) also reflected on how there’s no one way to succeed in consumer:</p>
+<blockquote>
+<p><em>“From what we’ve seen, there are a few different paths to success in consumer. It’s less about timing and more about when (and if) you hit real inflection:</em></p>
+<ol>
+<li><em><strong>GREAT → GREAT:</strong> Grew quickly out of the gate and maintained that growth rate: Instagram, Twitter, Dropbox, etc. Within months of launch crossed 1M users, then got to 10M within the next year or two, then got to 100M within the next year or two (I’m not sure those numbers are exactly right for those companies, but directionally correct).</em></li>
+<li><em><strong>GOOD → GREAT:</strong> Uber, Gmail, RecRoom: started out good, but hit key unlocks along the way, so their growth curves look more like step functions. Uber’s was UberX, RecRoom’s was the introduction of the Oculus platform, Gmail was enough machines/leaving invite-only. E.g. it took Gmail roughly 3 years to get to 20M users, then about 4 more years to get to 200M, then crossed 1B and 2B (I think) mostly because of bundling with Android.</em></li>
+<li><em><strong>AVERAGE → GOOD → GREAT:</strong> Roblox, Pinterest, Notion, etc. Several years to get to first 1M users, then got to 10M quickly and continued to climb on an exponential curve.</em></li>
+<li><em><strong>GREAT → GOOD → ?:</strong> Grew very quickly out of the gate, but then decelerated: Yik Yak, maybe Clubhouse ... we’ll have to see.”</em></li>
+</ol>
+</blockquote>
+<p>Lastly, if you’re building an open-source-based business, Elad Gil pointed out that they behave a lot like consumer businesses:</p>
+<blockquote>
+<p><em>“Some open source models are in some ways similar to consumer—the early focus is on user adoption, with later conversion of users to paying via, e.g., a SaaS service layered on top.”</em></p>
+</blockquote>
+<h4>5. Once you’re off and running, expectations around growth rate from B2B and B2C businesses are fairly standard</h4>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c7349f43-e637-44b5-bb49-40aa78a1c78f_4636x3388.png" /></p>
+<blockquote>
+<p><em>“Classic top-level growth for Tier 1 ventures investors is 3x, 3x, 2x, 2x, 2x after 1M in revenue, so 1M to 3M to 9M to 18M to 36M, etc. Anything above that is obviously great, but many other factors come into play.”</em></p>
+<p><em>—Jonathan Golden, NEA</em></p>
+<p><em>“Best-in-class SaaS companies triple, triple then double, double, double ARR.”</em></p>
+<p><em>—Nina Achadjian, Index</em></p>
+<p><em>“At the early stage, I think, at this point 3x is good but sort of table stakes to raise a great round. 4-5x at the early stage (like 1 to 4m or 1 to 5m ARR) is where growth really starts to stand out and what I would consider ‘great.’ ”</em></p>
+<p><em>—Kimberly Tan, a16z</em></p>
+<p><em>“Before $1m ARR, I love to see 5x+ annual growth. After $1m, 3x is good, and more is great.”</em></p>
+<p><em>—Leo Polovets, Susa</em></p>
+</blockquote>
+<p>But this is just a heuristic, and becomes less useful as you grow:</p>
+<blockquote>
+<p><em>“The ‘triple triple double double double’ rule of thumb is useful as a starting point but loses relevance at the late stage. At $50m+ ARR scale, growth should be benchmarked against other companies in your category (public and private) and put in the context of your capital efficiency. Growth rates are helpful in demonstrating how high the ceiling for your core market can be, but it is a multi-part equation (GTM efficiency, consistency of your growth track record, ‘act two’ proof points, etc.).”</em></p>
+<p><em>—John Luttig, Founders Fund</em></p>
+</blockquote>
+<p>And you certainly don’t need to be in the GREAT column year after year to build a massive business.</p>
+<p>Though consumer social businesses do have a slightly elevated bar because, as Mike Duboe (Greylock) pointed out, they’ve delayed monetization. Although markets these days…</p>
+<blockquote>
+<p><em>“You and I both see companies raise at the Series A with only a few hundred K in ARR (from 0 in revenue at the seed).”</em></p>
+</blockquote>
+<h4>6. By funding round, expected growth rates are also fairly consistent across investors</h4>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b5ed934c-1a10-422c-aaff-6c50b56e685a_4636x3456.png" /></p>
+<p><em>(For reference, investors roughly equate Series A to $1-5m in revenue, Series B to $5-10m, and Series C to $10m+.)</em></p>
+<p>These benchmarks apply to B2B, B2C, and even GMV businesses (e.g. marketplaces), with an important caveat:</p>
+<blockquote>
+<p><em>“What is key for GMV businesses is that both GMV and take rate are growing at healthy rates. Strong GMV growth signifies healthy product-market fit (commonly a leading indicator), and a strong take rate signifies a willingness for the customer to pay for the platform.”</em></p>
+<p><em>—Jonathan Golden, NEA</em></p>
+</blockquote>
+<h4>Remember: All these benchmarks are just rules of thumb</h4>
+<p>Every investor mentioned that growth rates are just one piece of the puzzle when they evaluate a business. Early on, investors also put a lot of weight on founder/market fit, retention, and ACV, and, in later stages, on unit economics, CAC, margin structure, pipelines, quota attainment, and again, retention.</p>
+<p>If you do hit these benchmarks, at any stage of the process, you’ll have investors beating down your door. But, as Caitlin Bolnick Rellas (CRV) so eloquently put it, “If it’s a hot category or space, oftentimes all these fundamentals go right out the window.”</p>
+<p>Good luck!</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://techcrunch.com/2015/02/01/the-saas-travel-adventure/">T2D3</a> by Neeraj Agrawal</li>
+<li><a href="https://lsvp.com/smbguide/">The official SMB software benchmarking guide</a> by Lightspeed Ventures</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Apply for Lenny’s Talent Collective 📣</h2>
+<p>If you’re looking for a new gig, <a href="https://www.lennysjobs.com/talent/welcome">join my Talent Collective</a> to see personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">apply</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities. <a href="https://www.lennysjobs.com/talent/">Learn more or apply now</a>.</p>
+<p><img alt="Image from What is a good growth rate" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/08085e94-3a8c-418e-a973-e9a484f0f100_1486x886.png" /></p>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Apply Now</a></p>
+<h4><strong>🔥 Featured job openings</strong></h4>
+<ol>
+<li><strong>Balance Homes:</strong> <a href="https://www.lennysjobs.com/jobs/b9e8f81a-ae8c-427b-8072-71097b7c3197">Founding Product Manager</a> (Remote)</li>
+<li><strong>Ellis:</strong> <a href="https://www.lennysjobs.com/jobs/dbba97cd-8552-4e1f-96d2-f6092bdff5a5">Software Engineer</a> (Remote)</li>
+<li><strong>WorkWhile:</strong> <a href="https://lennys-jobs.pallet.com/jobs/8be3c844-7997-4d22-9edd-28ae8e541860">Head of Product</a> (Remote-US)</li>
+<li><strong>Clipboard Health:</strong> <a href="https://www.lennysjobs.com/jobs/299a6ac5-8435-4596-8262-b29c15c7613f">Engineering Manager</a> (Remote-Global)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://www.collaborativefund.com/blog/think/">How People Think</a> by Morgan Housel</li>
+<li><strong>Watch:</strong> <a href="https://kottke.org/">Feynman’s Ode to the Wonder of Life</a> via Kottke</li>
+</ol>
+<p><strong>3. Listen:</strong> <em><a href="https://www.youtube.com/watch?v=VJjvTcnPtJk">CODA</a></em> <a href="https://www.youtube.com/watch?v=VJjvTcnPtJk">(2021) Audition at Berklee</a></p>
+<p><a href="https://www.youtube.com/watch?v=VJjvTcnPtJk">Watch on YouTube</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

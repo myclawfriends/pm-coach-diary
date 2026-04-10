@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strategy Blocks: An operator’s guide to product strategy — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Strategy Blocks: An operator’s guide to product st…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Strategy Blocks: An operator’s guide to product strategy</div>
+    
+    <div class="article-meta">2025-02-25<span>·</span>4,859 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Below, you’ll find what I believe is the most actionable, specific, and straightforward framework for crafting a strategy, for both your product and your company. <a href="https://www.linkedin.com/in/chandramohanj/">Chandra Janakiraman</a> came on <a href="https://www.youtube.com/watch?v=WFLH8Af2f30">my podcast</a> to share it, and afterward, we realized that it would be 10x more helpful as a newsletter post. So we teamed up to make that happen.</p>
+<p>As Chandra shares below, his framework sits on top of the best strategy wisdom out there (e.g. <a href="https://hbr.org/1996/11/what-is-strategy">Michael Porter</a>, <em><a href="https://a.co/d/ilE3kQq">Good Strategy Bad Strategy</a></em>, <em><a href="https://a.co/d/4NQzHmz">Playing to Win</a></em>), and turns that advice into a step-by-step guide that you and your leaders can put into practice immediately. The post includes plug-and-play strategy templates, recommended timelines, the stakeholders to involve at each step, and more 🔥</p>
+<p>For more from Chandra, <a href="https://www.linkedin.com/in/chandramohanj/">follow him on LinkedIn</a>, and <a href="https://jobs.lever.co/vrchat">VRChat is hiring</a>!</p>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/25acdc8f-9f25-4884-9946-213d4acea5cc_2912x2029.jpeg" /></p>
+<p>At Headspace back in 2016, we had established our product roadmap and success metrics and our mission and vision, but teams were still confused about <em>why</em> we were working on the projects we chose. Without that clarity, teams weren’t able to get several projects off the ground and had unproductive debates on what to build. I worked closely with a seasoned board member to trace this back to a lack of product strategy—both articulated and aligned. With her help, I wrote the first strategy document for Headspace, which eventually led to the complete <a href="https://youtu.be/llhF8ecRsSk?si=XVdwKDfm00bl7GAR">reimagination of Headspace</a>, maximizing growth for our guided mindfulness product and adjacent spaces. I translated our journey from confusion to clarity into bite-size steps to create a product strategy, called Strategy Blocks.</p>
+<p>Over the past 10 years, I’ve used Strategy Blocks in six different high-stake contexts, at companies large and small, including <a href="https://www.headspace.com/">Headspace</a>, <a href="https://about.meta.com/">Meta</a>, and <a href="https://hello.vrchat.com/">VRChat</a>. It has helped in gaining alignment on complex topics with senior leaders at Meta (Sheryl Sandberg, Chris Cox, and Andrew Bosworth), paving the way for key launches like <a href="https://x.com/facebook/status/1248698109271539712">Facebook digital well-being tools</a>, <a href="https://about.fb.com/news/2022/11/protecting-teens-and-their-privacy-on-facebook-and-instagram/">privacy protections for youth</a>, and <a href="https://www.uploadvr.com/oculus-quest-2-referral-program/">Quest referrals</a>. It has also jump-started innovation at VRChat on the <a href="https://youtu.be/fyl8v_eia5w?si=IB2QqamPtmswTm8F">VRChat+ subscription product</a>, with a strong <a href="https://youtu.be/C9RMGv5gMdE?si=12CWSuo-ooLzrAg9">community response</a>, while helping to steer VRChat toward an exciting long-term future. Strategy Blocks is particularly helpful for product leaders looking to upgrade their strategy skills and for chief product officers looking for a comprehensive strategy architecture that balances action and aspiration.</p>
+<h3>Basic definitions</h3>
+<p>Strategy has benefited from several excellent foundational frameworks over the years, from <a href="https://hbr.org/1996/11/what-is-strategy">Michael Porter’s work</a> to <em><a href="https://a.co/d/ilE3kQq">Good Strategy Bad Strategy</a></em>, <em><a href="https://a.co/d/4NQzHmz">Playing to Win</a></em>, and <em><a href="https://a.co/d/dxzsLah">The Art of War</a></em>, to name a few. Strategy Blocks uses concepts from many of these frameworks and converts them into bite-size steps to map out the future of your company. Let’s establish some basic definitions before diving into the details of Strategy Blocks:</p>
+<h4>1. What exactly is product strategy?</h4>
+<ul>
+<li><strong>Product strategy sits in between the mission and vision and the plan, either at the company level or at the team level.</strong> At the company level, the mission and vision is typically articulated by the founders/CEO and tends to be durable over time. The plan or roadmap is basically an ordered list of projects based on some notion of prioritization and sequence of delivery. There is a steep drop in elevation between the mission/vision and the plan, and strategy occupies this large void.</li>
+<li><strong>Strategy exists to force a disciplined choice to deploy scarce resources for maximum impact.</strong> Regardless of the size of a company, the resource pool and capacity to get work done is <strong>always constrained</strong> relative to the universe of work that could be done—making this choice a critical decision in every single context.</li>
+<li>
+<p><strong>A good strategy articulation typically includes three components</strong>:</p>
+</li>
+<li>
+<p>3 to 5 areas for the company or the team to focus on, which we will henceforth refer to as <strong>strategic pillars</strong></p>
+</li>
+<li>Several areas that should explicitly <em>not</em> be the focus</li>
+<li>A clear set of explanations for why these choices were made</li>
+<li>
+<p><strong>Strategy Blocks consists of two sub-parts:</strong></p>
+</li>
+<li>
+<p><strong>Part 1:</strong> The crafting of a 2-year strategy, which is typically focused on solving problems with the current product, henceforth referred to as <strong>small “s” strategy</strong></p>
+</li>
+<li><strong>Part 2:</strong> The crafting of a 3/5/10-year strategy, focused on aspirational futures, henceforth referred to as <strong>big “S” strategy</strong></li>
+</ul>
+<h2>Part 1: Crafting the 2-year strategy (small “s” strategy)</h2>
+<p>Crafting the small “s” strategy requires about 8 to 12 weeks to produce a <strong>high-quality output</strong> (<a href="https://docs.google.com/document/d/1iNeYUaMnpicvkpVZO-gj9cCxLeHfWN0xtGm_QoxgemE/edit?usp=sharing">see output template</a>). The weeks are split into five distinct steps:</p>
+<ol>
+<li>Preparation</li>
+<li>Strategy Sprint</li>
+<li>Design Sprint</li>
+<li>Document Writing</li>
+<li>Rollout</li>
+</ol>
+<p>This process is typically led by a senior product leader.</p>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/2314d431-64dd-41af-9c52-905c4d5722a0_1457x1461.jpeg" /></p>
+<p>Let’s dive into detailed guidance for each step.</p>
+<h3>Step 1: Preparation (3-5 weeks)</h3>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/8fc5d7c3-4dda-4f7d-8669-bc9eb35c5a24_1344x896.png" /></p>
+<p>The preparation step is a foundational effort where a lot of the groundwork and due diligence is done to inform the strategy selection process. The work here is not full-time and can run alongside other projects for the people involved. Let’s go through the steps and action items.</p>
+<ol>
+<li>
+<p><strong>Strategy working group:</strong> The product leader should assemble a core strategy working group, at a minimum, consisting of an engineering lead, a design lead, and a data lead, besides the product lead themselves. Other functions could be added depending on availability/resourcing (e.g. product marketing, user research, content design, etc.). The product leader should set the stage through a kickoff meeting and explain the upcoming 8-to-12-week process, helping people understand their roles and commitments through the process.</p>
+</li>
+<li>
+<p><strong>Discrete action items:</strong> An important element of the kickoff meeting is assigning discrete action items to the different members of the strategy working group and making expectations clear on the output needed from each person.</p>
+</li>
+<li>
+<p><strong>Behavioral insights:</strong> The data lead is responsible for producing a comprehensive meta-analysis of past behavioral analyses available at the company. Some net-new work could be commissioned to close critical gaps in understanding user behaviors, especially if these gaps are identified early.</p>
+</li>
+<li><strong>UXR insights:</strong> The design lead or the user researcher (if available) is responsible for producing a comprehensive meta-analysis of past research and user insights work (both qualitative and quantitative). There is usually not enough time in the preparation step to commission net-new research work, but scrappy studies could be mobilized to close any critical gaps in understanding users.</li>
+<li>
+<p><strong>Leadership interviews:</strong> This is a critical input to the process and is often forgotten or skipped for various reasons. Key leaders like founders/CEO have really important nuggets of wisdom tucked away in their back pockets, which structured leadership interviews can unearth. And I’ve found that these leaders typically enjoy engaging in these kinds of conversations as a creative outlet, and a channel for their desires and frustrations. Since there are typically multiple leaders that need to be interviewed, this load should be distributed across the strategy working group members as distinct one-on-one sessions. Some of the questions that I recommend asking are:</p>
+</li>
+<li>
+<p><strong>What does success look like? What does failure look like?</strong></p>
+<ol>
+<li><strong>What are some measures of success?</strong></li>
+<li><strong>What are principles to keep in mind while building the product?</strong></li>
+<li><strong>Why have things not worked in the past?</strong></li>
+<li><strong>What are some of the leader’s favorite/pet ideas?</strong></li>
+</ol>
+</li>
+<li>
+<p><strong>Competitive and comparables analysis:</strong> Competitors are players operating in the same space in an effort to win a similar set of customers. Comparables are players that are tackling similar problems but perhaps in a different market/space. Both should be included in this analysis. The product lead or the product marketing lead (if available) should run this analysis with a clear output consisting of the following components:</p>
+</li>
+<li>
+<p>A head-to-head summary comparison of the features and strengths of each player, with color coding or a heat map to easily understand areas of strengths and weakness</p>
+<ol>
+<li>Commentary of where each player seems to be focusing and their themes of investment</li>
+<li>Key feature deconstructs and screenshots</li>
+</ol>
+</li>
+<li><strong>Adjacent roadmaps:</strong> This is applicable only in large companies where one team’s strategy could be influenced by an adjacent team’s investments and roadmap. When this is the case, it’s important for the team to download adjacent teams’ strategies and roadmaps as a key consideration. Sometimes these can amplify certain areas of investment or discourage other areas of investment.</li>
+<li><strong>User observations:</strong> Each of the strategy working group members should watch between one and three user interviews or sit in on live user observation sessions and write down their takeaways to share with the rest of the group. This is not intended to be used as insights but is meant to build empathy toward users and ground the strategy process from being abstract to being human-centric.</li>
+</ol>
+<p>All the above material is consolidated into a comprehensive share-out deck. People should spend zero effort in polishing this deck. The focus is really on substance over style, and the consolidated deck will power the next step of the process: the strategy sprint.</p>
+<h3>Step 2: Strategy sprint (1 week)</h3>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/9187a478-d334-44be-b60d-2f0286fff24a_1456x970.png" /></p>
+<p>The strategy sprint is the heart of the strategy process. This is where strategy selection happens. The product lead facilitates and the full strategy working group participates. Let’s walk through a day-by-day account of how to run the sprint.</p>
+<ol>
+<li>
+<p><strong>Comprehensive share-outs:</strong> Day 1 is all about share-outs from the consolidated deck. Members of the strategy working group who have prepped individual sections run through their respective slides, while the rest take notes in the form of problems that are affecting users or preventing the product from growing. These notes are critical to power day 2’s process. Overall, day 1 is about achieving a shared sense of consciousness about the “state of the union.”</p>
+</li>
+<li>
+<p><strong>Core process:</strong> Day 2 of the strategy sprint is the single most important day of the whole 8-to-12-week strategy process. This is where the actual strategic pillars are selected. Let’s walk through the steps to get there:</p>
+</li>
+</ol>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/b6b6c198-1fa2-4d36-993c-1d1140fcb178_1456x1378.jpeg" /><br />
+   1. <strong>The first step is for the team to generate a list of problems based on the notes from day 1.</strong> Each member of the strategy working group adds their problem statements to a shared repository (e.g. Google Sheets). Typically anywhere between 50 and 150 problem statements should be collected this way. The importance and quality of each problem is not important in this first step. Focus on generating a high volume of problem statements.</p>
+<ol>
+<li>
+<p><strong>Next, cluster related problems into broader themes, and give each theme a relatively short and pithy name.</strong> Typically, 10 to 15 problem clusters emerge from 50 to 150 problem statements.</p>
+<ol>
+<li>Flip each problem cluster into an opportunity framing (e.g. difficulty finding features → discovery, unwanted content → relevance, etc.).</li>
+<li><strong>Next, score each opportunity area along four key dimensions:</strong></li>
+</ol>
+</li>
+<li>
+<p><strong>Expected impact:</strong> Think about the number of people impacted by the problem, the frequency of impact, and the relative pain that people experience in that area.<br />
+         2. <strong>Certainty of impact:</strong> Establish if the need is well-proven or more speculative at this stage.<br />
+         3. <strong>Clarity of levers:</strong> Understand if the team has a rough sense of the levers that could be deployed to improve the situation.<br />
+         4. <strong>Uniqueness of levers:</strong> Assess if the levers can have a unique and differentiated experience as a result of being built by the team/company. This usually relates to unique competencies or pre-existing advantages the team/company might have (e.g. brand advantage, network advantage, skill advantage, technical advantage, process advantage—some secret sauce that has helped the company differentiate in the past that can also be applicable to these levers).</p>
+</li>
+</ol>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/7e40c9be-77d0-4a54-842c-f70ea8cca3d8_1236x824.png" /><br />
+      4. In situations where hard data isn’t available, qualitative scores based on team debate are a reasonable fallback. Evidence will eventually come with execution.<br />
+      5. Once these scores are generated across the 10 to 15 opportunity areas, a simple sum of scores and a sort based on totals helps automatically bubble up the top three opportunity areas. These become the <strong>strategic pillars</strong>.<br />
+      6. For each strategic pillar, generate about three “how might we’s” as a way to spark ideation. This is a preparatory step for the next step, the design sprint.</p>
+<ol>
+<li><strong>Winning aspiration:</strong> Once the strategic pillars and the “how might we’s” are established, kick off day 3 with a creative exercise. Imagine a day two years into the future when the team has made significant progress on all three opportunity areas, and a journalist covers the company/team’s work. Ask the team to imagine the <strong>headline</strong>, and express it in the form of how the team’s work has made the consumers’ lives better and grown the company. The working group generates multiple versions of these headlines and then blends and mashes them up into one statement that incorporates common elements from across the different versions. This ultimately becomes the <strong>2-year winning aspiration</strong> for the effort.</li>
+</ol>
+<h3>Step 3: Design sprint (1 week)</h3>
+<p>The design sprint builds on the strategy sprint. It takes the three strategic pillars and the “how might we’s” as its primary input and aims to produce a set of illustrative concepts to bring the strategy document to life. As the saying goes, a picture is worth a thousand words, so these illustrative concepts can paint a better picture for leadership of how the strategic pillars might translate into product concepts and directions.</p>
+<p>These illustrative concepts are not intended to be “shovel-ready” for engineering to build on. Instead, they’re meant to help the reader understand the strategy document better. The strategy working group design lead heads up the design sprint, while the others take on a participatory role. There are different ways to run the sprint (e.g. some variation of the <a href="https://www.gv.com/sprint/">Google Ventures Design Sprint</a> could be used). Any style can work as long as there is clear alignment on the inputs (strategic pillars and “how might we’s”) and the outputs (illustrative concepts for each strategic pillar).</p>
+<h3>Step 4: Document writing (1-2 weeks)</h3>
+<p>At this point, the product leader has significant leverage built up from steps 1 to 3. Let us recall everything that is now available: user insights (behavioral and user research), competitive analysis, three strategic pillars, associated “how might we’s,” 2-year winning aspiration, and illustrative concepts. These are excellent building blocks for writing the strategy document. The product lead should approach this activity in a relatively solo fashion and combine, connect, and edit all the pieces into a coherent document. The integrity of the process ensures that there are no major surprises for the stakeholders when the document is fully written. Here is a <a href="https://docs.google.com/document/d/1iNeYUaMnpicvkpVZO-gj9cCxLeHfWN0xtGm_QoxgemE/edit?usp=sharing">template</a> for that document.</p>
+<h3>Step 5: Roll-out (2-3 weeks)</h3>
+<p>The final step is to roll out and operationalize the strategy. A few key steps are recommended for this step:</p>
+<ol>
+<li><strong>Review the strategy 1:1</strong> <strong>with key gatekeepers:</strong> These are the people you absolutely need support from to make the rollout successful. This could include the founders, CEO, etc. Then iron out any adjustments as a result of these reviews.</li>
+<li>Once you have gatekeeper alignment, call for a <strong>group review among all key stakeholders</strong>, and drive toward alignment. This could include other functional leaders and partner team leaders.</li>
+<li>Next, run through <strong>team roadshows</strong>, in groups of 8 to 10 team members each, to encourage more participation and dialogue. During these team roadshow sessions, mainly check for clarity of the document, and adjust phrasing to improve clarity. Do not tinker with the strategic pillars unless some dramatically new signal is unearthed at this point. Defend the strategic pillars through the clear framework for selection that you’ve established earlier.</li>
+<li>And finally, <strong>empower your teams</strong> to build roadmaps with the strategy document as a key input and reference, and iterate from there.</li>
+</ol>
+<p>The advantages of this approach are that:</p>
+<ol>
+<li>Alignment within the team and with leadership is built into the process. Alignment is critical to mobilize any strategy.</li>
+<li>This approach produces better strategic framing and pillars due to a broader set of inputs in the strategy formulation process.</li>
+<li>The output is clearly defensible and transparent based on the selection criteria and scoring that is exposed to everybody.</li>
+</ol>
+<p>This kind of problem-focused 2-year strategy is absolutely necessary to drive action and near-term execution <em>but</em> is only half of the story. To complete the picture, let’s rotate to a complementary and more aspirational strategy process called Big “S” strategy.</p>
+<h2>Part 2: Crafting the 3/5/10-year strategy (Big “S” strategy)</h2>
+<p><em>“Life has to be about more than just solving problems.” —Elon Musk</em></p>
+<p>There needs to be an aspirational and exciting component to a company’s strategy, which is not just focused on solving problems with the current product but maps more closely to the eventual mission and vision of the company. The approach to craft this kind of strategy is called the big “S” strategy. It also takes about five steps, but the process is intentionally a bit more open-ended and greenfield and can take up to six months. Typically a senior design leader at the company heads up this process.</p>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/2790e523-3aac-4e4e-b635-52883eb10cb3_1457x1455.jpeg" /></p>
+<p>Let’s dive into detailed guidance for each step.</p>
+<h3>Step 1: Preparation</h3>
+<ol>
+<li>Form a small working group with a senior design leader, one or two designers, and a UX researcher.</li>
+<li>Start with the company mission and vision as a grounding anchor.</li>
+<li>Run some lightweight analysis on long-term cultural, social, competitive, and technological trends that are particularly relevant to the product space. It is OK to use external research or AI tools to quickly gain some of these insights.</li>
+<li>
+<p>Conduct interviews with senior leaders and stakeholders to understand their desire for the long-term direction of the company/product. Some questions to consider during these interviews are:</p>
+</li>
+<li>
+<p>What does a day in the life of a user look like in 3/5/10 years?</p>
+</li>
+<li>What does the product look like in 3/5/10 years?</li>
+<li>Why is the world better in 3/5/10 years as a result of our efforts?</li>
+<li>What is the most exciting version of that view?</li>
+</ol>
+<h3>Step 2: Distinct futures</h3>
+<ol>
+<li>
+<p>Synthesize all of the above information by clustering related ideas into cohesive narratives and fiction pieces. Generate at least three fairly distinct descriptions of a future where the product is significantly different and has a major impact on the world. As a hypothetical example, imagine if we were doing big “S” strategy work for a company plotting the future of transportation. One could imagine three distinct futures.</p>
+</li>
+<li>
+<p>Fully autonomous travel: An experience where people can move from point A to point B through fully automated systems</p>
+</li>
+<li>Extreme-speed travel: An experience where cross-world travel can be achieved at a fraction of time and cost relative to what is possible today</li>
+<li>Virtual travel: An experience where physical travel would be substituted by virtual travel in a large number of use cases due to the maturity of AR/VR technology</li>
+<li>Once these distinct futures are generated, outline a set of learning goals or key questions associated with each of the distinct futures. These should help to uncover the assumptions and parameters that would make each future widely adopted and commercially viable.</li>
+</ol>
+<h3>Step 3: Prototypes</h3>
+<p>Once these distinct futures and the associated key learning goals are verbally articulated, the team should generate prototypes to help with discovery and deeper understanding. Think of these prototypes as concept cars. Concept cars are never commercialized, but they spark inspiration, and there are certain components or technologies that make it into mainstream production down the road.</p>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/36339312-2672-4cb7-94fa-2c234813274e_1456x839.jpeg" /></p>
+<h3>Step 4: Convergence</h3>
+<p>UX research should then test these prototypes with a set of carefully selected users to answer the key learning goals previously established. Through this process, a lot of sub-ideas are eliminated, some are modified, and others are combined with each other, and eventually clarity emerges on the <strong>winning components</strong> that are likely to resonate with users even in the present-day context, which accelerates the company toward the desired future.</p>
+<h3>Step 5: Roadmap/testing</h3>
+<p>The winning components are then pushed into the active roadmap so that they can be tested live with a broader set of users. And this process could be triggered again depending on a need to explore a potentially new area.</p>
+<h2>Combining the two</h2>
+<p>The product roadmap and plan is built through a combination of small “s” (present-forward) and big “S” (future-backward) work, which can run in parallel. This is akin to building a bridge from both sides of a river.</p>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/262d7eb5-58b3-4612-9959-3ddb3d71ebc6_1457x795.jpeg" /></p>
+<p>Now that we’ve established both parts of Strategy Blocks—small “s” and big “S”—let’s wrap with some practical tips for success.</p>
+<h1>Overcoming challenges and myths</h1>
+<h3><strong>Do we need so much time?</strong></h3>
+<p>One of the most common challenges with any strategy effort is justifying the time to do it properly. Here are some tools and tips to manage this challenge.</p>
+<ol>
+<li>The product leader should proactively plan ahead for strategy work, by including both small “s” and big “S” work as part of their onboarding plans in a new role. They should communicate these plans ahead of time to key stakeholders (CEO/founders/the board) and gain alignment.</li>
+<li>For those who aren’t convinced, it usually helps to break down the steps involved so that stakeholders understand the buildup toward the final output. It further helps to explain that while the small “s” process extends over two to three months, it requires only two to three weeks of fully dedicated time, whereas the rest of the process can be run as part of people’s jobs alongside other projects.</li>
+<li>Contextualize the relatively small two-to-three-month process against the significant focus, clarity, and momentum that this would unlock over a two-year period.</li>
+<li>Don’t gate execution work on the availability of strategy. Get started on execution in parallel with “no-regrets” work that can unlock quick wins.</li>
+<li>And if time is really of the essence and a much quicker turnaround is needed, I’d recommend fast-tracking through the steps rather than skipping any steps: two days for preparation, three days for strategy sprint, two days for design sprint, two days for document writing, and one day for rollout. This gives you a two-week turnaround for the strategy document. Keep this as a last-resort approach.</li>
+</ol>
+<h3><strong>Strategy vs. execution</strong></h3>
+<p>You might run into vociferous debates on the importance of strategy vs. execution, and tensions can run high on both sides of the argument. I think the “versus” framing is fundamentally flawed, as it pits these two against each other in some kind of eternal conflict for time, resources, and level of organizational importance. Here are some harmonious ways to articulate strategy and execution:</p>
+<ol>
+<li>Strategy and execution are interconnected and have a circular symbiotic relationship. Execution becomes more refined with strategy, and strategy becomes more refined with execution. They improve each other and make each other stronger.</li>
+<li>Execution need not be gated by strategy work. I’ve always found that there are some areas where the opportunity is very clear and execution work can start right away, even as strategy work is pursued in parallel.</li>
+<li>There are some situations where strategy work has low incremental benefit and high opportunity cost. Recognize these situations and consider moving directly into execution (as an exception rather than as a rule). One such situation is when a company decides to “fast-follow” a competitor, where there is a combination of extreme time urgency and a relatively clear direction proven out by the competitor. Even in these situations, it’s worth having a mental model of how to ultimately differentiate in the market.</li>
+</ol>
+<h3><strong>Process vs. content</strong></h3>
+<p>You might also run into tensions around the importance of process (people who embrace process as the recipe for success) versus content (people with strong opinions on the appropriate direction). I’ve found that people who are on either ends of that spectrum are the least impactful—they’re either too married to a process or too married to specific directions. Instead, the most effective people <strong>can move fluidly between process and content</strong>, wielding each as powerful tools to achieve a certain objective. These people embrace a process as a philosophical approach to bring the team together, rather than as a rigid rule book. They also embrace ideas to spark inspiration and move people in a certain direction. And they are hostage to neither process nor content. Explain this philosophy and use these people as your allies.</p>
+<h3><strong>Managing energy</strong></h3>
+<p>The strategy working group can feel fatigued through the process, given some of the more intensive team exercises. It’s important to manage the team’s energy by pacing the sprints well, injecting fun team activities to break things up, and building in explicit down cycles during the 8 to 12 weeks.</p>
+<h3><strong>Dead ends, entropy, and hopelessness</strong></h3>
+<p>While this is a deeply satisfying exercise at the end, expect a healthy dose of difficulties, frustrations, and dead ends along the way. Furthermore, expect a certain level of entropy, where different members of the strategy working group push in different directions based on their individual passions and/or biases. There will be moments when the whole thing feels futile. This is all completely normal. The person driving the effort has to have grit, optimism, and strong synthesis skills to overcome these odds. Keep pushing through and you will eventually see the light of day.</p>
+<h2>Results and business impact</h2>
+<p>Ultimately, strategy in itself has no intrinsic business value and is only as good as the results it can produce. Test and iterate the strategy through systematic execution. Assess performance honestly, and pivot away from the parts of the strategy that don’t work and double down on parts that show traction.</p>
+<h2>Recap</h2>
+<p><img alt="Image from Strategy Blocks: An operator’s guide to product strategy" src="https://substack-post-media.s3.amazonaws.com/public/images/4cfde755-47be-4e3b-8cfa-3916887fdf3f_1486x1621.jpeg" /></p>
+<p>Also refer to the <a href="https://youtu.be/WFLH8Af2f30?si=aJ60o7DGhQOa7J1Y">podcast episode</a> for additional commentary and support. All the best with your strategy work, and please share what worked and didn’t work through the comments below!</p>
+<p><em>Thank you, <a href="https://www.linkedin.com/in/chandramohanj/">Chandra</a>!</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><a href="https://www.halo.science/">Halo Science</a> is hiring for a Head of Product. In this role, you’ll:</p>
+<ul>
+<li>Be hands-on executing, while also helping craft strategy for the future of Halo’s product</li>
+<li>Work cross-functionally across GTM, design, and engineering—with exposure to the entirety of the business’ moving parts</li>
+<li>Report directly to their CEO</li>
+</ul>
+<p><strong>Why I think the company and role is interesting:</strong></p>
+<ul>
+<li>I’m an investor! I’m a big fan of what they’re doing.</li>
+<li>They are well funded but also very early. This is an opportunity to not only lead product for a company that is disrupting the science R&amp;D space, but also help build the exact team you want.</li>
+</ul>
+<p>If you’d like to get your profile sent directly to their team, just fill out <a href="https://airtable.com/appTNAXC72V74HqPS/pagCczxszIZPdd00t/form">this quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p><em>If you’d like to get your role featured here, <a href="https://airtable.com/apphKJD0wLIHfPcZu/pag09IdQYrMpolMa5/form">apply here</a>. If you’re interested in working with my white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), apply to work with us <a href="https://www.lennysjobs.com/">here</a>.</em></p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

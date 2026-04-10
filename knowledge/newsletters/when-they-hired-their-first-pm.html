@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When they hired their first PM — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">When they hired their first PM</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">When they hired their first PM</div>
+    
+    <div class="article-meta">2023-11-14<span>·</span>3,576 words</div>
+    <div class="tags-row"><span class="mini-tag">產品管理</span> <span class="mini-tag">創業</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Don’t miss <a href="https://www.lennybot.com/">Lennybot</a>—my AI chatbot that’s trained on every newsletter post and podcast interview. It’s very good.</em></p>
+<blockquote>
+<h2>Q: When do companies typically hire their first product manager?</h2>
+</blockquote>
+<p>I reached out to 30 companies to find this out, and here you go:</p>
+<p><strong>Takeaways:</strong></p>
+<ol>
+<li><strong>Everyone hires a product manager</strong> <strong>eventually</strong>.</li>
+<li><strong>The typical company waited two to three years to hire their first product manager</strong>. They typically had 10 to 15 engineers and 15 to 25 total employees. But the ranges are wide, so don’t use this as a hard-and-fast rule.</li>
+<li><strong>Surprisingly, more than half of companies hired their first PM</strong> <strong><em>before</em></strong> <strong><a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">finding product-market fit</a></strong>, which is counter to the advice you hear. Particularly in B2B.</li>
+<li><strong>No founder told me they regretted bringing on a PM</strong>, but some companies, including <a href="https://notion.com/">Notion</a>, shared that they <a href="https://www.lennysnewsletter.com/i/106839388/how-many-pms-do-you-have">regretted waiting so long</a>. Though others, like Stripe, were happy they wanted so long.</li>
+<li><strong>Most first PMs were previously individual-contributor product managers, or senior PMs.</strong> Very few were previously former directors, VPs, or heads of product. Surprisingly, almost a fourth were engineers.</li>
+<li><strong>Interestingly, many companies with a strong product founder hired a PM very early</strong>. <a href="https://coda.io/">Coda</a> and Snyk (who both had PM founders) hired their PM essentially as their first employee, and Slack (with <a href="https://en.wikipedia.org/wiki/Stewart_Butterfield">Stewart Butterfield</a>) just over a year in.</li>
+<li><strong>In terms of timing, there’s no one way to do it.</strong> Companies that hired a PM early did great (e.g. <a href="https://snyk.io/">Snyk</a>, <a href="https://ramp.com/">Ramp</a>, <a href="https://slack.com/">Slack</a>), and companies that waited a long time (e.g. <a href="https://stripe.com/">Stripe</a>, <a href="https://figma.com/">Figma</a>, Notion) did great.</li>
+<li>
+<p>Companies that waited a long time to hire their PM had different reasons to wait:</p>
+</li>
+<li>
+<p>Notion spent much of that time (about three years) looking for product-market fit.</p>
+</li>
+<li>Stripe was building an engineering-oriented product and hired top-tier product-minded engineers, so they didn’t have a strong need for PMs.</li>
+<li><a href="https://snap.com/en-US">Snap</a> hired designers who took on the PM duties, which, from what I hear, ended up being fairly chaotic. They eventually hired a PM to lead their initial monetization efforts.</li>
+<li><strong>Companies that hired a PM early, like <a href="https://ramp.com/">Ramp</a> and <a href="https://snyk.io/">Snyk</a>, did so because they didn’t have the skills or time to do the product job well</strong>, and they knew their product would make or break the business. More on this below.</li>
+</ol>
+<p>No matter how long you wait, whether you have a PM or not, someone will be doing the PM duties.</p>
+<p>If you’re looking to push out your first PM hire, the questions you need to ask yourself are:</p>
+<ol>
+<li>Do you <em>want</em> to be doing this work?</li>
+<li>Are you <em>good</em> at it?</li>
+<li>What are you <em>not</em> spending time on that you could be, if you had a PM?</li>
+</ol>
+<p>Generally, the sequence is: a founder takes on the PM duties, they then divide up the duties among the early engineers and designers, and then eventually they bring on a full-time product manager.</p>
+<p>Here’s a simple way to think about the jobs of a product manager:</p>
+<ol>
+<li><strong>Shape the product</strong>: Harness insights from customers, stakeholders, and data to prioritize and build a product that will have optimal impact on the business.</li>
+<li><strong>Ship the product</strong>: Ship high-quality product on time and free of surprises.</li>
+<li><strong>Synchronize the people</strong>: Align all stakeholders around one vision, strategy, goal, roadmap, and timeline to avoid wasted time and effort.</li>
+</ol>
+<p>Here’s a bunch of advice I collected from founders and early PMs on hiring your first PM:</p>
+<h4>A product manager will give you breathing room and create order</h4>
+<p>From <a href="https://www.linkedin.com/in/geoffrey-charles/overlay/about-this-profile/">Geoff Charles</a>, first PM at <strong>Ramp:</strong></p>
+<blockquote>
+<p>“<strong>A PM’s greatest value is bringing order</strong>. As the single point of contact for the team, they hold context and disseminate to the right folks, keep teams focused on building and shipping, and can make decisions quickly.”</p>
+</blockquote>
+<p>From <a href="https://www.linkedin.com/in/benporterfield/">Ben Porterfield</a>, co-founder of <strong>Looker:</strong></p>
+<blockquote>
+<p>“My co-founder and I were acting largely as PMs up until we hired Josh [Siegel]. But we were drowning in prospect calls and our own responsibilities. <strong>Bringing in a PM allowed us some breathing room</strong>. <strong>More importantly, it let us organize feedback from customers and prospects, generate higher-quality sales/marketing materials, and improve internal communication with various teams</strong> (e.g. feedback to engineering, roadmap plans for CS/sales/marketing, etc.).”</p>
+</blockquote>
+<h4>This extra time for founders can lead to big unlocks</h4>
+<blockquote>
+<p>“<strong>What my PM role allowed was for our founders to have the bandwidth to do bigger conceptual thinking</strong>, since I’d taken over the product and project management of Zimride. Within a few months after I started, the founders hatched a plan for an entirely new business based on short-distance ridesharing, while I kept the Zimride product humming, allowing for experimentation. <strong>That experiment became Lyft.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/evangoldin/overlay/about-this-profile/">Evan Goldin</a>, first PM at <strong>Lyft</strong></p>
+</blockquote>
+<h4>Let your first PM own execution so that you can focus on strategy and vision</h4>
+<p>From <a href="https://www.linkedin.com/in/sarahtavel/">Sarah Tavel</a>, first PM at <strong>Pinterest:</strong></p>
+<blockquote>
+<p>“<strong>You as the founders know what needs to be built, but you need hands to execute. In the beginning, it’s about getting leverage, and to get leverage, you need someone you trust.</strong></p>
+<p>It doesn’t need to be a senior person who is figuring out what to build, but it does need to be someone who really understands your product and can effectively channel you, communicate well, and know what decisions/details to surface.”</p>
+</blockquote>
+<p>From <a href="https://www.linkedin.com/in/farooqib/">Badrul Farooqi</a>, first PM at <strong>Figma:</strong></p>
+<blockquote>
+<p>“<strong>Initially the main benefit was more diligent support on execution and not letting small (but important) things fall through the cracks.</strong> Better weekly rhythm for the team, better triaging of all incoming issues, identifying harder product decisions quickly. Less focus initially on vision, big roadmap exercises, exec presentations, etc. Basically, things are working pretty well and we need smaller and consistent improvements to keep it that way.”</p>
+</blockquote>
+<p>From <a href="https://www.linkedin.com/in/calvinfo">Calvin French-Owen</a>, co-founder of <strong>Segment:</strong></p>
+<blockquote>
+<p>“<strong>For us, Alex [Millet] took on trying to harness the thorniest part of our business.</strong> We were getting dozens of tickets per day, from customers who all wanted our hundreds of integrations to behave slightly differently. <strong>He took on the prioritization work around which customers to listen to, how to sequence work-in-progress, and some sort of sense of taste for how to solve it.</strong>”</p>
+</blockquote>
+<h4>Do not delegate your <em>strategy</em> to your first product manager</h4>
+<blockquote>
+<p>“<strong>I’ve seen too many founders make the mistake of bringing in a ‘product person’ to fix the fact that they don’t have PMF and figure out the product strategy almost from scratch. Bring in a PM when you’re confident about the direction you’re heading. It’s the founders’ jobs to set the strategic direction of the company.</strong></p>
+<p>Adding our first PM brought critical additional bandwidth that unlocked engineers to focus on writing software. Additionally, having more product talent onboard enabled us to bring in the voice of the customer to the room and connect the dots between support, sales, and engineering.”</p>
+<p>—<a href="https://www.linkedin.com/in/tomerlondon">Tomer London</a>, co-founder and CPO of Gusto</p>
+</blockquote>
+<h4>The key to success with your first PM is <em>trust</em></h4>
+<p>From <a href="https://www.linkedin.com/in/calvinfo">Calvin French-Owen</a>, co-founder of <strong>Segment:</strong></p>
+<blockquote>
+<p>“<strong>The founders should be okay handing off product decisions. The biggest problem I see is when founders don’t really want to cede control.</strong> This works best when the founders are still on the hook for approval and high-level decision-making but can delegate some of the lower-level decisions.”</p>
+</blockquote>
+<p>From <a href="https://www.linkedin.com/in/kberger/">Kenneth Berger</a>, the first PM at <strong>Slack:</strong></p>
+<blockquote>
+<p>“<strong>Ask yourself if you’re ready to trust someone else with your beloved product.</strong> Many founders desperately want help but also aren’t willing to trust an outsider. To set them up for success, choose to trust them <em>and</em> give them plenty of feedback to build alignment over time.</p>
+<p>Often founders are operating from a ‘trust is earned’ mental model, so by default they don’t trust their employees and expect them to earn that respect over time. But those employees are operating at a distinct disadvantage. Especially when they get started, they won’t have anywhere near the level of commitment and experience of a founder. Both employee and founder are set up to fail under this model. Churn and frustration is the result; this is why you see so many startup execs exit after a year or less.</p>
+<p>The alternative to ‘trust is earned’ (low trust) is ‘trust is given’ (high trust). In this model, you choose to trust your employee on principle. Once you believe they’re trustworthy, any gaps tend to look less like unsolvable character flaws and more like opportunities for coaching/feedback. This model is more about the founder trusting themselves. Trusting themselves to source the right people, to interview them effectively, to coach them to high performance, and to promote them or let them go depending on the fit. Trusting themselves to deal with the discomfort of delegating out product decisions, versus blaming the employee and putting that burden on them.</p>
+<p>In a high-trust environment, it’s easy to repair mistakes and build increasing independence over time. In a low-trust environment, mistakes feel like threats to safety, and thus employees tend to get fired to help the founder feel safe. Mistakes are inevitable in any role, but especially in a high-profile, critical role like head of product or first PM—so it’s best to plan for those mistakes and have a plan to coach through them.”</p>
+</blockquote>
+<h4>For that reason, many first PMs come from internal transfers</h4>
+<p>Including <strong>Notion</strong>, <strong>Looker</strong>, <strong>Figma</strong>, <strong>Robinhood</strong>, <strong>Segment</strong>, <strong>Amplitude</strong>, and <strong>Linear:</strong></p>
+<blockquote>
+<p>“<strong>Our first PM actually joined as a growth PM, and I found that to be a good role to start the product org.</strong> If you’re a product founder, finding a good core PM as your first PM is very hard, whereas growth PM can actually be very complementary to the founder’s core product skill set.”</p>
+<p>—<a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a>, co-founder of <strong>Notion</strong></p>
+<p>“<strong>We transitioned an internal analyst (effectively a software engineer, already working with customers on building their LookML models for a while) about 1.5 years into building the company.</strong> His name was Josh Siegel, and he was <strong>really smart and really focused on the product</strong>. He used to deliver long emails after prospect meetings about all the things the prospect needed to be successful. He also was clearly already capable of translating the requests from what they said they wanted to what the product should actually deliver—not an easy task. He became our first PM, which continued at that time to report up through engineering. The following two PMs were also internal transfers—we wanted people who deeply understood our product and our customers.”</p>
+<p>—<a href="https://www.linkedin.com/in/benporterfield/">Ben Porterfield</a>, co-founder of <strong>Looker</strong></p>
+<p>“<strong>Robinhood’s first PM was an iOS engineer originally</strong>, and then in 2016 (three years in) we decided it was time to add a PM to the mix. <strong>He had great product sense, knew the front end and API, and had been through several product cycles.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/jarenglover">Jaren Glover</a>, early engineer at <strong>Robinhood</strong></p>
+<p><strong>“I didn’t start with a PM title.</strong> The formal titles came later at Figma, once the company needed more discrete roles and seniority throughout the company.”</p>
+<p>—<a href="https://www.linkedin.com/in/farooqib">Badrul Farooqi</a>, first PM at <strong>Figma</strong></p>
+<p>“We had nobody with the title ‘PM’ until something like 30 to 40 people. We were 10 to 12 engineers; it was mostly the founders acting as PMs and then individual engineers and designers at the company designing features for the first two years. <strong><a href="https://web.archive.org/web/20150926175552/https://segment.com/blog/welcome-alex-millet/">Alex Millet</a> was probably the person who was closest to a pure PM, originally hired in September 2014 as a sort of forward-deployed engineer who then started prioritizing integration fixes and working with customers sometime in late 2014.</strong></p>
+<p>We sort of realized all at once that we could benefit from having PMs (around mid-2015?). <strong>Instead of hiring externally, we hired internally</strong> and formed a product team with Alex, Kevin Niparko, and Chris Sperandio.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo">Calvin French-Owen</a>, co-founder of <strong>Segment</strong></p>
+<p>“We got really lucky with Justin [Bauer], who started out as director of product, turned into our CPO, and ran the function for eight years. <strong>He proactively had heard about the product and sought us out to join the team.</strong> It probably would have taken a lot longer if he hadn’t done that, as hiring good PMs is hard!”</p>
+<p>—<a href="https://www.linkedin.com/in/spenserskates">Spenser Skates</a>, founder and CEO of <strong>Amplitude</strong></p>
+<p>“We didn’t outright seek to hire a PM or head of product. <strong>Nan [Yu] actually started as a contractor to help us lay out the foundation and roadmap for Linear Insights</strong>, our analytics product. We didn’t internally have strong knowledge on analytics, and he was the perfect person to help the team; he had been an engineering leader and more recently led product for Mode Analytics. <strong>Working together on the project, it became clear he would be a fit for us and could lead more complex product features as we founders started to lack time to focus on them.</strong> Contract-to-hire was also the perfect way for us to experience a new type of skill set on the team in a less risky way, even though it was not the original intention.”</p>
+<p>—<a href="https://www.linkedin.com/in/jorilallo">Jori Lallo</a>, co-founder of <strong>Linear</strong></p>
+</blockquote>
+<h4>Look for strong IC superpowers, passion for the problem, and product intuition</h4>
+<blockquote>
+<p>“Hiring a great PM can be tricky because the interview process only tells you so much, but one way to make sure they’re a good fit is to hire a PM that <strong>you’re confident brings an IC superpower to the table (design/UX, for example) or is otherwise very technical or a subject-matter expert in your field</strong> (for Ramp, fintech). Make sure cross-functional stakeholders have a say in PM hiring, as PM–technical lead–design lead chemistry is super-important.”</p>
+<p>—<a href="https://www.linkedin.com/in/karimatiyeh">Karim Atiyeh</a>, co-founder and CTO of <strong>Ramp</strong></p>
+<p>“In my own experience, the best PMs fall in love with the problem and the space. PMs in particular benefit from a passion for the customer in a way that other roles don’t require. The engineers and designers have to trust the PM, and that is hard to do if the PM isn’t a font of customer/ecosystem knowledge.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo">Calvin French-Owen</a>, co-founder of <strong>Segment</strong></p>
+<p>“Looking back, I’d say choosing someone like Josh [Siegel], who had good product intuition, and ensuring that there’s clarity around how bringing in the PM changes things or doesn’t (how is roadmap now decided, where are co-founders’ responsibilities and PM responsibilities shared and where are they delineated, etc.).”</p>
+<p>—<a href="https://www.linkedin.com/in/benporterfield/">Ben Porterfield</a>, co-founder of <strong>Looker</strong></p>
+</blockquote>
+<h4>To build trust quickly, help your first PM get some quick wins</h4>
+<blockquote>
+<p>“Engineers in smaller companies are understandably nervous about adding a PM, so <strong>have the first PM identify and lead quick, easy wins to prove their value immediately. Do this even before setting up a longer-term product roadmap.</strong> The product VP (Awaneesh Verma) and I came from much larger companies (Google and Microsoft). We had to switch to a scrappy mindset right away. The low-cost, high-impact experiments we prioritized in our first months showed the company how we could help them unlock the next stage of growth.”</p>
+<p>—<a href="https://www.autographlabs.com/">Kai Loh</a>, first PM at Duolingo</p>
+</blockquote>
+<h4>A few companies hired a PM as their very <em>first</em> hire, because they knew the product itself would make or break the business</h4>
+<p>Stories from <strong>Coda</strong>, <strong>Snyk</strong>, and <strong>Persona:</strong></p>
+<blockquote>
+<p>“<strong>It all depends on the type of startup. Some startups are all technical insight/risk, and you want to get those core engineers in place right away. If, for example, you have a startup that is mostly regulatory risk, you would want to get someone familiar with that set of regulators early.</strong></p>
+<p>For Coda, most of our insight (and risk) was in the product (is it actually possible to build a new all-in-one blinking cursor? And what are the key choices that enable ‘docs as powerful as apps’). So we asked Matt Hudson (@huddy) to join in very early. He’s a supremely talented product thinker and also has really deep passion and instincts for our space.”</p>
+<p>—<a href="https://www.linkedin.com/in/shishirmehrotra">Shishir Mehrotra</a>, co-founder and CEO of <strong>Coda</strong></p>
+<p>“I believed the fact that security products weren’t fit for developers <strong>was a product problem, not a tech problem</strong>, needing breakthroughs more in the UX world than tech algorithms. Furthermore, I had two technical co-founders that I knew would lead the security and tech aspects well, so felt I’m well-covered there.</p>
+<p><strong>I could have done the product work myself (and in practice, I did a portion of it), but I wanted to free myself up to build the company as a whole, and not be too focused on one aspect of it. I did hire someone with deep UX skills, better than mine, who complemented me, not just offloaded work.</strong></p>
+<p>In general, I intentionally took the path of building a strong leadership team early on. It was always a very hands-on leadership team, who initially spent most of their time as ICs but were also building teams and practices. This is a personal choice, and many founders prefer to directly manage most of the team until it grows. For me, however, I perceive myself as a better leader and innovator than I am a manager, and I wanted to focus my attention there.”</p>
+<p>—<a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a>, founder and CEO of <strong>Snyk</strong></p>
+<p>“We hired Vincent [Tsao] because Charles [Yeh] and I believed his professional experience and willingness to give it his all were a perfect fit. We would’ve wanted to work with him whether at Persona or elsewhere, and that speaks highly of our rapport. He had experience from a previous startup and understood the fluid nature of a company’s early stages—he wasn’t tied to a specific role, title, or set of responsibilities and understood that we were all going to do whatever it took to succeed. In fact, his very first project had nothing to do with product—he spent the first evening setting up payroll!</p>
+<p><strong>We also believe that many founders, in their eagerness to launch and iterate, often swing too far on the pendulum of no documentation or process. While Charles and I were confident in our product and market insights, as well as our ability as engineers to create a minimum viable product (MVP), we were also self-aware about our shortcomings.</strong> We knew we needed someone with not only sharp product intuition but also someone who could anchor our product operations and knowledge base, synthesizing insights from chaos and ultimately helping us move faster. Vincent was invaluable in building the foundation that enabled us to smoothly go from MVP to product-market fit and, eventually, to scaling our team.”</p>
+<p>—<a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, founder and CEO of <strong>Persona</strong></p>
+</blockquote>
+<h4>Finally, a common thread in the feedback was that early PMs are mostly useful in B2B, and can be a hindrance in B2C</h4>
+<blockquote>
+<p>“If the relationship between the product and the customer is complex and involves different stakeholders (like B2B software), then hiring a PM sooner can be helpful.</p>
+<p><strong>If it’s more straightforward, like most consumer experiences, hiring a PM will almost certainly disempower engineering leaders and design, so you have to be very careful and clearly think about why you need someone between leadership and those who are actually building.</strong>” —Anonymous</p>
+</blockquote>
+<p>As you look back at the chart above, I’m curious if you see any other takeaways or surprises. Any other lessons, insights, or data points? Leave a comment! I’d love to hear from you.</p>
+<p><a href="https://www.lennysnewsletter.com/p/when-they-hired-their-first-pm/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/when-to-hire-your-first-product-manager">When to hire your first product manager</a> (my first attempt at this question)</li>
+<li><a href="https://www.lennysnewsletter.com/p/joining-as-the-first-product-manager">Advice for joining as the first product manager</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">Hiring your early team in B2B</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>🙄 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

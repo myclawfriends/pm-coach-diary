@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to kickstart and scale a marketplace business — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to kickstart and scale a marketplace business</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to kickstart and scale a marketplace business</div>
+    
+    <div class="article-meta">2019-11-20<span>·</span>2,553 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<p>“Everyone's always looking for the hack - what's the channel that will unlock something big? But every time we looked for a reason we weren't growing, it always came back to the basics –– selection, delivery quality, pricing. That's it. Always come back to first principles. Whenever we made a mistake, we forgot this.”</p>
+<p>– Micah Moreau (DoorDash, VP of Growth)</p>
+</blockquote>
+<p><em>(This is a special edition of my newsletter — the first in a series of posts sharing insights from interviews with founders and early employees at today’s most successful marketplace businesses. Our regularly scheduled weekly Q&amp;A series will resume in a few weeks.)</em></p>
+<p>Having worked at Airbnb for many years, I’m frequently asked about what Airbnb did right in order to grow into what it is today. While sharing my learnings, <strong>I’ve become increasingly wary of teams relying too heavily on a single company’s experience</strong>. There are so many factors that go into an eventual success story, and what’s effective once may not be again. Thus, I’ve been yearning to get a wider perspective on what has (and hasn’t) worked for other marketplace companies.</p>
+<p>Since I couldn’t find anything out there that was comprehensive enough, I decided to be the change I want to see in the world and do the primary research myself. <strong>Over the past few months, I’ve had the good fortune to interview dozens of incredible people with direct experience building and scaling some of the most successful marketplace companies in the world.</strong> I’ve consolidated their learnings into a sort-of-playbook to kickstart and grow a successful marketplace business — which I’ll be sharing as bite-sized posts over the next few weeks:</p>
+<h3>How to Kickstart and Scale a Marketplace Business</h3>
+<p><strong>Phase 1: Crack the chicken-and-egg problem</strong> 🐣</p>
+<ul>
+<li><strong>Part 1</strong>: Constrain the marketplace 🔬 <em>(this post)</em></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Part 2:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Decide which side of the marketplace to concentrate on 🧐</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-911">Part 3:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-911">Drive initial supply 🐥</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Part 4:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Drive initial demand 👋</a></li>
+</ul>
+<p><strong>Phase 2: Scale your marketplace 📈</strong></p>
+<ul>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-know-if-youre-supply-or-demand">Part 1:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-know-if-youre-supply-or-demand">Determine if you are supply or demand constrained 🤹‍♂️</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/accelerating-growth-at-scale-phase">Part 2:</a></strong> <a href="https://www.lennysnewsletter.com/p/accelerating-growth-at-scale-phase">Scale growth levers 🔥</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/maintaining-quality-kickstarting">Part 3:</a></strong> <a href="https://www.lennysnewsletter.com/p/maintaining-quality-kickstarting">Maintain quality 🏅</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/what-theyd-do-differently-kickstarting">Part 4:</a></strong> <a href="https://www.lennysnewsletter.com/p/what-theyd-do-differently-kickstarting">What would you have done differently if you did it again</a><strong><a href="https://www.lennyrachitsky.com/p/what-theyd-do-differently-kickstarting">🔮</a></strong></li>
+</ul>
+<p>This work would not have been possible without the enormous generosity of countless people, all willing to share their precious time, stories, and insights with me simply because I asked. The readiness to share so openly and transparently says a lot about the value people in the tech industry place on sharing and giving back. A very special thank you to <strong><a href="https://www.linkedin.com/in/andrewchen/">Andrew Chen</a></strong> (ex-growth at Uber, GP at a16z), <strong><a href="https://www.linkedin.com/in/bnivi">Babak Nivi</a></strong> (co-founder of AngelList), <strong><a href="https://www.linkedin.com/in/benjaminlauzier/">Benjamin Lauzier</a></strong> (ex-growth at Lyft, Director of Product at Thumbtack), <strong><a href="https://www.linkedin.com/in/brianrothenberg/">Brian Rothenberg</a></strong> (ex-growth at Eventbrite and TaskRabbit, Partner at defy), <strong><a href="https://www.linkedin.com/in/caseywinters/">Casey Winters</a></strong> (ex-growth at GrubHub, CPO at Eventbrite), <strong><a href="https://www.linkedin.com/in/dan-hock/">Dan Hockenmaier</a></strong> (ex-growth at Thumbtack, founder of Basis One), <strong><a href="https://www.linkedin.com/in/mcfunley/">Dan McKinley</a></strong> (ex-Etsy, Principal Engineer at MailChimp), <strong><a href="https://www.linkedin.com/in/davidjamesrosenthal/">David Rosenthal</a></strong> (ex-Rover, GP at Wave Capital), <strong><a href="https://www.linkedin.com/in/georgdanielbauser/">Georg Bauser</a></strong> (ex-Airbnb, CEO of Expansion Partners), <strong><a href="https://www.linkedin.com/in/gilad-horev-65902827/">Gilad Horev</a></strong> (VP Product at Eventbrite), <strong><a href="https://www.linkedin.com/in/gokulrajaram1/">Gokul Rajaram</a></strong> (Caviar Lead), <strong><a href="https://www.linkedin.com/in/gustafalstromer">Gustaf Alströmer</a></strong> (ex-growth at Airbnb, partner at YC), <strong><a href="https://www.linkedin.com/in/hunterwalk/">Hunter Walk</a></strong> (partner at Homebrew), <strong><a href="https://www.linkedin.com/in/jamie-viggiano/">Jamie Viggiano</a></strong> (ex-marketing at TaskRabbit, CMO at Fuel Capital), <strong><a href="https://www.linkedin.com/in/juliensmith">Julien Smith</a></strong> (co-founder of Breather), <strong><a href="https://www.linkedin.com/in/katrinschmidt/">Kati Schmidt</a></strong> (ex-Airbnb), <strong><a href="https://www.linkedin.com/in/maxmullen/">Max Mullen</a></strong> (co-founder Instacart), <strong><a href="https://www.linkedin.com/in/micahmoreau/">Micah Moreau</a></strong> (VP Growth at DoorDash), <strong><a href="https://www.linkedin.com/in/mikeduboe/">Mike Duboe</a></strong> (ex-growth at Stitch Fix, investor at Greylock), <strong><a href="https://www.linkedin.com/in/xenakismike/">Mike Xenakis</a></strong> (ex-SVP of Product at OpenTable, Lecturer at Kellogg School of Management), <strong><a href="https://www.linkedin.com/in/nickeyskarstad/">Nickey Skarstad</a></strong> (ex-Director of Product at Etsy, VP of Product at The Wing), <strong><a href="https://www.linkedin.com/in/natemoch">Nate Moch</a></strong> (VP at Zillow), <strong><a href="https://www.linkedin.com/in/sander-daniels-44bb0324/">Sander Daniels</a></strong> (co-founder of Thumbtack), <strong><a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a></strong> (growth at Patreon), and <strong><a href="https://www.linkedin.com/in/tamaramendelsohn/">Tamara Mendelsohn</a></strong> (VP and GM at Eventbrite). Unless otherwise stated, all of the quotes below come from my direct interviews.</p>
+<h1>Background</h1>
+<h3>What is a marketplace business, anyway?</h3>
+<p>A marketplace business is one that <strong>(1) connects demand</strong> (i.e. people who want a thing) with <strong>(2) supply</strong> (i.e. people who have that thing), and <strong>(3) leads to a financial transaction</strong>. These businesses do not generally own any supply, do not provide products or services directly, and (eventually) handle the money being exchanged. Simply put, their job is to provide a platform where the supply and demand efficiently find each other and transact successfully.</p>
+<p><strong>Examples of classic marketplace businesses:</strong> Airbnb, Uber, Lyft, Alibaba, eBay, Etsy, Hipcamp, DoorDash, Caviar, Rover, Postmates, Thumbtack, TaskRabbit, Craigslist</p>
+<p><strong>Examples of non-marketplace businesses:</strong> Delta Airlines (they own all of the inventory), YouTube (no financial transaction), Slack (no supply).</p>
+<h3>Why are marketplaces great businesses?</h3>
+<ol>
+<li><strong>Network effects</strong>: The more users you get, the more useful/cheap your product becomes, the more users you get (e.g. Lyft/Uber vs. taxis)</li>
+<li><strong>Barrier to entry</strong>: Once they have a strong network effect, it becomes increasingly difficult to enter or replicate the marketplace (e.g. Airbnb vs. hotels)</li>
+<li><strong>Efficiency</strong>: No inventory means cheaper to operate (e.g. Airbnb vs. hotels)</li>
+<li><strong>Scalability</strong>: No inventory means easier to scale (e.g. Rover vs. dog hotels)</li>
+<li><strong>Flexibility</strong>:  No inventory means easier to pivot (e.g. Uber Black -&gt; Uber X)</li>
+</ol>
+<h3>Important disclaimers</h3>
+<ol>
+<li><strong>For many of these companies, the primary reason they became successful was not because of some amazing growth insights – it was primarily because of great product/market fit</strong>. Many folks I spoke to are first to admit this. The growth levers they employed helped accelerate (and control) growth, but they may have been successful anyway. At least for a while.</li>
+<li><strong>Past behavior is not predictive of future behavior</strong>. When reading through the lessons below, my advice is to focus more on ways of thinking and the cleverness behind the ideas –– not only the specific tactics. Many of the most successful growth levers of the past no longer work, or are significantly less effective. Take inspiration from what you read, but don’t expect them to work the same way for you.</li>
+<li><strong>This research is based on interviews, of events many years ago.</strong> Memory can be faulty, takeaways could be anecdotal, and you often don’t <em>really</em> know what mattered in the end. Also, I probably got some stuff wrong, so please don’t take any of this as gospel (and I’ll include any corrections in future posts). All that being said, I’ve tried my best to triangulate what actually happened across multiple sources, and made sure things <em>felt</em> right.</li>
+</ol>
+<p>With those caveats in mind, let’s dive in!</p>
+<h1><strong>How to Build a Marketplace Business</strong></h1>
+<h2><strong>Phase 1: Crack the chicken-and-egg problem 🐣</strong></h2>
+<p>Once a marketplace business is operating, supply (i.e. restaurants, homes, drivers) happily serve demand (i.e. eaters, travelers, passengers). However, when your marketplace is just getting started, and you have neither supply nor demand, <strong>it’s challenging to get the flywheel going. You must convince one side of the marketplace to commit before the other side.</strong> For example, without restaurants onboard, a customer looking for food has no reason to check your app. And without customers using your app, restaurants have very little reason to spend time onboarding onto your platform. This is known as the “chicken-and-egg problem”, and solving it is one of the biggest barriers to launching a marketplace business. Below, and over the next few posts, we’ll walk through the steps that the biggest marketplaces worked through in order to crack this problem. Also, here’s a cheat sheet:</p>
+<p><img alt="Image from How to kickstart and scale a marketplace business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a7da5fd8-bbf4-4c66-af5e-cf03056d575f_2135x1686.png" /></p>
+<h3>Step 1: Constrain the marketplace 🔬</h3>
+<p><strong>The first major learning that emerged from this research is that, with the exception of one company, every single marketplace that I interviewed constrained their initial marketplace</strong> to more quickly get to critical mass. To some this may seem counter-intuitive — why limit your growth and opportunities when you are starting out? It turns out that <strong>the best way to get big is by first going small</strong>.</p>
+<p>The research points to two ways to constrain a marketplace: (1) by <strong>geography</strong>, and (2) by <strong>category</strong>. If the offering requires supply and demand to be in the same physical location, the constraint is always geographical (e.g. a limited set of markets). Otherwise, it’s category-based (e.g. handmade goods). And the one exception to this rule, Thumbtack, is a fascinating case study in and of itself.</p>
+<p><img alt="Image from How to kickstart and scale a marketplace business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e2802120-0e27-4daf-a03b-38bec7453147_1900x860.png" /></p>
+<h4>If the service requires supply and demand to meet, it always started with a <strong>geographical constraint (i.e. a single market)</strong></h4>
+<p><strong>Rover:</strong></p>
+<blockquote>
+<p>“<strong>We started in Seattle, and stayed hyper-focused on Seattle, for a while</strong>. Seattle was the perfect market for us: very dog-friendly, early adopters, techy, working professionals who go on vacation and business trips. Plus Amazon is super dog-friendly. There is probably no more dog-friendly city in America. This helped figure out the product quickly.”</p>
+<p>— David Rosenthal</p>
+</blockquote>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“Similar to how <strong>the founders first focused on New York early on</strong>, when Airbnb expanded internationally in 2011, <strong>we focused on creating critical mass in just a few markets</strong> in which we were quickly able to unlock supply and demand.”</p>
+<p>— Kati Schmidt</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p><strong>“We created a playbook for opening up a new market</strong>, which got set by the Launcher team (led by <a href="https://www.linkedin.com/in/austin-geidt-bb173b20/">Austin Geidt</a>). The first thing they would do when they launched market is to figure out supply. <strong>The goal was to get over 30 drivers, shooting for ETA of less than 15 minutes</strong>.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p><strong>OpenTable:</strong></p>
+<blockquote>
+<p>“We ultimately discovered <strong>if we had enough restaurants in a market, we’d have enough value for the diner to use OpenTable</strong>. Dining is local, so <strong>concentration was key.</strong> A rule of thumb was that if we could get to 50-100 concentrated restaurants in a city, we had enough for a consumer to land on the site, cast a wide net, and get a consideration set that was meaningful enough to not be disappointed.”</p>
+<p>— Mike Xenakis</p>
+</blockquote>
+<p><strong>Instacart:</strong></p>
+<blockquote>
+<p>“<strong>We selected our initial markets where there would likely be demand</strong>, e.g. Chicago in the winter. A high household income, fewer households with cars, and frequently inclement weather — typically means people want delivery.”</p>
+<p>— Max Mullen</p>
+</blockquote>
+<p><strong>Breather:</strong></p>
+<blockquote>
+<p>“When transaction length was low (a 2 hour room booking), proximity was super important. <strong>We had areas of density like the Flatiron District</strong>, where we added units and they kept getting booked immediately. It was clear product/market fit. <strong>We followed this in a super dense and a very precise way. This cafe, at this location, at this time, is working. Duplicate this exactly.</strong> Don’t try to create something else. Don’t try to launch a new city yet. Don’t change anything. What is the exact same thing I can duplicate or extend? What else can this customer go do after? How can I double the size of the transaction. A lesson of marketplace companies --  if you are in a place with a decent market size, then just double down on what’s working. You don’t need to do anything new. Like with Airbnb, it was working in NY, so just create that again and again and again.”</p>
+<p>— Julien Smith</p>
+</blockquote>
+<p><strong>Zillow:</strong></p>
+<blockquote>
+<p>“When we started the mortgage marketplace, there were no automated systems for anonymous, accurate, real time mortgage rates. So <strong>we had to start small in a single market</strong> and work with mortgage brokers who would respond to emails and manually enter quotes by hand every day.”</p>
+<p>— Nate Moch</p>
+</blockquote>
+<h4>Essentially every other marketplace (not location-based) started with a <strong>category constraint:</strong></h4>
+<p><strong>TaskRabbit:</strong></p>
+<blockquote>
+<p>“While we were always a broad platform, <strong>we were very deliberate about building a liquid marketplace for our most popular task categories</strong>, which were and continue to be: handyman tasks (including IKEA assembly), house cleaning, and moving help. We focused on these categories to ensure that there was high-quality supply to meet the consumer demand for these services.”</p>
+<p>— Jamie Viggiano</p>
+</blockquote>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“Find your core use-case, and gain traction there. <strong>For Eventbrite, this was tech mixers and conferences</strong>. As you got invites from events, you started to see the name Eventbrite over and over and it became a thing. We focused on this, based on seeing where most early traction was.”</p>
+<p>— Brian Rothenberg</p>
+</blockquote>
+<p><strong>Etsy:</strong></p>
+<blockquote>
+<p>“From the beginning, we had <strong>only three categories of things</strong> you could sell: vintage items, craft supplies, and handmade items.”</p>
+<p>— Etsy, Dan McKinley</p>
+</blockquote>
+<h4>In one rare, fascinating, and deliberate case, <strong>Thumbtack decided to eschew any constraint:</strong></h4>
+<blockquote>
+<p>“The conventional wisdom was to narrow focus to a category (like Amazon did with books) or geography (like Yelp did with San Francisco). <strong>We didn't get funding for many years in part because we did the opposite -- we did all categories and all geographies from the beginning</strong>. People thought that wouldn't work, that we were boiling the ocean. In retrospect it was the only way to build a marketplace in our space at scale -- being broad in category increased the frequency of use of our product from once every couple years (how often do you need to hire a house painter?) to 8-12 times a year (the number of Thumbtack services an average American household hires annually). And being broad in geography allowed us to scale our marketplace as fast as possible, giving us the revenue, traffic, and thus experimental velocity we needed to bootstrap a great product. In our case we wouldn't have survived had we done it any other way.”</p>
+<p>— Sander Daniels</p>
+</blockquote>
+<p>Once you’ve decided how to constrain your marketplace, you then need to pick which side of the marketplace to put most of your resources behind (supply or demand). <strong>In our next post, learn how today’s biggest marketplace companies decided whether to concentrate on supply vs. demand early-on, plus how one “marketplace” realized they weren’t a marketplace after all.</strong></p>
+<p><strong>Other posts:</strong></p>
+<ul>
+<li>Part 1: Constrain the marketplace 🔬 <em>(this post)</em></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Part 2: Decide which side of the marketplace to concentrate on 🧐</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-911">Part 3: Drive initial supply 🐥</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Part 4: Drive initial demand 👋</a></li>
+</ul>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

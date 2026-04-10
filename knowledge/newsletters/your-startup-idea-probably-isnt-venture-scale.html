@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your startup idea probably isn’t venture-scale — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Your startup idea probably isn’t venture-scale</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Your startup idea probably isn’t venture-scale</div>
+    
+    <div class="article-meta">2023-05-16<span>·</span>2,609 words</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">定價</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m told my idea isn’t “venture-scale.” What does that mean?</h2>
+</blockquote>
+<p>What do <a href="https://www.producthunt.com/">Product Hunt</a>, <a href="https://trello.com/">Trello</a>, <a href="https://balsamiq.com/">Balsamiq</a>, <a href="https://basecamp.com/">Basecamp</a>, <a href="https://culturedcode.com/things/">Things</a>, <a href="https://duckduckgo.com/">DuckDuckGo</a>, <a href="https://www.brain.fm/">Brain.fm</a>, and many of your favorite products have in common? They’re beloved, have millions of users, and likely generate tens of millions of dollars a year, but, like your idea and 99.9% of new startup ideas, they will never be “venture-scale.” And that’s OK. You can build a killer business without going the VC route. And you probably should.</p>
+<p>A simple rule of thumb for what makes an idea venture-scale is having a path to <strong>$100 million a year</strong> in revenue and hitting <strong>$1 billion+ valuation</strong>, in <strong>10 years</strong>. Essentially, can you get big, fast? This is what VCs need to invest in in order to make their fund economics work. Very few ideas can hit this scale, and it’s important that you recognize this before you take venture capital (more on this below).</p>
+<h4><strong>To gauge the venture-scaliness of an idea, investors look for:</strong></h4>
+<ol>
+<li><strong>Large enough market:</strong> Are there enough people (or companies) spending enough money for you to be able to generate $100M in revenue per year—and eventually $1B in revenue a year? This usually means that the total addressable market (<a href="https://visible.vc/blog/modeling-total-addressable-market/">TAM</a>) needs to be $5B or more. And the bigger the better.</li>
+<li><strong>Scalable business model:</strong> Can you scale efficiently, primarily through technology—and not through hiring more people (e.g. accountants) or acquiring assets (e.g. buildings)? Venture investors are looking for high-margin businesses, and nothing is higher-margin than software.</li>
+<li><strong>High growth:</strong> Have you shown 2-3x growth year after year, and can you keep it up? Otherwise, it’s hard to believe there is actually a big market for what you’re building. Also, with a low growth rate, the <a href="https://medium.com/@harlemcapital/why-are-vcs-obsessed-with-software-38a4c48cbb08">multiples on your revenue</a> will be lower, and thus so will your long-term value.</li>
+<li><strong>Cash → growth:</strong> Is there a clear understanding of how an infusion of (venture) capital will unlock growth in the short term? Otherwise, why sell a big percentage of your company?</li>
+<li><strong>Path to IPO:</strong> You plan to go public one day.</li>
+</ol>
+<blockquote>
+<p>“When I look at a startup, I ask myself, can I see a path to $100M+ in revenue, and then a consistent way to compound from there? Is there a dream scenario of <strong>building a category-defining business in the hundreds of millions, or even $1B+, in revenue?</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/stephaniezhan/">Stephanie Zhan</a>, Partner at Sequoia</p>
+</blockquote>
+<p>A high bar indeed.</p>
+<h4>Making something people want is not enough</h4>
+<p>You often hear about the importance of <a href="https://www.paulgraham.com/good.html">making something people want</a>, but that’s just step one. If not <em>enough</em> people want what you’ve built, or you <em>can’t make enough</em> money from these people, you won’t be able to build a venture-scale business. But, again, that’s OK. You can still build a great business. Here are some ideas that will (probably) never be venture-scale businesses but can still be great revenue-generating businesses (and many already are):</p>
+<ol>
+<li>On-demand car washing</li>
+<li>In-home chefs-as-a-service</li>
+<li>A better podcasting app</li>
+<li>A better personal to-do app</li>
+<li>A better photo-sharing app</li>
+<li>A better bird-watching app</li>
+<li>A better recipe app</li>
+<li>A better app to manage Little League schedules</li>
+<li>An app for couples to communicate long-distance</li>
+<li>An app to coordinate household chores</li>
+</ol>
+<p>If you’re excited about one of these ideas, by all means build it! We need more great products in the world. The mistake is thinking your startup idea <em>is</em> venture-scale and getting on the VC treadmill. Once you’re on the treadmill, here’s what changes:</p>
+<ol>
+<li><strong>High growth expectations:</strong> VCs are looking for companies that grow big enough fast enough. If your business isn’t suited to this kind of rapid growth, it can lead to undue pressure and unrealistic expectations.</li>
+<li><strong>Loss of control:</strong> VCs generally buy 10% to 20% of your company and often get a seat on the board. This could lead to a loss of control over your company’s direction and decision-making. Especially if you aren’t growing fast enough.</li>
+<li><strong>Misalignment of goals:</strong> You may prioritize product quality, profitability, sustainability, or specific values, whereas VC firms typically prioritize rapid expansion and a high return on investment.</li>
+<li><strong>Ongoing dilution:</strong> When you attempt to raise additional funding and you’re not performing well, you’ll end up raising at lower valuations, thus diluting yourself, employees, and early investors.</li>
+<li><strong>Exit pressure:</strong> Investors usually expect an exit event (like an acquisition or IPO) within 5 to 10 years, to cash out their investment. This can lead to decisions that prioritize short-term gains over the long-term health and vision of the company.</li>
+</ol>
+<blockquote>
+<p>“Bootstrapping is for lifestyle businesses that want cash flow, and (venture) funding is for companies trying to create a billion dollars in annual revenue. Simple as that.” —<a href="https://www.linkedin.com/in/patrickccampbell/">Patrick Campbell</a>, founder of ProfitWell (bootstrapped to $200M ARR)</p>
+</blockquote>
+<p>If you’re already down this road and are realizing your idea isn’t venture-scale, don’t worry. As long as you tried your best (and are working with good investors), they won’t hold it against you. As <a href="https://www.linkedin.com/in/lpolovets/">Leo Polovets</a>, GP at Susa Ventures, shared with me:</p>
+<blockquote>
+<p>“<strong>Most reputable investors will be content with their investment regardless of the outcome—as long as you tried your best to build something big.</strong> So if you raised a seed round and ended up exiting for $15M, or even $0, because the $1B opportunity didn’t materialize, that’s totally fine. Where investors get frustrated is if you raised money on the promise of trying to create a huge business but then pursued an early exit without trying to realize the company’s full potential.”</p>
+</blockquote>
+<h4>How to tell if your idea is venture-scale</h4>
+<p>If you’re now wondering whether you have a venture-scale business, ask yourself three questions:</p>
+<p><strong>1. Is my market big enough?</strong></p>
+<p>Do the math. What would have to be true for your business to reach $100M in revenue in one year? How many people would need to be using it (and/or paying for it), and how much should you need to make per user? As <a href="https://www.linkedin.com/in/nina-achadjian/">Nina Achadjian</a>, GP at Index Ventures, says, it very simply often comes down to market size:</p>
+<blockquote>
+<p>“<strong>It all comes down to the size of the market and if the business model can scale.</strong> That, and if you’re taking VC money, you are signing an unofficial ‘oath’ to one day take your company public or sell it. The minimum threshold is growing to $100M+ ARR.”</p>
+</blockquote>
+<p>Also, a classic piece of advice from <a href="https://www.linkedin.com/in/rachleff/">Andy Rachleff</a> (co-founder of Benchmark Capital):</p>
+<blockquote>
+<p>“When a great team meets a lousy market, market wins.<br />
+When a lousy team meets a great market, market wins.<br />
+When a great team meets a great market, something special happens.”</p>
+</blockquote>
+<p>Note, this is in large part a guessing game, but knowing what needs to be true to reach this bar is illuminating. <a href="https://medium.com/sequoia-capital/the-market-curve-44097b626f6d">Here’s a simple guide</a> to help you think this through.</p>
+<p><strong>2. How much pain are you solving?</strong></p>
+<p>On a scale of 1 to 10, how painful is the status quo? Is it a 9-10, or is it 4-5? It’ll be hard to get people to pay a lot of money, or to switch from a good-enough product, if there isn’t a lot of pain. Here’s how <a href="https://www.linkedin.com/in/hunterwalk/">Hunter Walk</a>, GP at Homebrew, thinks about what makes a venture-scale business:</p>
+<blockquote>
+<p>“Many investors will say that the total addressable market (TAM) size is the primary indication of ‘venture scale,’ but I disagree. You can have large TAMs that actually aren’t very good markets for startups, and smaller markets that can be expanded by the abilities of a talented startup with the right product offering.</p>
+<p>So instead I tell founders to think about the <em>problem</em> they’re solving, specifically my <a href="https://hunterwalk.com/2017/04/12/why-i-care-about-problem-size-more-than-market-size/">LUV framework</a>:</p>
+<ol>
+<li><strong>Large:</strong> Is the problem you’re aiming to solve large enough—customers, users, spend, etc.?</li>
+<li><strong>Urgent:</strong> Is the problem urgent to your users/customers—will they be interested in a new offering, change their way of solving this problem today?</li>
+<li><strong>Valuable:</strong> Are people willing to spend money to solve this problem; is there financial value associated with this problem?”</li>
+</ol>
+</blockquote>
+<p><strong>3. Can your business model scale efficiently and quickly?</strong></p>
+<p>Top VCs generally prefer to invest in software-driven businesses. Businesses that grow by adding bodies (e.g. hiring more plumbers), buildings (e.g. opening retail locations), or hardware (e.g. watches) tend to take a lot more time and capital. They also generally make lower margins. Software, on the other hand, can scale infinitely and is very cost-efficient. This is why companies that are high-margin <a href="https://medium.com/@harlemcapital/why-are-vcs-obsessed-with-software-38a4c48cbb08">are valued so much higher</a> and why “<a href="https://a16z.com/2011/08/20/why-software-is-eating-the-world/">software is eating the world</a>.”</p>
+<p><img alt="Image from Your startup idea probably isn’t venture-scale" src="https://substack-post-media.s3.amazonaws.com/public/images/6b7a16ca-0992-46df-8547-c4cc100e3e7c_2172x1214.jpeg" /></p>
+<p>As <a href="https://www.linkedin.com/in/nina-achadjian/">Nina Achadjian</a> touched on above:</p>
+<blockquote>
+<p>“<strong>Venture-scale businesses need to have a business model that scales</strong>. This means as the company grows, every incremental dollar that goes into the business unlocks more and more revenue, and eventually profit, over time.”</p>
+</blockquote>
+<p>VCs in particular look for companies where an infusion of cash unlocks growth and scalability—not simply companies that need cash to keep going:</p>
+<blockquote>
+<p>“<strong>Venture capital is best suited to companies that require discrete capital infusions to unlock orders of magnitude more enterprise value at key de-risking steps along the journey</strong>. These ‘unlocks’ in value are discontinuous, because the investment thesis is generally out of consensus in the early rounds.</p>
+<p>For example, a technology, team, market, and/or business model may be unproven and, therefore, difficult for traditional capital providers to underwrite in the early stages. VCs, alternatively, are often willing to ‘take a flyer’ on certain large risks if they have a strong POV that one of these factors may be misunderstood and that the company can tap into unbounded upside if, in fact, this POV turns out to be right.”</p>
+<p>—<a href="https://www.linkedin.com/in/ataussig/">Alex Taussig</a>, GP at Lightspeed</p>
+<p>“<strong>The VC-backed route is ideal for companies where a lot of initial funding is required to launch and grow quickly</strong>, where your ambition is to do everything you can to build a $1B+ company, and where there’s a viable path to $100M+ in annual revenue within 10 years. If at least one of these is not true for your company, then bootstrapping is probably the better choice.”</p>
+<p>—<a href="https://www.linkedin.com/in/lpolovets/">Leo Polovets</a></p>
+</blockquote>
+<h4>Alternatives to the venture route</h4>
+<p>You may now be realizing your business is not a venture-scale idea (hint: it probably isn’t). What should you do? You have a few options:</p>
+<ol>
+<li><a href="https://www.seedready.org/journal/how-to-bootstrap-a-startup/">Bootstrap it</a>.</li>
+<li>Raise money only from friends and family, and supportive angel investors, who don’t expect venture-scale returns.</li>
+<li>Check out funds that are aligned with this path, like <a href="https://calmfund.com/">the Calm Fund</a>, <a href="https://tinyseed.com/">TinySeed</a>, and <a href="https://purpose-economy.org/en/ventures/">Purpose</a>.</li>
+<li>Explore revenue-based financing like <a href="https://www.capchase.com/">Capchase</a>, <a href="https://clear.co/">Clearco</a>, and <a href="https://www.lightercapital.com/revenue-based-financing">Lighter</a>.</li>
+<li>Down the road, if you want to explore an exit, you can list yourself on <a href="https://acquire.com/">Acquire.com</a>.</li>
+</ol>
+<p><strong>All this being said, the biggest and most successful companies <a href="https://medium.com/point-nine-news/funded-vs-bootstrapped-comparing-the-metrics-of-37-saas-companies-ae579d3a0b60">do indeed raise venture capital</a>. And rarely regret it.</strong> Also, you can always raise venture capital later, once you’ve proven that your idea works, to the market and to yourself.</p>
+<p><strong>Make sure to watch this two-minute clip with <a href="https://www.linkedin.com/in/patrickccampbell/">Patrick Campbell</a></strong>, who bootstrapped his company to $200M ARR before selling it, and a big lesson from his experience:</p>
+<p><a href="https://www.youtube.com/watch?v=FjLSCrSg5QY">Watch on YouTube</a></p>
+<blockquote>
+<p>“I’ll tell you, with ProfitWell, this was a big mistake. Yes, it was a great exit, we sold for over $200 million dollars, etc., but if we had taken money, we could have had a billion-dollar exit or we could have kept going. We should have taken money earlier in our lifecycle. This was actually a big mistake, because we got hooked on the efficiency, and that was great, but we could have moved even quicker than we were, and you know in hindsight.” —<a href="https://www.linkedin.com/in/patrickccampbell/">Patrick Campbell</a></p>
+</blockquote>
+<p>In the meantime, if you go down the bootstrapping route, here’s <a href="https://www.linkedin.com/in/stephaniezhan/">Stephanie Zhan</a>’s closing advice for how to approach the early phase of your journey:</p>
+<blockquote>
+<p>“Build an MVP, serve early customers, lean in to building what they want, and see if (1) the value proposition is strong enough and (2) the market is potentially large enough. Find the right investment partners who can help you explore this, and problem-solve together from first principles. Also, be patient enough for the long haul. It can take a decade or two for the best businesses to achieve their potential, and the right partners can help you achieve that in the long term.”</p>
+</blockquote>
+<p>And a final bit of inspiration from <a href="https://www.linkedin.com/in/patrickccampbell/">Patrick Campbell</a>:</p>
+<p><a href="https://www.youtube.com/watch?v=Im6PTVHPez4">Watch on YouTube</a></p>
+<p>If you’ve had any experience bootstrapping, or raising money and finding out you maybe shouldn’t have, I’d love to hear it. Please share in the comments 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/your-startup-idea-probably-isnt-venture/comments">Leave a comment</a></p>
+<p><em>A huge thank-you to <a href="https://www.linkedin.com/in/ataussig/">Alex Taussig</a>, <a href="https://www.linkedin.com/in/lpolovets/">Leo Polovets</a>, <a href="https://www.linkedin.com/in/nina-achadjian/">Nina Achadjian</a>, <a href="https://www.linkedin.com/in/stephaniezhan/">Stephanie Zhan</a>, and <a href="https://www.linkedin.com/in/hunterwalk/">Hunter Walk</a> for contributing to this post. Have a fulfilling and productive week!</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from Your startup idea probably isn’t venture-scale" src="https://substack-post-media.s3.amazonaws.com/public/images/7bb5a176-c0ea-4970-8937-a09a9f0871c6_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/6122b947-a5e1-44c9-a45e-30e305394589">Product Design Lead</a> (NYC)</li>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/389f9fcf-65bb-4852-836e-f3a732203212">Creative Producer</a> (Canada, remote U.S.)</li>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/c74c7805-4b6c-42fa-a989-070e49a48898">Acquisition Growth PM</a> (Canada, remote U.S.)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=z7tRr49qZfo">Infinite Chocolate Bar Trick</a> (via Tim Ferriss)</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=z7tRr49qZfo">Watch on YouTube</a></p>
+<ol>
+<li>
+<p><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/this-is-love/id1337100398?i=1000470172701">This is Love: The Wolves</a></p>
+</li>
+<li>
+<p><strong>Read:</strong> <a href="https://chiefmartec.com/2023/04/exploring-the-2nd-order-effects-of-generative-ai-in-marketing-and-martech/">Exploring the 2nd order effects of generative AI in marketing and martech</a></p>
+</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. Check out <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get better at influence — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get better at influence</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get better at influence</div>
+    
+    <div class="article-meta">2022-09-20<span>·</span>2,782 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I know that as a PM I need to lead through influence. So how do I get better at influence?</h2>
+</blockquote>
+<p>First, let’s be real. PMs at most companies actually do have more authority than other functions. Though not explicit, it’s usually there. Nevertheless, leading by authority alone isn’t ever a great idea, and the best product leaders are incredibly good at the art of influence. Just look at any effective leader within your organization—they are almost certainly the best at getting done what they want done.</p>
+<p>The best way to improve your influence skills is to study people who are really good at it. And imho, one of the greatest influencers of all time is Frodo Baggins. Hear me out.</p>
+<p><img alt="The 25 Best Frodo Baggins Quotes, Ranked" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0ca72db8-3226-42b9-8625-7a11d5c4cb1d_1600x837.jpeg" /></p>
+<p>If you’re not familiar with <em><a href="https://en.wikipedia.org/wiki/The_Lord_of_the_Rings">The Lord of the Rings</a></em>, Frodo is a very unassuming character (he’s like 3 feet tall), without any superpowers of any kind. In spite of that, he was entrusted with the most important mission in the world—to travel across Middle Earth to destroy a very dangerous ring.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5bf8faf2-b464-42a7-a72d-540af114de5f_439x200.gif" /></p>
+<p>And he does it (sorry for the spoiler). Not through any real power over anyone but through grit, determination, and … influence.</p>
+<p>By studying Frodo’s journey, we can learn how to become better influencers ourselves.</p>
+<p>I present seven ways to improve your influence skills, as taught to us by Frodo Baggins and <em>The</em> <em>Lord of the Rings</em>.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/878661f2-8aa0-4b19-8a03-5d25b7dee9ac_3436x1938.png" /></p>
+<h3>Strategy 1. Make their goals your goals</h3>
+<p>How did Frodo convince the most badass people in the world to risk their lives and help him get the ring to Mount Doom? By connecting his goals to their goals.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3f92e051-645a-48f8-9879-70b98634b641_220x124.gif" /></p>
+<p>Everyone wanted this ring destroyed. Frodo knew that. He made it clear that he was going to risk his life to achieve this KPI. Everyone immediately had a great reason to help him get there.</p>
+<p>In one real-life example, I was leading the launch of the <a href="https://airbnb.com/superhost">Superhost program</a> at Airbnb, and I had to convince the search team to be OK with adding a Superhost badge to the listing cards (see top left below).</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fe23863b-3c61-4be7-a9e8-7a240b553025_2730x1616.png" /></p>
+<p>The search team was really skeptical, thinking this new visual badge would pull people to listings that weren’t optimal (e.g. lower-ranked listings). Initially, my pitch was around my team’s goals: increasing host retention and host engagement. But after a bit of back-and-forth, I adjusted my pitch to focus on what I knew the search team cared about most: increasing guest-side conversion. I told them this had a good shot at actually increasing conversion, and that we would run a specific A/B test to find out. They finally agreed, the results ended up being positive, and everyone was happy.</p>
+<blockquote>
+<h4>“Talk to someone about themselves and they’ll listen for hours.” ―Dale Carnegie, <em>How to Win Friends and Influence People</em></h4>
+</blockquote>
+<p>Before asking someone to do something for you, take 10 seconds to reflect on what <em>they</em> want. Put yourself in their shoes. What are their motivations? What are their incentives? What’s important to them right now?</p>
+<p><img alt="Amazon.com | Ibeauti Womens Furry Monster Adventure Slippers, Comfortable  Novelty Warm Winter Hobbit Feet Costume Slippers for Teens Adults | Slippers" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/cd5d0c8b-4fd9-45ee-8d9e-287e53979c07_500x406.jpeg" /></p>
+<p><strong>Then, frame your ask in a way that highlights this.</strong></p>
+<p>For example, how it will:</p>
+<ol>
+<li>Help them hit their goals</li>
+<li>Help them move faster down the road</li>
+<li>Help the company move its north-star metric</li>
+<li>Make customers happier</li>
+<li>Help them as individuals (e.g. in their performance reviews)</li>
+</ol>
+<p>Here’s some additional great advice from <a href="https://twitter.com/wes_kao">Wes Kao</a>:</p>
+<p><strong>Ask yourself:</strong> How will your ask benefit the other person’s goals?</p>
+<h3>Strategy 2. Charge your trust battery</h3>
+<p>When people trust you, life is easy. When they don’t, not so much.</p>
+<p><img alt="Image" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f10ca216-2272-447c-8a89-46f5c6631f5b_1200x899.jpeg" /></p>
+<p>My favorite way to think about trust in the workplace is as a battery—as Tobi Lütke (CEO of Shopify) popularized:</p>
+<blockquote>
+<h4>“People sort of think about trust as almost an on/off kind of thing. Like, I trust my mother, I don’t trust the NSA. But it’s really a gradient … with a lot of different points on [the] spectrum.” —Tobi Lütke</h4>
+</blockquote>
+<p>You can charge your battery by doing things that build trust, and tap into your reserves when you need people to trust you.</p>
+<p><strong>Some ways to charge your trust battery:</strong></p>
+<ol>
+<li>Do what you say you will</li>
+<li>Listen. Make the person feel heard.</li>
+<li>Help people out—create a foundation of reciprocity</li>
+<li>Help people reach their personal goals</li>
+<li>Point out the contributions and achievements of others</li>
+<li>Make time to talk when you don’t need anything</li>
+<li>Take people’s feedback into account</li>
+<li>Assume good intentions</li>
+</ol>
+<p>Why did <a href="https://en.wikipedia.org/wiki/Samwise_Gamgee">Samwise Gamgee</a> leave everything behind and risk his life to help Frodo? Because Frodo’s trust battery was off the charts. Frodo has helped Sam his whole life. When Frodo needed help, there was so much trust built up that Sam had no doubts that he’d go to the ends of the (Middle) Earth to help him.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/64ba6d58-c62b-4310-90f7-ef10aaece786_593x256.gif" /></p>
+<p><strong>Ask yourself:</strong> What can I do this week to charge my trust battery with influential people?</p>
+<h3>Strategy 3. Help them see what you see</h3>
+<p><a href="https://en.wikipedia.org/wiki/Stephen_Covey">Stephen Covey</a> (author of <em><a href="https://www.amazon.com/Habits-Highly-Effective-People-Powerful/dp/0743269519">The 7 Habits of Highly Effective People</a></em>) teaches, “With people, slow is fast and fast is slow.” Rush people into a quick decision, and they’ll either quickly change their mind or it’ll later likely blow up in your face. Instead, if you take the time to make sure the other person truly sees what you see, and understands why this is the correct (and only) path, they’ll follow you, and stick with you through difficult times.</p>
+<p>This is how <a href="https://en.wikipedia.org/wiki/Gandalf">Gandalf</a> influenced Frodo to take on this harrowing mission. He didn’t force Frodo to go. Instead, he sat there for days, explaining to Frodo why the world is in such peril, why he is the only person in the world who can take on this responsibility, and why it needs to happen now.</p>
+<p><img alt="The Fellowship of the Ring | Plot, Characters, &amp; Facts | Britannica" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ead1c3b3-55b4-4672-90dc-03ce0fb3bdfc_1600x1181.jpeg" /></p>
+<p>Gandalf explained the why, and brought Frodo on his thought journey. When you last ran into an obstacle trying to influence others, did you bring them on your thought journey and help them see what you see, or did you jump straight to the ask?</p>
+<p><strong>Some ways to help others see what you see:</strong></p>
+<ol>
+<li>Loop your colleagues in early</li>
+<li>Spend time explaining the why</li>
+<li>Invite them to kickoffs</li>
+<li>Ask them to lay out their concrete objections, and address their concerns</li>
+<li>Communicate regularly as your thinking evolves</li>
+<li>Give people a chance to give input</li>
+<li>Paint a compelling vision of what could be</li>
+</ol>
+<blockquote>
+<h4>“If you want to build a ship, don’t drum up the men to gather wood, divide the work and give orders. Instead, teach them to yearn for the vast and endless sea.” —Antoine de Saint-Exupéry</h4>
+</blockquote>
+<p><strong>Remember:</strong> When you’re starting on a project, think ahead to who may end up being involved. Start informally bringing them on your thought journey.</p>
+<h3>Strategy 4. Show success</h3>
+<p>Why did everyone continue to help Frodo through the years and months of their perilous journey? In large part, because he was showing success.</p>
+<p><img alt="The Lord of the Rings: The Fellowship of the Ring (2001) — Screenplayed" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e46b8b7b-a94c-4d2b-b49b-face35e1096c_2500x1231.jpeg" /></p>
+<p>Similarly, if you’ve often been right before (e.g. have hit your goals, shipped great stuff, made the right calls), people are more likely to trust that you know what you’re doing, and go along with your suggestions. As it should be.</p>
+<p>This is why more-senior PMs can get things done more easily a lot of times—they’ve shown success many times. The more you succeed, the more influence you’ll have.</p>
+<p>Amazon even has this concept as one of its core values: <strong>Leaders are right, a lot.</strong></p>
+<p><a href="https://www.youtube.com/watch?v=Cg-q8AxFkdI">Watch on YouTube</a></p>
+<p>If you’re not able to influence others, focus on showing more success more often. Influence will follow.</p>
+<p><strong>Ways to show success:</strong></p>
+<ol>
+<li>Hit goals, consistently</li>
+<li>Ship products that are seen as successful</li>
+<li>Make the right decisions, consistently</li>
+<li>Make commitments, and deliver</li>
+<li>Highlight your team’s wins</li>
+</ol>
+<p><strong>Ask yourself:</strong> What have you done to give people a reason to trust your judgement?</p>
+<h3>Strategy 5. Bring evidence</h3>
+<p>Influencing others is often as simple as showing them hard data. If you’re struggling to convince someone, think about what evidence convinced you of this path. Often we think someone disagrees with us because of a personal issue, when in reality you just don’t have a convincing case.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/824473b1-d006-48a6-88be-49b92f48c9f6_456x200.gif" /></p>
+<p>In one real-life example, our team was exploring the idea of changing the way the Airbnb review system worked. Instead of seeing the other person’s review as soon as it was submitted, what if we only showed you the review after you left <em>your</em> review? Our thinking was that this would lead to more honest reviews.</p>
+<p><img alt="Everything You Need to Know About Leaving Reviews on Airbnb - Padlifter" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/185f652b-c007-4cb3-8bd8-0b630ea99e16_1115x1110.png" /></p>
+<p>However, revamping the review system was a huge risk because it was a time-intensive project, could destroy credibility in the review system, and have unintended second effects. To convince ourselves, and then the execs, we pulled together evidence of this idea working in other fields, including double-blind studies, experiment design, and other online review systems. This evidence became the key to influencing our team and others to take the leap. And it proved to be a huge success. It not only <a href="https://www.forbes.com/sites/sethporges/2014/10/17/the-strange-game-theory-of-airbnb-reviews/?sh=7af1fd3d36ef">increased review honesty</a>, it also increased the percentage of people who left a review 📈</p>
+<p>If you’re having trouble influencing others, bring more evidence.</p>
+<p><strong>Most powerful evidence to bring, in priority order:</strong></p>
+<ol>
+<li>Hard data</li>
+<li>Synthesized user research findings</li>
+<li>One-off anecdotes</li>
+<li>Competitive analysis</li>
+<li>Similar examples of this working elsewhere</li>
+</ol>
+<p><strong>Ask the other person:</strong> What evidence would convince you of this being the right decision?</p>
+<h3>Strategy 6. Leverage authority</h3>
+<p>You immediately increase your influence if you gain the support of influential people or can refer to trusted credentials. The credibility of other people/institutions will trickle down to you.</p>
+<p>In <em>Lord of the Rings</em>, Frodo becomes an influential person only after Gandalf made it clear that he backs Frodo. There’s no way that people would have trusted Frodo if not for Gandalf’s support.</p>
+<p><img alt="Where's Gandalf in Amazon's Lord of the Rings: The Rings of Power? - Polygon" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/95debebd-772f-4500-8276-cf110e8705dd_1200x500.jpeg" /></p>
+<p>In the workplace, you gain influence by building relationships and support from:</p>
+<ol>
+<li>Team leads</li>
+<li>Senior managers</li>
+<li>Executives</li>
+<li>The CEO</li>
+<li>Specific influential people around the company</li>
+</ol>
+<p>A word of warning: The more you rely on authority, the more your authority fades. You start to become just a middle person, without your own voice or decision-making powers. But when you really need to get things done, keep this in your back pocket.</p>
+<p><strong>Ask yourself:</strong> Who’s your Gandalf?</p>
+<h3>Strategy 7. Be likable</h3>
+<p>A final strategy for increasing your influence is simply to be likable. It may sound trivial, but it turns out it’s one of the most powerful ways to build your influence. As <a href="https://en.wikipedia.org/wiki/Robert_Cialdini">Robert Cialdini</a> (world expert on influence) teaches, “The more you like someone, the more you’ll be persuaded by them.” And as <a href="https://en.wikipedia.org/wiki/Dale_Carnegie">Dale Carnegie</a> wrote in <em>How to Win Friends and Influence People</em>, “Winning friends begins with friendliness.”</p>
+<p>Think about it. Who are you more likely to go along with—this guy?</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/500c658f-17be-4aab-8e7a-c36467c207ed_472x200.gif" /></p>
+<p>Or this guy?</p>
+<p><img alt="53 Likes, 0 Comments - LORD OF THE RINGS (@middleearth.lotr_) on Instagram:  “Keep Smiling Mr.Frodo 😇 #LordOfThe… | The hobbit movies, Lord of the  rings, The hobbit" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/11d62b65-d54f-40a6-b372-b84e1828212c_576x576.jpeg" /></p>
+<p>No contest, my precious.</p>
+<p>There are certainly successful Gollum-like leaders—command-and-control-type people who get stuff done and hit goals—but in my experience, like will be easier, you’ll go further, and be happier, if people like you.</p>
+<p><strong>Some easy ways to be more likable:</strong></p>
+<ol>
+<li>Smile</li>
+<li>Say hello when you pass people in the hallway (or appear on Zoom)</li>
+<li>Ask about the person’s life outside work</li>
+<li>Give compliments</li>
+<li>Participate in team events</li>
+<li>Add fun to people’s day</li>
+<li>Organize celebrations</li>
+<li>Be positive</li>
+<li>Recognize success publicly</li>
+<li>Criticize privately</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=9J49LUZrX5k">Watch on YouTube</a></p>
+<p>Note, this doesn’t mean that you let people walk all over you, or that you should optimize for being liked. Your job isn’t to be liked—it’s to drive impact and make customers happy. But be conscious that the more people like you, the easier it’ll be to convince them to do what you want. If you’re in a situation where you aren’t liked, lean on the other skills we talked about.</p>
+<p><strong>Ask yourself:</strong> What’s one thing you can do to be more likable?</p>
+<h3>In closing</h3>
+<p>To extend this metaphor even further, you can even think of your project as the ring—unpredictable, hard to control, and huge burden. But, if handled well, it’s also something that can bring you great power (e.g. a promotion).</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/aea5410c-26a9-4aba-ad74-7f18d55441de_356x200.gif" /></p>
+<p>Now, with your newfound influence skills, I’m confident you’ll achieve great things. Good luck!</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d7e65c26-1d25-4064-a108-ab802ff069e7_446x200.gif" /></p>
+<p>Here’s a handy recap of how to increase your influence:</p>
+<ol>
+<li>Make their goals your goals</li>
+<li>Charge your trust battery</li>
+<li>Help them see what you see</li>
+<li>Show success</li>
+<li>Bring evidence</li>
+<li>Leverage authority</li>
+<li>Be likable</li>
+</ol>
+<h3>📚 Further study</h3>
+<ol>
+<li><em><a href="https://www.amazon.com/Influence-Psychology-Persuasion-Robert-Cialdini/dp/006124189X">Influence: The Psychology of Persuasion</a></em> by Robert B. Cialdini</li>
+<li><em><a href="https://www.amazon.com/How-Win-Friends-Influence-People-ebook/dp/B0B9ZW9QJS/ref=sr_1_1?keywords=how+to+win+friends+and+influence+people&amp;qid=1663537856&amp;s=books&amp;sprefix=how+to+win+friends+an%2Cstripbooks%2C148&amp;sr=1-1">How to Win Friends and Influence People</a></em> by Dale Carnegie</li>
+<li><em><a href="https://www.amazon.com/gp/product/B074ZKB2QT/ref=dbs_a_def_rwt_hsch_vapi_tkin_p1_i1">Great at Work: The Hidden Habits of Top Performers</a></em> by Morten T. Hansen</li>
+<li><a href="https://fs.blog/knowledge-project-podcast/tobi-lutke/">Tobi Lütke: The Trust Battery</a> by The Knowledge Project</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from How to get better at influence" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fd2a86a0-dc08-4cf2-9095-e88dd7f2e5cf_1476x856.png" /></p>
+<p>If you’re looking for a new gig, join to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Apply Now</a></p>
+<h4><strong>🔥 Featured job opening</strong></h4>
+<ol>
+<li><strong>Slab:</strong> <a href="https://www.lennysjobs.com/jobs/900e2226-f222-4108-90a8-285824523cec">Frontend Engineer</a> (Remote)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li>
+<p><strong>Listen:</strong> <a href="https://open.spotify.com/episode/5jE3KgEv7oCCWLi5EGtpTN">Bill Gates on Progress, Food Technology, and the Battle Between Climate Change and Innovation</a> by Derek Thompson</p>
+</li>
+<li>
+<p><strong>Read:</strong> <a href="https://review.firstround.com/the-5-phases-of-figmas-community-led-growth-from-stealth-to-enterprise#introduction#leave-perfect-at-the-door#whens-the-right-time-to-step-out-of-the-stealth-shadows#whens-the-right-time-to-step-out-of-the-stealth-shadows#phase-2-launch-day-is-important-but-dont-neglect-your-follow-up-strategy">The 5 Phases of Figma’s Community-Led Growth: From Stealth to Enterprise</a> by Claire Butler via First Round Review</p>
+</li>
+<li><strong>Read:</strong> <a href="https://gurwinder.substack.com/p/stoicism-the-ancient-remedy-to-the">Stoicism: The Ancient Remedy to the Modern Age</a> by Gurwinder</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

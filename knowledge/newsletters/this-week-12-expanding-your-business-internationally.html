@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Week #12: Expanding your business internationally 🌏 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">This Week #12: Expanding your business internation…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">This Week #12: Expanding your business internationally 🌏</div>
+    
+    <div class="article-meta">2020-02-04<span>·</span>1,472 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello and welcome to another edition of my weekly newsletter, where I humbly tackle your questions about building product, driving growth, and anything else that’s stressing you out at the office. Send me your questions and in return I’ll give you actionable real-talk advice 🤝</p>
+<p>If you’re returning from last week, thank you! If you’re new to this newsletter, nice to have you! 🤜🤛</p>
+<h3>Q: I'm thinking about expanding my marketplace business internationally. What should I be thinking about when making (and executing) this decision?</h3>
+<p><a href="https://substackcdn.com/image/fetch/$s_!RatL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F533d8d94-07d6-4389-9bb0-1dd823ac830d_5184x2576.jpeg"><img alt="Image from This Week #12: Expanding your business internationally 🌏" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/533d8d94-07d6-4389-9bb0-1dd823ac830d_5184x2576.jpeg" /></a></p>
+<p><em>I joined Airbnb when their international expansion (and <a href="https://twitter.com/andrewchen/status/1219046687517204480">battle with Wimdu</a>) was already in full swing, so I asked two former colleagues who were on the ground building the European Airbnb business from scratch, <a href="https://www.linkedin.com/in/cederskog/">Christopher Cederskog</a> and <a href="https://www.linkedin.com/in/georgdanielbauser/">Georg Bauser</a>, to tackle this question and share their learnings. If you’re seriously considering expanding your business internationally, you can reach out to <a href="mailto:chris@expansion-partner.com">Chris and Georg</a> directly who now run a <a href="https://expansion-partner.com/">business</a> that helps companies through this process.</em></p>
+<p>—</p>
+<p>First, congratulations! International expansion will make your business more defensible, create a lot of business value, and build a truly global brand. It’s also fantastic for employee morale and recruiting – when you tell your team about your international expansion plans, one of the first questions you’ll hear will be “Can I go??”</p>
+<p>Prior to expanding internationally, you will need to answer a number of questions. Before we get into the <em>where</em> and <em>how</em>, you should form a strong view on the <em>why</em>.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!JkWB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F375b0fb1-8d1a-42f6-b62e-2c79791993cd_2096x958.png"><img alt="Image from This Week #12: Expanding your business internationally 🌏" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/375b0fb1-8d1a-42f6-b62e-2c79791993cd_2096x958.png" /></a></p>
+<p><strong>WHY expand internationally?</strong></p>
+<p>There are many good reasons to go international, chief among them being the market size opportunity. While the U.S. is a very large market, the rest of the world is unsurprisingly a much larger opportunity. International expansion can also be a good equity story for future investors, and help with access to great talent.</p>
+<p>For marketplace businesses in particular, international expansion can significantly strengthen network effects. Airbnb is a very obvious example, but cross-border network effects can be found in many businesses. It’s great to use Uber in London, Paris and Cape Town.</p>
+<p>Competitive dynamics can also be a reason to expand. If you aren’t careful, strong international competitors can threaten your home market — think HelloFresh (German, $4bn market cap) vs. Blue Apron (US, $50m market cap) and Spotify (Swedish, 100m+ paying subscribers) vs. Apple Music, Pandora, Tidal, Rdio. Domestic competitors can use their own international expansion to raise more growth capital, hire faster, and become a serious threat in your home market.</p>
+<p>When thinking through your reasoning for expanding internationally, make sure to consider your existing customers, your employees, and your investors. In the end, the biggest tech brands are globally recognized and have significant international revenues.</p>
+<p><strong>WHERE should I expand to first?</strong></p>
+<p>Start by making two sorted lists of potential markets:</p>
+<ol>
+<li><strong>Short-term:</strong> Look at your existing demand/supply, web/app traffic, and local product advantages such as ease of language/payment localization.</li>
+<li><strong>Long-term:</strong> Where is the largest TAM, and which regions/countries are easiest to execute in?</li>
+</ol>
+<p>Then, merge these two lists into a single ranked list of top choices. In my experience, it’s rare to see markets at the top of the list that aren’t the UK, Germany, France, China, Canada, and Australia.</p>
+<p><strong>HOW should I execute the expansion?</strong></p>
+<p>We like to follow a four-part framework that we’ve developed over the years. For each category below, answer each question to help you understand what you’ll need to have in place before you begin expanding. This list is sorted from most challenging to least challenging, and will help you itemize and prioritize the (sometimes unexpected) work that’ll be necessary. For example, having to make significant changes to your business model will pose a real challenge, while it’s very common to have a very different organizational structure for your international business:</p>
+<ol>
+<li>
+<p><strong>Business Model</strong></p>
+</li>
+<li>
+<p>What changes to our business model will we have to make?</p>
+</li>
+<li>What are the most important regulatory aspects that allow us to thrive in our home market and how do these differ?</li>
+<li>Can I run a transaction fee marketplace and will I have to adjust take rates?</li>
+<li>
+<p><strong>Product</strong></p>
+</li>
+<li>
+<p>How do we globalize, internationalize, localize?</p>
+</li>
+<li>How do we set up our infrastructure to make our product fast everywhere?</li>
+<li>Payments!</li>
+<li>
+<p><strong>Distribution</strong></p>
+</li>
+<li>
+<p>You will need to retrain the organizational “liquidity muscle”: dust off v1 of your old market development playbook, interview early employees and make a list of specific growth tactics that you tried in the early days.</p>
+</li>
+<li>Be open to new ideas as technology and markets change: some things that worked a few years ago may no longer work. Others could work better now than they did then.</li>
+<li>A good starting point for liquidity tactics that others have used is Lenny’s blogpost on <a href="https://www.lennyrachitsky.com/p/how-to-kickstart-and-scale-a-marketplace">kickstarting marketplaces</a>.</li>
+<li>One of our favorite tactics is a divide and conquer cycle: Constrain geo, achieve liquidity, review geo (split or move). For example, if you want to launch in the UK, start with London. Achieve liquidity there - in my experience, it’s helpful to set a clear definition of liquidity based on GMV over time. I’ve found that $10k in GMV over a rolling 30 day period works well for many different businesses, though yours may differ. As that’s done, you either split London into 4-5 subregions and/or move to Birmingham, Manchester, Leeds &amp; Liverpool or to Berlin, Paris &amp; Amsterdam.</li>
+<li>
+<p><strong>Organization</strong></p>
+</li>
+<li>
+<p>Remember that you are restarting a marketplace in a far away geography where many team members may not speak the local languages and cultural barriers turn out to be higher than expected.</p>
+</li>
+<li>Use data AND do things that don’t scale: Speak to customers and make sure that your data infrastructure is set up to report on local progress.</li>
+<li>What works will change over time. <strong>Don’t</strong> over-invest in long-term processes (for now). <strong>Do</strong> invest heavily in documentation, data gathering, and knowledge sharing.</li>
+</ol>
+<p>Finally, enjoy the ride and don’t hesitate to <a href="mailto:chris@expansion-partner.com">get in touch</a> with us if you have any questions.</p>
+<p><strong>[Sponsored]</strong> This week’s featured open role comes from <a href="https://www.shift.org/">Shift</a>, a fast-growing marketplace business that connects veterans leaving the force with great jobs. The company taps into a highly underutilized talent pool (vets), provides them with support and training (including a partnership with Lambda School), and helps them land jobs at some of the best companies in the world.</p>
+<p><strong>👉 <a href="https://bit.ly/shift-head-of-product">Shift is hiring a Head of Product in San Francisco</a> 👈</strong></p>
+<p>I asked Mike, their CEO, to offer a nugget of wisdom from Shift’s learnings. Here’s what he shared:</p>
+<blockquote>
+<p>Our company’s bet is that we can offer (and scale) career services to the 250,000 military veterans that leave the service each year. We believe we've found the area of career services with the single biggest impact: industry-specific context. Simply giving veterans the ability to have a conversation with their peers to learn "what right looks like" significantly reduces the challenges these folks face when looking for a modern job.</p>
+</blockquote>
+<p>If you’d like to learn more about their open role, <a href="https://bit.ly/shift-head-of-product">click here</a>.</p>
+<h3>Inspirations for the week ahead 🧠</h3>
+<ol>
+<li><strong>Read</strong>: <a href="https://summation.net/2020/01/22/why-hard-work-is-so-important-and-still-under-rated/">Why hard work is so important (and still under-rated)</a> — “There are three ways of being a Massive Success: (1) Getting extraordinarily lucky, (2) Being born with extraordinary gifts that no one else has, (3) Working insane hours”</li>
+<li><strong>Watch</strong>: <a href="https://www.netflix.com/title/81039393">CHEER</a> and <a href="https://www.netflix.com/title/81028336">Miss Americana</a> on Netflix — Both great examples of the above point, while also being incredibly compelling documentaries.</li>
+<li><strong>Follow</strong>: <a href="https://www.instagram.com/dailyoverview/">Daily Overview</a> on Instagram — Every time I come across one of their images in my IG feed, I can’t look away.</li>
+</ol>
+<p>That’s it for this week!</p>
+<p><em>Photo credits: <a href="https://www.pexels.com/@nurseryart">Porapak Apichodilok</a></em></p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a> (or subscribing).</strong> Each week, I’ll tackle reader questions (keeping your name and company anonymous) until you stop sending me questions. If you’d like some advice yourself, just reply to this email or <a href="https://twitter.com/lennysan">DM me</a>.</p>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

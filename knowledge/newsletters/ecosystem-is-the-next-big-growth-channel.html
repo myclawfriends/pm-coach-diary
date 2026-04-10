@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ecosystem is the next big growth channel — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Ecosystem is the next big growth channel</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Ecosystem is the next big growth channel</div>
+    
+    <div class="article-meta">2025-11-11<span>·</span>3,416 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2C</span> <span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">AI/PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">Public speaking course</a></em>**</p>
+<p><em>Annual subscribers get a </em><em>free year of 17+ premium products</em><em>: <a href="https://www.lennysnewsletter.com/p/productpass">Devin, Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, ChatPRD + Stripe Atlas</a> (while supplies last). <a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em></p>
+<p>I’m always on the lookout for alpha to share with you on what the most successful companies are doing differently—so you can do it as well. This post is the epitome of that. <a href="https://www.linkedin.com/in/emilykramer/">Emily Kramer</a> has identified a pattern in how top AI (and non-AI) startups are able to break through the noise and grow unlike at any other time in history. Once you see it, you immediately rethink your growth strategy. I did! After reading the first draft of this post, I got a whole new level of understanding for why my <a href="https://lennysproductpass.com/">product pass</a> has been such a success (fun fact: it doubled my growth, and is the most win-win-win idea I’ve ever concocted).</p>
+<p>Below, Emily shares how you can implement this strategy yourself, along with dozens of real-world examples of how top companies are executing it. For more insights from Emily, check out her excellent <a href="https://newsletter.mkt1.co/">newsletter</a>, and find her on <a href="https://www.linkedin.com/in/emilykramer/">LinkedIn</a> and <a href="https://x.com/emilykramer?lang=en">X</a>.</p>
+<p><em>P.S. You can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from Ecosystem is the next big growth channel" src="https://substack-post-media.s3.amazonaws.com/public/images/93162fea-515c-4810-a010-6bb96eaa2d67_1456x970.png" /></p>
+<p>You’ve built something great. Maybe even shipped it faster than you thought possible, thanks to AI. But here’s the catch: everyone else has that same speed advantage.</p>
+<p>So you turn to distribution. But here’s the second catch: the B2B channels you’ve long relied on for growth are increasingly becoming less effective, for that same reason.</p>
+<ul>
+<li><strong>Inbound:</strong> Search traffic is declining due to LLMs, and social is flooded with derivative content.</li>
+<li><strong>Outbound:</strong> With AI SDRs and easier access to contact data, everyone’s inboxes are overflowing.</li>
+<li><strong>Product virality:</strong> We’re overwhelmed with new products (thanks, AI!), so with endless choice, virality is much harder to achieve.</li>
+<li><strong>Events:</strong> While people crave authentic connection in the AI and hybrid-work era, the explosion of trade shows, micro-conferences, and webinars of mixed quality has led to event fatigue.</li>
+<li><strong>Lifecycle emails:</strong> With inboxes saturated with cold outbound, even lifecycle emails focused on driving engagement and retention get tuned out.</li>
+</ul>
+<p>So in this new competitive, AI-driven landscape, how do you get your great product noticed?</p>
+<h4><strong>The answer is</strong> <strong><em>ecosystem</em></strong><strong>. Instead of going directly to your prospects, go through intermediaries who already have access and trust with your audience.</strong></h4>
+<p><a href="https://www.linkedin.com/posts/tomorbach_building-an-audience-from-scratch-is-stupid-activity-7376883159348428800-6cFa?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">Tom Orbach</a>, the director of growth marketing at Wiz, said it best: “Why start at zero when you can start at 10,000?”</p>
+<p><img alt="Image from Ecosystem is the next big growth channel" src="https://substack-post-media.s3.amazonaws.com/public/images/0fb09e9e-0690-42a7-b342-2608f03bf3e1_1540x736.webp" /></p>
+<p>You’re likely familiar with the individual tactics within an ecosystem strategy: influencer and creator relationships, channel partnerships, developer relations, communities, product integrations, and customer marketing. But the growth unlock doesn’t come from any one of these activities on their own.</p>
+<p>Instead, a flywheel emerges when you properly implement this overarching strategy: your ecosystem partners create and distribute content, you amplify and repurpose their efforts, together you drive greater reach and credibility, new customers and partners come on board, and the cycle strengthens with each turn. Now your ecosystem is a powerful extension of your GTM team.</p>
+<p><img alt="Image from Ecosystem is the next big growth channel" src="https://substack-post-media.s3.amazonaws.com/public/images/7919a2aa-fe3c-460d-9c72-5bf12811abbc_1456x1238.png" /></p>
+<h2>Ecosystem is a force multiplier <em>and</em> differentiator</h2>
+<p>When you look at the fastest-growing companies today, you probably see AI-first companies known for their lean teams and great products. But I see something else: companies that wouldn’t have achieved these growth trajectories without their ecosystems.</p>
+<h4><a href="https://supabase.com/">Supabase</a></h4>
+<p>The Postgres development platform and database became the default backend for vibe-coding products like Lovable. As these companies grew, so did Supabase. In addition to these “integration” partners, Supabase’s open source community shared docs, tutorials, and videos, further driving growth and building credibility.</p>
+<p>→ <a href="https://www.linkedin.com/feed/update/urn:li:activity:7381727584788811778?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7381727584788811778%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29">Supabase went from 1 million to over 4.5 million</a> developers in under a year, which would not have been possible without two sets of ecosystem players: the open source community and the awareness from integration partners.</p>
+<blockquote>
+<p><em>“Community and virality aren’t ‘intangible.’ Supabase shows how to turn organic pull (GitHub stars, YC adoption, vibe-coding buzz) from developers into structured funnels, lifecycle paths, and monetization.” —<a href="https://www.linkedin.com/in/aaroncort?miniProfileUrn=urn%3Ali%3Afsd_profile%3AACoAABeN5BwB8WucJrGbyT_XnJEEtG-WLLOhPII">Aaron Cort, operating partner at Craft Ventures, investors in Supabase</a></em></p>
+</blockquote>
+<h4><a href="https://www.clay.com/">Clay</a></h4>
+<p>Clay grows through close partnerships with “GTM engineer” power users—consultants, agencies, and in-house operators. These Clay creators make videos and tutorials that drive adoption and awareness.</p>
+<p>→ Without this creator ecosystem showing what’s possible, Clay’s flexibility could have been a liability instead of an advantage.</p>
+<h4><a href="https://lovable.dev">Lovable</a></h4>
+<p>Lovable helps builders quickly create apps that are naturally shareable—a classic driver of viral growth (think “Built with Webflow” or “Made in Typeform” badges). But Lovable accelerates this virality through community-driven initiatives like <a href="https://www.youtube.com/playlist?list=PLbVHz4urQBZmqUUa7Kh2y5NqpatC1KloT">hackathons</a> and their <a href="https://www.linkedin.com/posts/lovable-dev_lovables-discord-community-just-passed-100000-activity-7372355679162007552-flWK?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">Discord, which just surpassed 100,000 members</a>.</p>
+<p>→ Lovable’s product is excellent, but there are many other vibe-coding products out there. Lovable’s investment in building a brand alongside their creators has catapulted them above the rest.</p>
+<blockquote>
+<p><em>“For years, the marketing playbook was predictable, but not anymore. All the attention has shifted to the creator economy. </em><em>The goal is no longer to produce everything in-house but to empower creators to generate content about you</em><em>,and then repurpose it across paid and organic.” —<a href="https://www.elenaverna.com/p/9-ways-growth-is-different-in-ai">Elena Verna, head of growth at Lovable</a></em></p>
+</blockquote>
+<h4><a href="https://gamma.app/">Gamma</a></h4>
+<p>Gamma built an ecosystem of micro-influencers across TikTok, Instagram, X, and LinkedIn to show off presentations built with Gamma’s AI design tool. They paid them not just to post but offered a bonus for virality. They also extensively catalogued successful hooks and formats to make this scale.</p>
+<p>→ Gamma attributes <strong>over half of their growth</strong> to influencers, and founder Grant Lee breaks down <a href="https://x.com/thisisgrantlee/status/1966874658680303880">the details in this post</a>.</p>
+<h4><a href="https://vercel.com/">Vercel</a></h4>
+<p>Vercel’s huge developer community builds on <a href="https://next.js">Next.js</a> (which Vercel leads work on), and those projects naturally scale into Vercel enterprise deals.</p>
+<p>→ Without the Next.js ecosystem and community contributions, Vercel likely never would have had the credibility or reach to move upmarket.</p>
+<h4><a href="https://elevenlabs.io/">ElevenLabs</a></h4>
+<p><strong>ElevenLabs</strong> turned users into contributors through its Voice Library. Voice actors upload voices and earn money when they’re used, which attracts more creators. These voices also power viral content like “<a href="https://www.youtube.com/watch?v=9d06Tgj--Sg">AI presidents</a>” on YouTube and TikTok. Viral hits drive press coverage, too.</p>
+<p>→ <a href="https://www.nytimes.com/2025/02/20/technology/ai-silicon-valley-start-ups.html">ElevenLabs hit $100 million ARR with just 50 employees</a>. Without its paid creator ecosystem (over <em><a href="https://elevenlabs.io/voice-library">$1 million to creators in 2025</a></em>), the product itself would have fewer voices and it wouldn’t have spread as quickly.</p>
+<p><img alt="Image from Ecosystem is the next big growth channel" src="https://substack-post-media.s3.amazonaws.com/public/images/3bdd10d6-1cfb-44f9-b0c8-beb6fb78259e_1456x2244.png" /></p>
+<p>You’ll see ecosystem flywheels behind nearly every fast-growing AI startup, from <strong><a href="https://www.baseten.co/">Baseten</a></strong>’s strategic partnerships with cloud providers, to <strong><a href="https://www.midjourney.com/">Midjourney</a></strong> embedding its product in Discord from day one, to <strong><a href="https://www.anthropic.com/">Anthropic</a></strong> building <a href="https://www.anthropic.com/news/model-context-protocol">MCP</a> to make it easier for developers to connect tools and data to Claude and other LLMs.</p>
+<h2>Why ecosystem works</h2>
+<p>I initially became obsessed with the power of ecosystems firsthand at <a href="https://carta.com/solutions/law-firms/">Carta</a> in 2018, where lawyers as channel partners drove massive growth, and at Astro in 2017, where building for the Slack platform led to <a href="https://qz.com/work/1392936/slack-has-made-its-biggest-acquisition-to-date">Slack acquiring Astro, in its largest acquisition at the time</a>. Back then, these plays felt like outliers. But today, this strategy is essential. An ecosystem is fast becoming the rule for growth, not an exception.</p>
+<p><strong>Here’s why:</strong></p>
+<h4>1. Your ecosystem makes every channel more effective</h4>
+<p>The best reason to invest in an ecosystem is that, when done well, it makes every channel better by serving as both a distribution path and a source of content.</p>
+<p><strong>Ecosystem partners fuel inbound, add value and credibility to your outbound messages, accelerate product virality, make events more enticing, and ground lifecycle marketing in real use cases.</strong></p>
+<blockquote>
+<p><em>Example: HubSpot partnered with a bunch of marketing influencers <a href="https://www.linkedin.com/posts/emilykramer_hubspotmediapartner-activity-7376256981201862656-xjEb?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">to promote their new framework, “Loop Marketing,”</a> when they announced it at their Inbound conference this year. This combination spurred lots of discussion, driving a bunch of organic Linkedin posts too. All of these efforts came together to make it feel like the Loop Marketing framework was everywhere that week (at least if you were a B2B marketer).</em></p>
+</blockquote>
+<h4>2. Your ecosystem knows how to speak to your audience (maybe better than you do)</h4>
+<p>AI has made it easy to pump out content, making it harder than ever for people to know who and what to trust. This means they are turning to voices they already value and respect (like Substack writers!). Ecosystem players like these already know how to speak to your audience. Your brand simply can’t build that trust overnight—if ever—without these partners.</p>
+<p>You see this especially on LinkedIn, where individual people (employees, customers, or partners) perform much better than brands—eight times better from employees vs. brands, according to <a href="https://www.linkedin.com/pulse/5000-engagement-boost-power-employee-generated-content-sabina-brdnik-bipnf/">LinkedIn</a><em>.</em></p>
+<blockquote>
+<p><em>Example: Vanta may be best known for its clever <a href="https://www.lennysnewsletter.com/i/145424815/making-an-impression-how-do-i-ensure-my-campaign-is-memorable">play-on-words billboards</a>, but you’ve likely also seen them sponsoring business Substacks (like Lenny’s) or podcasts. Since their product centers on trust, it’s smart to partner with high-trust creators who their (compliance-minded) audience already knows. It’s clear that a significant share of their paid spend now goes not just to billboards but to creators too. Fun fact: Vanta is one of Lenny’s top 3 podcast sponsors.</em></p>
+</blockquote>
+<h4>3. GTM teams are smaller now and need leverage</h4>
+<p>AI was supposed to make GTM teams more efficient—and in some ways it has. But <a href="https://www.chiefmarketer.com/gartner-39-of-cmos-plan-to-reduce-labor-costs-and-cut-agency-allocations/">shrinking</a> GTM teams are scrambling to get efficiency through AI while also finding creative, compelling ways to differentiate.</p>
+<p>Your ecosystem is an accelerant for a lean team, like bringing on a contracted team of expert marketers. Working with partners, customers, and communities may not be as turnkey as paid search, for instance, but with the right workflows (and a boost from AI), the ROI can be extremely high.</p>
+<blockquote>
+<p><em>Example: <a href="https://www.linkedin.com/posts/natalie-marcotullio_for-our-most-recent-launch-i-wanted-to-activity-7355587957677858816-meh_?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">Navattic</a> built a team of marketing advisors, which makes the team seem much larger than it is. They set up long-term or advisory arrangements with micro-influencers who get early access to products, give product feedback, and also regularly post on LinkedIn as part of the relationship.</em></p>
+</blockquote>
+<h4>4. You have a ton of options within an ecosystem strategy</h4>
+<p>Ecosystems aren’t limited to products you integrate with or creators with big LinkedIn followings. And if one ecosystem partner starts showing diminishing returns, you aren’t out of luck. There’s a broad network of individuals and companies that can reach your audience.</p>
+<p>If a person or company, no matter the size or reach, has spent time building up the audience you want, you can figure out how to work with them.</p>
+<blockquote>
+<p><em>Example: If you have a niche audience, you can often find organizations and trade associations to partner with. <a href="https://www.clio.com/partnerships/bar-associations/">Clio</a> works with state bar associations to reach lawyers, and <a href="https://www.upstart.com/">Upstart</a> has long been a preferred partner with the <a href="https://www.businesswire.com/news/home/20210616005046/en/NAFCU-Services-Announces-Upstart-as-a-Preferred-Partner-for-their-AI-Lending-Platform-for-Credit-Unions">NAFCU</a>, a regional credit union trade association.</em></p>
+</blockquote>
+<h2>How to implement an ecosystem strategy</h2>
+<p>Growth strategies are never one-size-fits-all, but most B2B startups today can grow faster with a well-designed ecosystem strategy. With audience attention fragmented and harder than ever to earn—and startups hitting revenue milestones faster—you can’t afford <em>not</em> to leverage the people, companies, and platforms that already have your audience’s trust.</p>
+<p>Because there are so many types of partners and ways to collaborate, there’s opportunity here for nearly every company. <strong>The question isn’t</strong> <strong><em>if</em></strong> <strong>you should build an ecosystem strategy, it’s</strong> <strong><em>who</em></strong> <strong>your best partners are,</strong> <strong><em>how</em></strong> <strong>to activate them specifically, and</strong> <strong><em>how</em></strong> <strong>to reshape your team and process to prioritize that work.</strong></p>
+<p><img alt="Image from Ecosystem is the next big growth channel" src="https://substack-post-media.s3.amazonaws.com/public/images/da18866a-b312-4d30-b5af-86fb02540385_1456x1206.png" /></p>
+<h4>1. Recognize that an ecosystem is not a side project</h4>
+<p>The most effective ecosystem strategies aren’t bolted on or handled by a single partner marketer. You need buy-in at the senior leadership level. Often, product needs to be deeply involved in the process in order to design integrations, build referral mechanics, create products or features for channel partners specifically, and embed themselves as product experts in communities.</p>
+<blockquote>
+<p><em>Example: At <a href="https://tracksuit.com">Tracksuit</a>, an always-on brand tracking tool, agency partners are both power users and advocates. Agencies drive so many referrals, the team is doubling down on this flywheel by building products to support agencies’ internal use cases.</em></p>
+</blockquote>
+<h4>2. Map your ecosystem</h4>
+<p>Competitive research is a common exercise, but “complement” research is very often skipped or not even thought about. By this, I mean identifying and mapping all the players in your ecosystem.</p>
+<p>The key is to look beyond the obvious and consider all the players who already have reach and credibility with your audience.</p>
+<p>The 2x2 at the start of this section breaks down the main types of ecosystem partners. You can use this to help map your own ecosystem. The most outsize returns typically come from the top half of the grid, since relationship-driven partnerships tend to result in the highly resonant creative. Many relationships are bespoke, so depending on the partner, their placement on the grid may shift.</p>
+<h4>3. Make the partnership worth it: look for win-win-wins</h4>
+<p>Every partnership adds another cog in the wheel, so it needs to be worth the effort. My personal bar for partnerships is that they must be a “win-win-win” for you, the partner, <em>and</em> the prospect, never one or two out of three.</p>
+<blockquote>
+<p><em>Example: With <a href="https://www.lennysnewsletter.com/p/productpass">Lenny’s Product Pass</a>, startups get promoted through Lenny’s Newsletter, subscribers get free tools, and Lenny gets more paid subscribers.</em></p>
+</blockquote>
+<p>Remember that money and distribution aren’t the only ways to make a partnership worth it. Value can come in the form of shared data, shared event costs, special product feature access, etc.</p>
+<p>Also, when choosing partners, remember that it’s not just about their audience size. Audience overlap matters too. I look at two filters, borrowed from the advertising world:</p>
+<ul>
+<li><strong>Coverage:</strong> What percentage of your total target audience do they reach? Higher coverage means you can reach more of your TAM (total addressable market) through this partner.</li>
+<li><strong>Composition:</strong> What percentage of their audience overlaps with yours? Higher composition means less waste—you aren’t reaching a bunch of people who don’t care about your product at all.</li>
+<li><strong>High coverage and high composition:</strong> If you can find a partner who ranks high for both, and you have shared values and goals, it could be a match made in B2B heaven. It can still be beneficial to work with a partner where there is only high coverage of your audience or only high composition of your audience, but you’ll want to use different strategies.</li>
+</ul>
+<h4>4. Start narrow, then expand</h4>
+<p>Don’t try to launch every kind of partnership at once. Pick one program that fits your product and audience and prove it works. If it is a win-win-win for you, the ecosystem partner, and your audience, go deeper or expand the program. But as you scale, don’t lose the human relationship and authenticity that created the success in the first place.</p>
+<blockquote>
+<p><em>Example: <a href="https://arrows.to">Arrows</a> rebuilt their standalone customer onboarding product exclusively for HubSpot users. They’ve grown almost 40x since then and are now using it to expand into Salesforce and other ecosystems. <a href="https://www.linkedin.com/feed/update/urn:li:activity:7374531049785102336?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7374531049785102336%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29">CEO Daniel Zarick</a> said, “Nobody would care about us if we didn’t try to make a mark with HubSpot first.”</em></p>
+</blockquote>
+<h4>5. Remember: an ecosystem strategy only works when you’re leveraging multiple channels</h4>
+<p>If you don’t know where to start on ecosystem marketing or how to expand your efforts, think about using it to breathe new life into channels you’re already using.</p>
+<p>Here are some examples:</p>
+<p><strong>Inbound:</strong> Use a community to get people excited to talk about your product. They may continue that conversation on other platforms, like Reddit, and that content has a higher chance of surfacing in an LLM than your own. <em>Lenny had <a href="https://www.linkedin.com/in/ethanls/">Ethan Smith, the CEO of Graphite</a>, on <a href="https://www.linkedin.com/posts/lennyrachitsky_the-reddit-strategy-for-llm-mentions-1-activity-7376338655411568640-qAKn?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">his podcast</a> talking about the Reddit LLM strategy.</em></p>
+<p><strong>Outbound:</strong> Boost a sponsored influencer post on LinkedIn as a Thought Leader Ad from your company, use engagement with the post as a “signal,” then connect and follow up in a DM. <em>Here’s an example of a <a href="https://www.linkedin.com/posts/emilykramer_sponsored-activity-7303084395828051969-pKPT?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">sponsored post I did with an agency</a>. They then boosted it and followed up with promising leads.</em></p>
+<p><strong>Product virality:</strong> Drive product adoption by offering an educational course, then make sure students show off what they learn. <em><a href="https://www.airops.com/cohort">AirOps does this with their three-week AI marketing course</a>, and <a href="https://gc.ai">GC AI</a> does this via <a href="https://maven.com/ceciliaz/prompting-crash">Maven courses</a>.</em></p>
+<p><strong>Events:</strong> Run programming in your trade-show booth with partners to get people to show up, without the gimmicks and throw-away-able swag. <em>Mercury hosts <a href="https://www.linkedin.com/posts/mercuryhq_good-morning-from-techcrunch-disrupt-come-activity-7256709231838408704-V3GX?rcm=ACoAAAC36HYBYwE6pfdDyi_36enIwk6IrfnVTyU">expert sessions</a> directly from their booth at TechCrunch Disrupt.</em></p>
+<p><strong>Lifecycle:</strong> Instead of sharing generic use cases, highlight how top customers use the product through videos or educational events.</p>
+<h2>Don’t just build products, build ecosystems</h2>
+<p>AI has leveled the playing field for building and distributing products. What once felt like an advantage—shipping faster or producing more content—has become table stakes. The real differentiator now is how you stand out and build a moat in an AI-saturated world.</p>
+<p>An ecosystem is that lever. Rather than a side project or a single partnership, it’s a company-wide strategy that unites partners, customers, creators, influencers, and communities into an extension of your team. You win by orchestrating all of these players into a flywheel that compounds credibility, distribution, and growth.</p>
+<p>Done right, an ecosystem strategy doesn’t just add another tactic to the mix—it makes every channel better. For today’s lean(er) GTM teams, it’s the force multiplier you can’t afford to ignore.</p>
+<p><strong>The companies breaking through today are going beyond building great products. They’re building ecosystems around them. That’s what will separate the winners in this next era of growth.</strong></p>
+<p><em>Thanks, Emily! For more from Emily, check out her <a href="https://newsletter.mkt1.co/">newsletter</a>, and find her on <a href="https://www.linkedin.com/in/emilykramer/">LinkedIn</a> and <a href="https://x.com/emilykramer?lang=en">X</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

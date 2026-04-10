@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My favorite product management templates — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">My favorite product management templates</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">My favorite product management templates</div>
+    
+    <div class="article-meta">2020-08-04<span>·</span>1,107 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">工程</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2B</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>Hello and welcome to the</em><em>free monthly edition</em><em>of my weekly newsletter. I’m <a href="https://twitter.com/lennysan">Lenny</a>, and each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<h1><strong>Q: I’ve seen you share a few PM templates in the past. Do you have a place to find all of your favorite templates?</strong></h1>
+<p><img alt="Image from My favorite product management templates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/39598850-5c8f-4928-90bd-d56799dba39b_6016x4016.jpeg" /></p>
+<p>Now I do!</p>
+<p>Below are all of my favorite templates and frameworks that I rely on. As a bonus, I <a href="https://twitter.com/lennysan/status/1287862995268206592">asked the wonderful people of Twitter</a> to share their favorites, from which I picked my favorites and included. Enjoy!</p>
+<h4>✍️ 1-pagers/PRDs</h4>
+<ol>
+<li><a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">My personal 1-pager template</a>—How I start every project</li>
+<li><a href="https://docs.google.com/document/d/1mEMDcHmtQ6twzNlpvF-9maNlAcezpWDtCnyIqWkODZs/edit">Kevin Yien’s PRD template</a> (PM at Square)—Love this whole template, particularly the “Non-Goals” section and the step-by-step flow</li>
+<li><a href="https://docs.google.com/document/d/1W46cmPfPwXIIH2mNNbbQ5EdjnhQFqGxGhT5iAijmJjc/edit#heading=h.cqt1a4hrfy8u">Asana’s project brief template</a>—Also love this whole template, particularly the problem statement framework</li>
+<li><a href="https://s3.amazonaws.com/marketing.intercomcdn.com/assets/Intercom-Job-Story-template.pdf">Intercom’s story template</a>—Love the simplicity, while still having everything you need to get started</li>
+<li><a href="https://docs.google.com/document/d/1yrU5F6Gxhkfma91wf_IbZfexw8_fahbGQLW3EvwdfQI/edit">Product Hunt’s PRD template</a>—Love the way it begins (Who, Why, What), though a bit long</li>
+<li><a href="https://docs.google.com/document/d/1xc9TZX-7NMfOykzFKR0o0jzTUygoAFzWadxDVR7sNvs/edit?usp=sharing">Adam Waxman’s PRD template</a> (Design at SeatGeek)—Love 1-pager summary section before it dives deep</li>
+<li><a href="https://docs.google.com/document/d/1BeNK9BYd3-8pAqVYR_B0Gzp7kGNtWdPFHJKIXI52_84/edit?ts=5f264700#heading=h.6jynaot9cbnq">Steve Morin’s 1-pager template</a> (EM at Asana)—Love the focus on success criteria and risks</li>
+<li><a href="https://coda.io/@yuhki/figmas-approach-to-product-requirement-docs/prd-name-of-project-1">Figma’s PRD template</a>—A super-comprehensive plug-and-play template</li>
+<li><a href="https://docs.google.com/document/d/1B3GEUwgEIIQVgRp85l4DKLZOTzgGZmBIAjR06p4wuwY/edit#">Adam Thomas’s initiative template</a>—A reminder of how valuable it is to keep these to one page, at least to start</li>
+</ol>
+<h4>🤔 Strategy</h4>
+<ol>
+<li><a href="https://docs.google.com/document/d/1JI73WrGplrhNE46aLyRD_B74gEynI77EPgXn1ic6WeQ/edit?usp=drive_web&amp;ouid=111613335789441259753">My business strategy template</a></li>
+<li><a href="https://docs.google.com/document/d/1RQWuvWDgcAv1ylksFXtiwhuTbHLcL1byIcoXsbCQfic/edit#heading=h.b2dsyhbkdvd1">My team strategy template</a></li>
+<li><a href="https://docs.google.com/document/d/1vQiTmIghKhCjlFU0HtdTmRNsyKmwv9gs/edit?mode=html">Ramp’s Product Strategy Template</a></li>
+<li><a href="https://www.salesforce.com/blog/2013/04/how-to-create-alignment-within-your-company.html">V2MOM template</a> by Marc Benioff</li>
+<li><a href="https://www.linkedin.com/pulse/working-backwards-press-release-template-example-ian-mcallister/">Amazon’s working backwards PR template</a> by Ian McAllister</li>
+<li><a href="https://medium.com/@gibsonbiddle/2-the-dhm-model-6ea5dfd80792">How to define your product strategy</a> by Gibson Biddle</li>
+</ol>
+<h4>🤩 Vision</h4>
+<ol>
+<li><a href="https://www.romanpichler.com/blog/tips-for-writing-compelling-product-vision/">Product Vision Board</a> by Roman Pichler</li>
+<li><a href="https://gist.github.com/JoshSmith/2041454">Geoffrey Moore’s positioning framework</a> by Josh Smith</li>
+<li><a href="https://medium.com/@kit_ulrich/a-surprisingly-simple-technique-for-a-rockstar-product-vision-the-ladder-of-needs-ae624d81ca6b">The Ladder of Needs</a> by Catherine (Kit) Ulrich</li>
+<li><a href="https://docs.google.com/presentation/d/1cVWgMmIzDb-BXxgngQ-4IQyHSbkO7K79bc0RP69SC7M/edit#slide=id.g2906151feb_0_0">Building a shared team vision</a> by Google</li>
+<li><a href="https://svpg.com/product-vision-faq/">Product Vision FAQ</a> by Marty Cagan</li>
+</ol>
+<h4>📢 <strong>Go-to-market</strong></h4>
+<ol>
+<li><a href="https://docs.google.com/document/d/1Y4NwrsoucPqNFqIkhwNgKpPzf0wqnrN6tcKF2g4nVoM/edit">Launch strategy template</a> by Pratik Mehta</li>
+<li><a href="https://chatbotsmagazine.com/marketing-plan-and-chill-75f7e3d63358#.kgoqx0ahk">Marketing plan template</a> by Michael Taylor</li>
+<li><a href="https://docs.google.com/presentation/d/1idjXAJDUn8EOMnzE5B0ZtR3BcQAdN3YteFGBoPkUUEI/edit#slide=id.p">GTM plan template</a> by The Product Folks</li>
+</ol>
+<h4>👌 <strong>Other templates</strong></h4>
+<ol>
+<li><a href="https://docs.google.com/spreadsheets/d/1zlx3RuidNOW40Zf7gh07p2SqoR53Ungv9JFT-PhHwxI/edit#gid=184965050">Roadmap template</a></li>
+<li><a href="https://docs.google.com/document/d/1SXO4eH8ZvpuONpdlxpu6y1ufDS0n6vbciV4IJzpm-sc/edit">Performance review template</a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1RTMr9vGCYEhWYA2dKG8EYLDFEtQ1E33W8uDEhmEd8QQ/edit?usp=drive_web&amp;ouid=111613335789441259753">Planning timeline template</a></li>
+</ol>
+<h4>🤤 <strong>Additional goodness</strong></h4>
+<ol>
+<li><a href="https://coda.io/@gokulrajaram/gokuls-spade-toolkit">Gokul’s S.P.A.D.E. decision-making framework</a></li>
+<li><a href="https://medium.com/@barmstrong/how-we-make-decisions-at-coinbase-cd6c630322e9">How we make decisions at Coinbase</a></li>
+<li><a href="https://medium.com/lessons-from-mckinsey/the-pyramid-principle-f0885dd3c5c7">The Pyramid Principle</a></li>
+<li><a href="https://uxdesign.cc/8-things-to-use-in-jobs-to-be-done-framework-for-product-development-4ae7c6f3c30b">“Jobs to Be Done” framework</a></li>
+<li><a href="https://coda.io/@shishir/eigenquestions-the-art-of-framing-problems/">Eigenquestions: The Art of Framing Problems</a></li>
+<li><a href="https://medium.com/@stewart/we-dont-sell-saddles-here-4c59524d650d">We Don’t Sell Saddles Here</a></li>
+<li><a href="https://sriramk.com/strategy">Business strategy concepts</a></li>
+<li><a href="https://www.notion.so/High-Output-Founders-Library-48742928f9f149b8a777e11a1409ce0a">High Output Founders’ Library</a></li>
+</ol>
+<p>If you have any other amazing templates or frameworks that you regularly use, across product, marketing, engineering, or design, <em>please</em> <a href="https://twitter.com/lennysan">shoot them over</a>. I’ll use this post as a living document of the best product development templates.</p>
+<p>That’s it for this week!</p>
+<p>🙏 Thank you to these fine folks for sharing many of these templates: <a href="https://twitter.com/ajwaxman/status/1261470324824121345">Adam</a>, <a href="https://twitter.com/amanik/status/1287868945920221184">Aman</a>, <a href="https://www.linkedin.com/in/dennisyang/">Dennis</a>, <a href="https://twitter.com/satoshisayswhat/status/1287901497976651776">Chris</a>, <a href="https://twitter.com/phil_huot/status/1288141112180445186">Philippe</a>, <a href="https://twitter.com/PratikkCMehta/status/1287956996986028032">Pratik</a>, <a href="https://twitter.com/robsicat/status/1287895839851966466">Rob</a>, <a href="https://twitter.com/tatopane/status/1287863498383400960">Tato</a>, <a href="https://twitter.com/satyap">Satya</a>, <a href="https://productivegrowth.substack.com/">Steve</a>, <a href="https://twitter.com/lennysan/status/1287862995268206592">Sree</a>, <a href="https://twitter.com/vindytalks">Vindhya</a>. Photo by <a href="https://unsplash.com/@joannakosinska">Joanna Kosinska</a> 🙏</p>
+<h2>🔥 Job opportunities</h2>
+<ul>
+<li>Product: <a href="https://angel.co/company/kudo-meeting/jobs/913705-product-manager">KUDO</a>, <a href="https://jobs.all-hands.us/companies/uptime2020/jobs/product-manager-2-5943a3d1-9819-417b-aee9-fc6a563b276e">Uptime2020</a></li>
+<li>Growth: <a href="https://boards.greenhouse.io/cerebral/jobs/4076601003">Cerebral</a>, <a href="https://jobs.lever.co/outschool/4f18d9fe-516b-4285-a5df-357f6cff5b92">Outschool</a></li>
+<li>Design: <a href="https://www.cascade.io/jobs/analytical-product-designer">Cascade</a>, <a href="https://jobs.lever.co/pachama/f4f49853-9d59-4dcc-9d0b-143ca63a53d2">Pachama</a>, <a href="https://www.notion.so/Founding-Designer-San-Francisco-d1296f25efcc43a7833fd28ea3952b39">Primer</a>, <a href="https://sourcetable.com/jobs#contract-designer">Sourcetable</a></li>
+<li>Engineering lead: <a href="https://boards.greenhouse.io/cerebral/jobs/4076598003">Cerebral</a>, <a href="https://jobs.lever.co/snackpass/00505223-bc85-4c28-8e4b-31217d05c2de">Snackpass</a></li>
+<li>Frontend engineer: <a href="https://www.cascade.io/jobs/front-end-product-engineer">Cascade</a>, <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Founding-Frontend-Engineer-San-Francisco-783c2072b9c047a88cb884babb47ef04">Primer</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li>Backend engineer: <a href="https://sourcetable.com/jobs#backend-engineer">Sourcetable</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li>Fullstack engineer: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpass</a>, <a href="https://projectwren.com/careers/software-engineer">Wren</a></li>
+<li>iOS engineer: <a href="https://www.notion.so/Lead-iOS-Developer-ba18577b6ba44ad68e45b8e7a957353c">Pairplay</a></li>
+<li>Sales/BD: <a href="https://boards.greenhouse.io/cerebral/jobs/4105169003">Cerebral</a>, <a href="https://angel.co/company/kudo-meeting/jobs/649855-vice-president-of-sales">KUDO</a>, <a href="https://jobs.lever.co/pachama/996cdde4-737b-4794-ad0f-d726448c3dfb">Pachama</a>, <a href="https://angel.co/company/swayable/jobs/808347-director-of-sales">Swayable</a></li>
+<li>Community: <a href="https://jobs.lever.co/outschool/449fa54a-1778-4255-a95d-a65dc28194c7">Outschool</a></li>
+<li>Security: <a href="https://angel.co/company/kudo-meeting/jobs/592999-cybersecurity-compliance-program-manager">KUDO</a></li>
+</ul>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://li.substack.com/p/unbundling-work-from-employment">Unbundling Work from Employment</a> by Li Jin</li>
+<li>
+<p><strong>Watch:</strong> Japanese skateboarder Isamu Yamamoto (via <a href="https://mikeplewis.substack.com/">Mike Lewis</a>)</p>
+</li>
+<li>
+<p><strong>Watch:</strong> <a href="https://vimeo.com/429924982">Transfiguration</a> (via <a href="https://thebrowser.com/">The Browser</a>)</p>
+</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

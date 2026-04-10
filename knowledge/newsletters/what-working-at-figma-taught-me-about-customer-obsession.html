@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What working at Figma taught me about customer obsession — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What working at Figma taught me about customer obs…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What working at Figma taught me about customer obsession</div>
+    
+    <div class="article-meta">2023-06-02<span>·</span>3,386 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2B</span> <span class="mini-tag">B2C</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to a ✨ </em><em>bonus</em><em> </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career.</em></p>
+<p><em>If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/your-startup-idea-probably-isnt-venture">Your startup idea probably isn’t venture-scale</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">How Notion builds product</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">How Ramp builds product</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-miro-builds-product">How Miro builds product</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post.</em></p>
+<p>Figma is the business every business wants to be when they grow up: net dollar retention of over 150%, gross margins of 90%, generating $400m+ in ARR, and, 10 years in, still growing more than 2x year over year. Also, they’re the #1 fastest-growing enterprise software product in the world (according to Okta’s <a href="https://www.okta.com/businesses-at-work/">Businesses at Work 2023 report</a>). And have you ever met someone who doesn’t <em>love</em> Figma? I don’t think so.</p>
+<p>To help us all learn what Figma has done so right, I’m excited to bring you a special guest post by <a href="https://twitter.com/skuwamoto">Sho Kuwamoto</a>. Sho was the first product leader at Figma, and for the past seven years, as VP of Product leading the editor experience, has helped shape the special product and culture of Figma. Below, he shares his biggest lessons about building a product that’s beloved by people the world over.</p>
+<p><em>For more from Sho, follow him on <a href="https://www.linkedin.com/in/shokuwamoto/">LinkedIn</a>, <a href="https://twitter.com/skuwamoto">Twitter</a>, <a href="https://mastodon.social/@skuwamoto">Mastodon</a>, and <a href="https://bsky.app/profile/skuwamoto.bsky.social">Bluesky</a>. And don’t forget to <a href="https://config.figma.com/">sign up for Config</a>, Figma’s annual design conference, happening live in San Francisco (and streamed online) June 21–22. Hear from speakers like Sho, Figma CPO Yuhki Yamashita (<a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">past newsletter guest</a>!), and Stripe’s Head of Design, Katie Dill, and CTO David Singleton (also a <a href="https://www.youtube.com/watch?v=F0_IKKY3HCk">past podcast guest</a>!). Sign up <a href="https://config.figma.com/">here</a>.</em></p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/0946ae49-ac18-4e9d-b9ad-58a75fc68eb8_8000x4000.png" /></p>
+<p>About a month into my new job at Figma, an engineer shipped a bug that broke the site. We knew we needed to fix it, but we were still in stealth mode, and the eng team was in the middle of some complicated projects. I didn’t want to thrash the team to jump on this bug, but Dylan Field, our CEO, wanted us to drop everything and fix the bug immediately, which I didn’t understand. The conversation went something like this:</p>
+<blockquote>
+<p><strong>Me:</strong> “Dylan, you know we’re still in stealth mode, right?</p>
+<p><strong>Dylan:</strong> “And?”</p>
+<p><strong>Me:</strong> “Literally no one knows that the site is down.”</p>
+<p><strong>Dylan:</strong> “That’s not true. We have users!”</p>
+<p><strong>Me:</strong> “Like. . . 10 people?”</p>
+<p><strong>Dylan:</strong> “Some of them are using us for work!”</p>
+<p><strong>Me:</strong> “Uh. . . look, if they’re willing to use a stealth-mode product for work, that’s on them.”</p>
+<p><strong>Dylan:</strong> “Fix it now!”</p>
+</blockquote>
+<p>So we did. And even though I’d initially disagreed, I was excited. I <em>liked</em> that my boss cared more about customers than I did, which had never happened before.</p>
+<p>The truth is, I had been a bit nervous about joining Figma. I was worried about being pigeonholed into design tools (particularly given my background building products at Macromedia, Adobe, and Medium), and I wasn’t sure that this small (less than 10 people) team really understood how hard it was to make a tool that designers would love.</p>
+<p>Fast-forward to 2023, and Figma has grown beyond what I could have imagined. It’s gotten to the point where people often ask me for advice on how to prioritize features or how to run a product process. These questions are hard for me to answer, because I don’t think we do anything special. Our process is messy and we make mistakes. We create designs and then throw them away. We miscommunicate all the time and forget to write things down.</p>
+<p>The one thing that I think we do better at Figma than other places I’ve been is that we try to put customer needs first—I mean. . . I thought I had done a good job of prioritizing customer needs in previous jobs, but there is a philosophy that I picked up here that feels different from other jobs I’ve had. It shows up in how we do research, how we build community, and how we prioritize features.</p>
+<p>It all starts from putting the customer perspective over our own, and it’s something that we built into our culture from the very early days.</p>
+<h2><strong>Customer support is everyone’s job</strong></h2>
+<p>When we launched our first private beta, we were fielding so many support requests that it became a core part of all of our jobs. We would go back and forth with our beta users so much that it was like being in a giant private chat group, talking about this experiment called Figma that we were all building together. And because we were all in it together, it felt natural to drop everything if a bug or usability issue got in the way of a customer doing their work. That attitude soon became part of our early culture: <strong>Customer support is everyone’s job.</strong></p>
+<p>Even after we hired a dedicated support team, our designers and developers continued to respond directly to customers in our support channel. They liked being close to customers. Yes, it took time away from coding or designing (sometimes 20% of an engineer’s time or more), and, yes, sometimes our customer support manager cringed a little when we said the wrong thing, but support—especially in the early days—was a key part of how we did business, and we couldn’t imagine doing it any other way.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/593047e8-4985-4c6e-a3af-d093f498b485_1600x1066.png" /></p>
+<p>Our rhythm was simple: (1) understand the customer’s problem, (2) unblock the customer by giving them immediate support, and (3) if needed, change the product so that other customers don’t run into the same problem. We used this approach for bug fixing, of course, but also to find gaps in our product, which we would address through bigger, bolder features.</p>
+<p>This attitude wasn’t just about responding to support tickets. We would do things like drive an hour to go visit a customer who was having performance issues on their computer that didn’t show up on ours. Or we would respond and chat with someone over the weekend if they were working on an important project and something went wrong. Their problems were our problems.</p>
+<p>Logically speaking, the fact that engineers were spending something like 20% of their time helping customers should make product development go slower, but we found the opposite to be the case. <strong>By doing this, we figured out what mattered to customers quickly, and we built a reputation for being fast to respond.</strong> Your users don’t judge your velocity based on how many lines of code you write. They judge you based on how quickly you do the things that matter.</p>
+<p>This culture of customer care repeated whenever we found ourselves talking to customers. When we didn’t have a dedicated sales team, we all participated in sales calls, and used that as a way to help people. Same with research trips, where we would sprinkle in offers to help people along with our questions, and in fact, same with random encounters with Figma users at airports. Whenever we talked to customers in any way, we used it as an opportunity to understand and help them however we could.</p>
+<p>I think this, more than anything, explains why our users seem to like Figma so much.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/c72bfcd2-3e32-476f-bdaa-2cbc878564e5_3000x2051.jpeg" /></p>
+<p><strong>Takeaways:</strong></p>
+<ul>
+<li>Encourage your teams to engage directly with customers, and build a culture of supporting users.</li>
+<li>You learn faster, and it helps build a community around your product.</li>
+<li>Don’t worry about the time your team spends in understanding customer problems. Your team will feel like it’s moving faster, not slower.</li>
+</ul>
+<h2><strong>Software as a</strong> <strong><em>service</em></strong></h2>
+<p>Different markets have different dynamics, but when it comes to design tools, I’ve found that focusing on end-user happiness over everything else has been a good way to go. Ultimately, our customers get to decide if they like the features we build, and that’s the only thing that truly matters.</p>
+<p>It sounds simple (or maybe obvious?), but it’s hard to do in practice. As Figma has gotten bigger, it has become tempting to shift the focus to our own perspective instead of the customer’s perspective. Maybe something is easier to do given our architecture, or maybe something might bring us a bit more revenue, or maybe something might be easier to get past a high-stakes product review. I personally find that it’s a constant struggle to keep the customer in mind over my own perspective.</p>
+<p>One trick that I use is to think of Figma as if we were in the service industry. I imagine that Figma is a hotel or a restaurant, and our customers are our guests. It’s taking the term “Software as a Service” (SaaS)* and breaking it down, word by word, as if we are <em>literally</em> providing a service to people. We just happen to provide that service by writing software. This is a <strong>service-oriented mindset</strong>.</p>
+<p><em>(*I know that the <a href="https://en.wikipedia.org/wiki/Software_as_a_service">original meaning of SaaS</a> is that the software comes as a response from the server, and has very little to do with how I’m using the word “service” above, but bear with me on this.)</em></p>
+<p>There are a lot of frameworks out there to help teams build better products, but in those frameworks, the user problem is often just a tool to help figure out how to <em>make the product better</em>. They take a product-oriented mindset. With a service-oriented mindset, it’s the opposite: the product is just a tool to help <em>solve the user problem</em>, which is the ultimate goal. Both are similar, but thinking about building <em>in</em> <em>terms of service</em>,for us, means that we’re prioritizing customer experience, and using that as our metric benchmarks for success.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/01e5b34c-7514-49c5-9f37-0f7e6b72d42d_1600x738.png" /></p>
+<p>Figma is in the design tool business. In a more traditional framework (e.g. jobs to be done), you would identify a job, like “manage a design system” or “deliver a component update to my designers,” and use that as a lens for understanding how to make Figma the product better for users. In other words, the “job” is just a way of understanding the ultimate goal, which is building the product.</p>
+<p>I think of it backward. <strong>My job, as a Figma employee, is to help people do great design.</strong> The software that we write is just a tool that helps me do my job, but it’s just as important to answer people’s questions directly, or to help connect designers to other designers so they can learn from one another.</p>
+<p>This mindset shift makes it easier to help me stay out of the trap of focusing on internal business needs over user needs.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/870c6474-6bda-48f3-9b1a-f7a73fae001a_1600x1005.png" /></p>
+<p>I find that keeping these different levels of user goals in mind makes it easier to evaluate product trade-offs. When you are simply trying to balance feature X vs. feature Y vs. feature Z, I find that traditional frameworks are somewhat artificial. You can write down a strategy, but the devil is in the details. You can try to create a set of metrics and goal yourself against them, but there will always be competing metrics that you need to balance between. For me, it feels easier to just go back to this mindset of serving customers well in order to figure out what to do. For a given user, is feature X or feature Y more valuable? What about for a room full of users? Or a stadium full of users? What decision best serves the most people?</p>
+<p><strong>Takeaways:</strong></p>
+<ul>
+<li>To really put customers at the center of your thinking, invert the “jobs to be done” so that the user’s needs are your primary focus.</li>
+<li>Think about your user’s higher-level goals. Why do they want to accomplish a task? And why do they want to do that?</li>
+<li>Think about all the levels of your user’s goals as you try to balance feature investments.</li>
+</ul>
+<h2><strong>The importance of</strong> <strong><em>feel</em></strong></h2>
+<p>I am sure there are certain kinds of software where people decide what to purchase based on rational criteria. Design tooling is not like that. When you talk to designers about their preferred tools, they start talking about how things “feel.” It’s almost like talking to a musician about their favorite instrument.</p>
+<p>It’s my belief that the feel of software is vital to adoption, especially when you are going for product-led growth. People respond instinctively to how something feels, and you can’t fake it. In fact, I think it might be the most important part of PLG.</p>
+<p>Because of this, the “feeling” of the tool is something we tried to get right from the beginning. When we officially <a href="https://www.figma.com/blog/design-meet-the-internet/">launched Figma</a>, we limited ourselves to a core set of features that felt polished and well-designed, instead of cramming in features. We didn’t have components, styles, or even multiplayer in that core set of features. It was just a simple design tool that lived in the browser and felt great.</p>
+<p>Cutting multiplayer out of the initial release was really tough, but our thinking was that <strong>if we had started with something that felt bad—even with all the right features—we would’ve started with a credibility problem</strong>. We would’ve had to then spend the majority of our time convincing people that we <em>weren’t bad anymore</em>. Even though we didn’t have every feature from the start, this trust allowed our customers to believe that we would continue to improve and add features based on their feedback.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/c84d66c3-49ab-4356-a503-1df2823ab4a2_1600x1065.png" /></p>
+<p>Every product will have different aspects that are important to get right for the feel of it. For Figma, we focused on the following:</p>
+<ul>
+<li><strong>Performance</strong>—We measure how fast we are able to display changes as the user edits the document. We try to hold ourselves to a bar of 60 frames per second whenever we can.</li>
+<li><strong>Familiarity</strong>—Design tools have a long history of keyboard shortcuts and muscle memory. For example, certain modifier keys affect how objects get resized, and there is certain behavior that users expect if the keys are pressed or released halfway through. There are even combinations you can do, like holding down the spacebar while moving an object, that feel like advanced video game combo moves.</li>
+<li><strong>Consistency</strong>—Figma can be quite complex. Objects can be duplicated from file to file, nested within each other, and updated in real time while multiple people edit at once. We have an internal set of rules for how everything operates, and these rules help people feel like the tool is predictable, even when they can’t quite put their finger on what those rules are.</li>
+</ul>
+<p>When trying to decide on the importance of “feel” for a product, consider the following:</p>
+<p>How frequently is the product used by your user? Products that people use every day, like communication tools (email/messaging) or productivity tools (IDEs, spreadsheets), are ones where feel can be a make-or-break factor in adoption.</p>
+<p>In these high-frequency categories, there are usually behaviors that people expect from the software they are used to using from before. If possible, try to accommodate these expectations, and then find a few ways to surpass them. Note that this isn’t about doing something silly; this is about doing something that feels truly deep and useful. Show them how good a piece of software can be.</p>
+<p>If you’re not sure whether to invest in improving the feel or in adding to the functionality of your product, just ask! Zoom all the way out to the highest level, and ask people whether they like using your product. And if not, why? Sometimes the reason is that it’s missing a piece of functionality, but sometimes it’s something ineffable, and they will say something like “It just feels clunky.” Instead of dismissing this kind of feedback, really lean into it to try to understand how to make it feel better.</p>
+<p>And if you’re not sure how to convince others of your vision, show them customer quotes. Show them videos. Show them how frustrated customers can get, or how delighted they can be when things work smoothly. We all respond to software viscerally, and when you see users actually struggling—or enjoying—a piece of software, you can feel it.</p>
+<p><strong>Takeaways:</strong></p>
+<ul>
+<li>The more frequently a piece of software is used, the more important “feel” is.</li>
+<li>Do research on what users expect and live up to that, but also do a few things that go above and beyond.</li>
+<li>If people need to be convinced of the importance of feel, show them customer reactions.</li>
+</ul>
+<p>Here’s a final note: Getting the overall feel right can be more art than science, and this is another area where I’ve found that taking a service-oriented perspective can be helpful.</p>
+<p>I imagine myself running a high-end restaurant. Yes, I want the decor to be good, as well as the service and the food. But at the end of the day, I don’t really care about those independent aspects. What I really care about is that every customer leaves feeling that they had a wonderful night. I can’t quite put my finger on the reason, but this kind of analogy makes it much easier for me to think about the whole thing. I think to myself, “I’m just like a host, inviting my user into my application for a little bit, and I want them to have a wonderful time.”</p>
+<p>Because why else do we make software? Don’t we all want to work on software that makes people happy?</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/227c6b7b-0cb3-4305-bbee-90262b2be705_4400x2928.jpeg" /></p>
+<p><em>Thank you, Sho! For more from Sho, follow him on <a href="https://www.linkedin.com/in/shokuwamoto/">LinkedIn</a>, <a href="https://twitter.com/skuwamoto?lang=en">Twitter</a>, <a href="https://mastodon.social/@skuwamoto">Mastodon</a>, and <a href="https://bsky.app/profile/skuwamoto.bsky.social">Bluesky</a>, and don’t forget to <a href="https://config.figma.com/">sign up for Config</a>, Figma’s annual design conference, happening live in San Francisco (and streamed online) June 21–22.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from What working at Figma taught me about customer obsession" src="https://substack-post-media.s3.amazonaws.com/public/images/a1ef5004-959a-42ec-b2e8-a3a5f7cf44be_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, join the collective to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>❤️‍🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Thoughtful:</strong> <a href="https://www.lennysjobs.com/jobs/6062e014-eda9-4781-a3bc-3a1fe309fefc">Technical Product Manager</a> (SF, Austin)</li>
+<li><strong>Thoughtful:</strong> <a href="https://www.lennysjobs.com/jobs/b6c37021-7a1d-4201-8ff4-e35ee0085bc4">Head of Product</a> (NYC, SF, Austin)</li>
+<li><strong>Splash Sports:</strong> <a href="https://www.lennysjobs.com/jobs/473f331a-d082-445e-8c7f-69089828732a">Director of Growth</a> (SF, Denver, Boston)</li>
+<li><strong>Zinc:</strong> <a href="https://www.lennysjobs.com/jobs/a5525e7d-cf8e-46b6-a602-772144ae12df">Senior Product Manager</a> (London)</li>
+<li><strong>Zinc:</strong> <a href="https://www.lennysjobs.com/jobs/f6c53038-8192-4e08-8576-15c4abbbdea1">Product Designer</a> (London)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/6122b947-a5e1-44c9-a45e-30e305394589">Product Design Lead</a> (NYC)</li>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/389f9fcf-65bb-4852-836e-f3a732203212">Creative Producer</a> (Canada, remote U.S.)</li>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/c74c7805-4b6c-42fa-a989-070e49a48898">Acquisition Growth PM</a> (Canada, remote U.S.)</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

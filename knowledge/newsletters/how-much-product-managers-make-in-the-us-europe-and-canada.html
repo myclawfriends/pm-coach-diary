@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How much product managers make in the U.S., Europe, and Canada — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How much product managers make in the U.S., Europe…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How much product managers make in the U.S., Europe, and Canada</div>
+    
+    <div class="article-meta">2025-02-18<span>·</span>1,712 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">成長</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>I love sharing data you won’t find elsewhere, so I’m excited to publish exclusive, in-depth salary benchmarks for product managers in the U.S., Europe, and Canada.</p>
+<p>This data is courtesy of <a href="https://www.pave.com/">Pave</a>, which gets its data by integrating with human resources information system (HRIS) software and equity management systems at over 7,500 top companies to build real-time compensation benchmarks. The data below is based on actual comp from over 23,000 product managers globally, plus a few select data points from <a href="https://www.levels.fyi/">Levels.fyi</a>.</p>
+<p>Below, you’ll find:</p>
+<ol>
+<li><strong>Base salary, equity, and total comp for product managers in the U.S.</strong></li>
+<li><strong>How U.S. comp compares to Europe, Canada, and Tier 2 and Tier 3 U.S. cities</strong></li>
+<li><strong>A deeper look at Europe and U.K. compensation</strong></li>
+</ol>
+<h3><strong>Key takeaways</strong></h3>
+<ol>
+<li>The median starting base salary for a PM in the U.S. is <strong>$112,000</strong> at a public company and <strong>$96,000</strong> at a private company.</li>
+<li>A 90th-percentile senior individual-contributor (IC) PM can hit <strong>$350,000</strong> in base salary and close to <strong>$1,000,000</strong> in total comp.</li>
+<li>New PM managers make less than senior ICs—<strong>$265,000</strong> vs. <strong>$425,000</strong> in total comp, respectively.</li>
+<li>Moving from a Tier 3 U.S. city to a Tier 1 city can increase your salary by <strong>20%</strong>.</li>
+<li>The median chief product officer makes <strong>$1,425,000</strong> in total comp, and the 90th percentile makes nearly <strong>$5,000,000</strong>.</li>
+<li>The biggest salary jump happens going from L4 to L5 and M3 to M4.</li>
+<li>PM base salaries are <strong>15% to 20%</strong> lower at private companies vs. public companies. They are over 25% lower for product execs (E7-E9).</li>
+<li>U.K. PMs make <strong>65%</strong> of what the average U.S. PM makes, and the average European PM makes less than <strong>50%</strong> of the average U.S. PM.</li>
+<li>If you want to maximize your base salary (i.e. stability), join a public company in a Tier 1 U.S. city.</li>
+<li>If you want to maximize your upside, get into a senior IC or manager role at a private company in the U.S.</li>
+</ol>
+<h2>First, an explanation of the levels you’ll see in the charts below</h2>
+<p>Here’s how the 12 levels you’ll find below map to seniority:</p>
+<ul>
+<li>P1 → Entry</li>
+<li>P2-P3 → Mid</li>
+<li>P4-P6→ Senior</li>
+<li>M3-M4 → Manager</li>
+<li>M5-M6 → Director</li>
+<li>E8 → VP</li>
+<li>E9 → CPO</li>
+</ul>
+<p>And here’s how these levels map to titles at a typical company, including where IC and manager tracks overlap:</p>
+<p><img alt="Screenshot 2024-08-26 at 10.18.08 AM.png" src="https://substack-post-media.s3.amazonaws.com/public/images/bce7cbc4-f248-48a1-8ca6-fec903c4646c_532x306.png" /></p>
+<p><em>For more, <a href="https://support.pave.com/hc/en-us/articles/4430985339799-Job-Levels">check out this detailed explanation of levels</a> and how they may map to your organization.</em></p>
+<h2><strong>Product management compensation in the U.S.</strong></h2>
+<p>Here are the 25th, 50th, 75th, and 90th percentiles for total comp for product managers in the U.S.:</p>
+<p><img alt="Image from How much product managers make in the U.S., Europe, and Canada" src="https://substack-post-media.s3.amazonaws.com/public/images/50f31a56-750f-4ce9-aa9b-f200bad7bab1_2913x2107.png" /></p>
+<h4>Top takeaways</h4>
+<ol>
+<li>The median starting total comp for a PM in the U.S. is <strong>$139,000</strong>.</li>
+<li>90th-percentile IC PMs make close to <strong>$1,000,000</strong> in total comp.</li>
+<li>New managers make less than senior ICs. The median new manager makes <strong>$265,000</strong> in total comp per year—equivalent to an L4 IC PM. You have to hit M5 to make more than the most senior median IC PM.</li>
+<li>The median chief product officer makes <strong>$1,425,000</strong> in total comp, and the 90th percentile makes nearly <strong>$5,000,000</strong>.</li>
+<li>The median VP of product makes <strong>$707,000</strong> in total comp, and the 90th percentile makes over <strong>$2,000,000</strong>.</li>
+<li>The biggest salary jump happens going from L4 to L5 and M3 to M4. And then from VP to CPO.</li>
+<li>At <a href="https://www.levels.fyi/companies/facebook/salaries/product-manager?country=254">Meta</a> (the highest comp of the Magnificent 7), the average M6 makes over <strong>$2,000,000</strong> in total comp, and an entry-level (non-associate product manager, or APM) PM makes <strong>$232,000</strong> in total comp.</li>
+</ol>
+<h3>A deeper look at <strong>salary and equity</strong></h3>
+<p>Here’s the same data as above but splitting base salary and equity and comparing public and private company comp:</p>
+<p><img alt="Image from How much product managers make in the U.S., Europe, and Canada" src="https://substack-post-media.s3.amazonaws.com/public/images/89ccc297-8db0-4d02-ab57-c62e3f759121_1457x1849.png" /></p>
+<h4><strong>Top takeaways</strong></h4>
+<ol>
+<li>The median <em>starting base salary</em> for a PM in the U.S. is <strong>$112,000</strong> at a public company and <strong>$96,000</strong> at a private company.</li>
+<li>A 90th-percentile IC PM at a public company can hit <strong>$350,000</strong> in base salary.</li>
+<li>PM base salaries are 15% to 20% lower at private companies vs. public companies. They are over 25% lower for product execs (E7-E9).</li>
+<li>Unsurprisingly, lower base salaries at private companies are made up for by more equity, especially when things go well. 90th-percentile IC PMs at private companies earn nearly <strong>$600,000</strong> in equity/year (vs. <strong>$250,000</strong> at public companies), and 90th-percentile PM managers (M6) earn around <strong>$1,000,000</strong>/year in equity (vs. less than <strong>$500,000</strong> at public companies).</li>
+<li>The amount of equity 90th-percentile PMs can earn grows very quickly as they rise in the ranks. For example, at a private company, a 90th-percentile M3 earns just over <strong>$200,000</strong> in equity, an M4 earns <strong>$500,000</strong>, an M5 earns <strong>$800,000</strong>, and an M6 earns <strong>$1,000,000</strong>.</li>
+<li>At <a href="https://www.levels.fyi/companies/tesla/salaries/product-manager">Tesla</a>, <a href="https://www.levels.fyi/companies/microsoft/salaries/product-manager?country=254">Microsoft</a>, <a href="https://www.levels.fyi/companies/nvidia/salaries/product-manager?country=254">Nvidia</a>, <a href="https://www.levels.fyi/companies/apple/salaries/product-manager?country=254">Apple</a>, <a href="https://www.levels.fyi/companies/facebook/salaries/product-manager?country=254">Meta</a>, <a href="https://www.levels.fyi/companies/google/salaries/product-manager?country=254">Google</a>, and <a href="https://www.levels.fyi/companies/netflix/salaries/product-manager?country=254">Netflix</a> (the Magnificent 7), the starting base salary for a (non-APM) PM is $136,000, $156,000, $158,000, $158,000, $167,000, $199,000, and $343,000, respectively. Netflix and Tesla are low on equity, while Meta, Google, and Nvidia are quite high.</li>
+</ol>
+<h2><strong>Comparing Tiers 1, 2, and 3 U.S cities to</strong> U.K., Canada, and Europe broadly</h2>
+<p>Now let’s look at how other parts of the world compare to the U.S.’s average PM compensation.</p>
+<h3><strong>Base salary differentials relative to U.S. average</strong></h3>
+<p><img alt="Image from How much product managers make in the U.S., Europe, and Canada" src="https://substack-post-media.s3.amazonaws.com/public/images/80058808-ef2b-4691-b5ac-2ceed42a5c66_2912x2008.png" /></p>
+<h4><strong>Top takeaways</strong></h4>
+<ol>
+<li>Tier 1 U.S. PMs make <strong>10% more</strong> than the average U.S. PM.</li>
+<li>U.K. PMs make <strong>65%</strong> of what the average U.S. PM makes, Canadian PMs make <strong>60%</strong>, and the average European PM makes less than <strong>50%</strong>.</li>
+<li>Moving from a Tier 3 U.S. city to a Tier 1 city can increase your salary by <strong>20%</strong>.</li>
+<li>The average PM in a Tier 3 U.S. city makes more than the average PM in Europe or Canada.</li>
+</ol>
+<h3>Deeper look at Europe and U.K. cash compensation vs. U.S.</h3>
+<p><img alt="Image from How much product managers make in the U.S., Europe, and Canada" src="https://substack-post-media.s3.amazonaws.com/public/images/50c040a9-6465-486c-bdfb-df3bdfb560fc_2912x2064.png" /></p>
+<h4><strong>Top takeaways</strong></h4>
+<ol>
+<li>If you’re a PM in Europe, you want to be in the U.K. or Ireland.</li>
+<li>Sorry, PMs in Bulgaria.</li>
+</ol>
+<h3><strong>Equity differentials relative to the U.S. average</strong></h3>
+<p><img alt="Image from How much product managers make in the U.S., Europe, and Canada" src="https://substack-post-media.s3.amazonaws.com/public/images/250b9b03-1665-4fc2-a5f7-ce7745e09255_2912x1986.png" /></p>
+<h4><strong>Top takeaways</strong></h4>
+<ol>
+<li>PMs in Tier 1 U.S. cities make <strong>40%</strong> more from their equity than in Tier 2 and 3 cities.</li>
+<li>PMs in Tier 2 and 3 cities make about the same in terms of equity.</li>
+<li>Living in Europe, you make <strong>40%</strong> of what U.S. PMs make from equity.</li>
+</ol>
+<p>See anything else interesting in this data? Share it in the comments!</p>
+<p><a href="https://www.lennysnewsletter.com/p/how-much-product-managers-make-in/comments">Leave a comment</a></p>
+<p>Next in this series, I’m going to do an analysis of salary and equity benchmarks for <em>founder</em> compensation. Stay tuned!</p>
+<p><em>Thank you, <a href="https://www.pave.com/">Pave</a>, for providing this data, <a href="https://www.linkedin.com/in/benhawkins0/">Ben</a> for design, <a href="https://www.rebeccaackermann.com/">Rebecca</a> for editing, and Ricardo and Dennis for providing feedback on early drafts. Have a fulfilling and productive week 🙏</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><strong><a href="https://bounce.com/">Bounce</a></strong> is hiring for a Head of Growth based out of San Francisco. As their Head of Growth, you'll be expected to:</p>
+<ol>
+<li>Lead strategy and execution across multiple channels, including product-led growth, SEO, and paid acquisition</li>
+<li>Mix high-level thinking with hands-on execution as you build out Bounce’s growth team</li>
+</ol>
+<p><strong>Why I think the company is interesting:</strong></p>
+<ul>
+<li>Bounce is one of the fastest-growing European startups ever.</li>
+<li>They’re now in hypergrowth with a lean and scrappy team. This is an opportunity to join before they really mature.</li>
+<li>They are backed by a16z and a host of tier-one investors. They just raised a Series B and are quickly expanding into a global presence.</li>
+<li>This is not a 0-to-1 role; it’s a 1-to-10 role. Bounce’s growth is already epic, but they need a leader to take it to the next level.</li>
+</ul>
+<p>If you’d like to get your profile sent directly to their team, just fill out <a href="https://airtable.com/appTNAXC72V74HqPS/pagCczxszIZPdd00t/form">this quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p><em>If you’d like to get your role featured here, <a href="https://airtable.com/apphKJD0wLIHfPcZu/pag09IdQYrMpolMa5/form">apply here</a>. If you’re interested in working with my white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), apply to work with us <a href="https://www.lennysjobs.com/">here</a>.</em></p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>New data on the product job market — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">New data on the product job market</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">New data on the product job market</div>
+    
+    <div class="article-meta">2024-07-23<span>·</span>1,894 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2B</span> <span class="mini-tag">產品管理</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><h3>✨ Photos from recent reader meetups</h3>
+<p>If you’d like to attend (or host!) a meetup and are a paid newsletter subscriber, join our Slack and find your local city channel. <a href="https://www.lennysnewsletter.com/p/community">Learn more here</a>.</p>
+<p>With ongoing news of layoffs, shutdowns, and product roles being replaced by AI, it’s easy to get discouraged about the state of the job market, especially if you’re having a hard time finding a job. Is the market particularly rough for your role right now or is it just you?</p>
+<p><strong>I’m excited to share hot-off-the-presses data I haven’t seen elsewhere about the state of the product (and product-adjacent) job market.</strong> This data comes from a company that I recently discovered, <a href="https://www.livedatatechnologies.com">Live Data Technologies</a>, which has developed a method of prompt-engineering major search engines (e.g. Google, Bing, Baidu, Yandex, etc.) to capture near-real-time data on employment changes in the U.S. Leveraging this publicly available information, they use a proprietary process to monitor job changes for over 88 million people. They can track hiring trends across companies, roles, functions, levels, industries, and locations. The company normally sells this data to investors (e.g. VCs, private equity), startups (e.g. platforms that incorporate people data), HR orgs, and go-to-market leaders, and serves as a data resource to media outlets (e.g. the <em>Wall Street Journal</em>, <em>The Economist</em>), but, lucky for us, they offered to collaborate with me on this unique dive deep into the state of the product job market. A big thank-you to <a href="https://www.linkedin.com/in/jason-salt/">Jason Saltzman</a> for hooking me up.</p>
+<p>We decided to analyze the 10 most popular product and product-adjacent roles: <strong>Product manager, Engineer, Design, Growth, User research, Data science, Sales, Marketing, Product owner, Scrum master.</strong> At the end of the post, I’ve included a sampling of the job titles included within each role.</p>
+<p>Here are my biggest takeaways and surprises from the data:</p>
+<h3><strong>1. Growth roles are the #1 fastest-growing roles right now</strong></h3>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/018b7f02-25b5-4a9d-a39a-ae6fbba1fbc0_2036x1358.png" /></p>
+<p>This isn’t what I expected to see. I’ve always thought of growth roles as a niche, and not one that was significantly expanding. I was wrong, but I can also understand why. With the market starting to return, companies are increasingly leaning into growth.</p>
+<p>It’s also interesting to see that growth roles are growing much faster than sales and marketing roles—although those roles show an upward inflection. This might mean an increasing focus on product-led growth, potentially driven by a need for capital efficiency—something investors and public markets are increasingly prioritizing.</p>
+<p>To give you a sense of scale, there are about 80,000 active “growth” roles in the U.S. right now and about 1,000 to 2,000 growth hires made per month.</p>
+<p><strong>If you’re looking for a growth role right now, here are the companies that have hired the most growth people in the past few months (in descending order):</strong> HubSpot, Salesforce, TikTok, Velera, Amazon, Enpal, Headway, Pocket FM, Uber, Accenture, Atlassian, Compass, MongoDB, AI Digital, Google, CrowdStrike, AECOM, Adobe, Airwallex, Askable, Grab, Media.Monks, Traba, and Walmart.</p>
+<p><strong>Here are the top hirers of growth roles over the past few years:</strong></p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/91cf371c-2e30-4e63-90ca-ffd5cd0b7350_2160x2160.png" /></p>
+<h3>2. Product management is doing fine</h3>
+<p>Here’s a view of the PM role over the past 2.5 years:</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/b893b946-5472-453e-b650-1ac0673b957d_2036x1358.png" /></p>
+<p>The story I see is that there was a hiring acceleration through 2022 and then a steady state (i.e. the number of PMs being hired and fired each month staying relatively even) over the past 1.5 years. That feels healthy to me.</p>
+<p>Here’s an eye-opening chart showing the rise of the PM role over the past two decades (followed by the recent plateau):</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/54921065-159d-44bb-8951-f9a780ff82da_650x412.gif" /></p>
+<p>TL;DR: The PM role isn’t going through the hypergrowth it saw earlier this decade, but it’s also not shrinking. This seems like a good thing all around.</p>
+<p>Numbers-wise, there are about 450,000 active PMs in the U.S. right now, and 2,500 to 4,500 are being hired each month.</p>
+<p>As a comparison, here’s the engineering role over that same time frame—similar growth trajectory, also a bit of a slowdown in the past one or two years, though not as much of a slowdown as PMs. Again, this seems right.</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/685d04de-9722-4f76-a991-cfe16788a3ec_610x440.gif" /></p>
+<p><strong>If you’re looking for a PM role, here are the top companies hiring PMs over the past few months:</strong></p>
+<p>Amazon, Microsoft, Capital One, Google, Meta, ServiceNow, Salesforce, JPMorgan Chase &amp; Co., Adobe, TikTok, Wells Fargo, Masterclass, Solventum, Visa, IBM, American Express, Oracle, Nvidia, AWS, Disney, Walmart, Apple, Medline Industries, GE Vernova, and Intuit.</p>
+<p><strong>Here are the top hirers of PM roles over the past few years:</strong></p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/96dec60b-3708-48d5-aeaa-46142ab95a18_2160x2160.png" /></p>
+<h3><strong>3. User research is resurgent</strong></h3>
+<p>Another unexpected insight from this data is that user research is the second-fastest-growing role right now 🤯</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/836a2806-a598-40e7-b2c2-7a5ef6cc1e77_2040x1360.png" /></p>
+<p>I believe what’s happening is that the UXR function went through a huge overhiring phase (see the large bump in late 2022) and then <a href="https://www.lennysnewsletter.com/p/the-ux-research-reckoning-is-here">a reckoning</a> as the market tanked last year. Companies realized their UXR teams were not adding enough value, and thus those saw some of the most significant layoffs in the tech industry. Now that the market is returning, companies are starting to rehire these roles after realizing they went too far.</p>
+<p>I’ll add, though, that the absolute number of UXR people is relatively small compared with other roles. There are only around 14,000 active UXR roles in the U.S., according to the data, and about 200 are being hired each month.</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/0b65cfd3-8691-4faa-9d65-704e9e1dce12_2160x2160.png" /></p>
+<h3>4. P<strong>roduct owners are owning it</strong></h3>
+<p>Another surprising result is that product owners are the third-fastest-growing role in tech. And there are around 65,000 of them. WTF.</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/3fd17913-02df-45c3-9aa5-e4b7f0a02236_2034x1358.png" /></p>
+<p>Also, the growth of this role has been very steady. No big spikes, no slowdown. I don’t have a great explanation for this role’s growth other than that non-tech companies (e.g. banks, telecom) are expanding their product investments as they grow.</p>
+<p>If anyone has any insights on this role and its continued growth, please share in the comments!</p>
+<p><a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market/comments">Leave a comment</a></p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/bcb58df5-1f56-41a4-a66a-45101fccee95_2160x2160.png" /></p>
+<h3><strong>5. Scrum masters are masters no more</strong></h3>
+<p>The only role that’s shrinking (i.e. more people being let go than hired each month) is the scrum master. Sorry, folks.</p>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/7f1b92df-893c-4845-a2a4-74c74b6442aa_2036x1356.png" /></p>
+<p>I’m guessing this in part explains the growth in product owners—people who used to be called scrum masters are now called product owners. There are still about 40,000 active scrum masters in the U.S., so we’ll see if this trend continues.</p>
+<h3>Bonus: Top hiring and firing companies for engineering, design, DS, sales, and marketing</h3>
+<p><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/bde9b4d1-4a84-4876-a06d-13c257d980c6_2160x2160.png" /><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/db30d910-4c3d-4431-b008-e7e4235b4dd6_2160x2160.png" /><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/52d44bfe-51ea-4b84-9e29-79b54e695126_2160x2160.png" /><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/9d804ac5-528a-4c52-89bc-bd34413b9b77_2160x2160.png" /><img alt="Image from New data on the product job market" src="https://substack-post-media.s3.amazonaws.com/public/images/8bcacb34-b325-4a9b-b28f-d0a48a1a439f_2160x2160.png" /></p>
+<p>I hope you found this deep dive into the data as illuminating as I did. I plan to do these job market reports a few times a year, and I’d love to know what additional data you’d most want to see. Leave a comment and let me know. 🙏</p>
+<p><a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market/comments">Leave a comment</a></p>
+<p><strong>A sampling of job titles within each role analyzed:</strong></p>
+<ol>
+<li><strong>Product management:</strong> Product Manager, Senior Product Manager, Director of Product Management, Associate Product Manager, Principal Product Manager, Technical Product Manager, Lead Product Manager, Group Product Manager</li>
+<li><strong>Engineer:</strong> Software Engineer, Senior Software Engineer, Data Engineer, Staff Software Engineer, Software Engineer II, Associate Software Engineer, DevOps Engineer</li>
+<li><strong>Design:</strong> Product Designer, UX Designer, Senior Designer, Lead Product Designer</li>
+<li><strong>Growth:</strong> Head of Growth, Chief Growth Officer, Growth Manager, Director of Growth, Growth, Growth Marketer, Growth Lead, Growth Specialist,</li>
+</ol>
+<p>VP of Growth<br />
+5. <strong>User research:</strong> UX Researcher, User Experience Researcher, Senior UX Researcher, User Researcher, Lead UX Researcher, Senior UX Researcher, UX Research Lead<br />
+6. <strong>Data science:</strong> Data Analyst, Data Scientist, Senior Data Scientist, Lead Data Scientist, Business Data Analyst, Data Science Manager, Principal Data Scientist, Junior Data Analyst, Data Scientist II<br />
+7. <strong>Sales:</strong> Account Executive, Sales Associate, Sales Manager, Sales Representative, Sales Development Representative, Senior Account Executive, Regional Sales Manager, Sales Consultant, Enterprise Account Executive<br />
+8. <strong>Marketing:</strong> Marketing Manager, Marketing Director, Marketing Coordinator, Marketing Specialist, Digital Marketing Manager, Chief Marketing Officer, Head of Marketing, Director of Marketing, Product Marketing Manager<br />
+9. <strong>Product owner:</strong> Product Owner, Senior Product Owner, Technical Product Owner, Digital Product Owner, Lead Product Owner, Associate Product Owner, Agile Product Owner, Principal Product Owner, Senior Technical Product Owner, Junior Product Owner<br />
+10. <strong>Scrum master:</strong> Scrum Master,Project Manager/Scrum Master, Agile Scrum Master, Lead Scrum Master, Scrum Master II, Scrum Master/Agile Coach, Certified Scrum Master</p>
+<p><em>Thank you to <a href="https://www.linkedin.com/in/jason-salt/">Jason Saltzman</a> and <a href="https://www.livedatatechnologies.com/">Live Data Technologies</a> for sharing this juicy data with me. For more ongoing insights from the data, check out Jason’s newsletter, <a href="https://humancapitalist.substack.com/">Human Capitalist</a>. And if you’re looking to stay up to date on the latest job changes at top companies, Live Data’s <a href="https://www.livedatatechnologies.com/trial">free trial</a> allows you to track up to five companies.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I run a white-glove recruiting service for senior product roles, working with a few select companies at a time. If you’re hiring, apply to work with me below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

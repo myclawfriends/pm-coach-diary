@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lenny’s Newsletter holiday gift guide 2024 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Lenny’s Newsletter holiday gift guide 2024</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Lenny’s Newsletter holiday gift guide 2024</div>
+    
+    <div class="article-meta">2024-11-26<span>·</span>3,155 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">工程</span> <span class="mini-tag">AI</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Product manager is an unfair role. So work unfairly.</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-become-a-supermanager-with">How to become a supermanager with AI</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/five-proven-prompt-engineering-techniques">Five proven prompt engineering techniques (and a few more-advanced tactics)</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/on-being-funny-at-work">On being funny at work</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://www.lennysjobs.com/">Hire your next product leader</a></em><em> | </em><em><a href="https://maven.com/lenny">My favorite courses</a></em><em> | </em><em><a href="https://lennyswag.com/">Swag</a>.</em>**</p>
+<p>Can you believe it’s already holiday time? Absurd.</p>
+<p>Somehow I’ve created a tradition of doing an annual gift guide (this is my fourth year in a row), so here we go! 🎄🎅🕎</p>
+<p>The list below is a combination of practical and fun ideas. As in my newsletter, I’m indexing on useful, timeless, and high-quality things. I’ve included products I regularly use and love, products my podcast guests <a href="https://www.lennyslightninground.com/products/">have recommended</a> (courtesy of super-fan <a href="https://x.com/borkod">Borko</a> 👏), cute shit my wife suggested, and a few things I’ve recently discovered from y’all on these <a href="https://x.com/lennysan/status/1857471184092409893">X</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_thinking-about-doing-another-gift-guide-this-activity-7263237059195076608-19yv">LinkedIn</a> threads. I’m not making any money off anything here, and there are no affiliate fees on any of these links. For the couple of products where I have a connection (i.e. I’m a tiny angel investor or they’ve sponsored the podcast in the past), I note that with an asterisk (*).</p>
+<p>Enjoy, and happy holidays!</p>
+<p>P.S. Don’t sleep on <a href="https://www.lennyslightninground.com/products/">my swag store</a> for that special PM or growth friend in your life!</p>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/df4eef87-9c76-4b89-ae03-1a0152872f3f_1456x728.png" /></p>
+<h2>Household</h2>
+<ol>
+<li><strong><a href="https://www.amazon.com/Aarke-Kettle-Stainless-Steel-Swivel/dp/B0CWHK6XZP">Aarke stainless-steel hot water kettle</a>:</strong> Plastic-free, beautiful, and fast. I love it.</li>
+</ol>
+<p><img alt="Aarke Electric Stainless Steel Kettle" src="https://substack-post-media.s3.amazonaws.com/public/images/cbfb72a3-49e9-47ab-b65e-2fce32f2478a_1500x1500.webp" /><br />
+2. <strong><a href="https://www.amazon.com/HOTO-Inflator-Portable-Compressor-Motorcycle/dp/B0CQ1RCJV7">HOTO portable tire inflator</a>:</strong> You’ll never want to inflate your bike tires, car tires, or balls any other way. HOTO has <a href="https://hototools.com/">all kinds of other cool stuff</a> too. [Thanks, <a href="https://x.com/anirudh_twt/status/1857536319922057605">Anirudh</a>, for the tip.]</p>
+<p><img alt="HOTO Air Pump Pro, Portable Tire Inflator" src="https://substack-post-media.s3.amazonaws.com/public/images/5be10a96-08d7-4e03-b14d-1564eac84d2f_750x1000.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.com/dp/B008RIS0UY?th=1">Corrugated-cardboard cutter</a>:</strong> Makes breaking down those Amazon boxes a breeze. It’s one of those small things that once you try it, you’ll want to give one to everyone you know. Somebody on Twitter recommended this to me (I forget who 😬), and now I can’t stop recommending it.</li>
+<li><strong><a href="https://www.glerups.com/collections/slip-ons">Glerups slippers</a>:</strong> My favorite slippers. Cozy, cute, and durable. I buy extra pairs for when visitors come over. These are also loved by both Wirecutter and Tim Ferriss. Not cheap, but they last.</li>
+<li><strong><a href="https://www.cloutierceramics.com/limited-edition/cup-club-2025">Quarterly ceramic cup club</a>:</strong> From Bay Area artist Julie Cloutier. Receive four unique handmade ceramic mugs over the course of a year. [Thanks for the tip, Rebecca!]</li>
+<li><strong><a href="https://www.areaware.com/products/goober-candle?variant=1001524658180&amp;country=US&amp;currency=USD&amp;sc=ppc001">Talbot and Yoon Goober Candle</a></strong>: Delightful on any bookshelf. <a href="https://www.dsanddurga.com/products/big-sur-after-rain-candle">This other candle</a> is also great.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/30911079-696d-48ad-9257-a9328d3ddc90_2700x1414.png" /></p>
+<h2>Gadgets</h2>
+<ol>
+<li><strong><a href="https://teenage.engineering/products/choir">Teenage Engineering choir</a>:</strong> “Wooden dolls made to serenade you with a repertoire of choral classics as well as perform your own original compositions through MIDI over BLE. Each member has their own characteristic vocal range. Individually one can sing a dynamic solo, together they perform an immersive a cappella concert.” Not cheap, but so cool.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/77da02bf-0de7-4ee2-b17b-75a3c264275d_2206x896.png" /></p>
+<ol>
+<li><strong><a href="https://daylightcomputer.com/">Daylight</a>*:</strong> Kindle meets iPad meets laptop. Elegant and practical.</li>
+</ol>
+<p><img alt="Write, draw and annotate on a fast, paper-like surface" src="https://substack-post-media.s3.amazonaws.com/public/images/fae22edc-dda1-4268-8a2e-f8cf30719d73_1174x726.png" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.co.uk/dp/B09CM7Q3F7">Nimbot wireless label maker</a>:</strong> Print quick labels from your phone. For home organization, food containers, keeping track of documents, and so on. [Thanks for the tip, <a href="https://x.com/MolloyLaurence/status/1857472858835894507">Laurence Molloy</a>!]</li>
+<li><strong><a href="https://auraframes.com/gifting">Aura frames</a>:</strong> A beautiful smart digital picture frame. Easy to update the photos using your phone. A perfect gift for grandparents.</li>
+<li><strong><a href="https://www.amazon.com/Elgato-Stream-Deck-Neo-Customizable/dp/B0CVY4566H?th=1">Elgato Stream Deck Neo</a>:</strong> Originally designed for Twitch streamers but so handy for launching my favorite apps, controlling speaker volume, and adjusting lights. There’s also <a href="https://www.amazon.com/Elgato-Stream-Deck-Mini-customizable/dp/B07DYRS1WH">a smaller version</a>, <a href="https://www.amazon.com/Elgato-Production-Controller-Streaming-Customizable/dp/B0BJL8SJ59">a larger version</a>, and <a href="https://www.amazon.com/Elgato-Stream-Deck-MK-2-Controller/dp/B09738CV2G">a very large version</a>.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/520d1b5f-344f-4557-9553-11d1ed67b4de_1382x981.png" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.com/dp/B0CTJ7PVN1?th=1">Shure MV7 USB mic</a>:</strong> A nice gift for that friend who’s thinking about starting a podcast—or is stuck on Zoom calls all day. It sounds great and works with USB. This was my first mic; I upgraded to <a href="https://www.amazon.com/gp/product/B0CCSVYWMH?th=1">the XLR version</a> just last month, but that’s only because I do a podcast as a job now.</li>
+<li><strong><a href="https://www.amazon.com/Anker-Charger-Compact-MacBook-Pixelbook/dp/B0C4DGBHY2?crid=1OAEJV5UFCBNK&amp;dib=eyJ2IjoiMSJ9.nTU1XqQtYYRyuW0xOzHGWpoic3aP814FF38aO-VRTAupsUGuS6EBYMtbr1YMZUJbyJ_JA40VC6DGAzhRFWFXo_KLdkWpe_eyzGuO6nINuEhIO5alTHZOg_WJRv0bLdSdlnIQN_HD6g79rnp1f_HCyOmDN72HMVknsYZfAwwjJZohaDhifPQhe0vUVsIWnt8ilH54e58MMs0T9y10yxPueI1iWGNMMZmXdXirnAyJ-I0.2_2N1XDmtKNvJT7HW6q_I3Q_xFMKQygKATXSSDzRGj4&amp;dib_tag=se&amp;keywords=anker+prime+100w+gan+wall+charger&amp;qid=1732304119&amp;sprefix=Anker+Prime+100W+GaN+Wall+Charger%2Caps%2C242&amp;sr=8-3">Anker Prime 100W USB C charger</a>:</strong> Best and most versatile portable charger I’ve found. Fast charging for your laptop, iPhone, iPad, or whatever else, in a super-compact form. This <strong><a href="https://www.amazon.com/Anker-Charger-Charging-Portable-Foldable/dp/B0CFKSJMVJ?th=1">Anker USB C portable charger, 3-in-1</a></strong> is also awesome for on-the-go power, with built-in cord and display of how much power remains. [Thanks for the tip, <a href="https://x.com/brentbrookler/status/1857477119582023800">Brent Brookler</a>!]</li>
+<li><strong><a href="https://www.ray-ban.com/usa/ray-ban-meta-smart-glasses">Ray-Ban Meta smart glasses</a>:</strong> Feels like this platform will become a big deal in the coming years. You can get these as sunglasses, prescription glasses, or just clear lenses.</li>
+</ol>
+<h2>My wife’s recommendations</h2>
+<p>I sent a draft of this list to my <a href="https://www.amazon.com/stores/Michelle-Rial/author/B07PGC1PSX?qid=1732557697&amp;sr=1-1&amp;isDramIntegrated=true&amp;shoppingPortalEnabled=true">wife</a> and she said, “You need more cute shit”—so behold, some cute shit.</p>
+<ol>
+<li><strong><a href="https://pigeontoeceramics.com/collections/drinkware/products/biggie-tumbler?variant=37416293695676">Pigeon Toe tumbler</a>:</strong> Cozy, cute cups for tea or coffee.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/cb0ecc3b-b71c-47f0-b384-00f74b817f0b_1100x1100.png" /></p>
+<ol>
+<li><strong><a href="https://bathingculture.com/collections/towels/products/organic-cosmic-rainbow-towel?variant=40445088235609">Bathing Culture Cosmic Rainbow hand towel</a>:</strong> For the friend whose bathroom only has soggy bath towels to dry your hands on.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/26dbe310-b240-462e-81c1-b1b5b1355514_1080x1362.webp" /></p>
+<ol>
+<li><strong><a href="https://www.studioinko.com/cuttingboards">Studio Inko cutting boards</a>:</strong> For the friend who has a display cutting board and a cutting-cutting board.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/e0d0c079-c193-45d6-b71f-cc4f7bb00a76_1046x1392.png" /></p>
+<ol>
+<li><strong><a href="https://passtheplate.heathceramics.com/">Secondhand Heath Ceramics</a>:</strong> The Bay Area’s favorite ceramics, at a discount.</li>
+<li><strong><a href="https://www.publicgoods.com/products/hand-soap-refill-bundle?variant=43538961629322">Public Goods hand soap and refill set</a>:</strong> For the grandma who waters down her hand soap.</li>
+<li><strong><a href="https://everydayoil.com/products/everyday-oil-mainstay-blend?variant=7540908227">Everyday Oil</a>:</strong> For your essential-oils friend.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/30dfd13b-caf2-4ef1-be00-1de868a1a976_1536x1470.png" /></p>
+<ol>
+<li><strong><a href="https://www.eastfork.com/products/the-dreamers-bundle?variant=42263298703439">East Fork x Field Notes: The Dreamers’ Bundle</a>:</strong> An Asheville, N.C.–based company donating their Black Friday sales to disaster relief.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/8efc69a4-e1a3-4591-8109-28b79e93bebf_1000x552.png" /></p>
+<ol>
+<li><strong><a href="https://oxfordpennant.com/products/youll-think-of-something-camp-flag">“You’ll Think of Something” camp flag</a>:</strong> For your artist friend who is out of ideas.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/589e80bc-1943-4990-ab92-c534923a3324_990x595.png" /></p>
+<ol>
+<li><strong><a href="https://www.shopesqueleto.com/products/gift-card">Esqueleto gift card</a>:</strong> For your cute-shit-loving partner ;-)</li>
+<li><strong><a href="https://www.madrelinen.com/collections/tea-towels-1/products/segundo-madre-tea-towels?variant=44335785246881">Segundo Madre tea towels</a>:</strong> 100% linen, Oeko-Tex-certified, woven in a mill that runs on green energy.</li>
+<li><strong><a href="https://www.francanyc.com/shop/pillar-vase-color-block">Franca color-block pillar vase</a>:</strong> For the friend who puts fresh flowers in a Nalgene.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/060ac61a-b3f2-4de6-ac5c-de395aac7286_789x377.png" /></p>
+<ol>
+<li><strong><a href="https://buyolympia.com/Item/adam-jk-lose-it-keychain">“Try not to lose it” keychain</a>:</strong> “A useful message for keys but also for everyone.”</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/4c2b391b-8b87-4dfc-bdc6-68ff2dc56164_1912x852.png" /></p>
+<ol>
+<li>
+<p><strong>Whimsical art</strong></p>
+</li>
+<li>
+<p><a href="https://buyolympia.com/Item/hallie-bateman-its-a-miracle-we-ever-met-print">“It’s a Miracle We Ever Met” by Hallie Bateman</a></p>
+<ol>
+<li><a href="https://buyolympia.com/Item/hiller-goodspeed-hobbies-golden-screenprint">“Hobbies” by Hiller Goodspeed</a></li>
+<li><a href="https://buyolympia.com/Item/michelle-rial-beatles-advice-color-print">“Advice from the Beatles” by Michelle Rial</a> (my wife!)</li>
+<li><a href="https://www.kristintexeira.com/song-paintings/custom-song-painting">Custom song painting by Kristin Texeira</a></li>
+<li><a href="https://www.peopleiveloved.com/collections/prints/products/things-will-work-out-print">“Things Will Work Out” by Carissa Potter</a> (also comes in <a href="https://www.peopleiveloved.com/collections/cards/products/things-will-work-out-card">card form</a>)</li>
+<li><a href="https://www.slowgalerie.com/en/14-eshop">La Slow Galerie</a> (quirky original art, prints that aren’t from the poster club)</li>
+</ol>
+</li>
+<li>
+<p><strong>Books</strong></p>
+</li>
+<li>
+<p><em><a href="https://communedesign.shop/products/commune-made-in-california">Commune: Made in California</a></em>: For friends with an empty coffee table.</p>
+<ol>
+<li><em><a href="https://www.amazon.com/Art-Book-Children-Ferren-Gipson/dp/1838667873">The Art Book for Children</a></em>: I learned a lot myself from this kids’ art book.</li>
+<li><em><a href="https://sites.prh.com/thecreativeact">The Creative Act</a></em> <a href="https://sites.prh.com/thecreativeact">by Rick Rubin</a>: Everyone loves this book.</li>
+</ol>
+</li>
+</ol>
+<h2>Health and wellness</h2>
+<ol>
+<li><strong><a href="https://www.amazon.com/COCOFLOSS-Coconut-Oil-Delicious-Dentist-Designed-Cruelty-Free/dp/B082BF4TYW?th=1">Cocofloss</a>:</strong> Once you go Cocofloss, you won’t go back. The most luxurious floss you’ve ever tried. Feels good and tastes good. A great stocking stuffer.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/8bea9c9b-bce6-4550-8726-b96dbf875cd0_1500x1487.png" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.com/dp/B09712FSLY">WAOAW sleep mask</a>:</strong> Will change your sleep, and thus your life. My wife and I both wear these to sleep every night, and it feels crazy to sleep without one. This has been a staple of my gift guides, and you’d be shocked how many times I’ve heard from readers that this one tip has been the most helpful thing they’ve read in my newsletter (🤣😭).</li>
+<li><strong><a href="https://www.amazon.com/JOCO-Flask-Velvet-600ml-Amberlight/dp/B088BBL41B?th=1">JOCO Flask Velvet Grip</a> or <a href="https://www.amazon.com/gp/product/B0C59B9VJ4">Owala FreeSip insulated stainless-steel water bottle</a>:</strong> I’m still looking for the <em>perfect</em> water bottle (e.g. straw and spout, no plastic, fits in a cup holder), but these are my two favorites right now. My wife loves the <strong><a href="https://www.kleankanteen.com/collections/drinkware/products/insulated-water-bottle-tkwide-20-oz-twist-cap?variant=41374934433987">Klean Kanteen insulated water bottle</a></strong>.</li>
+<li><strong><a href="https://www.amazon.com/Malin-Goetz-Shampoo-Peppermint-16/dp/B00FA3QLUA?crid=1BI12YXOE57V5&amp;dib=eyJ2IjoiMSJ9.bmsilCeMHUja_64b68ztVU0vxrfrNUKPoiUsEllURIPuNF7RT-dJjX5MK6bgz-bvatD8pX-1GHJf_jToEw2huhcN4HCUqovR-7nb8WaNpfZpEWRCujiWC69pIgmXNbMZ_ZzBEze74EyJGCEHhvH6x8pxxObUWlIRzo-fnMT5VzyrKCJKUSmO7hHs0KddBY38RsBI32ELsxyX07TrkkNG9J6vQ0EqaKHSK_CujU7u-K2vReTKjkRgSIpKPkPD6leooFVZ2izCDX_Mzt4juRkf5VvNQSTSvMQv6qWx0-sPsUQ.GEEDrcDMiuBrEm41T9ZgIRnL2tyPNfsUlfyRvrOu6zY&amp;dib_tag=se&amp;keywords=Malin+++Goetz+Shampoo&amp;qid=1732294641&amp;s=beauty&amp;sprefix=malin+++goetz+shampoo%2Cbeauty%2C167&amp;sr=1-5https%3A%2F%2Fwww.amazon.com%2FMalin-Goetz-Shampoo-Peppermint-16%2Fdp%2FB00FA3QLUA">Malin + Goetz shampoo</a> and <a href="https://www.amazon.com/Eucalyptus-cleansing-sensitive-irritation-Cruelty-free/dp/B07QQS24M8?crid=RH9FOFZ9SR4V&amp;dib=eyJ2IjoiMSJ9.Ss7ncN9cyiH457xYVViL55uVdIB0rKo6wFDm9lWfjpk899H2ci5-0ig45Qo3l0N8G1Oj4-Od6PVSCHvPiMjkulhpqgMGc2k1VBt9nGR_g2TYqKZeOxNohECa3b8Ths9l4VlTM1yecaAeG582CG5-T-9NoF-RvpywGAQsCQ--XHMunRTKItMS-4HR_Pc0Sni-aLdlCLYQSCWioBvexeH78b4rm3QwNE6_cuoHvFD2xVW4hAzkoH1aquST_bTJUFqjcBkbtydoP2BUptgE9bnZi3x3_AO36ntgvj2qwvOPufw.qGlBaIwHmoaEOKIC7H6v6jnldd2Zbd9kG2NuEskmlTM&amp;dib_tag=se&amp;keywords=malin+goetz+body+wash+eucalyptus&amp;qid=1732294595&amp;s=beauty&amp;sprefix=malin+goetz+body+wash+eucalyptus%2Cbeauty%2C159&amp;sr=1-1">body wash</a>:</strong> A great gift for that guy in your life still using the 2-in-1 shampoo and body wash.</li>
+<li><strong><a href="https://shop.usparkpass.com/products/america-the-beautiful-national-park-pass">America the Beautiful National Parks pass</a>:</strong> Give the gift of nature. For people over age 62, the pass is good for life. [Thanks for the tip, <a href="https://www.linkedin.com/feed/update/urn:li:activity:7263237059195076608?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7263237059195076608%2C7263247716233682945%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287263247716233682945%2Curn%3Ali%3Aactivity%3A7263237059195076608%29">Helen</a>!]</li>
+</ol>
+<h2>Kids’ stuff</h2>
+<ol>
+<li><strong><a href="https://www.amazon.com/Owala-Lian-Li-LANCOOL-MESH/dp/B0C768CWDF?th=1">Owala Kids insulated stainless-steel tumbler</a>:</strong> My favorite cup for our toddler.</li>
+</ol>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/76465ef0-394b-4e5f-b694-bb41161a30a3_1081x1080.png" /></p>
+<ol>
+<li><strong><a href="https://www.bellalunatoys.com/products/uncle-goose-classic-wooden-alphabet-abc-blocks">Uncle Goose wooden alphabet blocks</a>:</strong> Thecutest friggin’ blocks. The sides include letters, numbers, and animals. And they feel really nice in your hand.</li>
+</ol>
+<p><img alt="Uncle Goose - Classic Wooden Alphabet Blocks - Bella Luna Toys" src="https://substack-post-media.s3.amazonaws.com/public/images/312e0954-2837-4e6b-ad3c-ad89f53c03e9_1000x1000.jpeg" /></p>
+<ol>
+<li><strong><em><a href="https://www.amazon.com/Animals-stylish-picture-Walker-Studio/dp/1406371742https://www.amazon.com/Animals-stylish-picture-Walker-Studio/dp/1406371742">Animals</a></em></strong> <strong><a href="https://www.amazon.com/Animals-stylish-picture-Walker-Studio/dp/1406371742https://www.amazon.com/Animals-stylish-picture-Walker-Studio/dp/1406371742">by Ingela P. Arrhenius</a>:</strong> Because it’s large (almost two feet tall), it’s super-cute when toddlers carry this around. [Thanks for the tip, Vanessa!]</li>
+<li><strong><em><a href="https://www.amazon.com/dp/B076Q4CW5H?th=1">Ditty Bird</a></em></strong> <strong><a href="https://www.amazon.com/dp/B076Q4CW5H?th=1">musical books for toddlers</a>:</strong> Our kid loves these little music books. So many varieties. <a href="https://www.amazon.com/dp/1734208910?content-id=amzn1.sym.386c274b-4bfe-4421-9052-a1a56db557ab&amp;s=toys-and-games&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWM">These are great too</a>.</li>
+<li><strong><a href="https://shopnoble.com/products/noble-organic-utility-suit-in-frutas">Noble organic utility suit</a>:</strong> Matching jumpsuits for you and your kids. Cuteness overload.</li>
+</ol>
+<p><img alt="Noble Organic Utility Suit in Frutas" src="https://substack-post-media.s3.amazonaws.com/public/images/097ab88f-1426-4200-ae40-fdacff08f613_1200x1522.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.com/dp/B0D4QFVDC3?th=1">Dreamegg portable sound machine</a>:</strong> My favorite portable sound machine. The shushing sound is 👌.</li>
+<li><strong><em><a href="https://www.amazon.com/Listen-Simple-Everyday-Parenting-Challenges/dp/0997459301">Listen: Five Simple Tools to Meet Your Everyday Parenting Challenges</a></em></strong><strong>:</strong> A podcast guest <a href="https://www.artofaccomplishment.com/about">(Joe Hudson</a>) recommended this book, and it’s become my favorite parenting book that I recommend to everyone.</li>
+<li><strong><a href="https://jessicahische.shop/products/friend-baby-onesie">“Friend” baby onesie</a>:</strong> Get one for your baby’s friends. Created by podcast guest <a href="https://jessicahische.is/">Jessica Hische</a>.</li>
+</ol>
+<p><a href="https://instagram.com/jessicahischeandfriends">jessicahischeandfriends</a></p>
+<p><a href="https://instagram.com/p/CybzlW7yDUk"><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/__ss-rehost__IG-meta-CybzlW7yDUk.jpg" /></a></p>
+<p>A post shared by <a href="https://instagram.com/jessicahischeandfriends">@jessicahischeandfriends</a></p>
+<ol>
+<li><strong><a href="https://www.thebeeandthefox.com/collections/kids/products/love-your-mother-kids-ringer">“Love Your Mother” ringer tee</a>:</strong> Melt your wife or mom’s heart.</li>
+<li><strong><a href="https://www.amazon.com/HonestBaby-Non-Slip-One-Piece-Jumpsuit-Zip-Front/dp/B0CP2YLCCS?th=1">Honest Company organic cotton onesies</a>:</strong> These have become our go-to kid pj’s. Lots of different patterns.</li>
+<li><strong><a href="https://www.bellalunatoys.com/products/bella-luna-custom-kitchen?tw_source=google&amp;tw_adid=&amp;tw_campaign=17870025074">Classic wooden play kitchen</a>:</strong> The easiest, most nontoxic way to get the kitchen of your dreams.</li>
+</ol>
+<h2>Nutrition</h2>
+<ol>
+<li><strong><a href="https://mauinuivenison.com/products/kama%CA%BBaina-sugar-free-pepper-stick-24-pack">Maui Nui venison stick</a>*:</strong> 10 grams of protein in a delicious sugar-free, gluten-free meat stick. Makes a great snack I can throw in my backpack, and helps me get closer to my daily protein goal.</li>
+<li><strong><a href="https://www.magicmind.com/lenny">Magic Mind mental performance gummies</a>*:</strong> I’ve been a big fan of <a href="https://magicmind.com/pages/mental-performance-shots-holiday-sale">Magic Mind</a> for a while, but I’ve now completely switched to these gummies they just launched. I take some before every podcast episode and when I need to get some serious work done. Get 20% off if you use the link above.</li>
+<li><strong><a href="https://www.amazon.com/Vital-Proteins-Nutrition-Collagen-Peptides/dp/B083LDJNPK">Vital Proteins collagen peptides</a>:</strong> Huberman <a href="https://ai.hubermanlab.com/s/oE_hLR5V">convinced me</a> that taking collagen peptides daily was worth doing, so it’s now a daily habit. Goes well with <strong><a href="https://drinklmnt.com/products/lmnt-insider-bundle?variant=31177433382935">LMNT</a></strong>.</li>
+</ol>
+<h2>Meaningful gift subscriptions</h2>
+<ol>
+<li><strong><a href="https://www.amazon.com/gp/kindle/ku/gift_landing">Kindle Unlimited</a>:</strong> Givethe gift of reading.</li>
+<li><strong><a href="https://www.future.co/?code=basbn0&amp;rdrorigin=%2Fbasbn0">Future</a>*:</strong> Give the gift of workout accountability. (Use this link to get a month free.)</li>
+<li><strong><a href="https://www.alltrails.com/gift">AllTrails</a>:</strong> Give the gift of hiking.</li>
+<li><strong><a href="https://www.duolingo.com/gift">Duolingo</a>:</strong> Give the gift of learning a new language.</li>
+<li><strong><a href="https://my.happierapp.com/gifts">Happier</a> or <a href="https://app.wakingup.com/purchase-gift-card">Waking Up</a>:</strong> Give the gift of meditation.</li>
+<li><strong><a href="https://openai.com/chatgpt/pricing/">ChatGPT</a>/<a href="https://claude.ai/login?returnTo=%2F%3F">Claude</a>/<a href="https://www.perplexity.ai/pro">Perplexity</a>:</strong> Give the gift of AI. (These don’t have gift options, so giving them isn’t as easy as the above. But worth it.)</li>
+</ol>
+<h2>Don’t own yet but looks cool</h2>
+<ol>
+<li><strong><a href="https://maticrobots.com/">Matic floor cleaning robot</a>:</strong> A futuristic robot vacuum and mop with Tesla-FSD-level intelligence. Quiet, private, and good with kids and pets.</li>
+<li><strong><a href="https://mybirdbuddy.com/">Bird Buddy smart bird feeder</a>:</strong> AI-powered smart bird feeder. Captures photos and videos of local birds as they visit 🐦.</li>
+<li><strong><a href="https://getbrick.app/">Brick</a>:</strong> A device that temporarily removes distracting apps (and their notifications) from your phone.</li>
+<li><strong><a href="https://wildlyvirgin.com/">Wildly Virgin olive oil</a>:</strong> Small-batch extra-virgin olive oil from Portugal, by a family who have been making it for generations, harvesting by hand. Created by two product people who moved to Portugal to help more people experience what real olive oil tastes like.</li>
+</ol>
+<p>—</p>
+<h2>Remembering Enrique Allen</h2>
+<p><img alt="Image from Lenny’s Newsletter holiday gift guide 2024" src="https://substack-post-media.s3.amazonaws.com/public/images/de78e2e5-d5a4-4a21-90d4-f8e7adb40337_3088x2316.jpeg" /></p>
+<p>Finally, a gift that’s close to my heart: A dear friend, <a href="https://www.designerfund.com/page/RememberingEnriqueAllen">Enrique Allen</a>, passed away last week from an aggressive form of cancer. He was the best of us; the strongest, happiest, most generous person I have known. Warm, kind, enthusiastic, genuine, passionate about the environment—he’s an inspiration to me for how to live a good life.</p>
+<p>In the spirit of his generosity and dedication to personal growth, if you’d like to give me a gift, his family is raising money for <a href="https://digital.fidelity.com/prgw/digital/familygifting/mlgLandingPage?uuid=1f7ae2d34c95429fb11519156ebf9337">his son’s 529 plan college education</a>. If even 10% of those who see this put $10 toward it, we’d make a life-changing dent in his son’s life.</p>
+<p>Alternatively, you can help with child care, food, funeral costs, and life stuff by Venmoing his wife, @MajoMolfino ❤️</p>
+<p>I’m going to match donations up to $10,000. Just mention in the memo/comments that you’re coming from this newsletter.</p>
+<p><em>Hug your friends and family really tight this holiday season 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

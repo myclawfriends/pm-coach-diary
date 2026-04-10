@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Time management techniques that actually work — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Time management techniques that actually work</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Time management techniques that actually work</div>
+    
+    <div class="article-meta">2024-08-13<span>·</span>2,842 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-should-you-monetize-your-ai-features">How should you monetize your AI features?</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market">New data on the product job market</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/on-asking-for-help-even-when-you">On asking for help (even when you really don’t want to)</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post. For more: </em><em><a href="https://www.lennysnewsletter.com/p/the-best-of-lennys-newsletter-2023">Best of Lenny’s Newsletter</a></em><em> | </em><em><a href="https://www.lennysjobs.com/">Hire your next product leader</a></em><em> | </em><em><a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://lennyswag.com/">Swag</a>.</em>**</p>
+<blockquote>
+<h2>Q: I’m overwhelmed with work and wondering if you have any productivity tips that help you stay above water?</h2>
+</blockquote>
+<p>There are a lot of big ideas out there for how to use your time most effectively, but sometimes you just need a few really good tricks. Over the years, I’ve read dozens of productivity books and tried a bunch of stuff. Most of the ideas work for a few weeks and then fade. But below are 10 techniques that have stuck with me. I use them daily, and they consistently help me get more stuff done. Pick a few to try and see how it goes for you.</p>
+<h3>1. Use your calendar for to-dos</h3>
+<p>Instead of adding to-dos to an app, try slotting some into your calendar. You don’t need any fancy tools for this—literally just make your to-do into an event and put it on your calendar:</p>
+<p><img alt="Image from Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/fecacfc1-1edd-4c4d-9385-f32735dc062c_266x318.png" /></p>
+<p>If something comes up and you aren’t able to do the task at that time, move the event to a new slot.</p>
+<p>This works because your calendar is basically your personal roadmap. And we all know what happens when something isn’t on your roadmap.</p>
+<p>This tactic comes from both <a href="https://youtu.be/WSscIIY609c?si=f-J0EW_porYw1Cca&amp;t=1687">Nir Eyal</a> in his book <em><a href="https://www.nirandfar.com/indistractable/">Indistractable</a></em> and from <a href="https://youtu.be/cuce7zvOFHY?si=pVf51yYJvP0OD1LX&amp;t=1688">Jake Knapp and John Zeratsky</a>’s book <em><a href="https://maketime.blog/">Make Time</a></em>. It also came up a bunch in <a href="https://x.com/RobertJBye/status/1821252156550512998">this X thread</a> asking for people’s favorite productivity tips.</p>
+<p><strong>Go even further:</strong> Sunday evening, plan out your week ahead by slotting your most important to-dos into your calendar.</p>
+<h3>2. If it takes less than two minutes, just do it</h3>
+<p>Next time you’re about to add a task to your to-do list and you think it would take less than two minutes to do, just do it right then instead. This tip comes from <a href="https://en.wikipedia.org/wiki/Getting_Things_Done">David Allen’s book</a> <em><a href="https://en.wikipedia.org/wiki/Getting_Things_Done">Getting Things Done</a></em>, which I read over 15 years ago. This trick is so good that it’s stuck with me for <em>that</em> long.</p>
+<blockquote>
+<p>“The rationale for the two-minute rule is that it’s more or less the point where it starts taking longer to store and track an item than to deal with it the first time it’s in your hands—in other words, it’s the efficiency cutoff.” —David Allen</p>
+</blockquote>
+<h3>3. Keep a “waiting for” list</h3>
+<p>Whenever you ask someone to do something for you, add them to your “waiting for” list. I keep this alongside my to-do list:</p>
+<p><img alt="Image from Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/f1171ed6-2004-4831-9c1f-6abc9de50f38_6000x3375.png" /></p>
+<p>This tactic also comes from the Getting Things Done framework, and it changed my life. One of the <a href="https://www.lennysnewsletter.com/i/33702655/great-pms-build-an-aura-of-ive-got-this">most important habits of highly effective PMs</a> is creating an aura of “I got this,” and the best way to build that aura is to never drop the ball. This tactic allows you to keep track of every open thread, versus relying on your memory, and makes it easy to remember to check in when someone else is dropping the ball. Once your brain knows that the information is written down somewhere, it can relax and create space for much more valuable thinking.</p>
+<p>If you’re using a to-do app, you can alternatively note who you’re waiting on (aka who’s blocking progress on that task) within the task description:</p>
+<p><img alt="Image from Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/1124578c-0599-4741-976c-15aca29b4d5c_748x178.png" /></p>
+<h3>4. Each morning, write down just 1-3 things you <em>have</em> to accomplish that day</h3>
+<p>Before you open up your to-do list—and definitely before you dive into your work—pick one to three things that, if you got done today (and if you did nothing else), would make it a great day.</p>
+<p>Write these items down. Don’t write more than three. Even better, create time in your calendar to work on these items each morning.</p>
+<p><img alt="Image from Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/27e4b7ff-2ac4-4dae-ab98-db59230f000d_1280x150.png" /></p>
+<p>Mornings are great for trying to knock these out because your mind is at its most productive, and after you get the most important things done, the rest of your day is going to feel like gravy.</p>
+<p>Keeping this list short makes it much more likely that you’ll accomplish any of them. And yes, ideally, you get more than three things done in a day, but often we end up doing a lot of easy things instead of the one to three we should really do.</p>
+<p>This idea is inspired by <a href="https://docs.google.com/document/d/1ZJZbv4J6FZ8Dnb0JuMhJxTnwl-dwqx5xl0s65DE3wO8/edit#heading=h.u92txq7xuirk">Matt Mochary’s Top Goal</a> approach, and <a href="https://youtu.be/cuce7zvOFHY?si=D7HwbZ5FFPkhB2iN&amp;t=1230">picking one “highlight” for your day</a> from the book <em><a href="https://maketime.blog/">Make Time</a></em>.</p>
+<p>If you want to take this further, do the hardest thing on your list first, aka “<a href="https://www.reddit.com/r/productivity/comments/108tgov/eat_that_frog/">eat the frog</a>,” which is an idea the internet tells me is attributed to Mark Twain:</p>
+<blockquote>
+<p>“If it’s your job to eat a frog, it’s best to do it first thing in the morning. And if it’s your job to eat two frogs, it’s best to eat the biggest one first.”</p>
+</blockquote>
+<h3>5. Set up, and fiercely protect, regular deep work time</h3>
+<p>One of the most important professional development books I’ve ever read is <em><a href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692">Deep Work</a></em> by <a href="https://calnewport.com/">Cal Newport</a>. The core idea is that any work of real value comes from people doing “deep work”—focused, uninterrupted, and cognitively demanding work that stretches their brain. Unfortunately, most of our time is spent on “shallow work”—not cognitively demanding, logistical-style tasks, often performed while distracted. And that’s totally OK, as long as you get enough deep work time in.</p>
+<p>It takes time to get into a deep work state (30 to 60 minutes) and, more importantly, you need to avoid distractions to stay in this mode. What worked really well for me while I was working full-time was creating two to three recurring blocks each week that were dedicated to deep work time. Those were basically the only time I got “real” work done, and I treasured them.</p>
+<p>The key is to not let anyone ever schedule over this time. Here’s my approach (which worked really well, FWIW):</p>
+<p><img alt="Screenshot 2020-04-14 15.43.00.png" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0499dba1-b1e3-4af8-8c15-321e3acd4648_290x272.png" /></p>
+<p><strong>Go even further:</strong></p>
+<ol>
+<li>Kill all of the apps that often distract you during this time.</li>
+<li>Explore the power of <a href="https://www.youtube.com/watch?v=iboQ7mmGGGU">binaural beats</a> while in deep work time. I use <a href="https://my.brain.fm/payment?extended_promo=30">Brain.fm</a> religiously when I write.</li>
+<li>Encourage your company to have one day a week when meetings aren’t allowed. This is life-changing.</li>
+<li>Check out this killer feature within Google Calendar called <a href="https://zapier.com/blog/google-calendar-focus-time/">Focus Time</a>. It’s only available if you’re using Google Workspace (e.g. your work calendar), but if you’ve got it, it will mute notifications and automatically decline meetings during this slot.</li>
+</ol>
+<p><img alt="A focus time block on Google Calendar, with a headphones icon" src="https://substack-post-media.s3.amazonaws.com/public/images/7eb0889e-1f49-494e-9ceb-ef956294b4c9_950x422.png" /></p>
+<h3>6. Make a rule: No meetings before [as late as possible]</h3>
+<p>This is going to sound absurd to most people, but I currently have a rule of no meetings before 3 p.m. It used to be 2 p.m., but I made it later. And it made my life so much better. I do this because I’d rather use that time (when my brain is freshest) for generative, creative, deep work as much as I can.</p>
+<p>I know this isn’t something most people will be able to do. However, I bet you could (for at least some days of the week) have a rule of no meetings before, say, 10 a.m. Or maybe even 11 a.m.? And I bet your team would love it. Jeff Bezos (one of the most successful businesspeople in history) makes time each morning to “<a href="https://www.youtube.com/watch?v=bpAuQx8ZF7s">putter around</a>.” <a href="https://x.com/ttrauser/status/1821361544891937141">And many people</a> mentioned this idea when I asked them for their favorite productivity tactic.</p>
+<h3>7. Keep Do Not Disturb mode on</h3>
+<p>Imagine a product that could turn off <em>all</em> notifications, calls, SMSs, pushes, buzzes, etc., across all of your devices in a couple of clicks. This product exists, it’s free, and it’s built into your operating system. The smartest people I know leave it on all the time.</p>
+<p><img alt="The Focus status menu open to show the Focus list, including Personal, Work, Study, and others. Do Not Disturb is at the top of the list and is on for one hour." src="https://substack-post-media.s3.amazonaws.com/public/images/d4aa1ff2-6cba-438e-aa77-27db195cbc97_738x700.png" /></p>
+<p>Here’s how you can turn it on <a href="https://support.apple.com/guide/mac-help/turn-a-focus-on-or-off-mchl999b7c1a/mac">on your Mac</a> and <a href="https://support.microsoft.com/en-us/windows/turn-off-notifications-in-windows-during-certain-times-81ed1b25-809b-741d-549c-7696474d15d3">on your PC</a>.</p>
+<p><strong>Go even further:</strong> When I really need to get deep, I physically remove all of my distractions. I put my phone in another room and kill anything I’d be tempted to check in on even without getting a notification (e.g. Slack, Messages, X).</p>
+<h3>8. Keep work async</h3>
+<p>One of the biggest unlocks in my productivity has been learning how to pivot a meeting request into an email conversation. The majority of the time this becomes a five-minute task versus a 30- to 60-minute meeting.</p>
+<p>Here’s a reply template you can steal/tweak for when someone sends you a meeting invite:</p>
+<blockquote>
+<p><em>“Happy to help! Could we start async over email? What are you most looking for my input on?”</em></p>
+</blockquote>
+<p>It’s so easy to schedule a meeting. No sweat off that person’s back to send that invite. It’s also kinda fun to hang out and avoid your work for a bit, and sitting in a meeting feels like you’re working.</p>
+<p>The worst part is that it isn’t just the meeting time itself you’re wasting. It’s also the time before the meeting, when you aren’t able to go deep on anything (it’s almost meeting time!), and the time after the meeting, when you have to rebuild context on whatever you were doing.</p>
+<p><img alt="Image from Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/93bb9943-e91e-4914-9e6b-9d7cb7c0c679_1536x1536.jpeg" /></p>
+<p>I’ll add, though, that sometimes meetings can indeed be great and a much better use of time than going back and forth over email. It’s just that this is <em>usually</em> not the case, so meetings shouldn’t be the default.</p>
+<h3>9. Get a virtual assistant to take on low-impact work</h3>
+<p><a href="https://www.linkedin.com/in/shreyasdoshi/">Shreyas Doshi</a> has a great productivity framework, called <a href="https://x.com/lennysan/status/1570138587760594945">the LNO framework</a>, which helps you identify which tasks you should spend time on versus which to avoid and/or delegate away.</p>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/5673f09f-5f02-4fdc-b4e9-df2c5a018186_1920x1080.jpeg" /></p>
+<p>An unlock for me has been finding an executive assistant to take on as many of these N and O tasks as possible. I know this sounds extravagant, but it’s really not. You just sign up for a site like <a href="https://withdouble.com/">Double</a> (there’s also <a href="https://www.athena.com/">Athena</a> and <a href="https://www.fancyhands.com/">Fancy Hands</a> and others), and you get matched with someone awesome.</p>
+<p>Everyone starts off thinking there’s very little an EA can do for them, and then months later they’re doing 20 to 30 hours of work a week for you. There’s up-front effort in getting the virtual assistant set up, but it quickly becomes very high ROI. <a href="https://x.com/rrhoover/status/1693748817185968513">Here’s Ryan Hoover sharing</a> how he uses an EA, and Sam Corcos, the co-founder and CEO of Levels, wrote this <a href="https://review.firstround.com/a-tactical-guide-to-working-with-eas-how-to-make-delegation-your-superpower/">in-depth guide to how to use EAs across your company</a>.</p>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/78702acd-d7c8-4009-937a-427a98f108f9_1200x1161.jpeg" /></p>
+<h3>10. Say no more often, even when it’s hard</h3>
+<p>I can’t write a productivity guide for product managers without also encouraging you to say no more often. It’s a rule.</p>
+<p>Most of our burnout and overwhelm comes not from a lack of productivity tools and tricks, but from taking on too much work. The more you can do up front to make your workload less full, the better everything gets downstream.</p>
+<p>To help you say no more often, I pulled some tactical advice from previous pieces I’ve written:</p>
+<ol>
+<li><strong>Filter asks through your priorities:</strong> What are the two or three things you must do well to be successful in your work and life? For me, if I can produce a great newsletter post and prepare well for each podcast interview, then my business will grow. If I take my eye off the ball there, it will decline. So I say no to almost anything that isn’t furthering these priorities.</li>
+<li>
+<p><strong>Prioritize</strong> <strong><em>and</em></strong> <strong>communicate:</strong>Often, your manager has no idea what you’re trading when they add something to your plate. They just want something done. And when we get the ask, we often make one of two mistakes:</p>
+</li>
+<li>
+<p>Communicating but not prioritizing—saying yes, jumping on it, and dealing with the consequences later</p>
+</li>
+<li>Prioritizing but not communicating—saying no to avoid slowing down other work, but without a great explanation as to why</li>
+</ol>
+<p>Instead, try prioritizing <em>and</em> communicating. Let your manager know what tradeoff you’re making to do this ask and, most importantly, confirm they’re OK with it. They’ll tell you if they aren’t.<br />
+3. <strong>Imagine if there were no emotion involved:</strong> I ask myself, “If I didn’t care whether the other person felt disappointed or sad when I said no, what would I do?” Then I do that. Once the decision is clear, it simply becomes a matter of how to break the news to them most kindly.<br />
+4. <strong>Ask yourself, What if you had to do it tomorrow?:</strong> It’s incredibly easy to say yes to something that’s months in the future. Then all of a sudden that talk is next week, and 100% of the time I’m thinking, “WTF was I thinking?” Now I always ask myself, “Would I be excited about this if it were tomorrow?” The answer is almost always no.</p>
+<p><a href="https://www.lennysnewsletter.com/i/144661665/templates-for-saying-no">Here are a few templates</a> for saying no that you can adapt to your situation.</p>
+<p>—</p>
+<h4>For more, don’t miss part 2: <a href="https://www.lennysnewsletter.com/p/part-2-time-management-techniques">More time management techniques that actually work</a>.</h4>
+<p>—</p>
+<p>Is there anything that’s worked super-well for you that I didn’t mention, or that you totally agree with? <strong>Share in the comments</strong> 🙏</p>
+<p><a href="https://www.lennysnewsletter.com/p/time-management-techniques-that-actually/comments">Leave a comment</a></p>
+<h2>📚 Additional frameworks and tactics to explore</h2>
+<ol>
+<li><a href="https://x.com/destraynor/status/1220309500156092418">Calendaring your emails</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Pomodoro technique</a> ← Hasn’t worked for me, but many people swear by it</li>
+<li><a href="https://www.youtube.com/watch?v=R8uPpsDqJWk">Shreyas Doshi’s LNO framework</a></li>
+<li><a href="https://youtu.be/CDZ9REOh2xA?si=7_W-lEKa6Ob1WTb5&amp;t=23">Elon Musk’s 5-step algorithm</a> for picking his battles</li>
+<li>More great ideas from readers on <a href="https://x.com/lennysan/status/1821250775601074195">X</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_what-are-1-2-time-management-techniques-youve-activity-7227016560198967297-ral9">LinkedIn</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’ve got a white-glove recruiting service for senior product roles, working with a few select companies at a time. If you’re hiring, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

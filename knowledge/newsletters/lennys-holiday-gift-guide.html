@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lenny’s holiday gift guide — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Lenny’s holiday gift guide</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Lenny’s holiday gift guide</div>
+    
+    <div class="article-meta">2021-11-25<span>·</span>2,057 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">工程</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2C</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to a ✨ </em><em>special edition</em><em>✨ of my weekly newsletter. Normally I tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office. But this issue is a little different…</em></p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/626a513e-ea93-473c-b8ef-1645fc476803_2048x1024.png" /></p>
+<p>Happy holidays, everyone! For something a little different, I thought it would be fun to put together a gift guide to help you win the holiday season. Below I’ve curated 50+ products that I absolutely love, which would also make great gifts. Enjoy!</p>
+<h2>Focus and productivity</h2>
+<p><strong>1. <a href="https://centered.app/">Centered</a>:</strong> My main to-do app, and probably my most-used app period. It combines a simple task list with flow-inducing music, distraction reminders, and a community of fellow-concentrators. Use code FLOWWITHLENNY to get 50% off your first year.*</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/95e111a5-f60e-4fae-8955-eaaf5a972dba_2780x1560.png" /></p>
+<p><strong>2. <a href="https://taika.co/products/matcha-latte/">Taika Matcha Latte</a>:</strong> My go-to drink when I want to focus. Delicious, effective, and goes great with Centered. It’s made from organic ceremonial-grade matcha, a blend of adaptogens and functional mushrooms, and is designed to keep you feeling awake, aware, and inspired. Use code LENNY to get 20% off (or <a href="https://taika.co/?discount=LENNY">use this link</a>).</p>
+<p><img alt="taika (@taikacoffee) / Twitter" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d4f120fb-6e37-4e32-86e3-2e4ccd72315e_1376x1154.jpeg" /></p>
+<p><strong>3. <a href="https://magicmind.co/">Magic Mind</a>:</strong> My other favorite focus-inducing drink, made by my buddy <a href="https://jamesbeshara.com/">James Beshara</a>. Pairs well with green tea. Use code LENNY23 for 23% off.</p>
+<p><img alt="Magic Mind" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c443b9b3-984a-4dcc-a0b2-a9ffd396af52_2400x1257.jpeg" /></p>
+<p><strong>4. <a href="https://www.amazon.com/Jabra-Wireless-Noise-Canceling-Headphones-Copper/dp/B07RS8CFJZ/ref=asc_df_B07RS8CFJZ/?tag=hyprod-20&amp;tag=&amp;linkCode=df0&amp;hvadid=343288438787&amp;hvadid=343288438787&amp;hvpos=&amp;hvpos=&amp;hvnetw=g&amp;hvnetw=g&amp;hvrand=6076254961062063397&amp;hvrand=6076254961062063397&amp;hvpone=&amp;hvpone=&amp;hvptwo=&amp;hvptwo=&amp;hvqmt=&amp;hvqmt=&amp;hvdev=c&amp;hvdev=c&amp;hvdvcmdl=&amp;hvdvcmdl=&amp;hvlocint=&amp;hvlocint=&amp;hvlocphy=9032091&amp;hvlocphy=9032091&amp;hvtargid=pla-781643475970&amp;hvtargid=pla-781643475970&amp;psc=1&amp;adgrpid=68271436279">Jabra Elite 85h Wireless Noise-Canceling Headphones</a></strong>: I’ve been using these headphones for years and can’t recommend them enough. No matter what’s going on around me, they help me focus and stay in the zone. Originally a gift from <a href="https://twitter.com/lennysan/status/1441513455173861376?s=20">my mother-in-law</a>.</p>
+<p><img alt="Amazon.com: Jabra Elite 85h Wireless Noise-Canceling Headphones, Copper  Black – Over Ear Bluetooth Headphones Compatible with iPhone &amp; Android -  Built-in Microphone, Long Battery Life - Rain &amp; Water Resistant : Everything" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/60c42e31-2f98-44a8-8da1-faa3ea00e857_522x616.jpeg" /></p>
+<p><strong>5. <a href="https://www.mailmanhq.com/">Mailman</a>:</strong> A Gmail plugin that batches your incoming email and keeps your lizard brain from getting distracted by the endless trickle of new email. It’s a game-changer. Use code LENNY for 50% off an annual plan.</p>
+<p><a href="https://www.youtube.com/watch?v=plUJmdJ-Ohk">Watch on YouTube</a></p>
+<h2>Travel</h2>
+<p><strong>1. <a href="https://topodesigns.com/products/global-briefcase?variant=39897590071349">Topo Designs Global Briefcase</a>:</strong> My favorite travel bag. Fits 3-4 days of clothes, has plenty of room for electronics, and includes a special slot for a laptop. It also looks great, and you can wear it as a backpack.</p>
+<p><img alt="Topo Designs Global Briefcase 3-Day Review | Pack Hacker" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/44e7da3b-95cc-4bdd-a9cd-cdfadd411c37_2220x1480.jpeg" /></p>
+<p><strong>2. <a href="https://www.amazon.com/gp/product/B074MQ2CG9/ref=ppx_yo_dt_b_asin_title_o02_s00?ie=UTF8&amp;th=1">Alaska Bear Pro Contoured Sleep Mask</a>:</strong> For anyone who has trouble falling (or staying) asleep when there’s light outside. I’ve tried a lot of sleep masks, and this is my favorite because it leaves lots of room around the eyes.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5b8de0ce-81bb-407a-8b98-79a7946a24ec_1452x1153.jpeg" /></p>
+<p><strong>3. <a href="https://www.amazon.com/gp/product/B015STFVU6/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;psc=1">Combo Lightning and Micro USB charging cable</a>:</strong> Never make the mistake of bringing the wrong charging cables again.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/268e8d91-d90e-4819-ab03-427aad98833f_1500x1302.jpeg" /></p>
+<p><strong>4. <a href="https://www.amazon.com/gp/product/B07ZTXD1R6/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&amp;psc=1">Vacu Vin Wine Saver Pump</a>:</strong> Removes air from your wine bottle to keep wine tasting new for a few extra days.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c6b1eb4c-6dea-41b3-980a-229df7ff6200_1170x1500.jpeg" /></p>
+<p><strong>5</strong>. <strong><a href="https://www.atlys.com/">Atlys:</a></strong> Get a visa for 195+ countries in minutes (not days).*</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9e997470-cc6c-4bdd-a26c-a563aa6a824d_8748x5844.png" /></p>
+<p><strong>6. <a href="https://www.amazon.com/K9-Sport-Sack-Adjustable-Veterinarian/dp/B075ZG46SY?th=1">K9 dog backpack</a>:</strong> For any dog owner in your life. Here’s our little guy in action:</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0ea9bf89-c4ff-466d-b01c-029227440bc9_4032x3024.jpeg" /></p>
+<h2>Books</h2>
+<p><strong>1.</strong> <strong><em><a href="https://www.michellerial.com/">Am I Overthinking This?</a></em></strong> <strong><a href="https://www.michellerial.com/">and</a></strong> <strong><em><a href="https://www.michellerial.com/">Maybe This Will Help</a></em></strong> <strong>by Michelle Rial:</strong> An unofficial box set—my wife’s bestselling first book, <em><a href="https://www.amazon.com/Am-Overthinking-This-Over-answering-questions/dp/1452175861/ref=tmm_hrd_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Am I Overthinking This?</a></em>, and the prequel, <em><a href="https://www.amazon.com/Maybe-This-Will-Help-Feeling/dp/1797211250/?tag=smarturl-20">Maybe This Will Help</a></em>, which just came out this week. They’re great gifts for the chart-lover in your life, and you can get both for under $30.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fdde2141-d5c9-4599-a0ab-0c967bdadd65_1920x1080.jpeg" /></p>
+<p><strong>2.</strong> <strong><em><a href="https://www.amazon.com/Cold-Start-Problem-Andrew-Chen/dp/0062969749/ref=tmm_hrd_swatch_0">The Cold Start Problem: How to Start and Scale Network Effects</a></em></strong> <strong>by Andrew Chen:</strong> After three years of work, Andrew’s book is coming out in two weeks. It’ll be an instant classic, and a great gift for founders and growth teams.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f953973b-493f-4813-8918-d9b862798b1b_1152x1596.jpeg" /></p>
+<p><strong>3.</strong> <strong><em><a href="https://www.amazon.com/Short-History-Nearly-Everything/dp/076790818X">A Short History of Nearly Everything</a></em></strong> <strong>by Bill Bryson:</strong> My current obsession. I’ve learned more about the world per-page than from any other book. A great fit for anyone who’s curious.</p>
+<p><strong>3.</strong> <strong><em><a href="https://www.amazon.com/War-Art-Through-Creative-Battles/dp/1936891026/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">The War of Art</a></em></strong> <strong>by Steven Pressfield:</strong> For anyone in your life doing creative work.</p>
+<p><strong>4.</strong> <strong><em><a href="https://www.amazon.com/Tiny-Beautiful-Things-Advice-Sugar/dp/0307949338">Tiny Beautiful Things: Advice on Love and Life from Dear Sugar</a></em></strong> <strong>by Cheryl Strayed:</strong> For anyone in your life going through real-life sh*t.</p>
+<p><strong>5.</strong> <strong><em><a href="https://www.amazon.com/Ready-Player-One-Ernest-Cline/dp/0307887448/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=1637785838&amp;sr=1-1">Ready Player One</a></em></strong> <strong>by Ernest Cline:</strong> For anyone in your life trying to understand how the coming metaverse may look.</p>
+<p><strong>6.</strong> <strong><em><a href="https://www.amazon.com/Finite-Infinite-Games-James-Carse/dp/1476731713">Finite and Infinite Games</a></em></strong> <strong>by James Carse:</strong> A mind-bending (and short) book that changed the way I looked at life.</p>
+<p><strong>7.</strong> <strong><em><a href="https://www.amazon.com/Sum-Forty-Afterlives-David-Eagleman-ebook/dp/B001TKA0VO/ref=sr_1_1?keywords=sum&amp;qid=1637786189&amp;s=books&amp;sr=1-1">Sum: Forty Tales from the Afterlives</a></em></strong> <strong>by David Eagleman:</strong> Short, hilarious, and infinitely creative.</p>
+<h2>Newsletters (that aren’t already free)</h2>
+<p><strong>1. <a href="https://drawinglinks.substack.com/">Drawing Links</a> by Edith Zimmerman</strong>: A comics newsletter with short illustrated stories about her life.</p>
+<p><strong>2. <a href="https://heathercoxrichardson.substack.com/">Letters from an American</a> by Heather Cox Richardson:</strong> A newsletter about the history behind today’s politics.</p>
+<p><strong>3. <a href="https://2pml.com/">2pm</a> by Web Smith:</strong> Analyzing the intersection of media and commerce and how those principles are applied elsewhere.</p>
+<h2>Home</h2>
+<p><strong>1. <a href="https://www.amazon.com/iOttie-Wireless-Charging-Charger-Qi-Certified/dp/B07GT2G5B3/ref=sr_1_1?keywords=Ottie+Ion+Wireless+Fast+Charging+Stand%2C+Qi-Certified+Charger+iphone&amp;qid=1637782031&amp;sr=8-1">iOttie wireless fast-charging stand for iPhone</a>:</strong> Best device I’ve found to charge my phone at night.</p>
+<p><img alt="Review: iOttie iON Wireless Stand Charger offers good looks, upright iPhone  charging options - 9to5Mac" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/efb5cdef-0b17-4490-a563-35e030da4fe2_1200x628.jpeg" /></p>
+<p><strong>2. <a href="https://www.amazon.com/COCOFLOSS-Coconut-oil-infused-Designed-Cruelty-Free/dp/B0108T9C2E/ref=sr_1_6?keywords=coco+floss&amp;qid=1637777056&amp;sr=8-6">COCOFLOSS Coconut-Oil Infused Woven Dental Floss</a>:</strong> Seriously, try this floss.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9926a742-f1ce-4332-94e2-1df5946063e7_1500x1189.jpeg" /></p>
+<p><strong>3. <a href="https://www.amazon.com/gp/product/B001GAQKKW/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;psc=1">Magnetic Measuring Spoons</a>:</strong> Love these friggin’ spoons. Easy to keep together, easy to use, easy to wash.</p>
+<p><strong>4. <a href="https://www.amazon.com/U-Taste-Heat-Resistant-Non-Stick-Silicone-Stainless/dp/B083SGH6CY?th=1&amp;psc=1">U-Taste cooking tongs</a>:</strong> Useful for mixing, grabbing, dropping, turning—basically, everything.</p>
+<p><strong>5. <a href="https://italic.com/referral">Italic</a>:</strong> High-quality products from the same manufacturers as top brands, but without the brand name and for 50%-80% less. Great for sheets, towels, sunglasses, jackets, shoes, and so much more. Almost too good to be true.</p>
+<h2>Writing</h2>
+<p><strong>1. <a href="https://writer.com/">Writer.com</a>:</strong> A browser extension that helps you write better. Has completely replaced Grammarly for me.*</p>
+<p><a href="https://www.youtube.com/watch?v=a47PbSO5k5g">Watch on YouTube</a></p>
+<p><strong>2.</strong> <strong><em><a href="https://www.amazon.com/Writing-Well-30th-Anniversary-Nonfiction-ebook/dp/B0090RVGW0/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=1637786344&amp;sr=1-1">On Writing Well: The Classic Guide to Writing Nonfiction</a></em></strong> <strong>by William Zinsser:</strong> The book that taught me the most about writing well.</p>
+<p><strong>3. <a href="https://www.amazon.com/Muji-Point-Black-0-38mm-Japan/dp/B01N8QNC59/ref=sr_1_5?gclid=CjwKCAiA4veMBhAMEiwAU4XRr3Q1q3HqaoVkYlq3bj3q8kgXLB4ZHUZLnBlJ7LwNY-Iegmad6GrazxoCxp8QAvD_BwE&amp;hvadid=178329398298&amp;hvdev=c&amp;hvlocphy=9032091&amp;hvnetw=g&amp;hvqmt=e&amp;hvrand=10822700442691433796&amp;hvtargid=kwd-4737523358&amp;hydadcr=27292_10167455&amp;keywords=muji+pens&amp;qid=1637788493&amp;sr=8-5">MUJI gel ink ballpoint pens</a>:</strong> Hard to beat these pens for quality, reliability, and affordability.</p>
+<h2>Other great apps</h2>
+<p><strong>1. <a href="https://handmirror.app/">Hand Mirror</a>:</strong> See what you look like on camera before you start your Zoom.</p>
+<p><img alt="Screenshot of the menu bar with Hand Mirror open, showing a camera view but instead is a screengrab of the BBC kid clip. Rafa is funny he swears." src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3ae7b56e-3530-4e73-ae6d-7051702c54b5_1200x750.jpeg" /></p>
+<p><strong>2. <a href="https://apps.apple.com/us/app/picturethis-plant-identifier/id1252497129">PictureThis</a>:</strong> Magically identify plants just by taking a picture of them.</p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c285c605-f2eb-40d6-a9d6-6868442f03c3_1982x1024.png" /></p>
+<p><strong>3. <a href="https://mem.ai/">Mem</a>:</strong> My go-to note-taking app—and so much more. “As simple as Apple Notes. As powerful as Google Search for your mind.”*</p>
+<p><strong>4. <a href="https://matthewpalmer.net/rocket/">Rocket</a>:</strong> Easiest way to use emojis on a Mac.</p>
+<ol>
+<li><strong><a href="https://www.alltrails.com/">AllTrails</a>:</strong> An unbeatable gift for your outdoorsy friends.</li>
+</ol>
+<h2>Art</h2>
+<p><strong>1. <a href="https://katiegong.com/">Katie Gong</a></strong></p>
+<p><img alt="This Woodworker Puts a Modern Twist on an Age-Old Trade | ideo.com" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/790091ce-b54e-47a7-b80e-8be0fae548d6_1315x640.jpeg" /></p>
+<p><strong>2. <a href="https://www.meghanshimek.com/">Meghan Shimek</a></strong></p>
+<p><img alt="BE124F4A-943A-43F4-A0BD-84FA20A09C35.JPG" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e63fc39e-f1da-4d6a-8d18-86b8d4538477_750x563.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.roaringartistgallery.com/tricia-choi">Tricia Choi</a></strong></li>
+</ol>
+<p><img alt="center_1.png" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/04b52318-a0ff-4b09-9609-5c869f4278ba_1500x1492.png" /></p>
+<p><strong>4. <a href="https://mollykars.com/">Molly Kars</a></strong></p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/81001a48-333a-429a-867b-37a7254eaac4_800x1000.jpeg" /></p>
+<p><strong>5. <a href="https://buyolympia.com/Item/nicole-lavelle-doing-it-anyway">Nicole Lavelle</a></strong></p>
+<p><img alt="Image from Lenny’s holiday gift guide" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/420640ca-d337-4b9a-b5f2-5682953ef1b6_1500x1285.jpeg" /></p>
+<p><strong>6. <a href="https://www.gofundme.com/f/draw-together-classrooms">Donate on someone’s behalf to DrawTogether</a>:</strong> Art kits to boost kids’ creativity.</p>
+<p><img alt="60976951_1636410823565459_r.jpeg" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4576039d-a718-46c3-b716-caa3edfb2e7c_1200x677.jpeg" /></p>
+<h2>Donate to a nonprofit</h2>
+<p>Each month I’ve been <a href="https://twitter.com/lennysan/status/1457072555160838145">donating a portion</a> of my <a href="https://www.lennysjobs.com/">job board</a>’s revenue to a nonprofit that helps underrepresented groups learn tech skills (to eventually fill these open roles). Here are my five favorite charities:</p>
+<ol>
+<li>
+<p><strong><a href="https://wearebgc.org/">BlackGirlsCode</a></strong>: Building pathways for young women of color to embrace the current tech marketplace as builders and creators by introducing them to skills in computer programming and technology.</p>
+</li>
+<li>
+<p><strong><a href="https://www.hiddengeniusproject.org/programs/">Hidden Genius Project</a></strong>: Training and mentoring Black male youth in tech, entrepreneurship, and leadership skills.</p>
+</li>
+<li>
+<p><strong><a href="https://devcolor.org/">/dev/color</a>:</strong> A global career accelerator for Black software engineers, technologists, and executives.</p>
+</li>
+</ol>
+<p><strong>4. <a href="https://techtonica.org/">Techtonica</a>:</strong> Partnering with tech companies to provide free tech training, laptops, living stipends, and job placement to women and nonbinary adults in need in the Bay Area.</p>
+<p><strong>5. <a href="https://www.code2040.org/">Code2040</a>:</strong> Increasing the participation and leadership of Black and Latinx people in the innovation economy.</p>
+<p><em>*If you see an asterisk, I’m an investor or advisor to the company. Mostly because I find a way to invest in the products I love most.</em></p>
+<p><strong>Got anything else to recommend? Leave a comment!</strong></p>
+<p><a href="https://www.lennysnewsletter.com/p/lennys-holiday-gift-guide/comments">Leave a comment</a></p>
+<h2><strong>✨ Happy holidays to you and yours ✨</strong></h2>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

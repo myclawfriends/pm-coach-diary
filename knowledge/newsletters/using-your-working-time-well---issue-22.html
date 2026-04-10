@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Using your working time well - Issue 22 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Using your working time well - Issue 22</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Using your working time well - Issue 22</div>
+    
+    <div class="article-meta">2020-04-21<span>·</span>1,712 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><h2><strong>Q: We all know how crazy and busy it is to be a PM. What tips do you have for managing your time and workload?</strong></h2>
+<blockquote>
+<p>"It is not that we have a short time to live, but that we waste a lot of it. Life is long enough, and a sufficiently generous amount has been given to us for the highest achievements if it were all well invested."</p>
+<p>ー Seneca</p>
+</blockquote>
+<p><a href="https://substackcdn.com/image/fetch/$s_!-rRJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F1e2f8228-7f99-479b-bd34-63a8975444b5_500x281.gif"><img alt="Image from Using your working time well - Issue 22" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1e2f8228-7f99-479b-bd34-63a8975444b5_500x281.gif" /></a></p>
+<p>Using your work time most productively is a never-ending struggle. PMs are particularly prone because they rarely have clear deadlines or well thought out Gantt charts, but this hits all professionals.</p>
+<p>Though I thoroughly continue to struggle with time management myself, I have found a few tactics to be extremely effective. Here are my top five favorite strategies for making the most of my time:</p>
+<h3>1. Block off deep work time (and defend it with all your might)</h3>
+<p><a href="https://substackcdn.com/image/fetch/$s_!qINp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fa36e2b3c-729a-40f4-8ccc-737494a6ca94_1140x645.jpeg"><img alt="How Hollywood Has Predicted VR in Movies - VRScout" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a36e2b3c-729a-40f4-8ccc-737494a6ca94_1140x645.jpeg" title="How Hollywood Has Predicted VR in Movies - VRScout" /></a></p>
+<p>If you haven't read the book <a href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted-ebook/dp/B00X47ZVXM/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Deep Work</a>, please order it now and read it. It's one of the most important professional development books I've ever read.</p>
+<p>Here's an overview of the concept:</p>
+<blockquote>
+<p><strong>Shallow Work</strong>: Non-cognitively demanding, logistical-style tasks, often performed while distracted. These efforts tend not to create much new value in the world and are easy to replicate.</p>
+<p><strong>Deep Work</strong>: Professional activities performed in a state of distraction-free concentration that push your cognitive capabilities to their limit. <strong>These efforts create new value, improve your skill, and are hard to replicate</strong>.</p>
+</blockquote>
+<p>As a PM, it's remarkably easy for <em>all of your time</em> to be spent doing shallow work — answering emails, moving around JIRA tasks, going to endless meetings. Finding time for deep work is essential.</p>
+<p>My trick for creating space for deep work is simple:</p>
+<ol>
+<li><strong>Block off time</strong>: I schedule two-hour blocks of DEEP WORK TIME on Monday, Wednesday and, Friday.</li>
+<li><strong>Protect that time</strong>: Make it crystal clear to everyone that they should not book over these slots. This hyperbolic approach has worked well for me:</li>
+</ol>
+<p><a href="https://substackcdn.com/image/fetch/$s_!LH8K!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F0499dba1-b1e3-4af8-8c15-321e3acd4648_290x272.png"><img alt="Screenshot 2020-04-14 15.43.00.png" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0499dba1-b1e3-4af8-8c15-321e3acd4648_290x272.png" title="Screenshot 2020-04-14 15.43.00.png" /></a></p>
+<p>Go ahead, schedule these blocks right now.</p>
+<h3>2. Make it easy to know what to work on next</h3>
+<p>When you do have time to work, how easily can you decide what to work on next?</p>
+<p>A lot of time is wasted re-figuring out what to work on, or convincing your brain to tackle a vague problem (e.g. “Do budget”). For me, the solution is to have a simple and trusted TODO system that includes two lists:</p>
+<ol>
+<li><strong>Your current set of priorities</strong>, as concrete actions (not vague project names)</li>
+<li><strong>A list of the people you are waiting for</strong>, who are blockers to moving forward on a project</li>
+</ol>
+<p>Everyone's got their own style, but I’ve found the classic <a href="https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0142000280">Getting Things Done</a> system to be life-changing.</p>
+<blockquote>
+<p>One of GTD's biggest benefits is that it makes it easy to see what you have on your plate and choose what to work on next. It also has a strong emphasis on getting your to-dos out of your head and into a system you can refer to. <strong>This clears your mind of any mental distractions that will keep you from working efficiently</strong>.</p>
+</blockquote>
+<p>Whether you try GTD, or some variation, make sure you have a reliable system.</p>
+<p>To keep track of my tasks, I use <a href="https://www.muji.com/sg/products/cmdty/detail/4550182603040">a simple notebook</a> (not an app). Every day, I write out my TODOs for the day, cross things off when they're done, and savor the sweet satisfaction of crumpling up the page when I knock out all of my tasks. Anything I don't get done that day, I re-write for the next day, which has the benefit of (1) reminding me of what I still need to get done, and (2) forcing me to re-evaluate whether I even need to do it.</p>
+<p>Make it easy to know what your priorities are by having a TODO system that you can trust.</p>
+<h3>3. Make it easy to get in the zone</h3>
+<p>Now that you have the time to work, and it’s clear what you should be working on, how quickly and easily can you dive into hard work? I seriously struggle with this. I <em>want</em> to work on the important stuff, but my brain pulls me into the easy, surface-level stuff.</p>
+<p>Three things that have made a huge difference for me:</p>
+<ol>
+<li><a href="https://www.centered.app/">Centered</a> — An app that a friend of mine is building, that combines music, mindfulness, and an elegant TODO system. I use it all day, every day.</li>
+<li><a href="https://magicmind.co/">Magic Mind</a> — A magical nootropics concoction that another friend has recently developed, that helps my brain stay focused like nothing else.</li>
+<li><a href="https://thewirecutter.com/reviews/best-bluetooth-headphones/">Noise-canceling headphones</a> — My <a href="https://www.amazon.com/dp/B07RQ366VK/">Jabra Elite 85h</a> headphones are one of my most favorite possessions.</li>
+</ol>
+<h3><strong>4. Prioritize and communicate</strong></h3>
+<p>Shifting priorities and last-minute asks are consistently one of my biggest time sucks. Here’s an exercise: When you’ve already got a full plate and your manager comes to you with more work, what do you usually say?</p>
+<p>The two wrong answers are:</p>
+<ol>
+<li>Yes!</li>
+<li>No!</li>
+</ol>
+<p>Wait, what? Well, assuming you agree it's a good idea (otherwise share your perspective openly and honestly), I've found a concept called "Prioritize and Communicate" invaluable. This is a technique my last manager taught me for when you are asked to take on more work. It is made up of two steps:</p>
+<ol>
+<li><strong>Prioritize</strong>: Take this new ask and prioritize it amongst the work you already have.</li>
+<li><strong>Communicate</strong>: Tell your manager where you prioritized this ask.</li>
+</ol>
+<p>For example, "Great idea Ms. Manager! I've added this to my priority list, right after X, Y, Z. Let me know if you disagree with that prioritization."</p>
+<p>If your manager is onboard with your prioritization, you're done. If not, take their feedback and go through this cycle again. Either way, you've avoided adding more immediate work, you're now on the same page about priorities, you've set clear expectations.</p>
+<p>Also, it's easy to forget you can actually say no to asks. Whether it's your manager, your peer, or another PM, you can say no. YOU CAN SAY NO.</p>
+<p><a href="https://doist.com/blog/eisenhower-matrix/">This classic framework</a> (which I recently learned is called the "Eisenhower Matrix") can help you decide whether something is worth doing, and if so, when:</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!zNlu!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F67c783c0-c5f5-428f-85bc-4df8c61eaf00_1472x800.png"><img alt="image.png" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/67c783c0-c5f5-428f-85bc-4df8c61eaf00_1472x800.png" title="image.png" /></a></p>
+<h3>5. Be prepared</h3>
+<p>And finally, at the very core of effective time management is simply being prepared. The more ahead of everyone else you are, the easier everything gets.</p>
+<p>Some tips for stay ahead:</p>
+<ol>
+<li><strong>Review your calendar</strong>: At the start of each week, take a few minutes to skim your calendar for the week ahead. Any meetings you should cancel? Any discussions you still need to prepare for? Any emails/docs/actions you need to add to your TODO list? Similarly, skim your calendar for the day each morning, and go through the same exercise. It should take literally one minute.</li>
+<li><strong>Anticipate asks</strong>: Always be asking yourself — What are the next biggest blockers for my team? What is my manager likely to ask of me in the next week? Start working on those things now.</li>
+<li><strong>Put in the hours:</strong> This is an unpopular idea in some circles, but I find that the best way to get ahead was to put in extra hours. I normally set aside a few hours on Sunday evenings, to get ahead of the coming week, plus an hour or two most evenings to get as close to inbox zero as possible.</li>
+<li><strong>Deep work time:</strong> As discussed above, finding deep work time is essential. Have you scheduled a DEEP WORK time blocks yet?</li>
+<li><strong>Say no:</strong> And again, you can say no. As someone smart once said, a YES to one thing is a NO to many other things. How thoughtful are you about what you say yes to?</li>
+</ol>
+<p>A few additional resources for those of you that want to dive deeper:</p>
+<ol>
+<li><a href="https://www.amazon.com/dp/B00X47ZVXM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Deep Work</a></li>
+<li><a href="https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity-ebook/dp/B00KWG9M2E/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=1587056669&amp;sr=1-1">Getting Things Done</a></li>
+<li><a href="https://fortelabs.co/blog/para/">The PARA Method</a> (I haven’t used this personally but I’ve heard great things)</li>
+<li><a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Pomodoro Technique</a></li>
+<li><a href="https://www.amazon.com/Eat-That-Frog-Great-Procrastinating-ebook/dp/B01MYEM8SZ/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Eat That Frog!</a></li>
+</ol>
+<p>Now, close this email, get out of your inbox and get to work!</p>
+<h2><strong>Inspiration for the week ahead 🧠</strong></h2>
+<ol>
+<li><strong>Support</strong>: I’ve been helping out an inspiring COVID-19 relief grassroots effort called <a href="https://www.frontlinefoods.org/">Frontline Foods</a>, which delivers meals to frontline workers from struggling local restaurants. <a href="https://donate.wck.org/give/279046/#!/donation/checkout">Consider a small donation</a>.</li>
+<li>
+<p><strong>Read</strong>: An excellent thread about what makes a great product management</p>
+</li>
+<li>
+<p><strong>Learn</strong>: <a href="https://hunterwalk.com/2020/04/17/did-i-intend-to-stay-there-for-seven-years-hells-no-but-man-its-a-tough-place-to-leave-five-questions-on-startups-newsletters-life-post-airbnb-w-lenny-rachitsky/">A short interview I did with Hunter Walk</a>, diving into my past couple of years</p>
+</li>
+</ol>
+<p>That’s it for this week!</p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

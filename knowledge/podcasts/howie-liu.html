@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How we restructured Airtable’s entire org for AI | Howie Liu (co-founder and CEO) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">How we restructured Airtable’s entire org for AI |…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">How we restructured Airtable’s entire org for AI | Howie Liu (co-founder and CEO)</div>
+    
+    <div class="article-meta">2025-08-31<span>·</span>18,139 words<span>·</span>Howie Liu</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">工程</span> <span class="mini-tag">Podcast</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=GT0jtVjRy2E" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Howie Liu</strong> (00:00:00):<br />
+If you were literally founding a new company from scratch with the same mission, how would you execute on that mission using a fully AI native approach? If you can't, then you should find a buyer and then if you really care about this mission, go and start the next carnation of it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:12):<br />
+Or people that work for you, how have you adjusted what you expect of them to help them be successful?</p>
+<p><strong>Howie Liu</strong> (00:00:18):<br />
+If you want to cancel all your meetings for like a day or for an entire week and just go play around with every AI product you think could be relevant to Airtable, go do it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:27):<br />
+Of the different functions on our product team PM, engineering design, who has had the most success being more productive with these tools?</p>
+<p><strong>Howie Liu</strong> (00:00:33):<br />
+It really does become more about individual attitude. There's a strong advantage to any of those three roles who can kind of cross over into the other two. As a PM, you need to start looking more like a hybrid PM prototyper, who has some good design sensibilities?</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:49):<br />
+Do you see one of these roles being more in trouble than others? Today, my guest is Howie Liu. Howie is the co-founder and CEO of Airtable. I'm having a bunch of conversations on this podcast with founders who are reinventing their decade plus old business in this AI era, to help you navigate this existential transition that every company and product is going through right now. Howie and Airtable's journey is an incredible example of this, and there's so much to learn from what Howie shares in this conversation.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:20):<br />
+We talk about a very interesting trend that I've noticed that Howie is very much an example of, of CEOs almost becoming individual contributors again, getting into the code, building things, leading initiatives themselves. That's something that we call the IC CEO. We also talk about the very specific skills that he believes product managers and product leaders, also engineers and designers need to build to do well in this new world that we're in. Also, how he restructured his company into two groups, a fast thinking group, and a slow thinking group, which allowed their AI investments to significantly accelerate.</p>
+<p><strong>Howie Liu</strong> (00:04:14):<br />
+I'm so excited. Thank you, Lenny. I've been a listener from afar for a while now.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:19):<br />
+I'm really flattered to hear that. I'm also very excited. You've been on quite a journey over the last, is it 13 years, is it longer?</p>
+<p><strong>Howie Liu</strong> (00:04:27):<br />
+Yeah, right about 13.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:28):<br />
+13 years. I imagine there've been a lot of ups and a lot of downs. I want to talk about all those things. I want to talk about a lot of the lessons that you've learned along the way. I want to start with what I imagine was a very surprising down moment in the history of Airtable. This is something that, unfortunately, something I think about when I think of Airtable. I feel other people may feel this way, is there's this tweet that went super viral, maybe a couple of years ago at this point where someone just shared all this data and they're like, Airtable is dead.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:57):<br />
+They've raised way more money than they're worth. They're not making enough to get from underwater. Yeah, Airtable RIP. What happened there? How much of that was true? How did that go?</p>
+<p><strong>Howie Liu</strong> (00:05:06):<br />
+Yeah, so basically none of it was true. I mean, the surprising thing to me was how viral this tweet went when ... Frankly, I actually look back at this person's other tweets. I think they worked at CB Insights, and the irony is the whole point of that business is to have good data, good data quality around private company data. And they just literally had incorrect numbers by a strong multiple on what our revenue scale was, what our growth rate was. And if it gave me some consolation, I look back and this person had also tweeted about other companies, like Flexport was the last take-down tweet.</p>
+<p><strong>Howie Liu</strong> (00:05:45):<br />
+They have like, "Oh, Flexport's dead" and their evaluation is too high, and blah, blah, blah. And so, I think that the more surprising thing was just like this person has been tweeting a bunch of spicy takes that are not substantiated by real data or correct data, and yet this particular tweet went super viral and that was the perplexing part to me. And then, actually, I think what really gave it legs was on the All In podcast, which is obviously super popular. And I listened to it. They covered it. They were like, "Oh, latest on this week's news, this tweet about Airtable. What do we think about this?"</p>
+<p><strong>Howie Liu</strong> (00:06:22):<br />
+And it almost, I think became a way to talk about a broader theme of what happens to this last generation of highly valued companies, maybe decacorn companies in this new ... And at that point, it was the recent moment for both public and private markets. They did also issue a correction though. All In, did a follow-up episode, a few, I think weeks later saying, "Hey, we got the numbers wrong. We are revising our case and a view on Airtable."</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:53):<br />
+What's that line about how a lie gets around the world some number of times before truth has even this time to get out of bed?</p>
+<p><strong>Howie Liu</strong> (00:07:02):<br />
+Yeah. Well, I think I learned about memes and morality very quickly in that experience. Not a very good social media person, but I think I learned a little more.</p>
+<p><strong>Lenny Rachitsky</strong> (00:07:10):<br />
+Yeah, it's tough. Twitter is such ... The incentives are so misaligned. It's just I tweet something people want to share, not truth.</p>
+<p><strong>Howie Liu</strong> (00:07:17):<br />
+Well, especially ... I mean, there's a lot to like ... I would say, I like the post Elon Twitter more than the pre Elon Twitter because it is just bolder, and I guess I really admire bold product execution where you're not just stuck to the current laurels and they've made so many changes, but I do feel like I get injected into my feed very sensational content all the time, and I mean, it works on me. I can't help but to click on it and engage with it, but it does ... I think it does result in this kind of content, really spreading.</p>
+<p><strong>Lenny Rachitsky</strong> (00:07:52):<br />
+Yeah. Now, Nikita running the show, I don't know if you saw this, there's a new ... We don't need to keep talking about Twitter, but there's a new feature where you take a screenshot of a tweet and it has a huge X.com logo watermark on the top, right? Yeah, just to ... People are sharing these tweets all the time. Yeah.</p>
+<p><strong>Howie Liu</strong> (00:08:06):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:06):<br />
+Man. Never a dull moment over there.</p>
+<p><strong>Howie Liu</strong> (00:08:07):<br />
+For sure.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:08):<br />
+Okay. I want to go in a completely different direction, something that I'm really excited to talk to you about, which is this very emerging trend that I've noticed that I feel like you're at the forefront of CEOs becoming ICs again. It's kind of this move of, IC CEOs. CEOs getting their hands dirty again, building again, getting in the weeds, coating again. I feel like you're again at the forefront of this. Talk about just why you've done this, why you think this is important, and just what that looks like day to day to you versus what your life was like a few years ago.</p>
+<p><strong>Howie Liu</strong> (00:08:39):<br />
+The underlying reason for this shift, at least for me, is that, as we started the company, I was very much in this mode. I was literally writing code both on the backend, thinking about the real time data architecture of our platform, also the front end, the UX. And I would argue that in that founding moment, the initial product market fit finding, and especially for a product that is pure software, we weren't building an operationally heavy business like a dog walking marketplace where the tech is only an afterthought.</p>
+<p><strong>Howie Liu</strong> (00:09:11):<br />
+The tech was the product, right? And in a very Meta sense, Airtable is the platform for other people to build their own apps. So it's all about the attack, like the very intimate design decisions, again, both architecturally and on the front end and the product UX choices. That is the product's value prop. You can't separate those two. You can't say, "Okay, I researched the jobs to be done. Here's the workflow, here's the process, and then, okay, some engineer can just build it as an afterthought."</p>
+<p><strong>Howie Liu</strong> (00:09:40):<br />
+It's those little decisions and really be able to be at the bleeding edge of what's possible both in the browser and with the real-time data architecture. That made the product what it was. I think the same is true for Figma, which actually had a very parallel timeline to us. We both were founded around the same time, both spent two and a half years building the product, hands-on that early team before launching. And when I think now to both the era in between that founding moment and then now as well as now the new gen AI moment, I think there was a maturing era of both SaaS overall and Airtable specifically.</p>
+<p><strong>Howie Liu</strong> (00:10:19):<br />
+Where, as you scale up and you learn how to build teams and organizations and you have to scale up stuff that's not actually those intimate details, but process and people and so on, you kind of get by default further and further away from those details, right? And maybe for some businesses that's fine because no longer is it about finding the details that make for a magical new product market fit. And it is really just about scaling up an existing thing that works and using what I would call more blunt instruments to scale it up, like a more blunt roadmap, a more blunt go-to market execution strategy.</p>
+<p><strong>Howie Liu</strong> (00:10:56):<br />
+Regardless, I think that now, we're entering this moment where ... Certainly every software product in my opinion, has to be refounded because AI is such a paradigm shift, it's not even just like the shift from desktop to mobile or on-prem to cloud where that was more like a very one time and somewhat predictable change in form factor. I think AI is so rapidly evolving that with every evolution, every new model release and every new type of capability that's released, it actually implies novel form factors and novel UX patterns to be invented to fully capitalize on those capabilities.</p>
+<p><strong>Howie Liu</strong> (00:11:36):<br />
+And so to be continuously relevant and to refine product market fit in this era, I think you have to be of the details. There is no looking at it from 10,000 foot view and saying, "Oh, we're just going to throw a bunch of people at this problem." It's actually understanding what is the right product experience and the right business model that backs it up and the right ... everything else to support that engine to take advantage of the capabilities in our product domain.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:07):<br />
+You have this phrase somewhere where you talk about being the chief taste maker.</p>
+<p><strong>Howie Liu</strong> (00:12:11):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:11):<br />
+And to do that, you have to do exactly what you're describing.</p>
+<p><strong>Howie Liu</strong> (00:12:14):<br />
+That's right. I mean, I think that, and I would also say it's actually now also hard to taste the soup without participating in at least some part of creating the soup. Meaning With AI, you can kind of look at the final product and say, "Okay, this feels right or not, or it feels like we're being bold enough and we're properly productizing these new capabilities." But I think to really understand the solution space of what's possible, you have to be in the details.</p>
+<p><strong>Howie Liu</strong> (00:12:46):<br />
+I mean, literally, you can't just look at screenshots or a pre-recorded video of a new product feature. AI is something you have to play with, and ideally you're playing with both the packaged up app or solution that you've built with it, but you're also playing around directly with the underlying primitives who are using the models either via API or via a chat interface. You're really pushing them to the boundaries. Because that's the only way that you really understand what these new ingredients. It's like as a chef, you just gained access to amazing new ingredients, but you have to actually get comfortable with them to put them into a new dish.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:23):<br />
+And we had Dan Shipper on the podcast, he runs this newsletter and podcast to product a company called Every. And they work with companies to help them become more AI successful and adopt AI and all that stuff. And I asked him, what's the signal that a company will have success adopting AI and seeing huge productivity gains? And he said, does the CEO use ChatGPT or Claude daily?</p>
+<p><strong>Howie Liu</strong> (00:13:48):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:49):<br />
+And I feel like you're describing exactly, hourly,</p>
+<p><strong>Howie Liu</strong> (00:13:51):<br />
+Literally hourly, or you could even have a measure of inference costs, right? Like the equivalent underlying inference compute cycles, right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:02):<br />
+How many tokens you use?</p>
+<p><strong>Howie Liu</strong> (00:14:03):<br />
+Yeah, I mean, I'm proud to say I am pretty sure I'm still the ... I just checked this recently, but I take pride in being the number one most expensive in inference cost user of Airtable AI, not just within our own company, but I think for a long time I was globally across all our customers vault. I mean, I'm extremely intentionally wasteful. Wasteful in the sense of I'll do something that costs maybe hundreds of dollars of actual inference costs. For instance, doing a lot of LLM calls against long transcripts of let's say, sales calls to extract different types of insights like here's the product apps, identify or here's summaries, et cetera.</p>
+<p><strong>Howie Liu</strong> (00:14:49):<br />
+And we also have now a capability that's basically like an LLM map reduce. So effectively, even if you can't fit the entire corpus of content into one LLM call, because the context window limitations, we'll map through all of this content and break it up into chunks and then perform an LLM call on each one and then perform an aggregation LLM call on those chunks. Very expensive, because you're basically running a highly expensive model against a lot of data and then running it again on the aggregates of that. But for me, hundreds of dollars spent on this exercise is trivial compared to the potential strategic value of having better insights.</p>
+<p><strong>Howie Liu</strong> (00:15:29):<br />
+It's as if a really, really smart chief of staff has gone through and read every single sales call transcript that we've had in the past year and giving me very astute product insights, marketing insights, kind of positioning insights and segmentation insights. That's invaluable. You could pay a consulting firm literally millions of dollars to get that quality of work. So to me, I still think the value versus the actual cost of AI when applied greedily but smartly, it's a crazy ratio. And more people should be aggressively throwing compute cycles at these very high value problems.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:11):<br />
+Until somebody tweets how you're costing the company so much on AI compute and you guys are going to be underwater.</p>
+<p><strong>Howie Liu</strong> (00:16:19):<br />
+I'm just kidding. It's like how we have personally taken down the cashflow profile of the business.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:27):<br />
+So CEO's, founders hearing this, they're probably like, okay, I should probably start doing this. What does this actually look like? I imagine you still have a lot of other stuff you got going on once, you got all these ... How do you change your day to day to do this?</p>
+<p><strong>Howie Liu</strong> (00:16:41):<br />
+Yeah, so I actually cut my one-on-one roster by default, and the idea is not that I don't want to spend time one-on-one with people, but rather that I found that the ... Just having more standing one-on-ones actually precludes me from engaging in more timely topics. I like to think of the best types of meetings as very urgency driven. And there's some timely topic, you've discovered some insight. Maybe I talked to some new startup and I learned something from their product or their approach.</p>
+<p><strong>Howie Liu</strong> (00:17:20):<br />
+And I want to bring that into how we're thinking about a new feature at Airtable or even just plant the seed with some different EPD people within Airtable, I want to make most meetings very timely and very informed by real alpha. There's got to be some kind of value and insight to seed that with. Now, in addition to that, I'll supplement with, when I'm in person with someone, I want to carve out time for a proper catch up and less structured, less timely, and just more of building a relationship with a human.</p>
+<p><strong>Howie Liu</strong> (00:17:53):<br />
+But I actually find that having that common .. It's almost a barbell approach where it's like if you're going to spend time with somebody in a freeform way, actually do it in a high quality, not forced weekly ritual way. Go for a longer lunch or coffee walk or whatever in person when you can. Maybe that's a once every month or two kind of thing. And then the in-betweens are either topical, so we do have standing meetings for ... Now, we have a weekly basically sprint check-in on all of our AI execution stuff, which now is half the company or half the EPD org is working on AI capabilities.</p>
+<p><strong>Howie Liu</strong> (00:18:29):<br />
+We're trying to ship very quickly, like I basically want to always ask the question, how would an AI native company, like a cursor or windsurf, et cetera, how would they execute? And are we executing as fast as them and taking advantage of all the new stuff as well as them? So bringing that level of intensity and urgency to how I spend my time within, that's been the biggest shift for me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:55):<br />
+What's a change you've made to help the company move faster and match that sort of pace?</p>
+<p><strong>Howie Liu</strong> (00:19:01):<br />
+Yeah. I mean, we did do a reorg of the EPD org. So before we had ... we've gone through a few different reorgs over the past, call it, four years. The original state as we just proliferated, I think by default or incrementally, was that we had a bunch of groups that were each responsible for a feature or a surface area. So there was a group responsible for search within our table, and there was a group responsible for mobile experience and so on and so forth. And that has its benefits. Obviously, that team can go and get really ramped up on that part of the code base, that part of the product.</p>
+<p><strong>Howie Liu</strong> (00:19:36):<br />
+But it has the disadvantage of yeah, you tend to think incrementally when everyone's remit is actually a feature that they incrementally improve by definition as opposed to thinking about a mission or a outcome goal that might need to coordinate dramatic changes across a wider set of surface areas instead of just each one incrementally improving. And so, we reorged initially to basically different business units effectively. So I know Airbnb has done the functional to GM back, et cetera. This was more like saying, "Look, we have an enterprise business" and them MO there is more about scalability.</p>
+<p><strong>Howie Liu</strong> (00:20:19):<br />
+Can we support the larger scale data sets and use cases? Do you have the core capabilities needed to be able to push out an app to maybe 10,000 seats or 20,000 seats for product operations? A lot of architecture, a lot of scale, that kind of work. We would have, what we call the teams filler, which is more about self-serve, kind of the product UX, how easy it is to adopt the product on board, share, do all the kind of basic functionality. An AI pillar, solutions pillar, and basically infra. And what we found though with that approach is that there was still ... there was more kind of holistic bets being made.</p>
+<p><strong>Howie Liu</strong> (00:20:58):<br />
+So the team's pillar could think not just about one feature, but the overall onboarding experience where really about Nuxt in a way that touched multiple parts of the product, but it still felt like it wasn't ... Especially as we started to execute more on AI stuff, it wasn't allowing us to aggressively and quickly move as a AI native company would. I mean, when you look at the cursors of the world, they're shipping major new stuff every week. And it's not like, "Oh, well we have this separate roadmap for enterprise, we have this roadmap for this group."</p>
+<p><strong>Howie Liu</strong> (00:21:33):<br />
+And it just feels like one cohesive product that's shipping at a breakneck pace. So we did this recent reorg where now we have what I call the fast thinking group, which officially is called AI platform, but it really means we want to just ship a bunch of new capabilities on a near weekly basis. And each of them should be truly awesome value. You should drop your jaw, how awesome it is to use this new capability in Airtable. And then separately, we have the slow thinking group, and that's not meant to be better or worse. It's literally like you need fast and slow thinking in the common sense to operate as a human.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:12):<br />
+I have that book behind me.</p>
+<p><strong>Howie Liu</strong> (00:22:14):<br />
+Yeah, I love that book. But slow thinking it's like, it's just a different mode of planning and executing, right? It's like more deliberate that require more premeditation. We can't just ship a new piece of infrastructure that has a lot of data complexity like our data store HyperDB that now can handle multi-hundred million record data sets. That's not something you ship in a week in a hacky prototype. So we now have these two separate parts of the company, and I actually think what's really cool is they actually compliment each other very well, right?</p>
+<p><strong>Howie Liu</strong> (00:22:46):<br />
+Because the fast execution, the AI stuff, that creates the top of funnel excitement that also inspires new use cases and new users to come to Airtable, including in large enterprise, right? Enterprises can use this stuff too. It's not just like a SMB thing, but the slow thinking basically allows those initial seeds of adoption to Sprout and grow into much larger deployments. Whereas I think a lot of the challenge for many of the AI native companies I've seen is that they could have a very wide top of funnel, like get all of this AI, tourist traffic.</p>
+<p><strong>Howie Liu</strong> (00:23:19):<br />
+A lot of interest, a lot of early usage, but then sometimes the challenge is how do you turn that into more durable growth and get each of those adoption seeds to retain and expand over time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:33):<br />
+That is super cool. I've never heard of this way of structuring teams, the fast thinking, thinking fast, thinking slow, the Kahneman. It's so interesting for the fast thinking team, do you find there's specific archetypes of people that are successful there? Is it a lot of bringing in new people that are not just used to the way of working at our table? What do you find?</p>
+<p><strong>Howie Liu</strong> (00:23:52):<br />
+We have a mix. So we brought in ... I mean, we're always hiring, right? There was never a point in the company's life where we stopped hiring. And candidly, even when we had to do two rifts, that's significantly reduced our head count. We had just way too quickly grown and overscaled the business at a certain point. But even when we did our rifts, we were still actively recruiting and hiring in ... I mean every major department, but especially in EPD, because it's always been my belief that it would be arrogant to say that we have all the people we ever need already in the roster today, right?</p>
+<p><strong>Howie Liu</strong> (00:24:29):<br />
+We're always going to need to find new, fresh perspectives, new skillsets, et cetera. And so, we've continued to hire ... I think we've learned as we've gone along of what is the ideal type of hire, and we've done some actual hires and learned from that as well. But I think the fast thinking part, it really just requires a lot of ... Somebody who's able to operate with a lot of autonomy, who's entrepreneurial in nature. Now, it doesn't mean they have to literally be a former founder. I know some companies are, like Rippling for instance, does a lot of actual acquisitions and gets actual founders into the company.</p>
+<p><strong>Howie Liu</strong> (00:25:04):<br />
+We found that that's great and we've done some of that as well. But also there are some really, really capable people who we didn't literally have to acquire in, and yet, they're just able to think full stack about the problem and the user experience. Problem, not just meaning the technical layers of the problem, but also, what is the wow factor we're trying to create. So tangibly we're doing this new thing that's about to ship, where not only can you describe the app you want to build and then iterate on it with our conversational agent Omni.</p>
+<p><strong>Howie Liu</strong> (00:25:41):<br />
+And it builds it with the existing air table platform capabilities, but we're also giving it the ability to actually do code gen, to extend those apps with really final mile very bespoke functionality or visuals. So you could say, "Hey, generate me a very, very specific type of map view with this kind of heat mapping and this kind of icons and ..."</p>
+<p><strong>Howie Liu</strong> (00:26:00):<br />
+It's kind of like heat mapping and this kind of icons. And when you click it, do this. And that's a capability that there's so much ambiguity in some of the design decisions around it. And you have to blend that design thinking with some of the technical constraints of what can the AI models actually one shot effectively?</p>
+<p><strong>Howie Liu</strong> (00:26:21):<br />
+And if not, how do you add in the right human workflow for approval and review, and the reprompting and so on? So just so many different design decisions, and you need somebody who can really think full-stack about that kind of product and is not overwhelmed by that kind of open-endedness, but relishes in it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:38):<br />
+I was actually playing with it before we started chatting. I made a really cute startup CRM.</p>
+<p><strong>Howie Liu</strong> (00:26:43):<br />
+Oh, that's awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:43):<br />
+Yeah, started talking Omni over here. It's like the colors are beautiful-</p>
+<p><strong>Howie Liu</strong> (00:26:47):<br />
+[inaudible 00:26:47].</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:47):<br />
+... so that's what's standing out to me right now.</p>
+<p><strong>Howie Liu</strong> (00:26:49):<br />
+[inaudible 00:26:49] there is...</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:50):<br />
+Yeah.</p>
+<p><strong>Howie Liu</strong> (00:26:50):<br />
+I will say just as a note, I consider myself at my core a product UX person. That's my passion. And everything else I've had to learn to run this company is almost like what was a necessary part of the journey. But my real passion is thinking about product UX. And I think of UX in a deeper sense than just the cosmetic design. What you could put into a framer kind of prototype. I think of it as literally what should this product do and how should it represent that and behave for the user? That is the product, in my opinion, right. And of course, then you have to figure out technically what's possible and how to implement it.</p>
+<p><strong>Howie Liu</strong> (00:27:36):<br />
+But I think to me what's under executed today in the world of AI products is there's so many awesome capabilities of AI, and most of them are really under merchandise, and there's very poor, actually, visual or otherwise metaphors or affordances given to users to help represent or understand what those underlying capabilities are. I mean, ChatGPT obviously extremely successful product, so not knocking it at all, but you come in and you just get this completely blank chat box by default, and now they have suggestions underneath and so on.</p>
+<p><strong>Howie Liu</strong> (00:28:13):<br />
+But the product UX part of me is just craving more visual metaphors or colors or some kind of use the canvas of a web interface and all the richness interaction you create there to better represent or show all the different things that you can do with the underlying model, right. And so that's something we've tried to do with Airtable, is show all of the different states and use colors even to play those up.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:44):<br />
+It's interesting how much of this connects with I just had Nick Turley on the podcast. He's head of ChatGPT at OpenAI, and he had these two really interesting insights that resonate directly with what you're describing. One is he has this concept of whenever something is being worked on, he's always asking, " Is this maximally accelerated? How do we move faster? If this is important, what would allow us to move faster?"</p>
+<p><strong>Howie Liu</strong> (00:29:06):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:06):<br />
+And I love that that's one of the themes that's coming up as you talk, is just this creating this very clear sense of speed. And you even call it the fast-thinking team, like, "You are going to move fast." And then the other one is just this insight that with AI, you often don't know what it can do and what people want to do with it until it's out. So there's this need to get it out, and that'll tell you what it should be.</p>
+<p><strong>Howie Liu</strong> (00:29:29):<br />
+I couldn't agree more with both of those, and particularly on the second point, I think it's interesting. Clearly, there have been companies that have both been successful in PLG and more sales-led distribution for AI products. The most notable ones I can think of are Palantir with their AIP deployments. That's obviously very sales-led. You're not PLG into a Palantir deployment. But even companies like Harvey and so on, they're doing very well. And it's primarily, from what I understand, sales-led.</p>
+<p><strong>Howie Liu</strong> (00:29:59):<br />
+You're not self- serving into a Harvey instance at a law firm. And yet, to me, the best way to get AI value out there is experientially, right. And so you can kind of get that in a sales motion. You can show a demo. Maybe you can do a POC, but it's so much more powerful when you just open up the doors and say, "Anyone who wants to come and sign up and trial this product can." And I think to me, it's a real proof point that ChatGPT is arguably the most successful kind of PLG product of all time, just in terms of sheer scale of users. Like they announced 700 million... Is it MAUs or week... I think it's actually-</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:41):<br />
+Weekly active users.</p>
+<p><strong>Howie Liu</strong> (00:30:41):<br />
+Weekly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:42):<br />
+10% of humans on earth use it-</p>
+<p><strong>Howie Liu</strong> (00:30:43):<br />
+That's insane.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:44):<br />
+... weekly.</p>
+<p><strong>Howie Liu</strong> (00:30:45):<br />
+That's insane. In how many years? A few years.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:48):<br />
+Three years. Under three years.</p>
+<p><strong>Howie Liu</strong> (00:30:49):<br />
+Yeah. So I mean, literally, that is just the most insane ramp curve. And I don't think they would've gotten there if you couldn't just come in and literally try the product out. And as a little bit of a rebuttal of the point I made earlier where I think ChatGPT doesn't do a ton right now, and even earlier they did even less to expose all the different ways you could use it, but they just made it so frictionless to just try it for yourself that you as a user could come in and just literally ask it anything and see how it did. And of course, people in the early days tried to stump it and showed, "Oh look, see, it's not that smart. It doesn't answer this hard question really well."</p>
+<p><strong>Howie Liu</strong> (00:31:26):<br />
+But clearly, the magical nature of it still appealed to you enough. Everybody used it. And so I think I do have a view. We've gone through that whole arc of we started PLG. I'd like to think Airtable was one of the PLG darlings of our era. And anyway, I started moving up market and doing more sales execution, although that was still always on top of usually PLG within an enterprise, but we started doing more and more sales execution. We still have that. That's still really important for our business. But I also think, me personally, one of my goals is to shift my attention back into that kind of builder-led adoption and literally showing in the product experientially, not telling in a deck, the value that you can get from AI and Airtable.</p>
+<p>I think that's so key, and it's [inaudible 00:32:23], but it's also more than that. It's not just literally how do you onboard somebody into the product. It's literally thinking about the entire product experience itself, right. And in our case, we just made the entire product experience AI-centric. It used to be that we had kind of this secondary thing that you could ask questions to the assistant sidebar. We now made our agent the default way of doing everything in Airtable, and it's now the Airtable app, as you know, it is almost like an artifact that's manipulated by and can be tool used by the agent.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:58):<br />
+Let me follow that thread. So if you go to Airtable.com today, it looks like basically all the other AI app building sites. Now it's just tell me what you want to build. Thoughts on that, as just a thing everyone's starting to do is there... what do you think comes next? Is this... Is it working well?</p>
+<p><strong>Howie Liu</strong> (00:33:15):<br />
+There's clearly an incredible magic to vibe coding and app building with AI. And this is actually a prime illustration in my view of that concept we talked about a second ago, which is as capabilities of these underlying models evolve, the form factor in the product UX also needs to evolve with it. And so the earliest models, like the kind of original ChatGPT, like GPT-3.5 kind of era models were not nearly as smart as the current models. And so you couldn't really ask it to one shot a more complicated chunk of code, or certainly not like a full stack app, and expect it to work.</p>
+<p><strong>Howie Liu</strong> (00:33:56):<br />
+And so the right form factor for leveraging those models in a software creation context was GitHub Copilot, right. It's like auto-complete a few lines of code at a time. But you couldn't chat to it and tell it, "Build me this entire app from scratch." And I think that as the models got better and better, you saw that the new form factors emerge. I think Cursor did a great job of being an early pioneer of this more age agentic way of leveraging the models to do more complex things and generate more larger chunks of code.</p>
+<p><strong>Howie Liu</strong> (00:34:27):<br />
+And now with Composer, you can literally just go into Cursor and build an app from scratch, build me a 3D shooter game from scratch, and just watch it go and create all the files and fill out each file, and then the thing actually runs some of the time. And so to me, this is where the world is going. The models are clearly getting smarter. And if you think about the original vision of Airtable, it was always about democratizing software creation. We just strongly believed that the number of people who use apps far outweighs the number of people who can actually build their own or manipulate apps and harness custom software to their advantage.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:08):<br />
+That sounds very familiar, very familiar these days.</p>
+<p><strong>Howie Liu</strong> (00:35:10):<br />
+Yeah, exactly. And so I think this is, it's a different means to the same end. And so it's almost like we have to lean into this because if we started Airtable today, this is what we would be all in on. Now I think that the advantage that we have, and I do think you have to be realistic to yourself, especially as a company that predates GenAI and now has to find your new footing in the AI landscape. You can't fool yourself and just say like, "Okay, I'm going to throw in some AI stuff on the landing... on the marketing site, put in a couple AI features, and call it a day."</p>
+<p><strong>Howie Liu</strong> (00:35:43):<br />
+I think you actually have to take a clean slate approach to saying, "How would our mission best be expressed? If you were literally founding a new company from scratch with the same mission, how would you execute on that mission using a fully AI native approach?" And then, by the way, do you have useful building blocks that you can leverage from your existing product and your existing business, or are you literally worse off having this legacy asset versus starting something from scratch? And I don't think the answer is always yes or no. I think it just depends on the product.</p>
+<p><strong>Howie Liu</strong> (00:36:19):<br />
+And if you can't really introspect and say, "Look, I think I'm better off doing this with the pieces that I have for my existing business and product," then I think you should sell. You should find a buyer for that company and then go. And if you really care about this mission, go and start the next carnation of it. In my case, I really thought about this and really feel strongly that the building blocks that we have, these no code components, actually do allow us to execute better on this vision than if I had to start from scratch.</p>
+<p><strong>Howie Liu</strong> (00:36:50):<br />
+Meaning the problem with vibe coding, especially if we're building business apps... So I should clarify that we want to democratize software creation, but specifically, we are focused on business apps. We're not trying to be the platform where you create a cool viral consumer game. This is for like your CRM, right. Or if you want to build an inventory management system as a small restaurant or a lawyer trying to build a case management system, that's what we've always been focused on. And I think in this AI-native world, clearly, you should be able to generate those apps agentically.</p>
+<p><strong>Howie Liu</strong> (00:37:24):<br />
+And yet if you have an agent that has to generate every single bit of that app from scratch, from code, it's going to be very unreliable. There's going to be bugs. There's going to be data and security issues. And then you're also going to have a context collapse, as it just cannot manage all of the code that it's written, basically, as the app gets more and more complex. And what we actually have are basically these primitives that the agent can manipulate and use without having to literally write the code from scratch to represent, "Here's a beautiful crud interface on top of the data layer.</p>
+<p><strong>Howie Liu</strong> (00:37:57):<br />
+Ours is real-time and collaborative, and really rich, and has collaboration on it. And by the way, here's all these other view types and a layout engine for a custom interface, a layout, or automations and business logic." And so it's almost like in programming terms, the Airtable pieces in our Lego kit today can be used by this agent as almost like a more expressive DSL, like a domain-specific language to build business apps instead of literally having to write everything down to the SQL and HTML and JavaScript to build every part of that app from scratch.</p>
+<p><strong>Howie Liu</strong> (00:38:31):<br />
+And so if we can combine the best of both worlds, we have these very reliable, high-quality Lego pieces. Now, an agent can go and assemble them for you instead of you just using the GUI to do that. And by the way, if you do want to fall back to the GUI, there's a really great kind of way for the non-technical user to still understand and participate in what's going on. Whereas if you're not technical, you can't inspect the code underneath a v0 or Lovable or Revolut app, right.</p>
+<p><strong>Howie Liu</strong> (00:38:58):<br />
+It's just kind of opaque to you. And if you can't re- prop it to get what you want, you're kind of stuck. This is much more akin to a developer using Cursor can generate lots of code, but then can still drop back to the IDE to edit and manipulate it to the final production-ready state. So that's kind of the play that we're making. And if I didn't fully and truly believe we have a better shot at doing it with our existing product, I wouldn't be running this company in its form today.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:25):<br />
+I'm talking to a lot of founders that are going through the journey are going on, which is, "We've had a business for a decade, AI emerged, and wow, we got to figure out something that works... that could work even better." And so I'm trying to pull out the threads that are consistently working across these journeys because I think a lot of companies are trying to figure this out. So one that you just touched on is just if you were to start today, what will you do?</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:48):<br />
+What would that business be? Plus, how can... do we have an unfair advantage with the thing we've done in the past? That feels like an important ingredient. And then the other... circling back to stuff you've shared already, there's just creating a sense of urgency and pace and getting people to understand this is how things move in AI, and we need to create this fast-thinking team. I love that metaphor in framing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:11):<br />
+And then there's the point you made about just talking to AI regularly as the founder feels like an important element, just like to truly be this ICCO talking to AI, working with AI regularly. Just on that note a little bit more, just to give people a sense of what this looks like day to day. So you're talking to Omni all day trying to and undertook... flex the power of what you can do and iterate on it. Is there anything else you're doing day to day that helps you figure out what to do for the business?</p>
+<p><strong>Howie Liu</strong> (00:40:38):<br />
+One, I try to use as many different AI products, including not Airtable, as I can, and both literally for the novelty factor and just some new cool demo comes out. Like Runway release their immersive world engine, and so I'm going to go try it out. When Sesame AI put out their cool interactive voice chat demo, I tried that out because even though we don't have a direct and near-term need for really realistic and interruptible voice mode where it's not as core to our capabilities, I just want to understand and get a feel for everything that's out there.</p>
+<p><strong>Howie Liu</strong> (00:41:23):<br />
+And I try to invent little, almost like side projects of my own, to have a real reason to use these products. Like, "Oh, cool. What if I were to take... What if I were to try to create a funny little short... a funny video short using a combination of HeyGen avatars with a script, like a comical script generated by AI? And maybe it'll be on an interesting topic. So I'll do deep research on the topic with ChatGPT and pull together the results, have it compose kind of a little dialogue.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:58):<br />
+Did you actually do this? Is there something you made?</p>
+<p><strong>Howie Liu</strong> (00:42:00):<br />
+Yeah. That's literally an example of something, just a fun weekend project. And to be honest, these things only take you an hour if you become kind of pretty proficient with using the products. They're all so easy to use. You can literally do the deep research thing, kick off query, make a coffee, come back in 20 minutes. Okay, let me prompt it to generate me some dialogue. It's a little bit like what NotebookLM does for you out of the box, but sometimes I like to just do it myself. And then, okay, let me take the script and cut it up and turn it into a HeyGen avatar and then download the video and play it.</p>
+<p><strong>Howie Liu</strong> (00:42:32):<br />
+And just for fun. I'm not trying to make that into an actual YouTube video business. But I think coming up with these different fun weekend projects is a really useful construct to force myself to actually try these products in a more than just a Twitch click way. And what it gives me is, A, it's not just understanding the models, which is also very, very important, right. GPT-5 came out yesterday, and playing around with it a bunch just on a variety of different personal use cases, but there's a difference between just understanding the model but then also understanding the product form factors in which they can be placed, right.</p>
+<p><strong>Howie Liu</strong> (00:43:15):<br />
+Meaning when you apply the model in a more structured way, when you apply the model with different tool calling than maybe what ChatGPT has in its out-of-the-box form, when you apply it with a more agentic workflow, again, that might be different from what ChatGPT gives you out-of-the-box, that's when you kind of learn you really get to inspire yourself on what are the product's form factors that these new models can take. And plus, by the way, I find it to be really fun. There is to me a delight and entertainment value to just using AI, period, because A, it's not perfectly predictable.</p>
+<p><strong>Howie Liu</strong> (00:43:57):<br />
+So I think the element of you're not quite sure what you're going to get. It's like a box of chocolates. And B, it always blows my mind just to think about, "Wow, five years ago we didn't have any of this stuff." AI was like, okay, it's like we can do predictive analytics. There's some basically very advanced kind of regressions that we could run with AI, but it looked nothing like this in its current form, and it's just actually super fun, in my opinion, to get to play around with all the different types of products that come out.</p>
+<p><strong>Howie Liu</strong> (00:44:33):<br />
+I think that is a big part of it because on the point about the pace of the world moving so much faster in AI than any other landscape in SaaS, in the mature SaaS era, it was important to study your competition. If you were building a SaaS company, you'd be crazy not to follow Salesforce every year and see what the major releases they're putting out are, or ServiceNow, or so on.</p>
+<p><strong>Howie Liu</strong> (00:45:03):<br />
+This is the equivalent of that, but there's major new releases and products and so on every week, not every year. And so I just think you have to say abreast of all... of it all and combining this with our point earlier of a lot of this has to be experienced, not just read. You can't just read the write-up on TechCrunch or even a tweet about a new capability. You kind of have to try it to really get a sense of what it is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:33):<br />
+<strong>Howie Liu</strong> (00:47:02):<br />
+One is really, really, really stressing this idea of go play with this stuff. And I mean, when I say play, I really mean play in the psychological sense of there's a difference when you go in and you're kind of just trying to check the box and get a job done. There's a difference when you come in with a curiosity and you're kind of exploring, right. And it's both more fun and energizing, but also, I think you learn more through that. And so I've really tried to stress the value of play with these AI products.</p>
+<p><strong>Howie Liu</strong> (00:47:36):<br />
+And I kind of try to lead by example, by literally going and sharing out links or screenshots of the things that I'm doing in these various products. So, as an example, I will go into one of the prototyping tools and show, "Hey, I built a marketing landing page for this new capability we're launching." I created a landing page for it in Replit, let's say, and now I'm sharing that link. Instead of what typically we would've done in the past is like, okay, we're going to write a doc about it and then share the doc, I'm just going to show you an actual landing page with visuals and everything in there.</p>
+<p><strong>Howie Liu</strong> (00:48:20):<br />
+Or I'll share the actual link to my deep research reports. Or instead of me writing a perfect memo on a topic, I'll actually just prompt my way into getting a chat thread or a chat output that basically covers all the content that I care about and maybe even ask it to, "Okay, summarize this all into a final memo output," and then intentionally share that rather than expose the fact that I'm using AI in this way and here's literally how I'm prompting it so you can follow along as well.</p>
+<p><strong>Howie Liu</strong> (00:48:49):<br />
+But really trying to encourage everyone to go and just play with these products. And I've even said, "Look, if anyone wants to just literally block out a day or frankly even a week and have the ultimate excuse, you could use... you could say that I told you to do it, right. If you want to cancel all your meetings for a day or for an entire week and just go play around with every product, AI product that you can find that you think could be relevant to Airtable, go do it. Period. So I think that's the most important thing is this play, this experimentation.</p>
+<p><strong>Howie Liu</strong> (00:49:25):<br />
+I think there's also a lot of other kind of shifts in how we execute prototypes over decks. I want to see actual interactive demos because, again, it's hard to... In a deck or in a PRD, you could say, "Okay. Well, we're going to make Omni really good at handling this kind of app building." Okay, those are just words. The real proof is in the pudding of like, "Okay, let me try it out on a few realistic prompts that I can imagine."</p>
+<p><strong>Howie Liu</strong> (00:49:49):<br />
+And in a demo, in a real prototype, you can instantly try it out on unrealistic rather than golden pathy scenarios and see how it feels too. Does it feel too slow? Do we need to expose more of the reasoning or steps that are happening behind the scenes? Create a progress bar or something like that. But it's really hard to get that feel of the product with anything but a functional prototype that really does, in an open-end way, use the AI to do whatever you put in.</p>
+<p><strong>Howie Liu</strong> (00:50:24):<br />
+So I think it's more like a experimentation playground it feels like how we need to execute, versus I think, in the past, it sometimes felt like a more deterministic resourcing and kind of timelines view of execution. We're going to put this many people on this problem, and this is the eight-week timeline to this milestone, and then we're going to ship in a quarter from now. And I think now the whole thing is just a lot more experimentation and iteration-driven.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:56):<br />
+Of the different functions on a product team, PM, engineering design, who has had the most success being more productive with these tools, and how do you think this will impact each of these three functions over time?</p>
+<p><strong>Howie Liu</strong> (00:51:07):<br />
+What I found is that it really does become more about individual attitude and maybe some polymathism. There's a strong advantage to any of those three roles who can kind of cross over into the other two, like the hybrid unicorn types.</p>
+<p>So if you're a designer who can be just technical enough to kind of be dangerous and understand a little bit of how these models work and how does tool calling work and all of this stuff, then you can actually design a concept or even prototype a concept, including in these prototyping tools that's much more interesting and maybe realistic than if you're just stuck in the flat like let me put something in a static design concept because I think designs have to be more interactive. The whole... The value of the product and the [inaudible 00:52:04]-</p>
+<p><strong>Howie Liu</strong> (00:52:01):<br />
+... the value of the product and the product functionality is in the interaction of it, right? Think about the design of Chachi Petite. Again, it's the most basic design you could possibly imagine. The real design actually is happening underneath the hood in how it responds to different queries and what happens after you fire off a prompt, right? So I think I found that there are people within each of these functions, there are engineers who are very good at thinking about product and experience and can go and prototype out the whole thing. They're designers who can do the same. Even if they can't literally code, they can prototype something out literally using a prototyping tool.</p>
+<p><strong>Howie Liu</strong> (00:52:42):<br />
+I think that's where AI tooling is also giving more advantage to people who can think in this way by equipping them with an alternative to actually having to go through the long hoops of learning CS, right? Then PMs as well. I think there are some PMs who are really getting into the technical details and studying up on how does this stuff work and actually getting hands-on, rather than seeing the role as writing documents, writing PRDs.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:08):<br />
+Do you see one of these roles, I don't know, being more in trouble than others, just like you need fewer of these people in the future potentially?</p>
+<p><strong>Howie Liu</strong> (00:53:16):<br />
+I think overall you can get more done with fewer people, and that's not to say we want to go and make the team smaller, but rather ... the really cool thing for us and I think a lot of other companies is it's not like you have a finite set of things you need to do and execute on from a product standpoint, and okay, now I can do that with a 10th of people. I mean, you could do that in a lot of cases, but for us, maybe it's also because we're a very meta product, right? We are the app platform with which you can build now any AI app with AI, right? The apps themselves leverage AI capabilities at runtime, whether it's to generate imagery for a creative production workflow or leveraging deep research, or AI-based crawling of the web to search for companies that match a certain criteria for your Dealflow app or something like that.</p>
+<p><strong>Howie Liu</strong> (00:54:10):<br />
+We can effectively leverage all of these other AI capabilities in this app platform, because by definition we're enabling our customers to build apps that have this wide range of AI capabilities. But because of that, it's like we have a almost infinite set of possible AI capabilities that we could execute on, right? I'm always telling the team like, "Look, the great news is it's like we have all these fruit trees and there's so many crazy low-hanging fruit, and you've got literally massive watermelons literally sitting on the ground and all you have to do is walk over 20 feet and pick it up instead of having to climb the really tall coconut tree to grab a hard coconut from 50 feet up. So there's so many watermelons on the ground, just go out and start finding the biggest ones and attacking those, right?"</p>
+<p><strong>Howie Liu</strong> (00:55:03):<br />
+What that means is that if we can build this culture, and I do think it's a learnable way of operating, I really like to believe in the growth potential of any human and any individual. I think if you really have a growth mindset, and that's why one of our most important core values is growth mindset, right? If you really have that growth mindset, I think especially if you're willing to put in the nights and weekends hours, or in my case I'm literally telling people like, take a full day off, take a full week off and learn this stuff, you can become more fluent in this way. I think then what we get is a team that can just go and work on more things in a much more leveraged and fast way, right?</p>
+<p><strong>Howie Liu</strong> (00:55:48):<br />
+So, I like to think people who are willing to jump on the train are just going to become more and more effective. It's not like, oh, as a PM my role is becoming entirely irrelevant, right? No, it means that as a PM you need to start looking more like a hybrid PM prototyper who has some good design sensibilities. By the way, I think some of the best eng PM and design cultures respectively over the past even few decades have always been multidisciplinary in nature, right? The original PM spec at Google required the PMs to actually be somewhat technical so they could understand the engineering limitations of the product designs they wanted to make, and they had to be kind of designy, right?</p>
+<p><strong>Howie Liu</strong> (00:56:33):<br />
+I remember my co-founder, Andrew, when he was in the APM program was always reading books about design, even down to visual design and color theory and that kind of thing, right? So I think it's just a reminder that designers as well, some of the best designers through designer to Apple, including hardware designer, you have to understand some of the technical capabilities of how this stuff works, right? If you're an engineer, I think some of the best engineers and maybe Stripe always had a very good engineering culture of engineers who could think about the product and business requirements. In fact, on any given product group, at Stripe my understanding is that the DRI isn't always the PM as is traditionally the case in that triangle. Sometimes it's actually the engineer who's taking the product lead and saying, this is what we need to build.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:24):<br />
+So, what I'm hearing is essentially the trend across product engineering design is each of those functions needs to get good at one of the other functions at least.</p>
+<p><strong>Howie Liu</strong> (00:57:35):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:35):<br />
+Ideally you can do them all, but if you can just do one additional, so a PM becomes better at design, an engineer becomes better at product management.</p>
+<p><strong>Howie Liu</strong> (00:57:43):<br />
+Well, I would actually go further and say I think you need to get decently good at all three. There's just a minimum baseline of if you're any one of those roles, you need to be minimally good at the other two, and then you can go deeper into your own specialty, right? You could be a designer who's really good at thinking about UX and interaction design, and then just good enough to be dangerous on thinking about what's technically possible and what is the product story around this feature.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:17):<br />
+I love that. To do that, one piece of advice that comes up again and again in what you've been describing is use the tools constantly to see what's possible, and that will teach you a lot of these things.</p>
+<p><strong>Howie Liu</strong> (00:58:28):<br />
+I think, well, use the tools gives you exposure to what's possible, right? It's kind of like if you wanted to be a great industrial designer, and let's say, I mean, the chair is the ultimate hello world of industrial design, it's the canonical design object, you wouldn't just sit there in a vacuum with no familiarity with the materials that you can use, plywood, steel, whatever, or existing form factors of chairs trying to invent the world's best chair in a vacuum, right? You should go and first do a study of all of the best chairs out there today. Go look at an Eames chair, sit in it and try to examine it to reverse engineer how it was made, and just look at the prior art for that type of product. That's how I see the go out and play with these products, and also, I think actually going and designing or implementing or executing is the best practice.</p>
+<p><strong>Howie Liu</strong> (00:59:21):<br />
+So you can't just only go and look at other people's chairs, eventually you have to go and actually try building your own and then try building another one and another one and another one. So, I think that's where ... when I think about how I hone my own product UX sensibilities, I never ... and at that time that I was in school and then learning about this stuff, there wasn't really any good curriculum for UX, right? It's not like there were great college classes to learn product UX. I mean, even CS was very academic in nature at that time, it wasn't applied software engineering, like build an app or whatever. Maybe now at some of the schools like Stanford, MIT, they have actually UXy type courses, but it's still a rarity for most people to have access to that.</p>
+<p><strong>Howie Liu</strong> (01:00:03):<br />
+So, the way I learned all of my product sensibilities was just trial and error and also using and studying other products, and then going and trying to build my own weekend project ideas, right? Oh, I want to build a Yelp style app with a map view and then also a list view, and I want it so that when you pan around in the map for it to automatically update the list view. Maybe there's some UX improvements I can make on top of that, but I can also test my technical skills to figure out which parts of this are hard to implement and how do you make it work, and what are some of the design changes or affordances that you can use to map to the technical possibilities.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:43):<br />
+To do that, I loved your piece of advice, which I forgot to double down on, which I also find really powerful. The best tip there is find something to actually build that is useful to you and fun. Pick a project that's like, okay, this would be fun to do. Have a problem you're solving that forces you to actually do this thing.</p>
+<p><strong>Howie Liu</strong> (01:01:00):<br />
+For sure. Look, I think that can be night and weekend projects, it can also be the daytime job projects, right? I mean, I am basically telling our teams on the AI platform group especially, "Look, in that low hanging fruit metaphor, it's like I'm not being prescriptive with you on which watermelons you should pick, but you should go ..." We do have different pods within that group, but one of them for instance is what we call the field agents team and they're responsible for the agents that work within your app. So this is not the agent that builds your app, but these agents that run on a customer's behalf to do web research on your customers, or they can go and analyze a document and in the future maybe do things like actually generate a prototype of a feature from a PRD or from a feature idea.</p>
+<p><strong>Howie Liu</strong> (01:01:52):<br />
+I'm telling them, "Look, there's a almost infinite number of superpowers you can give these field agents. I'm not going to tell you which specifically to do. Now you can ask me to weigh in for sure, but you should go and just experiment and prototype a few different directions we could go." What if you prototype what it would look like to have a deep research implementation in field agents, so that for any given row of data, let's say in your case it's podcast guests, you can just click a button or click a button en masse across every speaker you have lined up to do deep research powered by ChatGPT's own deep research on each of the speakers and have them all laid out side by side in this table, right? Go prototype that and see how it feels and looks like. So I think some of this stuff can also be in your daytime job, especially if that daytime job is literally to go and build AI functionality.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:46):<br />
+I actually tried to do exactly that. The problem I ran into, I wonder if it's changed, is there's no API for ChatGPT deep research yet as far as I know.</p>
+<p><strong>Howie Liu</strong> (01:02:55):<br />
+There is now, there is now.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:56):<br />
+There is, there we go.</p>
+<p><strong>Howie Liu</strong> (01:02:58):<br />
+Sometimes it ends up being ... and I think they only recently exposed it. It ends up being something on the order of a dollar plus per research call, which-</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:05):<br />
+What a deal.</p>
+<p><strong>Howie Liu</strong> (01:03:05):<br />
+... I mean, again, exactly. I mean, some people would say, oh my god, that's so expensive, and you rack up 50 of those, you've cost $50 a month. I think it's like, well, it just saved you hours of research by a human.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:16):<br />
+Not only that, I actually have a researcher that I pay to give me background on guests that was four or 500 bucks and the dollar sounds great. I've been doing this-</p>
+<p><strong>Howie Liu</strong> (01:03:28):<br />
+[inaudible 01:03:28]</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:28):<br />
+... I've been doing this manually.</p>
+<p><strong>Howie Liu</strong> (01:03:29):<br />
+If he was being smart he would be using deep research and they just collected [inaudible 01:03:33]</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:33):<br />
+They might be. They might just be. Oh, man. Okay, there's one more skill I wanted to talk about real quick. This comes up a lot in these conversations is evals.</p>
+<p><strong>Howie Liu</strong> (01:03:43):<br />
+Okay.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:43):<br />
+The power of getting good at evals, I know that's something you value highly. Talk about just why you think this is something people need to get good at.</p>
+<p><strong>Howie Liu</strong> (01:03:50):<br />
+Yeah, and I listened to your episodes with [inaudible 01:03:54] and Mike who talked about this. I think it's interesting that both heads of OpenAI and Anthropic have converged on this point. I mean, look, I think I would add a slightly different or additive take though, which is I think for a completely novel product experience or form factor, you should actually not start with evals and you should start with vibes, right? Meaning you need to go and just test in a much more open-ended way, like, does this even work in kind of a broad sense?</p>
+<p><strong>Howie Liu</strong> (01:04:28):<br />
+So as an example, for our custom code generation capability, instead of defining evals that get repeatably tested as you vary the prompt or the model or the agentic workflow used to generate these outputs, and you have to define what does good look like by definition for the eval, I would first start with a much more open-ended and ad hoc style of just throw stuff against the wall, try different prompts and see how well it does.</p>
+<p><strong>Howie Liu</strong> (01:05:01):<br />
+To me, evals are more useful, A, once you've converged on the basic scaffold of the form factor and you kind of know what are the use cases you want it to work well for and what you want to test against it. Whereas in the early days, especially if your product market fit finding either for an entirely new company or for a pretty dramatically new or bold new capability that doesn't really have ... it's not an incremental improvement on something that exists in Airtable today, I think you have to just be a little bit more creative initially and throwing stuff at it, seeing what works to understand, okay, let's use an example, we're implementing this new capability that can use basically a long-running AI crawler agent that goes and researches the web for a specific type of object or entity, right?</p>
+<p><strong>Howie Liu</strong> (01:05:55):<br />
+So it's similar to deep research, but what it actually does is instead of outputting a report, it's actually going and compiling a list of things. The things could be companies or people or anything else, right? Find me every Marvel movie ever made, find me every DC Comics spin-off series, literally anything. You have to go in and first just try out a bunch of random ... use your own brain to think of what's the range of use cases I can test this against, right? Then you get back some results and you're like, okay, well, it's clear that where it does really well are these types of searches, people and companies with this kind of parameter.</p>
+<p><strong>Howie Liu</strong> (01:06:42):<br />
+I think to me, evals are useful once you have a sense of what is that cluster of useful use cases, you can start then more programmatically measuring the changes that you're making to improve the output for that, right? But by that point, you've probably already scoped the product and maybe the way we would merchandise it in Airtable is not a completely open-ended capability, but hey, here's a specific capability that can research one of these X number of entity types including people and companies, and here's even the filter conditions or criteria that are more explicit that you can define to give it the prompting to search for that thing, right?</p>
+<p><strong>Howie Liu</strong> (01:07:25):<br />
+But I kind of think it's more useful as a way to iterate your way to improvement, and you can start really testing stuff empirically, right? You can A/B test, especially if you have the scale of a really large product like Anthropic or OpenAI, you can just test everything and see like, oh, this model actually performs better than this one, this prompt performs better than this one, but I think early on you don't have that luxury and you're in a much more open-ended discovery process.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:51):<br />
+That is very wise, evals could constrain you too early. I think about just the Double Diamond, I don't know, IDO framework of be divergent first, and then converge and then maybe-</p>
+<p><strong>Howie Liu</strong> (01:08:01):<br />
+Yeah. Yeah, exactly. I hadn't heard that before, but that completely resonates.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:06):<br />
+Okay, let me try to reflect back some of the advice I've been hearing about how to shift a company to be successful in this new world, and let me see if I'm missing anything that you think is really important. So, one is there's this sense of just reset the expectations on pace and urgency and help people understand in AI things move incredibly fast, this is how we need to operate. Then there's also a piece of get stuff out so that you can learn how people use it and what it's capable of versus polishing it endlessly. Forcing people almost ... I don't know if forcing's the right word, but encouraging people to play with the latest stuff and giving them a chance to take days off or block out calendars, cancel meetings, just stay on top of this stuff to play as you talked about it. Then sharing things they've learned, get the vibes of what's possible.</p>
+<p><strong>Howie Liu</strong> (01:08:54):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:55):<br />
+There's also this idea of just rethink, okay, if we were just start today in this world, what would we do to achieve the same mission we are trying to achieve? Ideally it leverages this unfair advantage we have with things we've been working on for a long time. Then there's just talk to AI constantly every hour as you described.</p>
+<p><strong>Howie Liu</strong> (01:09:16):<br />
+For sure. Yeah, multiple times an hour, if possible.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:16):<br />
+Multiple times an hour, it keeps going up. Is there anything else that I missed there that you're like, you need to do this too to have a chance?</p>
+<p><strong>Howie Liu</strong> (01:09:25):<br />
+I think just to really, really try to break down role silos, and I think that's true certainly for EPND in the typical EPD triangle, but I also think it's probably true even for non-product roles, right? I think it's true in marketing, right? Something I'm really pushing for in marketing and I think our marketing team is really leaning into actually is if you can just do all of the thing yourself ... traditionally how a marketing team might operate is like, okay, you have one person who's responsible for executing the performance marketing part of a campaign. They literally go into the Google AdWords interface and they're tweaking the parameters of targeting and budget and conversion tracking, et cetera, and then somebody else is actually responsible for coming up with the specific ad copy, and somebody else yet was responsible for coming up with the seed content or positioning guide written by a PMM that feeds into the ad creative, and so on and so forth, right? Maybe they're promoting some new demo asset that somebody else yet created.</p>
+<p><strong>Howie Liu</strong> (01:10:35):<br />
+I just think that in the same way that you can collapse the roles in EPD, and the ideal person, maybe they're very specialized and deep in one dimension like engineering, but they're well-rounded enough to be dangerous on the other two, I think that's kind of true in almost every other function, right? Sales as well, I think you should start to be able to play more of an SE role. Traditionally salespeople didn't necessarily know the product that well and relied on the SE to come in and be the product experts. I think it's really hard to sell any kind of AI product now without actually being fluent in the product and be able to demo the product, so AEs need to be SE fluent as well.</p>
+<p><strong>Howie Liu</strong> (01:11:21):<br />
+So I just think that that concept of collapsing roles, everybody needs to become more full stack to do the ... being more outcome-oriented, right? Your outcome as an AE is to convince customers of the value of your product and close deals, right? Okay, well, in order to do that, you used to have dependencies on having assets created by marketing and an SE to help you demo. Can you collapse more of those dependencies so that if you had to, you could do it all yourself, right? I just think it's a new operating mentality overall for every AI native company or company that wants to compete in this new arena.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:06):<br />
+That is a great addition. It almost feels like you go back to startup times when everyone's doing a bunch of stuff. There's no here's the head of product, here's the head of engineering, we're just doing stuff-</p>
+<p><strong>Howie Liu</strong> (01:12:06):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:16):<br />
+... that needs to be done.</p>
+<p><strong>Howie Liu</strong> (01:12:17):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:18):<br />
+Yeah, I'm kind of seeing it as this upside down T where there's the thing you're really strong at and then as you described, the minimum of being good at engineering design or ... and SE, by the way, sales engineering imagine is what that stands for. Adjacent roles, you need to start having a baseline. The baseline is increasing of how much you need to understand that, everyone's Venn diagrams are kind of converging.</p>
+<p><strong>Howie Liu</strong> (01:12:40):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:42):<br />
+Amazing. Okay, let me take a step back and zoom out and think about the broader journey you've been on over the past decade plus. Let me just ask you this, what's the most counterintuitive lesson you've learned about Airtable building and company building teams that maybe goes against common startup wisdom?</p>
+<p><strong>Howie Liu</strong> (01:13:02):<br />
+I heard your interview with Brian Chesky and then later you talked about founder mode in that YC retreat, and the points there really, really resonated with me. I feel like maybe less eloquently I deduced some of the same principles just in my own experience, which is I think when you're scaling up, and this relates also to what we talked about before around the early days of building a company, you're in the details, you're finding product market fit, you kind of have to be pretty versatile, right? All these decisions from a technical standpoint to design, to even commercial, and what's the freemium model going to be like? And how are we going to market this product? What does the website look like? They're all very intertwined, right? You can't compartmentalize and then almost factory produce each of these things separately. They're all intertwined and you have a very small tight-knit team that's thinking full stack about all of this combined.</p>
+<p><strong>Howie Liu</strong> (01:14:04):<br />
+Obviously that's the only way, in my opinion, to create that magical product market fit in the first place. Then I think as you scale up, the default guidance that you often get from operational experts and larger scale company investors is like, okay, you got to industrialize the process of all of this stuff, right? It's kind of like going from a bespoke artisanal, one person made an entire item of clothing to we got to factory produce this thing, right?</p>
+<p><strong>Howie Liu</strong> (01:14:38):<br />
+What that means in an organizational context is you then create these different fiefdoms, you hire all these execs and each exec just manages their own swim lane, and there's relatively looser coupling between all of those different groups, right? So then you've got sales executing on its own thing, marketing's executing on its own thing, product's executing on its own thing. Even within product there's different product groups and surface areas that are each executing on their own thing.</p>
+<p><strong>Howie Liu</strong> (01:15:05):<br />
+Using the factory metaphor of there's an argument that that's actually kind of an efficient way to scale up production for each of these different swim lanes, right? Each one can operate in a more autonomous and purely scale up focus, wait, how do we produce more of this thing? If the thing happens to be within one product group improving search, that's our main focus. We're just going to go and ship, ship, ship more stuff to improve search. So it's not completely crazy why people give this advice, but I think what you lose is the magical integrative value of holistic thinking and making the bigger picture bets, right?</p>
+<p><strong>Howie Liu</strong> (01:15:48):<br />
+I think Brian talked a lot about this on his episode with you, which is like, look, in a company that is really serious about product, first of all, I really liked his point about the CEO has to play a CPO role, you have to care about the product. Ultimately the product is the thing and you can't just coast on scaling up go-to-market around the product forever, you got to keep innovating on the product. By the way, the best way to innovate on the product is not incrementally split over all these different little surface areas, but actually to have a bigger, more step function vision of how this product needs to make a leap, or what's the next big either act of the product or new capability of the product or reinvention of the product, right?</p>
+<p><strong>Howie Liu</strong> (01:16:35):<br />
+So I think if you really care about doing that from a product execution standpoint and almost refinding new product market fit on a regular basis, I think it necessitates a completely different operating and leadership model throughout the organization. All of the stuff we just talked about in terms of how to operate in the AI native era I think is actually exactly the same as how you need to operate in this constant product market refinding of fit state.</p>
+<p><strong>Howie Liu</strong> (01:17:02):<br />
+So I could not agree more with that concept of you got to think ambitiously and move the organization holistically towards these bigger outcomes, but also ship and learn and experiment a lot more in this era. Then maybe the meta learning I had from all of the above is that the specific advice obviously was like, okay, go scale up in this way or go hire these types of people, experienced operators, et cetera. Now, obviously there's some truth to that, right? The people giving this advice are not incompetent. They had some reason for giving it and in certain contexts that is the right thing to do, but I think my meta learning is it's not enough to just trust the recommendation, like, here's the action you should take from a lot of people, 'cause everybody has different priors and it's almost like we're all our own LLMs, and we all have different training from a different corpus of data informed by our own experiences. Maybe you're trained on the service-</p>
+<p><strong>Howie Liu</strong> (01:18:00):<br />
+... experiences, and maybe you're trained on like the kind of ServiceNow or the Oracle training corpus, and this person's trained on the Facebook corpus, and I'm trained on the Airtable one. I think what I've tried to do more and more is not to just ignore advice from smart people. Obviously, that's not the right answer, but to kind of take their... It's almost like in an LLM you can now with a reasoning model actually inspect the chain of thought and see how it's thinking. Why did it come up with this answer? To me, that chain of thought like "Why did you recommend this?", is actually more informative than the actual, "Just do this recommendation."</p>
+<p><strong>Howie Liu</strong> (01:18:44):<br />
+The answer might be like, "Hey, at So-and-So company, this is how we eliminated the PM role entirely." For Brian at Airbnb, it made sense. We're no longer having PMs in their traditional form. Now, we have program managers and product marketers, but more than the actual decision because I don't think it's a one-size-fits-all, everybody should do the same, why did you do that? The why actually was very informative, and then be able to take that and say like, "Okay, how would I apply that?" Maybe it yields a different outcome, but the reasoning actually is very informative.</p>
+<p><strong>Lenny Rachitsky</strong> (01:19:19):<br />
+It's interesting how this idea founder mode is not so different from this ICCO trend that you're following and it's-</p>
+<p><strong>Howie Liu</strong> (01:19:26):<br />
+For sure.</p>
+<p><strong>Lenny Rachitsky</strong> (01:19:26):<br />
+... yeah, yeah, it's like being in the weeds, being in the details, trying things yourself, not delegating to execs.</p>
+<p><strong>Howie Liu</strong> (01:19:32):<br />
+Yeah, and I think anything taken to an extreme can be problematic. There is a world where you are so in the details and in every detail that you're basically just micromanaging and you're kind of creating like a euphemism for that. That's not really what founder mode is about. That's not like the Brian conception of founder mode is to like micromanage everything and not trust anyone, but I think it's more about finding that right balance of being unabashed about caring about the details that do matter and where the tying together of details across different groups or departments actually is the only way to yield a non-incremental outcome. Otherwise, each person is just optimizing within their own domain, but you'll never get to the global maxima or the global breakthrough. </p>
+<p><strong>Howie Liu</strong> (01:20:23):<br />
+I think the really cool thing about CEOs as I seize it, frankly any leader playing more of an IC-like role and being in the details is I think for the right type of person, it's actually more fun that way. I mean, to be honest, for me, the times where I felt most disintermediated from wh</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

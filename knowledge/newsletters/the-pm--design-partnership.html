@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The PM 🤝 Design Partnership — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The PM 🤝 Design Partnership</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The PM 🤝 Design Partnership</div>
+    
+    <div class="article-meta">2021-03-23<span>·</span>2,963 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">組織</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a> and welcome to a ✨ </em><em>once-a-month-free-edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<p><strong>This week’s newsletter is brought to you by…</strong></p>
+<p><img alt="Image from The PM 🤝 Design Partnership" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7707dc53-4ae8-4de2-9156-0c498e8725b8_1600x400.png" /></p>
+<p>The Browser is one of my most favorite newsletters. Why? Because every issue brings me joy. How rare is that. I even broke my rule of avoiding sponsorships because I love The Browser so much. Inside each issue, you’ll find a hand-picked selection of the most interesting, best-written, and most get-your-brain-juices-flowing articles on the Internet. Even if you just read the capsule summaries of each selection, your day will be brighter.</p>
+<p>Special offer for subscribers of this newsletter: <strong>Try an entire month for free, no subscription needed!</strong> Click the button below to claim this offer.</p>
+<p><a href="https://thebrowser.com/lenny/?via=lenny">Get one month of The Browser free</a></p>
+<blockquote>
+<h2>Q: I’m having a hard time working with the designer on my team. Do you have any advice for working with designers?</h2>
+</blockquote>
+<p>When I think about a designer who embodies ideal collaboration and thoughtful partnership with product management, I think of my former colleague <a href="https://twitter.com/lil_dill?lang=en">Katie Dill</a>. Katie and I worked together at Airbnb where she led much of the product design team. Katie then went on to lead design at Lyft, and last month took on the Head of Design role at Stripe.</p>
+<p>I asked Katie for advice on this question, and instead of just sharing a tip or two, she offered to write up an entire guest post sharing specific advice from her experience working with hundreds of PMs. Below you’ll find Katie’s top five tips for building a powerful PM + Design partnership, including:</p>
+<ol>
+<li><strong>Trust the designer’s expertise</strong></li>
+<li><strong>Be the conductor</strong></li>
+<li><strong>Include designers early</strong></li>
+<li><strong>Invest in even the smallest of north stars</strong></li>
+<li><strong>Create shared goals</strong></li>
+</ol>
+<p>I learned a ton from Katie’s perspective, and I know you will too. Let’s dive in!</p>
+<p><em>For more from Katie, you <a href="https://twitter.com/lil_dill?lang=en">can find her on Twitter</a>.</em></p>
+<h1>The PM 🤝 Design Partnership</h1>
+<p><em>by Katie Dill</em></p>
+<p><img alt="Image from The PM 🤝 Design Partnership" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ab7ae3aa-1728-47ce-a85c-e5275f2e09ba_4898x3265.jpeg" /></p>
+<p>Ask a Product Designer what their job is and what you'll hear is likely very close to what a Product Manager (PM) would say about their job: <em>to know what customers need and to deliver it in the form of products that drive the business.</em> This overlap between PMs and designers is a benefit—it means we all want the same thing. But, we often have very different approaches to achieving these goals, which can lead to friction in our collaboration. However, when we embrace our different methods and styles, great things happen! By combining forces—like the Avengers!—we can build much better products.</p>
+<p><strong>Below is a quick cheat-sheet for PMs on how to effectively work with designers.</strong> By understanding how each other ticks, we can collaborate in more effective ways—leveraging both our differences and similarities—and turn one plus one into three.</p>
+<p>Let’s start with a quick reminder of why designers work differently than PMs. While designers come in many different shapes and sizes (e.g., graphic, UX/UI, industrial, service, etc.), <em>generally</em> speaking, all good designers are creative, humanistic, sense-makers, and storytellers. Designers interrogate the present and imagine the future as we aim to create something that is useful, usable, and desirable. These skills are important to your company and are instrumental in driving conversion, loyalty, and efficiency in your business.</p>
+<p>Alas, these skills require special conditions to exist, some of which conflict with the default way of doing business. For example, how often are you talking about your customer’s emotions in your QBR? It’s easy to say design and user experience matter, but if you don’t invest in creating the conditions for design to thrive, chances are it won’t.</p>
+<p><strong>So what can you do to build a stronger relationship with design? My 5 top tips:</strong></p>
+<ol>
+<li><strong>Trust the designer’s expertise</strong></li>
+<li><strong>Be the conductor</strong></li>
+<li><strong>Include designers early</strong></li>
+<li><strong>Invest in even the smallest of north stars</strong></li>
+<li><strong>Create shared goals</strong></li>
+</ol>
+<h3><strong>Tip #1: Trust the designer’s expertise</strong></h3>
+<p>Creative work is very different from analytical work. It’s non-linear and its value is often difficult to measure. While it’s always good to discuss timelines, goals and expectations, be sure to <strong>trust in the designer to know what it takes to do their work well.</strong></p>
+<p>While there are many efforts that are straightforward and do not require reinvention (e.g., industry best practices for a “contact us” page may be just fine ), creative work may surprise you with the time it takes. When something is designed well it often feels simple and obvious. However, the process to get there requires user research, exploration, and a good deal of failure to land on the right answer. Moreover, this time needs to be high quality—uninterrupted—to allow for focus and flow. As Paul Graham notes in his <a href="https://www.paulgraham.com/makersschedule.html">post</a> on Maker vs Manager's schedules, “when you're operating on the maker's schedule, meetings are a disaster. A single meeting can blow a whole afternoon, by breaking it into two pieces each too small to do anything hard in.” <strong>Designers and other makers on your team require this meeting-free time to get into a creative flow and create.</strong> Frankly, you need more of this time, too!</p>
+<p>I guarantee there will be times when you and your design partner disagree about something, and they’re not going to be able to validate their opinion (at least not right away). Prototypes and qualitative research can help de-risk decisions. But some design choices are simply a matter of taste. Assuming your company hired well and you’re working with a skilled designer who is well-informed about the user, the problem and goals, you should defer to them in their area of expertise: the user experience.</p>
+<h3><strong>Tip #2: Be the conductor</strong></h3>
+<p>If you didn’t know it already, the team is looking at you (the PM) to set up the foundation for collaboration. Great PMs are known for their ability to clarify the context—defining problems, goals, and constraints—and tying it all back to the business. In addition, a great PM is a powerful facilitator that can drive communication and collaboration in and outside of the team. It reminds me of a conductor in an orchestra. The conductor doesn’t play all the instruments, but they have a grasp of what the different players contribute and they help coordinate them such that the ensemble is harmonious.</p>
+<p><strong>The best way to coordinate the team and set your design partner(s) up for success is to ensure alignment on the problems to be solved, the mission, and the goals</strong>. You have the opportunity to do this in a way that allows the various experts on the team to leverage their own superpowers. Bobby Rasmusson says this well…</p>
+<p><img alt="Image from The PM 🤝 Design Partnership" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3831053a-0373-4db3-9c27-d75d16eeee82_1198x336.png" /></p>
+<h3><strong>Tip #3: Include designers early</strong></h3>
+<p>While conducting, it’s important to include folks from the beginning so that you and the team can benefit from their expertise throughout the product development process. When resources are tight, a waterfall approach (ie., work moves assembly-line style from one person/discipline to the next) is tempting but has hidden pitfalls. You’ll get richer solutions, more quickly, if you include your expert partners early.</p>
+<p>Doug Collins, a design manager from Western Union states this well...</p>
+<p><img alt="Image from The PM 🤝 Design Partnership" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/547cdbb9-81e3-461a-9c68-f29af896b5c6_1182x280.png" /></p>
+<p>There are three major reasons why including designers early can help the organization save time and money:</p>
+<ol>
+<li>Designers inform the conversation with a salient voice of the user</li>
+<li>Designers catalyze the conversation and drive innovative thinking with creative ideas, visual storytelling and prototypes</li>
+<li>Designers gain greater context, develop a keener intuition for what’s best and are able to drive higher quality execution faster</li>
+</ol>
+<p>I know it can be hard to add yet another person to the room, but the benefit outweighs the risk. A good example is during planning. I have known plenty of PMs that were eager to rush ahead with a list of features they thought the team should build. However, I have seen these same PMs sing a very different tune after including designers in the planning process. They gained a skillful facilitator, a user-advocate, and a powerful storyteller. Conversations were richer and ideas were more thoughtful. And the designers always got invited back.</p>
+<h3><strong>Tip #4: Invest in even the smallest of north stars</strong></h3>
+<p>I have seen PMs get really worried about "north star" work, fearing that it's superfluous, taking the team's precious time away from completing the obvious and urgent work. All that can be true, but it doesn't have to be.</p>
+<p>A north star is a picture of your future product. It can be low or high fidelity. It can be all-encompassing of the different stages of the user journey, or it can be focused on a particular aspect of the product. <strong>A north star is a guiding light that helps align a team on the plan for the product, showing how the pieces will fit together.</strong> Without it, you're liable to miss the opportunity to innovate, are likely to neglect the long-term, and are probably turning your product into a disjointed Frankenstein lacking consistency.</p>
+<p>We used north stars at Lyft for everything from small improvements to a complete transformation of the rider experience. Lyft started with rideshare, but over time added additional forms of transportation to its app: trains, buses, bikes, scooters, rental cars. This was a big change. To help us do it right—and not cobble things together—we had a multidisciplinary team of designers, engineers, and PMs creating a north star for how the app should be with all the forms of transportation included. The north star covered more than we could do in the short term, but it made it clearer what steps should be taken next so that we’d be headed in the right direction in the long term.</p>
+<p>You and your design partner can make sure it's not a waste of time by putting some constraints around the effort as you visualize the destination. Variables to consider:</p>
+<ol>
+<li>Scope - how much of the product experience to include in the vision? <em>A single screen can be envisioned in a day, whereas a new product can take months.</em></li>
+<li>Fidelity <em>-</em> how robust should this north star be? <em>Consider the audience and how the story will best be understood: in words, in a journey map (like a comic strip), wireframes, or full-fledge prototype.</em></li>
+<li>Time horizon - how far out into the future are you planning for? <em>Near-term vision work will include more knowns and be quicker to create, but doesn’t afford you much runway.</em></li>
+<li>Buy-in - who do you need to involve to inform and evangelize the work? <em>Feedback cycles take time but are critical when different parties need to be aligned.</em></li>
+</ol>
+<p>There are no simple answers to these questions. <strong>It essentially comes down to how complex is the problem your team is trying to solve?</strong> If it's simple, minor, and easily changeable you can likely get away with a short whiteboarding exercise to give everyone clarity. However, if the problem you're solving is complex (e.g., new product, or product overhaul), more formal vision work with ample time and fidelity is essential to bring stakeholders together and provide clarity in the long-term.</p>
+<p>For Lyft to reimagine the rider app in a high-fidelity prototype, it took ~6 months with bi-weekly exec reviews. Whereas a vision exercise for the sign-up flow in sketch-form took less than a week. Again, the best move here is to discuss the timeline and goals with your design partner.</p>
+<p>The best part about a north star is that once the team has clarity on the long-term vision, you can usually break it into incremental steps that are easier to roll-out and measure than the whole kit-and-caboodle. The design work for the near-term will now be much stronger because not only will it account for today’s constraints but future plans as well.</p>
+<h3><strong>Tip #5: Create shared goals</strong></h3>
+<p>There's a dangerous tendency for both designers and PMs to talk about "design goals" as distinct from "business goals." This phrasing undermines the importance of the “design goals” and suggests that designers aren't concerned with what drives the business. <strong>Some of the things people call design goals are consistency, usability, accessibility, and delight. Guess what. All of these things drive use, conversion, and loyalty.</strong> All things that are critical to the success of the business.</p>
+<p>What's going on here is a difference in the level of zoom. For example, consistency of the system is a sub-goal of usability which is a sub-goal of conversion. By talking about how these sub-goals relate to each other and play off each other, you and your team can better define, prioritize and sequence shared goals. This is not only essential to align and focus the team but to ensure everyone is motivated by knowing how their priorities connect to the goals of the team.</p>
+<p>Where this can get challenging is when the designer says, “We need to update the buttons so they’re consistent,” and the PM says, “We don’t have time to do it. It’s not as important as these other things right now.” They’re both potentially correct and perhaps the consistency work will need to wait, but ignoring this work just because its impact is indirect or even immeasurable is not an option. The details are notoriously easy to ignore, however when you think about a product that feels high-quality, trustworthy, and simple you’ll see strong attention to detail. While a user is not going to take the time to report a lack of consistency in the button types, and may not abandon your product right away, these gaps will start to make them wonder about where else you fail—Safety? Security?</p>
+<p>Lean on your design partner to help determine the importance of and sequencing of user experience improvements. Many companies set aside time every quarter and/or require a percentage of the roadmap be devoted to the user experience improvements that contribute indirectly to the bottom line. This is certainly better than nothing, but the more you can get it right the first time, the better!</p>
+<p>—</p>
+<p>Many of the above recommendations are good business for any multi-disciplinary team. Collaboration requires empathy, transparency, and respect. The most important thing you can do is have a conversation about how you will work together and check-in with each other frequently. Recognizing our similarities, as well as our differences, makes for a really powerful combination when respected and managed well.</p>
+<p><strong>Lastly, one important recommendation….  stop saying “my designer.”</strong> This phrase sets up a false and unuseful hierarchy. While a subtle change, the phrase “my design partner” makes a world of difference that sounds far more inclusive and better enables collaboration.</p>
+<p>Good luck and happy collaborating!</p>
+<p><em>Special thanks to Lenny, Vanessa Cho, and Liv Jenks for editing help. And thank you all for your terrific responses to my <a href="https://twitter.com/lil_dill/status/1348701440689143811?s=20">question on twitter.</a></em></p>
+<h2><strong>🔥 Job opening of the week:</strong><a href="https://jobs.lever.co/berbix/fbac5a65-6ade-4030-9ad9-b58ee0430e3f">Director of Product at Berbix</a></h2>
+<blockquote>
+<p><em>Berbix is hiring a Director of Product to lead our product team and set our product direction in service of transforming identity online.</em></p>
+<p><a href="https://jobs.lever.co/berbix/fbac5a65-6ade-4030-9ad9-b58ee0430e3f">Learn more</a></p>
+</blockquote>
+<p><strong>Additional opportunities:</strong></p>
+<ol>
+<li><strong>Product</strong>: <a href="https://www.linkedin.com/jobs/view/2438839063">Clearbanc</a>, <a href="https://decent.breezy.hr/p/a976bf37026c-product-lead">Decent</a>, <a href="https://jobs.ashbyhq.com/Rocketplace/11bc424f-e80f-4bab-aa96-517c01a6d511">Rocketplace</a>, <a href="https://transformdata.io/careers/">Transform</a>, <a href="https://docs.google.com/document/d/1VUHSTVfk2HyVfzcryXBGcpgUHrVGCddy1tGvMjGEHao/edit">Twine</a>, <a href="https://boards.greenhouse.io/wrapbook/jobs/4356451003?gh_jid=4356451003">Wrapbook</a></li>
+<li><strong>Growth</strong>: <a href="https://www.basisone.com/careers/growth-strategy-lead">BasisOne</a>, <a href="https://boards.greenhouse.io/spacex/jobs/5032353002?gh_jid=5032353002&amp;gh_src=seekorswimcom">SpaceX Starlink</a></li>
+<li><strong>Design</strong>: <a href="https://jobs.ashbyhq.com/ashby/145ff46b-1441-4773-bcd3-c8c90baa598a">Ashby</a>, <a href="https://jobs.lever.co/berbix/ba8af3cd-d797-492b-9849-13b37df0f6b2">Berbix</a>, <a href="https://angel.co/company/instrumentl/jobs/1175906-lead-product-designer-remote">Instrumentl</a>, <a href="https://jobs.lever.co/office-hours/13d73541-b5b7-405a-9ad8-1d3f0edf9c92">Office Hours</a>, <a href="https://www.notion.so/Designer-San-Francisco-CA-327a70b082714933aef3c58ef63b54ab">Primer</a>, <a href="https://www.notion.so/A-Product-Designer-baa24543701f472bb291d4429812064a">Runway</a>, <a href="https://www.notion.so/Designer-Watershed-7cb7bf8bd750432399d36e83e4e32391">Watershed</a></li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Front-end-Developer-929e1933b9b4432a851043adbb7bff04">Practice</a></li>
+<li><strong>Backend engineer</strong>: <a href="https://www.notion.so/Driveway-Senior-Engineer-758d5ce4ce764f9ea920c5728ee136f3">Driveway</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Backend-6d954206f00b446289f18bf51960ca34">Pogo</a>, <a href="https://reclaim.ai/job-site-reliability-engineer/">Reclaim</a>, <a href="https://transformdata.io/careers/">Transform</a>, <a href="https://boards.greenhouse.io/wrapbook/jobs/4204786003?gh_jid=4204786003">Wrapbook</a></li>
+<li><strong>Fullstack engineer</strong>: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://www.notion.so/emporii/Senior-Full-Stack-Engineer-5a149801dcfa4ce89a43ccdc19857daa">Emporii</a>, <a href="https://icebreaker.video/product-engineer">Icebreaker</a>, <a href="https://www.notion.so/askiggy/Full-Stack-Engineer-IggyAPI-5a8c1825028e421b9587538718f370b4">Iggy</a>, <a href="https://get.mem.ai/careers#product-engineer">Mem</a>, <a href="https://www.notion.so/A-Product-first-Full-stack-Engineer-5e056689b68048aeb1ccfea6ac73eb9e">Runway</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpas</a>s, <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/senior-full-stack-developer_paris_SORAR_Y1eay7e">Sorare</a>, <a href="https://jobs.lever.co/stytch/00c92a1b-36c2-46f6-8af1-885a6bbd6bd4">Stytch</a>, <a href="https://boards.greenhouse.io/wrapbook/jobs/4222865003?gh_jid=4222865003">Wrapbook</a></li>
+<li><strong>Mobile engineer</strong>: <a href="https://www.notion.so/Senior-Software-Engineer-iOS-San-Francisco-CA-87f0fd3ee3dc4c3f8d0419c07fcdd434">Primer</a>, <a href="https://jobs.lever.co/stytch/d3bf3860-4aaa-4a23-8e28-dad20957be44">Stytch</a></li>
+<li><strong>Game economy designer</strong>: <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/game-economy-designer_paris_SORAR_kYW8MjK">Sorare</a></li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

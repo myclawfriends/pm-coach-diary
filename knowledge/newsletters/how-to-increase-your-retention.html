@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to increase your retention — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to increase your retention</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to increase your retention</div>
+    
+    <div class="article-meta">2020-08-25<span>·</span>1,619 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span> <span class="mini-tag">領導</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>Below is a peek at what paid subscribers received this week. If you’d like to read the full post, <a href="https://www.lennyrachitsky.com/subscribe">consider upgrading</a>. Many subscribers expense this newsletter to their team’s learning and development budget, and a growing number of fund are offering it as a value-add to their portfolio companies (just ask!). For everyone else, next week’s post will available to everyone (the free monthly post) and I’m super excited about it, so stay tuned for that!</em> ❤️</p>
+<h2><strong>Q: It'd be great if you can share some advice about increasing retention. Also, please some companies who are doing this very well.</strong></h2>
+<p>If you read <a href="https://www.lennyrachitsky.com/p/what-is-good-retention-issue-29">my previous post about what good retention looks like</a> and came away thinking “On no, my retention is too low! What should I do?” – this post is for you.</p>
+<p>Below I’ll share an exhaustive set of strategies to increasing your product’s retention, including dozens of examples from companies big and small. Here’s a preview:</p>
+<p><img alt="Image from How to increase your retention" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c41dd98d-2ab1-4e94-bff6-ee3d889228d3_2400x1350.png" /></p>
+<p>Be warned though — significantly increasing retention is hard.</p>
+<p><img alt="Image from How to increase your retention" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/92756a72-4a0a-4293-8aa6-dc29c2167ba9_1082x614.png" /></p>
+<p>Why is that? Well, because people are busy and don’t want to spend more money. As Marc Andreessen once said, “people’s time is already fully allocated.” This is why most startups fail – they simply don’t end up creating something enough people want badly enough. And if they do happen to find something people sort-of-want, it’s difficult to make them want it significantly more. Nevertheless, this doesn’t mean you shouldn’t try. As <a href="https://brianbalfour.com/">Brian Balfour</a> pointed out, “if you have poor retention, nothing else matters.” As you’ll see in the examples below, it is certainly possible to increase retention, and when you can pull it off it’s often the biggest lever you have to grow your business. For early-stage companies, <em>it’s the single most important growth metric to get right.</em></p>
+<p>So let’s dive in.</p>
+<h1><strong>First, how does one measure retention?</strong></h1>
+<p>The easy (but less useful) way to measure retention is by looking at the percentage of active users that are no longer-active a month/week/day later, e.g. “5% of our users churn each month.” Though useful, this approach blends old and new users, and thus hide a key piece of information about the health of your business: how many of your users stick around long-term.</p>
+<p>Instead, I suggest looking at what’s called <strong>cohort retention</strong>: <strong>What percentage of new users are still active X months/weeks/days later?</strong> e.g. “30% of users are still active after 3 months.” This allows you to look at the long-term stickiness of your users, vs. just a snapshot of all users in time.</p>
+<p>The best way to understand cohort retention is to make a chart like the one below (in this case weekly cohort retention). In this case, only 14% of users who joined the week of May 5th are still active ten weeks later. Not good.</p>
+<p><img alt="Image from How to increase your retention" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3050de6e-5634-47e2-accc-9ccfe0c63cb8_1456x1018.png" /></p>
+<p>With his one chart, you can quickly tell three important things about your business:</p>
+<ol>
+<li><strong>Whether your retention is increasing or decreasing over time</strong> — just skim down any column and see if the numbers are trending up to down. In this example, retention is trending down 😭</li>
+<li><strong>Whether something went very wrong, or very right, for a cohort</strong> — in this example, something good seems to have happened the week of May 19th, which is worth exploring (and repeating).</li>
+<li><strong>Most importantly, whether your retention rate</strong><strong><em>flattens</em></strong> — if it flattens, or stops decreasing over time, that means there is a group of users who continue to find value in your product. This is important because it happens to be <a href="https://www.lennyrachitsky.com/p/how-to-know-if-youve-got-productmarket">the best measure of product-market fit</a>.</li>
+</ol>
+<p>To make it easier to look for this flattening, you can use a line chart of the same data, with a different line for each cohort (note, this is different data from above):</p>
+<p><img alt="retention curve" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9ca377ac-974a-4096-a221-3f7d1dbeccbd_800x567.png" /></p>
+<p>In this case, the curve flattens at about 10%, which means only 10% of your users stick around long-term. This is generally <a href="https://www.lennyrachitsky.com/p/what-is-good-retention-issue-29">a bad retention rate</a>. But at least it flattens. And if you look at the newer cohorts (the short blue line, and the purple line below it), retention seems to be increasing over time, which is great. Though for some reason, every cohort eventually drops to 10% around the 7-week mark — a mystery for another time.</p>
+<p>If you use popular analytics tools like <a href="https://help.amplitude.com/hc/en-us/articles/230543327-Retention-Analysis">Amplitude</a>, <a href="https://help.mixpanel.com/hc/en-us/articles/115004546883-Retention-Report-Basics">Mixpanel</a>, <a href="https://support.google.com/analytics/answer/6074676?hl=en">Google Analytics</a>, or <a href="https://mode.com/help/articles/cohort-analysis-for-customer-retention-and-churn-rate/">Mode</a>, this functionality is built-in and you can get these two charts for free. Otherwise, you can find some plug-and-play templates <a href="https://andrewchen.co/the-easiest-spreadsheet-for-churn-mrr-and-cohort-analysis-guest-post/">here</a>, <a href="https://blog.usejournal.com/how-to-perform-cohort-analysis-calculate-customer-ltv-in-excel-80bfed785ec4">here</a>, or <a href="https://docs.google.com/spreadsheets/d/1BWhbks4NhDOAoy3GEosD_PBff5eM5OfUYDcdQggw8ao/edit#gid=0">here</a>.</p>
+<p>Now that you know your retention rate, I’m guessing it’s lower than you’d like. Let’s work on that.</p>
+<h1>How does one improve retention?</h1>
+<p>Coming at this question from first principles, what does it tell you when someone stops using your product? Well, it means that they no longer find enough value in your product. Your task is to change that.</p>
+<p>Here are the seven ways increase the rate of new users finding value in your product, and thus increase retention, ranked roughly in order of expected impact:</p>
+<ol>
+<li>🛠 <strong>Improve your product —</strong>deliver more value for users</li>
+<li>👋 <strong>Improve your onboarding —</strong>connect more users to existing value</li>
+<li>⛓ <strong>Make it stickier —</strong>make the value hard to give up</li>
+<li>✋ <strong>Catch users before they leave —</strong>give them an excuse to stay</li>
+<li>☝️ <strong>Remind users of your value —</strong>deliver value more often</li>
+<li>💫 <strong>Bring back users after they’ve gone —</strong>remind them what they’re missing</li>
+<li>😬<strong>Change your users —</strong>target a more suitable audience</li>
+</ol>
+<p>Though not totally accurate, here’s a metaphor for what you’re trying to do:</p>
+<p>Let get this party started and dig in.</p>
+<h2>1. 🛠 <strong>Improve your product</strong></h2>
+<p>This is at the very heart of retention. If you’re just starting out, much of your time should be spent here. “Build something people want”, as they say. Here are a few ways you can increase the value you providing to your users:</p>
+<h4><strong>1. Solve your customer’s problem significantly better</strong></h4>
+<p>Obvious, but important. How might you solve your customer’s problems 10x better? What are your users trying to do that you can make 10x easier? What would a customer’s <em>ideal</em> solution look like? Work backward from that.</p>
+<h4><strong>2. Solve more problems</strong></h4>
+<p>How might you expand the breadth of the problem’s your solving for your customers? e.g. Uber launching many types of car services, Instacart adding Walmart, and Insagram adding Stories</p>
+<h4><strong>3. Make your product cheaper</strong></h4>
+<p>How might you increase the ROI of your product?</p>
+<h4><strong>4. Make it faster and more reliable</strong></h4>
+<p>How might you make the user experience act (or feel) significantly better?</p>
+<h4><strong>5. Wait for network effects to kick-in</strong></h4>
+<p>In businesses with network effects, like marketplaces (e.g. Airbnb) and social networks (e.g. Snapchat), the “product” becomes more valuable as more people use it. How might you bootstrap your network to get there more quickly for each user?</p>
+<h4><strong>6. Wait for the world to change</strong></h4>
+<p>Sometimes it’s better to be lucky than good.</p>
+<p><img alt="Image from How to increase your retention" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9cb8c486-e710-4de3-8ecf-31cfe921cf10_1028x1092.png" /></p>
+<h4><strong>7. Pivot to solving a different problem</strong></h4>
+<p>And finally, you may be better off pivoting to a different solution (or problem) if you can’t budge retention enough.</p>
+<p>But note:</p>
+<blockquote>
+<p>“The standard advice of listening to long-term customers who are already retained, and adding features for them— that doesn’t work. But that’s where most product teams spend their time. In my experience, the real levers to improve retention dramatically are in the experience for new users.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p>With that, let’s explore the lever that usually ends up being the most effective: onboarding.</p>
+<h2><strong>2.</strong>👋 Improve your onboarding</h2>
+<p>As Andrew points out above, and as I’ve myself experienced, you’re more likely to have an impact on retention when improving the new user experience, vs. improving the product. Why? Because, again, it’s very hard to invent (sustainable) new customer value — you’re lucky if you found <em>one</em> thing that people like. It’s much easier to get more people to experience the value you’ve already created.</p>
+<p>Here are a handful of ways to improve onboarding:</p>
+<h4>1. Manually onboard new user</h4>
+<p>Superhuman is famous for <a href="https://twitter.com/rahulvohra/status/1159611299740803073?lang=en">their 1:1 onboarding strategy</a>, but in reality, many companies (particularly B2B) start with a hands-on onboarding. Why? Because it’s a lot easier to get your message across person-to-person vs. through the product. Here’s an example from Airtable:</p>
+<h4><strong>2. Make sure new users experience your value</strong></h4>
+<p>How much work, and how long, does it take for new users to experience the value that you provide? What keeps these users motivated to keep going? How could you cut that time down and keep their motivation up, without sacrificing the experience?</p>
+<blockquote>
+<p>“The first principle we learned at Pinterest is that we should get people to the core product as fast as possible — but not faster.”</p>
+<p>— <a href="https://news.greylock.com/why-onboarding-is-the-most-crucial-part-of-your-growth-strategy-8f9ad3ec8d5e">Casey Winters</a>, former head of growth at Pinterest</p>
+</blockquote>
+<p><a href="https://www.lennysnewsletter.com/p/how-to-increase-your-products-retention">Continue reading full post 👉</a></p>
+<p>Till next week!</p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

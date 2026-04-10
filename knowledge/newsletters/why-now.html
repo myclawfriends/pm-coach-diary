@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why now — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Why now</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Why now</div>
+    
+    <div class="article-meta">2021-07-21<span>·</span>2,191 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m raising money for my startup and I keep being asked, Why now? What’s the reason that what I’m building is only possible now? I don’t have a great answer. How important is it to have a “why now”?</h2>
+</blockquote>
+<p><strong>Short answer:</strong> Having a strong “why now” certainly gives you a better shot at building a large and enduring business (for the reasons I cover below), but it isn’t absolutely essential. Companies like SpaceX, Airbnb, Pinterest, DoorDash, Instacart, Facebook, and Netflix had little if any <em>why now</em>. But these companies all executed like crazy in a large market, and in many cases succeeded because they rode a new trend later in their life (e.g. Netflix and broadband). Bottom line, if there isn’t a great reason why your startup is only possible now, don’t despair—you still have a shot at building a big business, but know that you’ll need to work even harder.</p>
+<p><strong>Long answer:</strong> With the help of a bunch of smart investors, Twitter, and my own research, I’ve collected <em>why now</em>s for dozens of businesses (see below), and through this research, I’ve come to some unexpected conclusions:</p>
+<ol>
+<li>You can build a massive business without an immediate <em>why now</em></li>
+<li>A <em>why now</em> is helpful because it creates two distinct advantages</li>
+<li>There are five sources of <em>why now</em></li>
+<li>Your <em>why now</em> can emerge later</li>
+<li>You can still absolutely fail with an amazing <em>why now</em></li>
+</ol>
+<p><em>Huge thank-you to Sarah Tavel, Ann Miura-Ko, Bill Trenchard, Josh Elman, Alexander Taussig, Garry Tan, Eric Vishria, and everyone who shared their insights <a href="https://twitter.com/lennysan/status/1415439833846083586">in this thread</a> for contributing their wisdom to this post</em> 🙏</p>
+<p><img alt="Image from Why now" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/854d849d-6b5f-4108-b7d5-71e9219dcfd7_2362x6260.png" /><img alt="Image from Why now" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/82cfc1ab-f339-49a3-a398-8486d40a1ed0_2352x3938.png" /></p>
+<h3>1. A strong <em>why now</em> creates two distinct advantages</h3>
+<p>Why do investors look for a <em>why now</em>? Because the odds that you’ll succeed go up. Investors are bet takers, and they would prefer to place bets where they see a higher expected return.</p>
+<blockquote>
+<h4>“The importance of the ‘why now’ has a lot to do with the reason venture capital exists. Venture capital works because there is justification for being an unprofitable company at the outset because the opportunity later on is so huge, compounded by the fact that getting in early enables the startup to gain advantage.”</h4>
+<h4>—<strong>Ann Miura-Ko,</strong> Floodgate Capital</h4>
+</blockquote>
+<p>A strong <em>why now—</em>a change in the world<em>—</em>opens up one of two major advantages for your startup:</p>
+<h4><strong>1. It can unlock the ability to provide a 10x better product</strong></h4>
+<ul>
+<li><strong>WebGL in browsers:</strong> Figma</li>
+<li><strong>Adoption of fast broadband in homes:</strong> Netflix, Twitch, YouTube</li>
+<li><strong>Smartphones with accurate GPS, 3G, and release of Google Maps API:</strong> Uber and Lyft</li>
+<li><strong>Good enough camera on smartphones:</strong> Instagram</li>
+<li><strong>Changes in legality of marijuana:</strong> Eaze</li>
+<li><strong>Release of Gmail APIs:</strong> Superhuman</li>
+<li><strong>Release of car navigation databases:</strong> MapQuest</li>
+<li><strong>Advancements in battery technology:</strong> Tesla</li>
+</ul>
+<h4><strong>2. It can create a new untapped market need</strong></h4>
+<ul>
+<li><strong>Acceleration of fintech:</strong> Plaid</li>
+<li><strong>Acceleration of e-commerce:</strong> Shopify, Etsy, Pinduoduo</li>
+<li><strong>Acceleration of the number of online businesses:</strong> Stripe, Google, AWS</li>
+<li><strong>Acceleration of e-sports:</strong> Twitch</li>
+<li><strong>Increase in devices per person:</strong> Dropbox</li>
+<li><strong>COVID-19:</strong> Zoom, Peloton, Clubhouse, Hopin, OnlyFans, etc.</li>
+</ul>
+<blockquote>
+<h4>“I think of markets like currents, not whether or not they are big bodies of water. The stronger the current, the higher your chance of success. ‘Why now’ is often a description of a current— a macro one. The move to cloud, the employment/cultural trends driving the creator economy, etc. are all tremendous <em>why nows</em>.”</h4>
+<h4>—Sarah Tavel, Benchmark</h4>
+</blockquote>
+<p>If you can build a 10x better product, and/or discover a growing untapped market need, you could get away without a strong <em>why now</em>. Which brings us to our second point.</p>
+<h3>2. You can build a massive business without an immediate <em>why now</em></h3>
+<p>Prior to this research, I was sure that you needed to have a strong and immediate <em>why now</em> in order to build a large and enduring business. It was instilled in me through everything I learned about investing and starting a company. It turns out this is not necessarily true. Many successful companies had no strong <em>why now</em> when they got started, and instead succeeded mostly through the sheer will of their founders and great execution:</p>
+<ul>
+<li>SpaceX</li>
+<li>Airbnb</li>
+<li>Pinterest</li>
+<li>DoorDash</li>
+<li>Facebook</li>
+<li>Instacart</li>
+<li>GitLab</li>
+<li>Cameo</li>
+<li>Duolingo</li>
+<li>TripActions</li>
+<li>Netflix (DVD version)</li>
+</ul>
+<p>You could argue that there were macro trends that explain why a DoorDash or an Instacart were only possible in 2013 versus a decade earlier (e.g. increased adoption of smartphones, growing expectation for on-demand services, etc.), but to me, these don’t feel fundamental to their success at that moment in time.</p>
+<blockquote>
+<h4><strong>“Of course any startup benefits from the tightest definition of</strong> <strong><em>why now</em></strong><strong>—if the company literally couldn’t have existed without the ‘why now.’ Platform, technology, regulatory shifts are all examples of this. Uber would not have been possible without smartphones + GPS. Salesforce wouldn’t have been possible without maturity of web browsers + widespread broadband.</strong></h4>
+<h4><strong>But great companies can also just ride one or more trends to success. The company clearly could’ve existed without these trends but wouldn’t have been nearly as successful.”</strong></h4>
+<h4><strong>—Bill Trenchard, First Round Capital</strong></h4>
+</blockquote>
+<p>One way to think about this is to look at <em>why now</em> in terms of time horizons. The more recent the change, the stronger the current. COVID-19 drove many businesses to new highs (e.g. Zoom, Peloton, Clubhouse). The move to the cloud continues to help spur new businesses, but it has much less of an impact on whether a business succeeds or not. If you can catch an existing large current (e.g. SaaS) and execute like crazy, you’ll still have a shot at building a big business.</p>
+<p><img alt="Image from Why now" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f63ea1df-9dd3-48ca-9330-7fcf55d6325f_2516x2780.png" /></p>
+<p>As Bill points out, so many factors contribute to the success of a startup beyond a <em>why now,</em> including:</p>
+<ol>
+<li>Founders</li>
+<li>Product</li>
+<li>Distribution advantages</li>
+<li>Business model</li>
+<li>Market size</li>
+<li>Unique insights</li>
+<li>Luck</li>
+</ol>
+<p>Of the companies with weak <em>why nows</em> above, they each succeeded in large part because they were able to build a 10x better product, irrespective of timing:</p>
+<ul>
+<li><strong>Airbnb</strong>: Cheaper and more interesting accommodations</li>
+<li><strong>DoorDash</strong>: Better way to get food</li>
+<li><strong>Instacart</strong>: Better way to get groceries</li>
+<li><strong>Pinterest</strong>: Better way to organize design ideas</li>
+<li><strong>SpaceX</strong>: Better and cheaper way to go to space</li>
+</ul>
+<blockquote>
+<h4>“At the highest level, truly disruptive startups typically differentiate or innovate across one or more of three dimensions:</h4>
+<h4>1. Product - Most common thing investors anchor on is product or technology innovation</h4>
+<h4>2. Business model - Less appreciated, the way that a company charges for or monetizes a product or service</h4>
+<h4>3. Distribution - How the product gets in the hands of customers</h4>
+<h4>Just doing one really well will generally lead to success. If you can innovate on two or three simultaneously, you often become a truly transformative company.”</h4>
+<h4><strong>—Bill Trenchard, First Round Capital</strong></h4>
+</blockquote>
+<h3>3. Your <em>why now</em> can emerge later</h3>
+<p>For many companies, there was no real <em>why now</em> when they got started, but the world changed around them and gave them a huge wave to ride.</p>
+<blockquote>
+<h4>“PayPal started as a way to transfer money between PalmPilots, but during the course of building it, just one feature stood out: web payments. The PalmPilot apps were just an excuse to start and build, giving them a chance to discover this bigger opportunity. The random walk to product market fit does happen.”</h4>
+<h4>—Garry Tan, Initialized Capital</h4>
+</blockquote>
+<p>Additional examples:</p>
+<ul>
+<li>Netflix, and broadband adoption</li>
+<li>Facebook, and <a href="https://twitter.com/soleio/status/1415788188619116547?s=20">growing digital camera adoption among college students</a></li>
+<li>Airbnb, and the 2008 recession</li>
+<li>Zoom/Peloton/Shopify/Instacart, and COVID-19</li>
+</ul>
+<h3>4. There are five sources of <em>why now</em></h3>
+<p>Building on the two distinct advantages that a strong <em>why nows</em> bring, it appears that there are five sources of <em>why now</em>:</p>
+<p>Unlocks the ability to provide a 10x better product:</p>
+<ol>
+<li><strong>Ubiquity of new technology</strong> (e.g. Figma and WebGL, Netflix and broadband, Tesla and batteries)</li>
+<li><strong>Newly available data or APIs</strong> (e.g. MapQuest and navigation databases, Superhuman and Gmail APIs)</li>
+<li><strong>Changes in regulation</strong> (e.g. Eaze and marijuana regulation, Cerebral and loosening telemedicine restrictions)</li>
+</ol>
+<p>Creates a growing untapped market need:</p>
+<ol>
+<li><strong>Change in people’s behavior</strong> (e.g. Shopify and the rise of e-commerce, Plaid and the rise of fintech)</li>
+<li><strong>Change in people’s beliefs</strong> (e.g. Coinbase and belief in crypto, Robinhood and the lack of trust in big banks)</li>
+</ol>
+<p>When thinking through your own <em>why now</em>, figure out which of these five buckets timing most benefits you. Even better, there’s more than one.</p>
+<h3>5. You can absolutely fail even with an amazing <em>why now</em></h3>
+<blockquote>
+<h4><strong>“As an example, a lot of people (me included) thought that there was an inflection point happening with respect to drones back in 2010. I forgot that the FAA’s regulatory hurdles would keep adoption properly in check, so even though we were seeing dramatic changes to product capability and even business model possibilities, there was not going to be exponential increase in adoption until some of the regulatory hurdles were taken down.”</strong></h4>
+<h4>—<strong>Ann Miura-Ko,</strong> Floodgate Capital</h4>
+</blockquote>
+<p>Also:</p>
+<ul>
+<li><strong>Quibi:</strong> COVID-19</li>
+<li><strong>Cherry, Homejoy:</strong> Adoption of other on-demand apps</li>
+</ul>
+<p>Don’t expect an incredible <em>why now</em> to save you.</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://medium.com/@m2jr/how-to-build-a-breakthrough-3071b6415b06">How to build a breakthrough</a> by Mike Maples, Jr.</li>
+<li><a href="https://sarahtavel.medium.com/how-to-build-an-enduring-multi-billion-dollar-business-hint-create-a-10x-product-recast-3527df2b8fcb">How to build an enduring, multi-billion-dollar business</a> by Sarah Tavel</li>
+<li><a href="https://cdixon.org/2014/12/21/two-eras-of-the-internet-pull-and-push">Two eras of the internet: pull and push</a> by Chris Dixon</li>
+</ol>
+<p>And finally, a closing thought from Alex:</p>
+<blockquote>
+<h4><strong>“One reason that we ask the question is something my partner Jeremy Liew likes to call the ‘<a href="https://en.wikipedia.org/wiki/Here_be_dragons">Here be dragons</a>’ effect. Sailors used to explore different corners of the world, but those who went to certain regions never came home. Cartographers would just put dragons on these regions of the map to imply, ‘Well, we don’t know what’s there. We just know the ships that go there don’t come home. So it may as well be dragons!’</strong></h4>
+<h4><strong>For every good idea, there are probably dozens of founders over the years who have attempted to build a company around a similar premise. And most of them are like those ships that never returned. We don’t really know what happened to them. We just know they never came back. It follows from there that, if you’re working on an idea, someone probably tried it before and failed, so what’s different now? We’ll never know what caused the other ships to sink, so let’s at least try to figure out why now is different.”</strong></h4>
+<h4>—Alexander Taussig, Lightspeed Venture Partners</h4>
+</blockquote>
+<p>If you have any insights, thoughts, or questions, leave a comment and let me know!</p>
+<p><a href="https://www.lennysnewsletter.com/p/why-now/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Whatnot</strong>: <a href="https://pallet.xyz/list/lennys-jobs/job/c9d0007f-e954-4306-8776-11d994395e67">Product Manager</a> (Remote—US)</li>
+<li><strong>Truework</strong>: <a href="https://pallet.xyz/list/lennys-jobs/job/288da35c-9090-4186-8d57-e269611288f3">Senior Product Manager</a> (San Francisco)</li>
+<li><strong>Staffy</strong>: <a href="https://pallet.xyz/list/lennys-jobs/job/ed0b504b-4fa3-48bc-9716-684750df3e80">Head of Product</a> (Toronto)</li>
+<li><strong>Quidax:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/fd33811d-4b9d-40e5-b041-46db566f2d95">Product Director</a> (Toronto)</li>
+<li><strong>Cord:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/67d8080e-c51b-4574-ade8-cab0693984a5">Head of Product</a> (London)</li>
+<li><strong>Rally:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/55e10d59-13ea-461a-bdaa-fe8ad989b41b">Founding Product Manager</a> (Remote—Global)</li>
+<li><strong>Crusoe:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/4bd3b894-fa7b-4f31-9022-04ca611ceaeb">Senior Product Manager</a> (SF, Denver)</li>
+<li><strong>Squarespace:</strong><a href="https://pallet.xyz/job/84d30ce6-d293-4de6-a1bc-b9b7f0656440?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager/Product Manager</a> (NYC)</li>
+<li><strong>Piñata Farms:</strong><a href="https://pallet.xyz/job/9f90d5d9-288a-477d-b14b-8b4a9c589a87?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (LA)</li>
+<li><strong>Properly:</strong><a href="https://pallet.xyz/job/beefb83d-8775-4052-96e6-72d8f62ca3ef?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Toronto, Remote—US)</li>
+<li><strong>Clearco</strong>: <a href="https://pallet.xyz/job/82497ce0-6faa-4aa7-a321-86d525a23cd7?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager - Capital Partnerships</a> (Remote—US)</li>
+<li><strong>SnapStream Media</strong>: <a href="https://pallet.xyz/job/8bec1419-8512-4c77-b7a9-3351dfea8afe?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager</a> (Remote—Global)</li>
+<li><strong>Pragli:</strong><a href="https://pallet.xyz/job/75075700-7078-4664-a498-df280d166a9e?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Designer #1</a> (Remote—US)</li>
+</ol>
+<p><em>Browse many more open roles (or add your own) at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read</strong>: <a href="https://www.mnei.nl/schopenhauer/38-stratagems.htm">38 ways to win an argument</a></li>
+<li><strong>Read:</strong> <a href="https://www.adweek.com/performance-marketing/who-influences-the-influencers/">Who influences the influencers?</a></li>
+<li><strong>Watch</strong>: <a href="https://www.youtube.com/watch?v=B3FKtBNEBRc">The Incredible Logistics of the Tokyo Olympics</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=B3FKtBNEBRc">Watch on YouTube</a></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

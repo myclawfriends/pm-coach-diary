@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get your entire team prototyping with AI — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get your entire team prototyping with AI</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get your entire team prototyping with AI</div>
+    
+    <div class="article-meta">2025-06-10<span>·</span>4,619 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">領導</span> <span class="mini-tag">工程</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">組織</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><a href="https://www.linkedin.com/in/colinmatthews-pm/">Colin Matthews</a> holds the distinct honor of having not one but <em>two</em> posts in my top 10 <a href="https://www.lennysnewsletter.com/?sort=top">most popular posts of all time</a>. Today he’s back with a post that I suspect will make it three.</p>
+<p>I love Colin’s stuff because it’s always rooted in the real-life problems that product builders actually run into with AI tools—and he articulates the solutions so simply and practically. I’m excited to keep collaborating with him to help us all learn how to go from hype to reality. Let’s get into it.</p>
+<p><em>For more from Colin, check out his <a href="https://maven.com/p/becb6f/product-development-lifecycle-with-ai-prototyping">free 45-minute live online class</a> coming up on July 8th, and his course <a href="https://maven.com/tech-for-product/ai-prototyping-for-product-managers?promoCode=LENNYSLIST">AI Prototyping for Product Managers</a> (which kicks off on June 30th; use code LENNYSLIST to get $100 off). You can also <a href="https://teams.techforproduct.com/">book Colin for one-day team workshops</a> with your team.</em></p>
+<p><em>P.S. If you prefer, you can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/2e8ff549-677d-4cce-b38c-8176c8c461dc_1456x1098.png" /></p>
+<p>Since I first shared a <a href="https://www.lennysnewsletter.com/p/a-guide-to-ai-prototyping-for-product">guide to AI prototyping for product managers</a> in January, AI prototyping tools have become immensely popular. It’s now more common than not for product teams to use v0, Bolt, Replit, or Lovable to build a quick prototype to share their ideas and get feedback.</p>
+<p>After having taught more than 500 PMs over the past five months how to get the best out of these tools (along with another 10,000 in numerous free online lightning lessons), I’ve seen two questions come up most often when people try to use these tools in real life:</p>
+<ol>
+<li>How do you make your prototypes look good enough to show customers or senior stakeholders?</li>
+<li>How do you successfully adopt these tools as a team, instead of a lot of individuals working in silos?</li>
+</ol>
+<p>These common questions are the reasons product, design, and engineering teams are struggling to figure out team workflows for AI tools. Without handoff guidance or high-quality prototypes, AI prototyping is left to explorations and experiments, which are hard to operationalize and scale.</p>
+<p>In this post, I’ll walk you through three ways to create component libraries that consistently create great mocks; team workflows to reduce rework; and a step-by-step guide on how prototypes should be used. I’ll also give you plenty of time-, token-, and headache-saving tricks for most popular AI prototyping tools. I’ll be including <a href="https://v0.dev">v0</a>, <a href="https://bolt.new">Bolt</a>, <a href="https://www.cursor.com/">Cursor</a>, and <a href="https://www.magicpatterns.com/?via=tfpl1">Magic Patterns</a> in this post, but these techniques work with any AI prototyping tool.</p>
+<p>To give you a quick example of what’s possible, here’s an Airbnb prototype I built with a single prompt: “<em>Build a homepage and a listing details page.”</em></p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/83eb4332-a6d7-430c-a570-c8b023ac0681_810x453.gif" /></p>
+<p>Let’s get started!</p>
+<h2><strong>Component libraries</strong></h2>
+<p>Component libraries are the first big improvement you can bring to your team. They allow you to maintain branding and consistent styling without having to manually clean up each prototype to look like your product. Building a component library will take some up-front effort, but you’re also building reusable assets that will greatly improve the quality of your prototypes going forward and save you time after the initial investment.</p>
+<p>There are three different approaches to building component libraries with AI prototyping tools, with different advantages and tradeoffs in effort and output:</p>
+<ol>
+<li>Screenshots</li>
+<li>Chrome extensions</li>
+<li>Code</li>
+</ol>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/34d32270-55dc-4a08-8b81-9fbf7c058613_2912x2140.png" /></p>
+<p>Let’s go through each and discuss their tradeoffs.</p>
+<h3><strong>Method 1: Screenshots</strong></h3>
+<p>Screenshots are the easiest way to start building a component library. You don’t need any technical expertise, and this approach works with any tool.</p>
+<p>Start by prompting your favorite AI prototyping tool with the following:</p>
+<p><code>You are tasked with creating a component library based on a screenshot using React, and Tailwind CSS.</code></p>
+<p><code>All components should be custom-made to match the screenshot as closely as possible.</code></p>
+<p><code>Follow these instructions carefully:</code></p>
+<p><code>1. Analyze the provided screenshot.</code></p>
+<p><code>2. Identify distinct UI components in the screenshot. These may include, but are not limited to, ◦ Buttons ◦ Input fields ◦ Navigation bars ◦ Cards ◦ Modals ◦ Typography elements</code></p>
+<p><code>3. For each identified component:</code></p>
+<p><code>a. Create a React functional component.</code></p>
+<p><code>b. Use Tailwind CSS classes to style the component, matching the visual design in the screenshot.</code></p>
+<p><code>c. Ensure the component is responsive and accessible.</code></p>
+<p><code>d. Add any necessary props for customization.</code></p>
+<p><code>e. Include a brief comment describing the component’s purpose.</code></p>
+<p><code>4. After creating all individual components, create an index page that imports and displays each component with example usage.</code></p>
+<p><code>Remember to use only custom-made components and Tailwind CSS classes. Do not use any external libraries or pre-built components.</code></p>
+<p><code>Strive to match the visual design in the screenshot as closely as possible while maintaining good coding practices and component reusability.</code></p>
+<p>Let’s give this a try with v0, re-creating a Google Calendar UI. Remember to include a screenshot!</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/f6b3e2f9-7e1c-4d0f-868c-8a78df59e155_796x613.jpeg" /></p>
+<p>Here’s our initial result:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/883135d3-0c4a-4dda-9fc0-de2d932f25d9_1334x748.gif" /></p>
+<p>One quick note: You may end up with a reproduction of the screenshot instead of a list of components. These AI tools are very tuned to reproduce screenshots, so you may need to push it with one more prompt, like <em>“Instead of showing me a page that re-creates the UI, the index page should be a list of components in the component library.”</em><br />
+From here, you can continue adding more components by pasting in additional screenshots with the prompt <em>“Add these components as well.”</em> If you want to refine the components, I recommend starting with this prompt:</p>
+<p><code>“List the differences between the screenshot and your implementation. How can you match the design more exactly? Don’t code.”</code></p>
+<p>This technique (called reflection) makes it easy to leverage the AI to quickly make UX improvements.</p>
+<p>Once you have your component library complete, pause! You’ll want to create a fork of the project and start to use your components in a new project. Your forked project will automatically reuse your components to assemble your design like Legos. Again, this technique works in any of your favorite AI prototyping tools. (Here’s how to create a fork in each AI prototyping tool: <a href="https://support.bolt.new/building/using-bolt/projects-files#duplicate-projects">Bolt</a>, <a href="https://www.perplexity.ai/search/how-to-create-a-fork-in-v0-m6V2aWHwQZqx8UCQZWzEgg">v0</a>, <a href="https://docs.lovable.dev/user-guides/quickstart#remix-an-existing-project">Lovable</a>, <a href="https://docs.replit.com/getting-started/quickstarts/remix-an-app">Replit</a>, <a href="https://www.perplexity.ai/search/how-to-create-a-fork-in-magic-tGrNnh7RRWOZvNSDMrNeyg">Magic Patterns</a>.)</p>
+<p>For example, we can prototype an AI agent in Google Calendar that blocks deep-work slots with a simple prompt like <em>“Create a Google Calendar main page view that has an AI scheduling assistant to recommend deep-work blocks.”</em></p>
+<p>Here’s the result:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/2e5aab6f-96f0-4f41-8056-5b3d6e9404ae_1456x695.gif" /></p>
+<p>Spending time to improve your components is worth it. Every prototype made using them has better visual quality, is less distracting to stakeholders, and allows conversations to focus on the specific elements that are being tested.</p>
+<h3><strong>Method 2: Chrome extensions</strong></h3>
+<p>The next option for creating component libraries is to use Chrome extensions. As of today, <a href="https://www.magicpatterns.com/">Magic Patterns</a> is the only tool that supports extracting components from a webpage directly.</p>
+<p>Using the extension is simple: Select a UI element, extract its styling, and turn it into a reusable component.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/b9eb6753-fee8-49a7-8701-43708be6b3a0_810x444.gif" /></p>
+<p>I like to fire off multiple of these extracts at the same time to create as many components as I can in a short period of time. Once they land in Magic Patterns, you can continue to prompt your way through refinements.</p>
+<p>The real magic comes in using these components. Let’s try the prompt <em>“Build me a channel view of YouTube.</em>”</p>
+<p>Here’s the result from a single prompt:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/b4479d89-0d28-4082-aeb6-8bc7c6233495_810x405.gif" /></p>
+<h3><strong>Method 3: Code</strong></h3>
+<p>The last way to build a component library is with code, using your real components. This approach requires the most effort but will provide you with prototypes that are indistinguishable from your real product. You’ll need assistance from engineering, and the overall effort and complexity will depend on your codebase and company size. This option is most realistic in smaller companies or those with more technical designers and PMs.</p>
+<p>To start, your engineering team will need to set up the repository so you can run the front-end application locally without having to connect to any back-end services or databases. This can be accomplished by creating a new entry point for the client-side app that mocks up the API responses. Once you have your local environment running, you can use an AI code editor like Cursor or Windsurf to prototype.</p>
+<p>Here’s an example of an app I’m working on. All of the information you see is mocked up client-side, with no servers or databases connected.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/4f3d0de7-2dac-4017-a94f-3074ae6f16ec_1600x876.gif" /></p>
+<p>This approach works best if you’re comfortable with GitHub, branches, and running basic terminal commands.</p>
+<p>Another way to leverage code to get more accurate components is with the new <a href="https://www.figma.com/blog/introducing-figmas-dev-mode-mcp-server/">Figma MCP server</a> (which just launched last week!). In case you’re unfamiliar, MCP is a protocol that allows AI agents to retrieve information or take actions in another application. In this case, we can use the Cursor agent to make calls to Figma’s MCP server to retrieve detailed styling information, and then transform that into components.</p>
+<p>Figma currently supports four MCP actions:</p>
+<ol>
+<li>Get Code</li>
+<li>Get Variable Definitions</li>
+<li>Get Image</li>
+<li>Get Code Connect</li>
+</ol>
+<p>This effectively gives Cursor the ability to autonomously take screenshots, extract design tokens, and get CSS from Figma’s Dev Mode.</p>
+<p>Here’s a quick side-by-side of a Figma <a href="https://www.figma.com/community/file/1267195373409722424/design-system">design library</a> and the same components reproduced in code.</p>
+<p>Figma:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/69d956a0-c7af-400f-bd7f-250504bb946f_1128x922.png" /></p>
+<p>Code:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/e59bc1bb-ef87-42d9-8064-532dcc3c6d21_810x468.gif" /></p>
+<p>Here are the steps to build your components using Figma MCP:</p>
+<ol>
+<li>Enable the Figma MCP server for the design you want to work with (Preferences, then Enable Dev Mode Server). This will provide you with a URL to connect to.</li>
+<li>In Cursor, go to Settings, MCP Tools, and “Add a new MCP server.” Paste in the URL provided by Figma.</li>
+<li>Copy a component URL from Figma by right-clicking and selecting “Copy as URL.”</li>
+<li>Ask Cursor to generate this as a component, and to make your index page a list of components.</li>
+</ol>
+<p>So far, I’ve found this works best if you have <em>existing</em> components Cursor can mimic, or provide clear instructions for how the code should be formatted.</p>
+<p>This option is very new but also very exciting for design teams who want to leverage their existing component libraries with AI prototyping tools.</p>
+<p>To summarize, component libraries give your team a set of shared artifacts that make it easy for anyone to create realistic prototypes with AI. Your component library can be shared across your entire team, making it easy to onboard new team members and maintain high-quality visuals for testing directly with customers or in meetings with senior stakeholders.</p>
+<h2><strong>Team workflows</strong></h2>
+<p>Now that you have components to help you create realistic prototypes in a flash, let’s talk about team workflows. There are two workflows I want to cover:</p>
+<ol>
+<li>Baselines and forks</li>
+<li>Product development lifecycle</li>
+</ol>
+<h3><strong>Workflow 1: Baselines and forks</strong></h3>
+<p>Baselines and forks are an extension of the component libraries strategy. With components, you’re giving team members a head start by providing building blocks they can easily assemble into good-looking prototypes. “Baselines” go one step further, giving you a high-quality reproduction of your current product experience, allowing your team members to more easily experiment with new ideas using simple prompts. Forks build on this further, allowing you to duplicate a project and all of its contents without using any tokens, and keep you from screwing up your baseline.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/353ed3d8-4f36-492d-92fa-24131b3855ad_2912x2140.png" /></p>
+<p>This is best explained with an example.</p>
+<p>Let’s say I’m the PM at Airbnb working on the new Experiences product. This is a product that features the most unique and interesting experiences around the world. Using baselines and forks, I’ll start by reproducing the current page and then explore a few new ideas.</p>
+<p>Creating the initial page with my component library took me about 20 minutes, mostly ironing out all the little details to make the prototype really look like Airbnb (see my <a href="https://www.lennysnewsletter.com/p/a-guide-to-ai-prototyping-for-product">previous guide</a> for advice on fine-tuning your prototypes). Here’s how it looks:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/e57b11d4-19a4-4279-9f3b-597c3abe7583_1456x722.jpeg" /></p>
+<p>By the way, here’s the real site:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/036f085e-5a93-4a30-bf79-b3b85de845cb_1456x742.jpeg" /></p>
+<p>Now that I have this page, I’ll treat it as my “baseline.” I won’t make any more changes and instead create a fork.</p>
+<p>On the fork, I’ll enter a single prompt: “<em>Modify this page so that it runs through a questionnaire to determine experiences that I would like before showing me experiences. Maintain the Airbnb branding.</em>”</p>
+<p>Here’s the result:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/3c86b02d-4bcd-49c4-a5bc-0098e3a5721f_1456x725.gif" /></p>
+<p>Now let’s test another idea: using the customer’s past travel history to suggest relevant experiences.</p>
+<p>Again, I create a fork from the baseline. On the new copy, I prompt, <em>“Modify this page so it shows me experiences I would like based on my past travel history with Airbnb. For each recommendation, add a UI element that says ‘based on your trip to. . .”</em></p>
+<p>Here’s the result:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/05a81208-a8fd-4be6-bdf0-6046efb2afdc_1456x797.jpeg" /></p>
+<p>Baselines and forks are best used when you want to explore multiple different ideas without having to rebuild the starting page each time. They provide your team with another leg up in getting high-quality results quickly when using AI prototyping tools.</p>
+<h3><strong>Workflow 2: Product development lifecycle</strong></h3>
+<p>If you implement everything we’ve covered so far, you’ll be dramatically ahead of the average AI prototyping noob. But it’s very possible that your PMs or designers will still prototype in isolation. Creating a shared understanding for your team for when to use AI prototypes is just as important as knowing how to get good results.</p>
+<p>Before we get into the product development lifecycle, I want to briefly touch on fidelity. For a long time, we’ve had low-fidelity scratch-pad versions of UIs, and high-fidelity mocks for the polished finished product. AI prototyping introduces medium fidelity—better than a napkin drawing but still not as good as your finalized Figma mocks.</p>
+<p>Here’s an example of a mid-fi mock of Reddit. At first glance, it seems correct, but you’ll notice lots of imperfections, like two buttons for upvoting, too much padding on the left navigation, and the top right navigation items being pushed in too far from the right edge.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/2d3b5e7c-0dfe-4bd4-8143-9965e00dce24_1338x834.png" /></p>
+<p>You can also definitely create high-fi mocks with AI prototyping tools—the key is how much time and effort you put into them.</p>
+<p>It’s critically important to choose the appropriate fidelity for your prototype based on the context, and then set clear expectations with team members around that level of fidelity. For example, if you’re explaining an interaction to an engineer, mid-fi is totally fine, and it’s a waste of time to push past that. Whereas if you’re pitching your CEO on funding a new team that will require millions in new investment, a functional high-fi mock is probably worth the time.</p>
+<p>Below, I’ve outlined the six main steps in the product development lifecycle and how prototypes can be leveraged, as well as what fidelity they should be and who is responsible for the prototype. I encourage you to take this as general guidance and apply what makes sense in your own company.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/afb538be-9085-4b2e-a14c-0466b0ffc881_2912x1654.png" /></p>
+<p>Let’s walk through an example of the full development lifecycle for a new feature at Reddit called Reddit Answers. This will be a gen AI feature that allows users to ask questions and get quick answers based on past Reddit posts and comments.</p>
+<h4>Step 1: Discovery</h4>
+<p>Starting in Discovery, you may choose to use an AI prototyping tool to quickly express an idea in medium fidelity. This is typically used only internally, and may just be between product, design, and your engineering lead. We might start out with something like this, which should take only about 20 minutes:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/47b20c8f-ec09-4662-9eeb-6cf36716690b_810x514.gif" /></p>
+<p>This is a great asset for internal communication, but we probably wouldn’t want to show this off to any executives or customers.</p>
+<p>By the way, here’s the prompt that generated this prototype:</p>
+<p><code># Reddit Answers PRD</code></p>
+<p><code>## Overview</code></p>
+<p><code>Reddit Answers is a new Q&amp;A feature that leverages Reddit’s vast community knowledge to provide generated, fact-based answers to user questions, with references to specific posts and comments. It prioritizes highly upvoted, less controversial content and supplements Reddit information with external sources to enhance credibility.</code></p>
+<p><code>## User Stories</code></p>
+<p><code>As a user, I want to ask questions and receive comprehensive answers based on Reddit’s collective knowledge.</code></p>
+<p><code>As a user, I want to see which specific Reddit posts and comments contributed to the answer.</code></p>
+<p><code>As a user, I want to understand how reliable the Reddit-sourced information is compared with external sources.</code></p>
+<p><code>As a user, I want to access additional external links that provide more context to the answer.</code></p>
+<p><code>As a user, I want to navigate easily to the Reddit discussions referenced in the answer.</code></p>
+<p><code>As a developer, I want to access Reddit Answers data via API to enhance AI applications with Reddit’s knowledge.</code></p>
+<p><code>## Implementation Phases</code></p>
+<p><code>### Phase 1: Core Q&amp;A Experience</code></p>
+<p><code>Question input interface in left nav</code></p>
+<p><code>Answer generation from Reddit content</code></p>
+<p><code>Basic reference linking to source posts/comments</code></p>
+<p><code>Simple reliability scoring</code></p>
+<p><code>Local answer history</code></p>
+<p><code>### Phase 2: Enhanced Credibility &amp; Context</code></p>
+<p><code>Sophisticated reliability-scoring algorithm</code></p>
+<p><code>External source integration</code></p>
+<p><code>Content moderation systems</code></p>
+<p><code>Improved reference highlighting</code></p>
+<p><code>Personalized answer recommendations</code></p>
+<p><code>### Phase 3: Ecosystem Integration</code></p>
+<p><code>API access for AI companies</code></p>
+<p><code>Analytics dashboard for Reddit team</code></p>
+<p><code>Community feedback mechanisms</code></p>
+<p><code>Mobile optimization</code></p>
+<p><code>Enhanced search integration</code></p>
+<p><code>## Design System</code></p>
+<p><code>Colors:</code></p>
+<p><code>Primary: Reddit Orange (#FF4500)</code></p>
+<p><code>Secondary: Periwinkle Blue (#9494FF)</code></p>
+<p><code>Background: Light Gray (#F8F9FA)</code></p>
+<p><code>Text: Dark Gray (#1A1A1B)</code></p>
+<p><code>Typography:</code></p>
+<p><code>Reddit’s IBM Plex font family</code></p>
+<p><code>Spacing:</code></p>
+<p><code>Consistent 8px grid system</code></p>
+<p><code>##Components:</code></p>
+<p><code>Question Input</code></p>
+<p><code>Answer Card</code></p>
+<p><code>Reference List</code></p>
+<p><code>Reliability Score Badge</code></p>
+<p><code>External Link Cards</code></p>
+<p><code>Source Attribution Tag</code></p>
+<p><code>## Data Model</code></p>
+<p><code>### Question</code></p>
+<p><code>id: unique identifier</code></p>
+<p><code>text: the user’s question</code></p>
+<p><code>timestamp: when question was asked</code></p>
+<p><code>user_id: who asked the question</code></p>
+<p><code>category: auto-categorized topic area</code></p>
+<p><code>### Answer</code></p>
+<p><code>id: unique identifier</code></p>
+<p><code>question_id: reference to question</code></p>
+<p><code>text: generated answer content</code></p>
+<p><code>reliability_score: 0-100 score comparing Reddit info with external sources</code></p>
+<p><code>timestamp: when answer was generated</code></p>
+<p><code>### Reference</code></p>
+<p><code>id: unique identifier</code></p>
+<p><code>answer_id: reference to answer</code></p>
+<p><code>post_id: Reddit post referenced</code></p>
+<p><code>comment_id: specific comment referenced (optional)</code></p>
+<p><code>relevance_score: how relevant this reference is to the answer</code></p>
+<p><code>controversy_score: measure of how controversial the content is</code></p>
+<p><code>upvote_count: number of upvotes on referenced content</code></p>
+<p><code>### ExternalSource</code></p>
+<p><code>id: unique identifier</code></p>
+<p><code>answer_id: reference to answer</code></p>
+<p><code>url: link to external source</code></p>
+<p><code>title: title of the external content</code></p>
+<p><code>relevance_score: how relevant this source is to the answer</code></p>
+<p><code>domain_authority: credibility rating of the source domain</code></p>
+<h4>Step 2: Roadmap and alignment</h4>
+<p>Once we’ve firmed up the idea and want to build more buy-in internally, we likely want to put something together in high fidelity that we can show stakeholders and customers.</p>
+<p>We’ll refine our initial prototype, use our component library, and come out with a much more polished prototype. This can take anywhere from 20 to 60 minutes, depending on the complexity of your prototype.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/f9e3a0d9-a2ab-456f-a53c-39e59900633c_810x533.gif" /></p>
+<h4>Step 3: PRD and mocks</h4>
+<p>Now that we have buy-in to build this new feature, we need to figure out exactly how it will work. We can include the prior high-fidelity prototype inside the PRD and demo it live to the team to start generating questions and working out edge cases.</p>
+<p>We might hear things like:</p>
+<ul>
+<li>What does the accuracy score mean?</li>
+<li>What external sources should be used?</li>
+<li>Is there any content within Reddit that should be excluded from answers?</li>
+<li>How should answers be vetted before being included in the AI response?</li>
+</ul>
+<p>Using the prototype for communication is a much faster and easier way to drive these important conversations than hoping an engineer reads your whole PRD and adds a comment or two. This conversation with engineering will likely take two hours or more across a few discussions.</p>
+<h4>Step 4: User interviews</h4>
+<p>As we’re continuing to iterate on the idea, we can bring our high-fidelity prototype with us to user interviews. We can get feedback on the exact user flows very early in the development cycle instead of waiting for the feature to be ready in production. User interviews will likely take you three to five days to collect enough feedback.</p>
+<p>Although direct user interviews are likely the best way to gather feedback, we can also scale our feedback collection with surveys. You can embed your favorite survey tools directly into the prototype to collect structured feedback by sharing it with actual users.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/9af48762-269f-460d-a67d-ed188fefc7ff_810x533.gif" /></p>
+<h4>Step 5: Engineering scoping and delivery</h4>
+<p>It’s important to remember that the code generated by AI prototyping tools is mostly useless to your engineering team (unless your components are built using your existing code). It doesn’t follow any of the existing patterns, use any of the same libraries, or may not even be written in the same programming language.</p>
+<p>Some ways the prototype can be useful are for documenting very specific interactions, like animations. If you want the loading animation to be exactly what you created in the prototype, your engineering team can likely use that as a head start during implementation.</p>
+<p>Throughout the building process, the high-fidelity prototype can still continue to be a useful communication tool any time there are questions about aspects of the product or feature. Prototyping doesn’t really impact development timelines, so expect two to six weeks, depending on the complexity of the feature.</p>
+<h2><strong>Bonus tip: Using your actual logo in prototypes</strong></h2>
+<p>This section is quick but super-important, because I see a lot of people run into this challenge. Most AI prototyping tools would rather draw an uncanny-valley version of your logo than use the real thing. With all the other small UI mistakes they make, this often makes the prototype feel unusable when presenting to customers or senior stakeholders.</p>
+<p>The simple solution to this is to paste in a link to the exact image you want to use. There are two ways to find that logo URL:</p>
+<ol>
+<li>Right-click on the image, inspect element, and grab the URL or SVG for the image.</li>
+<li>Use a logo repository, like Brandfetch, that hosts most company logos. Find yours and grab the embed link.</li>
+</ol>
+<p>Starting by grabbing the image directly, we can inspect the site and click on the logo. This image is an SVG, meaning there is no link to copy. We can instead copy the SVG content and paste that into our preferred AI tool.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/cde8d4c6-75bc-4f5a-ad49-c1daf45d6da5_264x249.png" /></p>
+<p>Here’s the result in Bolt with a simple request to build a homepage:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/6ddc2bd3-9228-461d-96e9-436995afce5d_1263x237.png" /></p>
+<p>To include your logo, simply paste the link or SVG text with a prompt like <em>“Add my logo to the header using this link.”</em></p>
+<p>The second option is to look up the logo on a site like Brandfetch and copy the embed link. Paste that directly into your AI prototyping tool and you’ll get a clean logo instantly.</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/bfc51610-0712-447a-a4b9-f4bc6adc8d80_1373x623.png" /></p>
+<p>As you’d expect, this looks identical:</p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/2790a01c-717a-4e7a-9234-3ce32216b2d7_1271x257.png" /></p>
+<p>You can use these approaches for any images you want to include—just make sure you’re linking to the image itself, not a webpage. The URL will typically end in PNG or SVG.</p>
+<p>One last tip: If you need some realistic images for your prototype, just ask the AI tool to grab them from <a href="https://unsplash.com/">Unsplash</a>, which does a reasonably good job at picking relevant images. Here’s the Airbnb example once more, where the AI decided on these images based on the prompt <em>“Add images from Unsplash that make sense given the context.”</em></p>
+<p><img alt="Image from How to get your entire team prototyping with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/46318531-4992-4093-b086-ab4d69afc502_1456x797.jpeg" /></p>
+<h1><strong>Where to go from here</strong></h1>
+<p>If you want to drive adoption on your team, start with component libraries to establish visual consistency, implement baselines and forks to accelerate iteration, and align your team on when and how to use different fidelity levels throughout your product development lifecycle. These aren’t merely nice-to-haves—this is what separates teams just poking at the surface of what AI can do for them from those fully integrating AI tools into their best practices and daily workflows to supercharge their products.</p>
+<p>Give these workflows a try, and feel free to reach out with your progress. I’m excited to see you and your team level up with AI prototyping!</p>
+<p><em>Thanks, Colin!</em></p>
+<p><em>For more from Colin, check out his <a href="https://maven.com/p/becb6f/product-development-lifecycle-with-ai-prototyping">free 45-minute live online class</a> coming up on July 8th, and his course <a href="https://maven.com/tech-for-product/ai-prototyping-for-product-managers?promoCode=LENNYSLIST">AI Prototyping for Product Managers</a> (which kicks off on June 30th; use code LENNYSLIST to get $100 off). You can also <a href="https://teams.techforproduct.com/">book Colin for one-day team workshops</a> with your team.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

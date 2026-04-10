@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introducing DRICE: a modern prioritization framework — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Introducing DRICE: a modern prioritization framewo…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Introducing DRICE: a modern prioritization framework</div>
+    
+    <div class="article-meta">2023-11-07<span>·</span>3,063 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">工程</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">成長</span> <span class="mini-tag">定價</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>If you boil down a product manager’s job to just one task, it’s making sure everyone on your team knows what to do next—and that it’s the most impactful work they can be doing.</p>
+<p>In other words, prioritizing.</p>
+<p>If you can get better at prioritizing,you can grow your leverage as a product leader, and increase the impact you and your team drive. And while you can’t double the speed that engineers build at or designers design at, by picking better projects even a little bit better, you can double your team’s impact.</p>
+<p>Below, <a href="https://www.darius.com">Darius Contractor</a> and <a href="https://alexeymk.com">Alexey Komissarouk</a> share a brand-new framework that will make you significantly better at prioritizing. They also include plug-and-play templates, real-life case studies, and great memes. I wish I had this years ago.</p>
+<p><em><a href="https://www.darius.com">Darius Contractor</a> is the former head of growth at Dropbox, Facebook, Airtable, and Vendr and is currently Chief Growth Officer at <a href="https://otter.ai/">Otter.ai</a>. You can find him on <a href="https://twitter.com/dariusmc">X</a>, <a href="https://www.linkedin.com/in/dariusmc/">LinkedIn</a>, and <a href="https://Darius.com/">Darius.com</a>. <a href="https://www.linkedin.com/in/alexeymk/">Alexey Komissarouk</a>, a former growth engineering lead at MasterClass and Opendoor, is currently writing a book and <a href="https://alexeymk.com/growth-eng">advising teams on growth engineering</a>. You can find him on <a href="https://twitter.com/alexeymk">X</a>, <a href="https://www.linkedin.com/in/alexeymk/">LinkedIn</a>, and <a href="https://alexeymk.com/">alexeymk.com</a>. Alexey will be <a href="https://www.linkedin.com/events/7122963652738985985/comments/">speaking about growth engineering at Reforge this Thursday</a>.</em></p>
+<p>With limited time and resources, what is the highest-value thing a product manager can do for their team?</p>
+<p><strong>Prioritization. Ruthless, rigorous prioritization.</strong></p>
+<p>The guide below contains everything you need to run a reliable prioritization process. It’s based on a distillation of techniques from the authors’ combined 35-plus years of experience driving growth at Dropbox, Facebook, Airtable, Opendoor, and MasterClass that, in our experience, doubled our impact rate.</p>
+<p>The frameworks are primarily intended for growth teams, but the practices apply to any team focused on moving a business metric. This prioritization process should be run every planning cycle.</p>
+<p><strong>Below, we’ll walk you through:</strong></p>
+<ol>
+<li>The industry-standard prioritization process <strong>RICE</strong> (Reach, Impact, Confidence, Effort)</li>
+<li>Then we’ll refine the top ideas using “DRICE” (<strong>Detailed RICE</strong>)</li>
+<li>Finally, we’ll talk through how to make the most of these two frameworks</li>
+</ol>
+<p>Throughout this guide, we’ll assume you’ve already collected tons of potential ideas—through brainstorming, sifting through data, looking at sales/CX calls, your past backlogs, etc. As a rule of thumb, you’ll want to have at least 5x as many ideas as you could reasonably build in the next time period (typically a quarter) before starting to prioritize.</p>
+<h2>Part 1: RICE</h2>
+<h3>Definition</h3>
+<p>In short, <a href="https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/">RICE</a>-ing is the process of T-shirt scoring (i.e. S/M/L) your ideas according to their:</p>
+<ul>
+<li><strong>Reach:</strong> How many of your customers would experience the new idea</li>
+<li><strong>Impact:</strong> If the idea pans out, how much it would affect conversion</li>
+<li><strong>Confidence:</strong> How likely it is to work</li>
+<li><strong>Effort:</strong> How much time it would take to validate (from the engineering team)</li>
+</ul>
+<p>The process is best illustrated by example.</p>
+<h3>Example: “Checkout with PayPal” vs. “free-trial promo codes”</h3>
+<p>Say your team is choosing between two potential ideas:</p>
+<ol>
+<li><strong>Checkout with PayPal.</strong> Several potential customers have emailed complaining that they will only buy with PayPal.</li>
+<li><strong>Free-trial promo code.</strong> Your podcast marketing manager wants to be able to give away promo codes for an “X-day free trial.”</li>
+</ol>
+<p>We can compare the ideas based on their qualities:</p>
+<p><strong>Checkout with PayPal:</strong></p>
+<ul>
+<li><strong>Reach</strong>: <strong>all.</strong> Potential customers must go through checkout and are exposed to the option.</li>
+<li>
+<p><strong>Impact</strong>: <strong>small.</strong> Most customers are comfortable with credit cards.</p>
+</li>
+<li>
+<p><strong>Confidence: likely</strong>. Competitors offer PayPal; customers have asked for it before.</p>
+</li>
+<li>
+<p><strong>Effort: medium.</strong> Will need to integrate PayPal through the <a href="https://developer.paypal.com/braintree/docs/guides/drop-in/overview/javascript/v3/">Braintree API</a>.</p>
+</li>
+</ul>
+<p>On the other hand, a <strong>free-trial promo code</strong> is:</p>
+<ul>
+<li><strong>Low-reaching:</strong> Only about 15% of your customers come in through podcasts.</li>
+<li><strong>Medium-level confidence:</strong> Free-trial promos are common but not ubiquitous.</li>
+<li><strong>High impact:</strong> The company has had free trials convert well in past tests.</li>
+<li><strong>High effort:</strong> The free-trial code is messy; the team will need a month to clean it up.</li>
+</ul>
+<p>In visual terms:</p>
+<p>Eyeballing would suggest we’re better off with <strong>Checkout with PayPal</strong>.Even though the potential impact isn’t as high, the change is likelier to work, faster to implement, and will affect more potential customers.</p>
+<h3>Processes</h3>
+<p>The process above works well with two ideas, but what if we have tens of ideas to score and rank? A spreadsheet keeps things organized. Here’s a <a href="https://docs.google.com/spreadsheets/d/1trzJaf37kh6C5Cprcnmj20LX0RKxeZ1CVuuwNCZCAYE/edit?usp=sharing">minimalistic template</a> from Alexey, and a <a href="https://www.airtable.com/universe/expZpCNVlkaoLGNAr/evelyn-experiment-velocity-engine-lifting-your-numbers">batteries-included Airtable template (called EVELYN)</a> from Darius.</p>
+<h3>Sizing heuristics</h3>
+<p>It’s not always obvious exactly what “high impact” versus “medium impact” means.</p>
+<p>At this stage, these estimates are meant to be low-fidelity and directional <a href="https://en.wikipedia.org/wiki/Scientific_wild-ass_guess">SWAGs</a> anyway. Rather than nailing the categories, compare between items—do all the M’s truly feel smaller than the L’s?</p>
+<p>That said, here are some heuristics for evaluating an idea at this stage.</p>
+<p><strong>Reach</strong> is relatively straightforward to estimate: either your users will experience the change or they won’t. <strong>Effort</strong> estimates come with experience on the engineering side. Always strive to run the laziest test possible<a href="https://paper.dropbox.com/doc/The-Laziest-Price-Test-I-Ever-Ran--B~Bpmr4lVuBhttC0Z_cn_60wAg-V7SYN64MVFFXq0ibFClLH">,</a> asking “What is the least amount of engineering work required to test this idea?” <strong>Impact</strong> and <strong>Confidence</strong> have more subtlety, however.</p>
+<p><strong>Impact</strong></p>
+<p>An idea should be higher-impact if:</p>
+<ul>
+<li>It addresses a sensitive-to-change portion of the customer journey: above the fold on the landing page, pricing, etc.</li>
+<li>The change is particularly significant—a “big swing”</li>
+</ul>
+<p><strong>Confidence</strong></p>
+<p>An idea should be higher-confidence if:</p>
+<ul>
+<li>You’ve already had the same concept work elsewhere: “Emphasizing the money-back guarantee was a winner on the homepage; let’s try it during checkout.”</li>
+<li>One or more of your competitors already employ this tactic (they’ve likely tested into it): “Our competitors offer a monthly pricing plan; we should try the same.”</li>
+<li>Your customers are explicitly and repeatedly complaining about it: “Why do I have to create a new account? I wish I could log in with Google.”</li>
+</ul>
+<p>The product manager should have the context to fill in <strong>Impact</strong>, <strong>Confidence</strong>, and <strong>Reach</strong>. The <strong>Effort</strong> column can sometimes be filled by an experienced product manager, but more commonly a tech lead.</p>
+<p>Once a T-shirt-size prioritization is complete, you can sort the list based on the implied score (with T-shirt sizes translated to numeric values to make the math work):</p>
+<p><em>Score = (Reach % * Impact % * Confidence likelihood %) / Weeks of effort</em></p>
+<p>Sort all of the available ideas using their scores. Take about twice as many ideas as you’d have time for during the period you’re planning for (typically a quarter). This is your preliminary shortlist.</p>
+<h3>Validating your shortlist</h3>
+<p>Some shortlisted ideas will surprise you. RICE isn’t gospel; double-check and adjust the suspicious scores until you feel comfortable. Next, loop in your team, who will appreciate a chance to weigh in and offer helpful adjustments.</p>
+<p>Even after the refinements, some ideas you had thought of as clunkers will end up above your favorites. This is the process working as intended. By establishing objective evaluation criteria, you have separated the wheat from the chaff.</p>
+<h2>Part 2: DRICE</h2>
+<p>Once your RICEd shortlist is ready, it’s time to invest in a higher-fidelity evaluation of your ideas. This assessment method is known as <strong>DRICE</strong>, a “<strong>Detailed RICE</strong>” estimate.</p>
+<p>During DRICE, we will go from:</p>
+<ul>
+<li>A 30-second estimate to a 30-minute estimate</li>
+<li>A relative scoring (S/M/L) to a $X of expected annualized revenue</li>
+<li>“Wouldn’t it be cool if” to “We are shovel-ready”</li>
+</ul>
+<p>“Wait, 30 minutes per idea?” says the growth PM reading this guide. “We don’t have time for this. Our list is solid. Let’s be biased toward actionand get started!”</p>
+<p>Not so fast.</p>
+<p>Teams that adopt DRICE notice a difference in the projects they end up prioritizing. Many “promising” projects turn out to be defeated by a half-hour investigation, while “nice to have” features that would have been left on the cutting-room floor end up becoming high-ROI winners.</p>
+<h4><strong>Dropbox case study</strong></h4>
+<p>A particularly clear example of this comes from Darius’s time at Dropbox, focused on activating new Dropbox Business users. One proposed idea was a migration tool for Basic users, streamlining the process of getting started with a Business account. Initially we didn’t think this would be a huge win, since target users were only a subset of all sign-ups.</p>
+<p>However, the DRICE investigation showed:</p>
+<ul>
+<li>
+<p>A large percentage of Business team creators were previously Basic users</p>
+</li>
+<li>
+<p>A good chunk of teams had multiple users</p>
+</li>
+<li>
+<p>Many teams had private files but not team files</p>
+</li>
+<li>
+<p>A “choose folders to share with your team” modal could boost sharing significantly</p>
+</li>
+</ul>
+<p>The DRICE investigation significantly bumped the idea’s expected ROI. We built it. The Dropbox Business Migration Tool became <strong>the biggest activation win of the quarter</strong>. Without DRICE, we were unlikely to have prioritized it at all.</p>
+<p>Overall, we found that Dropbox teams that adopted DRICE were able to move their key metric by <strong>twice</strong> as much as teams that stuck to a simpler prioritization process.</p>
+<p>To see how the DRICE process works, it’s also best illustrated by example.</p>
+<h3>Example DRICE: Adding PayPal</h3>
+<p>We’ve already RICEd the PayPal project:</p>
+<ul>
+<li>
+<p><strong>Reach</strong>: <strong>all.</strong> Potential customers must go through checkout and are exposed to the option.</p>
+</li>
+<li>
+<p><strong>Impact</strong>: <strong>small.</strong> Most customers are comfortable with credit cards.</p>
+</li>
+<li>
+<p><strong>Confidence: likely</strong>. Competitors offer PayPal; customers have asked for it before.</p>
+</li>
+<li>
+<p><strong>Effort: medium.</strong> Will need to integrate PayPal through the Braintree API.</p>
+</li>
+</ul>
+<p>Not bad. Here’s what a DRICE would look like:</p>
+<h4><strong>Hypothesis</strong></h4>
+<p>A potential customer segment prefers to pay with PayPal instead of credit cards and has been emailing to let us know. By adding PayPal as an option in the checkout flow, <strong>we will improve conversion by 2.7%, or an incremental $540k/year</strong>.</p>
+<h4><strong>Impact estimate</strong></h4>
+<h4><strong>Engineering estimate</strong></h4>
+<p><em><strong>Effort:</strong> 7 days</em></p>
+<p><em>We originally thought we’d have to integrate the Braintree API, but these days, you <a href="https://stripe.com/docs/payments/paypal">can integrate PayPal directly from Stripe</a>. This eliminates the bulk of the expected back-end work, leaving us:</em></p>
+<ul>
+<li>
+<p><em>[1 day] Integrate PayPal button on front end according to designs</em></p>
+</li>
+<li>
+<p><em>[1 day] Update receipt emails to support PayPal</em></p>
+</li>
+<li>
+<p><em>[1 day] Migrate e-commerce back end to support a new payment type from Stripe</em></p>
+</li>
+<li>
+<p><em>[2 days] Integration tests for key flows (purchase, refund, cancellation, chargeback)</em></p>
+</li>
+<li>
+<p><em>[2 days] Buffer time</em></p>
+</li>
+</ul>
+<h4><strong>Return on eng investment</strong></h4>
+<ul>
+<li>$540k in annual revenue</li>
+<li>Eng cost of 7 days (~1.5 weeks), yielding an ROI of</li>
+<li><strong>$360k/eng week</strong></li>
+</ul>
+<p>Through a DRICE estimate, we reduced the engineering estimate and increased the success likelihood for our “Checkout with PayPal” idea. With 30 minutes from PM and engineering, we’ve taken the idea from being marginal to a “let’s definitely do it this quarter” type of idea. Note that we didn’t <em>eliminate</em> guesswork as part of this process; our guesses simply became <em>educated</em>.</p>
+<p>Here’s a <a href="https://docs.google.com/document/d/1J5j2g6ACKxDFjALPR1DgQIn7tABAycOFQDW8beQIfh0/copy">DRICE template</a> to use when making your own estimates.</p>
+<h3>Components of a DRICE estimate</h3>
+<p>Now that we’ve walked through an example, let’s talk about what a DRICE involves and how to perform one. You’ll want:</p>
+<p><strong>Hypothesis</strong></p>
+<p>A clear, brief explanation of the idea that anybody without context will be able to understand, and a short justification for why you believe the idea will be effective.</p>
+<p><strong>Impact estimate</strong></p>
+<p>Typically from the product manager, a clear, bottom-up financial model estimating the impact of the idea. This is the time to do a bit more research, speak with peers, and see if any existing analytics data is available that would allow for a precise estimate.</p>
+<p><strong>Engineering estimate</strong></p>
+<p>Not every idea being DRICEd requires its own proper engineering spec. However, this is the place for a growth engineer to kick the tires of the assumptions behind the original T-shirt-size estimate. Projects could end up being much simpler (like the PayPal example) or much harder (due to complexity that wasn’t apparent until digging in). An experienced growth engineer will develop an intuition for how to de-risk and spike the more complicated parts of any particular project.</p>
+<p><strong>Non-engineering efforts</strong></p>
+<p>Many projects will have non-engineering effort required for this roll-out as well. Designs need to be finalized, legal may need to sign off, the support team will need to be notified and trained, FAQs will need to be updated, etc. However, for the purposes of DRICE, it is common for engineering availability to be a bottleneck. So unless one of the other roles will need to bear an usually large lift, we use engineering effort as a proxy for effort required.</p>
+<p>Where appropriate, it may also make sense to include some initial design-level wireframes.</p>
+<h3>When should we start DRICE-ing?</h3>
+<p>If you find a $100 bill on the ground while walking to work, you don’t need to run a prioritization process to pick it up. If you are seeing an over 70% win rate, you are still enjoying the early days and can postpone investing in your prioritization muscle for a little while longer.</p>
+<p>If you’re doing a good job of growth, however, you’ll pick off the obvious ideas within a quarter or two and the sky-high win rate shouldn’t last. Then it’s time for proper prioritization—not just RICE, but DRICE as well.</p>
+<p>The work required to properly DRICE any idea will encourage productive activities. Impact modeling, effort estimating, and the like are work you will want to be doing for your projects, DRICE or otherwise.</p>
+<p>Once you have done the work to get a real dollar estimate for every idea, you can begin to reap the full benefits of prioritization.</p>
+<h2>Benefits of proper prioritization</h2>
+<p>If you’ve gotten this far, the primary benefits of prioritization will be clear: you have a high degree of confidence that the bets you are going to execute on are the highest-value bets available to you, setting your team up to hit its goals.</p>
+<p>There are, however, several additional benefits.</p>
+<h3>1. Higher experiment hit rate and impact</h3>
+<p>Most growth teams have more than 50% of experiments fail. Some teams have as much as 80% of experiments fail or deliver far below the hoped-for impact. This means only 20% are true winners, or one-fifth. If you can lower the failure rate from 80% to 60%, you’ve doubled impactful experiments from 20% to 40%. This happened at Dropbox, where we saw that teams using DRICE had twice the impact rate (hit rate * impact per hit) of other teams using classic RICE scoring or simply picking ideas.</p>
+<h3>2. Simplify managing up</h3>
+<p>When staffing across departments, one question executives will ask is “What is the ROI on this?” Teams that have the most trustworthy and direct answer—“give us X people and we’ll make you $Y dollars”—are likeliest to get the resources they ask for. This is the reason salespeople often speak about their “sales pipeline revenue.”</p>
+<p>With DRICE, growth teams can use the same approach. “With X engineers, we will execute on $Y of opportunities next quarter. With X+A engineers, this goes up to $Y+B. Here’s the spreadsheet you can use to check our work anytime.” By following DRICE, making commitments and meeting expectations become easier, simplifying the work required to manage up.</p>
+<h3>3. DRICE builds team culture</h3>
+<p>Growth PMs often wish their engineers contributed more ideas during planning. “Why bother,” think engineers. “The PM is just going to pick their own ideas anyway.”</p>
+<p><a href="https://jeffgothelf.com/blog/highest-paid-persons-opinion/">HIPPO</a>, the Highest-Paid Person’s Opinion, is the default mode of planning for many teams. It’s better than random—there’s a reason the PM is in their position—but it’s far from optimal. By running (and prominently communicating) a transparent prioritization framework, engineers feel that the planning game has rules.</p>
+<p>Most folks on a team tend to have a pet idea they’ve been hoping they’d get done someday. With DRICE, it’s clear what they must do: find evidence for why it is a high-confidence idea, cut engineering scope to reduce effort, etc. They feel they’re gaming the system, but in fact they’ve started to learn to think more like a growth PM.</p>
+<h2>Takeaways</h2>
+<p>Going through the motions of growth prioritization can feel like busywork. It’s so easy to fall back on “I’m the PM, I have this job for a reason, I should make the call on what we work on. All this process is really just a waste of everybody’s time.”</p>
+<p>This is the HIPPO mindset; don’t fall for it. Implement proper prioritization and see how a fair, rigorous playing field results in a higher win rate, a happier team, and a more successful business.</p>
+<p><em>Thank you, Darius and Alexey! For more, find Darius on <a href="https://twitter.com/dariusmc">X</a> and <a href="https://Darius.com/">Darius.com</a>, and Alexey is a <a href="https://alexeymk.com/growth-eng">growth engineering advisor</a> in the process of writing <a href="https://alexeymk.com/">a book about growth engineering</a>, and you can find him on <a href="https://twitter.com/alexeymk">X</a> and <a href="https://www.linkedin.com/in/alexeymk/">LinkedIn</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, I can help. <a href="https://www.lennysjobs.com/talent/welcome">Lenny’s Talent Collective</a> works with a select group of companies every month to help them make key growth and product hires.</p>
+<p>You tell us what you’re looking for, we scan through our entire community to find the best fits and introduce you directly to the candidates you most want to talk to. I hand-review every potential intro to ensure a great experience for all parties.</p>
+<p>If you’re looking for a new gig, join <a href="https://www.lennysjobs.com/talent/welcome?application=true&amp;pallet=&amp;step=privacy">here!</a> We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent/welcome?application=true&amp;pallet=&amp;step=privacy">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rethinking SEO in the age of AI | Eli Schwartz (SEO advisor, author) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Rethinking SEO in the age of AI | Eli Schwartz (SE…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Rethinking SEO in the age of AI | Eli Schwartz (SEO advisor, author)</div>
+    
+    <div class="article-meta">2024-09-19<span>·</span>23,782 words<span>·</span>Eli Schwartz</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">Podcast</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=Z71yGshPTwk" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+You've noticed a significant shift in how SEO works with the rise of AI answers being integrated into search results.</p>
+<p><strong>Eli Schwartz</strong> (00:00:06):<br />
+Transparently, I thought this was going to be an apocalypse. Up until AI Overviews, whoever won on that long form piece of content would get that first click. But now that doesn't exist anymore.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:15):<br />
+What should people do to be successful in this new paradigm?</p>
+<p><strong>Eli Schwartz</strong> (00:00:19):<br />
+Think of SEO as a product. The product managers are the people that should be thinking about this SEO question because it's a product question. Product people need to think about how do we position this to the user that is not going to find out about this from a social channel, that's not going to be attracted by an ad? This is a user that's doing their own self-discovery journey. If you can't answer the question about what is it that someone's going to do a search on, then don't do SEO.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:44):<br />
+To a lot of people, SEO is kind of this dark art.</p>
+<p><strong>Eli Schwartz</strong> (00:00:45):<br />
+It is not a dark art. It is simple. I think step one is the step that almost everyone misses on SEO, which is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:57):<br />
+Today my guest is Eli Schwartz. Eli is a growth advisor specializing in SEO and has helped companies like Quora, Coinbase, Tinder, LinkedIn, WordPress, and Zapier develop and execute their SEO strategies. He's also the author of Product-Led SEO and has a very refreshing take on how to think about SEO and win at SEO. Recently, he's been spending a lot of his time analyzing how SEO changes with the rise of LLM chatbots, Google giving you the answers straight in the search results, and also how to utilize AI in your SEO strategy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:31):<br />
+In this episode, we dive deep into everything that you need to know to be successful in this new AI paradigm. As Eli shares in the conversation, Google is just now rolling out changes to how search works and is greatly increasing how many searches include an AI-generated answer at the top of the search results. So things are going to start shifting under our feed pretty quickly. If you're at all thinking about SEO, working on SEO, or are just curious about how search is evolving, this episode is for you.</p>
+<p><strong>Eli Schwartz</strong> (00:02:16):<br />
+It's a real honor to be here. You've had some amazing guests, and I'm honored to be counted as one of them.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:21):<br />
+It's completely my honor. You've been working on SEO for a long time. You've been helping companies figure out how to win at SEO for a long time, over a decade. And we were chatting about what's happening in SEO, and you told me that you've noticed a significant shift in how SEO works with the rise of LLMs, with the rise of AI answers being integrated into search results.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:43):<br />
+And so I thought it'd be awesome just to spend an entire episode talking about what people need to know about what's changing in SEO and how to be successful in this new paradigm of SEO with LLMs and AI being prevalent. How does that sound to you?</p>
+<p><strong>Eli Schwartz</strong> (00:02:57):<br />
+That's an awesome idea. I really like what's happening with AI in general for SEO because it's causing everyone that cares about SEO traffic, whether that's a PM or that's a CMO or that's a CEO, to really be forced into pivoting their thinking about what SEO traffic means because the tactics around SEO haven't really changed. It's always been the exact same thing.</p>
+<p><strong>Eli Schwartz</strong> (00:03:23):<br />
+My last full-time job was out at SurveyMonkey, and I was moonlighting on the side. And I was introduced to a CEO of a big company and they were asking me about my approach to SEO. And I wanted to close it. I wanted to get this consulting engagement. And the CEO says to me, "So essentially what you're telling me is I need to find my keywords, put that into content, and then build some links. Is there anything else you're going to do for me? Why should I pay you?"</p>
+<p><strong>Eli Schwartz</strong> (00:03:47):<br />
+And it stunned me into silence because essentially that is and was SEO, and then that forced me to really pivot my thinking around what SEO might be. And I pivoted my thinking and I've worked with many companies around how they should think about SEO and what SEO traffic should mean, but others have not because those tactics did work. And LLMs and AI in general is forcing people to think again, how should SEO work? How should I be driving business from the search channel?</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:22):<br />
+<strong>Eli Schwartz</strong> (00:06:52):<br />
+So essentially Google and other tech companies had their hand forced by OpenAI and ChatGPT. Google claims to have invented the concept of LLMs and they may or may not have, and some of the early OpenAI employees were Google employees. But ChatGPT came on the scene at the end of 2022 with this ability to ask any question and then get a written out answer. And suddenly people are like, well, I don't need a Google and click all these results.</p>
+<p><strong>Eli Schwartz</strong> (00:07:19):<br />
+So there started this conversation of you don't need Google anymore. Google is ending. Even more than that, you don't need SEO. You don't need to optimize anything because the entire world will just be given to you. We'll dig into that. I don't think that's at all correct, and I don't think anyone, whether you're doing SEO as your full-time job or whether you're receiving SEO traffic as a part of one of your primary marketing channels, I don't think anybody has to worry about that.</p>
+<p><strong>Eli Schwartz</strong> (00:07:47):<br />
+However, Google was worried about it, and I think one of Google's primary stakeholders is really Wall Street. So if Wall Street suddenly thinks that Google is a has-been company and they're not interesting anymore and they don't want to maintain investments in them, their stock price goes down. And that hurts Google's ability to recruit employees. It hurts Google's ability to raise money and invest in all the interesting stuff they do.</p>
+<p><strong>Eli Schwartz</strong> (00:08:11):<br />
+So Google has to satisfy the curiosity and the interests of the general world and general investor by saying, "Oh, that OpenAI thing, we can do it too. That's not that big of a deal." So then Google responded, badly, of course, first, by launching what was then Bard. So they said, "ChatGPT, look, we've got our own version," and they did a public demo. It didn't work out well at all and their stock price actually went down.</p>
+<p><strong>Eli Schwartz</strong> (00:08:37):<br />
+And then they fixed it and then their stock price went up. But they also had to have an answer to this concept of, is search dying? Does anyone need to search anymore when the entire world can just be given to you? So they launched what at the time they called SGE, Search Generative Experience, which is essentially ChatGPT in a search result. So they launched that, but they launched it as a beta.</p>
+<p><strong>Eli Schwartz</strong> (00:09:01):<br />
+And there were huge issues with what they were doing there because there's monetization issues. Everything they do comes from ads. The majority of their revenue comes from ads. So if you're going to show this AI answer on a search result, then you also can't have ads. You need to go all in on one of them. That was one issue which they actually have not solved yet. Another issue they had was liability.</p>
+<p><strong>Eli Schwartz</strong> (00:09:26):<br />
+So if they have a generative response that tells you to do something awful, like I think there was one where it may or may not have been fake, a lot of people made some fake ones, that told you to jump off the Golden Gate Bridge. Are there liability concerns? Because Google now is the publisher. They're not a search engine that told you how to find out the answer to that.</p>
+<p><strong>Eli Schwartz</strong> (00:09:43):<br />
+They told you to do it themselves. And the third issue there, which is another liability concern, is it plagiarism? So those are the things that they worried about. So they took about a year to test this thing, which was fascinating because we're tech people and most of the listeners are tech people. Google is very much a launch fast kind of company. They reveal something and then it sort of rolls out very, very quickly.</p>
+<p><strong>Eli Schwartz</strong> (00:10:07):<br />
+They're not the kind of company that says we're going to launch something and then they take a year to do it. So AI Overviews, what was then called Search Generative Experience, launched at Google I/O this past year, in May of this past year, and they renamed it to AI Overviews. And it's that. It's essentially ChatGPT in a search assault. They launched it to great fanfare.</p>
+<p><strong>Eli Schwartz</strong> (00:10:27):<br />
+Of course, it was live right away. They said it was only going to be logged in users only in the US. Obviously they always have concerns about launching things in Europe, because Europe's a little bit more litigious than the US. And once they launched it, suddenly they started getting these screenshots of Google told me to jump off the Golden Gate Bridge, Google told me to put glue on my pizza, which, of course, Google didn't do that.</p>
+<p><strong>Eli Schwartz</strong> (00:10:50):<br />
+They just crawled things from around the web. I'm surprised that Google didn't predict that because the exact same thing happened with ChatGPT and Google is much bigger and a much more interesting target for people that want to share those things in social media. So Google launches it, and that was a little bit embarrassing, so they rolled it back somewhat.</p>
+<p><strong>Eli Schwartz</strong> (00:11:07):<br />
+But what's even more interesting is they've given up on this rollback. Or not given up, they've gone back into it and they've relaunched it, and now it's on so many more search results. I'm seeing it on most of the search results that I see. And on top of that, non-logged in users are seeing it, so in incognito users or users without any history with Google are seeing it, and they've just launched it in the UK. So this thing is coming and it's really going to be affecting search results.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:34):<br />
+To maybe help people understand why this may impact SEO, if it's not obvious, is it pushes results down. People get the answer right there. They don't have to click your links. And then there's also the sponsored links at the top of the page that already are pushing you down. So basically your stuff is harder and harder to find, right?</p>
+<p><strong>Eli Schwartz</strong> (00:11:54):<br />
+Actually, it's not that it's harder to find, your stuff becomes less relevant. And that's the part about SEO that I'm excited about. So SEO was exactly like that CEO said to me years ago, it's just about creating some content. And then it's just this race to the top of getting your ranking results on that top keyword. So years ago, I worked at a startup where we were in the automotive space and we wrote content about cars.</p>
+<p><strong>Eli Schwartz</strong> (00:12:19):<br />
+And a word we liked to rank on was cars. The homepage was ranked for the word cars. We bought tons of links, and we were just a cars website. Obviously that's not something anybody could expect to do now because you don't search like that. You don't search, "Oh, I need to buy a vehicle. I'm going to use the word cars and see what comes up," because cars means a lot of things. Cars is a movie. Cars is a kind of car you drive. Cars could be a go-kart. It could be a lot of things.</p>
+<p><strong>Eli Schwartz</strong> (00:12:46):<br />
+So no one's going to think about those search results. However, SEO is still geared towards those top of funnel, those big keywords that people cared the most about. So now a lot of those keywords are going to be moving into these AI Overviews. I don't want to just focus on Google, although I think Google's going to own the entire search page forever, at least for a very long time.</p>
+<p><strong>Eli Schwartz</strong> (00:13:07):<br />
+But other engines, whether it's Perplexity or whether it's Claude or whether it's Meta, they all have this opportunity to give AI Overview type responses. That I think, those top of funnel kind of queries, are a great fit for what's going to come out as an answer. So if you're looking to go on vacation and you want a beach vacation, you can ask a very explicit question about give me a beach vacation that is not in America, but is a two-hour flight from X airport.</p>
+<p><strong>Eli Schwartz</strong> (00:13:34):<br />
+That's the kind of thing that you could do in a Google search, but would take you a very long time to do. And those are great answers from just getting a paragraph. And then from there, you move into the mid-funnel. So now you do this query and Google suggests to you that you should go to Cancun. Or sorry, not Google, but whatever that answer is suggests to you that you should go to Cancun. And now you're in the mid-funnel and that's where SEO begins to matter.</p>
+<p><strong>Eli Schwartz</strong> (00:13:59):<br />
+So the reason why I think this disruption is so big is because the journey changes, the discovery changes. So whereas before if you were a travel site and you were able to rank on best beach vacation within two hours of the United States, that's your ranking result. And then you have your long piece of content and you have your ads and you can monetize that.</p>
+<p><strong>Eli Schwartz</strong> (00:14:21):<br />
+That all changes when you can still rank number one on that, but you're all the way at the bottom of the page. The AI answer, whoever that's from, whether it's again from ChatGPT or Google, tells you where to now start doing your deeper search.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:35):<br />
+So just to maybe mirror back what you're saying is the discovery step of search is going to be swallowed up by LLMs that give you direction. And then once you have a sense of what you want, then you go back to Google and that's where potentially the opportunity continues to remain.</p>
+<p><strong>Eli Schwartz</strong> (00:14:55):<br />
+Absolutely, and I think that's where things are good. That's where I'm excited by the user experience for search, because I don't think the user was best served by, I don't know, U.S. News or Forbes writing out where the best beach vacations are within two hours of the United States, with that piece of content that was written by a freelancer who's not a travel expert.</p>
+<p><strong>Eli Schwartz</strong> (00:15:17):<br />
+So now you're going to get that information also from not a travel expert. You're going to get an AI summarized answer, and that will give you more clues and more ideas to do a deeper research search. I think that's where the user's best served.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:31):<br />
+Okay, this is fascinating. Let's definitely spend more time there so people understand exactly what that means. Before we get into that and what people should do to win here, what impact have you seen on SEO and search results and the space of SEO as these things have rolled out? Have you seen numbers of like, this is declining, this is growing?</p>
+<p><strong>Eli Schwartz</strong> (00:15:51):<br />
+Transparently, I thought this was going to be an apocalypse. So I shared about a year ago that it's going to be an apocalypse. We have not seen it yet, and a lot of people are declaring victory that there's no apocalypse because we have not seen it yet. However, this thing just launched in a way that I think it will start impacting traffic.</p>
+<p><strong>Eli Schwartz</strong> (00:16:07):<br />
+So prior to the last couple weeks, it was not available on logged out search. It was only on logged in search. And even more than that, on that logged in search, Google had rolled it back significantly because of those embarrassing things that happened in May and June when they first launched it. They're only just now launching it broader. And I do think we're going to see impacts.</p>
+<p><strong>Eli Schwartz</strong> (00:16:27):<br />
+Of course, another challenge with pinpointing and impacts is they're rolling algorithm updates that are happening, which we'll also talk about, and that will mask what's happening. Because if you've been hit by an algo update and suddenly you recover from the algo update, you'll see more traffic, but you might have seen more traffic but on a lower base because these AI Overviews are changing things.</p>
+<p><strong>Eli Schwartz</strong> (00:16:48):<br />
+So I think if you take all those steps back and you look at this from a journey perspective, there's no way that it won't be impacting search. It's just going to be hard to find. And there'll be certain examples where it is extremely prevalent, and there'll be others where it won't impact things at all. And I think the riding line is the journey. We're in the funnel that user is.</p>
+<p><strong>Eli Schwartz</strong> (00:17:09):<br />
+So if you are WebMD and you're writing content about the human body, just generic content that has existed since medical journals were created, AI Overviews are going to be fantastic at giving you that answer. You have a headache and you're just like, "Well, this headache's not going away. Should I take more Advil or should I take a nap?"</p>
+<p><strong>Eli Schwartz</strong> (00:17:29):<br />
+And then you find that WebMD article and you get to page six and it tells you that 0.2% of people that have a headache actually have a brain tumor, and you don't need that anymore because Google can tell you you're good, you should take a nap and drink some more water.</p>
+<p><strong>Eli Schwartz</strong> (00:17:43):<br />
+WebMD was competing with Healthline and other, Cleveland Clinic and Dallas Clinic and all these other hospitals, and it's totally unnecessary to go and look at all these results and go through six pages of information about headaches. So a site like that will be impacted by AI Overviews. An e-commerce site, maybe not. It depends where in the funnel that user is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:07):<br />
+As you're talking, I was reminded of something that I forgot about with my own experience. I used to have a website called whenishanukkahthisyear.com, because it changes every year and it's just the date. That was the whole website. It gives you the date of Hanukkah this year. And I put ads on there and made 10 bucks a year, and then Google came in and just gave you freaking answers right inside the search result. So I've experienced this.</p>
+<p><strong>Eli Schwartz</strong> (00:18:30):<br />
+So it's even more than that. So what you are referencing is structured data. So that's a very easy thing for Google to tell you when is Hanukkah in 150 years from now? It's in a data set. What's happening now is Google's taking this unstructured data from content and building it into structured data. So you could ask a question of what is the likelihood of a baby needing to go to the hospital because they're showing this sort of symptom.</p>
+<p><strong>Eli Schwartz</strong> (00:18:57):<br />
+And again, instead of reading all that content and making a decision, Google could take all that unstructured data, not just Google, again, ChatGPT or Claude can take all that unstructured data, and give you a statistic based on everything they've read. And that's very helpful to users. And I think, again, users benefit.</p>
+<p><strong>Eli Schwartz</strong> (00:19:14):<br />
+And then a user might find out there's another piece of information where I'd actually like to read a medical paper, or that now I'd like to Google and find the closest doctor to me who has certain hours. That's a Google search. That's not an LLM AI search.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:26):<br />
+And just to clarify, I didn't intend to say that that was AI oriented. That happened a decade ago. So yeah, I totally, totally agree.</p>
+<p><strong>Eli Schwartz</strong> (00:19:36):<br />
+Well, I just thought that was interesting to really drill into the difference between structured and unstructured, because unstructured is actually where Google is disrupting everything. So this entire idea of SEO, again, up until 2022 was monetize unstructured data. Whoever wrote the longest piece of content on best beach hotels in Miami and then built the best links to it, they would win.</p>
+<p><strong>Eli Schwartz</strong> (00:19:59):<br />
+They win whether it's ads or win whether it's hotel bookings. Now, Google can start you off at the top of that and say, "These are the best beach hotels based on all the people that have written content," or actually Google's own unstructured data from the reviews and give you that. And then you can say, "Okay, I'd like to go to this hotel, or I'd like to stay in this city."</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:19):<br />
+So help us understand even deeper this distinction between top of funnel and mid-funnel. So when people are maybe winning at one or the other, what does that look like? What are some examples of like, here's a top of funnel type of search that Google's going to eat and here's a mid-funnel experience that you can win that?</p>
+<p><strong>Eli Schwartz</strong> (00:20:35):<br />
+So in general, SEO has always been more at the top of the funnel generally, because you're curious about something. So let's say you're looking for a new software. You're looking for new podcasting software. So you search for top podcast tools, and you get back a list on let's say G2. G2 and all the sites like G2, like the Gartner sites like Capterra, all going to be massively disrupted. So you would get back a list from G2, which would give you out all the software.</p>
+<p><strong>Eli Schwartz</strong> (00:21:05):<br />
+And you would look at some and it would say, "This one's geared towards enterprise. This one's geared towards small podcasters. This one's free," and then now you've narrowed down your list to these three tools. And that's when you start doing those searches. Now you're mid-funnel. Now let's say you've chosen Riverside and you've gotten enough information from those other searches. Now you start searching Riverside price, Riverside capacity, Riverside bandwidth.</p>
+<p><strong>Eli Schwartz</strong> (00:21:29):<br />
+That's bottom of funnel, and that's where you'll now go buy Riverside. However, at the top, you were doing top podcast tools. So again, up until AI Overviews, up until this entire concept of LLM, whoever won on that long form piece of content would get that first click. But now that doesn't exist anymore. You just go to Google and Google tells you, "These are the tools. Oh, you're looking for a new CRM? This is what a CRM is. You want to know, do you need a CRM or do you just need a calendar?"</p>
+<p><strong>Eli Schwartz</strong> (00:21:59):<br />
+Look at that and Google will just tell you in a paragraph, and now you've redirected your search somewhere else into middle of the funnel. So I think that's where SEO always should have been because that's where conversions could potentially happen. However, SEO never was there before because the way most SEO measures its performance and its success is rankings. So they would say, "Well, it doesn't really matter if we convert on the word CRM. But look, we're number one, so we're winning."</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:24):<br />
+First of all, as a user, this sounds great. I'm so tired of just all search results just being a bunch of SEO pages, just with a bunch of BS answers. And so I really prefer, Google, just tell me. Just tell me what I need to know. The other piece is if you really think about what Google has been trying to do, they've been trying to do this is like, here's our best shot at giving you an answer to this question, and here's links that'll point you to an answer.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:47):<br />
+And this is just a better version of it where it takes all the actual information and just gives you the end result. So it makes a ton of sense that they're doing this and the technology has finally allowed them to do this. Okay, so let's get to the, I don't know, $64,000 question, million dollar question, what should people do? What should people do to be successful in this new paradigm that as you're describing is in motion?</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:09):<br />
+It's just starting to now happen. And it may be catching people off guard because they've thought it's already been out and things are okay, and you're saying it's actually starting to actually move quicker.</p>
+<p><strong>Eli Schwartz</strong> (00:23:20):<br />
+I think it's fascinating, I'm honored to be one of the few marketers on your product hard test, but I think of SEO as a product. And I think the product managers are the people that should be thinking about this SEO question because it's a product question. There are users that are coming in from the search channel. What is the product that I need to create for them?</p>
+<p><strong>Eli Schwartz</strong> (00:23:42):<br />
+What is the experience that I need to create for them? So typically, it was thought of as a marketing challenge of the product people have created this thing for me, and now I expect the marketers to go and do the SEO thing for it. But there's a mismatch. So for example, I find very often when I talk to SaaS companies, I don't think SaaS in general should do SEO.</p>
+<p><strong>Eli Schwartz</strong> (00:24:04):<br />
+But very often when I talk to SaaS companies, they have created a product for whatever user, and then the marketers are expected to make that product fit into the thing that the search results are around. And it doesn't work because that's not what they're looking for. No one asked the question of what it is that they're looking for. So now that SEO is changing and you really need to think about this mid-funnel and you need to think about a user experience and a buyer experience when they're doing the search, I think it all comes together.</p>
+<p><strong>Eli Schwartz</strong> (00:24:35):<br />
+And this is where the product people now need to think about how do we position this to the user that is not going to find out about this from a social channel, the user that's not going to be attracted by an ad, the user that's not going to discover this tool from a trade show. This is a user that's doing their own self-discovery journey, and this is what is the thing they're looking for and how do we position this product in a way that they're going to find it.</p>
+<p><strong>Eli Schwartz</strong> (00:25:00):<br />
+So that's what everyone should be doing, product really collaborating with marketing and discovering what is it that the user wants and showcasing that. I was recently talking to a company in the health space. They have an app. It's a health app. And we talked about their marketing. Their SEO in general was they write thousands and thousands of blog posts. AI has allowed them to do things they should never have done.</p>
+<p><strong>Eli Schwartz</strong> (00:25:25):<br />
+They wrote thousands of blog posts about health in general. I told them they shouldn't do that in general, but they wanted me to experience their product. So they gave me a code to download their app, and their app is awful. It's a bad product. So they're trying to do marketing that doesn't fit for a product that doesn't do the thing they say it's going to do. If they fix the product and understand the user, now it becomes, well, if I'm a user looking for this product, what are they looking for? How do we showcase that, again, in the mid-funnel?</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:57):<br />
+Can you help us make this even more real? Maybe go through an example of a product you worked on or one that's doing this really well in terms of going from, hey, they want our product. What's the journey look like? What's a good example of that?</p>
+<p><strong>Eli Schwartz</strong> (00:26:10):<br />
+So the earliest example of where I discovered on this process was about 10 years ago, I met the CEO of Zapier, Wade Foster, and he was a co-worker of mine. I had invested in this company, and he asked me to meet with him to just discuss SEO. They were doing something that no one needed. They had this product which zapped things together, but no one needed it because they didn't know it existed. But people knew that they needed things to work together.</p>
+<p><strong>Eli Schwartz</strong> (00:26:38):<br />
+They just weren't looking for Zapier. So in my discussions with them, in our SEO experiments that we came up with, we said, well, people are looking for let's say Gmail and they're looking for Salesforce. They know that Gmail doesn't connect to Salesforce, they know Salesforce doesn't connect to Gmail, but they're looking for ways to pair it together.</p>
+<p><strong>Eli Schwartz</strong> (00:26:56):<br />
+So what if we created as a product a marketing way to showcase that this product of zapping Gmail to Salesforce and Salesforce to Gmail exists? And that's what we did. So we built that at scale for everything that could work, and that was the experiment that I did with them, where everything would be available and it creates this flywheel of, wow, if Gmail can work with Salesforce, what else does Gmail work with?</p>
+<p><strong>Eli Schwartz</strong> (00:27:21):<br />
+Can it work with this other tool I have? And that's a, again, early example where I stumbled upon this idea of people are looking for that other thing that you could do, showcase the fact that your product could do this thing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:33):<br />
+I had no idea that you were involved in Zapier's SEO work. That's one of the most legendary successes of SEO. Very cool.</p>
+<p><strong>Eli Schwartz</strong> (00:27:40):<br />
+Total accidental. Whenever people ask me about programmatic SEO, and I know we have to dig into that, what programmatic SEO is, they're like, I want to imitate Zapier. It's always great to mention that I helped through that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:53):<br />
+That's amazing. Okay, so the lesson there is you realized that the key, the opportunity is to teach people what they could accomplish with this product. There's this awesome product doing amazing things. They have a need they're searching for, say it's like Gmail and Salesforce, and how do we help them see there's something really interesting here.</p>
+<p><strong>Eli Schwartz</strong> (00:28:12):<br />
+Yeah. I actually have a better one for you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:14):<br />
+Great. Let's do it.</p>
+<p><strong>Eli Schwartz</strong> (00:28:17):<br />
+So I worked with Tinder for a couple years. One of the biggest challenges I ever had with SEO, especially as a consultant, is getting things done. And I worked with amazing companies and there's great people, but then they run into this wall. In my book, I talk about one of the earlier stories I had of this where I worked at a company where I was hired by the CMO and we built out a great plan.</p>
+<p><strong>Eli Schwartz</strong> (00:28:41):<br />
+And then we go to the CEO who brings in the CTO to discuss our plan, and the CTO says, "I don't have engineers for this. So you decide whether you want to work on the product or you want to work on this marketing thing you've done." And then we didn't do anything because they never resourced it. But I worked with this really great product person at Tinder, Udi Milo. He was the chief of growth.</p>
+<p><strong>Eli Schwartz</strong> (00:29:00):<br />
+At Tinder, Udi Milo, he was the chief of growth, and he really saw a problem where Tinder had never done SEO. All of Tinder's inbound came from the word Tinder, and he is like, "There has to be upside for SEO if they've never done it before." So that... he was convinced of that. He was willing to drive forward on this idea. So when we started working together, the first thing we came up with is what is someone going to be searching when they look for Tinder? And it's not online dating. That's a single word.</p>
+<p><strong>Eli Schwartz</strong> (00:29:31):<br />
+We're not going to write out long-form content around everything related to dating because that's not the Tinder product. You're not reading a piece of content about how to fall in love and then somehow converting into Tinder. But in our user research and in the discussions we had on what the investment we can make into SEO was we discovered that Tinder is a loneliness-solving problem, loneliness-solving solution. So you're lonely, you've gone to a new city, you don't know anybody you'd like to solve your loneliness problem. So because you're in a new city, it occurred to us that this is a local thing. So we're going to look for anything related to local. So what we built out is if you look for online dating in many cities around the world... This is beta. It remained in its beta state, but if you look for online dating in many cities around the world, you're going to find a Tinder page, which gives some examples of places you can go on a date. And more than that, it gives you Tinder as a solution to solve the loneliness problem you have.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:32):<br />
+So what changes here with the rise of AiO reviews and things like that? Is it this is where... this is how future of SEO looks versus just keywords and endless block posts.</p>
+<p><strong>Eli Schwartz</strong> (00:30:45):<br />
+Actually nothing changes here with AiO reviews because if you're looking for, you've gone to Dubai. You've just... You've gone to Dubai. It's a brand new country, you've never been there before, and you're lonely. So you look for online dating in Dubai, and you're going to get... Again, AiO reviews might tell you what the dating scene is like. It might tell you where to go on great dates.</p>
+<p><strong>Eli Schwartz</strong> (00:31:05):<br />
+However, it doesn't allow you to solve the loneliness problem you have. The loneliness problem you have is a mid or bottom-of-funnel problem. You're still going to click on Tinder's result, no matter what the AiO review does. So that's where I think SEO should be is you need to be in the buyer journey with the SEO you're creating. And it doesn't matter what AiO reviews does or doesn't do because you're still solving the mid-funnel problem with your SEO solution.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:30):<br />
+Let's go in a direction I was going to say for later, but it might be useful now, which is, say, somebody's just sitting there at their desk thinking, "Hey, I want to be... I want to start doing some SEO. I want to be successful at SEO. Haven't really done a ton here." With this new world of AI and LMs, what would be step one, step two, step three to move down a direction of starting to poke their toe in the water of SEO?</p>
+<p><strong>Eli Schwartz</strong> (00:31:54):<br />
+I think step one is the step that almost everyone misses on SEO, which is be the user. Try to understand who your user is. And there've been so many companies, and SurveyMonkey was a great example. One, I spent seven years at SurveyMonkey, and when everyone got onboarded at SurveyMonkey, they gave you a SurveyMonkey account and told you that you should run a survey. I think later, in the later years, they forced everyone in their onboarding time to use a survey... run a survey with people in the company, but before that, no one did. So they had this account, and they never did a survey. So they had zero customer empathy for why people use the tool.</p>
+<p><strong>Eli Schwartz</strong> (00:32:31):<br />
+And then, when you think about it from a product and marketing standpoint, you're thinking about it as a work challenge rather than a customer empathy challenge. So the first thing anybody should really do around anything that they're trying to do SEO is try to be that customer. So if I am a user of this SaaS, I'm building SaaS, and I want to market this tool, what is a user going to look for? What's the problem they're going to look for that would make them want to do a search? And earlier, I referenced that I don't think most SaaS tools should do SEO. And the reason is because a lot of times, when I talk to SaaS companies about SEO, I ask them this question, and they give me a blank stare.</p>
+<p><strong>Eli Schwartz</strong> (00:33:09):<br />
+So if you can't answer the question about what is it that someone's going to do a search on, then don't do SEO because SEO is about appealing to that user. If you can understand what the user should do around looking for whatever product you have, then that's the first step for SEO. So who is this user? Who am I marketing to? You're sort of creating this persona in your mind. Step two is think about the asset you're going to create. So pivoting over to what he talks about Tinder. So we understood that it was a user that was solving a loneliness problem any in the world because that's what Tinder does. It solves that loneliness problem in any way you want, of course.</p>
+<p><strong>Eli Schwartz</strong> (00:33:47):<br />
+And now we had to think about what is it that we're going to create. We know it should be global, of course. We would know we want it to be programmatic, which is something we should dig into like difference programmatic versus editorial. We know we want to be programmatic because no one wants to in position of writing a page out for every town or every city or every neighborhood in the entire world. So we want it to be programmatic. What things do we need to pull into that? And then the third step is really building, and we're on a product podcast. Of course, to the product people, you're building the product for that SEO user. So where do you get those inputs? What does this page need to look like?</p>
+<p><strong>Eli Schwartz</strong> (00:34:21):<br />
+So again, the reason I think SEO needs to be on product is because the inputs for SEO aren't the way many people think of SEO, which is a piece of content optimized for Google based on the keywords I've chosen. I think of it as a product, which means you need design resources. You need engineering resources. Of course, you need a product manager to really oversee the building of this. You need user research. So it's, again, more than just a piece of content. So going through those steps, again, it's understand who your user is, decide what it is that you need to create for that user. And the third is envision this product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:55):<br />
+So I think there's a really powerful point here that might be... people might not get, which is the user needs to be thinking of something they will go to Google to search for to find your product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:07):<br />
+So it's if they're... if nobody is searching for the thing that you're building in some way, there's not going to be an opportunity for you to win an SEO or and benefit from SEO. Are there any examples that come to mind to you of B2B, SaaS companies that just like, "This is not... There's no SEO opportunity here, just like no one's searching for this thing."</p>
+<p><strong>Eli Schwartz</strong> (00:35:27):<br />
+Most of them. [inaudible 00:35:30]. One of my first consulting clients, right, when I left SurveyMonkey was Mixpanel. So, I mean, I just left my job, and I'm going to take any client that I have. I have some awful clients that I took, but Mixpanel was not an awful client. It was just an eye-opening client where we're trying to do SEO, and I'm doing SEO and exactly the way that CEO had told me SEO should work, and he was going to do it himself. So I told them the keywords. We came up with the content. We built the links. We did all the stuff SEO was supposed to do, and it didn't work. And we were sitting there, and I asked them to show me the user journey. They have a tool that does it. That's what Mixpanel does.</p>
+<p><strong>Eli Schwartz</strong> (00:36:06):<br />
+So someone clicks on a search result and they land on this piece of content, which we did research and we know what people look for, but why is it that it doesn't convert? And then I realized that there were other problems to this conversion, which is Mixpanel is a product you integrate in your entire company. You don't just do a quick Google for it and be like, "Oh, analytics. Yeah. I'm going to tell everyone we got to do it and it's going to be live tomorrow." Also, Mixpanel is expensive. So again, it's the kind of thing that there's friction of. You don't just click from a search result and then decide to just purchase it. You can't even purchase it on your credit card. I don't believe.</p>
+<p><strong>Eli Schwartz</strong> (00:36:39):<br />
+So those are the issues, and that's why I think SaaS is not the best fit for SEO because if you think about that journey, the problem doesn't necessarily exist. The SaaS solves the problem, but only once you know that problem exists. And getting people to know that problem exists is typically not an SEO challenge. It's typically a brand challenge. You make a viral video of you didn't realize that you could use this tool we've created to solve your problem, but no one is necessarily searching for a problem they didn't know they had or a solution they didn't know could exist. So that's where the breakoff is. And then the other issue, of course, is now they know the problem exists, but it's not an SEO journey.</p>
+<p><strong>Eli Schwartz</strong> (00:37:20):<br />
+So I had another eye-opening experience early in COVID when I was... everyone was home, and there wasn't a lot of things to do. Google reached out to me about a role on their team on Google Cloud for doing SEO. And there wasn't a chance I was going to take it, and it seemed like an interesting thing to go through a hiring loop and stay at home. So I had a fascinating experience interviewing because every time the... first it was the hiring manager and every time it was someone on that team that started the interview. They said, "Are there any questions that you have for me?" And then I spent the next 45 minutes asking them all the questions like, "Why are you doing SEO? What kind of keywords would you want to do? What does this SEO journey look like?" Because for Google Cloud, they only have two competitors, Amazon and Microsoft, and no one is going to do a search and be like, "Oh, Google's number one for this term I searched. Let me just go buy it." There's a decision-making process. You bring... There's a committee decision. So SEO sort of made no sense for that even to be included as a part of a marketing channel. And at a grand scale, Google Cloud should not be doing SEO. At a small scale, a lot of SaaS tools shouldn't be doing SEO because there isn't necessarily an SEO journey. I get a lot of pushback from companies when I tell them. They're like, "Look at all the SEO we've done." But that plateaus really quickly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:36):<br />
+This is really fascinating, and just to maybe reframe what you're saying because there's kind of a couple elements of this. It's not necessarily that people aren't searching Google for the problem. So I'm thinking of Vanta SOC 2 stuff. It's not like people aren't SOC 2 certification. It's not like they're searching... they're not searching.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:55):<br />
+And what I'm hearing is the bigger issue is they will never buy your product from that experience and that journey. It may educate them a little bit and may teach them, "Oh, Vanta exists," but they're never going to become customers. They need to talk to salesperson. They need to involve bunch of stakeholders. So it's basically a sales motion. It's not a product-led SEO motion.</p>
+<p><strong>Eli Schwartz</strong> (00:39:14):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:14):<br />
+Is that right?</p>
+<p><strong>Eli Schwartz</strong> (00:39:15):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:16):<br />
+Cool. Pulling on that thread a little bit further beyond maybe even B2B, just how does one decide if SEO is an opportunity for you, and also just how much should you invest in this opportunity just to explore it?</p>
+<p><strong>Eli Schwartz</strong> (00:39:28):<br />
+So we have to really put away the myth that SEO is free because it's absolutely not free. There's a cost in time. There's a cost and resources, and, of course, there's the direct expense for SEO. So if you're deciding that you should do SEO, so now we have to go through this evaluation. Again, this is where I think of it as a product where you have all these product ideas and what should you spend time and money on. So SEO is a channel you may or may not want to invest in.</p>
+<p><strong>Eli Schwartz</strong> (00:39:54):<br />
+So say there's a SaaS tool, and they're convinced there's an SEO journey, people do search for this solution. When I was at SurveyMonkey, we generated a couple of hundred million dollars a year off of organic traffic because it was a freemium tool where you search for the prodem... the problem, you find the solution, it's free, you sign up for it. If it works for you, you end up paying, and that's the revenue we've generated from organic. So say there is a journey, so people do search for it, and it makes sense to invest in SEO now is when you'll decide how much should you invest in it and how you should invest in it.</p>
+<p>So typically, [inaudible 00:40:32] again, for SurveyMonkey, it was around creating content. It was around templates. It wasn't very expensive. But let's say there's a company that does not have a content team. They don't have a product yet that people are going to search for. They don't have a product manager that's going to be overseeing this SEO process. So say you need to hire this PM, or you want to hire an agency, a typical SEO agency, I mean, you're not going to spend $500 on an SEO agency. It's going to be upwards of $10,000 just because that's the cost of someone's time.</p>
+<p><strong>Eli Schwartz</strong> (00:41:01):<br />
+So it's $10,000 a month, $120,000 a year, gets even more expensive if you have a full-time employee. So that's one expense you're going to outline. Then, you're going to add in all the supporting resources. You need a CMS. That costs money. You need an engineer to support them. That costs money. You need a potentially design. You need content. So it can really add up quickly. And now you look at that investment, and you say, "For this tool, if I invested a million dollars a year in SEO, do I expect to make back a million dollars a year soon, right?</p>
+<p><strong>Eli Schwartz</strong> (00:41:33):<br />
+SEO will always make back money if it's the right fit, but soon. So SaaS tools, especially startups, they need to make that money back soon. Or if they took that exact same million dollars and put it into brand ads, or they put it into influencer campaigns, or they put it into just traditional paid marketing on Meta and Google, would you make that million dollars or $1,000,001 back faster?</p>
+<p><strong>Eli Schwartz</strong> (00:41:56):<br />
+And that's where I think the evaluation should happen instead of this default, "Well, I just got my funding. I need to invest in SEO because it's free, and everyone does SEO. And look, my competitors do SEO." It should really be this thoughtful strategic decision-making process of how much will this cost me all in and is this the right use of funds.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:16):<br />
+Amazing. So I think this is really important. It's not that you won't benefit from SEO. It's not that SEO isn't an opportunity. It's that you have much bigger opportunities in other areas. Most likely, if you're a B2B SaaS companies, because the journey isn't fully online, you're not going to convert by just reading a bunch of pages.</p>
+<p><strong>Eli Schwartz</strong> (00:42:34):<br />
+Absolutely.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:34):<br />
+Super fascinating. Yeah.</p>
+<p><strong>Eli Schwartz</strong> (00:42:35):<br />
+Yeah. There was once a company I met, there was a SaaS tool, they were in a gardening space. [inaudible 00:42:39] they made a SaaS for gardeners, and they were insistent on doing SEO. And they asked me to look at a proposal they got from an agency for $15,000 a month, and it was all content. And then I asked them how their users found them. How did they get all the customers they had that paid them? How did they find them?</p>
+<p><strong>Eli Schwartz</strong> (00:42:55):<br />
+They said they go to these gardening shows around the country, and they have a booth, and each booth costs them $10,000. So I said, "Instead of spending $15,000 on SEO, you can get... you can go to all these shows for the exact same budget, and you get users who are interested, they're in market, they try your tool out at the booth, and then they leave and they're leads that you could follow up with. Instead of investing in me like, hope it works. It's sort of free. There are searches for it, but it's not the right searches."</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:26):<br />
+The takeaway here is if you're thinking about whether SEO is worth an investment for you and you see all these other companies doing SEO winning with SEO, think about how much will this actually cost us. And I think the most important takeaway for me here is if you don't think it'll convert online if you think sales is the core motion of the process, it's probably not a good ROI for you.</p>
+<p><strong>Eli Schwartz</strong> (00:43:49):<br />
+Absolutely. Yeah. Really think about what are the trade-offs. Again, from a product standpoint, there's always trade-offs. So what are the trade-offs to investing in this channel versus another channel?</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:59):<br />
+And I think what I've seen, there's all the... the way I think about it, there's four actual growth engines... there are four core growth engines. SEO, paid, virality, and sales. And what I find is, eventually, large companies do them all. Unless you're a consumer, you don't do sale. And so it's not like SEO should you never do. It's I think the main point here is earlier stage, when you have limited resources, probably not the best use of your time.</p>
+<p><strong>Eli Schwartz</strong> (00:44:22):<br />
+I think there are companies that should probably never do SEO. [inaudible 00:44:24] going back to what I said when Google Cloud, I don't think that Google could ever say... really pinpoint that there was a customer that they got purely from SEO, and you're going to do all sorts of weighted attribution. And maybe that person did discover Google Cloud from a piece of content or piece of SEO asset, but they never would've converted with all those other things that they've touched.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:45):<br />
+And it's not like you're saying, "Don't be on the internet and don't will make it easy for people to understand who you are, don't have a great site, don't have other pages writing about you. It's just don't... You don't need to spend time optimizing the search results for Google Cloud. You're not going to benefit significantly from that work.</p>
+<p><strong>Eli Schwartz</strong> (00:45:02):<br />
+Yes, I mean, again, go really digging into this user journey piece. I don't think restaurants typically should have a website. Not only should they not do SEO, but I don't know that they should have a website.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:12):<br />
+Hot take.</p>
+<p><strong>Eli Schwartz</strong> (00:45:12):<br />
+Because if you think about the buyer journey for a person looking for food, they don't typically go to a website. So if you're looking for pizza, and again, a lot of pizza shops have websites. But if you're looking for pizza, you're going to Google Maps, DoorDash, Uber Eats. You're not going on Google and saying, "Pizza near me," and then browsing the websites and just making a decision about where to eat lunch.</p>
+<p><strong>Eli Schwartz</strong> (00:45:35):<br />
+Again, if you're choosing how to cater your kid's birthday party, that might be a different thing, but you're not browsing and saying, "These are the places I'm going to go right now." But more than that, it's expensive, and there's no way that that pizza shop knows that the website they have with the soft music playing and their menu that comes up in flash, which is expensive, does a single thing for them. Most of their orders are going to come again through those other platforms.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:59):<br />
+Yeah, I hate restaurant websites. One thing I read once that explains why what restaurant websites are so bad is restaurant owners are big on just like what is the experience when someone enters my restaurant that they go through the vibe, and they do that on the website. They're like, here's the music, and here's the imagery, and here's the animations.</p>
+<p>And nobody wants that in [inaudible 00:46:19] on their website. Just like give me the hours and location and your menu. You mentioned a couple of things that I want to drill into a little bit. So, one is just how long SEO should take for you to see results. Two is just expectations of what does good conversion look like. What does it tells you this is actually us, a journey that could work for us well enough that SEO might work? So maybe those two questions.</p>
+<p><strong>Eli Schwartz</strong> (00:46:40):<br />
+So those will be custom for anything. And I hate to use the word, it depends because I think whenever consultants say it depends, they're just... they're throwing their hands up and saying, "I don't really know. I'm not... I don't have an opinion on this." And it's like when you go to a doctor, and the doctor's like, "Well, it depends." I mean, you could be dying, or you could just... need to take a nap, right. So there's a custom answer here, and it comes down to what the company is and what the expectations are. So how long it takes, that depends on what you're building. So if you're... if there's an... Again, with Tinder, it took us a while to actually build anything.</p>
+<p><strong>Eli Schwartz</strong> (00:47:15):<br />
+So it took us all this time to build for ideate them, build and then to see results. But once we built, and I love working with big companies that are well-known brands, because what we build, as soon as it's available on the web, it's like this turning a huge ship. It starts driving revenue and starts being super effective because it's there. Something didn't exist, and now it exists, and it drives revenue. Smaller companies, it may take many months before Google notices. It may take many months before the demand is there. With Zapier, I think it took them a couple of years before they even saw any results because nobody's looking for it. So it comes down to what it is that you're building and how quickly users will come and find and need that solution.</p>
+<p>Then, as far as what the expectations are on conversions, that also is really depends on what it is that you're looking for. There's... Some companies are building media, and they [inaudible 00:48:09]... I mean, again, I think most companies should just not write a lot of content unless they're a media company. But if you are building media and you're monetizing that content from a media standpoint, so maybe it leads, maybe clicks off the page into leads, or maybe it's CPM advertising, so then your conversion is... what you're trying to do with SEO is get a lot of page views because the more page views you get, the more clicks off that page you get into something else. If you're a SaaS tool, then your conversion should absolutely be whatever a MQL should be.</p>
+<p><strong>Eli Schwartz</strong> (00:48:37):<br />
+So you... And again, I think most people don't do this correctly with SEO. They used the wrong conversion metric, which is top-of-funnel ranking. "Oh, I'm ranking. My SEO is successful. I'm number one for this." Instead of, "How does this benefit me?" There was a company I was working with, a SaaS tool. They're in a two-sided marketplace they worked with... in an HR space, so they only monetized one side of that HR space, but all the traffic was on the other side of the HR space. So when we were talking about their SEO conversion problems, I suggested that they delete all the content that was on the wrong side of that marketplace because they didn't convert at all.</p>
+<p><strong>Eli Schwartz</strong> (00:49:14):<br />
+And there's no... And this is a common misconception. People will think you get a benefit from traffic. Google sees, "Oh, I get all this traffic from search. They think I'm a very good website. So even though none of this converts for me, I should have a blog because blogs are good." It doesn't really work like that. I mean, maybe if you're this massive website and I don't know, let's say, get millions and millions of visits, then you can build some sort of authority and some good experience in Google, and now you can launch something else, and you don't have to worry about needing to build up that authority. But generally, driving traffic to something that doesn't convert for you wouldn't be a good idea.</p>
+<p><strong>Eli Schwartz</strong> (00:49:48):<br />
+So really understanding what is it that you're trying to do with SEO traffic, that's your conversion metric. So it could be MQLs, could be page use, could be dollar conversions, it could be people picking up the phone or watching the video, but it has to be some sort of conversion. So for a startup, it might mean that they... you're getting links. I mean, at a minimum, people reading your content deciding to link to you and give you social shares. That might be something you put in a pitch deck. Whatever it is, there has to be a conversion metric that matters for the business.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:20):<br />
+So just to give someone that's starting to do this something concrete to look at. When you come to a startup and help them with SEO, what do you usually track as a sign this is working that we should keep investing? What's... What are the couple metrics that you look at most?</p>
+<p><strong>Eli Schwartz</strong> (00:50:37):<br />
+The first is really understanding what is it that they care about. And rankings could be something they care about if someone else cares about it. So, for example, if they're going to put in their pitch deck, "We're number one for this tool," and investors, they don't know that that doesn't convert. So that might be something that we should care about. They should be number one for that tool. If it's MQLs, so they just need people filling out lead forms.</p>
+<p><strong>Eli Schwartz</strong> (00:51:02):<br />
+So really understanding who it is that they're trying to attract with SEO that's the metric we're going to use. And again, I don't know why SEO... this happens with SEO but not any other channel. No one doing paid marketing will ever say, "This is how many times I'm number one on this search, or this is how many clicks I get, or look at how much I spent." There's really a, "We spend this, and we're this efficient. This is what we drive from that." And SEO really needs that same rigor.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:29):<br />
+So what I'm hearing is look at if you're in B2B leads coming in through SEO, track that, or rank potentially if that's like a vanity thing, you can show investors and you're saying traffic alone, because usually in decks I see and investor updates almost always the metric I see is traffic we're getting through SEO.</p>
+<p><strong>Eli Schwartz</strong> (00:51:46):<br />
+Yeah, total waste of time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:49):<br />
+Amazing.</p>
+<p><strong>Eli Schwartz</strong> (00:51:50):<br />
+Yeah, I mean, unless there's a reason for it. So if you're a media company and traffic means that that number keeps going up, then yes, it matters. But if you are driving leads and that traffic number goes up, you're not driving more leads from SEO. You're getting worthless traffic. It doesn't help the business.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:07):<br />
+Awesome. Okay. Back to the question of just how long it takes just to give someone something here that they can tell... that can tell them when it makes sense to keep going or move on. Say you're just taking a shot at SEO, how long should you give it to make a decision this is working for us or not? Or is it always, "There's always something here, keep working." How do you decide keep doing or not?</p>
+<p><strong>Eli Schwartz</strong> (00:52:28):<br />
+When you're building out an SEO effort, and I'm going to keep going back to this, it's a product. So you're building out a product and you're creating milestones. So you say we're... it's going to take us this first month to ideate on what it is that we're building. It's going to... In the second month, we're going to build out a PRD for engineers to start working on. In the third month, they're going to start working, and they're going to ship this.</p>
+<p><strong>Eli Schwartz</strong> (00:52:49):<br />
+Now, if you start missing all those milestones, so I mean, this is a common problem in consulting in general, you miss all those milestones, and then some will say, "What's... We've been working together for six months, and we have nothing to show for it." And you can point very specifically to all those milestones that were missed. So that's the result of not shipping or not meeting the milestones that the SEO didn't work.</p>
+<p><strong>Eli Schwartz</strong> (00:53:11):<br />
+So as you're meeting those milestones, you can say, "Well, we launched, and our expectation was that after the first month of launching, we would have X amount of pages indexed. Did we meet, or did we miss that milestone?" And then you can say, "SEO is working at a small scale." And I've seen in many companies it takes a really long time, but eventually, when you look back, you see this hockey stick, but while you're in it, you don't necessarily see that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:38):<br />
+Awesome. Okay.</p>
+<p><strong>Eli Schwartz</strong> (00:53:39):<br />
+Okay. Let me share an example of one that worked really quickly. So this was also an interesting one, and I was at SurveyMonkey, and I was introduced to the CEO of Quora, who was interested in doing more SEO. So Quora had never done SEO or never done SEO effectively from a product standpoint. And there were a couple of things I was able to recommend to them, and within three months they had quadruple traffic. So it really will depend on what is it that's holding things back. In Quora's case, they weren't showing any answers. So they were really pushing to get people to log in before they saw any answers.</p>
+<p><strong>Eli Schwartz</strong> (00:54:15):<br />
+So I encourage them to show the answers. Yes, they were going to be giving way answers for free, but they were also going to be giving answers to Google. So that was number one. That they were able to quadruple traffic. And the second thing is they had no way that Google could navigate within the site. So when you came to Quora, and it's like this again, so they reversed the suggestion I made, but I think it was 12 years ago. So when you came to Quora, and when you come to Quora today, you see related questions. So you see a question and then there's related questions. And that's the way a bot or a human will navigate through the site.</p>
+<p><strong>Eli Schwartz</strong> (00:54:48):<br />
+If they create a sitemap, they did this in the past, and if Quora's listening, you should do this again. If you create a categorized sitemap where you can say, "These are all the questions on health and from the sitemap, again, it's HTML sitemap, not just an XML sitemap and way even a user can navigate through it. This is health, and this is health page one and health page two, and you can navigate through this entire site. Then a search engine can navigate through the entire site, and all of the questions and answers are discoverable." So when I made that suggestion to them, within a couple of months, they were able to quadruple traffic.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:20):<br />
+There's so much here, and there's so many valuable insights. One that I think is really recurring that I think is really important to people is the point that you're making about your SEO content pages should solve... should be a product, AKA should solve problems for people as they're trying to understand the space and the potential problem they have.</p>
+<p>So correct me if I'm wrong, but kind of the advice you're sharing is there's less opportunity in just generating tons of blog posts that just have a bunch of content. And the opportunity is more things like Zapier and Canva with templates and Notion and Quora where it's just like, "Here's the answer." It's just like actually help them solve the problem. And with that, "Here's how our product [inaudible 00:56:03] help you solve that problem further." Is that...</p>
+<p><strong>Eli Schwartz</strong> (00:56:05):<br />
+It's really building a product around what the company is attempting to monetize. So Canva is building templates because then they're going on to monetize that templates by having other people build off those templates with upgrades and subscriptions. But if a company was... Let's say there was an enterprise version of Canva, and they didn't monetize those templates, so putting out a bunch of free content on the internet that just looked good wouldn't benefit. So it always comes down to what is it. What is the product that you want to use? So going to mention the templates did at SurveyMonkey, so the survey product.</p>
+<p><strong>Eli Schwartz</strong> (00:56:39):<br />
+If someone looked for a template of a survey, they wanted to make a survey. So we were not a survey product, and we just monetized off the survey templates that would not have done anything for us. So copying someone else's version of programmatic doesn't do anything. And generally, doing programmatic for the sake of programmatic, so just to have content, wouldn't do anything unless that programmatic fed you into exactly what your product did. So Zapier, they did programmatic. It feeds you into making other zaps between different products. Tinder, we did programmatic.</p>
+<p>It fed you into, "Oh, well, you would like to solve your lonely... We showed you that your loneliness problem is solvable in the city you're in. You have to solve that problem by downloading the Tinder app." And I've never used Tinder, only used it from a marketing standpoint, but [inaudible 00:57:26] Tinder gates you. So if you'd like to get the advanced Tinder experience, you have to pay. And again, they're... it's all part of that buyer journey, and anything you're building SEO for, it has to be a piece of that buyer journey. So programmatic, blog posts, anything you're doing, if there is no product journey for it, there's no user journey, it just stops.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:45):<br />
+That's an amazing clarification. So again, it's another point you've been making of traffic alone is not valuable if it doesn't convert. And so you can look at a Canva, you can look at Notion at Airtable with all these templates, copy that. But if that isn't the thing people, will buy from you and monetize it's not going to be worth doing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:00):<br />
+... Will buy from you and monetize. It's not going to be worth doing.</p>
+<p><strong>Eli Schwartz</strong> (00:58:04):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:04):<br />
+Awesome. I'm excited to chat with Christina Gilbert, the founder of OneSchema, one of our longtime podcast sponsors. Hi, Christina.</p>
+<p><strong>Christina Gilbert</strong> (00:58:13):<br />
+Yes. Thank you for having me on, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:15):<br />
+What is the latest with OneSchema? I know you now work with some of my favorite companies, like Ramp, Vanta Scale, and Watershed. I heard that you just launched a new product to help product teams import CSVs from especially tricky systems, like ERPs.</p>
+<p><strong>Christina Gilbert</strong> (00:58:30):<br />
+Yes, so we just launched OneSchema File Feeds, which allows you to build an integration with any system in 15 minutes as long as you can export a CSV to an SFTP folder. We see our customers all the time getting stuck with hacks and workarounds, and the product teams that we work with don't have to turn down prospects because their systems are too hard to integrate with. We allow our customers to offer thousands of integrations without involving their engineering team at all.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:52):<br />
+I can tell you that if my team had to build integrations like this, how nice would it be to be able to take this off my roadmap, and instead use something like OneSchema, and not just to build it, but also to maintain it forever?</p>
+<p><strong>Christina Gilbert</strong> (00:59:04):<br />
+Absolutely, Lenny. We've heard so many horror stories of multi-day outages from even just a handful of ad records. We are laser-focused on integration reliability to help teams end all of those distractions that come up with integrations. We have a built-in validation layer that stops any bad data from entering your system, and OneSchema will notify your team immediately of any data that looks incorrect.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:23):<br />
+I know that importing incorrect data can cause all kinds of pain for your customers and quickly lose their trust. Christina, thank you for joining us and if you want to learn more, head on over to OneSchema.co, that's OneSchema.co. Okay, so coming back to AI and its impact on SEO, can you use AI to help you with this, and use AI to create content for you?</p>
+<p><strong>Eli Schwartz</strong> (00:59:49):<br />
+AI is a tool. Everyone says AI is a tool, it's not a solution. You can use AI to create content if the content you're creating is a part of that journey. For example, before AI content really came on the scene, because AI's been around for a while, Jasper's been around for a while, Writer's been around for a while before ChatGPT. Before these tools, a lot of ways that companies created content for cheap is they went on Fiverr, and they went on Upwork, and they just created content.</p>
+<p><strong>Eli Schwartz</strong> (01:00:20):<br />
+A lot of that content, completely worthless. If you're just creating content for the sake of content, and you paid someone on Upwork $50 for their content, now you can use an AI tool and just create the content, the same worthless content, for free. AI as a tool is a tool creating something that's not necessarily useful for the end journey of the company and for the user journey in general. However, if the content you were creating was pretty useful, and now you're using AI to create really useful content for cheaper and better, of course, you can use it.</p>
+<p><strong>Eli Schwartz</strong> (01:00:53):<br />
+An example of a place you can use AI content is if you're an e-commerce site and you're selling your own products, of course, you can use AI content to write product descriptions. It's not a content website. There's a lot of big companies out there, and if anybody wants to look at some of the e-commerce sites and how they do SEO, a lot of them have large SEO teams. The typical JCPenney, the Nordstroms, the Macy's, they have a lot of content on their category pages, but if you look at the keywords that drive traffic to those pages, it's the products on the pages.</p>
+<p><strong>Eli Schwartz</strong> (01:01:25):<br />
+If you're looking for shoes, the fact that a Macys.com page will have a lot of content about what shoes do doesn't do anything for the user. They're just looking for shoes, and then there's shoes on the page. I think Macy's actually ranks pretty well on those kinds of things. Using AI content to write more fluff content that's not necessary would just be a waste of time.</p>
+<p><strong>Eli Schwartz</strong> (01:01:46):<br />
+Using AI content to feed in a product, and describe what that product is, and maybe some features of that product which help a user, that's not hurting your SEO, because what you're trying to optimize for is the product and the product name itself.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:59):<br />
+Got it. Basically, don't use AI to generate entire blog posts. I know people are doing this all over the place, but absolutely leverage AI to help you add to existing pages, descriptions, titles, things like that, which I can see why Google, Google would've no idea that you were helped to write this thing with AI, right, if it's just a small part of the page versus the entire page?</p>
+<p><strong>Eli Schwartz</strong> (01:02:25):<br />
+In their documentation, they say that AI itself is not the problem. It's the helpfulness, the usefulness of the content that would be a problem.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:35):<br />
+You don't have to name names or reveal anything, but do you know of a bunch of companies using AI now to generate tons of high successful pages, high converting pages in some way? In this way?</p>
+<p><strong>Eli Schwartz</strong> (01:02:44):<br />
+There's this hatred of AI content by users in general. I think once companies declare that they're using AI, people get upset about it. It was a Red Ventures company, I think it was CNET that said they were using AI to create content. I think they got in trouble because they said they're using AI to create content, but if they had not said they're using AI to create content, I think their entire model would've been very successful.</p>
+<p><strong>Eli Schwartz</strong> (01:03:09):<br />
+There's no reason you can't take in, they take 10 products, and they want to review 10 different products. There's no reason you can't tie that all together, have AI write the original piece of content, and then have a human editor just review it. I don't know, years ago, it's not AI, but it's sort of like AI, but there are sports websites that will take in a lot of the things that happen in the sports game to merge it all together into a piece of content.</p>
+<p><strong>Eli Schwartz</strong> (01:03:34):<br />
+If you look at any earnings reports on public companies, it's sort of the same thing. Their company will issue, they'll file their earnings report, and then now it's AI. Before AI, it was basically like Mad Libs kind of content. It would extract pieces of the earnings report and then it would write a blog post, which is actually fairly useful. I don't think there's an issue with it itself. I don't think users have an issue with it.</p>
+<p><strong>Eli Schwartz</strong> (01:03:56):<br />
+I think if you read that old piece of content, again, on earnings reports, it's pretty obvious that it wasn't written by a financial journalist, but it was useful. You got a quick summary, you didn't have to go into the SEC and read an earnings report.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:09):<br />
+There's this guy, Noah Smith, he's on Twitter, he's got a newsletter called No Opinions. It's awesome. He had this tweet about how we're approaching an age of a ton of slop of content, just a lot of really bad content generated by AI for better or worse, this is related to SEO, but it makes me think about just how much bad stuff we're going to see.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:28):<br />
+To your point, it doesn't matter whether it was generated by AI or not, people will gravitate towards and Google will gravitate towards stuff that is useful and good, whether it's written by people or not.</p>
+<p><strong>Eli Schwartz</strong> (01:04:41):<br />
+This is a huge issue for Google, because the amount of content being created is enormous, and it's growing exponentially. Google's trying to crawl everything. They now have more content to crawl, which becomes more expensive for Google, and which is why you have this backlash by Google against many websites, because they're trying to clean the index to save their own costs and to protect the users from having to see this awful content.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:06):<br />
+The crazy thing for LLMs is now to be trained. They're trained on content on the internet in a big way, and they're struggling with not training their LLMs on stuff that AI has written because it becomes this, a bad direction that LLMs will go. They're trained on themselves. Anyway, something I wanted to come back to around AI, which is AI Overviews. I imagine many people are like, "How do I get into that answer? How do I get my product into the answer that Google gives at the top?" Is that something you recommend people try to do? Is that something you can do?</p>
+<p><strong>Eli Schwartz</strong> (01:05:42):<br />
+I think of AI or AI Overviews as a branding exercise. Getting into the AI Overview, and Google has links, I mentioned this earlier that Google has links within the content, and I think a lot of what Google does is around potentially liability protection. They're having links. They're saying, "Well, we didn't tell you to jump off the Golden Gate Bridge, this website, which we summarized, told you to jump off the Golden Gate Bridge," or, "We didn't plagiarize. We just linked to the piece of content. We may have extracted more from the content than we were supposed to, and the law hasn't decided that yet, but we linked to it, so it's fair."</p>
+<p><strong>Eli Schwartz</strong> (01:06:17):<br />
+Right now, Google has these links in the content, and it sort of links off of it. I did a survey on LinkedIn, and I was surprised by the answer. I thought most people did not click on the links. I got a couple hundred responses, and it's sort of 50/50 and based on my SurveyMonkey experience. It's not a statistically significant survey in general, but it will never go to 99% and one. That's fairly indicative that people are clicking the links, which surprises me, because I don't think that the links are necessarily meant by Google to be useful, which means that AI Overviews is essentially duplicating search results.</p>
+<p><strong>Eli Schwartz</strong> (01:06:53):<br />
+You have this AI Overview which summarizes, then you have a link so you can link off of it, and then beneath it, you sort of have the exact same thing. That's the challenge that Google has to work through. For a company to show up in AI Overview, it's a brand challenge. If your link shows up there, then you likely were showing up beneath it in the ranking results, so you've already done the work you're supposed to do.</p>
+<p><strong>Eli Schwartz</strong> (01:07:12):<br />
+If you're showing up in the AI Overview mentioned as a brand, like, these are the top CRM tools, you're showing up as a brand, that means you've exercised brand efforts and it's working out. I don't know that companies necessarily want their content to show up because they're giving away their content for free. They want to be showing up in a way that benefits them. If you show up as a brand, you've done good branding, but if you show up as a link, it means Google has stolen your content, and people may or may not click off of it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:41):<br />
+Along this lines of brand and SEO, do you have any... That's always this question of are we investing in brand? Do we just want people to be aware we exist, or are we trying to actually drive conversion? Any advice on how to think about brand building and SEO, especially with this world of AI?</p>
+<p><strong>Eli Schwartz</strong> (01:07:57):<br />
+The biggest myth in SEO is that you could just build links, and link building is the secret source and the secret sauce to growing your SEO footprint. That's totally wrong, because the way most people build links is they buy these guest posts, or they pay for links on low authority websites that sort of look like they might have authority, and it doesn't really benefit anyone because no one's reading these sites.</p>
+<p><strong>Eli Schwartz</strong> (01:08:22):<br />
+It's funny that everyone complained about Google as this really, really smart, all-knowing LLM, and at the same time, they think they're dumb enough to fall for these guest posts that are on websites that no one really read. The right way to build links is to build a brand. It comes part and parcel of what you're trying to do. If you're building links, and going back to all the SaaS examples we talked about, so if you've created a bunch of content that is not relevant for the product you're trying to sell, building links to the content that doesn't really benefit the product, doesn't really benefit, the links don't benefit the product.</p>
+<p><strong>Eli Schwartz</strong> (01:08:55):<br />
+If you can build this product that's awesome and everyone loves and wants to use, and you get not links, but mentions, and links might be mentions now, because the way a link before LLMs and the link 10 years ago was actually an HTML link. Now, Google can read content. They can say, "Well, you've been mentioned here," that's pretty good. Now, we acknowledge that this might be the brand, and this might be the match for that kind of thing.</p>
+<p><strong>Eli Schwartz</strong> (01:09:23):<br />
+That's helping to build that brand. In general, I think of any SEO effort as promoting a brand, building up a brand, rather than building a product, and then separately building out an SEO effort, which has content that may not be relevant, and links from websites that are certainly not relevant to content that's not relevant. It all comes together as being one big effort. The same thing you'll do on PR, you'll do for SEO.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:50):<br />
+Awesome. Okay. I'm glad we touched that. There's a few other directions I want to go, so I'm going to bounce around a little bit and cover some of the other stuff I wanted to extract from your deep experience in this space. One is you've mentioned this idea of programmatic SEO a couple times versus editorial. Maybe first, just clarify what those two directions are, just for people that don't exactly know what you mean. Then two, what's your general advice for which direction to go, programmatic or editorial?</p>
+<p><strong>Eli Schwartz</strong> (01:10:19):<br />
+It might be obvious at this point, but I'm going to say it's dependent on the user, but essentially, what programmatic is is it's taking a bunch of data sources and building out a page that is a combination of all these data sources. In my book, I talk about two of my favorite programmatic SEO companies. One of them was created by a past, well, it's not created, the strategy was created by a past guest of yours, Luc Levesque, who introduced us, and that was TripAdvisor.</p>
+<p><strong>Eli Schwartz</strong> (01:10:50):<br />
+TripAdvisor took in all these data sources of, "This is the hotel, these are the cities," and then it allowed UGC to combine into one comprehensive page about each property. TripAdvisor did not write a piece of content on every single hotel. They don't write a piece of content on, "Here's this long form blog post as an influencer on the Waldoff Astoria of New York, and here's a long form blog post about the Marriott Marquis in San Francisco."</p>
+<p><strong>Eli Schwartz</strong> (01:11:17):<br />
+They built it all from a programmatic standpoint. They took all these data sets, they took all the </p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

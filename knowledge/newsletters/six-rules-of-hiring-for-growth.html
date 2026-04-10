@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Six rules of hiring for growth — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Six rules of hiring for growth</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Six rules of hiring for growth</div>
+    
+    <div class="article-meta">2021-11-09<span>·</span>3,441 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">定價</span> <span class="mini-tag">B2B</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to the monthly ✨ </em><em>free edition</em><em>✨ of my weekly newsletter. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/wedge">Picking a wedge</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/breaking-into-growth">Breaking into growth</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/community-wisdom-tools-to-capture">Community wisdom</a></em></li>
+</ol>
+<blockquote>
+<h2>Q: When is the right time to hire my first full-time growth person? What should I look for when hiring for growth?</h2>
+</blockquote>
+<p>As <a href="https://www.paulgraham.com/growth.html">Paul Graham teaches us</a>, “Startup = growth. The only essential thing is growth. Everything else we associate with startups follows from growth.” Thus, your first growth hire is one of the most important hires you’ll make. To tackle your question, I’ve pulled in <a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a>, one of the smartest growth people I’ve ever met (and who I’ve been trying to convince to write a guest post for nearly a year). Below, Elena generously shares her six hard-won lessons on growth hiring. Over the past 10+ years, Elena has helped hire and build growth teams at companies like <a href="https://www.netlify.com/">Netlify</a>, <a href="https://www.mongodb.com/">MongoDB</a>, <a href="https://hp.com/">HP</a>, and <a href="https://krisp.ai/">Krisp</a>, and previously led growth at <a href="https://miro.com/">Miro</a>, <a href="https://www.surveymonkey.com/">SurveyMonkey</a>, and <a href="https://www.malwarebytes.com/">Malwarebytes</a>. An early draft of this post has already become my go-to reference for helping founders figure out their growth hiring strategy, and I’m excited to share it with you all.</p>
+<p><em>You can find Elena on <a href="https://www.linkedin.com/in/elenaverna/">LinkedIn</a> and <a href="https://twitter.com/ElenaVerna">Twitter</a>.</em></p>
+<p><img alt="Image from Six rules of hiring for growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ff07715a-98ac-4e71-a600-fe493f74b999_2048x634.png" /></p>
+<p>Do you have strong product-market fit and feel ready to ramp up your investment in growth by hiring your first full-time growth person? Unfortunately, some of the first set of decisions that founders make when embarking on this journey are flawed. The most common mistakes they make are:</p>
+<ol>
+<li>Hiring a growth generalist without understanding what growth means for your company</li>
+<li>Building a growth team before a data team</li>
+<li>Prioritizing Head of Growth as your first growth hire</li>
+<li>Hiring the wrong type of growth profile</li>
+<li>Chasing after external talent</li>
+<li>Putting growth in the wrong department</li>
+</ol>
+<p>Today I want to offer a step-by-step framework for how to go about building a successful growth team.</p>
+<p><img alt="Image from Six rules of hiring for growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8e9aca2d-57f8-4049-915b-cdd23bb9b177_2048x1102.png" /></p>
+<h3><strong>Rule 1: Growth model before growth</strong></h3>
+<p>Great <em>products</em> have incredible product-market fit—they have correctly proved a compelling value hypothesis that describes why a customer is likely to use the product. Great <em>companies</em>,on the other hand<em>,</em> have product-market fit coupled with a strong <strong>growth model</strong>—predictable, sustainable, and defensible <em>strategies</em> that help achieve maximum distribution in the market. Just like a product, your growth model needs to be researched, built, launched, and iterated on. You won’t get it right immediately. I suggest spending time on this during, or shortly after, you’ve found product-market fit, to ensure that your initial traction can be scaled.</p>
+<p>A growth model is made up of two parts:</p>
+<ol>
+<li><strong>Growth levers</strong></li>
+<li><strong>Growth motions</strong></li>
+</ol>
+<p><strong>Growth levers</strong> describe ways to impact your business’s revenue growth by making changes to your customers’ journey. Growth levers answer the following questions:</p>
+<ol>
+<li><strong>Acquisition:</strong> How do you acquire customers?</li>
+<li><strong>Retention:</strong> How do you activate and engage your customers?</li>
+<li><strong>Monetization:</strong> How do you monetize your customers?</li>
+</ol>
+<p>Every growth lever is leveraged through a <strong>growth motion</strong>. A growth motion describes which team or tactic is accountable for a successful outcome in the growth lever. There are many fantastic, established growth motions to apply to each growth lever, such as product-led, sales/success-led, marketing-led, support-led, community-led, etc.</p>
+<p>Let’s explore the first three:</p>
+<h4><strong>1. Product-led</strong></h4>
+<p>Product is accountable for the output of the growth lever by engaging customers in product actions.</p>
+<ul>
+<li><strong>Acquisition example:</strong> Miro (collaborative whiteboard platform) customers need to collaborate in the product to receive value, which results in customers acquiring more new customers via invites to colleagues.</li>
+<li><strong>Retention example:</strong> SurveyMonkey (online surveys platform) customers receive notifications that new responses have been collected on an open survey, triggering them to re-engage with the product to analyze results.</li>
+<li><strong>Monetization example:</strong> Netlify (web workflow platform) customers discover a product feature wall for site password protection and convert via self-serve monetization flow to the paid plan to unlock functionality.</li>
+</ul>
+<h4><strong>2. Sales- and success-led</strong></h4>
+<p>The sales team engages customers in the actions that will result in the growth lever output.</p>
+<ul>
+<li><strong>Acquisition example:</strong> Sales team discovers potential decision makers through outbound efforts, convincing them to see a demo or start a trial.</li>
+<li><strong>Retention example:</strong> Success team holds quarterly business reviews with the customer to communicate value delivered, to ensure that the customer continues to engage.</li>
+<li><strong>Monetization example:</strong> Sales team nurtures the customer, resulting in contract signing.</li>
+</ul>
+<h4><strong>3. Marketing-led</strong></h4>
+<p>Marketing engages customers in the actions that will result in the growth lever output.</p>
+<ul>
+<li><strong>Acquisition example:</strong> Marketing team utilizes organic or paid methods across third-party platforms such as Google, Facebook, and Twitter to grab customer attention and convince them to give the product a try.</li>
+<li><strong>Retention example:</strong> Marketing uses an email lifecycle to communicate the value of the product to the customer.</li>
+<li><strong>Monetization example:</strong> Marketing team deploys messaging nurture, retargeting tactics to generate monetization interest from the customer.</li>
+</ul>
+<p>Now mix and match, layer, and sequence the above motions across the growth levers! You can be marketing-led in acquisition; product- and sales-led in monetization; and product-led in retention; while ideating how to sequence product-led to acquisition. The unique combination, layering, and sequencing of the growth motions localized for your product and deployed against your growth model is what will create a <em>predictable</em>, <em>sustainable</em>,and <em>competitively defensible</em> growth model. So what is your most critical growth lever right now and most likely growth motion to apply against it?</p>
+<h3><strong>Rule 2: Invest in the data</strong></h3>
+<p>Although the final desired output of any business is revenue, the levers that a team pulls to impact revenue sit deep within the user journey of your product. Relying on financial performance as the ultimate guiding principle for decision-making leads to short-term revenue optimization and limited investment in long-term sustainable growth. Understanding customer progression through a data lens will help you identify not only which growth lever you should prioritize, but where you should focus your efforts to yield the biggest short- or long-term impact.</p>
+<p>Whether you are a marketplace, SaaS, direct-to-consumer, social network, or any other type of business, <strong>you can think of your data as a company organizational chart</strong>:</p>
+<ul>
+<li>Revenue is the “CEO” (it’s an outcome metric).</li>
+<li>Acquisition, retention, and monetization are part of the “leadership team,” strategizing how to make the company successful.</li>
+<li>Activation, engagement, conversion, etc. are the key “team members” that work tirelessly to deliver on outcomes for the company—these are the metrics your growth team will drive and impact.</li>
+<li>“Chief of staff” is your North Star metric, which keeps close tabs on the “CEO,” working behind the scenes as a predictor to revenue success.</li>
+</ul>
+<p><img alt="Image from Six rules of hiring for growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/67b65506-99a8-416c-9295-a41db5783f5d_8118x6035.jpeg" /></p>
+<p>Building a company’s data organization will allow you to:</p>
+<ul>
+<li>Understand where the most customer friction happens, and prioritize opportunities for growth.</li>
+<li>Help your first growth team members hit the ground running, and be empowered with data insights to have a greater chance of delivering the biggest impact.</li>
+<li>Aid in the creation of growth teams or growth pods around acquisition, retention, and monetization.</li>
+</ul>
+<p>It may take many years to develop a comprehensive company data org, but once you do, you will be data-driven. Focus on the “leadership team” first, which will get you to a data-informed stage. Starting to identify team members will transition you to data-driven territory. See more on data efficacy stages in <a href="https://www.reforge.com/blog/scaling-data">this blog post</a>, and <a href="https://future.a16z.com/north-star-metrics/">a guide to helping you find your North Star metric</a>.</p>
+<h3><strong>Rule 3: Create the first growth model yourself</strong></h3>
+<p>This is where you do <em>not</em> hire the Head of Growth. It is up to the core leadership team to figure out the first version of your growth model—the primary levers and motions that you believe will drive your business growth. Only you know all the nuances of the market, product, and customer, hence are best positioned to put together the first version of a growth model that will have the highest likelihood of success.</p>
+<p>Your growth model, just like product-market fit, is part of the core foundation of your company. Product, marketing, and growth leaders can help you evolve and scale initial traction, evolving your business for long-term success. But doing the first growth-model exercise with the founding team will help you create an authentic growth model that closely leverages your product-market fit strengths and takes advantage of the market opportunities. In fact, companies leverage their growth models to win against direct competitors. Two examples:</p>
+<blockquote>
+<p><em>SurveyMonkey hit product-market fit in the early 2000s by creating a software solution that enabled a much easier way for customers to collect feedback. It won a prosumer market with the product-led acquisition approach of the survey creators distributing SurveyMonkey-branded surveys to the respondents via casual contact loop, monetizing prosumers via product-led self-serve channels.</em></p>
+<p><em>Qualtrics, a direct competitor, was able to enter the online survey market by applying a sales-led acquisition motion, targeting educational institutions first. With students gradually entering the workforce and becoming decision makers, it switched its acquisition motion heavily toward enterprise buyers, getting great traction with sales-led monetization inside companies. Nearly the same product was able to enter and succeed by applying a unique growth model against its product.</em></p>
+</blockquote>
+<p>So why is it a bad idea to outsource the first growth-model creation exercise to the Head of Growth?</p>
+<ol>
+<li><strong>Tasking a new Head of Growth hire with the creation of the growth model will likely result in a copy-paste solution from their past.</strong> It takes many months, if not years, to understand the true DNA of the product and market, which should guide growth model selection. You will either lose precious time on the market by waiting or rush and end up with a model that will have a high likelihood of failure. The goal of a great growth team is to accelerate organic trends—to make it easier for people to do things they already want to do. Your existing team is best equipped to understand all the things people already want to do related to your product.</li>
+<li><strong>Switching a company’s mindset from building great products (product-market fit) to growing a fantastic business (growth model) is an evolution that every business has to embark on during its scaling journey.</strong> Tasking a new Head of Growth on the leadership team with achieving this mindset shift may result in internal resistance to change. Evolving the mindset with the founding team is the key to setting a company up for success not only with growth but with any newly formed department.</li>
+</ol>
+<p>It is important to understand that the initial growth model is a hypothesis with assumptions that are yet to be proven. Your team’s first order of business will be to <em>learn</em> about the validity of the assumptions.</p>
+<p><a href="https://miro.com/app/board/uXjVMAQfsQg=/">Here’s a sample template</a> for what a growth model could look like:</p>
+<p><img alt="Image from Six rules of hiring for growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8b766269-219d-436f-bbb8-d6fed27835e7_10341x4737.jpeg" /></p>
+<h3><strong>Rule 4: Hire a builder</strong></h3>
+<p>In growth, there exist three types of profiles:</p>
+<ol>
+<li><strong>Innovators:</strong> Enjoy thinking <em>big</em>. They love ideating about new loops, channels, and tactics and pressure-testing existing hypotheses. Most often they hold VP-level roles in Growth and will be best deployed to evolve your growth model.</li>
+<li><strong>Builders:</strong> Generalists who will help you build out your existing growth model hypotheses by creating systems, processes, and learnings. Most often they hold Growth PM, Growth Marketing, and Lifecycle Manager titles.</li>
+<li><strong>Optimizers:</strong> Hold deep functional knowledge and will allow you to capture every last bit of the improvements out of any given channel, tactic, or loop. These are SEO specialists, Adwords specialists, and CRO titles.</li>
+</ol>
+<p>In almost all cases, you want to start by hiring a <strong>Builder</strong>, to prove your model’s validity. If most of your assumptions were right and you are enjoying early traction, you should move to <strong>Optimizers</strong> next to capture most of the value, finishing with <strong>Innovators</strong> to begin iterating on the model.</p>
+<p>If your growth model hypothesis was wrong and you are not seeing the expected impact, then move to <strong>Innovators</strong> next, who will help you evolve the model based on existing learnings from failures, going after <strong>Optimizers</strong> only after traction with the growth model has been established.</p>
+<h3><strong>Rule 5: Prioritize homegrown talent</strong></h3>
+<p>As tempting as it is to open a new role for growth and hire from the outside, it is often the quickest way to fail in growth efforts. Reasons include:</p>
+<ol>
+<li><strong>The growth function has been around for only a decade</strong>, generally speaking—there are not enough people out there who have “been there, done that.” Especially if you are looking for a Head of Growth, you will likely search for a good portion of the year, losing precious time on the market.</li>
+<li><strong>If somebody has been there and done that, it is not likely they will want to do it all over again and again</strong>. I’m sure you’ve heard: “not open to full-time, but advising is an option.”</li>
+<li><strong>Strong growth leaders are</strong> <strong><em>extremely</em></strong> <strong>expensive</strong> due to scarcity of supply.</li>
+<li><strong>Growth leaders need internal support.</strong> Many of the best ones will run fast-paced and sometimes controversial experiments to help you prove out and evolve your growth model. It’s a good idea to find a growth leader who is hard for your team to stay mad at. Sometimes the best option already works on your team.</li>
+</ol>
+<p>Growth is about evolution, not revolution. Almost nobody starts their career in growth. Most successful growth leaders came from other departments. A few examples:</p>
+<ul>
+<li>Data analytics: <a href="https://www.linkedin.com/in/caseywinters">Casey Winters</a> (ex-growth at Pinterest, CPO at Eventbrite), <a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a> (ex-growth at SurveyMonkey), <a href="https://www.linkedin.com/in/crystalwidjaja/">Crystal Widjaja</a> (ex-growth at Gojek, CPO at Kumu)</li>
+<li>Engineer: <a href="https://www.linkedin.com/in/lennyrachitsky/">Lenny Rachitsky</a> (ex-growth at Airbnb), <a href="https://www.linkedin.com/in/mattgreenberg/">Matt Greenberg</a> (ex-growth at Credit Karma, CTO at Reforge)</li>
+<li>Marketing manager: <a href="https://www.linkedin.com/in/adamjfishman/">Adam Fishman</a> (ex-growth at Lyft, Patreon), <a href="https://www.linkedin.com/in/akgrenier/">Adam Grenier</a> (ex-growth at Uber, growth at MasterClass)</li>
+<li>Product manager: <a href="https://www.linkedin.com/in/iambangaly/">Bangaly Kaba</a> (ex-growth at Instagram, growth at Popshop Live), <a href="https://www.linkedin.com/in/naomipilosofionita/">Naomi Ionita</a> (ex-product/growth at Evernote and Invoice2go, partner at Menlo Ventures), <a href="https://www.linkedin.com/in/nicksoman/">Nick Soman</a> (ex-growth at Gusto, CEO at Decent)</li>
+</ul>
+<p>Among the unifying qualities across all of these growth leaders are their natural powers to:</p>
+<ol>
+<li>Connect actions to outcomes</li>
+<li>Be data-driven</li>
+<li>Have a growth mindset</li>
+<li>Respect for scientific method</li>
+<li>Hunger for learning</li>
+</ol>
+<p>So who are the people within the analytics, product, marketing, engineering, or even financial planning and analysis team to take on the first builder/innovator roles?</p>
+<h3><strong>Rule 6: Let your growth model dictate growth org placement</strong></h3>
+<p>Should the growth team be in marketing? Product? Sales? Community? Support? Although each organization and their leaders are unique and hence there is no universal right answer, your growth model should help inform the decision process.</p>
+<p><strong>Step 1:</strong> Start by prioritizing the growth lever you need to drive the most improvement for:</p>
+<ol>
+<li><strong>Acquisition:</strong> My new user growth is 50%, but I believe I should be at hypergrowth of 75% due to current market demand and saturation.</li>
+<li><strong>Retention:</strong> Less than 10% of my customers reach the aha moment, which prevents my loops from working, and I need it to be 30%.</li>
+<li><strong>Monetization:</strong> My free-to-paid conversion is 2%, while the industry average is 5%.</li>
+</ol>
+<p>Most companies start with acquisition or retention (specifically onboarding), followed by monetization.</p>
+<p><strong>Step 2:</strong> Next, your growth model should indicate what growth motion you either need to build out, optimize, or introduce: marketing-led, product-led, sales-led, etc. For example, to build on the acquisition lever mentioned in Step 1:</p>
+<ul>
+<li>
+<p>We will accelerate acquisition from 50% to 75% by capturing SEO and kicking off paid marketing on Twitter: Marketing-led motion</p>
+</li>
+<li>
+<p>Hire a growth marketer under marketing</p>
+</li>
+<li>
+<p>We will accelerate acquisition by introducing user referral loops and increasing collaborative feature adoption in the product: Product-led motion</p>
+</li>
+<li>
+<p>Hire a growth PM under product</p>
+</li>
+<li>We will accelerate acquisition by hiring BDRs and increasing our outbound efforts: Sales-led motion</li>
+</ul>
+<p>Avoid hiring a growth marketer to solve your product-led motion. In addition to lacking the background to create the most value, they will spend much of their time spinning wheels outside their function in meetings with the product team because of the changes that person’s motions will require to the product.</p>
+<p>Lastly, companies often wonder whether they should embed growth within an existing team or create a stand-alone function. Most companies end up going through cycles of centralization and functional distribution of the growth teams because both models have their strengths and weaknesses.</p>
+<p><strong>Embedded teams</strong></p>
+<ul>
+<li>Pros: Cleaner org design; feels like evolution; easier propagation of learnings; growth mindset throughout the org.</li>
+<li>Con: Hard time maintaining growth focus, often working on core product or marketing projects and failing to drive a change in the ecosystem. This is often a silent killer.</li>
+</ul>
+<p><strong>Stand-alone teams</strong></p>
+<ul>
+<li>Pro: Full autonomy in decision-making.</li>
+<li>Cons: Feels like revolution; tend to absorb so much outcome accountability on their shoulders that the rest of the organization feels a lack of responsibility to deliver on growth goals for the business.</li>
+</ul>
+<p>I would recommend always starting with the embedded model, to ensure that growth is an evolution and not a revolution, while frequently re-evaluating organizational design.</p>
+<p>Growth models and growth teams are just as important to a successful business as strong product-market fit. There are many incredible products that you’ve never even heard about because they have not invested in their growth model and end up slowly dying. Conversely, there are a lot of terrible products with such strong growth models that they make a company incredibly successful.</p>
+<p>In any case, I hope you use the tools I’ve described here to create a great growth team and build a successful company!</p>
+<h3>📚 Helpful additional resources</h3>
+<ul>
+<li><a href="https://www.thetwentyminutevc.com/elena-verna/">20VC podcast episode on the biggest mistakes you can make when hiring for growth</a></li>
+<li><a href="https://www.reforge.com/blog/scaling-data">Crystal Widjaja blog post on the journey to scale data</a></li>
+<li><a href="https://andrewchen-com.cdn.ampproject.org/c/s/andrewchen.com/hiring-head-of-growth/amp/">Andrew Chen’s blog post on hiring for a Head of Growth</a></li>
+<li><a href="https://www.reforge.com/growth-series">Reforge’s Growth Series course</a></li>
+</ul>
+<p><em>Thanks, Elena! You can find her on <a href="https://www.linkedin.com/in/elenaverna/">LinkedIn</a></em> and <em><a href="https://twitter.com/ElenaVerna">Twitter</a></em>.</p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Mynd:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/fb8cc2e5-7d3c-48ca-9fa8-38fbb4a3411f">Product Lead, Leasing &amp; Residents</a> (Remote-US)</li>
+<li><strong>TaskRabbit:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/17de265a-eadd-4e61-9a8b-a4ff0dc0b494">Chief Product Officer</a> (Remote-US)</li>
+<li><strong>Fiveable:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/c569b4e4-3b48-4ed6-9e85-ca71fc7023f0">Head of Product</a> (Remote-US)</li>
+<li><strong>Catalog:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/f2bec9f3-9eaf-4d5f-aa4a-48e81f3e3a78">Senior Project Manager</a> (Remote-Global)</li>
+<li><strong>Enterpret:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/ffbf9d72-bac3-4a65-a086-43dcb9b46bcb">Principal Product Manager</a> (NYC)</li>
+<li><strong>Launch House:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/cc16e91a-64cd-40b0-b48b-0a9befd0a77b">Growth Associate</a> (Remote-US)</li>
+<li><strong>Hyphen:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/409ba7dc-d175-45cf-a3e8-5b50d020c874">Senior Software Engineer</a> (LA, San Jose, ATL, Remote-US)</li>
+<li><strong>Rapchat:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/e32872cf-766d-47f1-b367-6e9b0d437294">Data Analyst</a> (Remote-US/EU)</li>
+<li><strong>The Parent Company:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/31f0e76e-aace-4a3c-a1bd-370dab92eda2">Product Manager - Consumer Growth</a> (Remote-US)</li>
+<li><strong>Spokn:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/4ae774dd-1c74-4709-897e-dd4413a2aa5c">Head of Product Design</a> (Remote-US)</li>
+<li><strong>Custom Ink:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/6cf2edfe-0149-4cf8-99f4-7bf23a949975">Senior UX Architect</a> (Fairfax VA, Remote-US)</li>
+<li><strong>PadSplit:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/a4a610e5-a0dc-4c28-9c19-9905c60917ad">Senior Product Manager</a> (Remote-US)</li>
+<li><strong>Matter:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/d08a9ae6-80b3-414f-8e36-daa2b8ea6768">Design Lead</a> (Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

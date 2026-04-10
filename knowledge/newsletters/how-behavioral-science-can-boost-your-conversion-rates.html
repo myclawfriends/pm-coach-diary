@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How behavioral science can boost your conversion rates — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How behavioral science can boost your conversion r…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How behavioral science can boost your conversion rates</div>
+    
+    <div class="article-meta">2021-09-17<span>·</span>3,098 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2B</span> <span class="mini-tag">工程</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to a ✨ </em><em>bonus free edition</em><em>✨ of my weekly newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out about work.</em></p>
+<blockquote>
+<h2>Q: I’m looking for ways to increase the conversion rate of our core flow. I’ve already read <a href="https://www.lennysnewsletter.com/p/this-week-21-strategy-and-tactics">your post on conversion</a>, and it was great, but do you have any other suggestions?</h2>
+</blockquote>
+<p>I’ll be honest, I wasn’t sure what to do with your question when I first got it. But then, while catching up with my buddy <a href="https://www.linkedin.com/in/kristenberman">Kristen Berman</a>, I found my answer. Kristen co-founded a company called <a href="https://irrationallabs.com/">Irrational Labs</a>, which helps companies and nonprofits understand and leverage behavioral economics to increase the health, wealth, and happiness of their users. This work often includes helping companies design product and features that drive user behavior change. In practice, this can mean spending a lot of time on improving conversion. While chatting with Kristen, she shared story after story of how they used a few basic principles of behavioral science to more than double conversion of a bunch of different products. I was blown away, and knew I had to get her to share her wisdom more broadly. After much cajoling, she agreed to write a guest post.</p>
+<p><strong>Below, Kristen shares four stories of huge conversion wins across a handful of companies—and the behavioral science principles behind them. She then shares five behavioral design strategies you can apply to your own product immediately.</strong> If you want to learn more about how you can apply behavioral design to your product, definitely check out Kristen’s upcoming <a href="https://behavioraleconomicsbootcamp.com/bootcamp-lp-classic-cohort/">Behavioral Design Interactive bootcamp</a>, which starts October 8. Use code ‘Lenny’ for 10% off. And enjoy!</p>
+<p><em>For more from Kristen, sign up for the <a href="https://irrationallabs.com/newsletter/">Irrational Labs email</a> or follow Kristen on <a href="https://twitter.com/bermster">Twitter</a>.</em></p>
+<h1>How behavioral science can boost your conversion rates</h1>
+<p><em>By Kristen Berman</em></p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d826ba63-c326-4f65-86cf-4e72efb3bc4b_2195x1646.png" /></p>
+<p>People don’t always act rationally. We say one thing and do another. We even act against our best interests.</p>
+<p>The field of behavioral science studies these behaviors. It sits at the crossroads of psychology and economics, looking at the effects of cognitive, emotional, and social factors on decisions and, ultimately, actions. The application of behavioral science is typically called <a href="https://irrationallabs.com/learn/our-method/">behavioral design</a>.</p>
+<p>More and more companies are using behavioral design to conduct user research, develop products, and design experiments that drive behavior change and growth. It’s an end-to-end lens on product development that helps teams think differently about their customer.</p>
+<p>A study by J. Michael McGinnis of the National Academy of Medicine found that <a href="https://www.prb.org/resources/up-to-half-of-u-s-premature-deaths-are-preventable-behavioral-factors-key/">40% of premature deaths</a> are the result of our own choices. Our decisions around food, exercise, drinking, and driving are literally killing us (and sometimes others). We’re bad at making decisions that are good for us. By designing solutions that align with our psychology, we can make it easier for people to do things they already want to do.</p>
+<p>To help you improve your own product, positively, I’m going to share <strong>four concrete examples</strong> of experiments that saw significant shifts in conversion rates when they used behavioral design to drive product design—and why they worked.</p>
+<p>Of course, proceed with caution. We don’t recommend dragging and dropping these principles into your app without experimenting to test if/how they work for your context.</p>
+<h3>1. Increase the immediate benefit to taking any action: <em>forced choice and present bias</em></h3>
+<p>The mobile app <a href="https://steadyapp.com/">Steady</a> helps gig workers track their income. To do this, it needs access to a user’s bank account—but this bank-linkage step creates friction. It’s a common drop-off moment for users: 92.9% give up during the process.</p>
+<p>We went through the behavioral design process with the goal of boosting the number of users who linked their bank account. By redesigning the choice architecture and creating CTAs with this in mind, <a href="https://bootcamp.uxdesign.cc/why-slowing-users-down-can-help-them-make-meaningful-choices-329e99a982a8">linkage jumped by 63%</a>, from 7.1% to 11.6%.</p>
+<p>Why did this work? We used something called <a href="https://www.jstor.org/stable/30038845">forced choice</a>. This means we asked people to “accept” or “decline” the new feature. By asking people if they wanted to decline (which is definitive and final), there was now a cost to not accepting it—you might not get a second chance. Suddenly, “accept” looks much better in comparison. When we allow people to skip something or say “maybe later,” there’s very little cost to them.</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f1584c90-8344-4464-90f1-088fee2c2da6_890x714.png" /></p>
+<p>But we thought we could do better.</p>
+<p>We then applied another behavioral science principle to improve this screen even more: <a href="https://home.uchicago.edu/ourminsky/Goal-Gradient_Illusionary_Goal_Progress.pdf">goal gradient</a>. By focusing a user’s attention on “completing” setup, we boosted conversion from the base of 7.1% to 15.9%.</p>
+<p>Why did this work? The immediate benefit to the user of taking the action should be higher than the cost of the action. This is because we tend toward <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3909663">“present bias</a>.” In the prior example, we increased the benefit of saying “yes,”  by making “no” relatively more costly (definitive and final). Now we increased the benefit of saying “yes” by focusing people on a short-term goal: completing setup. People (you, your users, your customers) all want to complete things. By making people feel closer to completing something, we delivered a bigger immediate benefit.</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c448baf4-7e06-48ae-8dec-8bb488a31214_464x690.png" /></p>
+<p><strong>The behavioral science takeaway:</strong> Always evaluate whether the immediate benefit to your user is more compelling than the cost to them. Typically, any step is friction—and friction presents a cost. Of course, <a href="https://irrationallabs.com/blog/its-not-always-about-making-things-easier-when-to-make-your-sign-up-flow-harder/">there are exceptions.</a> But generally, more cost means you need more (immediate) benefits.</p>
+<h3>2. Make people feel like they already own it: <em>the endowment effect</em></h3>
+<p>Our team worked with <a href="https://hello.livongo.com/">Livongo</a>, a diabetes management company, to help it rethink its onboarding strategy. After they conducted the behavioral diagnosis and assessed the psychologies at play, they made one simple change that <a href="https://irrationallabs.com/case-studies/livongo/">drove a 120% increase</a> in registration.</p>
+<p>What was it? Switching email phrasing from “Join the program” to “Claim your welcome kit.”</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b1cd4a4b-2144-4917-9021-703aaa7ff84c_1400x602.png" /></p>
+<p>That may sound simple, but it leveraged a key psychological insight well-known by behavioral scientists. When we feel like something is ours (the “<a href="https://www.sciencedirect.com/science/article/abs/pii/S0022103109001279">endowment effect</a>”), we may be likely to value it more. In addition, the opportunity to “claim your welcome kit” is both a more concrete and comparatively smaller ask. People only had to say “yes” to receiving a kit, not joining a program.</p>
+<p><strong>The behavioral science takeaway:</strong> Experiment with designing products that allow the user to more quickly feel <a href="https://www.gsb.stanford.edu/faculty-research/working-papers/psychological-ownership-intervention-improving-government-benefit">psychological ownership</a> (a form of endowment). Your product is <em>already</em> theirs, and by not taking action, they may lose the opportunity to benefit from it.</p>
+<h3>3. Lean into existing behavior, and then make it easier: <em>friction</em></h3>
+<p><a href="https://earnup.com/">EarnUp</a>, a fintech app, wanted to help its users pay down debt faster (thereby saving them thousands in interest).</p>
+<p>We created a basic A/B email test on a random selection of EarnUp’s user base. We asked both groups to start paying more than their minimum payment. But in one condition, we framed this request with psychologically pleasing numbers: round numbers. People were prompted to “round up” to an even number.</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/336d96b8-f017-41aa-8660-5d5486bda0df_1358x688.png" /></p>
+<p><a href="https://nextbillion.net/fintechs-elephant-seal-problem/">The results were impressive.</a> First, simply asking people to increase their mortgage payments led 10% of people to increase their mortgage payment by $60, saving them $8,000 in interest and decreasing their mortgage term by two years.</p>
+<p>But the real win was making it easier by asking users to “round up.” That condition increased the number of people who chose to overpay by 40% from baseline. On average, this population would shave an additional two years off their mortgage.</p>
+<p>Why did this work? Try to recall how much you pay on a loan bill. It’s unlikely you know the exact amount to the dollar—you’ll likely recall a round number. We already mentally round up the amount we pay on loans. EarnUp’s new feature (rounding up your payment) made it psychologically easy for people to do more of what they were already doing.</p>
+<p>In a sample of data obtained from the fintech company <a href="https://digit.co/">Digit</a>, 48% of users set goals that were multiples of $500, and 87% of users set goals that were multiples of $100. In a data sample obtained from the fintech company <a href="https://www.qapital.com/">Qapital</a>, 93% of savings goals were multiples of $50, and 88.5% of goals were multiples of $100. Only 2.6% of goal amounts did not end in a zero or a five.</p>
+<p><strong>The behavioral science takeaway:</strong> Lean into what people are already doing, and then make it easier for them. Peloton’s Director of Product, David Packles, is <a href="https://www.youtube.com/watch?v=1-KatWuirn4">vocal that he uses this strategy</a> in Peloton’s product design process.</p>
+<h3>4. Get commitments on day one: <em>mental models</em></h3>
+<p>Access to credit is critical in today’s economy. It facilitates important life milestones like purchasing a car, which we know is often vital to both getting and keeping a job, especially among low-income households.</p>
+<p>To help people get credit and keep it high, Duke University’s <a href="https://commoncentslab.com">Common Cents Lab</a> partnered with Latino Community Credit Union to help support borrowers with their loan repayment.</p>
+<p>After going through the behavioral design process and analyzing transactional data, the team decided to help people create a savings backstop. If borrowers ever missed a payment, the bank could withdraw from this no-fee fund and avoid hitting a person’s credit score or levying a fee.</p>
+<p>Here’s how it worked: When signing the loan documents, people were asked by the loan officer whether they wanted to <em>round up</em> their payment and put the extra into savings. This was an opt-out on their loan form. People could check a box to decline.</p>
+<p>Like the prior example, this “round up” concept worked. The surprise was how well it worked—in the winning condition, <a href="https://advanced-hindsight.com/wp-content/uploads/2018/05/2017-Common-Cents-Lab-Report-509.pdf">a whopping 36% of people</a> agreed to round up their loan payment. By the end of their loan periods, people who agreed to this arrangement and kept money in the account would have an average of $1,000 stashed in savings.</p>
+<p>This opt-in percentage (36% vs. 14%) was wildly better than the EarnUp nudge. Why?</p>
+<p>This time, instead of an afterthought in an email, “round up” was a part of the core product’s mental model from day one, and part of onboarding. The product was designed from the ground up with core behavioral science insights.</p>
+<p>Behavioral science provides a lens to decision-making that is valuable at the early stages of ideation. With an up-front model of how and why someone will likely engage with your product, you’re less likely to need marginal improvements later.</p>
+<p><strong>The behavioral science takeaway</strong>: <a href="https://bermster.medium.com/do-this-1-thing-right-from-the-beginning-and-users-are-more-likely-to-stick-with-you-says-93ac7f76f426">Day 1 is the day your users have the most momentum</a> they will ever have. Catching them at this moment with the right features and mental model will drive higher opt-in rates and engagement than at any other time in the user’s lifecycle.</p>
+<h2>How can <em>you</em> integrate behavioral science in your work?</h2>
+<p>These examples highlight the power our <em>environment</em> has on driving our decisions. The truth is, people want to manage their diabetes. They want to track their variable income. There’s no lack of intent—there’s lack of action. But if you were to ask these customers <em>why</em> they didn’t complete the flow, they wouldn’t mention endowment or choice architecture. Behavioral design helps uncover and design for these driving forces.</p>
+<p>It’s important to note that the interventions described above didn’t just fall from the sky. Behavioral design is a process. We don’t just interview users. In behavioral design, we do an in-depth behavioral diagnosis that maps the user’s environment of decision-making; we collect data about existing behaviors, and we conduct a literature review to deep-dive into the user’s psychology.</p>
+<p>In other words, behavioral scientists go beyond <a href="https://www.ted.com/talks/kristen_berman_don_t_listen_to_your_customers_do_this_instead">what users</a> <em><a href="https://www.ted.com/talks/kristen_berman_don_t_listen_to_your_customers_do_this_instead">say</a></em> <a href="https://www.ted.com/talks/kristen_berman_don_t_listen_to_your_customers_do_this_instead">they’ll do</a> (or what they say they want) and focus instead on what they’re actually doing, as well as the underlying psychology behind it.</p>
+<p>Using <a href="https://irrationallabs.com/learn/our-method/">behavioral design</a> to assess the problem, and understand every step of user behavior, we can offer a targeted solution. Here are 5 tactics you can use in your own product development process.</p>
+<h2><strong>5 actionable behavioral design strategies</strong></h2>
+<ol>
+<li><strong>A literature review:</strong> Unless you’re working on self-driving planes, you’re not the first person to study your problem. Spending a day getting up to speed on existing research insights will help you develop your hypothesis. We find that too many teams start cold and conduct focused interview groups. User interviews can be helpful, but small samples are noisy, and even one misguided answer can lead to misdirection at the critical early stages.</li>
+</ol>
+<p><em><a href="https://irrationallabs.com/content/uploads/2020/04/Literature-Review-101.pdf">A 5-step guide to doing a literature review</a></em></p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/82b88cc0-b2b4-417e-bbde-5b7d1371d859_754x522.png" /></p>
+<ol>
+<li><strong>Pick a key behavior:</strong> This is the number one place we think PMs should spend more time with their teams. When designing for behavior change, the most important thing is—quite literally—to pick the behavior you want to change. Most teams we work with focus on engagement and retention but fail to make a clear and unified hypothesis about the most important action to drive this. As behavioral scientists, we get uncomfortably specific about this.</li>
+</ol>
+<p>Imagine you’re a PM at Airtable. You say that you want new users to create more workspaces. This is interesting, but it’s not clear exactly what you mean. How quickly? How many? From scratch? An uncomfortably specific key behavior looks more like: <em>Within one week of joining, users start to fill in one workspace via a pre-existing template and invite two collaborators.</em></p>
+<p>By outlining these specifics, the team can now debate how to design a successful intervention.<br />
+3. <strong>Behavioral map:</strong> After aligning on a key behavior, it’s time to map the environment of decision-making. What is every single step someone needs to do to get to your key behavior? These are cognitive steps (making decisions) and logistical ones (filling out a form field). This is different from any “journey map” we’ve seen, in that it’s wildly more detailed. Doing this usually leads to several “ahas” for marketing and product teams.</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9c8bdff3-9bf7-4025-b307-755dac68c593_972x1114.png" /></p>
+<ol>
+<li><strong>Identify the psychologies at play:</strong> At each step, what are the underlying forces driving our behavior? At Irrational Labs, we’ve boiled down the list of biases to a simple framework—the 3Bs. To drive a key behavior, we need to reduce the barriers and increase the (immediate) benefits. Translation: Humans tend to follow the path of least resistance and respond to immediate incentives. At each step of our map, we first identify barriers and benefits. These insights drive your roadmap.<em><a href="https://nudge.behavioraleconomicsbootcamp.com/3bs-sem-optimize-kpis-split-test/">Learn more about the 3Bs</a>.</em></li>
+</ol>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3282d29f-44bf-4926-8288-645f416a9637_856x522.png" /></p>
+<ol>
+<li><strong>Conduct theory-based experiments:</strong> Experimentation is the cult religion of behavioral science. While you may already run experiments, there’s likely a way to make them more strategic. For example, by changing only one thing at a time (vs. launching a “redesign”), you can isolate what works and why. You’re then empowered to build a long-term roadmap around the insights. <em><a href="https://nudge.irrationallabs.com/experiment-design/">Get the experimentation guide</a>.</em></li>
+</ol>
+<p><strong>Want to develop your own capacity in behavioral science and drive impact? Check out our 4-week bootcamp that starts October 8. <a href="https://behavioraleconomicsbootcamp.com/bootcamp-lp-classic-cohort/">Apply today</a>.</strong></p>
+<p>For more real-world case studies, sign up for the <a href="https://irrationallabs.com/newsletter/">Irrational Labs newsletter</a>.</p>
+<p>And I leave you with this:</p>
+<p><img alt="Image from How behavioral science can boost your conversion rates" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6ed6d676-ed8d-4b1f-963a-16e2577a2b12_1148x890.png" /></p>
+<p>Sometimes we are all a bit irrational.</p>
+<p><em>Thanks, Kristen!</em></p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Aescape:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/117d35d9-a9b3-49d0-82df-b27a6c074e0f">Product Management Lead</a> (Brooklyn, NY)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c4bde52c-d66e-4b42-96fb-2ba861f72e27">Senior Growth Product Manager</a> (Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/b6da1eaa-5a2b-4ad4-92f9-5ac4b9f764e5">Product Lead, Internal Tools</a> (Remote-US)</li>
+<li><strong>CHPTR:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c96f89cb-0288-4028-ae4d-f380567449de">Founding Back-End Engineer</a> (Remote-US)</li>
+<li><strong>Permutive:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/1ff1e376-ab34-4138-ba4a-822475672a93">Senior Product Manager</a> (NYC)</li>
+<li><strong>CloudTrucks:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/68d092da-db3a-4f25-8b95-2072342c18fe">Product Manager-Console (Workflows &amp; Automations)</a> (SF)</li>
+<li><strong>Fairchain:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/f2963b88-7eaf-4b4d-9788-4b58f5c6b785">Software Engineer, Full Stack</a> (NYC)</li>
+<li><strong>HomeLight:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/48c02f5e-e681-4b83-9012-fb08ae2c1e52">Senior Product Manager, Listing Management</a> (SF, Phoenix, Seattle)</li>
+<li><strong>Perfect Recall:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/7ac1bf05-0aa6-436e-8546-6e14c5222f7e">Founding Fullstack Engineer</a> (Waterloo)</li>
+<li><strong>Spatial:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/9424b997-d1e3-4eb1-8b0a-e9f1cc622fb5">Backend Engineer</a> (Remote-US)</li>
+<li><strong>Maven:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/de48b7e9-782d-4c3e-a354-6abd66fb7d0d">Product Lead</a> (Remote-US)</li>
+<li><strong>Republic:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/da2ec715-1731-4709-9194-e4c630709ab1">Product Manager</a> (NYC, Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

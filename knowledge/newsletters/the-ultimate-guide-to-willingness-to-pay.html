@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The ultimate guide to willingness-to-pay — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The ultimate guide to willingness-to-pay</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The ultimate guide to willingness-to-pay</div>
+    
+    <div class="article-meta">2024-02-13<span>·</span>5,421 words</div>
+    <div class="tags-row"><span class="mini-tag">定價</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">成長</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Don’t miss</em> <strong><a href="https://lennyswag.com/products/vol-1">The Best of Lenny’s Newsletter</a></strong> <strong><em><a href="https://lennyswag.com/products/vol-1">book</a></em>* (all proceeds going to charity), </strong><a href="https://www.lennybot.com/">Lennybot</a><strong> (an AI chatbot trained on my newsletter posts, podcast interviews, and more), my </strong><a href="https://www.lennysjobs.com/">recruiting service</a><strong> (focusing on Sr. PM and VP roles), and my new </strong><a href="https://lennyswag.com/">swag store</a>***<em>(great gifts for your favorite PM, or yourself!).</em></p>
+<blockquote>
+<h2>Q: How do I figure out how to price my product?</h2>
+</blockquote>
+<p>Pricing is the most under-leveraged growth lever. It can drive enormous sustained growth (quickly) and often takes very little product work, yet is rarely prioritized or even discussed within product teams. That’s because pricing can be scary, irrational, and hard to know if you’ve done it right. Yet everyone who invests in pricing wishes they’d done it a lot sooner.</p>
+<p>Enter my friend <a href="https://www.linkedin.com/in/kristenberman/">Kristen Berman</a>. Kristen is a behavioral scientist, a founder of <a href="https://irrationallabs.com/">Irrational Labs</a>, and a past <a href="https://www.lennyspodcast.com/using-behavioral-science-to-improve-your-product-kristen-berman-irrational-labs/">podcast guest</a> and <a href="https://www.lennysnewsletter.com/p/how-to-use-behavioral-science-to">newsletter</a> collaborator. For a decade, she’s worked closely with tech companies to drive behavior change. She leverages the latest behavioral-science research to improve products’ conversion, engagement, and, most impactfully, pricing. Just in the past few years, she’s helped dozens of companies revamp their pricing strategy—with tremendous results.</p>
+<p><strong>Below, based on</strong> <strong>her work and the latest research, Kristen shares the most in-depth and actionable guide I’ve come across on how to execute a pricing study (spoiler alert: there is way more than Van Westendorp).</strong> She also provides <a href="https://bit.ly/3SzoqRk">two mega qualitative and quantitative templates</a> for you to use in your own pricing research. This advice is meaty and actionable, and will help any product leader on the hunt for new growth levers.</p>
+<p><em>For more from Kristen, <a href="https://irrationallabs.com/contact/">you can reach out to her here</a> if you want to chat about pricing, <a href="https://kristenberman.substack.com/">watch her weekly teardowns on Substack</a>, and <a href="https://irrationallabs.com/newsletter/">subscribe to the Irrational Labs newsletter</a>.</em></p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/87ec25ef-4b1d-4a61-841d-dd80df78b60d_4000x2000.png" /></p>
+<p>Pricing is one of the biggest levers to growth. Why are so few product teams testing their pricing?</p>
+<p>At <a href="https://irrationallabs.com/">Irrational Labs</a>, we surveyed 60 software companies to reflect on their experience with pricing studies. Of them, 50% said their companies have never run pricing studies, and only 25% reported even A/B testing a pricing change. Larger firms often have dedicated staff for pricing strategy yet are still generally reluctant to change the status quo.</p>
+<p>Why do so few companies run pricing studies? Based on our work with dozens of top companies, we primarily hear:</p>
+<ol>
+<li><strong>It’s too risky.</strong> What if we annoy users? <a href="https://news.ycombinator.com/item?id=36166236">Reddit</a>’s users flipped out. <a href="https://www.theverge.com/2023/1/13/23553453/strava-subscription-increase-fitness">Strava</a> had bumps. <a href="https://www.cnet.com/tech/services-and-software/patreon-changes-fees-services-tiers-please-dont-freak-out/">Patreon</a> got blowback.</li>
+<li><strong>It’s technically complex.</strong> Testing multiple prices in the market for SaaS products also means maintaining them—which no technical team wants to do indefinitely.</li>
+<li><strong>Willingness-to-pay (WTP) studies are just hard to run.</strong> Recruiting participants, writing the study, and analyzing data requires lead time and some expertise. It can be intimidating.</li>
+</ol>
+<p>These are legitimate reasons. However, the potential revenue gains from effective pricing often outweigh them. A <a href="https://hbr.org/1992/09/managing-price-gaining-profit">McKinsey analysis</a> suggests that a 1% improvement in your pricing can increase your profits by up to 11%.</p>
+<p>So if you do decide to change your prices, how should you go about it? This article will decode the four most commonly used quantitative WTP methods and provide a <a href="https://docs.google.com/document/d/1NOo6VYa8oCBe4_iR8HrmqqTfNb6x28Jqnqy6jkjS_MI/edit">template of questions</a> you can use. Quant is very important, but it can be even more powerful paired with qualitative work. Likewise, we also included a robust <a href="https://docs.google.com/document/d/1qJDcl0G6nE1SxGc-VDRhzIxAFLXKKPP84_59JeuKp44/edit">qualitative research guide</a>, focused on helping B2B companies with pricing. While the optimal recipe is to do both qual and quant, anything is better than doing nothing. As pricing expert <a href="https://www.linkedin.com/in/madhavan-ramanujam-1533063/">Madhavan Ramanujam</a> says on <a href="https://www.lennyspodcast.com/the-art-and-science-of-pricing-madhavan-ramanujam-monetizing-innovation-simon-kucher/">Lenny’s Podcast</a>, “Talk to at least one person. Most companies are not even doing that.”</p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/4ea9f4d4-86b0-42c4-8cfe-df1fd5676fa5_1600x900.png" /></p>
+<h2>Willingness-to-pay methods: The rundown</h2>
+<p>The top four commonly used quantitative methods are:</p>
+<ol>
+<li>Van Westendorp</li>
+<li>Becker-DeGroot-Marschak</li>
+<li>Multiple price list</li>
+<li>Discrete choice or choice-based</li>
+</ol>
+<p>Until recently, these methods were difficult to compare—the most frequently cited studies were published around 20 years ago. This changed in 2023, when Randy Gao, Simon Huang, and Minah Jung <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4484841">comprehensively reviewed the top methods</a>, combining insights from dozens of papers to make sense of WTP. Their analysis builds on a <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/705374?mobileUi=0">compelling 2019 WTP field study</a> and an <a href="https://www.researchgate.net/publication/255851498_How_Should_Consumers'_Willingness_to_Pay_Be_Measured_An_Empirical_Comparison_of_State-of-The-Art_Approaches">in-depth comparison</a> from 2011.</p>
+<p>Below, I’ll run through the different methods and pros and cons. Every research method has trade-offs, and part of being able to trust your final results is understanding these nuances. At the end of the post, I’ll share six tips for implementing these surveys yourself, along with two mega <a href="https://bit.ly/3SzoqRk">templates to help guide you</a>.</p>
+<p>But first, a <strong>big</strong> <strong>disclaimer</strong>: Most of the below methods hold the product description constant while trying to determine some magical number that people will pay. But as pricing experts will tell you, this number, i.e. the price, is just part of the story. In reality, your product’s description and features, as well as <a href="https://journals.sagepub.com/doi/10.1177/00222429231195564">what it’s compared to</a><a href="#footnote-1">1</a>, play a role in WTP.</p>
+<ul>
+<li>Stories can add measurable value to seemingly worthless items. Someone paid $51 for this <a href="https://significantobjects.com/2010/02/10/yellow-bear/">yellow bear figure</a>. Why? The story makes it feel scarce.</li>
+</ul>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/bf76ab35-7c58-4f62-9661-e3603404f156_1318x1048.png" /></p>
+<ul>
+<li><a href="https://www.amazon.com/SFOGLINI-Cascatelli-Pasta-16-OZ/dp/B09YB51CFT">Pasta</a> that is described as “sauceable” commands an 80% higher price. Why? The adjective implies quality. If the marketing team asked customers, “What’s the most you’d pay for pasta?,” “sauceability” wouldn’t factor in—and the results would be off.</li>
+</ul>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/cb19f415-eb2b-4a4f-a582-eb9420f0df89_934x1436.png" /></p>
+<ul>
+<li>How much would you pay for a virtual whiteboard? Probably not $960 a year. Yet “the visual workspace for innovation” <a href="https://miro.com/">Miro</a> charges $80 a month for a team of 10 people. Clearly, they’ve figured out positioning.</li>
+</ul>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/84dca09c-4c46-48f7-aae4-20c6e8924015_1548x840.png" /></p>
+<p>Assuming that price is a “magic number” implies that people have predetermined their willingness to pay for your product; they have a number in their head. But in reality, most of your customers haven’t thought much about it. They are deciding in <strong><a href="https://people.duke.edu/~dandan/webfiles/PapersPI/Constructing%20Stable%20Preferences.pdf">real time</a></strong> what they’re willing to pay based on the information they have about the product. As a product manager, marketer, or designer, you decide what that information is. In other words, customers aren’t walking in with an unmovable POV—you <em>shape</em> their POV.</p>
+<p>You have two levers to do this: (1) change your prices and (2) <a href="https://www.lennysnewsletter.com/p/positioning">change your positioning</a>. The latter starts long before customers reach your pricing page–but once they’re there, the impact of your copy, descriptions, and choice architecture on conversions can’t be overstated.</p>
+<p>Let’s suppose you’re looking at changing prices and want to know what your customers are willing to pay. In that case, a quantitative pricing study is your best bet.</p>
+<p><strong>So what are the methods to determine WTP?</strong></p>
+<h3>1. The Van Westendorp</h3>
+<p>If you’ve heard about pricing studies, you’ve likely heard of the Van Westendorp (VW) method (sometimes called price sensitivity meter, or PSM). But despite being the favored child in <a href="https://www.nfx.com/post/superhuman-product-frameworks">popular tech posts</a>, it’s not a fully reputable method.</p>
+<p>First, not many companies are actually using it. Of the 60 software companies we surveyed, only eight said they used it. And academics don’t use it either. The <a href="https://www.sciencedirect.com/science/article/pii/S1877042814039172">top VW study on Google Scholar</a> has 36 citings (a low number) and was run on university students measuring their WTP for private dormitories. (Aren’t we through with using college students for psychology papers?) The other methods mentioned in this article have citings in the hundreds and thousands.</p>
+<p>Perhaps most damningly, it was invented in the 1970s. Given the advancement of data science and research methods, surveys are not like fine wine—they don’t age well.</p>
+<p>Why <em>do</em> people like it?</p>
+<p>The pros: The method itself is pretty simple. You ask people four questions to find out the lowest and highest price they’re willing to pay for something:</p>
+<ol>
+<li>At what price would it be so low that you would start to question this product’s quality?</li>
+<li>At what price do you think this product is starting to be a bargain?</li>
+<li>At what price does this product begin to seem expensive?</li>
+<li>At what price is this product too expensive?</li>
+</ol>
+<p>Participants typically respond to an open-ended question (empty text box). This is called the open-ended, or “direct,” approach in the literature. In this method, you’ll get what people <em>want to pay</em> instead of what they <em>might pay</em>.</p>
+<p>The questions are straightforward—and there are only four. Win. And the continuous format, without a scale consisting of set intervals, gives detailed information on individual variation. This makes responses easy to analyze.</p>
+<p>However, the Van Westendorp method has a big problem: the well-documented phenomenon known as <strong><a href="https://link.springer.com/article/10.1007/s11747-019-00666-6">hypothetical bias</a></strong>. Gao et al. sum up the issue in their <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4484841">recent paper</a>: “Under hypothetical settings, people state a higher valuation than their actual valuations.”</p>
+<p>What does this look like? <a href="https://en.wikipedia.org/wiki/John_A._List">John List</a>, a University of Chicago professor and Walmart’s first chief economist, ran a <a href="https://ideas.repec.org/a/bpj/bejeap/vadvances.6y2006i2n2.html">donation study</a>—the real treatment raised $310 for their cause, whereas more than twice that ($780) was pledged in the hypothetical.</p>
+<p>We’re asking people to imagine a fake world and tell us what they would do in it. Sadly, we’re bad at predicting our future self’s actions. In a fake world, we have no competing priorities, we’re very rich, and we like lots of things<a href="#footnote-2">2</a>—not an ideal scenario for figuring out WTP.</p>
+<p>Should you use the Van Westendorp? We say proceed with caution, unless you’re including questions that reduce hypothetical bias (see <a href="https://docs.google.com/document/d/1NOo6VYa8oCBe4_iR8HrmqqTfNb6x28Jqnqy6jkjS_MI/edit">this guide</a> for examples) and you’re focusing on more established product categories (versus products that are brand-new to the world).</p>
+<h3>2. The Becker-DeGroot-Marschak</h3>
+<p>To overcome the hypothetical bias associated with Van Westendorp, economists have developed “incentive-compatible” pricing methods. These methods give you an incentive to report what you would really pay (or rather, a disincentive for answering hastily or intentionally misreporting your willingness to pay). The goal is to more accurately gauge people’s true willingness to pay.</p>
+<p>The Becker-DeGroot-Marschak (BDM) is arguably the <a href="https://journals.sagepub.com/doi/10.1509/jmkr.39.2.228.19086">most-used method in experimental economics</a>. While it’s very similar to the Van Westendorp, it adds an important twist: it tries to eliminate cheap talk.</p>
+<p>In the study’s original design, participants are asked to write down the maximum amount they’d pay for an item. Then a random number is selected. If the participant’s written amount is higher than this random number, they must purchase the item at the random number’s price. However, if their amount is lower, they cannot buy the item and they owe nothing.</p>
+<p>This is important because, when answering, people <em>think</em> they may have to pay for the thing. There is skin in the game.</p>
+<p>They don’t know the selling price in advance, so overstating might lead to paying more than their actual valuation—and understating might result in missing the opportunity to buy at a price they would have accepted.</p>
+<p>This seemed to have removed most of the hypothetical bias<a href="#footnote-3">3</a> that’s made the Van Westendorp method contentious. <a href="https://sci-hub.se/10.1086/705374">A semi-recent study</a> looked at the sale of water filters to families in Ghana and found BDM had predictive power on demand, when compared with the straight sale of the filter.</p>
+<p>Problem solved? Not quite. Critics point out that the method’s core mechanism, which involves a “random number” scheme for aligning incentives, is complicated. Be honest. Did you really understand how this worked from the above explanation? Many participants <a href="https://www.jstor.org/stable/10.1086/677254">don’t</a> <a href="https://www.aeaweb.org/articles?id=10.1257%2F0002828054201387">either</a>.</p>
+<h3>3. Multiple price list (or Gabor-Granger)</h3>
+<p>To recap: Becker-DeGroot-Marschak improved on the Van Westendorp method a little by “adding teeth” to the questions. But BDM can be hard to understand.</p>
+<p>Another problem with the BDM method is that it asks people to name their price—to be price <em>givers</em>.</p>
+<p>This assumes we have a predetermined number in our heads. It’s as if we expected our customers to always be thinking deeply about our product, just waiting for us to ask them how much they’d pay.</p>
+<p>In reality, though, we’re price <em>takers</em>: we go to a website and it tells us the price.</p>
+<p>The <a href="https://www.researchgate.net/publication/24076093_Valuation_using_multiple_price_list_formats">multiple price list method</a> (MPL) was developed to address this. In the BDM, respondents must state a maximum WTP (price giving). In MPL, on the other hand, the respondents must say yes or no to a list of prices (price taking).</p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/3301769a-ff96-4767-9793-94b2a8047c78_1280x1400.png" /></p>
+<p>Do you want to purchase this for $35? $45? $55? This lets you simplify the incentive-compatible element, because the researcher just tells the study participant: “One of your choices will be randomly selected and we will implement it. For instance, if you select $45 and you say yes to the $45 price point, you will have to buy it. If you say no to $45, you cannot buy it.”</p>
+<p>So from an empirical perspective, is MPL better than BDM?</p>
+<p>Historically, researchers have recommended MPL over BDM—mainly because it’s simpler and more transparent. This has led economists to use it widely.<a href="#footnote-4">4</a></p>
+<p>But new research points to some potential flaws. Gao et al.’s latest paper implies that the MPL method may mislead researchers to underestimate the value of their products. They run 10 experiments and show that the MPL method “actually leads to systematically lower WTP estimates.” This could lead researchers and marketers to underprice their products and leave money on the table.</p>
+<p>Why? Possibly, getting people to pay attention to each value (yes/no) puts the focus on the opportunity cost of money—and this may <a href="https://www.researchgate.net/publication/46553778_Opportunity_Cost_Neglect">decrease people’s willingness</a> to spend it.</p>
+<h3>4. Discrete-choice-based</h3>
+<p>This last pricing survey method is fundamentally different. In the VW, BDM, and MPL methods, we ask people to decide about <strong>one product</strong>. In contrast, discrete choice involves giving people multiple product options with slightly different features and prices and asking them to pick one they would buy. Basically, you replicate whatever you intend to launch and describe it just as you would on your marketing page.</p>
+<p><a href="https://www.linkedin.com/in/silvia-kiely-frucci">Silvia Frucci</a>, a go-to-market leader at <a href="https://www.optum.com/en/">Optum</a>, endorses this method:</p>
+<blockquote>
+<p>“We used the choice-based pricing method at Optum. To figure out WTP for a new product, we asked questions along the lines of <em>Which of the three products are you most inclined to purchase?</em> The study asked this question five different times with a variation of feature and pricing combinations. Our sample was representative to our target; it went out to 12 provider practices via phone-based interviews.</p>
+<p>The results had a really profound impact on our business. Based on this study, we found out the WTP for the product was lower than we assumed and adoption would be more difficult. Based on the survey insights, we ended up killing the full product that we were about to launch! Instead, we integrated the high-value parts into other existing businesses and products.”</p>
+</blockquote>
+<p>John List also endorses the discrete choice method: “I would say when I cannot obtain revealed preference data, I would follow <a href="https://ideas.repec.org/a/bpj/bejeap/vadvances.6y2006i2n2.html">this</a> approach to estimate marginal values.”</p>
+<p>Why does he like it? It leverages <strong>relativity</strong>. We can’t assume that responses to a survey reflect <em>absolute</em> willingness to pay. But we can infer <em>relative</em> willingness to pay, and that comes closer to how we make real-world decisions: <em>this</em> or <em>that</em>?</p>
+<p>You can design it simply, with a couple of straightforward options:</p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/0633942e-74eb-4a3e-8bb4-b0da27203188_1372x264.png" /></p>
+<p>Alternatively, you can ask the question six or seven different times and vary attributes. Here’s an example question using the discrete-choice-based experiment method for a random product:</p>
+<blockquote>
+<p><em>Imagine you’re considering purchasing new and innovative enterprise software that can do the following:</em></p>
+<ol>
+<li><em>Project management software that costs $8/month per user and can automate quarterly headcount planning</em></li>
+<li><em>Project management software that costs $11/month per user and can automate quarterly headcount planning and provide what-if scenario planning</em></li>
+<li><em>Project management software that costs $12/month per user and can provide what-if scenario planning and real</em><em>-</em><em>time headcount planning</em></li>
+<li><em>Would not purchase</em></li>
+</ol>
+<p><em>Please click around on the landing page and explore what these products can do. Then select the option that you would be most likely to purchase. At the end, we will choose 20% of the people who take this survey and sell them the product at the price they choose. Make sure to choose the product you would actually spend money on!</em></p>
+</blockquote>
+<p>As with the other methods, we need to add incentive alignment to avoid cheap talk. In this method, it’s a bit easier. You can say a few people will be chosen at random to receive the option they choose.</p>
+<p>If you’re familiar with <a href="https://en.wikipedia.org/wiki/Conjoint_analysis">conjoint analysis</a>, you might rightly ask: Isn’t this just that? Yep. This is one type of conjoint. <a href="https://www.qualtrics.com/experience-management/research/types-of-conjoint/">Qualtrics says it’s the simplest and most common</a>. Full conjoints focus more on individual attribute trade-offs and ranking (which can be less “real world”), versus complete product choices. They also tend to be longer studies—which risks causing decision fatigue for participants. Maybe more damningly, they can be time-consuming to set up and <a href="https://sawtoothsoftware.com/resources/technical-papers/a-new-approach-to-adaptive-cbc">hard to get right</a>, and thus more expensive.</p>
+<p>Discrete-choice-based studies are an art and a science. To avoid a long questionnaire, you’ll need to make some strategic choices on product bundles. And you need a statistical package you can use to analyze data. SurveyMonkey has <a href="https://www.surveymonkey.com/market-research/resources/when-to-use-discrete-choice-models/">strong examples</a> of this on their blog (scroll down). Qualtrics (which Irrational Labs uses) <a href="https://www.qualtrics.com/experience-management/research/types-of-conjoint/">has survey design packages</a>. There’s also <a href="https://conjointly.com">Conjointly</a>.</p>
+<h2>Which WTP method should you use?</h2>
+<p>The main conclusion from all of these papers is: whatever you do, include some <em>incentive-compatible</em> element. We don’t want cheap talk. People should have some skin in the game (i.e. you may have to buy this widget at the price you said!).</p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/81d5520e-43d4-4df1-88f6-50b8c45ab0d5_868x784.png" /></p>
+<p>In a clever study on <a href="https://sci-hub.se/10.1509/jmkr.48.1.172">pricing a new cleaning product</a>, researchers examined four different WTP methods, comparing them against real purchase data from an online store where purchase was mandatory. What they found out: incentive-compatible methods aligned more closely with actual WTP than non-incentive-compatible ones. This wasn’t just due to lower price estimates, but also because more participants said “would not purchase” in the incentive-compatible conditions.</p>
+<p>Assuming you have integrated an incentive-compatible question, you now have three direct methods (Van Westendorp, Becker-DeGroot-Marschak, and multiple price list) and one indirect method (discrete-choice-based) to choose from.</p>
+<p>In the study on cleaning products, researchers found the direct methods of WTP to be most effective for products with established mental models. For less familiar, infrequently purchased, and higher-priced items, they advise using a choice-based approach<a href="#footnote-5">5</a><a href="#footnote-6">6</a>.</p>
+<p>User researcher <a href="https://www.linkedin.com/in/mathew-diep-5ab35661/">Mathew Diep</a> pushed to use the choice-based method (#4 in our list above) over the Van Westendorp at <a href="https://www.fivestars.com/">Fivestars</a> for this exact reason: people weren’t familiar with their product. People struggle to accurately evaluate the pricing of a product they’ve never used, and thus their answers will cover a wide price range. The choice-based method paid off for Fivestars, resulting in an additional pricing tier.</p>
+<p>The choice of what method to use depends on what you’re selling.</p>
+<ul>
+<li>
+<p>Are you selling <strong>frequently bought, familiar products</strong>?</p>
+</li>
+<li>
+<p>Choose an open-ended method (Van Westendorp or BDM): Ask the series of four VW questions or just “What’s the most you would pay for this widget?” Your audience should already know how the widget can help them, so they’ll be able to give a reasonable answer.</p>
+</li>
+<li>
+<p>Are you selling <strong>unusual or high-ticket items</strong>?</p>
+</li>
+<li>
+<p>Consider a choice-based method: Ask people to choose between different product bundles. Since your audience will likely not have experience buying your widget, they’ll need some comparison set to drive their valuation.</p>
+</li>
+<li>
+<p>Are you selling a <strong>new product</strong>?</p>
+</li>
+<li>
+<p>The direct methods (Van Westendorp and BDM) are particularly difficult for new-to-the-world products. Newness makes open-ended questions much harder to answer. Before ChatGPT launched, for instance, would you have known what you’d be willing to pay for it without having experienced its capabilities?</p>
+</li>
+</ul>
+<p>And many times (if you have enough resources), the best approach could be to include multiple approaches. You can combine two or more of these methods into one longer survey. Overall, the goal of all of these questions is to help predict real-world behavior. The closer you get to achieving this, the better.</p>
+<h2>6 tips to running your own pricing study</h2>
+<p>Now that you know the methods to determine WTP and how to determine which to use, you’re ready to run your own pricing study. Here are six tips to do it.</p>
+<h4><strong>1. Minimize hypothetical bias</strong></h4>
+<p>Always include a component that makes your study incentive-compatible. You can do this either by saying, “Some participants will be selected to purchase the item” or by creating a lottery setup and telling participants that if they win they will get the product for free <em>or</em> they could choose totake home the equivalent amount of cash.</p>
+<p>If the product doesn’t exist or you can’t do this, weaker alternatives have been tested. One option is to explain “cheap talk” and encourage participants to think as if spending their own money. Or you can tell them that their choices will strongly influence what’s produced. There’s some evidence that both of these approaches will yield more incentive-compatible findings. For a complete list of ways to eliminate hypothetical bias, refer to the quantitative survey template <a href="https://docs.google.com/document/d/1NOo6VYa8oCBe4_iR8HrmqqTfNb6x28Jqnqy6jkjS_MI/edit">here</a>.</p>
+<h4><strong>2. Copy matters. Re-read every question 15 times</strong></h4>
+<p>Sweat the details. Most academics prefer scales that range from 1 to 7 or 1 to 9. Label—but don’t overlabel— your scales, i.e. label the ends (“highly likely” vs. “not at all likely”) for every number. When asking more subjective questions, include a follow-up question to determine their <a href="https://www.researchgate.net/publication/236151599_Using_Discrete_Choice_Experiments_to_Estimate_Willingness-to-Pay_Intervals">level of certainty</a>: “How confident or not confident are you in your answer?”</p>
+<p>If people aren’t confident, don’t base your key company decisions around this answer. Run attention checks to ensure that people understand the incentive-compatible scheme. Remember to always include the option to “not purchase it.” Otherwise you’ll get an inflated read on your WTP.</p>
+<h4><strong>3. Do a controlled trial to test different descriptions and framing</strong></h4>
+<p>How much you’d pay for this 10GB widget depends on how the widget is described. If you recruit 250 people, consider tripling your sample and running two more conditions that vary your widget’s description and core benefits.</p>
+<h4><strong>4. Who you recruit matters</strong></h4>
+<p>Don’t ask event planners to evaluate IT software. You need a good screener to ensure that the people who answer your questions represent the actual audience you’ll be selling to.</p>
+<p>For a consumer or non-niche audience, I recommend <a href="https://www.prolific.com/">Prolific</a>. Recruiting 1,000 people for a 10-minute study would cost you $2,000. Irrational Labs uses this for our work (sign up via <a href="https://app.prolific.com/register/researcher/email">this link</a> to get $10 off your first study). Other reputable tools for recruiting samples include <a href="https://sago.com">Sago</a>, <a href="https://guidepoint.com">Guidepoint</a>, <a href="https://www.disqo.com/solutions/researchers/">Disqo</a>, and <a href="https://www.respondent.io/">Respondent</a>.</p>
+<p>If you have a B2B specialized product, get scrappy. Does your audience hang out online somewhere (newsletters, forums, or Slack groups) where you could post a study? Or people they follow online who could promote your study?</p>
+<h4><strong>5. The best way to test is always in-market</strong></h4>
+<p>If you can pull off an A/B test in-market, go for it. Real user data always trumps study data. My personal favorite WTP testing method was championed by both Apple and Elon Musk. Apple launched the iPhone in 2007 and <a href="https://www.cultofmac.com/500422/tiah-200-iphone-reduction/">lowered the price by $200</a> within months. Twitter Blue announced a monthly subscription rate of $20 and promptly dropped to $8 a month. Start on the higher end of your range and adjust quickly. Not only are these real ways to test the market—they also give you a strong anchoring effect that makes your second price appear low. When employing this approach, make sure to compensate early adopters who made the jump at the higher price.</p>
+<p>Can’t do this? Try offering a product at a particular price instead, then giving people the option to be notified when it becomes available in the future. <a href="https://www.linkedin.com/in/brian-lafayette/">Brian Lafayette</a>, when he was director of strategy at Meetup, <a href="https://openviewpartners.com/blog/how-meetup-built-demand-for-an-enterprise-product/">did this with their Pro product</a>: “Essentially, before the Pro product even existed, we created a landing page for it.”</p>
+<h4><strong>6. Never forget: price is perception</strong></h4>
+<p>Change my perception of your product’s value, and you’ll also change my WTP (and your conversions too). Price goes beyond a number. The lowest-cost way to impact your revenue is to better help people see and understand how your product benefits them. Ideally, you should include a clickable website, a demo video, or real mock-ups in your survey.</p>
+<p><img alt="Image from The ultimate guide to willingness-to-pay" src="https://substack-post-media.s3.amazonaws.com/public/images/45588139-9b8f-4176-8c46-97cc9464453b_968x756.png" /></p>
+<h2>Here are templates to run your own studies</h2>
+<p>Pricing is more than a guessing game; it’s a strategic play deeply rooted in customer perception. It represents the value your customers perceive. The techniques we’ve unpacked—Van Westendorp, Becker-DeGroot-Marschak, multiple price list, and discrete choice—aren’t just methodologies. They’re your tool kit for delving into what your customers truly value—and delivering on that.</p>
+<p>Here are <a href="https://bit.ly/3SzoqRk">two templates</a> for you to use when planning and executing research:</p>
+<ol>
+<li><strong>Willingness To Pay Survey Questions:</strong> This template provides the exact questions you’ll need to run your study and examples from all the methods talked about in this article.</li>
+<li><strong>Qualitative Research Guide:</strong> In qualitative work, the right questions can uncover gold. This mega-guide (authored with behavioral scientist <a href="https://www.chrisyork.co/">Chris York</a>) contains over 100 of them for you to use. If you’re B2B, this is for you. It’s based on the reality that what consumers <a href="https://twitter.com/patrickc/status/1443215022029619200?lang=en">say they want isn’t</a> typically what they <em>actually</em> want—and this is <a href="https://www.groovehq.com/blog/pricing-that-worked">particularly true of pricing</a>.</li>
+</ol>
+<h2>📚 Further study: 5 helpful academic papers on WTP</h2>
+<p>Want to dive deeper into the research on consumer willingness to pay? I recommend the following papers:</p>
+<ol>
+<li><a href="https://ssrn.com/abstract=4484841">“All Roads Lead to Rome? Evaluating Value Elicitation Methods”</a></li>
+<li><a href="https://journals.sagepub.com/doi/10.1509/jmkr.48.1.172">“How Should Consumers’ Willingness to Pay Be Measured?”</a></li>
+<li><a href="https://www.degruyter.com/document/doi/10.2202/1538-0637.1132/html?lang=en">“Using Choice Experiments to Value Non-Market Goods and Services</a>”</li>
+<li><a href="https://doi.org/10.1177/00222429231195564">“Measuring Willingness to Pay: A Comparative Method of Valuation”</a></li>
+<li><a href="https://doi.org/10.1086/705374">“Eliciting and Utilizing Willingness to Pay: Evidence from Field Trials in Northern Ghana”</a></li>
+</ol>
+<p><em>For more from Kristen, <a href="https://irrationallabs.com/contact/">reach out to her</a> if you want to chat about pricing, <a href="https://kristenberman.substack.com/">watch her weekly teardowns on Substack</a>, and <a href="https://irrationallabs.com/newsletter/">subscribe to the Irrational Labs newsletter</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h3>🔥 <strong>Featured Job: Director of Product, Geospatial @ Niantic</strong></h3>
+<p>I’ve been helping a few great companies find their next product leader and wanted to highlight one in particular: <a href="https://nianticlabs.com/careers/openings/director-of-product-geospatial-services?hl=en">Director of Product for Niantic’s Geospatial Services team</a>.</p>
+<p>If you or someone you know has experience building with maps or other geospatial services, head to the link below to learn more.</p>
+<p><a href="https://app.pallet.com/onboard/v3/6dbcabd8-8857-4aa8-bad9-c761f385989d/get-referred?pallet=lennys-jobs">Connect with Niantic</a></p>
+<p>If you’re hiring and want help filling your role(s), fill out <a href="https://airtable.com/apprGaxWWPYU0068E/shr2WFo5UqJjA5dQ8">this form</a>, and our team will be in touch if it’s a good fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p>
+<p><a href="#footnote-anchor-1">1</a></p>
+<p>The newly developed comparative method of valuation measures WTP for a target option in the context of relevant alternatives, such as competing products or alternative versions of the target. Researchers say this more closely resembles real choice situations consumers face.</p>
+<p><a href="#footnote-anchor-2">2</a></p>
+<p>Valuation is <a href="https://psycnet.apa.org/record/2016-28717-004">highly susceptible to “anchors”</a> in hypothetical settings. Hypothetical WTP can be <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4294247">tied to perception of its market price</a> rather than actual valuation for the product.</p>
+<p><a href="#footnote-anchor-3">3</a></p>
+<p>In the water filter study, demand is lower under BDM than Take It or Leave It (TIOLI) at each of the three TIOLI price points (18.2%, 16.3%, and 10%). However, in the subset of children ages 0 to 5, the gap is 14.2 percentage points narrower if the subject reported diarrhea among her young children in the previous two weeks. In this group, the BDM-TIOLI gap is negligible. This suggests that respondents with more at stake may have taken the exercise more seriously.</p>
+<p><a href="#footnote-anchor-4">4</a></p>
+<p>Two critiques of MPL are that (1) it anchors people on a number (maybe I was thinking 1,000 and you said 35) and (2) you have to pick intervals, and this can be tricky. You’re not going to ask people in $1 increments how much they’d pay for construction management software, but what should the interval be?</p>
+<p><a href="#footnote-anchor-5">5</a></p>
+<p><a href="https://sci-hub.se/10.1509/jmkr.48.1.172">From the paper</a>: “Direct methods are more suitable for relatively lower-priced, more frequently purchased, nondurable product categories with no direct competition. Indirect methods seem to be more suitable for relatively higher-priced, less frequently purchased product categories with significant competition.”</p>
+<p><a href="#footnote-anchor-6">6</a></p>
+<p><a href="https://www.sciencedirect.com/science/article/abs/pii/S0095069614000692">There is some evidence</a> that better-informed people will have higher WTP for the same item compared with less-informed people. In this study, there was a significant increase of $85 to $129 in WTP for well-informed individuals. This implies that you may have a difference in prices for people who understand your category and product versus people who do not.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

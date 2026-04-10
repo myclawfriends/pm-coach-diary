@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Minto Pyramid Principle and the SCR Framework — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The Minto Pyramid Principle and the SCR Framework</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The Minto Pyramid Principle and the SCR Framework</div>
+    
+    <div class="article-meta">2021-03-30<span>·</span>2,362 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">職涯</span> <span class="mini-tag">B2B</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: My manager recommended I learn the “Pyramid Principle.” I tried to look into it, but I don’t really understand it, or how to apply it in my job. What am I missing?</h2>
+</blockquote>
+<p>Imagine this scenario: You’re going about your day, reviewing the latest experiment results and checking in on your upcoming launch plans when you get a DM from your boss. She tells you that she just booked you a meeting with the CEO to present your product strategy for next quarter, TOMORROW.</p>
+<p>Even though you have fairly good idea of what you want to build, you haven’t even started writing down your proposal, or are anywhere near having a compelling narrative that will persuade your CEO.</p>
+<p>What do you do?</p>
+<p>Enter, Barbara Minto.</p>
+<p><img alt="Harrison Metal - Chat with Barbara Minto" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3ba7ba13-dc69-4b20-accb-6d1e55c19377_1024x598.jpeg" /></p>
+<h3>The Minto Pyramid Principle</h3>
+<p>The Minto Pyramid Principle came out of a frustration Barbara had while working at McKinsey (where she spent ten years, as <em>the very first</em> female management consultant). While at McKinsey, she noticed that people were awful at crafting persuasive arguments. They didn’t know how to structure their arguments, and they spent too much time upfront building up their case with data and facts. By the time they got to their final recommendation, the audience had already tuned out or been distracted by the details.</p>
+<p>What Barbara realized is that unlike a movie, where you want to build tension and wait until the very end for the big reveal…</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2dae6ddd-373c-491c-b94d-2425e524fcb3_480x270.gif" /></p>
+<p>…in a business context you should do exactly the opposite: give away the punchline.</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4fb8ae8f-a62b-46b7-9d1b-e66ec1fbae1f_480x257.gif" /></p>
+<p>Your colleagues aren’t looking to be entertained. They are busy. They want to get sh*t done. The solution: Start with the answer.</p>
+<p>This is what is known Minto Pyramid Principle:</p>
+<ol>
+<li>Start with the recommendation/answer/ask upfront</li>
+<li>Back up that recommendation with a handful of supporting arguments</li>
+<li>Back up each of those supporting arguments up with data</li>
+</ol>
+<p>And guess what? This ends up looking like a pyramid:</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/17d07007-8a40-492c-8af0-58ca9ed3baab_2048x1024.png" /></p>
+<p>Unlike what many of us are naturally drawn to — the upside-down-pyramid:</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0414c409-7e7b-4a5d-a604-205757dce4a3_2048x1024.png" /></p>
+<p>Why do we naturally present in this backwards, less impactful, way? That’s how we came to this conclusion ourselves: information —&gt; conclusions —&gt; recommendation. It’s not surprising that we assume others need to go through this very same journey to be convinced. But effective presenting and effective learning work differently. As Barbara says, <strong>“you think from the bottom up, but you present from the top-down.”</strong> Save your audience time and effort by just telling them what you’ve concluded.</p>
+<p>Let’s look at an example of this in action. Say you want to convince the manager that you need to devote the next sprint to fixing bugs:</p>
+<h4><strong>Before Minto</strong></h4>
+<blockquote>
+<p><em>Hey manager,</em></p>
+<p><em>I’m getting concerned about our bug count. Look at this chart below of our growth bug growth over time, how many bugs we’ve been fixing, and where our bug count is projected to be next year.</em></p>
+<p><em>We’re also hearing from CX and our research team that customers are starting to churn because of our bugs, and you can even see in this chart how our churn rate increase seems to be correlated with our bug count increase.</em></p>
+<p><em>Finally, there’s evidence to show that bugs are starting to hurt brand perception, as you can see in these tweets, these stories from sales, and this complaint from our biggest customer.</em></p>
+<p><em>I recommend we devote our next sprint to fixing bugs. Let me know what you think.</em></p>
+</blockquote>
+<h4><strong>After Minto</strong></h4>
+<blockquote>
+<p><em>Hey manager,</em></p>
+<p><em>I recommend we devote our next sprint to fixing bugs. Here’s why:</em></p>
+<ol>
+<li>
+<p><strong><em>Our bug count is growing faster than we’re able to fix them</em></strong></p>
+</li>
+<li>
+<p><em>Look at this chart showing bug growth over time</em></p>
+</li>
+<li><em>Look at how many bugs we’ve been able to fix over the same time</em></li>
+<li><em>Look at where we expect our bug count to be in the next year</em></li>
+<li>
+<p><strong><em>Bugs are leading to customer churn</em></strong></p>
+</li>
+<li>
+<p><em>Here’s data from CX</em></p>
+</li>
+<li><em>Here’s a story from a customer interview</em></li>
+<li><em>Here’s churn mapped alongside bug count</em></li>
+<li>
+<p><strong><em>Bugs are leading to a hit on brand perception</em></strong></p>
+</li>
+<li>
+<p><em>Here’s are some tweets from users</em></p>
+</li>
+<li><em>Here’s a complaint one of our top customers sent us</em></li>
+<li><em>Here’s what our sales team is telling us about our decline in closing deals</em></li>
+</ol>
+<p><em>Let me know what you think.</em></p>
+</blockquote>
+<p>As a manager, which email would you prefer to receive? Trick question. The second email is certainly more persuasive and will get a quicker response (i.e. definitely go that route), but you probably don’t want to email your manager an ask this abrupt, without any additional context. That’s where the SCR framework comes in.</p>
+<h3>The SCR Framework</h3>
+<p>Think about the traditional story arc. Every movie, every book, essentially every story you’ve ever heard follows this arc:</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ef319e67-4cd3-4ce6-bc8e-f3ed90a5d565_1310x790.png" /></p>
+<p>For example, The Avengers: Endgame</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/af84375e-6100-40c5-9d2b-fa003bb1a85f_1850x1050.png" /></p>
+<p>If you simplify this further, there are three parts to every narrative: Situation, Complication, Resolution.</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fb84e5e7-2041-4b3d-bae8-25d46b31b378_1322x822.png" /></p>
+<ol>
+<li><strong>Situation:</strong> What is the state of affairs today. Facts, data, and unambiguous background.</li>
+<li><strong>Complication</strong>: What has changed that requires action. What is the problem?</li>
+<li><strong>Resolution</strong>: What we need to do to resolve this complication.</li>
+</ol>
+<p>Thus, when crafting an argument, first share the Situation, then the share the Complications, and then share your proposed Resolution. That’s the SCR framework! It’s a deceivingly simple-but-powerful way to structure your narrative, and can be applied to emails, strategy docs, presentations, etc. Once you learn it, you’ll start seeing it everywhere. Go back to the top of this post and see if you notice this in action 😉</p>
+<p>Below I’ll share a few templates that leverage this framework, but first, let’s bring these two frameworks together: Use the The Minto Pyramid to lay out your proposed <strong>Resolution,</strong> like so<strong>:</strong></p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7636ea5f-f415-455f-b262-05d14c7cabca_1334x804.png" /></p>
+<ol>
+<li><strong>Situation:</strong> What is the state of affairs today?</li>
+<li><strong>Complication</strong>: What has changed that requires action?</li>
+<li><strong>Resolution</strong>: Minto Pyramid-style: answer-first followed by supporting arguments.</li>
+</ol>
+<p>Coming back to our email example, here’s how our email could look leveraging the SCR + Minto Pyramid framework (with labels just for reference):</p>
+<blockquote>
+<p><em>Hey manager,</em></p>
+<p><em>As you know, we’ve generally had a good handle on bugs. Our bug count has been steady over the last ew months, and we’ve had a good system to keep our teams fixing bugs while shipping new product. </em><em>[Situation]</em>**</p>
+<p><em>Recently however, we’ve seen a large spike in bugs, and it’s beginning to significantly impact our bottom-line. </em><em>[Complication]</em>**</p>
+<p><em>I recommend we devote our next sprint to fixing bugs. Here’s why </em><em>[Resolution]</em><em>:</em></p>
+<ol>
+<li>
+<p><strong><em>Our bug count is growing faster than we’re able to fix them</em></strong></p>
+</li>
+<li>
+<p><em>Look at this chart showing bug growth over time</em></p>
+</li>
+<li><em>Look at how many bugs we’ve been able to fix over the same time</em></li>
+<li><em>Look at where we expect our bug count to be in the next year</em></li>
+<li>
+<p><strong><em>Bugs are leading to customer churn</em></strong></p>
+</li>
+<li>
+<p><em>Here’s data from CX</em></p>
+</li>
+<li><em>Here’s a story from a customer interview</em></li>
+<li><em>Here’s churn mapped alongside bug count</em></li>
+<li>
+<p><strong><em>Bugs are leading to a hit on brand perception</em></strong></p>
+</li>
+<li>
+<p><em>Here’s are some tweets from users</em></p>
+</li>
+<li><em>Here’s a complaint one of our top customers sent us</em></li>
+<li><em>Here’s what our sales team is telling us about ability to close</em></li>
+</ol>
+<p><em>Let me know what you think!</em></p>
+</blockquote>
+<p>Similarly, when crafting your product strategy, <a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">my favorite product 1-Pager template</a> follows the SCR format fairly directly (Situation = Description, Complication = Problem, and Resolution = What):</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dbc2d72a-bd0c-49bc-8189-68eedd2a2aae_1090x834.png" /></p>
+<p>As does <a href="https://docs.google.com/document/d/1JI73WrGplrhNE46aLyRD_B74gEynI77EPgXn1ic6WeQ/edit">my favorite strategy template</a> (you can think of your Mission and Vision as your <em>Situation</em>, the <em>Complication</em> is implied in that you haven’t yet achieved your Vision, and your Strategy and Strategic Pillars are your <em>Resolution</em>):</p>
+<p><img alt="Image from The Minto Pyramid Principle and the SCR Framework" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e74b235f-dc14-489e-bfa5-d65a71ad359b_1382x1170.png" /></p>
+<p>Again, once you learn this, you’ll start seeing it everywhere.</p>
+<h3>Using this framework in your work:</h3>
+<ol>
+<li>
+<p><strong>Crafting</strong>: Whenever you are putting together a proposal or asking for something (e.g. you have 24 hours to draft your strategy, or you’re emailing your manager for more resources), open up a new document and start with this structure:</p>
+</li>
+<li>
+<p><strong>Situation:</strong> <em>What is the state of affairs today? What are the facts that everyone will agree with?</em></p>
+</li>
+<li><strong>Complication</strong>: <em>What has changed that requires action?</em></li>
+<li><strong>Resolution</strong>: <em>What do you recommend we do to resolve this complication? Minto Pyramid-style: answer-first followed by supporting arguments.</em></li>
+<li><strong>Listening</strong>: When listening to a presentation, say a design review or a strategy proposal, encourage the speaker to present in an SCR flow. Suggest they first share the context on where things stand today (i.e. the Situation), then the Complication (i.e. “What problem are we solving?”), and then get right to the recommendation before sharing all of the supporting arguments.</li>
+<li><strong>Templates</strong>: Leverage this <a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">1-Pager template</a> and <a href="https://docs.google.com/document/d/1JI73WrGplrhNE46aLyRD_B74gEynI77EPgXn1ic6WeQ/edit">Company strategy template</a> (which build on the SCR format) vs. starting with a blank page.</li>
+</ol>
+<h4>A few final points:</h4>
+<ol>
+<li><strong>A common tweak of the SCR format is to move the Resolution to the top</strong>, i.e. Resolution-Situation-Complication. This works best when your audience doesn’t need convincing and is ready to hear your recommendation immediately.</li>
+<li><strong>Unlike a story, in a business context you’ll want to spend a limited amount of time on the S and C</strong>, so that you can get to the Resolution as quickly as possible (per our point above about work colleagues not looking to be entertained but instead informed). Thus, your work documents and presentations should have relatively short Situation and Complication sections.</li>
+<li><strong>You may hear the SCR framework also called SCQR, SCQA, or SCA</strong>. They’re all the same thing, just using different words, and IMHO, SCR is the simplest version of them all.</li>
+</ol>
+<h3>📚 Further study</h3>
+<ol>
+<li>Watch Barbara Minto herself explain this concept — even just the the first 5 minutes are worth watching (1980 video production FTW!)</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=hqRfeFODXo4">Watch on YouTube</a></p>
+<ol>
+<li>Check out these two excellent videos by Harrison Metal: <a href="https://vimeo.com/305393045">Thank you, Barbara Minto</a> and <a href="https://www.heavybit.com/library/video/executive-communication/">Executive Communication</a></li>
+<li>Read <a href="https://speakingsherpa.com/how-to-tell-a-business-story-using-the-mckinsey-situation-complication-resolution-scr-framework/">How to Tell a Business Story Using the McKinsey Situation-Complication-Resolution (SCR) Framework</a></li>
+<li>Read <a href="https://www.elc-columbia.org/uploads/3/9/7/2/39724566/how_to_do_consulting_presentations__elc_.pdf">How to do consulting presentations</a></li>
+<li>Read <a href="https://hbr.org/2016/11/how-to-write-email-with-military-precision">How to write emails with military precision</a></li>
+</ol>
+<p>Have a productive and fulfilling week 🙏</p>
+<h2><strong>🔥 Job opening of the week:</strong><a href="https://jobs.lever.co/berbix/fbac5a65-6ade-4030-9ad9-b58ee0430e3f">Director of Product at Berbix</a></h2>
+<blockquote>
+<p><em>Berbix is hiring a Director of Product to lead our product team and set our product direction in service of transforming identity online.</em></p>
+<p><a href="https://jobs.lever.co/berbix/fbac5a65-6ade-4030-9ad9-b58ee0430e3f">Learn more</a></p>
+</blockquote>
+<p><strong>Additional opportunities:</strong></p>
+<ol>
+<li><strong>Product</strong>: <a href="https://decent.breezy.hr/p/a976bf37026c-product-lead">Decent</a>, <a href="https://jobs.ashbyhq.com/Rocketplace/11bc424f-e80f-4bab-aa96-517c01a6d511">Rocketplace</a>, <a href="https://docs.google.com/document/d/1VUHSTVfk2HyVfzcryXBGcpgUHrVGCddy1tGvMjGEHao/edit">Twine</a>, <a href="https://boards.greenhouse.io/wrapbook/jobs/4217915003?gh_jid=4217915003">Wrapbook</a></li>
+<li><strong>Growth</strong>: <a href="https://www.basisone.com/careers/growth-strategy-lead">BasisOne</a>, <a href="https://www.notion.so/Growth-Marketing-Manager-3fbc68b7dcc2411c857a2753bd4e70f7">Offsyte</a>, <a href="https://boards.greenhouse.io/spacex/jobs/5032353002?gh_jid=5032353002&amp;gh_src=seekorswimcom">SpaceX Starlink</a></li>
+<li><strong>Design</strong>: <a href="https://jobs.ashbyhq.com/ashby/145ff46b-1441-4773-bcd3-c8c90baa598a">Ashby</a>, <a href="https://jobs.lever.co/berbix/ba8af3cd-d797-492b-9849-13b37df0f6b2">Berbix</a>, <a href="https://www.notion.so/Eppo-Founding-Designer-57b62fbe7832400396ee7dbfd9889c0e">Eppo</a>, <a href="https://angel.co/company/instrumentl/jobs/1175906-lead-product-designer-remote">Instrumentl</a>, <a href="https://jobs.lever.co/office-hours/13d73541-b5b7-405a-9ad8-1d3f0edf9c92">Office Hours</a>, <a href="https://www.notion.so/Designer-San-Francisco-CA-327a70b082714933aef3c58ef63b54ab">Primer</a>, <a href="https://www.notion.so/A-Product-Designer-baa24543701f472bb291d4429812064a">Runway</a>, <a href="https://www.notion.so/Designer-Watershed-7cb7bf8bd750432399d36e83e4e32391">Watershed</a></li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Front-end-Developer-929e1933b9b4432a851043adbb7bff04">Practice</a>, <a href="https://www.sourcetable.com/jobs#senior-frontend-engineer">Sourcetable</a></li>
+<li><strong>Backend engineer</strong>: <a href="https://www.notion.so/Driveway-Senior-Engineer-758d5ce4ce764f9ea920c5728ee136f3">Driveway</a>, <a href="https://www.notion.so/Eppo-Founding-Data-Engineer-45533e4fc79c4c4d97b8302c051243bc">Eppo</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Backend-6d954206f00b446289f18bf51960ca34">Pogo</a>, <a href="https://reclaim.ai/job-site-reliability-engineer/">Reclaim</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li><strong>Fullstack engineer</strong>: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://www.notion.so/emporii/Senior-Full-Stack-Engineer-5a149801dcfa4ce89a43ccdc19857daa">Emporii</a>, <a href="https://icebreaker.video/product-engineer">Icebreaker</a>, <a href="https://get.mem.ai/careers#product-engineer">Mem</a>, <a href="https://www.notion.so/A-Product-first-Full-stack-Engineer-5e056689b68048aeb1ccfea6ac73eb9e">Runway</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpas</a>s, <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/senior-full-stack-developer_paris_SORAR_Y1eay7e">Sorare</a>, <a href="https://jobs.lever.co/stytch/00c92a1b-36c2-46f6-8af1-885a6bbd6bd4">Stytch</a></li>
+<li><strong>Mobile engineer</strong>: <a href="https://www.notion.so/nocapnotion/Software-Engineer-iOS-058677353900453ca6b60c62445ac3a0">Nocap</a>, <a href="https://www.notion.so/Senior-Software-Engineer-iOS-San-Francisco-CA-87f0fd3ee3dc4c3f8d0419c07fcdd434">Primer</a>, <a href="https://jobs.lever.co/stytch/d3bf3860-4aaa-4a23-8e28-dad20957be44">Stytch</a></li>
+<li><strong>Game economy designer</strong>: <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/game-economy-designer_paris_SORAR_kYW8MjK">Sorare</a></li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li>
+<p><strong>Watch</strong>: A Suez Canal sea shanty</p>
+</li>
+<li>
+<p><strong>Remember:</strong> <a href="https://twitter.com/garrytan/status/1376598052044111872">Founding a startup that actually works is like...</a> via Garry Tan</p>
+</li>
+<li>
+<p><strong>Read</strong>: <a href="https://a16z.com/marketplace-100/">The Marketplace 100</a> by a16z</p>
+</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skills PMs need to build — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Skills PMs need to build</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Skills PMs need to build</div>
+    
+    <div class="article-meta">2021-05-25<span>·</span>3,527 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">設計</span> <span class="mini-tag">組織</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’ve been a PM at a mid-sized company for a couple of years now, and I’m still not sure what skills I should be building to be super-successful long term. What are the most important set of skills a PM needs to develop?</h2>
+</blockquote>
+<p>Instead of pontificating, let’s get real. There’s no better way to know what skills matter most in your role than by looking at how your company evaluates your performance. If you’re lucky, your manager has shared what’s called a career ladder (also known as a <em>leveling framework</em>, <em>career map</em>, <em>role guideline</em>, <em>competencies</em>, or <em>attributes list)</em>, which lays out the concrete expectations for your role at your level. Here’s an example from <a href="https://blog.intercomassets.com/blog/wp-content/uploads/2019/05/Intercom-PM-job-ladder-Logo.pdf">Intercom’s PM career ladder</a> for a Senior PM:</p>
+<p><img alt="Image from Skills PMs need to build" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4aecdf7e-8236-4d94-b407-b708d14a8237_2246x1240.png" /></p>
+<p>If your company doesn’t have such a thing, or you’re pining for something more, this post is for you.</p>
+<p>Over the past year, I’ve collected over twenty PM career ladders from companies like Uber, Slack, Airbnb, Intercom, Amazon, and Asana. After analyzing these documents, it’s become clear to me that (1) the PM role varies significantly across company, but (2) there are a set of ten core PM skills that will serve you well no matter where you work.</p>
+<p><strong>In this post I’ll share:</strong></p>
+<ol>
+<li>The ten most important PM jobs, based on what these 20+ companies look for in their PMs</li>
+<li>What separates junior PMs from senior PMs</li>
+<li>A template to build your own career ladder</li>
+<li>Nine public PM career ladders to inspire your thinking</li>
+<li>Some fun facts about these career ladders</li>
+</ol>
+<p>Let’s dive in.</p>
+<h2>The top 10 jobs of a product manager</h2>
+<p>After spending <em>countless</em> hours reading through every career ladder I could get my hands on, I present the top ten most important jobs of a product manager:</p>
+<p><img alt="Image from Skills PMs need to build" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7abc6cd1-f2a2-48de-ad7d-3bea8f1d0a6c_2048x1654.png" /></p>
+<h4>1. Leadership</h4>
+<p>Surprisingly, though not so surprisingly (since PMs are generally de facto leaders of their team), leadership ended up being the single most cited PM skill, highlighted by 85% of the companies (all but three).</p>
+<p>Here’s how companies describe strong PM leadership:</p>
+<ul>
+<li>“Inspires teams to achieve great outcomes. Pushes team when they need to be pushed, and supports teams when they need support.”</li>
+<li>“Role models servant-leadership.”</li>
+<li>“Demonstrates ability to effectively motivate a large team of engineers. Can successfully start and direct self-sustaining teams. Routinely lobbies for and wins resources.”</li>
+<li>“Spreads best practices across the product team to make everyone better.”</li>
+<li>“Demonstrated mentorship and development of other product managers.”</li>
+<li>“Consistently and actively assists others in expanding and developing skills and knowledge, particularly fellow Product Managers.”</li>
+</ul>
+<h4>2. Execution</h4>
+<p>Execution (aka, getting sh*t done) turned out to be the second most important PM attribute, highlighted by 75% of companies.</p>
+<p>Here’s how companies describe strong execution:</p>
+<ul>
+<li>“Keeps the team aligned on vision, goals, and strategy over 6-month periods.”</li>
+<li>“Focuses, runs, and plans across a series of teams that operate seamlessly with minimal blockage, minimal noise, and a rapid clip of high-quality delivery. Others frequently turn to this person to understand how to run highly productive teams.”</li>
+<li>“Priorities for a team are clear and trade-offs are well understood.”</li>
+<li>“Delivers almost always on goals and strategy, covering 12-month long product initiatives spanning multiple teams or domains.”</li>
+<li>“When an execution failure happens, they take ownership, explain what was learned, and rapidly remedy the problem.”</li>
+<li>“Identifies issues that will keep the product from delivering on<br />
+  time and/or with the desired requirements and communicates to leadership; assesses the alternatives to resolve (“path to green”) and builds a plan for resolution.”</li>
+<li>“Works in a fluid nature to creatively scope projects to get more out of teams than they thought possible. Consistently makes the complex simple.”</li>
+</ul>
+<h4>3. Strategy</h4>
+<p>About 75% of companies also highlight strategy as a critical PM attribute, which when combined with the previous two jobs (leadership and execution) basically tells you what companies need PMs for most.</p>
+<p>Here’s what great strategy looks like:</p>
+<ul>
+<li>“Can take ambiguous, large product spaces and create principles / focused strategy to organize a wider team along with product plan.”</li>
+<li>“Can connect the dots across pillars, industries, and trends for maximum strategic impact.”</li>
+<li>“Has the capability to set strategies and coach the delivery of chunks of value to customers at the right intervals on the road to their vision.”</li>
+<li>“Focuses their teams on the most important problems, but opens their eyes to problems they don’t realize they're going to have. Also ensures that problems are owned—even if it's not their teams.”</li>
+<li>“Articulates a path to achieve results for a product area.”</li>
+</ul>
+<h4>4. Communication</h4>
+<p>PMs do their job through one core skill: communication—by talking, emailing, writing, messaging, and presenting. Unsurprisingly, the fourth most frequently mentioned PM attribute, emphasized by over 60% of companies, is communication.</p>
+<p>Here’s what great communication looks like:</p>
+<ul>
+<li>“Demonstrates strong verbal and written communication skills in interactions with team and product stakeholders. Supports communication about team’s work to executives and company at large.”</li>
+<li>“Your oral and informal written communications (Slack, doc comments, etc.) are clear and efficient, and people feel heard in your discussions with them. You choose the right venue and level of formality for your communications. You serve as an effective conduit for information and understanding up and down your reporting chain and outward to stakeholders.”</li>
+<li>“Communicates concisely, influences outcomes, and messages crisply so as to be recounted by partners. Speaks in front of large groups with confidence and clarity. Succinctly summarizes key points to leaders in written and verbal form.”</li>
+<li>“Communicates effectively and directly to executives and company at-large about their team’s work to gather feedback, generate alignment, and garner support.”</li>
+<li>“Able to structure an entire storyline across various media (presentations, videos, documents, sales collateral) to drive engagement and adoption within their product area.”</li>
+</ul>
+<h4>5. Deliver impact</h4>
+<p>All the other skills in this list enable the thing that matters most in the end: delivering impact. Impact is the <em>output</em> of all the inputs in this list.</p>
+<p>Here’s what successfully delivering impact looks like:</p>
+<ul>
+<li>“Shows quantifiable impact by hitting aggressive goals that move metrics for a product area.”</li>
+<li>“Hits dramatically important, broad goals that signal realization of ambitious visions. This can be both internal or external product launches, tech debt reduction, or infrastructure improvements.”</li>
+<li>“Ships a large-sized project during each quarter. Projects make a positive, quantifiable impact on the product group’s KPIs.”</li>
+<li>“Demonstrated track record of delivering step function improvement to the business and customers.”</li>
+<li>“Drives impact by making a project as successful as possible in the context of their team’s broader strategy.”</li>
+<li>“Consistently delivers meaningful impact to customers and our business.”</li>
+</ul>
+<h4>6. Leverage customer insights and data</h4>
+<p>About 50% of the companies highlight the job of leveraging data and user research. It’s interesting that this only came up in half of companies. My take is that the remaining companies assume this is going to happen anyway.</p>
+<p>Here’s what what being great at this job looks like:</p>
+<ul>
+<li>“Talks to a range of customers using their area of product and beyond, always looking for deeper insight. Is recognized internally as an expert in customer needs for their area of product. Is able to use this insight to effectively create the best possible value in their product area.”</li>
+<li>“Able to derive insights from data to support new product bets.”</li>
+<li>“Anchors decisions in data. Uses data insights to evaluate and inform the story they tell. Uses data insights to inform product strategy and partners effectively with Analytics to define the analysis we need. Can independently seek and evaluate their own data insights.”</li>
+<li>“Serves as effective <em>first line</em> for team members in terms of evaluating their insights and interpretation and steering them accordingly.”</li>
+<li>“Works with engineering effectively to ensure instrumentation/data model supports key questions to be answered.”</li>
+<li>“Engages externally with customers to identify key product issues in market; solicits feedback on product roadmap.”</li>
+<li>“For their teams, oversees a comprehensive research plan into their customers (who they are, what they need, how they use the products) and a systematic process for using this research to develop product features.”</li>
+<li>“Leverages data analysis skills to research difficult or ambiguous problems, leading cross-disciplinary teams where necessary and communicating recommendations to senior leadership.”</li>
+</ul>
+<h4>7. Planning and goal setting</h4>
+<p>Similarly, about 50% of companies highlighted planning and goal setting as a core PM job. You could argue this is a subset of execution, but the fact that most companies broke this out into its own job tells you how important it is.</p>
+<p>Here’s what great planning looks like:</p>
+<ul>
+<li>“Owns business planning and serves as the representative to executives.”</li>
+<li>“Creates effective plans with a defined purpose and business outcomes, defined roles/responsibilities, and clear timelines/milestones.”</li>
+<li>“Defines OKRs and roadmap for the groups they oversee. Works with direct reports to ensure their teams are focused, planning, and operating seamlessly with minimal blockage, minimal noise, and a rapid clip of high-quality delivery.”</li>
+<li>“Determines release goals for a narrow product or component of a large product, prioritizes features according to customer value, and adjusts throughout implementation as needed.”</li>
+<li>“Ensures design and engineering are engaged stakeholders in all product initiatives. Proactively solicits their input for roadmap items and planning.”</li>
+<li>“You can build coherent, achievable, and realistic delivery plans for large-scale projects. You know the difference between being customer-led in figuring out a solution vs. the ability to step back and evaluate if we can actually deliver to the market in a different way.”</li>
+<li>“Creates effective measurable goals that are realistic yet aggressive and gets buy-in both from team and management around them.”</li>
+</ul>
+<h4>8. Collaboration</h4>
+<p>Collaboration, the skill of getting work done with others, is highlighted about 40% of the time.</p>
+<p>What great collaboration looks like:</p>
+<ul>
+<li>“Demonstrates ability to harmonize significant differences of opinion with partners and stakeholders. This person does not take a lowest common denominator approach, but makes sure the right decision wins in a way that is palatable.”</li>
+<li>“Handles conflict and hard conversations directly and with maturity—can be trusted to lead through challenges or uncertainty.”</li>
+<li>“Effectively negotiates ambiguous situations and drives to rapid decisions.”</li>
+<li>“Proactively looks for opportunities to improve how to work well together within the team and across teams.”</li>
+<li>“Proactively identifies dependencies with other teams, and collaborates and coordinates as needed. Detects collisions with other teams early.”</li>
+</ul>
+<h4>9. Vision</h4>
+<p>Surprisingly, considering how much value founders and investors put on vision, only 40% of these companies include vision as an essential skill of PMs. This doesn’t necessarily mean companies don’t want their product managers spending time developing a vision for the product—it probably just tells us that in the stack rank of PM skills, this falls short of the most essential set of skills.</p>
+<p>What vision looks like when done well:</p>
+<ul>
+<li>“Crafts a broad, long-term vision for the product area they are managing, including outlining important, new areas for product development.”</li>
+<li>“Drives 1-2–year vision and strategy through a deep understanding of the market segment owned.”</li>
+<li>“Create a strong shared vision for the future of their product and show how that aligns with the company’s goals.”</li>
+<li>“Thinks big and innovates on a cross-functional product or domain area. Vision here is grand and challenging, putting a portion of our business on course for meaningful change. Lookahead: 12 months.”</li>
+<li>“Articulates a vision that inspires, resonates, and drives clarity.”</li>
+</ul>
+<h4>10. Ownership</h4>
+<p>And finally, about a fourth of companies highlight ownership as a core PM skill, even over other skills such as technical depth, decision making, and mindset.</p>
+<p>Here’s what ownership looks like when done well:</p>
+<ul>
+<li>“No excuses. Accountable and positive in all conditions. Takes ownership of problems and challenges within their remit and outside their domain and doesn't apportion blame to others. Thinks about how to help the company succeed, not just their specific team.”</li>
+<li>“Identifies problems or goals and works independently to find a solution. Links and guides multiple roadmaps toward a coherent, shared set of goals. Influences others to take ownership of work as necessary.”</li>
+<li>“Owns a customer problem and delivery and stewardship of product feature set to address it.”</li>
+<li>“Completely owns and takes responsibility for their area of the product without excuses.”</li>
+<li>“Holds self and team accountable to significant impact on company and department performance”</li>
+<li>“Takes responsibility for outcomes and doesn’t make excuses.”</li>
+</ul>
+<p><em>Other attributes highlighted, but less than 25% of the time: technical depth, decision-making and decisiveness, culture and values, mindset, hiring, problem</em>-<em>solving, empathy, velocity accelerant, influence, organizational design, and competitive insight.</em></p>
+<h2>What separates junior PMs from senior PMs</h2>
+<p>While analyzing these career ladders, I also found some consistent patterns in what companies look for as a PM levels-up. In order to move up the ladder of seniority, I’d focus on the following five areas:</p>
+<h4>1. Increase your scope</h4>
+<p>Junior PMs focus on a feature, senior PMs focus on multiple products.</p>
+<ul>
+<li>"Feature” —&gt; “Multiple Features” —&gt; “Product " —&gt; “Multiple Products" —&gt; “Product Line” —&gt; “Department” —&gt; “Industry”</li>
+<li>“Feature” —&gt; “Solution” —&gt; “Customer segment” —&gt; “Market Segment”</li>
+<li>“For specific use cases” —&gt; “For a product” —&gt; “Across products” —&gt; “Across groups”</li>
+</ul>
+<h4><strong>2. Get more proactive</strong></h4>
+<p>Junior PMs participate in a project given to them. Senior PMs seek out problems and rally people to solve them.</p>
+<ul>
+<li>“Actively contributes​” —&gt; “Steers team explorations” —&gt; “Facilitates concept explorations”</li>
+<li>“Adapts​ to existing team shipping rhythm” —&gt; “Establishes and drives​ a consistent shipping cadence” —&gt; “Motivates multiple teams to find creative ways to continue to ship frequently even for complex, high-dependency projects”</li>
+<li>“Works with manager to identify what needs to be done” —&gt; “Independently identifies what needs to be done” —&gt; “Consistently challenges team to accomplish more than they think they can”</li>
+<li>“Contributes to team’s roadmap” —&gt; “Owner of the team’s roadmap” —&gt; “The reviewer of teams’ roadmaps”</li>
+<li>“With coaching, creates a bold vision for their area of ownership” —&gt; “Inspires the company by creating bold, game-changing ideas and delivering them” —&gt; “Demonstrates ability to consistently invent and build multiple innovations delivered across products and org boundaries”</li>
+</ul>
+<h4>3. Deliver impact consistently</h4>
+<ul>
+<li>“Can demonstrate meaningful impact” —&gt; “Consistently​ delivers meaningful impact”</li>
+<li>“Demonstrated track record of delivering customer and enterprise value” —&gt; “Demonstrated track record of delivering step function improvement to the business and customers” —&gt; “Impact the strategic decisions of the company through developed subject matter expertise”</li>
+<li>“Seeks to understand product area” —&gt; “Responsible for shaping product area strategy” —&gt; “Responsible for shaping the most ambiguous &amp; impactful strategies across teams”</li>
+</ul>
+<h4>4. Build trust in order to become more autonomous</h4>
+<ul>
+<li>“Requires oversight from a PM II or Senior PM” —&gt; “Requires oversight from a Senior PM” —&gt; “Executes against single-team projects with a high level of complexity or ambiguity with minimal intervention”</li>
+<li>“Requires guidance” —&gt; “Often needs guidance” —&gt; “Without day-to-day management”</li>
+<li>“Drives successful launches with moderate involvement from manager or peers” —&gt; “Owns a customer problem and delivery and stewardship of product feature” —&gt; “Owns delivery and stewardship of a feature set which has an irrefutable impact on the company’s business opportunity”</li>
+</ul>
+<h4>5. Mentor and lead</h4>
+<ul>
+<li>“Begin mentoring APMs and newer team members” —&gt; “Demonstrated mentorship and development of other product managers” —&gt; “Mentors and teaches fellow product managers, product leaders, and leaders across the company” —&gt; “Helps newer GPMs become better managers” —&gt; “People leadership skills are so strong that Directors+ are able to learn from you”</li>
+<li>“Seeks feedback and reviews of one-pagers and PRDs from peer, teammates, and mentors” —&gt; “Takes on a mentee” —&gt; “Mentors product managers within the organization”</li>
+<li>“Does not directly manage anyone” —&gt; “Optionally serves as a trusted APM mentor” —&gt; “Optionally manages a small number of PMs” —&gt; “Usually manages several PMs, but not strictly required if this person is running fairly complex programs. Influence extends beyond own team; their product judgment is frequently sought out by teams outside of product area.”</li>
+</ul>
+<p>There are additional shifts that happen as you level up, such as getting more comfortable with ambiguity, increasing the time horizon in which you plan, and the level of impact you have on the organization, but many of these come automatically if you achieve the five above. Also, I don’t want to overwhelm you 🥴</p>
+<h3>Fun facts about PM career ladders</h3>
+<p>I ran all of the documents through a word cloud generator. This definitely looks like the life of a PM to me:</p>
+<p><img alt="Image from Skills PMs need to build" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/649f7154-03bd-4883-b827-51ca19defe31_2048x1024.png" /></p>
+<h4>What the documents are called</h4>
+<p>If you’re planning to build a framework for your own company, here what these frameworks are typically called:</p>
+<ol>
+<li>PM Competencies</li>
+<li>PM Leveling Framework</li>
+<li>PM Career Tracks</li>
+<li>PM Job Ladder</li>
+<li>PM Career Map</li>
+<li>PM Attributes</li>
+<li>PM Role Guideline</li>
+<li>PM Pathway</li>
+<li>PM Titles and Role Expectations</li>
+</ol>
+<p>Also, the median number of top-level PM attributes is 5, while the average is closer to 7. Slack and Instacart have 4 PM attributes they measure against, while Mixpanel has 9 and Uber has a whopping 19. My advice is to land somewhere between 5 and 9.</p>
+<h3>A template to build your own</h3>
+<p><a href="https://docs.google.com/spreadsheets/d/1fEY8JnLhvjci1F-twKOFK7gh8Z0SwXCdMxOxXrXZEhw/edit#gid=1925149295">Here are a number of templates to get you started building your own framework</a>.</p>
+<h3>Public examples of career ladders</h3>
+<ol>
+<li><a href="https://blog.intercomassets.com/blog/wp-content/uploads/2019/05/Intercom-PM-job-ladder-Logo.pdf">Intercom</a></li>
+<li><a href="https://www.dropbox.com/s/8ogtpjvgptix3is/Optimizely%20PM%20Levels%20%26%20Profiles%20-%20FY19.pdf?dl=0">Optimizely</a></li>
+<li><a href="https://www.transferwise.jobs/product-management-career-map/">Wise</a></li>
+<li><a href="https://www.dropbox.com/s/5egjhdeo9ls3ugs/OpenTable%20-%20Product%20Management%20Careers%20at%20OpenTable%20v2.pdf?dl=0">OpenTable</a></li>
+<li><a href="https://medium.com/agileinsider/product-manager-skills-by-seniority-level-a-deep-breakdown-cd0690f76d10">XO Group</a></li>
+<li><a href="https://www.linkedin.com/pulse/deep-dive-product-management-leveling-oscar-sara-wajnberg/">Oscar</a></li>
+<li><a href="https://engineering.gusto.com/a-framework-to-help-product-managers-achieve-their-potential-2/">Gusto</a></li>
+<li><a href="https://about.gitlab.com/handbook/product/product-manager-role/">GitLab</a></li>
+</ol>
+<h3>In summary</h3>
+<p>As this post illustrates, and as you likely already know, the PM job is hard. It’s complex, multi-faceted, and full of surprises. But that’s also what makes it so damn fun. There’s no other role I’d rather have at a company.</p>
+<p>I hope this post helps you see the role in a new and more concrete light, and if you have any other questions, suggestions, or insights, leave a comment 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/jobs-of-product-manager/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week</em> 🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<h4>Product Management</h4>
+<ol>
+<li><strong>Metafy:</strong> <a href="https://pallet.xyz/job/3bd02acf-9da4-4769-9dd7-fed6a81045c8">Principal Product Manager</a> (Remote)</li>
+<li><strong>6ix:</strong> <a href="https://pallet.xyz/job/5322e118-bba3-4a9f-ac38-da61d5b4cab8">Project Manager</a> (Remote/Toronto)</li>
+<li><strong>Brex:</strong> <a href="https://pallet.xyz/job/5a8a0c07-552b-49a0-ac12-e588280790c5">Senior Product Manager on Growth</a> (Remote)</li>
+<li><strong>LawnStarter:</strong><a href="https://pallet.xyz/job/e55f36fa-2103-4ebf-bbe4-dbd4fc63fa4a">Founding Product Manager</a> (Remote)</li>
+<li><strong>Overtime:</strong><a href="https://pallet.xyz/job/4296af21-ada7-47c8-bc19-9041724f3098">Product Manager</a> (NYC)</li>
+<li><strong>Wrapbook:</strong><a href="https://pallet.xyz/job/dea57461-eb0d-4edb-9097-91885482ce19">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>Immuta:</strong><a href="https://pallet.xyz/job/7e71effa-1f76-4607-a9de-57ca1b07f261">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>Duolingo</strong>: <a href="https://pallet.xyz/job/16daa6a1-ff27-4097-89cb-41f7a1b33aa6">Principal Product Manager</a> (NY/Seattle)</li>
+<li><strong>Companion Labs</strong>: <a href="https://pallet.xyz/job/f1e8cbf6-7338-48ae-ba6f-2507b3427e0e">Head of / Senior Product Manager</a> (SF)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/400edfd5-43fb-45d1-a679-772cb7442b6e">Group Product Manager, Growth &amp; Subscription</a> (SF/Remote)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/f589c9bf-48c9-43df-8a3e-c418f92b715b">Group Product Manager, Medical &amp; Pharmacy Ops</a> (SF/Remote)</li>
+<li><strong>Grand Rounds</strong>: <a href="https://pallet.xyz/job/8f22029f-7685-443c-b595-588326096967">Senior Product Manager</a> (SF/Remote)</li>
+</ol>
+<h4>Growth</h4>
+<ol>
+<li><strong>Brex:</strong><a href="https://pallet.xyz/job/1811f9d7-21c7-4cd0-8b81-050242749825">Growth Marketing Manager, Search (SEM+SEO)</a>(Remote)</li>
+<li><strong>OpenPhone</strong>: <a href="https://pallet.xyz/job/102a757f-cbea-4113-9588-cf1fc98a8d7a">Head of Marketing</a> (Remote)</li>
+<li><strong>neo.tax:</strong><a href="https://pallet.xyz/job/2fd84c85-b209-47d0-9213-671e0342cff3">Head of Growth</a> (Mountain View/Remote)</li>
+<li><strong>Coda:</strong><a href="https://pallet.xyz/job/bba22fae-9ec5-47a2-b6dd-157f498b1fba">Growth Associate Program</a> (SF)</li>
+<li><strong>Labelbox</strong>: <a href="https://pallet.xyz/job/c6947128-80d8-49ab-a679-728f0aaf3430">Director of Growth and Demand Generation</a> (SF/Remote)</li>
+<li><strong>Livepeer:</strong><a href="https://pallet.xyz/job/3f5394b4-3104-4670-9572-c045b065119a">Go To Market Lead</a> (Remote)</li>
+</ol>
+<h4>Engineering</h4>
+<ol>
+<li><strong>Eppo:</strong> <a href="https://pallet.xyz/job/fa7f68a5-8153-4928-8aff-20a87e3c6d84">Data Infrastructure Engineer</a> (SF/Remote)</li>
+<li><strong>Playbook</strong>: <a href="https://pallet.xyz/job/94f60a15-f165-4f10-81f1-1e56e2cebfc2">Head of Engineering</a> (Remote)</li>
+<li><strong>Karat</strong>: <a href="https://pallet.xyz/job/1b718459-42d4-489b-b725-8139c93b4898">Senior Software Engineer</a> (LA/Remote)</li>
+<li><strong>Cable</strong>: <a href="https://pallet.xyz/job/8f3f617d-07ba-412f-87f5-6a8ad1d0fe35">Backend Engineer</a> (Remote)</li>
+<li><strong>Transform:</strong> <a href="https://pallet.xyz/job/bb8679fc-e2cb-4a83-a9d6-b71795c096e5">Data Engineer</a> (Remote)</li>
+</ol>
+<h4>Design</h4>
+<ol>
+<li><strong>ClassDojo:</strong><a href="https://pallet.xyz/job/d249ecad-d380-416f-a773-4650e28585cc">Design Leader</a> (SF/Remote)</li>
+<li><strong>Cardless</strong>: <a href="https://pallet.xyz/job/4befe144-b63d-4a5c-9626-11a533a8fdd3">Product Designer</a> (SF)</li>
+<li><strong>Karat</strong>: <a href="https://pallet.xyz/job/29a7b24a-2ba0-489e-8222-d5d2b0b68e43">First Designer</a> (LA/Remote)</li>
+</ol>
+<h4>Other</h4>
+<ol>
+<li><strong>Maven:</strong><a href="https://pallet.xyz/job/24216c2e-e429-456c-add2-0ac0662e04b7">Course Strategy and Operations Lead</a> (Remote)</li>
+<li><strong>Maven:</strong><a href="https://pallet.xyz/job/b333db7b-c2f2-4f87-b82e-a8970ba14193">White-Glove Course Lead</a> (Remote)</li>
+<li><strong>Free Agency:</strong><a href="https://pallet.xyz/job/3445e94f-d760-4b3b-9c47-393a6f4702e8">Community Manager</a> (New York City)</li>
+</ol>
+<p><em>To browse 200+ open roles, or to add your own roles, <a href="https://lennysnewsletter.com/jobs">visit Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong>How to Never Lose at Tic Tac Toe</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=mExQ8bz3Gno">Watch on YouTube</a></p>
+<ol>
+<li><strong>Watch</strong>: Tiktok, Emergent Creativity, The Limits of Social Graphs—Eugene Wei and Kevin Kwok</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=xbnDay35L8I">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read</strong>: <a href="https://kottke.org/21/05/renewable-energy-is-suddenly-startlingly-cheap">Renewable Energy Is Suddenly Startlingly Cheap</a></li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

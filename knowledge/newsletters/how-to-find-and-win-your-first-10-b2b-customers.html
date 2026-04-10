@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to find and win your first 10 B2B customers — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to find and win your first 10 B2B customers</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to find and win your first 10 B2B customers</div>
+    
+    <div class="article-meta">2023-09-05<span>·</span>6,657 words</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2B</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><img alt="Image from How to find and win your first 10 B2B customers" src="https://substack-post-media.s3.amazonaws.com/public/images/a0474f2c-61c5-4a7d-9655-52bc5f5c3a69_2014x1007.png" /></p>
+<p>Welcome to part four of our series on how to kickstart and scale a B2B business:</p>
+<ul>
+<li><strong>Part 1:</strong> <a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How to come up with a great B2B startup idea</a></li>
+<li><strong>Part 2:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-validate-your-b2b-startup">How to validate your idea</a></li>
+<li><strong>Part 3:</strong> <a href="https://www.lennysnewsletter.com/p/how-to-identify-your-ideal-customer">How to identify your ICP</a></li>
+<li><strong>Part 4</strong>: How to find and win your first 10 customers <em>← This post</em></li>
+<li><strong>Part 5:</strong> <a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">How to find product-market fit</a></li>
+<li><strong>Part 6:</strong> <a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">How, and when, to hire your early team</a></li>
+<li><strong>Part 7:</strong> <a href="https://www.lennysnewsletter.com/p/scaling-your-b2b-growth-engine">How to scale your growth engine</a></li>
+</ul>
+<p>Let’s get into it.</p>
+<p><em>A huge thank-you to </em><em><a href="https://www.linkedin.com/in/akothari/">Akshay Kothari</a></em><em> (COO of Notion), </em><em><a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a></em><em> (CEO of Databricks), </em><em><a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a></em><em> (CEO of Hex), </em><em><a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a></em><em> (CEO of Census), </em><em><a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a></em><em> (co-founder of Segment), </em><em><a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a></em><em> (co-founder and CPO of Canva), </em><em><a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a></em><em> (CEO of Vanta), </em><em><a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a></em><em> (CEO of Retool), </em><em><a href="https://www.linkedin.com/in/eilonreshef/">Eilon Reshef</a></em><em> (CPO of Gong), </em><em><a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a></em><em> (CEO of Ramp), </em><em><a href="https://www.linkedin.com/in/guypo/">Guy Podjarny</a></em><em> (CEO of Snyk), </em><em><a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a></em><em> (co-founder of Linear), </em><em><a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a></em><em> and </em><em><a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a></em><em> (co-founders of Stytch), </em><em><a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a></em><em> (CEO of Front), </em><em><a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a></em><em> (CEO of Persona), </em><em><a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a></em><em> and </em><em><a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a></em><em> (co-founders of Zip), </em><em><a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a></em><em> (CEO of Sprig), </em><em><a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a></em><em> (co-founder of Loom), </em><em><a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a></em><em> (CEO of Coda), </em><em><a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a></em><em> (VP of Product of Figma), </em><em><a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a></em><em> (co-founder and CEO of Amplitude), and </em><em><a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a></em><em> (co-founder and CPO of Gusto) for contributing to this series. Art by <a href="https://www.natalieharney.com">Natalie Harney</a>.</em></p>
+<p><img alt="Image from How to find and win your first 10 B2B customers" src="https://substack-post-media.s3.amazonaws.com/public/images/ccc079cd-aa13-494e-9a61-cfa291dbea27_2010x1006.png" /></p>
+<p>Let’s jump right into it.</p>
+<p><img alt="Image from How to find and win your first 10 B2B customers" src="https://substack-post-media.s3.amazonaws.com/public/images/c6b2a4b8-105f-42db-8916-930e1fe33fc6_2836x2084.png" /></p>
+<h3>Here’s my recommended sequence to find your early customers:</h3>
+<ol>
+<li>Start by reaching out to your network, looking for people who match your ICP</li>
+<li>Go cold outbound, but be strategic about it</li>
+<li>Tap your investors’ networks</li>
+<li>Participate in relevant communities—and network</li>
+<li>Put out compelling content and build a following online</li>
+<li>Get press</li>
+<li>Just launch</li>
+</ol>
+<p><strong>If you want to keep it really simple:</strong></p>
+<ol>
+<li>Start with former colleagues (yours, and those of your early employees)</li>
+<li>Collect your investors’ contacts who match your profile and then go cold outbound (creatively)—more on this below</li>
+<li>Find a community where your ICPs might be hanging out, and go participate</li>
+</ol>
+<h3>My biggest takeaways from this step:</h3>
+<ol>
+<li>None of these seven strategies scale. That’s why they work. In B2B, it always starts with hand-to-hand combat.</li>
+<li>Cold outbound works—if done creatively.</li>
+<li>PR can work, but rarely does.</li>
+<li>A surprising number of founders found their early customers by putting out compelling content online and first building a following.</li>
+<li>Y Combinator (YC) especially is very effective at helping you get early users, but not the way you’d think (as you’ll see below). Also, major shoutouts for First Round Capital.</li>
+<li>When joining communities, focus first on adding value to the community. No one wants to pay attention to you if you’re there just to pitch your product.</li>
+<li>For your first set of customers, trust is the key.</li>
+</ol>
+<h1>How to find and win your first 10 customers</h1>
+<h3>1. Start by reaching out to your personal network, looking for people who match your ICP</h3>
+<p>Think about your friends—and their friends. Do any fit your ideal customer profile? This group will have the most innate trust (and the lowest amount of skepticism) about your idea. You won’t find a more supportive group to start with (though there’s a downside to this, as you’ll see below).</p>
+<p>For <strong>Figma</strong>, Dylan Field reached out to design-oriented founders who he knew from previous projects:</p>
+<blockquote>
+<p>“<strong>The early batch of alpha customers were just mostly friends, and friends of friends, of Dylan.</strong> Dylan’s the kind of guy who’s always been a mover and shaker, with connected people in the industry ever since he was a teenager. He’s just a nice, smart guy. The first company that used Figma is a company that at the time was going by the code name Krypton and now is known as Coda—<a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir’s</a> company. Dylan and Shishir knew each other from before.”</p>
+<p>—<a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a>, VP of Product</p>
+</blockquote>
+<p><strong>Gong</strong>’sfounders found their early customers through connections of theirs, along with connections of their early employees:</p>
+<blockquote>
+<p>“<strong>All of the first dozen customers were some sort of personal connection, either through [CEO Amit Bendov] or myself or other people we later brought on.</strong> Our third or fourth employee was a part-time contractor out of the Bay Area, and he called the people he knew, like at Greenhouse Software, where he had consulted and had buddies, and asked if they wanted to try it out. It wasn’t even about selling to them, since we already knew them. But it worked.”</p>
+<p>—<a href="https://www.linkedin.com/in/eilonreshef/?originalSubdomain=il">Eilon Reshef</a>, co-founder and CPO</p>
+</blockquote>
+<p><strong>Coda</strong> had the same experience—finding their early customers through former colleagues and early employee connections:</p>
+<blockquote>
+<p>“My former colleague Noam Lovinsky was starting a company, and I said to him, ‘Hey, would you use Krypton [our name at the time]?’ His company started using it, and for a while, it went well. Eventually, however, this led us to rework the entire product.</p>
+<p>Then we recruited our next set of customers. We called those the ‘Alpha 2’ customers. One was a jewelry shop run by one of our employee’s wives. Another was a tech company that my co-founder, Alex [DeNeui], started. Box, which was an early customer, came through our head of recruiting, Kenny. <strong>All were recruited one or two steps out from friends of the company</strong>.”</p>
+<p>—<a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a>, co-founder and CEO</p>
+</blockquote>
+<p>For <strong>Census</strong>,all of their early customers came through the founders’ networks—mostly one super-connected co-founder:</p>
+<blockquote>
+<p>“<strong>Most of our early growth had to do with being in San Francisco and from our loose network of friends.</strong> <strong>Half of the first 10 came through Sean [Lynch, co-founder].</strong> Everybody knows Sean, and Sean knows everyone. Sean was like, ‘Hey, let’s go talk to all these ex-Dropbox people who are at new companies and see what they think.’ The Dropbox mafia turned out to be the perfect fit for Census because most ended up at new product-led companies and wanted to do it better than Dropbox. Our pitch resonated very easily.</p>
+<p><strong>The other half was people who I knew. People who were doing B2B that I knew living in the Valley for a while.</strong> Fivetran is one of our earliest customers. They were in the first 10, and the co-founders of Fivetran and I went through Y Combinator 10 years ago. It was an easy conversation to have. You can skip all the niceties of doing customer discovery. And when they look at a janky demo, they’re like, ‘Yeah, dude, I remember. It’s all good.’”</p>
+<p>—<a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a>, co-founder</p>
+</blockquote>
+<p>Same for <strong>Hex</strong>:</p>
+<blockquote>
+<p>“<strong>A few of our first 10 customers were from our network. It was people I knew in the data space.</strong> It’s one of the many reasons why I am always so confused by founders who start something that’s far outside their wheelhouse, especially in B2B, because you just have a built-in network if it’s something you know well. Glossier is an example of this. We had friends there.”</p>
+<p>—<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, co-founder</p>
+</blockquote>
+<p>And <strong>Okta</strong>:</p>
+<blockquote>
+<p><strong>“We reached out to our networks, folks we knew in IT from Salesforce and past jobs.</strong> We networked aggressively on LinkedIn with our alma mater networks etc. We asked our angel investors and combed their LinkedIn networks. I had a target of 15 to 18 net new IT folks at different companies to talk to every month for the first six months and probably hit 85%-plus of my quota.”</p>
+<p>—<a href="https://www.linkedin.com/in/fkerrest">Frederic Kerrest</a>, COO and co-founder</p>
+</blockquote>
+<p>And <strong>Gusto</strong>:</p>
+<blockquote>
+<p><strong>“Gusto’s first 10 customers came from friends we knew who were just starting their businesses in California.</strong> <strong>Mostly new tech startups from our YC batch, but also non-tech small businesses</strong> (like a children’s swimming camp) that we happened to know through family and friends. We [three founders] basically went around telling everyone we knew that we’re building a modern delightful payroll and HR system and asked if they’d know someone who’d be interested in trying it out.”</p>
+<p>—<a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a>, co-founder and CPO</p>
+</blockquote>
+<p>And <strong>Ramp</strong> (alongside some other strategies we’ll touch on below)<strong>:</strong></p>
+<blockquote>
+<p>“We got our first 10 customers any way we could, really. The first one was an early employee of our last startup. And they were like, ‘All right, as long as you don’t screw up my business and I can run it, I can make payments, rent it on yourselves for a little bit, but then I’ll try it because I like you.’ And there were a few other people like that, where there was a very close kind of trusting relationship.</p>
+<p>You knew that you had us—we personally were going to go and obsess over saving your company money—and it was small enough scale and they had backups, that it was okay to do it. Later on, a lot of this came from co-building. Candid was one of our early large customers. They were at that time very high-flying direct-to-consumer. <a href="https://ro.co/">Ro</a> is very much this kind of way, where a relationship developed over time, multiple meetings, talking about the idea and how it would come to life.</p>
+<p>The next 40 came from a combination of friends, entrepreneurs, different people we met in the city, different finance teams, but also some level of cold or semi-cold outreach. Also, VC introductions and co-building. That was the story of the first 10 for sure. One of the first 50 was Truebill, which became Rocket Money. It was a cold email and we had met each other years before.”</p>
+<p>—<a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a>, co-founder and CEO</p>
+</blockquote>
+<p>And <strong>Notion</strong>. Also, it’s fascinating how many of these early stories connect back to Dylan and Figma 🤷‍♂️</p>
+<blockquote>
+<p><strong>“The first 10 were probably just friends and family, and founders of fellow San Francisco startups. Some we got connected to through the investors we had.</strong></p>
+<p>Figma was an early user of Notion, and we were also heavy users of Figma. Dylan and Ivan [Zhao, co-founder and CEO] and I have been long friends, so I know Ivan was sort of a crazy power user of Figma, giving them a ton of early feedback, and I believe that’s probably the case the other way around as well.”</p>
+<p>—<a href="https://www.linkedin.com/in/akothari">Akshay Kothari</a>, co-founder and COO</p>
+</blockquote>
+<h3>2. Go outbound, but be strategic about it</h3>
+<p>One of the recurring themes (and biggest surprises) across my interviews is the value, and effectiveness, of going cold outbound in the early stages—cold emails, cold DMs, cold calling. But you need to be clever about how you do this. If you aren’t getting a good response, get more creative and more targeted.</p>
+<p>Dylan Field at <strong>Figma</strong> built a custom tool to find the most influential designers on Twitter and focused all his energy there:</p>
+<blockquote>
+<p>“We recognized for design software, there’s no choice but to go bottom-up. You cannot go top-down with designers. Designers are the ultimate arbiters of what makes a good design tool. You’re not going to tell a musician, hey, don’t use your violin that you love, use this other violin. People get really attached to their tools. We had to appeal to individual designers. And designers find out about tools not by looking at price and looking for the cheapest thing, but by seeing what other designers are using.</p>
+<p><strong>So Dylan actually <a href="https://twitter.com/zoink/status/1566566649712431105?s=20">built a custom script to find the most influential designers on Twitter</a> and cold-DM’d them to show them Figma. That’s how it started.”</strong></p>
+<p>—<a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a>, VP of Product</p>
+</blockquote>
+<p>David Hsu at <strong>Retool</strong> used Crunchbase in an incredibly clever way:</p>
+<blockquote>
+<p>“We were very tactical. Here’s exactly what we did—and it still works today. We bought a Crunchbase account. (In fact, we actually shared a Crunchbase account with five other companies, because we were very frugal at that point.)</p>
+<p><strong>We filtered Crunchbase by data points like when was the last time the company fundraised and what verticals they’re in. We didn’t want SaaS, because SaaS companies actually don’t build that many internal tools. We wanted delivery startups, we wanted fintech, we wanted stuff that’s very operationally heavy.</strong></p>
+<p>And then we emailed the CTO and VP of operations at these companies, because the engineering team experiences the pain of not being able to build tools, but the operations teams experience the pain of not having the tools. These were our ICPs.</p>
+<p>We learned a lot from this outbounding exercise. That’s how we got DoorDash as our customer; that’s how we got Rappi (a few-thousand-person company) as well. Then we got Brex as a customer in this same way.”</p>
+<p>—<a href="https://www.linkedin.com/in/dvdhsu/">David Hsu</a>, founder and CEO</p>
+</blockquote>
+<p>Rujul Zaparde and Lu Cheng at <strong>Zip</strong> exclusively used LinkedIn—and focused on getting feedback from people versus trying to sell them right away:</p>
+<blockquote>
+<p>“<strong>For us, we got our first 10 customers by reaching out for advice on LinkedIn. Truly, it was advice at first, until we had a clear perspective on who to go after.</strong></p>
+<p>We made an active decision to focus on cold outbound, versus friends. We wanted to know if this was a shitty idea or a good idea. And if we sell to friends, they might buy it because they feel bad or whatever. It’ll confuse us. So we have to get the first 10 essentially cold. They shouldn’t owe us anything. They should buy it because they see value in it, and that’s how we’ll know it’s a good idea. So they were all cold through LinkedIn.</p>
+<p>Our first customer was a company called Deserve. There were 80 people. And I remember we did a bunch of calls with the CFO, and we were in YC approaching demo day, and we were like, ‘Dude, we really need the revenue.’ And he just felt bad, I think. And he was like, ‘All right, I’ll pay you a thousand dollars.’ And we’re like, ‘How about 10?’ And then we landed on seven, I think.”</p>
+<p>—<a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a> and <a href="https://www.linkedin.com/in/lu-cheng-973b7830/">Lu Cheng</a>, co-founders</p>
+</blockquote>
+<p>One common thread is that you just need to hustle, as described by <strong>Gusto</strong> and <strong>Persona</strong>:</p>
+<blockquote>
+<p>“We had a swimming instructor’s company who heard about us from her brother, who was in a startup that we knew. Also, a flower shop that Eddie [Kim, co-founder and CTO] went to buy at and asked her, ‘Hey, what are you using for payroll?’ Basically, we hustled all the way.”</p>
+<p>—<a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a>, co-founder and CPO of Gusto</p>
+<p>“We would build anything for anybody. The initial milestone we had was ‘As long as it has something to do with identity, we will do anything.’ I used to joke with Charles [Yeh, co-founder], ‘If we get one customer paying us anything, I’d call this a success.’”</p>
+<p>—<a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, co-founder and CEO of Persona</p>
+</blockquote>
+<h3>3. Tap your investors’ networks</h3>
+<p>Though it’s not a large bucket, some startups found success leveraging their investors to find their first handful of customers, especially among YC. But not by asking for introductions—instead, by doing the hard work of digging into the investors’ own networks (including batch-mates within YC) and cold-emailing them. And not only pitching these founders but also asking them for intros to other founders who may be a fit.</p>
+<p><strong>Vanta</strong> used YC’s resources to source older, more established YC startups:</p>
+<blockquote>
+<p>“<strong>We got our first 10 customers through YC. This is why we did YC.</strong> But not people in the actual batch, because companies in the batch were so early-stage and did not think about SOC 2s back in 2018. They do now, though.</p>
+<p>I went through the list of old YC companies, worked with our partner to prioritize them, and wrote outbound emails to the founders. I went through Bookface, the YC internal forum, and emailed anyone who’d ever said the word ‘compliance’ on Bookface in the prior decade. Literally. Somewhere in there, we got our first 10 customers.”</p>
+<p>—<a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a>, founder and CEO</p>
+</blockquote>
+<p><strong>Amplitude</strong> similarly used YC, but not to get intros to batch-mate founders. Instead, to get into a network of product people who matched their ICP:</p>
+<blockquote>
+<p><strong>“Our very first few customers were connections through investors and other folks at YC.</strong> One mistake that YC companies make is trying to sell to other people in their batch. Those are not real companies. They don’t have money. A YC company is a speculative investment, not a business yet. You want to go sell someone who’s a real business and figure out how to solve their problems.</p>
+<p>The very first community we got word of mouth in was the ex-Zynga product managers who had gone on to build their own companies. Matt Ocko, who is an investor in us through Data Collective, introduced us to this guy Bret Terrill, who is the CTO and co-founder of Super Lucky Casino and was ex-Zynga. He got excited, and then from that, other folks in the Zynga community heard about us. He posted in their Facebook group or something.”</p>
+<p>—<a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a>, co-founder and CEO</p>
+</blockquote>
+<p><strong>Sprig</strong> tapped both YC and First Round’s unique internal resources to go cold outbound:</p>
+<blockquote>
+<p><strong>“Our first 10 customers were all from cold emails to YC companies.</strong> One of these emails led to a meeting with Thunkable, which ended up being our first customer that I had no connection to. They came over to our office, I did a demo, and they installed right there. A week later, I came back and helped them figure out all these issues and usability challenges, and they asked how much it cost. That was the first full sale where it was not a friend’s friend, or not my friend, or not someone I already knew or might know me.</p>
+<p>This is also where I love First Round Capital. I’ll sing their praises for the rest of my life. They have an SDR program (they don’t call it that; they call it a customer discovery program), but they basically have someone who is sending cold emails to your target customers for you, aiming to get you five meetings a week. Our partner, Bill Trenchard, told us, ‘We’re going to get you five meetings a week for exactly who you want to talk to, and then we’re going to meet with you every two weeks to talk about the feedback. We’re going to talk through the feedback, see what’s working, and you’ve got to get the company to a million ARR. Then you can hire salespeople.’”</p>
+<p>—<a href="https://www.linkedin.com/in/ryanglasgow/">Ryan Glasgow</a>, CEO</p>
+</blockquote>
+<p>And <strong>Carta</strong> found lots of success finding customers through their investors (likely because their product was for founders and investors):</p>
+<blockquote>
+<p>“Our very early customers came from two places:</p>
+<ol>
+<li><strong>The angel investors in our company:</strong> Andy Palmer from <a href="https://www.tamr.com/">Tamr</a> was an investor in eShares [now Carta] and brought it into his company early on.</li>
+<li><strong>Sister portfolio founders</strong>: We had this personal connection to them through our investors.</li>
+</ol>
+<p>Other than that, it was just working the network.”</p>
+<p>—<a href="https://www.linkedin.com/in/joshio/">Josh Merrill</a>, ex-CPO</p>
+</blockquote>
+<h3>4. Participate in communities, and network</h3>
+<p>A surprising number of startups found some of their early customers by old-school networking and community building. This includes participating both in offline and online communities, and sometimes creating your own community.</p>
+<p>The founder of <strong>Snyk</strong> went to where their ICP users were spending time—meetups, events, and online communities:</p>
+<blockquote>
+<p>“Since we were trying to get developers to take on a responsibility they’ve historically not embraced, it was critical to make the product extremely low-friction and focus on getting them using it.</p>
+<p>Therefore, we initially launched a freemium beta product, promoted it across open-source project maintainers and in dev communities, and didn’t have a paid version for nearly a year. <strong>The first</strong> <strong><em>users</em></strong> <strong>of the product came from meetups and conference-based events, online content, and proactive reach-outs to our networks, dev thought leaders, and open source maintainers. We pretty quickly got to thousands of users, and a year later, the first (tiny) customers came out of that user base.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/guypo/?originalSubdomain=uk">Guy Podjarny</a>, founder and CEO</p>
+</blockquote>
+<p><strong>Plaid</strong> similarly found success tapping online forums and meetups where developers and PMs spent time:</p>
+<blockquote>
+<p>“We mostly grew through word of mouth in the developer and product manager community. <strong>We invested in meeting founders of fintech companies, learning their problems, and seeing how Plaid could help. Lots of time spent on forums, IRC, meetups, and working with startup accelerators</strong>.”</p>
+<p>—<a href="https://www.linkedin.com/in/zperret/">Zach Perret</a>, co-founder and CEO</p>
+</blockquote>
+<p>The founders of <strong>Databricks</strong> went further and organized their own events and community:</p>
+<blockquote>
+<p><strong>“In the early Berkeley days, we would put on these events where we would say, ‘Come and do a hackathon with us and use our open source software.’ And we would sort of handhold them and say, ‘Oh, if you want to try to do machine learning, let’s help you figure this out.’</strong> These were called AMP Camps. AMP was the name of the lab we were in at the time: Algorithms, Machines and People, because the lab was focused on using algorithms and then machines and then people, sort of the mix of those three. We put on these AMP Camps and they were popular, and we thought we were world-famous rock stars because we could get 70 people to come to it. About 70 people in the room just here using our software. I mean, it’s like, can you believe it?”</p>
+<p>—<a href="https://www.linkedin.com/in/alighodsi/">Ali Ghodsi</a>, co-founder and CEO</p>
+</blockquote>
+<p><strong>Persona</strong> found great success at First Round Capital’s networking events:</p>
+<blockquote>
+<p>“Our first customer actually was a friend of a friend’s vape shop; they needed help with age verification.</p>
+<p><strong>Some of our other early customers came through First Round. We would go to every one of their events, and whoever seemed they had some identity needs, we pitched them. Urban Sitter came through this. I had met them at one of these First Round events, and I think their founder had brought up something about identity verification, and all of us jumped on that deal.</strong>”</p>
+<p>—<a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a>, co-founder and CEO</p>
+</blockquote>
+<h3>5. Put out compelling content and build a following online</h3>
+<p>I was surprised by how many founders found their early users from their online presence. Some started sharing content online before they started the company, and some after.</p>
+<p>The founder of <strong>Front</strong> went big with content:</p>
+<blockquote>
+<p>“We ultimately had 3,000 people signing up for our beta (mostly B2B). My approach was to inundate the market with content—write interesting content, post on Hacker News, post on Twitter, etc.) and see who signs up.”</p>
+<p>—<a href="https://www.linkedin.com/in/mathilde-collin-bb59492a/en/">Mathilde Collin</a>, founder and CEO</p>
+</blockquote>
+<p>The founders of <strong>Linear</strong> started building buzz and a following on Twitter early on, building on their existing Twitter following:</p>
+<blockquote>
+<p>“A couple of our first 10 customers were through friends, but really, most of our early growth was building a wait list through Twitter. When we went full-time on the idea, we put out an announcement on Twitter to a landing page with an email signup. We had a good amount of Twitter followers among the three founders, so we were very privileged there.”</p>
+<p>—<a href="https://www.linkedin.com/in/jorilallo/">Jori Lallo</a>, co-founder</p>
+</blockquote>
+<p>As <strong>Hex</strong>’s founder says, it’s never too late:</p>
+<blockquote>
+<p><strong>“We started putting out a lot of content early on, writing about the problem we were solving and building an audience. That helped us build a wait list. Then we started sending out feature update emails as we were releasing features and got back replies, ‘This looks sweet. I’d love to try it.’ And then we’d spin up accounts for people, and they started using it and went from there.</strong></p>
+<p>Even with a large wait list, it took us a while to get to 10 customers. With a product that’s technical and complex, it takes a while to build a surface area big enough that you just feel good getting people on.</p>
+<p>Also, at some point, we saw this tastemaker effect where there were certain people who started using the product who would tell people, and so other people started using it. If we got some of the right people using it, we would get sort of a viral adoption effect. That was really cool to see happen.”</p>
+<p>—<a href="https://www.linkedin.com/in/barrymccardel/">Barry McCardel</a>, co-founder</p>
+</blockquote>
+<h3>6. Get press</h3>
+<p>Three startups I looked at had meaningful success with early PR.</p>
+<p><strong>Amplitude:</strong></p>
+<blockquote>
+<p>“Soon after, we did a TechCrunch launch in early 2014, and we got a handful of customers through that. Keepsafe came through that. Normally PR is a terrible channel. You need to grow through communities and customers hearing about you through word of mouth.”</p>
+<p>—<a href="https://www.linkedin.com/in/spenserskates/">Spenser Skates</a>, CEO and co-founder</p>
+</blockquote>
+<p><strong>Canva:</strong></p>
+<blockquote>
+<p>“We had a fair bit of press based on our very first funding round. Press loved writing about funding, so anytime you can talk about funding, it was easy to get a story.”</p>
+<p>—<a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a>, co-founder and CPO</p>
+</blockquote>
+<p><strong>Slack:</strong></p>
+<blockquote>
+<p><strong>“</strong>With help from an impressive press blitz (based largely on the team’s prior experience—i.e. use whatever you’ve got going for you), they welcomed people to request an invitation to try Slack. On the first day, 8,000 people did just that; and two weeks later, that number had grown to 15,000. The big lesson here: Don’t underestimate the power of traditional media when you launch.”</p>
+<p>—<a href="https://www.linkedin.com/in/butterfield/">Stewart Butterfield</a>, co-founder and former CEO (via <a href="https://firstround.com/review/From-0-to-1B-Slacks-Founder-Shares-Their-Epic-Launch-Strategy/">First Round Review</a>)</p>
+</blockquote>
+<h3>7. Just launch, and wait for users to come to you</h3>
+<p>Sometimes you build it and they do come, like in the case of Segment, Stytch, and Loom.</p>
+<p><strong>Segment:</strong></p>
+<blockquote>
+<p>“We just launched on HN. <a href="https://news.ycombinator.com/item?id=4912076">You can still read the post</a>. In the early days, we got a lot of engineers trying out the product on their side projects. They told us what they’d need to bring it into their companies. We just sort of levered our way up into bigger and bigger markets that way. The short answer is launch, launch, launch.”</p>
+<p>—<a href="https://www.linkedin.com/in/calvinfo/">Calvin French-Owen</a>, co-founder</p>
+</blockquote>
+<p><strong>Stytch:</strong></p>
+<blockquote>
+<p>“<strong>The first random (i.e. non-friend) internet user who used the product was a pretty exciting one. Our public beta had not even been released yet.</strong> This one guy, Jon Ma, who ran Public Comps, had reached out on our site and had been one of the few I gave beta access to. We didn’t really expect anyone to deploy it into their production environment on a real product. We had a 20-minute conversation, gave them the API keys, and then eight hours later, we saw production traffic from them. Our eng team was like, did we know somebody was going to go into production?!</p>
+<p>After that, we were approaching launch and somebody was about to leak the story on us, so we just ended up publishing on our blog that we had raised the seed. Chetan [Puttagunta], our partner at Benchmark, retweeted it, and we started getting a lot of signups for demos, even if they didn’t have immediate use cases, just out of interest. Something like 40% to 50% converted to demos, and then maybe 20% of those converted to actually onboarding with the product.”</p>
+<p>—<a href="https://www.linkedin.com/in/reed-mcginley-stempel-17362245/">Reed McGinley-Stempel</a> and <a href="https://www.linkedin.com/in/juliannaelamb/">Julianna Lamb</a>, co-founders</p>
+</blockquote>
+<p><strong>Loom:</strong></p>
+<blockquote>
+<p>“<strong>We launched on Product Hunt and had thousands of people who downloaded the extension by day’s end.”</strong></p>
+<p>—<a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a>, co-founder</p>
+</blockquote>
+<h3>Canva did all of the above 🤣👏</h3>
+<blockquote>
+<p>“We had a big wait list that we had built up over time. That wait list had taken two years to build up, and it was all sorts of random connections, people we’d met at conferences, people that we’d done user testing with, friends, family, everyone. That wait list was probably 10,000 people by the time we launched.</p>
+<p>We’d laid the seeds for it, and then off the back of those seeds, we lined up a bunch of press for launch day, and we’d done a bunch of embargoes and gotten interviews with TechCrunch and ZDNet and a few other outlets. We’d given them a pre-demo of what the product was going to be on launch day, and then scheduled them all to launch at launch night.</p>
+<p>Here in Australia, it’s a bit different dealing with American press, because all these launches are basically at midnight in Australia. We stayed up all night watching the press come out and watching our real-time Google Analytics board as well, expecting all the people to roll in. We also sent out an email to our wait list saying the product was now ready, and we’d set up a big dashboard screen with Google Analytics on it so that we could see the thousands and millions of users rolling in on day one.</p>
+<p>Unfortunately, it didn’t quite happen that way. We had one user drip in, and then another user drip in five minutes later, and the flood of users didn’t quite materialize on day one. I remember feeling slightly dejected that night.</p>
+<p>We had put so much effort into the launch. For the week beforehand, we basically had no sleep as we were crunching bugs and polishing the product. And the number of people we got that night was a bit anticlimactic. I think it is really hard to convert press into actual users of your product, often because the articles don’t necessarily link to your product. People often just read about the product in the press and don’t actually make that leap across to your site. So it was quite a slow burn. It was by no means an overnight success.</p>
+<p>I think in that first week we probably got about a couple thousand signups, and then the week after that we got 5,000, and it slowly grew and grew.</p>
+<p><strong>Over time, there was never one silver bullet. It’s always just bits and pieces and that slowly agglomerates into a full acquisition channel. I remember one time, one of my old sites on my personal website started getting a huge amount of traffic for some weird reason. It was actually this Daft Punk visualization that I’d created, and it turned out that Daft Punk had released or teased an album at Coachella and someone had linked to my site, and it had started getting millions of visitors. So we actually put up a banner at the top of that which pointed to Canva, and I think we got more visitors via that than we actually got through our TechCrunch article. You try out all these weird and wonderful things to get traffic in the early days.</strong></p>
+<p>We were quite fortunate in that our early user base was a very talkative user base, so the people who were using Canva and the people who we had user-tested with and built community up with were social media managers and bloggers, so people who love to talk about the tools that they’re using and build an audience based around that. So a lot of our early Canva users were in that mold, and they were our best advocates. They were tweeting about Canva, they were writing blog posts about it, and that enabled the first six to 12 months of Canva’s growth.”</p>
+<p>—<a href="https://www.linkedin.com/in/themaninblue/?originalSubdomain=au">Cameron Adams</a>, co-founder and CPO</p>
+</blockquote>
+<h2>Important takeaway: Trust is your secret weapon</h2>
+<p>If you look back at the sequence above, it’s essentially a series of concentric circles with increasing distance from the founder. Or, put another way, decreasing levels of trust.</p>
+<p><img alt="Image from How to find and win your first 10 B2B customers" src="https://substack-post-media.s3.amazonaws.com/public/images/3551c556-f200-4d9c-be26-1d5e8a2b1e38_3000x2264.png" /></p>
+<p>Takeaway: Start with the channels that have the most innate levels of trust, and work your way outward.</p>
+<p>Here’s <a href="https://www.linkedin.com/in/shokuwamoto/">Sho Kuwamoto</a>’s take on the importance of trust for <strong>Figma</strong>’s early customers:</p>
+<blockquote>
+<p>“<strong>It’s all a matter of trust. Somebody I trust is going to say, you should use this tool. I’m going to trust it way more than if a marketing team says that you should use this tool.</strong> And so we tried to make sure that we understood those people and so we got them in early, but we also did a good job of trying to listen to them too. They’d give us feedback and they’d say, this is good and this is not good, and we take that seriously.</p>
+<p>As soon as the word got out: oh, there’s this new tool, it’s by this Greylock-funded company, they’re going to change everything about how design works; people are like, oh, I’ll sign up. So we already had a good list of people, and it was a matter of us reaching out to them to say, hey, would you like to be in the beta? And so on.</p>
+<p>They ask other designers, you’re like: hey, I just found this tool, it’s amazing; you should check it out. Or, oh, I hear that Airbnb is seriously using Figma. We should check it out. That’s how it happens. So we deliberately tried to understand, well, who are the people that people listen to the most? We actually dug into Twitter to understand how people are connected to other people on Twitter.”</p>
+</blockquote>
+<p>Same story for <strong>Ramp</strong> from <a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a> (co-founder and CEO):</p>
+<blockquote>
+<p>“<strong>They were like, ‘All right, as long as you don’t screw up my business and I can run it, I can make payments, rent it on yourselves for a little bit, but then I’ll try it because I like you.’ And there were a few other people like that, where there was a very close kind of trusting relationship.</strong></p>
+<p>You knew that you had us—we personally were going to go and obsess over saving your company money—and it was small enough scale and they had backups, that it was okay to do it.”</p>
+</blockquote>
+<p>And <strong>Census</strong>, from <a href="https://www.linkedin.com/in/borisjabes/">Boris Jabes</a> (co-founder and CEO):</p>
+<blockquote>
+<p>“Fivetran is one of our earliest users. They were in the first 10, and the co-founders of Fivetran and I went through YC 10 years ago. <strong>It was an easy conversation to have. You can skip all the niceties of doing customer discovery.</strong> And when they look at a janky demo, they’re like, ‘Yeah, dude, I remember. It’s all good.’”</p>
+</blockquote>
+<p>And Salesforce, from Marc Benioff, founder and CEO (<a href="https://www.salesforce.com/blog/2013/09/marc-benioff-win-customers.html">source</a>):</p>
+<blockquote>
+<p><strong>“It was challenging to convince prospects to try our service, and it was especially challenging to convince the first one</strong>. Most people don’t want to be the first to take a giant risk. Realizing that truism was pivotal. We finessed our strategy to target pioneers who saw an opportunity to participate in something new and exciting.</p>
+<p>That first pioneer came in the form of <a href="https://en.wikipedia.org/wiki/Blue_Martini_Software">Blue Martini Software</a>, one of the small software companies in which I had previously invested. I knew I was asking for a favor when I called the founder, <a href="https://twitter.com/mzweben">Monte Zweben</a>, but I also knew I was offering something that he really needed.”</p>
+</blockquote>
+<p>And finally, <a href="https://www.linkedin.com/in/shishirmehrotra/">Shishir Mehrotra</a>, co-founder and CEO of Coda, who shares a strong perspective on targeting friends early on:</p>
+<blockquote>
+<p>“How important is it that your early customers not be connected to the company? A lot of people tell you it’s super-important for them not to be connected. I don’t buy that. I think that certainly for a product like Coda, you can’t force anybody to use it. If they don’t like it, they will stop using it, regardless of how close they are to you. And I think the ability for them to give you honest feedback is actually higher if they know you.”</p>
+</blockquote>
+<p>This problem is especially hard for certain spaces, as <a href="https://www.linkedin.com/in/rick-song-25198b24/">Rick Song</a> found when starting <strong>Persona</strong>:</p>
+<blockquote>
+<p>“Early on, we knew very quickly that we couldn’t sell to anyone large. We were just too small. Size truly is a consideration, especially for certain types of products like security. They’d have to be insane for a mature company to work with a startup like us to build a PII system, especially one that wouldn’t be hosted on their own system. But this limitation was also very helpful, to be constantly thinking through, ‘Why would this person buy us?’”</p>
+</blockquote>
+<h3>Again, here’s the sequence:</h3>
+<ol>
+<li>Start by reaching out to your network, looking for people who match your ICP</li>
+<li>Go outbound, but be strategic about it</li>
+<li>Tap your investors’ networks</li>
+<li>Participate in communities—and network</li>
+<li>Put out compelling content and build a following online</li>
+<li>Get press</li>
+<li>Just launch</li>
+</ol>
+<h3>Next: <a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">A guide for finding product-market fit</a></h3>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How to find and win your first 10 B2B customers" src="https://substack-post-media.s3.amazonaws.com/public/images/8638d278-ac01-4f28-b2c9-39f1dd6e4724_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

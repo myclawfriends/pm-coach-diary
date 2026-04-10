@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The definitive guide to mastering analytical thinking interviews — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The definitive guide to mastering analytical think…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The definitive guide to mastering analytical thinking interviews</div>
+    
+    <div class="article-meta">2025-07-01<span>·</span>5,017 words</div>
+    <div class="tags-row"><span class="mini-tag">職涯</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">B2C</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>In my ongoing efforts to help you land your dream job, I’m excited to bring you this truly epic guide by <a href="https://www.linkedin.com/in/benerez">Ben Erez</a>. Below you’ll find everything you need to know to nail your analytical thinking interview—a staple of most product interview loops. I’ve never seen a guide this in-depth, specific, and full of so many real-life examples. I hope this helps them see exactly why you’re the perfect fit for the role.</p>
+<p><em>After a decade in product (at Facebook, as the first PM at three different startups, and as a founder), Ben is now a full-time interview coach, helping PMs land their dream roles. He teaches a <a href="https://bit.ly/4iQm5xq">top-rated course on PM interviewing</a> (use code “LENNYSLIST” to get $100 off), and on July 9th, he’ll be hosting a free 30-minute lightning lesson where he’ll show you <a href="https://maven.com/p/f6c75d/practice-for-analytical-thinking-pm-interviews-with-ai">how to use AI to practice for your analytical thinking interviews</a>. Ben also co-hosts <a href="https://suprainsider.substack.com/">Supra Insider</a>, a weekly podcast for the product community.</em></p>
+<p><em>Bonus: You can now listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/7b4623f5-4826-495f-b145-08183f374d19_2912x2394.jpeg" /></p>
+<p>In part one of this comprehensive guide—<strong><a href="https://www.lennysnewsletter.com/p/the-definitive-guide-to-mastering">The definitive guide to mastering product sense interviews</a></strong><em>—</em>I explained why product sense and analytical thinking interviews matter and I walked through my framework for acing the former. Now I’ll walk through my framework for acing analytical thinking interviews.</p>
+<p><strong>In this post, I’ll cover:</strong></p>
+<ul>
+<li><strong>How to structure your answer to demonstrate the exact signals interviewers are looking for</strong></li>
+<li><strong>Common pitfalls to avoid and how to navigate challenging scenarios</strong></li>
+<li><strong>Practical preparation techniques to build your analytical muscle</strong></li>
+</ul>
+<p>Whether you’re actively preparing for upcoming interviews or you simply want to understand how top tech companies evaluate PMs, this guide will equip you with all the tools and frameworks you need to succeed.</p>
+<p>We’ll start by exploring exactly what analytical thinking interviews assess and how they’re structured. By understanding the interviewer’s perspective, you’ll be better equipped to provide the signals they’re looking for.</p>
+<h2>Understand the analytical thinking interview</h2>
+<p>Analytical thinking (AT) interviews assess a candidate’s ability to understand a product in the context of its broader company and its market, establish metrics to track success, identify team goals, and evaluate tradeoffs in a structured way. Here are some examples of typical AT questions:</p>
+<ol>
+<li><strong><em>“How would you measure success for Spotify?”</em></strong></li>
+<li><strong><em>“You’re a PM at Meta. Set a goal for Instagram Reels.”</em></strong></li>
+<li><strong><em>“What should be the North Star metric for DoorDash?”</em></strong></li>
+</ol>
+<p>Although an AT interview normally lasts 45 minutes, you’ll have only about 35 minutes of actual working time after accounting for introductions and wrap-up questions. That might seem like plenty of time, but it flies by, so you’ll want to let your inner “time cop” run the show.</p>
+<p>Since the interviewer won’t be looking for a “correct” answer—rather, they’re evaluating your thought process—I recommend approaching the interview with this linear flow to maximize your chances of providing strong signals for the following dimensions in a structured way:</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/fcb9ef32-98bd-4c94-a409-978b52a87d15_2912x2494.png" /></p>
+<p><em>Note: Analytical thinking interviews can sometimes include other question types, such as debugging/root cause analysis questions and estimation questions, but these are becoming less common. I included some thoughts about tackling debugging and estimation questions at the bottom of this post.</em></p>
+<h2>Step 1: Assumptions and game plan</h2>
+<p>The opening minutes of an analytical thinking interview can make or break your performance. I’ve watched countless candidates struggle because they jumped straight into goals without aligning with the interviewer on the structure.</p>
+<p>My advice is to approach the interview as a game with clear rules rather than a casual conversation, and spend the first minute making a handful of assumptions at the start of the interview that narrow the scope to a manageable exercise without prematurely limiting the solution space. Then outline your game plan for the interview, showing the interviewer how you want to spend your time together.</p>
+<p>When transitioning between key sections of the interview structure (e.g. from product rationale to metrics framework), take a pause to think through your content for that section of the interview. Once you’re ready, check in with the interviewer to walk them through your thinking and confirm they’re following before you proceed to the next section.</p>
+<p>To set yourself up for success, state a few potential assumptions to align on the scope of the exercise. Here are some flavors of assumptions that can be helpful:</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/74fa4fb6-f59c-4667-889a-20222b403b37_2912x2330.png" /></p>
+<p>Let’s now apply our assumptions framework to the first typical AT question I gave above, which we’ll be using as an example throughout this post: <em>How would you measure success for Spotify?</em> (Other potential questions and answers will be available in links at the bottom of each section.)</p>
+<p>The assumptions below focus on the core consumer-facing music streaming service globally across all platforms, preventing getting lost in niche features or regional specifics. This grants you the freedom to explore meaningful metrics that capture Spotify’s fundamental purpose without being overwhelmed:</p>
+<blockquote>
+<p><em>I’ll focus on Spotify’s core music streaming service as the primary product.</em></p>
+<p><em>I’ll emphasize the consumer-facing experience rather than artist/label tools or enterprise solutions.</em></p>
+<p><em>I’ll assume we’re focusing on global metrics, not specific to any one region.</em></p>
+<p><em>I’ll assume we’re talking about all platforms where Spotify is available (mobile, desktop, etc.).</em></p>
+</blockquote>
+<p><strong>Additional examples:</strong></p>
+<ul>
+<li>
+<p><em><strong>Question: You’re a PM at Meta. Set a goal for Instagram Reels</strong>.</em></p>
+</li>
+<li>
+<p>Assumptions<a href="https://docs.google.com/spreadsheets/d/1IW89pLp9S-pgieiyVmFLHmf5rfc50zoTbuELyC7ishQ/edit?usp=sharing">here</a> acknowledge Reels’s worldwide reach, concentrating on mobile because that’s where the primary user engagement happens.</p>
+</li>
+<li>We also choose to focus on the current state of the product to ensure alignment with the interviewer that we’re not measuring success at launch.</li>
+<li>
+<p><strong>Question:</strong> <strong><em>What should be the North Star metric for DoorDash?</em></strong></p>
+</li>
+<li>
+<p>Assumptions <a href="https://docs.google.com/spreadsheets/d/1658kGtofGK8FOTlWAKnhmlbgtYxhpZQxm5LeFHDzPwE/edit?usp=sharing">here</a> mention customers, restaurants, and dashers up front, signaling that you think about the entire marketplace.</p>
+</li>
+<li>Focusing on the U.S. market prevents overwhelming complexity, and including all platforms/devices keeps the exercise comprehensive.</li>
+</ul>
+<p>After stating assumptions, share your game plan for the interview to make sure you’re on the same page as the interviewer about how you’ll spend your time together:</p>
+<blockquote>
+<p><em>“I want to start by reviewing the product’s landscape and reason for existing, then identify key stakeholders and ecosystem health metrics, define a North Star metric with guardrails, and finally set specific team goals. We can discuss tradeoffs along the way at any point. Does that sound like a good plan for our time together?”</em></p>
+</blockquote>
+<p>Interviewers love hearing this because it tells them you have a plan to generate the signals they need. To put you in the interviewer’s shoes, this is kind of like sitting down to play a game with someone who knows how to play vs. someone who doesn’t. It’s just better.</p>
+<p>Outlining your game plan up front also gives the interviewer a chance to redirect you if they want to spend the time differently, preventing you from going in the wrong direction and wasting everybody’s time.</p>
+<h2>Step 2: Product rationale</h2>
+<p>With the interviewer on board with your assumptions and game plan, the next step is articulating the product rationale. This is your opportunity to establish your understanding of the product context and its strategic importance to the business before diving into metrics. Without this contextual grounding, your metrics will feel arbitrary rather than aligned with the product’s purpose and the business needs.</p>
+<p>While most good candidates describe what a product does, you’ll set yourself apart by building a compelling strategic foundation touching on three key areas:</p>
+<ol>
+<li><strong>Product context:</strong> Describe the product, its maturity level, and business model. Explain the core problem it solves for users and why this problem matters to the market and the company. Articulate how the product creates and captures value, being specific about revenue streams.</li>
+<li><strong>Market positioning:</strong> Review the competitive landscape and highlight the company’s unique advantages relative to its peers. Let your awareness of relevant trends in the market shine.</li>
+<li><strong>Company and product alignment:</strong> Create a concise, powerful mission statement that captures the product’s core purpose. For products within a larger company, establish a clear throughline from company mission to product mission. Connect the product’s purpose to the parent company’s broader vision and strategic objectives.</li>
+</ol>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/11beb202-1942-48b3-b159-94ccd7018321_2912x1864.png" /></p>
+<p>Top candidates don’t just describe a product’s features but establish a compelling case for why it matters to users, the business, and the market. This foundation makes all subsequent metrics and recommendations feel naturally aligned with the product’s core purpose.</p>
+<p><em>💡 Tip: Spend about a minute organizing your thoughts before sharing product rationale with the interviewer.</em></p>
+<h3>Examples of articulating product rationale</h3>
+<p>Let’s now apply our metric framework principles to our question: <em>How would you measure success for Spotify?</em></p>
+<p>The rationale below articulates the core problem Spotify solved (music piracy and limited access), establishing why the product exists beyond its features. Second, it positions Spotify within its competitive landscape, highlighting specific differentiators like recommendations and platform support. Most importantly, it concludes with a powerful mission statement that will serve as our North Star for all subsequent metrics and decisions.</p>
+<blockquote>
+<p><em>Spotify is a music and podcast streaming service offering millions of tracks through a freemium model, generating revenue via premium subscriptions and advertising to free users.</em></p>
+<p><em>Spotify addressed the critical problem of music piracy by providing legal, affordable access to extensive content when consumers previously faced limited, expensive purchasing options or risky illegal downloads, creating a sustainable model benefiting both listeners and creators.</em></p>
+<p><em>Currently in late growth/early maturity, Spotify has secured significant market share while expanding globally and diversifying beyond music.</em></p>
+<p><em>Competing with Apple Music, Amazon Music, and YouTube Music, Spotify distinguishes itself through superior recommendations, social features, broader platform support, and dedicated focus on audio content as its core business rather than an ancillary service to sell hardware or other subscriptions.</em></p>
+<p><em>Mission statement: “Unlock the potential of human creativity by giving artists the opportunity to live off their art and fans the ability to enjoy and be inspired by it.”</em></p>
+</blockquote>
+<p><strong>Additional examples:</strong></p>
+<ul>
+<li>
+<p><strong>Question:</strong> <strong><em>You’re a PM at Meta. Set a goal for Instagram Reels.</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1IW89pLp9S-pgieiyVmFLHmf5rfc50zoTbuELyC7ishQ/edit?usp=sharing">here</a> demonstrates how to craft a product rationale that connects product-level purpose to company-level strategy.</p>
+</li>
+<li>Note how it establishes the market context (shift to short-form video content), competitive positioning against TikTok and YouTube Shorts, and Meta’s unique advantages.</li>
+<li>It also explicitly connects Reels to Meta’s broader mission of building human connection, creating a clear throughline from company vision to specific feature.</li>
+<li>
+<p><strong>Question:</strong> <strong><em>What should be the North Star metric for DoorDash?</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1658kGtofGK8FOTlWAKnhmlbgtYxhpZQxm5LeFHDzPwE/edit?usp=sharing">here</a> demonstrates how to address multiple stakeholders in a marketplace.</p>
+</li>
+<li>Notice how it explicitly identifies the problem solved for each ecosystem player: convenience for customers, expanded reach for restaurants, and flexible earnings for drivers.</li>
+<li>It also acknowledges the product’s maturity stage and expansion opportunities beyond its core offering.</li>
+<li>The mission statement elegantly captures the multi-sided value proposition in a single sentence.</li>
+</ul>
+<h3>How to practice product rationale</h3>
+<p>Get reps in with an exercise that develops both written and verbal muscles:</p>
+<ul>
+<li>Write down the rationale for 3 of your favorite products (touching on the key elements above), and grab time with a friend to verbally walk them through these in roughly 2 minutes.</li>
+<li>Then ask them to read back to you what they remember about why the product exists, who it’s for, how it makes money, and what makes it different from its competitors. If they understood those, you’re on track!</li>
+</ul>
+<h2>Step 3: Metric framework</h2>
+<p>Next, you’ll leverage the product rationale to <strong>define concrete metrics that track ecosystem health</strong>. This section is nuanced and often entails a decent amount of back-and-forth with the interviewer to make sure they follow your thinking. So allocate the largest chunk of time in the interview to your metric framework.</p>
+<p>While good candidates can identify relevant metrics, what will set you apart is a cohesive story about healthy growth:</p>
+<ol>
+<li><strong>Ecosystem value:</strong> Start by listing key players who derive value from the product ecosystem rather than jumping straight to metrics. For each ecosystem player, identify their value proposition for participating (“What’s in it for me?”) and the specific actions they must take to realize this value. Leave out nice-to-have actions.</li>
+<li><strong>Metric definition:</strong> Track key actions through metrics that a data scientist could implement, including time frames based on real user behavior. Define a North Star metric (NSM) that reflects value creation across ecosystem players and can grow indefinitely as the product succeeds. Make sure you include a time frame (e.g. “weekly”) with the NSM definition.</li>
+<li><strong>Critique NSM:</strong> Call out the drawbacks of your NSM, identifying 1-2 ways that NSM growth could unintentionally damage ecosystem health. Define guardrail metrics that specifically address the key drawbacks.</li>
+</ol>
+<p>If you can’t describe your metric to a data scientist in a way that they could run a query with, it’s not a useful metric. Always define metrics so specifically that someone could implement them tomorrow, and focus on 3-5 primary metrics per ecosystem player rather than trying to capture everything. Metric selection can also become problematic if you use averages or ratios as North Star metrics. Here’s why this backfires: if your NSM increases while your ecosystem actually shrinks, you’re getting a false positive. I’ve watched candidates confidently present metrics that could look great even as their product dies (not exactly what you want to signal to an interviewer).</p>
+<p><em>💡 Tip: Spend about 2 minutes organizing your thoughts before sharing your metric framework with the interviewer.</em></p>
+<h3>Examples of metric frameworks</h3>
+<p>Let’s now apply our metric framework principles to our question: <strong><em>How would you measure success for Spotify?</em></strong></p>
+<p>The framework below organizes metrics by players (listeners, creators, advertisers, Spotify), tracking value creation across the ecosystem. I like tracking daily, weekly, and monthly (“DWM” in short) in the ecosystem metrics section before narrowing in on one time frame for the NSM. The NSM, “total streaming hours per week,” measures the total volume of our unifying action that benefits all ecosystem players in a way that matches real engagement patterns. The guardrail metric prevents becoming a passive platform.</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/f4140c1e-4dd7-4148-b71d-e0e3a4103f36_2912x4784.png" /></p>
+<p><strong>Additional examples:</strong></p>
+<ul>
+<li>
+<p><strong>Question:</strong> <strong><em>You’re a PM at Meta. Set a goal for Instagram Reels.</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1IW89pLp9S-pgieiyVmFLHmf5rfc50zoTbuELyC7ishQ/edit?usp=sharing">here</a> balances adoption indicators (daily Reels viewers) with engagement depth (watch time).</p>
+</li>
+<li>The North Star metric “total Reels watch time per week” captures the core value: engaging short-form video.</li>
+<li>Guardrail metrics prevent optimizing watch time at the expense of content quality or broad user adoption.</li>
+<li>
+<p><strong>Question:</strong> <strong><em>What should be the North Star metric for DoorDash?</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1658kGtofGK8FOTlWAKnhmlbgtYxhpZQxm5LeFHDzPwE/edit?usp=sharing">here</a> measures marketplace success by tracking key indicators for all players: customers placing orders, restaurants fulfilling them, and dashers delivering.</p>
+</li>
+<li>The North Star metric, “total completed deliveries per week,” captures the core transaction creating value across all sides.</li>
+<li>Guardrail metrics prevent pitfalls of pursuing delivery volume alone: order satisfaction for quality, retention rates for sustainability, and profit margins to avoid unprofitable growth.</li>
+</ul>
+<h3>How to practice metrics frameworks</h3>
+<p>With the products you chose earlier, spend about 10 minutes doing the following exercise with each:</p>
+<ul>
+<li>Identify the ecosystem players, map out what value they get and what actions they take, and create specific metrics with time frames that actually make sense.</li>
+<li>Then define a North Star metric that can grow indefinitely, and pair it with guardrail metrics that address the biggest ways your NSM could mislead you.</li>
+<li>To build your verbal communication muscle, walk a friend or two through your thinking. Ask them if they understand who benefits from the product, how success would be measured, and why you chose your specific North Star metric over alternatives. If they can clearly explain back your measurement logic and see the connection between value and metrics, you’re in good shape!</li>
+</ul>
+<h2>Step 4: Goal-setting</h2>
+<p>After you’ve nailed down a solid metrics framework, here comes the critical transition that trips up a lot of candidates: making an “altitude shift” from company/product-level metrics to specific team-level goals. This is where you show the interviewer you can bridge strategy and execution—a skill they’re evaluating.</p>
+<p>I generally recommend spending about 5 minutes on this section. The transition from metrics (your indicators of success) to goals (specific objectives to pursue) is where many candidates stumble, because they’re fundamentally different types of thinking. Tracking a metric is very different from executing against a specific goal.</p>
+<p>Think about it this way: if your metrics section focuses on the 50,000-foot view of what constitutes a healthy ecosystem, then your goals section shows you can operate at ground level, identifying specific focus areas for a single product team to tackle in the next 3-6 months.</p>
+<p><strong>The strongest candidates demonstrate their expertise by first picking one ecosystem player who can drive the most growth given their established framework and then connecting that choice directly back to the North Star metric and product mission. You want to show a clear throughline from company vision to team objectives by explaining why this particular player represents the highest-leverage opportunity right now.</strong></p>
+<p>Next, you’ll work backward from the key actions that contribute to your North Star metric, mapping out the user journey for your chosen ecosystem player. Look for friction points or opportunities along that journey, then score potential goals on both their impact on the North Star metric and your team’s ability to influence them within 3-6 months.</p>
+<p>End with a clear decision rather than hedging between multiple options. The best goals are ones your team can directly influence and execute, so consider cross-team dependencies and the political capital required to make progress against a goal.</p>
+<p><em>💡 Tip: Spend 2 minutes organizing your thoughts before walking the interviewer through your goals.</em></p>
+<h3>Examples of goal-setting</h3>
+<p>With our metrics framework established, let’s make that critical altitude shift from product-level metrics to specific team-level goals for the question <strong><em>How would you measure success for Spotify?</em></strong></p>
+<p>The framework below focuses on listeners as the ecosystem player with the highest leverage for driving the NSM of total listening time. The response systematically maps the user journey, evaluates potential goals on impact and ability to influence, and makes a clear recommendation: increasing session continuation rate. What makes this analysis particularly strong is the explicit evaluation of multiple options against consistent criteria before selecting the highest-impact, highest-ability-to-influence goal.</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/20c39f36-1465-4222-9ab3-7a8c77a376aa_2912x3680.png" /></p>
+<p>Additional examples:</p>
+<ul>
+<li>
+<p><strong>Question:</strong> <strong><em>You’re a PM at Meta. Set a goal for Instagram Reels.</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1IW89pLp9S-pgieiyVmFLHmf5rfc50zoTbuELyC7ishQ/edit?usp=sharing">here</a> showcases how to identify the critical leverage point in a content platform.</p>
+</li>
+<li>By focusing on new-creator retention, it recognizes that content supply is the foundation for viewer engagement.</li>
+<li>The analysis maps the creator journey, evaluates three potential goals using consistent criteria, and selects improving second Reel creation.</li>
+<li>This demonstrates strategic understanding of the “cold start” problem—many creators post once but never return.</li>
+<li>
+<p><strong>Question:</strong> <strong><em>What should be the North Star metric for DoorDash?</em></strong></p>
+</li>
+<li>
+<p>The framework <a href="https://docs.google.com/spreadsheets/d/1658kGtofGK8FOTlWAKnhmlbgtYxhpZQxm5LeFHDzPwE/edit?usp=sharing">here</a> focuses on cart-to-checkout conversion, a high-leverage point in the ordering funnel with direct impact on the NSM.</p>
+</li>
+<li>The analysis considers both ability to influence (team control over checkout) and potential impact (direct precursor to delivery completion).</li>
+<li>What makes this example strong is its specificity—rather than broadly targeting “customer experience,” it identifies a precise friction point where abandoned carts represent existing intent that can be captured.</li>
+</ul>
+<h3>How to practice goal-setting</h3>
+<p>To get solid reps translating ecosystem metrics into team goals, take each of the products you chose earlier and spend 10 minutes on the following exercise:</p>
+<ul>
+<li>Identify which ecosystem player to focus on, map out that player’s user journey working backward from the NSM event, and identify 3 opportunities along that journey.</li>
+<li>Then score each opportunity as low/medium/high on “ability to influence” (considering your agency, cross-team dependencies, etc.) and “impact on NSM.” Pick the highest-impact, highest-influence opportunity and articulate why it would be a strong candidate for your team’s goal.</li>
+<li>Next, develop the verbal skills for this section by walking a friend through your chosen ecosystem player, the specific goal you picked, and your rationale. Ask them if they understand how this goal would move your NSM and why your team could realistically achieve it in 3-6 months. If they can clearly follow your logic, you’re in good shape!</li>
+</ul>
+<h2>Step 5: Tradeoff evaluation</h2>
+<p>With team goals established, the final step is to demonstrate how you navigate real-world tradeoffs by applying your strategic framework to tactical choices. Reserve 10 minutes for tradeoff evaluation to show how you’d handle real-world decisions under constraints.</p>
+<p><strong>Tradeoff questions assess your decision-making abilities under pressure with incomplete information.</strong> Though they may appear at any point in the interview, they’re typically posed after you’ve established metrics and goals, allowing you to refer to your foundation when making decisions.</p>
+<p>There are several common tradeoff question types you might encounter:</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/fbce3d17-a769-49c6-b9ba-2e128fc3fef0_2912x2479.png" /></p>
+<p>When evaluating tradeoffs, you can set yourself apart by identifying the common benefit of both options and outlining the pros and cons of each option, pinpointing the crux of the decision.</p>
+<p>Then clearly state your decision rather than hedging or dodging, connecting your rationale back to the company strategy, product maturity, product mission, and any relevant metrics. I love when candidates also specify what would need to be true for them to change their mind, because it solidifies how they think about the fundamental factors that influence their thinking. And remember to be decisive!</p>
+<p><em>💡 Tip: Spend about a minute organizing your thoughts before walking the interviewer through your decision.</em></p>
+<h3>Examples of tradeoff evaluation</h3>
+<p>Let’s examine a tradeoff scenario for the question <strong><em>How would you measure success for Spotify?</em></strong></p>
+<p>The analysis below frames the core tension between user breadth and engagement depth and then directly connects the decision to Spotify’s mission. By choosing broader reach with moderate engagement, it prioritizes growth potential while reducing concentration risk. What elevates the analysis is its clear conditions for changing course—stating exactly when deeper engagement might become preferable.</p>
+<p><img alt="Image from The definitive guide to mastering analytical thinking interviews" src="https://substack-post-media.s3.amazonaws.com/public/images/1d0da2c0-9069-4909-aa60-bb5b7cf44326_2912x4053.png" /></p>
+<p><strong>Additional examples:</strong></p>
+<ul>
+<li>
+<p><strong>Question:</strong> <strong><em>You’re a PM at Meta. Set a goal for Instagram Reels.</em></strong></p>
+</li>
+<li>
+<p>The tradeoff framework <a href="https://docs.google.com/spreadsheets/d/1IW89pLp9S-pgieiyVmFLHmf5rfc50zoTbuELyC7ishQ/edit?usp=sharing">here</a> explores a tension between strengthening social connections (Stories) versus prioritizing entertainment and discovery (Reels).</p>
+</li>
+<li>What makes this analysis particularly strong is how it explicitly connects the decision back to Meta’s mission of building human connection, providing a strategic anchor for the recommendation.</li>
+<li>
+<p><strong>Question:</strong> <strong><em>What should be the North Star metric for DoorDash?</em></strong></p>
+</li>
+<li>
+<p>The tradeoff framework <a href="https://docs.google.com/spreadsheets/d/1658kGtofGK8FOTlWAKnhmlbgtYxhpZQxm5LeFHDzPwE/edit?usp=sharing">here</a> explores a tension between the North Star metric (completed deliveries) and a key guardrail metric (average order value).</p>
+</li>
+<li>What makes this analysis particularly strong is its consideration of second-order effects across all ecosystem players: customer ordering behavior, restaurant economics, and operational efficiency.</li>
+<li>The decision to roll out the change shows alignment with the North Star while providing clear thresholds that would trigger reconsideration.</li>
+</ul>
+<h3>How to practice tradeoff evaluation</h3>
+<p>Generate a tradeoff scenario for each of your practice products by drawing from the five types I mentioned above, and do the following exercise:</p>
+<ul>
+<li>Identify the fundamental tension, frame pros and cons of each option, and make a decision that connects back to the mission and metrics framework you outlined.</li>
+<li>When evaluating tradeoffs, ask yourself: Do both options align with the mission and NSM equally? Would either option trigger your guardrail metrics?</li>
+<li>To get comfortable talking through a tradeoff decision, grab time with a friend to walk them through your reasoning. Ask if they understand your options, why you made your specific decision, and what would change your mind. If they can follow your logic and see how you connected the decision to mission and metrics, you’re in good shape!</li>
+</ul>
+<h2>Other analytical questions: debugging and estimation</h2>
+<p>While most analytical thinking interviews follow the five-part structure I’ve outlined, some companies assess analytical skills through alternative question formats. These questions evaluate the same fundamental abilities, just through different problem-solving lenses. Understanding these additional formats will prepare you for any analytical thinking interview.</p>
+<p>To be clear: it’s extremely unlikely you’ll ever be asked a goal-setting question, tradeoff question, and debugging or estimation question all in a single interview. At most, you’ll get two of these in one session.</p>
+<h3>Debugging questions</h3>
+<p>Debugging questions (also known as “root cause” analysis) assess your ability to systematically diagnose problems and identify potential causes. These questions typically present a scenario where some metric has moved and you need to determine what happened. Although debugging questions are becoming less common (particularly at Meta), they still occasionally appear to assess analytical skills.</p>
+<p>Here’s an example: <strong><em>“You’re a PM at DoorDash and noticed orders were down 10% last week. What happened?”</em></strong></p>
+<p>To approach this, you’ll start by clarifying the observed issue: restate the scenario to ensure understanding, including the magnitude of the metric movement and the time frame in which it’s been observed.</p>
+<p>Then you’ll want to break down key dimensions like geos/markets, platforms, and segments to identify where exactly the anomalous behavior might have originated and for which users.</p>
+<p>This will allow you to generate hypotheses for potential causes across technical issues, product changes, user behavior shifts, external factors, data issues, etc. Explicitly state each hypothesis before explaining how you’d test it.</p>
+<p>The most common mistake I’ve seen here is candidates fixating on a single hypothesis and failing to generate multiple potential explanations for the observed issue. Don’t explore complex theories if simpler causes can explain what’s going on.</p>
+<h3>Estimation questions</h3>
+<p>Estimation questions, which historically are popular at Google, assess your ability to “ballpark” with limited information. These questions aren’t about arriving at the precise answer but, rather, demonstrating a logical approach to breaking down complex problems and reaching an answer within a reasonable order of magnitude.</p>
+<p>Here’s an example: <strong><em>“How many shuttle buses does Google need to transport employees from San Francisco to Mountain View each day?”</em></strong></p>
+<p>To approach this, you’ll want to start by restating the question, ensuring that you understand what you’re being asked to estimate.</p>
+<p>Next, you’ll want to break down the question by creating a logical formula that isolates all of the necessary components for reaching an answer. You’ll then plug reasonable assumptions into that formula, relying on personal experience and common knowledge as reference points (use round numbers in the right order of magnitude for simplicity). Remember to include all critical components; otherwise your estimates will be fundamentally flawed.</p>
+<p>The last step is calculating and sanity-checking your response before asking the interviewer if the final estimate seems reasonable. They’ll likely ask some follow-up questions to better track your thinking.</p>
+<h2>Now you’re ready to take on the analytical thinking interview</h2>
+<p>The five-step framework we’ve explored—assumptions and game plan, product rationale, metrics framework, goal-setting, and tradeoff evaluation—creates a coherent structure to demonstrate your analytical chops and gives the interviewer the signals they need.</p>
+<p>As you use this framework, make sure you consistently communicate these key elements:</p>
+<ul>
+<li>A compelling product mission that guides all subsequent decisions</li>
+<li>Ecosystem-first thinking that tracks value creation for all stakeholders</li>
+<li>Decisive recommendations with clear rationale rather than hedging</li>
+<li>Clear connection between team goals and North Star metric</li>
+</ul>
+<p>I’ll leave you with one last thought: The analytical skills you develop by practicing this framework will benefit you beyond interviews! My students consistently tell me that their new interviewing muscle also makes them stronger in their current role.</p>
+<h2>Resources to prepare for analytical thinking interviews</h2>
+<p>The most effective preparation combines understanding the framework with extensive practice on real interview questions. No one “wings” these interviews successfully! Deliberate practice makes all the difference. To help you master analytical thinking interviews, I’ve created several resources:</p>
+<ul>
+<li>I’ll be hosting a free 30-minute lightning lesson on July 9th where I’ll show you <a href="https://maven.com/p/f6c75d/practice-for-analytical-thinking-pm-interviews-with-ai">how to use AI to practice for your analytical thinking interviews</a>.</li>
+<li>You can make a copy of my <a href="https://docs.google.com/spreadsheets/d/13rY2E48My2ze8NMzdDRPqVF4T7UFfNz61SZT05cKex8/edit?gid=217460033#gid=217460033">Analytical Thinking Interview Template</a> to work through as many practice questions as you’d like.</li>
+<li>My top-rated Maven course: <a href="https://bit.ly/4iQm5xq">PM Interview Bootcamp with AI Copilot: Product Sense &amp; Analytical Thinking</a>. (Use code “LENNYSLIST” to get $100 off. Enrollment for the July cohort closes July 13th.)</li>
+<li><a href="https://maven.com/p/fb644e/how-to-ace-analytical-thinking-pm-interviews">How to Ace Analytical Thinking PM Interviews</a>: Free lecture I published on Maven</li>
+<li>My <a href="https://www.benerez.com/copilot">AI Practice Copilot for Product Sense &amp; Analytical Thinking Interviews</a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4/edit?gid=1024620532#gid=1024620532">Lewis Lin’s PM Question Bank</a>: The best PM interview question bank, updated daily</li>
+</ul>
+<p><em>Thanks, Ben! Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

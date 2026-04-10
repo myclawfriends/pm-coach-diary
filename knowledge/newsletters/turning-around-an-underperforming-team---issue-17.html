@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Turning around an underperforming team - Issue 17 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Turning around an underperforming team - Issue 17</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Turning around an underperforming team - Issue 17</div>
+    
+    <div class="article-meta">2020-03-10<span>·</span>1,366 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello and welcome to another edition of my weekly newsletter. My name is <a href="https://twitter.com/lennysan">Lenny</a>, and each week I tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</p>
+<p>Send me your questions (just reply to this email or <a href="https://twitter.com/lennysan">DM me</a>) and in return, I’ll humbly share actionable real-talk advice <strong>🤝</strong></p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a> 🤜🤛</strong></p>
+<h2>Q: I'm joining a new team that has a history of underperformance and lots of execution issues. What advice do you have for joining a turnaround situation like this one?</h2>
+<p><a href="https://substackcdn.com/image/fetch/$s_!SGqS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F6f24c672-b826-4790-b010-83ade4e29cdc_1080x743.jpeg"><img alt="Image from Turning around an underperforming team - Issue 17" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6f24c672-b826-4790-b010-83ade4e29cdc_1080x743.jpeg" /></a></p>
+<p>Hold on for a wild ride 🎢</p>
+<p>I’ve been in this spot a couple of times, and as painful as these situations are, they’re also chock full of potential. The risk that you take on (of failing, of slowing down your career by being bogged down on a sub-par team) is also the fuel that catapults your career forward if you can pull this off.</p>
+<p>My advice is to lean into this opportunity. Show your team, your manager, and your peers that they can count on you to make difficult decisions, create necessary change, and deliver impact in tough situations.</p>
+<p>To help, here are five tips for taking advantage of this opportunity:</p>
+<h4>1. Set clear expectations with your manager 👀</h4>
+<p>It’s critical that your manager, and other influential leaders, understand the situation that you are being put into. It’s likely for the next 6-12 months you’ll drive less business impact than you had previously, and that some team members will become upset with you (particularly if you implement difficult changes). Make sure your manager and other leaders understand this when you’re coming into it. This way, when you succeed, it’ll be all the more impressive.</p>
+<h4>2. Set a high bar 🧐</h4>
+<p>When you integrate into the team, it’s going to be tempting to come in, make a few superficial changes, and settle for good enough. Don’t let that happen. Set a high bar for yourself and for the team. Work backwards from what you believe this team <em>could</em> become (e.g. the best growth team the world), get the team excited about this vision, and don’t stop pushing until you get there. When you see low-quality work, point it out (privately). When you see great work, point it out enthusiastically (and publically). Don’t settle. Insist on great work, always. It’ll pay off.</p>
+<h4>3. Motivate the team to make change 🤗</h4>
+<p>Figure out what motivates the key members of the team, and connect the changes you want to make with their personal motivations. For example:</p>
+<ul>
+<li><strong>They want to drive impact</strong>: Show how the issues you’ve identified are directly slowing down the team’s ability to ship.</li>
+<li><strong>They want to be promoted</strong>: Show how the issues are keeping the team members’ careers back.</li>
+<li><strong>They want work-life-balance</strong>: Show how the issues are causing everyone unnecessary work.</li>
+</ul>
+<h4><strong>4. Observe, Identify, Share, and Act 🙏</strong></h4>
+<p>The book <a href="https://www.amazon.com/Nonviolent-Communication-Language-Life-Changing-Relationships/dp/189200528X/ref=pd_sbs_14_1/140-6208537-4575663?_encoding=UTF8&amp;pd_rd_i=189200528X&amp;pd_rd_r=9ca36b76-f3e5-418f-8b08-0435a25b7624&amp;pd_rd_w=29AHk&amp;pd_rd_wg=1HNlS&amp;pf_rd_p=7cd8f929-4345-4bf2-a554-7d7588b3dd5f&amp;pf_rd_r=N5ACS7T6AQZZCCYPJ55P&amp;psc=1">Nonviolent Communication</a> introduced an excellent framework for healthy conflict, and I found that it’s just as useful at the office as it is at home. In your case, the steps I’d suggest you work through to make the necessary changes:</p>
+<ol>
+<li><strong>Observe</strong>: Start by collecting facts. Ask questions, listen and observe the team. Sit in meetings, talk to team members, and review team documents and processes. Come in with an open mind, and focus on getting crystal clear on what’s working with the team, and what isn’t.</li>
+<li><strong>Identify:</strong> As you observe and listen, collect your ideas on what needs to change. What’s <em>most</em> contributing to this team underperforming? What’s <em>one</em> change that would significantly improve performance? What are the actual <em>root</em> causes (vs. symptoms)? These could be process issues, communication issues, people issues, team charter issues, expectations issues, or many other things. Build out a document for yourself with the facts you’ve observed, the impact the issues are having on the team, and what you recommend change.</li>
+<li><strong>Share:</strong> Next, share what you’ve learned, along with your recommendations. Managing this communication carefully is critical. You should first share your suggestions with your peer leaders, or with your higher-ups, depending on the severity of the changes you are suggesting. When your peers and high-ups are aligned, share the plan with your team. See below for more advice on how to manage this communication.</li>
+<li><strong>Act</strong>: Finally, make the necessary changes. Notice, this step comes last, and only after you’ve spent the time observing, identifying, and communicating.</li>
+</ol>
+<h4>5. Find your allies 🤝</h4>
+<p>When you determine what needs to change (e.g. a process, a goal, a person), you’ll find some people are 100% aligned and ready to roll, some people completely disagree, and the rest are unsure but willing to give it a shot. Figure out early-on who’s going to back you up, and who you’re going to have to convince. Do you need buy-in from managers outside of the team, or can you take care of things internally? Do you need a “come to Jesus” moment with the team, or can the changes be made gradually.</p>
+<p><strong>Some examples of situations and how I’d approach them:</strong></p>
+<p>Say it’s an EM that is underperforming and needs to be moved (or let go):</p>
+<ol>
+<li>Collect input from everyone that brings this up, particularly the people pushing for this change.</li>
+<li>Put together your own POV on what’s not working, and what should happen.</li>
+<li>Talk to your manager and get their perspective and support.</li>
+<li>[Depending on the situation] Sit down with the EM and share what you’ve been hearing. See if you can help them turn things around.</li>
+<li>Sit down with the EM’s manager and share your perspective.</li>
+<li>Work with the EM’s manager and your manager to find a way to move forward, be it making the change now or waiting to see what happens.</li>
+</ol>
+<p>A team process needs to be revamped:</p>
+<ol>
+<li>Collect input from everyone that brings this up, particularly the people pushing for this change.</li>
+<li>Put together your own POV on what’s not working, and what should happen.</li>
+<li>Talk to your peer leads and get their perspective and support.</li>
+<li>Sit down with the team and share what you plan to change, get their feedback and tweak and necessary.</li>
+<li>Roll it out.</li>
+</ol>
+<p>A goal that needs to be reset:</p>
+<ol>
+<li>Collect input from everyone that brings this up, particularly the people pushing for this change.</li>
+<li>Put together your own POV on what’s not working, and what should happen.</li>
+<li>Talk to your manager and get their perspective and support.</li>
+<li>Work with your peer leads to come up with a proposal.</li>
+<li>Work with your manager and your peer leads to convince the folks up the org chart that change is necessary.</li>
+</ol>
+<p>Lastly, don’t be afraid to cause a ruckus. There’s never going to be a better time to make meaningful change and turn this team around.</p>
+<p>Go get ‘em!</p>
+<h3><strong>Inspirations for the week ahead 🧠</strong></h3>
+<ol>
+<li><strong>Listen</strong>: <a href="https://podcasts.apple.com/us/podcast/below-the-line-with-james-beshara/id1457400066?i=1000467185669">The Brand New World of Climate Tech — Gustaf Alströmer &amp; Diego Saez-Gil</a> — Don’t miss this if you are at all interested in tackling climate change (via <a href="https://twitter.com/jamesbeshara">@jamesbeshara</a>) 🌏</li>
+<li><strong>Read</strong>: <a href="https://docs.google.com/document/d/1ZJZbv4J6FZ8Dnb0JuMhJxTnwl-dwqx5xl0s65DE3wO8/edit">The Great CEO Within</a> — An incredible resource for founders (via <a href="https://twitter.com/antoinenivard">@antoinenivard</a>) 💪</li>
+<li><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/all-things-marketplaces-dan-hockenmaier-casey-winters/id1316769266?i=1000467536947">All Things Marketplaces with Dan Hockenmaier, Casey Winters, and Lenny Rachitsky</a> — For all you marketplace nerds. This goes real deep. 🤓</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a> (or subscribing if you aren’t already)</strong></p>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

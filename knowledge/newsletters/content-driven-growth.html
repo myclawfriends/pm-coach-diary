@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content-driven growth — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Content-driven growth</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Content-driven growth</div>
+    
+    <div class="article-meta">2021-03-02<span>·</span>4,808 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">創業</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a> and welcome to a ✨ </em><em>once-a-month free edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<p><em>If you’re not a paid subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/increasing-virality">How to increase your product’s virality</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/senior-product-manager">Becoming a senior product manager</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/examples-of-great-job-postings">Examples of great job descriptions</a></em></li>
+</ol>
+<blockquote>
+<h2>Q: Which startups are best at content-driven growth, and what can I learn from them?</h2>
+</blockquote>
+<p>This question got me thinking—what are all the ways that content can drive growth? There’s obviously SEO. There are also viral blog posts, user-generated content (UGC), editorially produced blog posts, data-generated pages, and so on. What other strategies are there, and how do they all fit together?</p>
+<p>Here’s my best attempt at mapping out the landscape of content-driven growth:</p>
+<p><img alt="Image from Content-driven growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d72a4061-7c9a-4262-8cb6-ae7c6e106ab6_2048x1024.png" /></p>
+<p>Where you sit on this 2x2 is based on what you’re optimizing for (SEO vs. virality) and who’s generating the content (users vs. employees).</p>
+<h4><strong>I posit that there are five unique content-driven growth strategies:</strong></h4>
+<p><img alt="Image from Content-driven growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7c5d01ff-4dd0-4b85-ba95-bda9e7aac9d7_2048x1024.png" /></p>
+<p>Let’s break this down:</p>
+<ol>
+<li><strong>User-Generated SEO-Optimized (UGSO):</strong> Your users generate public content that Google finds and surfaces in organic search. This primarily drives the growth of companies like <strong><a href="https://www.quora.com/How-do-I-become-a-product-manager-2">Quora</a>, <a href="https://www.glassdoor.com/Job/san-diego-entry-level-jobs-SRCH_IL.0,9_IC1147311_KO10,21.htm">Glassdoor</a>,</strong> and <strong><a href="https://www.reddit.com/r/personalfinance/comments/8hnkfs/i_need_a_basic_tutorial_for_how_to_buy_stocks/">Reddit</a>.</strong></li>
+<li><strong>Editorially generated SEO-optimized (EGSO):</strong> Employees (or contractors) of the company create content with the goal of ranking higher for certain keywords. This primarily drives the growth of companies like <strong><a href="https://ahrefs.com/blog/most-visited-websites/">Ahrefs</a></strong>, <strong><a href="https://youtu.be/p9YUjzmiiSk">Slidebean</a></strong>,and <strong><a href="https://blog.hubspot.com/service/customer-segmentation">HubSpot</a></strong>.</li>
+<li><strong>Data-generated SEO-optimized (DGSO):</strong> This strategy is the combination of UGC and Editorial—your company auto-magically generates thousands of individual pages off your UGC and proprietary data. This primarily drives the growth of companies like <strong><a href="https://www.thumbtack.com/mo/kansas-city/electricians/">Thumbtack</a></strong>, <strong><a href="https://zapier.com/apps/google-sheets/integrations/slack">Zapier</a></strong>, <strong><a href="https://www.tripadvisor.com/Restaurants-g187791-Rome_Lazio.html">Tripadvisor</a></strong>, <strong><a href="https://www.yelp.com/search?cflt=plumbing&amp;find_loc=Kansas+City%2C+MO">Yelp</a></strong>, <strong>and <a href="https://www.grubhub.com/delivery/fl-miami">Grubhub</a></strong>.</li>
+<li><strong>User-generated virality-optimized (UGVO):</strong> UGC leads to users sharing that content with their friends, which then pulls those friends into the product. <strong>TikTok</strong> is the ultimate example of this (users sharing watermarked videos with each other), as is the <strong><a href="https://hey.reface.ai/">Reface app</a></strong>. The edges of this zone include Airbnb listings (that users share with each other) and Zillow’s Zestimate (which homeowners pass around).</li>
+<li><strong>Editorially generated virality-optimized (EGVO)</strong>: Employees/founders make one-off viral content—also known as thought leadership or brand building: content that the founder/company creates with the goal of having that content spread through word of mouth. This includes <strong>Spotify Unwrapped</strong>, along with virality-oriented creators like <strong><a href="https://www.youtube.com/channel/UCX6OQ3DkcsbYNE6H8uQQuVA">Mr. Beast</a></strong>, <strong><a href="https://www.tubefilter.com/2021/01/25/stir-collab-party-creators/">Stir</a></strong><a href="https://www.tubefilter.com/2021/01/25/stir-collab-party-creators/">’s one-off drops</a>, and <strong><a href="https://qz.com/626349/rip-mailbox-or-founders-how-to-stop-worrying-and-love-being-acquired/">Superhuman’s</a></strong> <a href="https://qz.com/626349/rip-mailbox-or-founders-how-to-stop-worrying-and-love-being-acquired/">early blog posts</a>.</li>
+</ol>
+<p>In previous posts, we’ve explored the top-left quadrant (<a href="https://www.lennyrachitsky.com/p/crafting-an-seo-strategy-issue-34">data and user-generated SEO</a>), and the bottom half (<a href="https://www.lennysnewsletter.com/p/increasing-virality">viral growth strategies</a>), so in this post I’d like to zero in on the less explored top-right quadrant, <strong>editorially generated SEO-optimized (EGSO)</strong>:</p>
+<p><img alt="Image from Content-driven growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/bfdcf754-87e8-4801-abb4-f6a114462d81_2048x1024.png" /></p>
+<p><a href="https://twitter.com/lennysan/status/1348764224739164160">I asked Twitter</a> which companies do this type of content-driven growth best, and four companies came up over and over: <strong>Slidebean</strong>, <strong>Ahrefs</strong>, <strong>Intercom</strong>,and <strong>HubSpot</strong>.</p>
+<p><img alt="Image from Content-driven growth" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7c035ae8-13b5-4682-81fc-e0f582f554d5_2048x1024.png" /></p>
+<p>(Also Webflow, but we’ll get to that later.)</p>
+<p>I reached out to the founders and/or heads of content at each of these companies and asked them if they’d be willing to share their lessons. They all very generously agreed 🙌</p>
+<p>Below you’ll find their answers to the following questions:</p>
+<ol>
+<li>What convinced them to put resources behind creating content?</li>
+<li>What kind of resources did they put into content initially?</li>
+<li>What do the content team and resources look like now?</li>
+<li>How do they operationalize the content creation?</li>
+<li>What advice would they give companies pursuing content-driven growth now?</li>
+</ol>
+<p><em>A</em> huge <em>thank-you to <a href="https://twitter.com/cayahere">Caya</a> (Slidebean), <a href="https://twitter.com/timsoulo">Tim Soulo</a> (Ahrefs), <a href="https://www.linkedin.com/in/kieranjflanagan">Kieran Flanagan</a> (HubSpot), <a href="https://twitter.com/jaycee001">John Collins</a> (Intercom), and <a href="https://www.linkedin.com/in/mischavn/">Mischa Vaughn</a> for sharing these insights with the world.</em></p>
+<p><em><strong>Note:</strong> Intercom and Webflow don’t fit squarely into this EGSO category (they aren’t primarily SEO-driven), but I decided to include them in this post anyway because their perspectives are instructive.</em></p>
+<h3>High-level takeaways:</h3>
+<ol>
+<li><strong>Start small:</strong> Start scrappy and play around with platform, topic, and style until you find something that works.</li>
+<li><strong>Align on a clear goal:</strong> Is your goal to bring SEO traffic, to drive virality, to build your brand, or to enable sales? Make sure you’re clear on this.</li>
+<li><strong>Hunt for opportunity:</strong> Research topics where searchers are underserved, and create content that delivers compelling, valuable, and differentiated value to those searchers.</li>
+<li><strong>Give the reins to someone who cares:</strong> The best content will be produced by people who truly care about the product/business/topic—normally, the founders or a passionate full-time employee.</li>
+<li><strong>Think long-term:</strong> Make sure there’s a clear path to this investment making a significant dent in your growth. Is the upside even worth it?</li>
+<li><strong>Build a dedicated team:</strong> Eventually you’ll need at least five people dedicated to this effort, even more if you’re doing video.</li>
+<li><strong>Be patient:</strong> It took years for each company chronicled below to see significant payoff.</li>
+</ol>
+<p>Any other takeaways as you read this post? I’d love to hear them 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/content-driven-growth-strategy/comments">Leave a comment</a></p>
+<h4>Fun stats:</h4>
+<p><strong><a href="https://ahrefs.com/blog/">Ahrefs</a>:</strong> Have published 300+ posts with 1.5M visits/month. Most popular content:</p>
+<ul>
+<li><a href="https://ahrefs.com/blog/most-visited-websites/">Top 100 Most Visited Websites by Search Traffic (2021)</a></li>
+<li><a href="https://ahrefs.com/blog/affiliate-marketing/">Affiliate Marketing for Beginners: 7 Steps to Success</a></li>
+<li><a href="https://ahrefs.com/blog/top-google-searches/">Top Google Searches (2021)</a></li>
+</ul>
+<p><strong><a href="https://slidebean.com/">Slidebean</a>:</strong> Have published 250+ videos with 160K visits/month. Most popular content:</p>
+<ul>
+<li><a href="https://youtu.be/jxPDeFT4oTE">Boosted Boards: from flight risk to $70 million failure</a></li>
+<li><a href="https://youtu.be/p9YUjzmiiSk">Zoom company story: How Eric Yuan defeated Skype</a></li>
+<li><a href="https://youtu.be/IZnTp_iCrRY">How Spotify beat Apple at their own game</a></li>
+</ul>
+<p><strong><a href="https://www.intercom.com/">Intercom</a>:</strong> Have published 870 posts and 262 podcasts, with 100K+ visits/month and 75K+ listeners/month, respectively. Most popular content:</p>
+<ul>
+<li><a href="https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/">RICE: Simple prioritization for product managers</a></li>
+<li><a href="https://www.intercom.com/blog/running-design-workshops/">Design workshops that work: how to get better at brainstorming</a></li>
+<li><a href="https://www.intercom.com/blog/qa-what-does-a-product-manager-do/">What is a product manager and what do they do?</a></li>
+</ul>
+<p><strong><a href="https://www.hubspot.com/">HubSpot</a>:</strong> In HubSpot’s early days, 30% or more of their customers came from demand generated by their blog posts. Also, if you look at their web traffic (organic, direct, referral), it’s bigger than a lot of other online business publications, like TechCrunch, etc. It’s why they always think of their competition for online attention as other media outlets vs. other SaaS brands.</p>
+<p>Let’s dive in.</p>
+<h3><strong>1. What convinced you to put resources behind creating content?</strong></h3>
+<p><strong>Slidebean:</strong></p>
+<blockquote>
+<p>“We noticed that the traffic coming from the ‘pitch deck’ keyword on SEM was clearly our best type of lead. We doubled down, and very quickly we maxed out the SEM keyword and were already the first result across our target geos. <strong>The problem was, of course, SEM traffic is expensive, and not enough (only about 5% of searches)</strong>. <strong>So we started focusing on SEO, around startup-related keywords.</strong> This was the first major marketing breakthrough for the company.</p>
+<p>That year, we produced a lot of content (~150 articles) and, after a few months, managed to get to 3-5 SERP rankings for most of the keywords we had focused on.</p>
+<p>For the next two years, that traffic drove our growth. Eventually, though, we realized that getting to 1-2 rank was probably not going to happen regardless of how many articles we published, so <strong>we figured we had to find ‘the next’ search engine: YouTube.</strong></p>
+<p>Our first strategy on YouTube was SEO: creating videos that answer questions people are looking for (i.e. ‘pitch deck’).</p>
+<p>Once we built an audience, we produce content focused on the YouTube algorithm: focused on high CTRs, high watch time, topics that appeal to broad audiences and sharing. The thing with sharing is that we have little control on that decision.</p>
+<p>I spoke about that here:</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=_3_aAxneu2w">Watch on YouTube</a></p>
+<p><strong>HubSpot:</strong></p>
+<blockquote>
+<p>“HubSpot started publishing before they even had a product to sell.</p>
+<p>At that time, [co-founder] Dharmesh [Shah] had been creating content and building a community through OnStartups. Through that site’s success, both Dharmesh and [co-founder] Brian [Halligan] saw how much of an audience you could grow to your content if it provided value. It’s how inbound marketing came to be—<strong>create assets of value for your audience vs. pay money to interrupt them via traditional advertising</strong>.</p>
+<p>HubSpot grew through inbound marketing, creating things of value for our audience. There are two parts to our media strategy:</p>
+<ol>
+<li><strong>Content to educate.</strong> People find this content through search, typically a blog post. Some of those people sign up to get a more comprehensive piece of content—e-book, template, course.</li>
+<li><strong>Content to influence.</strong> We create original stories for our audience around business trends, stories, and case studies featuring successful companies. These are across channels like video and podcasts. Our goal is to get a large audience for these stories.”</li>
+</ol>
+</blockquote>
+<p><strong>Ahrefs:</strong></p>
+<blockquote>
+<p>“I’m not sure that this was a single well-thought-out decision to start producing content and allocate a certain amount of resources there. If I remember correctly, <strong>the process of ramping up our content operations was very gradual</strong>.</p>
+<p>When I joined Ahrefs back in 2015, I inherited their already existing blog, which wasn’t too popular back in the day, even though they had a team of outsourced writers and published content a few times per week.</p>
+<p>And because I always thought of myself as a ‘blogger’ and ‘content marketer,’ I naturally started looking into ways we could make our blog better.</p>
+<p>And then it just kept escalating :)”</p>
+</blockquote>
+<p><strong>Intercom:</strong></p>
+<blockquote>
+<p>“For the four co-founders, Intercom was not their first startup. They had come up through the Web 2.0 era, so blogging and sharing lessons learned was just part of their DNA, particularly for Eoghan [McCabe] and Des [Traynor]. They were regularly sharing opinionated takes on what they had learned building software products and growing Intercom and other businesses. When I joined to establish a formal content team, about 2.5 years after Intercom was founded, they had built up a sizable reputation and audience with that strategy. Des wrote the first ~100 posts.</p>
+<p><strong>We</strong> <strong>initially focused on high-quality editorial content as a way to stand out from the SEO-driven approach</strong> which was the norm at the time. People were happy to promote and share that kind of content, and on the flip side the customers who came to us through the blog and podcast spent more and hung around for longer, as they bought into the product and business philosophy we shared through our content. We gate some content as a way to generate leads, but we always make sure it’s a fair value exchange, i.e. for sharing your email you’re going to get a book that teaches you something meaningful about customer support and is well-written and -designed.</p>
+<p><strong>More recently we’ve been focused on enablement</strong>—making sure that the kind of content you see on the blog or hear on the podcast is available in the formats that are needed by our sales team and other marketing functions like account-based marketing and paid acquisition.”</p>
+</blockquote>
+<h3><strong>2. What kind of resources did you put into content initially?</strong></h3>
+<p><strong>Intercom:</strong></p>
+<blockquote>
+<p>“For the first year, I was the entire team (some of the engineers used to jokingly call me ‘team blog’), but I had a lot of support from our brand design team, and <strong>everyone at the company was incentivized to create content</strong>—whether that was writing blog posts, speaking at events, hosting podcasts, etc. We didn’t pay people or anything, but by, e.g., <strong>adding content creation to personal and team goals</strong>, it was clear it was part of your job as a product manager/designer/engineer and benefited you in terms of career growth. So while I was the only person with ‘content’ in my job title, we invested significant time and resources into it.”</p>
+</blockquote>
+<p><strong>Slidebean:</strong></p>
+<blockquote>
+<p>“<strong>The first YouTube videos were edited by me</strong>, so they only cost a bit of time. We were lucky to have a couple of people on the team who had a background in video production, so we all carved out some time to experiment. This made video experiments very cheap. <strong>For the first year or so, our videos sucked</strong>, and they didn’t get any traffic at all, but we didn’t suffer because we had spent very little money to produce them. This allowed us to do a trial-error game with YouTube for over 18 months until we <em>finally</em> found the format that worked.”</p>
+</blockquote>
+<h3><strong>3. What do the content team and resources look like now?</strong></h3>
+<p><strong>Ahrefs:</strong></p>
+<blockquote>
+<p>“Initially I had some budget to find proper talent to create content for our blog, plus I could ‘distract’ our designers to make the pages of our blog look better.</p>
+<p>I can’t recall any tipping points when we decided to double down on our content marketing. We were moving in small steps and gradually improved things here and there.”</p>
+</blockquote>
+<p><strong>HubSpot:</strong></p>
+<blockquote>
+<p>“HubSpot’s marketing strategy was ‘inbound marketing,’ so all early hires focused on creating some form of content—blogs, social posts, webinars, etc.”</p>
+</blockquote>
+<h3><strong>4. What do the content team and resources look like now?</strong></h3>
+<p><strong>Slidebean:</strong></p>
+<blockquote>
+<p>“Our YouTube team goes like this:</p>
+<ul>
+<li>Content/Strategy Manager: me</li>
+<li>1 Lead Digital Animator, 2 Jr. Animators—all full-time</li>
+<li>2x screenwriters, who mostly take care of the research pieces (Company Forensics)</li>
+<li>Community Manager in charge of engaging with the YouTube audience and publishing the videos</li>
+</ul>
+<p>We are publishing a video this week on how much we spent on video production—it came to ~$125K for 2020.”</p>
+</blockquote>
+<p><strong>HubSpot:</strong></p>
+<blockquote>
+<p>“We’re very ambitious about having a real media company within HubSpot. Inbound/media has always been how we’ve differentiated ourselves from most other SaaS brands.</p>
+<p>We’re so serious about this, <a href="https://blog.hubspot.com/marketing/why-hubspot-is-acquiring-the-hustle">we bought a media company</a>.</p>
+<p>We break our media out across teams who educate and teams who build influence. We have teams for:</p>
+<ul>
+<li><strong>HubSpot’s Blogs</strong> (a mix of education and influence)</li>
+<li><strong>HubSpot Content Offers</strong> (e-books, templates, courses)</li>
+<li><strong>HubSpot Stories</strong> (original stories featuring business trends, case studies, and in-depth breakdowns of successful companies)</li>
+<li><strong>HubSpot YouTube</strong> (a mix of education and influence)</li>
+<li><strong>HubSpot Audio</strong> (podcasts, Clubhouse)</li>
+<li><strong>Daily Newsletter</strong> (run by The Hustle)</li>
+<li><strong>Trends</strong> (premium content subscription run by The Hustle)</li>
+<li><strong>Distribution</strong> (to ensure we have the right promotion plan for the above assets).”</li>
+</ul>
+</blockquote>
+<p><strong>Intercom:</strong></p>
+<blockquote>
+<p>“We’re a team of 10 based in Dublin, Ireland (with three additional positions opening this quarter).</p>
+<p>There’s three pillars, or sub-teams, within the team:</p>
+<ol>
+<li>The Audiences pillar think about who we’re actually selling our products to, which is mostly customer support and customer success leaders these days. Their job is to create great top-of-funnel content that will attract that audience but also to really understand where they get their information from, what conferences they attend, who are they influenced by, etc.</li>
+<li>The Enablement pillar are focused on taking that content and reworking it for the needs of sales and other marketing teams, e.g. taking a research report we’ve commissioned and turning it into slides that account execs can use in pitch decks. Enablement also looks after all our customer evidence—from the full-blown customer stories we publish on the website to securing permission for logo usage in our other marketing materials.</li>
+<li>The Channels pillar are the specialist functions that work across both audiences and enablements—right now that’s SEO and our podcast.”</li>
+</ol>
+</blockquote>
+<p><strong>Ahrefs:</strong></p>
+<blockquote>
+<p>“We have <a href="https://twitter.com/JoshuaCHardwick">Josh</a>, who is in charge of our blog content, and two in-house marketers who are creating content together with Josh: <a href="https://twitter.com/siquanong">SQ</a> and <a href="https://twitter.com/michalpecanek">Michal</a>.</p>
+<p><a href="https://twitter.com/patrickstox">Patrick</a> is responsible for slightly more technical content on our blog, but he does it part-time, since he also belongs to our product team and his feedback is needed there too.</p>
+<p>We also have <a href="https://twitter.com/samsgoh">Sam</a>, who is in charge of our video content.</p>
+<p>He has three people helping him with video production.</p>
+<p>And we have one graphic designer, who takes care of all the needs of our marketing team.”</p>
+</blockquote>
+<h3>5. How do you operationalize the content creation?</h3>
+<p><strong>HubSpot:</strong></p>
+<blockquote>
+<p>“We’ve created a pretty great model around how SEO-orientated content works.</p>
+<p>We have full-time analysts that help us build quarterly editorial calendars across all blogs. Those editorial calendars include a mix of search-first posts and posts focused on garnering influence.</p>
+<p>We know how much net new search traffic is available for new editorial calendars, so we know roughly how much net new traffic we can expect to acquire. Think of this as a quarterly TAM, so we know if/when we’re running out of net new traffic we can acquire on certain content topics.</p>
+<p>We also have a team that gets notified about posts that are falling in traffic and then optimizes them to improve their traffic and conversions.”</p>
+</blockquote>
+<p><strong>Slidebean:</strong></p>
+<blockquote>
+<p>“These days, we use <a href="https://slidebean.com/youtube-suggest-a-video">this tool</a> to decide what videos to make. I partially summarized how we got started and how we operate today in these two YouTube videos:”</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=viyKWTfT-g4">Watch on YouTube</a><a href="https://www.youtube.com/watch?v=8tvLKfH6qsw">Watch on YouTube</a></p>
+<h3>6. What advice would you give companies pursuing content-driven growth?</h3>
+<p><strong>Ahrefs:</strong></p>
+<blockquote>
+<p>“I would advise them to <strong>contemplate the difference between ‘viral content’ and ‘SEO content’</strong> and decide which type would work better for them.</p>
+<p>In my opinion, SEO content is a lot easier than viral content. And the primary reason for that is finding topics to write about. With SEO content, you find your topics via keyword research, where the popularity of Google searches helps you decide what to write about, while with viral content, you don’t have such a straightforward source of content ideas, and your success largely depends on your creativity and ability to come up with unique ideas that would resonate with your industry.”</p>
+</blockquote>
+<p><strong>HubSpot:</strong></p>
+<blockquote>
+<p>“A company early in their growth, looking at our media group above, might feel a little defeated: ‘How can I ever compete with that?’</p>
+<p>HubSpot started with a blog, and that was our core focus for a long time—years. We invested in new channels as we mastered existing ones.</p>
+<p><strong>There is always room to be better or different. You need to decide on the media channel that best maps to your audience and then work on your ‘better or different.’</strong></p>
+<p><strong>The thing brands need to realize is they’re not only competing with direct competitors. They’re competing with every tweet, post, podcast that is vying for some of their audience’s precious time.</strong></p>
+<p>You need to publish media that is great. Good no longer gets you results.</p>
+<p><strong>I would also be intentional about the goals you want your media efforts to serve. Most companies I speak with initially care about how media can drive demand for their products or services. But they’re unsure of how to quantify what impact it could have.</strong></p>
+<p>For example, if you want to generate demand through blogging, most of it will come via search. You can do a rough model to see how much search traffic is available for topics you’ll cover and, using rough conversion rates, what’s the TAM of demand for those topics.</p>
+<p>Being intentional about the goals ensures everyone is aligned on the purpose of the different media you’ll create. Maybe you want a podcast with a large following to help influence your audience. Maybe you want a successful blog because you think it can equate to 20% of the demand you need to generate for your product or service. And so on.</p>
+<p>Once you’ve decided on those goals, invest in being great at one thing, mastering it, being better or different, and then continuing to build upon that success with new channels.”</p>
+</blockquote>
+<p><strong>Intercom:</strong></p>
+<blockquote>
+<p>“<strong>Content marketing initiatives don’t generate returns as quickly as other forms of marketing</strong>, so be sure to hold your nerve. But once you start to see an audience engage with a particular format or channel, double down on it quickly. And don’t be afraid to focus on that particular medium rather than trying to do everything at once, i.e. if you’ve started to have some success with a podcast, don’t suddenly start to try spinning up a YouTube channel. As I like to say, content is a supertanker, not a speedboat.”</p>
+</blockquote>
+<p><strong>Slidebean:</strong></p>
+<blockquote>
+<p>“<strong>Video content is expensive and a long-term bet!</strong> It will take months to create an audience, and that means dozens of videos. If you have to hire someone for the production, it will be an expensive bet and one that few companies will be able to afford. Even if you’re doing it internally/yourself, it’s going to take away a big chunk of your time. Most startups need customers faster, in a way they can more directly control for scale, and YouTube is not ideal for that.</p>
+<p>When it’s working, it’s a real beauty. We’ve seen people engage and recall our brand better than ever (look at what happened with <a href="https://twitter.com/lennysan/status/1348764224739164160">your tweet</a>, which drove ~5K visits to our website—<em>thanks</em>!). That power of a <strong>brand</strong> is something that we hadn’t really seen with our own eyes until now, and we probably should have focused on it a lot sooner.”</p>
+</blockquote>
+<p><em>Thanks, <a href="https://twitter.com/cayahere">Caya</a> (Slidebean), <a href="https://twitter.com/timsoulo">Tim Soulo</a> (Ahrefs), <a href="https://www.linkedin.com/in/kieranjflanagan">Kieran Flanagan</a> (HubSpot), and <a href="https://twitter.com/jaycee001">John Collins</a> (Intercom)</em> 🙏</p>
+<h3>🎁 Bonus: How Webflow uses video content to increase new-user activation</h3>
+<p>The four companies we looked at above use content with primarily one goal: to drive top-of-funnel traffic. Webflow does this too; however, even more interestingly, they use content in a very different way: to increase new-user success. They create <a href="https://university.webflow.com/courses/the-freelancers-journey">compelling videos</a> to help users be successful with Webflow. For example:</p>
+<p><a href="https://www.youtube.com/watch?v=FC72-AA-1Kg">Watch on YouTube</a></p>
+<p>What’s interesting about this strategy is that, unlike SEO-based growth, any (B2B) company can leverage video to increase activation or conversion. There’s a lot to learn from Webflow’s success with video content.</p>
+<p>To learn about Webflow’s approach, I got in touch with <a href="https://www.linkedin.com/in/mischavn/">Mischa Vaughn</a>, the director of content and communications at Webflow, who very generously agreed to share lessons on behalf of the education team at Webflow. Thanks, Mischa and the education team!</p>
+<h4>Q: Why did Webflow invest in content so early?</h4>
+<blockquote>
+<p>“Webflow’s visual interface gives designers the same control over the same exact CSS properties used by Apple, Google, Stripe, etc. It’s no watered-down interface. We know that.</p>
+<p>Thus we made a big investment into our content when we created Webflow University, to help designers of all skill levels learn to use our powerful platform for free.”</p>
+</blockquote>
+<h4>Q: What inspired you to invest in video specifically?</h4>
+<blockquote>
+<p>“Video was always a high priority for Webflow. Even on the day we launched, one of the founders created a full-site build walkthrough that was crucial in onboarding customers. But one day in 2016, <strong>a passionate member of our community posted <a href="https://forum.webflow.com/t/video-thoughts-on-larger-breakpoints-in-webflow-sunglasses/36504">his own tutorial video</a></strong> that was at a much higher production caliber, and we immediately knew from the community’s positive reaction that this was a direction we needed to adopt. Eventually we hired this person to lead our education team.</p>
+<p>Webflow University’s course structure creates a natural progression to becoming more and more of an expert in using Webflow.”</p>
+</blockquote>
+<h4>Q: What was the video content team like initially?</h4>
+<blockquote>
+<p>“One person (a power user) was hired to run education, and video was always part of it. It was one person full-time, but he also worked closely with a few other folks in support to write documentation and guides.”</p>
+</blockquote>
+<h4>Q: What impact have these courses had on growth?</h4>
+<blockquote>
+<p>“The people who enroll in our courses are <em>much</em> more likely to become subscribers to the service. New courses help us find new people and help them take on specific use cases or introduce them to new features.”</p>
+<p>We’ve also made sure our non-tutorial content features inspirational examples of the product and helpful advice and resources for designers (our target audience). We keep our social channels fun and engaging, with the idea of presenting the brand as a friend you want to hang around. This mix of value and an engaging tone has helped make a compelling case for the millions of people who use Webflow.”</p>
+</blockquote>
+<h4>Q: What does the content team look like now?</h4>
+<blockquote>
+<p>“Since 2016, we devoted a substantial budget and headcount to our education efforts. This includes building out a devoted team, modern camera and recording equipment, a soundproof studio, and custom music and animation.</p>
+<p>Our education team features a mix of producers, editors, and designers.</p>
+<p>Our content marketing team works with a mix of freelancers and agencies, and we have plans to double this team’s headcount in the coming year.”</p>
+</blockquote>
+<h4><strong>Q: Any advice for companies thinking about pursuing this?</strong></h4>
+<blockquote>
+<p>“If you’re going to invest in content, especially video, <strong>you need a devoted team with a clear charter</strong>. Find someone to lead this team, build a distinct vision and voice, and give them plenty of support.”</p>
+</blockquote>
+<p>Thank you, <a href="https://www.linkedin.com/in/mischavn/">Mischa</a>!</p>
+<p>And thank you to everyone else who contributed to this post: <a href="https://twitter.com/cayahere">Caya</a> (Slidebean), <a href="https://twitter.com/timsoulo">Tim Soulo</a> (Ahrefs), <a href="https://www.linkedin.com/in/kieranjflanagan">Kieran Flanagan</a> (HubSpot), <a href="https://twitter.com/jaycee001">John Collins</a> (Intercom), <a href="https://www.linkedin.com/in/kazanjy/">Peter Kazanjy</a>, <a href="https://www.linkedin.com/in/jiaona/">Jiaona Zhang (JZ)</a>, and <a href="https://www.linkedin.com/in/brianta626/">Brian Ta</a>.</p>
+<p>That’s it for this week! Have a productive and fulfilling week 🙏</p>
+<h2><strong>🔥 Job opening of the week:</strong> <a href="https://jobs.lever.co/goforward/1a29023e-97d0-4904-90f7-3ddceff8aea1?lever-source=ForwardJobsLP">Product Manager at Forward</a></h2>
+<blockquote>
+<p>Forward is building the world's most advanced healthcare platform by combining hardware, software, and doctors under one roof to make high-quality healthcare available to all.</p>
+<p><a href="https://jobs.lever.co/goforward/1a29023e-97d0-4904-90f7-3ddceff8aea1?lever-source=ForwardJobsLP">Learn more about this role</a></p>
+</blockquote>
+<p><strong>Additional opportunities:</strong></p>
+<ol>
+<li><strong>Product</strong>: <a href="https://jobs.ashbyhq.com/Rocketplace/11bc424f-e80f-4bab-aa96-517c01a6d511">Rocketplace</a>, <a href="https://transformdata.io/careers/">Transform</a>, <a href="https://boards.greenhouse.io/userleap/jobs/4279026003">UserLeap</a></li>
+<li><strong>Growth</strong>: <a href="https://www.basisone.com/careers/growth-strategy-lead">BasisOne</a>, <a href="https://boards.greenhouse.io/spacex/jobs/5032353002?gh_jid=5032353002&amp;gh_src=seekorswimcom">SpaceX Starlink</a></li>
+<li><strong>Design</strong>: <a href="https://jobs.ashbyhq.com/ashby/145ff46b-1441-4773-bcd3-c8c90baa598a">Ashby</a>, <a href="https://jobs.lever.co/berbix/ba8af3cd-d797-492b-9849-13b37df0f6b2">Berbix</a>, <a href="https://angel.co/company/instrumentl/jobs/1175906-lead-product-designer-remote">Instrumentl</a>, <a href="https://jobs.lever.co/office-hours/13d73541-b5b7-405a-9ad8-1d3f0edf9c92">Office Hours</a>, <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Lead-Designer-14ceaa685100486b824665e1320fc9af">Levels</a>, <a href="https://www.notion.so/Designer-San-Francisco-CA-327a70b082714933aef3c58ef63b54ab">Primer</a>, <a href="https://www.notion.so/A-Product-Designer-baa24543701f472bb291d4429812064a">Runway</a>, <a href="https://www.notion.so/Designer-Watershed-7cb7bf8bd750432399d36e83e4e32391">Watershed</a></li>
+<li><strong>Engineering manager</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4076598003">Cerebral</a></li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.linkedin.com/jobs/view/2415394722/?capColoOverride=true">Point380</a>, <a href="https://www.notion.so/Front-end-Developer-929e1933b9b4432a851043adbb7bff04">Practice</a></li>
+<li><strong>Backend engineer</strong>: <a href="https://www.notion.so/Driveway-Senior-Engineer-758d5ce4ce764f9ea920c5728ee136f3">Driveway</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Backend-6d954206f00b446289f18bf51960ca34">Pogo</a>, <a href="https://reclaim.ai/job-site-reliability-engineer/">Reclaim</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li><strong>Fullstack engineer</strong>: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://icebreaker.video/product-engineer">Icebreaker</a>, <a href="https://www.notion.so/askiggy/Full-Stack-Engineer-IggyAPI-5a8c1825028e421b9587538718f370b4">Iggy</a>, <a href="https://get.mem.ai/careers#product-engineer">Mem</a>, <a href="https://www.notion.so/A-Product-first-Full-stack-Engineer-5e056689b68048aeb1ccfea6ac73eb9e">Runway</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpas</a>s, <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/senior-full-stack-developer_paris_SORAR_Y1eay7e">Sorare</a>, <a href="https://jobs.lever.co/stytch/00c92a1b-36c2-46f6-8af1-885a6bbd6bd4">Stytch</a></li>
+<li><strong>Mobile engineer</strong>: <a href="https://www.notion.so/Senior-Software-Engineer-iOS-San-Francisco-CA-87f0fd3ee3dc4c3f8d0419c07fcdd434">Primer</a>, <a href="https://jobs.lever.co/stytch/d3bf3860-4aaa-4a23-8e28-dad20957be44">Stytch</a></li>
+<li><strong>Game economy designer</strong>: <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/game-economy-designer_paris_SORAR_kYW8MjK">Sorare</a></li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you aren’t already</strong> 👇</p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>An inside look at Figma’s unique GTM motion | Claire Butler (first GTM hire) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">An inside look at Figma’s unique GTM motion | Clai…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">An inside look at Figma’s unique GTM motion | Claire Butler (first GTM hire)</div>
+    
+    <div class="article-meta">2023-09-07<span>·</span>20,034 words<span>·</span>Claire Butler</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span> <span class="mini-tag">成長</span> <span class="mini-tag">創業</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=UmirRfy-gzA" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Claire Butler</strong> (00:00:00):<br />
+We had Coda. They were our first user, and they were based in Palo Alto. Dylan and I drove down and demoed the product to them, and they were the first ones. Their designer, Jeremy was like, "Yes, we'll take this on full time." And I remember we were both like, "What? Really? You will?" That was the first person who said yes to us. And so, we were so excited. This was a huge milestone. We were just so stoked. And then we got back to the office, and I think Dylan gets a text from Jeremy being like, "Oh yeah, I tried to share this with Philippe, my engineer, and he can't get the file to open, so I guess we can't use it." And we're like, "What is it? What happened?" Finally got someone. And I remember Dylan was like, "Everybody drop everything. We have to fix this."<br />
+<strong>Claire Butler</strong> (00:00:37):<br />
+And after some looking at the servers and things, they were like, "Nothing's wrong." And then they realized there's a problem with Philippe's MacBook. And Evan down only had a car, so Dylan had to drive Evan down to Palo Alto to fix the MacBook of Philippe just to get them to use the product.<br />
+<strong>Lenny</strong> (00:00:55):<br />
+Welcome to Lenny's podcast, where I interview world-class product leaders and growth experts to learn from their hard one experiences building and growing today's most successful products. Today my guest is Claire Butler. Claire started at Figma while they were still in stealth as their 10th employee and their first ever marketing hire. She led their original launch and go-to-market and also their branding and positioning and messaging work. And eight years in, she continues to lead their go-to-market and bottom-up growth motion along with community events, social advocacy, and Figma for education teams.<br />
+<strong>Claire Butler</strong> (00:03:54):<br />
+Thanks, Lenny. I'm excited to be here.<br />
+<strong>Lenny</strong> (00:03:56):<br />
+You've been on my wishlist of guests for a long time, and so I'm really excited to be finally chatting. You were the 10th employee at Figma, which is now worth tens of billions of dollars depending on which valuation you look at, and probably thousands of employees. I don't even know, but many, many. And you joined before the product even launched. And so, I have a million questions I want to ask about how Figma grew and all the things that went into it. I'm curious what it was like to be early days at Figma. Is there a memory that comes to mind that's zany, funny, fun, tangible of just what it was like to work at Figma in the early days?<br />
+<strong>Claire Butler</strong> (00:04:33):<br />
+Yeah, totally. No, that's a good question. We were right downtown on New Montgomery and Minna, and I think the thing that sticks out to me is actually two competing stories that talk about just how much at that time you'd oscillate between these really high-level strategic decisions and then total current work.<br />
+<strong>Claire Butler</strong> (00:04:50):<br />
+So my first day at Figma, I come into the office and we're going through some stuff. There's like 10 of us in the office, we're chatting, and I look at some of the plans, some of the things they're working on, and I see that they were actually had some branding and positioning and things that the products, Figma, was going to be named Summit, that was the name. So the company was going to be Figma, and then the product suite, the product design tool was going to be Summit with the idea that eventually we'll have other tools and that could be like mountaintop or I don't know what the rule, they had a whole thing around the different things that could be for the future product set.<br />
+<strong>Claire Butler</strong> (00:05:27):<br />
+And I remember my first day, I had an immediate reaction of like, " We cannot make this thing Summit. That's not going to work. We can't have two brands. Summit's not ownable, we can't build equity and multiple things. That's just never going to work. We kind of have to just stick with one." And I think Figma is ownable and makes sense and we should just go with Figma. So we kind of should probably kill the Summit thing. And Dylan said to me, he was like, "Oh, that's interesting. How about you make a presentation and present it to everyone tomorrow?" And so I did that. I was like, "Oh, okay, I guess this is what I'm doing the rest of the day." So I went and made a little presentation about how we couldn't build all this equity in two places and all of the things, and then the next day we decided to kill that name.<br />
+<strong>Claire Butler</strong> (00:06:05):<br />
+And so we went with Figma for the name of the product instead of Summit. And that's how fast things moved, right? And how much you just ran with it and how to ownership. I compare that to the first meetup we had, which was probably just 10 people in the office, honestly. But I remember I was in charge of that, so I had to get all the food and everything there, and I just Instacarted some things and ordered some pizza, but I'd forgotten ice. And so I had to go walk down to the nearest corner store, which was three blocks away or something, and get ice. And I got four bags. And I remember I was walking down the street down probably third street with three bags of ice and it was really heavy. And I remember thinking, "This is so hard. This is so heavy. I can't carry all this ice." And it's just like that's... I did that too probably the next week.<br />
+<strong>Claire Butler</strong> (00:06:50):<br />
+And so, I think it was just this oscillation between like, "Oh, we're making these high level strategic decisions and someone else has to go by the ice." So that's what it was like at Figma in the early days.<br />
+<strong>Lenny</strong> (00:06:59):<br />
+That's incredible. That's almost a metaphor. Someone's got to go carry the ice.<br />
+<strong>Claire Butler</strong> (00:07:04):<br />
+Almost got to the ice for the meetup. Yep.<br />
+<strong>Lenny</strong> (00:07:06):<br />
+That's so interesting about Summit, I had no idea that was [inaudible 00:07:09]-<br />
+<strong>Claire Butler</strong> (00:07:09):<br />
+That wasn't a good name. So if you liked that better, I'm sorry because I killed that.<br />
+<strong>Lenny</strong> (00:07:13):<br />
+Who could like it better now that everyone loves Figma and that's just what it is? Do you think Figma would've been as successful with that name, looking back?<br />
+<strong>Claire Butler</strong> (00:07:21):<br />
+I think we probably would've changed it later. I think we just saved ourselves some time and without having to change it.<br />
+<strong>Lenny</strong> (00:07:27):<br />
+And then how many days or weeks into your tenure was that happening?<br />
+<strong>Claire Butler</strong> (00:07:32):<br />
+The name change or...<br />
+<strong>Lenny</strong> (00:07:32):<br />
+Yeah.<br />
+<strong>Claire Butler</strong> (00:07:34):<br />
+The first day. No, that was literally my first day.<br />
+<strong>Lenny</strong> (00:07:36):<br />
+The first day.<br />
+<strong>Claire Butler</strong> (00:07:36):<br />
+No, no, no. That was my first day and my second day. Not even kidding. My first day, I made the recommendation, the second day, give the presentation and the decision was made.<br />
+<strong>Lenny</strong> (00:07:45):<br />
+Wow. I was going to ask you what the most stressful memory of early days Figma was. I'm guessing it's the same story.<br />
+<strong>Claire Butler</strong> (00:07:50):<br />
+It's not actually. So I think the most stressful thing, I was thinking about this, was when we launched out of stealth. So I come into Figma, I had lots of experience. I'd been in another startup before that, I launched stuff, but I was still kind of junior. I had done these things, but I didn't have a ton of cycles, and I never ran the whole thing from like, okay, messaging and positioning. This was a forcing function for us to do our messaging and positioning. And I remember there was more than one day where we locked ourselves in a conference room and I made Dylan and show at the time have this positioning up on the big screen and made them agree on it word for word. We'd just never done that before. But then I'd also never run PR press and all of a sudden, I had to run press and PR.<br />
+<strong>Claire Butler</strong> (00:08:36):<br />
+And I think the hardest part there and the most stressful part was I didn't have anyone to talk to. It was just me. And I didn't at the time have enough cycles to have the confidence that the decisions I was making were the right ones. And so it was hard not to second guess myself sometimes in that position. And I think that's some of the hardest times of being at a startup, especially when you're the only marketer, the only go-to-market person is, you don't have anyone to talk to, to like got check stuff with. And so it does take this immense confidence in yourself, but that's stressful when you don't have the cycles. And so that was very stressful for me for sure.<br />
+<strong>Lenny</strong> (00:09:12):<br />
+How did you overcome that? Did you find people to work with and run ideas by? Did you just do it and figure it out?<br />
+<strong>Claire Butler</strong> (00:09:19):<br />
+I mean, I had Dylan, but we just did it, right? Especially in those early days. I remember there were a couple of freak out moments where I would try to get our VCs to help us. I remember Greylock was helpful at least over there, but ultimately, they help a lot, but they don't know your business as intimately as you do. So at the end of the day, that's something Dylan's really good at is trusting his intuition and gut. And so, he was helpful on the decision making, but then also you just got to go for it. And I think that that's something that I learned at that time that's helped me throughout the rest of my career is building that confidence or that trust in yourself because it wasn't something that I necessarily immediately had.<br />
+<strong>Lenny</strong> (00:09:55):<br />
+Next question I wanted to get into briefly is, you joined Figma really early, became one of the most successful, loved companies in history. What did you see early on that convinced you that Figma was the company to join and ask? Because a lot of people today are looking for places to join and trying to decide what to do. Clearly, you made a good choice. What did you see?<br />
+<strong>Claire Butler</strong> (00:10:14):<br />
+So I had been another startup before Figma, a little bit bigger. I think I joined at Series B and then got through on acquisition. And I had a sense that I wanted to do something early. And I'd already made that decision that I wanted to go early stage. So I'll take that decision making part out. But then from there, I was talking to a couple different companies, and when I went to Figma, there were three areas that stood out the most to me.<br />
+<strong>Claire Butler</strong> (00:10:36):<br />
+The first was, it logically made sense. And I know maybe that sounds basic, but I was talking to just a drone company or a SaaS tech, like ad tech company, and I just didn't get it, honestly, it didn't intuitively make sense to me or I didn't understand the technology or something. But at Figma, the basic premise immediately logically clicked for me like, "Oh yeah, I use Google Docs, I use Asana, I use all these online tools. That's so weird. That design's not online. Why isn't it?"<br />
+<strong>Claire Butler</strong> (00:11:06):<br />
+And as a marketer, I'd worked with designers and sent feedback and emails, and that's really inefficient. And it made a ton of sense to me that yes, that should be online and collaborative. So that was the first thing that I was like check the box. And the next one was, I knew people who believed in it. So I got introduced to Dylan via Index. They were an investor at the last company I was at, and Danny Rimer specifically. And my old boss, Greg Smearon, who was an EIR there. And I trusted them a lot and they invested in it. I also met John Lilly. I didn't know who he was. I had to Google him, but he seemed really smart. And when they Googled in, he was very impressive, and he believed in it. So that was great.<br />
+<strong>Claire Butler</strong> (00:11:43):<br />
+And then I think the third thing was, I remember when I was trying to decide, Dylan really didn't take no for answer. He's very persuasive. And I remember he'd calling me and text me and then I'd have all these concerns or things and he would just pick them apart one by one of reasons why they weren't real concerns or things to get over them. And so I think that that was the third thing is, that's just who he was and that's how he is with everything. And so, if that's how with me, that's how he is with any obstacle that he has. And so, when I looked at that, I was just like, "All right, let's give this a go." And I didn't know. I didn't know. I had no idea it would be as big as it is today. So some of it was luck too, for sure. But those are the three things of how I made my decision.<br />
+<strong>Lenny</strong> (00:12:24):<br />
+So what I took away there is, one, you just believe in idea, obviously. Make sure you actually think this could be really big, two is some social proof people you trust really believe in it. In this case, it was really smart investors, they knew. And then the third is, it sounds like you were also just impressed with Dylan.<br />
+<strong>Claire Butler</strong> (00:12:40):<br />
+Yeah, totally. I believed in him.<br />
+<strong>Lenny</strong> (00:12:42):<br />
+So you joined Figma before it even launched, it was still in stealth. You joined as the first go-to-market hire. You helped launch Figma, you continue to lead go-to market at Figma. And so this is a good segue to where I want to spend most of our conversation. I essentially want to try to unpack what worked to build Figma into the business that it is today from beginning to even now. You're also there for eight years. So you saw a lot of what worked and didn't work. And so let's start with the beginnings of Figma and the go-to-market motion that you developed and how you actually implemented it. So maybe to start, if you could just talk about just what is a bottom up go-to-market motion? And then you also shared somewhere that Figma has a very unique bottom-up go-to-market motion. So maybe just those two areas, just broadly, what is bottom-up go- to-market motion, and then two, what is unique about Figma's approach?<br />
+<strong>Claire Butler</strong> (00:13:33):<br />
+I've reflected back to get to some of these answers. I think in the moment, so much of what we were doing was influenced by gut, by trying to connect with people, listening to them. But when I look back is when I'm like, "Oh, this is a repeatable motion." So when I look back at it, I would say that if I were to define and think about how I define our go-to-market motion, and we've said it, we've called it a lot of things over time. We called it product-led, we called it community-led. The way I think about it now is this bottoms-up motion, that really is focused on ICs. So it's all focused on like, "Okay, so you have this core audience." For us it was designers and they're largely individual contributors, so they're people who are practitioners who are using your tool. For us, it's like eight hours a day.<br />
+<strong>Claire Butler</strong> (00:14:17):<br />
+If you're a designer, you're in it all the time. And they love you, and you build this relationship with them within the product, but it's beyond the product, right? It's also believing what the product can be in the company and the brand. And they love you so much that they're willing to put their social capital and themselves in the line and spread the product throughout whatever their communities are. And the one that's connected the most to revenue is companies.<br />
+<strong>Claire Butler</strong> (00:14:45):<br />
+And so that's where the revenue model really clicks in is you have all these individual contributors who love you, but then they also work at these big companies and these big orgs, and they become these internal champions who spearhead adoption within their organizations and eventually turn into large amounts of revenue. And I think of that as our bottoms-up motion. And that's different from tops-down. And a lot of SaaS is tops-down where you go straight to a VP or an executive buyer, they then agree to buying a tool and then that goes down to their organization. I think with technical tools especially, this becomes really important. The practitioners have to love it. And also, sometimes I wondered as an executive care, you know what I mean, what tools people are using?<br />
+<strong>Claire Butler</strong> (00:15:27):<br />
+And so for Figma, what that looks like and why this is so efficient of a go-to-market motion for us is, we actually didn't have a sales team for the first three years. So all of our revenue, it was paid, but it was all self-serve. And so we'd work with these. We weren't worried about things. I mean, you cared about security, but all of the org features that people need and want when you're working with procurement, we were just focused on technical features for users mostly. And then the individual contributor or maybe the manager would just put them on their credit card. That was the way that things grew. And so there was no sales team for a long time. We did have one eventually, and I'll talk about what that looked like.<br />
+<strong>Claire Butler</strong> (00:16:04):<br />
+But then the second thing was, once we did have a sales team, and even up until now, so much of our revenue and our sales and our MQLs, our marketing qualified leads come from our free tier. So it's people, they're using it, maybe they use it for free. We have a very robust free tier. Maybe they use it for pro, which is on your credit card. And then once it's widespread and they've gained the confidence, then they're ready to bring in sales work with procurement. And they actually come to us and they're like, "Hey, I work at this company. I really want to get my whole company to use it, but security's not letting me. Can you help me unblock it with them?"<br />
+<strong>Claire Butler</strong> (00:16:39):<br />
+We didn't spend that much money, any money really programmatically on paid or programmatic marketing because all of our leads for sales would come in through a form on our website, which was current users either free or pro wanting to upgrade. And at that point, it's a very different sales conversation to unblock someone or to just help them implement Figma when they've already have an internal champion who's bought in, and they're really the one leading and driving the sale within their organization. So I think that that's made us really efficient as like this is a really efficient model and has really powered so much of our growth over time.<br />
+<strong>Lenny</strong> (00:17:14):<br />
+Somebody listening to this that has a saying, B2B SaaS companies like, "Oh, okay, I just need to get people to love my product and it's going to be great." And so I want to unpack that just like what you did because it wasn't obviously an accident that people loved Figma. But before we get there, you talked about that there's a unique approach to the way you did bottom up. What do you see as what the typical bottom-up go-to-market motion is that other companies try to play that you think Figma did differently? Is it this obsession with ICs on teams or is there some other element of it?<br />
+<strong>Claire Butler</strong> (00:17:43):<br />
+I think there are other people who do bottoms-up and who do it well. I think for us it's unique because the individual contributor spends so much time in the tool, and it's so important to them. I think about things that we focus on where it might take one click off of someone's workflow, and that seems like a really small update. You have to click one time instead of twice to do something.<br />
+<strong>Claire Butler</strong> (00:18:06):<br />
+When you're a designer and you're in a tool eight hours a day, saving that one click is huge. And so I think the obsession with quality and with craft within the editor for us, for Figma, is maybe the difference. And I think about other go-to-market tools that maybe focus so much on the collaboration side or the product-led of the expansion. And that is a huge part segue, don't get me wrong, but the tool itself, the editor, that's where it all starts and that's what these people love. And then the collaboration is like, yes, it's the thing that's like our differentiator, but it's actually like you stay for the collaboration. You don't want to talk about it or learn about it. Nobody wants talk about collaboration. You just want it to work, right? You care about the tool and that the tool's working well. And so I think that maybe that's the difference is the obsession with the tool itself.<br />
+<strong>Lenny</strong> (00:18:52):<br />
+Awesome. Yeah, something I learned recently is that multiplayer wasn't even a part of Figma at launch, [inaudible 00:18:56] a year later.<br />
+<strong>Claire Butler</strong> (00:18:58):<br />
+I know. We can talk about that, and we want to know making a decision of when to go to self because we almost didn't because it didn't have multiplayer.<br />
+<strong>Lenny</strong> (00:19:04):<br />
+Oh yeah, let's talk about that.<br />
+<strong>Claire Butler</strong> (00:19:05):<br />
+Yeah, that was a poor differentiator and we can't not have it, but then we did anyway.<br />
+<strong>Lenny</strong> (00:19:10):<br />
+Yeah, let's take a tangent there actually. Just that decision to go from stealth. So Figma was in stealth three years or four years before [inaudible 00:19:17] idea.<br />
+<strong>Claire Butler</strong> (00:19:17):<br />
+Gosh, three, I guess. I think is 2012 that they started, and then we launched in at the end of 2015. So between around there, yeah, around three or four.<br />
+<strong>Lenny</strong> (00:19:27):<br />
+Cool. And then you joined right before they launched. We're going to come back to what we were talking about, but just what did you see about that decision of now's the time to launch?<br />
+<strong>Claire Butler</strong> (00:19:34):<br />
+Yeah, I think it was a couple things. So I think the first thing is that the team had been building quietly by themselves in isolation for three years. And that's hard. I think that that was a very real part of the decision to get out of stealth was that people had been building for such a long time. We needed momentum. We needed to have a milestone that we were working towards. We could have just kept building it quiet for a long time more, but it was very demotivating. So that was a very big part of this. So there was a desire holistically to get out of stealth. But we didn't want to do it until we knew it'd at least be successful. But that was a key thing for me. I was working on that messaging, positioning that I was telling you, like we would have this.<br />
+[NEW_PARAGRAPH]I still have the doc actually where I was like, projected on the screen and Dylan and Sean and I picked apart every word of it and sharing with a link and multiplayer is the biggest thing. That's the core differentiator. It's really funny. I remember Ivan from Notion's early days, he stopped by and was chatting, and he's like, "Wait, you can't launch with that multiplayer." And I was like, "I know." So I was like, everybody was like, that was the core thing.<br />
+<strong>Claire Butler</strong> (00:20:36):<br />
+But the idea was that we wanted to get out of stealth. We talked to Evan, our CTO, and knew it would take about another year for him to build it. And for me it was like, "Well, is there enough here to get people excited to start and to get users, get more feedback?" Because Evan was kind of building multiplayer. I don't know enough about the engineering if he was doing it on his own or not, but he was the key person doing it. But there are a lot of other things too that were being built or could be built through that year. And we wanted to get more feedback from people and to start really get started.<br />
+<strong>Claire Butler</strong> (00:21:05):<br />
+And so to me, the things that I wanted to see before just deciding like, "Okay, so we don't have our key feature. Can we still launch, or is there enough fear for people to get excited?" At least my first three months, especially before we get going for the launch with the product, and probably even after that, I would just go around with Dylan and pilot or demo Figma to companies. That was a lot of what we did. So we'd go to these companies and we'd show them Figma and we'd get their feedback, and I would be driving around in Palo Alto, around the city doing that with Dylan. And sometimes people didn't care. They were just like, "What is this? I don't want to design online," things like that.<br />
+<strong>Claire Butler</strong> (00:21:47):<br />
+But what we wanted to see, what I wanted to see was that designers were excited when they saw the tool. And once we got enough features, and I saw this pretty quickly actually when I joined Figma, is that the people that we showed it to were really interested in it and cared about it. And I remember after Vector Networks came out, after some of our other core features, there were enough things where people, I remember, they would take the laptop out of Dylan's hands when he would start showing it because they wanted to play with it. And to me, when I started seeing designers do that, even if I wasn't sure if they'd use it as a team, even if I wasn't sure if they'd buy it, we weren't selling it yet. They wanted to try it and they were excited about it.<br />
+<strong>Claire Butler</strong> (00:22:28):<br />
+And that kind of emotion, no reaction of wanting to play with it in these demos was really what gave me confidence that we were ready to launch. And we had a couple teams, small numbers, and happened to talk about metrics and how hard it is to deal with metrics of this size, but very small numbers. But we had teams who were using it full-time. So we knew that some people were using it full-time and people who weren't were really excited to try and were very impressed with the technical feat of it all and interested. And to me that was enough confidence that like, "Okay, it's worth it. Let's get out of stealth."<br />
+<strong>Lenny</strong> (00:23:02):<br />
+That story of the-<br />
+<strong>PART 1 OF 4 ENDS [00</strong>:<br />
+23:04]<br />
+<strong>Claire Butler</strong> (00:23:00):<br />
+... let's get out of stealth.<br />
+<strong>Lenny</strong> (00:23:02):<br />
+That story of the potential customer pulling the laptop from Dylan is such a good metaphor for product market fit, which people describe as you feel pull. Someone's literally pulling it from your hands. You talked about metrics that you maybe could share. What could you share there?<br />
+<strong>Claire Butler</strong> (00:23:19):<br />
+At these early days, especially with bottoms-up and with all these things... And people ask me all the time, "How do you measure things in an early stage situation?" And I maybe have a controversial point of view here. I don't think you can, from a metrics side. Your numbers are so small. One of the quotes I always like to say, and I say this now too, when we're doing stuff, because we're launching new products [inaudible 00:23:40] and it comes up a lot, is you can't optimize your way to product market fit. I don't care at the early stages if something's optimized by 5% from an email.<br />
+<strong>Claire Butler</strong> (00:23:50):<br />
+That doesn't fundamentally tell me if something's working or not, so I think metrics are really hard and signal is actually way more important. Can you get a couple people who love it, not a slight improvement of a conversion of a landing page. And so I think that metrics are really hard in that way. They can help you, but when the numbers are so small, you have to, again, trust yourself a lot more and have more intuition, but then also find more signal of the things that are working, whether it's anecdotal, talking to people, examples, and that becomes much more useful than hard metrics are sometimes.<br />
+<strong>Lenny</strong> (00:24:26):<br />
+I'm working on a post around product market fit and a step-by-step somewhat of our guide to help people down this path. The way you described it is the way I'm thinking about it, is step one, get one company to use your product.<br />
+<strong>Claire Butler</strong> (00:24:37):<br />
+Yes.<br />
+<strong>Lenny</strong> (00:24:38):<br />
+Step two-<br />
+<strong>Claire Butler</strong> (00:24:38):<br />
+What do they want? That was step one, and then that's not easy. That's not easy.<br />
+<strong>Lenny</strong> (00:24:42):<br />
+Right. And then it's like, get them to continue using your product.<br />
+<strong>Claire Butler</strong> (00:24:42):<br />
+Yes.<br />
+<strong>Lenny</strong> (00:24:46):<br />
+And then it's get two companies to use your product.<br />
+<strong>Claire Butler</strong> (00:24:46):<br />
+Yes, exactly.<br />
+<strong>Lenny</strong> (00:24:49):<br />
+And then get someone to pay for your product. Yeah, so there's all these major milestones. Along those same lines, I saw an interview with Dylan talking about product market fit, and he had this interesting quote about how he realized first that they had product market fit a year later, which is when Microsoft, I think, was like, "Take our money. We want to pay for Figma." And he's like, "Okay, maybe this is going to work." Does that sound about right?<br />
+<strong>Claire Butler</strong> (00:25:11):<br />
+Well, it's interesting, and that goes up to the bottoms-up model that we could talk about. I think the difference, if you think about a company like Microsoft and what this looks like, this is just a really good example of this bottoms-up motion in market. Here's a funny story that I want to add. Our first meeting with Microsoft actually came, and this is the scrappiness of working in an early stage startup, because I slid into the DMs of my friend's ex-boyfriend. That's how we got our first meeting with Microsoft.<br />
+<strong>Lenny</strong> (00:25:41):<br />
+Well done.<br />
+<strong>Claire Butler</strong> (00:25:41):<br />
+I know, I know. I saw that they had signed up for Figma, and I was like, "Wait a minute. I think I know this person." And that's how we chatted with them and first got feedback from them, so that's just a funny anecdote.<br />
+<strong>Lenny</strong> (00:25:53):<br />
+This could be a new strategy if everyone's going to try to-<br />
+<strong>Claire Butler</strong> (00:25:55):<br />
+You literally do whatever. Uber driver, shared Lyfts, we can talk more about that. But yeah, you got to do whatever you can to get early people to try your product out and get really scrappy. But for Microsoft, over time, we would have, I think it was... What was the team that got acquired that we went into Microsoft? I'll have to remember the name, but it was a small team within Microsoft and they were... Xamarin, it was Xamarin. They were to ones who were using Figma first, and we saw that, so they were that patient zero at Microsoft. And then we had, slowly over time, more pockets within Microsoft using the tool.<br />
+<strong>Claire Butler</strong> (00:26:28):<br />
+But again, we've never gone through Microsoft procurement, Microsoft security. It just started popping up throughout the organization. And we have these really cool Node graphs that show this too, where you'd have these little pockets of people and then it would jump to another, like they'd have one more collaborator and then jump from another pocket. There were these really cool maps of how that spread within the organization. And eventually, we got to the point where that was a very comprehensive Node graph that had this massive thing of all of these people from Microsoft using the product.<br />
+<strong>Claire Butler</strong> (00:26:55):<br />
+But still, it was only on credit cards. I don't think we even had an enterprise product at this point, and so there was no salesperson for them to talk to. And Microsoft was like, "Wait a minute. We need to organize this. We need security. We need account management. We need procurement involved." And I think that that's what it was. They wanted to pay for it and they wanted us to have this enterprise product, because they had these requirements and they wanted to have a better control over it, because it was just popping up within the organization without their control. And so that's probably a good example of what that looked like as this bottoms in motion just spread to a really large organization.<br />
+<strong>Lenny</strong> (00:27:34):<br />
+This Node graph thing, is that a tool you built that's showing, helping you visualize within a company how it's all clustering? Or what is that?<br />
+<strong>Claire Butler</strong> (00:27:41):<br />
+Well, our data science team built it. I don't know if it's like... Yes, I'm sure it's an internal tool. I just remember there was a website in Node or something that we would use, and you could type it in an organization's name. You still could do this. It's within our data analytics system. You type in the name of an organization and it just pulls up everybody. And it shows, because Figma spreads through new users, but also gen one, gen two, these people invite people. And you can see these Node graphs of how somebody started Figma, maybe at the center, and then they invited someone else, and then it shows how that spread.<br />
+<strong>Claire Butler</strong> (00:28:16):<br />
+And so you get these clusters, and you can see the clusters are teams, but then you can see someone invited someone in a different org to a file and then that started a new center of a cluster. They're really interesting. And you can pull up, you can type in any org, any org at Figma and see what that Node graph looks like. But they're super interesting to see how those spread.<br />
+<strong>Lenny</strong> (00:28:37):<br />
+That is super cool. And I imagine that also informs how you go to market by figuring out who spreads to who and who's often [inaudible 00:28:45].<br />
+<strong>Claire Butler</strong> (00:28:44):<br />
+Totally, and that's when these internal champions, that's what the key is. And that's maybe the takeaway of how important these internal champions are, because you just need someone to land there and then them maybe passing it up. You could hover over and see this person's at the center of this Node graph and all of these people that spread from this one person at the company. And that, I think, was the unlock to be like, "Oh yeah, these internal champions, they're really the key to all of this."<br />
+<strong>Lenny</strong> (00:29:12):<br />
+I remember it spreading at Airbnb early on. I think Airbnb was one of the early customers and it was just one designer, a few designers starting to spread to the product managers. I was just a member on the team being like, "Goddamn it, we just switched to Sketch. Are we going to switch again to a new product?"<br />
+<strong>Claire Butler</strong> (00:29:25):<br />
+That was the hardest thing to feel like I don't want to switch twice. That was definitely something we had to get over.<br />
+<strong>Lenny</strong> (00:29:29):<br />
+But it happened for good reasons. Okay, one last thing that you mentioned that I wanted to follow up on. You said something about shared Lyfts, and maybe that's a funny story of some sort.<br />
+<strong>Claire Butler</strong> (00:29:38):<br />
+Oh, I don't know specifically. Actually, Dylan specifically is such a hustler, especially in those early days. And he would just, really anyone that he would meet, he would talk about Figma with them. I don't remember who it was, but there was definitely a situation where he met someone in a Lyft and then they became one of our users. He used every angle he could to try to get introduced to new designers, especially in his pre-launch days where we didn't have as many connections to just get people to try it out and get more feedback.<br />
+<strong>Lenny</strong> (00:30:06):<br />
+Okay, cool. Let's get back on track. We were talking about the go-to-market motion that you executed and modeled at Figma. There's two steps, right? Step one is get ICs to love you, and then step two is help it spread from that person, right?<br />
+<strong>Claire Butler</strong> (00:30:21):<br />
+Yep, yep.<br />
+<strong>Lenny</strong> (00:30:23):<br />
+Okay, cool. So, let's start with step one.<br />
+<strong>Claire Butler</strong> (00:30:25):<br />
+Okay, cool.<br />
+<strong>Lenny</strong> (00:30:25):<br />
+Like I said, obviously, it'd be awesome if somebody loved your product at a company. What did you actually do to make that happen in the early days?<br />
+<strong>Claire Butler</strong> (00:30:31):<br />
+Yeah. It's really interesting when you think about the early days too, because you're like, "All right. We don't exist." How do you get them to love you when literally, they've never heard of you before? Also, like you were saying, in your situation, "Oh, I used Sketch. I was maybe in Photoshop before that, something else. I just made the switch over to this new tool. We finally got it working. I really don't want to move tools again." You have that inherent thing against it there. Especially I thought about this, and I think there are four main areas that we focused on to make this start, to get it going, and then we kind of still do this stuff today.<br />
+<strong>Claire Butler</strong> (00:31:05):<br />
+The first thing is all about credibility. I think in the early days especially, credibility is so important in establishing that initial credibility, again, especially with a technical audience like designers. The second is actually building the product with your users. And I know you had Sho on your podcast and he talked a lot about this too, just the customer obsession that we have the care of, especially that editor tool.<br />
+<strong>Claire Butler</strong> (00:31:28):<br />
+The third is finding a place where you can, in a way, that you can build this relationship over time. Maybe that's specifically through a channel where they don't have to come to you, because they don't really care about you yet and they're probably not going to convert right away or start using you right away, so how do you get them to stick with you over time? So, find out the channel where you can do that and then continue to build that relationship with them. And then the four is just being extremely transparent and honest to build that relationship with people. I know those all sound really fuzzy, so maybe we can go into them specifically.<br />
+<strong>Lenny</strong> (00:31:28):<br />
+Absolutely. I was going to ask.<br />
+<strong>Claire Butler</strong> (00:32:04):<br />
+Because they sound really fuzzy when you talk about them. A lot of this stuff is hard like that, where you're like, "Oh, that just sounds like buzzwords." I can give you some examples of these four things, so maybe it helps to give some color to it.<br />
+<strong>Lenny</strong> (00:32:13):<br />
+Great.<br />
+<strong>Claire Butler</strong> (00:32:14):<br />
+Let's start with the first one, credibility. Okay. I was the first marketer at Figma. I think one of the things I learned right away, very quickly was that designers don't want to hear from marketers. They don't want to be marketed to and they have an extremely high bullshit meter. You use a word like efficiency, collaboration, all of those buzzwords, and they're just like, "I don't want to hear this." Traditional product marketing kind of stuff just doesn't work. They wanted to hear technical features. They wanted to understand how technical features work. They want to hear, "How am I going to use this?" And then they'll see the benefits, but they don't want to hear from marketers and they don't want to be marketed to.<br />
+<strong>Claire Butler</strong> (00:32:55):<br />
+And so I think especially with our audience in the early days, one of the things that I did was really try to not market. And that's so funny as a marketer to say that, but that was really core to build authenticity with people. And so the way that we did that in the early days was what we had was the tool, and that's pretty much what we had, and we had a design team and we had an engineering team. We did some cool stuff in the tool. First of all, the tool itself was a technical feat. It was the first time it used video game technology, WebGL. Evan's a prodigy. The fact that he got a design tool to work on the internet was just amazing, and so there was a lot of engineering interest there, credibility building of, "How did you get this to work?"<br />
+[NEW_PARAGRAPH]I got him to make technical content and that, I think, went to number one on Hacker News, that people were just interested in him. And then we had a design team, and our design team was our target audience. And so we talked a lot about how we chose to build features, all the things that went into it. And so many of the primitives of design tools have been like that forever, and so we changed the stuff. One of them would be how we did grids or how we did vector networks, and we'd go into these really deep details of how we chose to make those product decisions, all the craft decisions that went into it.<br />
+<strong>Claire Butler</strong> (00:34:08):<br />
+I remember one of my bars were deciding if something would hit this or not, if they would be interested was, "Did I understand it?" You know what I mean? And if I understood it, it was probably too basic, or if I could have written it myself, it was probably too basic. I remember we did one on grids in the early days, and we went really deep on Joseph Muller Brockmann and his influence on grids. And now, I very much know who Joseph Muller Brockmann is because I work with designers, but at the time, I had to Google it. I was like, "Who is this?" But that was one of my bars for if something would be good enough for our technical content, was if I could have written it, it's not good enough. And so that was key for us in building credibility, because we had this design team.<br />
+<strong>Claire Butler</strong> (00:34:47):<br />
+And then when six months after we launched, I actually got to hire someone to do marketing with me, the first person I hired was actually a designer advocate. So it was not a marketer, it was someone who was a designer. The designers and the engineers that I was trying to get to help me with stuff also had to design and build the product, so they didn't have a ton of time. But this designer advocate was working full-time with me on this stuff, and he came from our user base. He was one of the very few people in the early days who just loved the product and was very passionate about it. And that became his full-time job was to represent, to meet with users, talk to them, to write content and create content, and to bring that back to the product, and that was what he did.<br />
+<strong>Claire Butler</strong> (00:35:32):<br />
+And that designer advocacy positions actually scaled with Figma, and we still have it today. It's extreme. I think it's the magic dust, we call it, that we sprinkle on go-to-market to make a lot of our go-to-market function work. But yeah, we didn't focus on marketing, or traditional marketing. We're very focused on the technical aspects.<br />
+<strong>Lenny</strong> (00:35:50):<br />
+There's so many little lessons there. The designer advocate hire reminds me of something that Datadog did, where they hired engineers to write their blog posts.<br />
+<strong>Claire Butler</strong> (00:35:59):<br />
+That's a great idea. Yes, exactly what we did. Yes.<br />
+<strong>Lenny</strong> (00:36:03):<br />
+So, ways you build credibility, just kind of mirroring back what you just shared, one is writing content. Basically, putting out blog posts that designers would be like, "Oh, wow. This is really interesting," and start to feel like, "Oh, Figma keeps coming up in these really interesting pieces of content."<br />
+<strong>Claire Butler</strong> (00:36:15):<br />
+Yeah, even if they were using it, and I think that that was important. When we launched, people wanted to test it because it was cool and see what it is, but then they bounced. They're like, "All right. This isn't advanced enough. I'll come back later." Which is why we're give them reasons to come back, being like, "Oh, yeah, but the pen tools always worked like this, but we did it like that. You should test that out." And so we kept giving them these nuggets of reasons to come back in. Remember, this was also before multiplayer, and so we couldn't collaborate, so it was use the tools to do these things. That really helps people come back into the tool and spend a little bit more time in it.<br />
+<strong>Lenny</strong> (00:36:49):<br />
+How many posts would you say you put out in that first six months, just to give people a sense of here's how much? It's probably not a ton, right? It's probably some few really good ones.<br />
+<strong>Claire Butler</strong> (00:36:57):<br />
+They took a long time. Also, I had to work with an engineer or a designer to do every single one. Maybe 10 at most. But those ones that went out, we tried to get on Hacker News. We tried to get on Designer News at the time. Twitter, we can jump into that, but it was also extremely big for us. And so it was more about quality than it was about quantity.<br />
+<strong>Lenny</strong> (00:37:19):<br />
+Awesome. Okay, so one is put out great content. People are like, "Oh, wow. Figma's got some new ideas and maybe I should pay attention." The other is having someone that's that function actually talk to them.<br />
+<strong>Claire Butler</strong> (00:37:28):<br />
+Yes. That was when we started accelerating this much, much more is when we brought in that designer advocate to help us with this full-time.<br />
+<strong>Lenny</strong> (00:37:35):<br />
+Cool. Okay. Let's move to the next one, which I think is building with your customers.<br />
+<strong>Claire Butler</strong> (00:37:39):<br />
+That one, I know you talked to Show, he talked a lot about this, this idea of customer obsession and of building with your customers. And it also goes back to that whole decision that we talked about earlier, about when to come out of stealth. You can only build so much with your customers when you're in stealth, because you don't have that many that know about you. But especially, even in the early days when we only had a couple people, we really did listen. And back to also what you were saying earlier about those steps to product market fit, get one person to use it. That's really what we were focused on, especially in the very, very early days.<br />
+<strong>Claire Butler</strong> (00:38:10):<br />
+I remember the first one, I think I've told this story before, but was that we had Coda. They were our first user and they were based in Palo Alto. Dylan and I drove down and demoed the product to them, and they were the first ones. Their designer, Jeremy, was like, "Yes, we'll take this on full-time." And I remember, we were both like, "What? Really? You will?" That was the first person who said yes to us, and so we were so excited. This was a huge milestone. We went to Oren's Hummus in Palo Alto on the way back to the office to bring some back for the team to celebrate. We were just so stoked.<br />
+And then we got back to the office, and I think Dylan gets a text from Jeremy being like, "Oh, yeah. I tried to share this with Philippe, my engineer, and he can't get the file to open, so I guess he can't use it." And we're like, "What is it? What happened? We finally got someone." And I remember Dylan was like, "Everybody drop everything. We have to fix this." And after some looking at the servers and things, they were like, "Nothing's wrong," and then they realized it was a problem with Philippe's MacBook. Evan [inaudible 00:39:08] had a car, so Dylan had to drive Evan down to Palo Alto to fix the MacBook of Philippe just to get them to use the product. So anyway, get them to stick around. That's the first one.<br />
+<strong>Claire Butler</strong> (00:39:17):<br />
+But the building with people, the way that we did that was largely through just each person. We really cared and listened to their feedback, especially when there were only a few people. One way we did that was, I remember we implemented Intercom back in the early days, and there were so few users and so few of us that everybody was on Intercom all day too. And so we'd get a chat and I would jump in sometimes. Dylan would jump in, an engineer would jump in. And he'd open up a chat with people and they'd actually debug the product with us live. They'd be like, "I have this bug," and this engineer would be like, "Let me QA it right now." And so that was one example. We all did support back in that day, and the engineers would talk to users directly, get their feedback, and then go immediately fix things like bugs.<br />
+<strong>Claire Butler</strong> (00:40:02):<br />
+And so those are just examples of in the early days, what that looks like, and that just scales a lot over time as you're growing and you're talking to more people. That advocate ended up helping us a ton when they came on board, because some of this stuff, I mean, none of this stuff scales. Your engineers can't do support forever. In the early days, that becomes really important. But when we brought that advocate in, their whole job was talking to users, getting them to try to use the product, but then taking their feedback back when it wasn't something that wasn't working.<br />
+<strong>Claire Butler</strong> (00:40:34):<br />
+That helped us scale a lot, so that became really essential, and then telling people, "Oh, we fixed this." It made them feel more ownership of the tool too, being like, "Oh, yeah. I asked them to do this. They did it." That's just another way where you just build a strong relationship with people, because they feel very invested in your journey with you.<br />
+<strong>Lenny</strong> (00:40:54):<br />
+Which goes back to building credibility.<br />
+<strong>Claire Butler</strong> (00:40:55):<br />
+Absolutely, absolutely.<br />
+<strong>Lenny</strong> (00:40:57):<br />
+There's so many important lessons there. You talked about scaling this, but interestingly, this is very much doing things that don't scale; driving to their office, fixing their wifi on their laptop.<br />
+<strong>Claire Butler</strong> (00:41:08):<br />
+Early days, nothing scales in the early days. You just have to do it anyway.<br />
+<strong>Lenny</strong> (00:41:10):<br />
+Just as a tangent, we're talking about getting people to love your product initially. Why is love so important? That's a really high bar, and I imagine you have an interesting insight on just why it needs to be that level of appreciation.<br />
+<strong>Claire Butler</strong> (00:41:23):<br />
+Yeah, and it doesn't have to be over time. These are all things that maybe they just use it first or they're interested, but by the time you're getting to the organization level, or I'm spreading this to my other spheres of influence, like my community, people I know, you're kind of putting yourself on the line. You're taking a risk when you're doing that, especially if it's your job. You're bringing other people in, and you're not going to do that unless you really believe in something. And so just using it isn't enough to get someone over that stage of going from just a user to a champion. And so I think it is this love thing becomes important, because you just don't get the scalability and spread of someone doing this for you unless they have that level of passion.<br />
+<strong>Lenny</strong> (00:42:09):<br />
+That's an awesome lesson. I hope people are taking that in. You shared this story of Coda and Sho. Actually, he wasn't on a podcast. He wrote a newsletter and he shared all this stuff.<br />
+<strong>Claire Butler</strong> (00:42:18):<br />
+I read it. Yes, yes, yes.<br />
+<strong>Lenny</strong> (00:42:19):<br />
+Yeah. People often confuse the two. They assume it's kind of the same thing. But he talked about how when he joined Figma, this happened. Dylan's like, "We need to fix this problem." He's like, "They're not even paying us. Who is this? We have real things to build. Why do we have to hop on this bug?" And then later, he realized why that was so important, and that was a big lesson he learned from Dylan of just this needs to be taken really seriously. If someone's trying to use your product, help them actually be successful.<br />
+<strong>Claire Butler</strong> (00:42:45):<br />
+And we didn't have very many of them, but it's like, yeah, back to what you were saying earlier, how do you get one person to actually use it? And so we very much cared that that one person stuck with it and didn't bounce.<br />
+<strong>Lenny</strong> (00:42:55):<br />
+<strong>Claire Butler</strong> (00:44:20):<br />
+Oh, the next one is, this can take time. I think that's a big one. And also in the early days, they're not going to necessarily use you right away, and so it might take time. And then also, when you do get a couple of people who start to use your product, they're going to also start wondering what other people think about your product. And when you're the only marketing hire, and this is something marketers ask me a lot when they're the only marketer in an organization is, "How do you focus and prioritize, because there's so many things you could do? How do you decide what to do?" And so the thing that I think about a lot in this early phase, in thinking about ICs is, "How do you get to them, and where can you go where they already are as opposed to making them come to you?"<br />
+<strong>Claire Butler</strong> (00:45:00):<br />
+Because I'm a firm believer, I think now, we have spaces where people can come to us, but in the early days especially, they're not going to come to your space. They don't know you. They don't care about you. They don't want to go to your Slack channel or something. You have to go to them. And so for us, Dylan really identified immediately that Twitter was the place where that existed, and that had nothing to do with us specifically. The design community existed on Twitter way before we did, and that's something that they just did on their own and that grew over time. They had this large network on Twitter of influencers, and that's also how people learned about things.<br />
+<strong>Claire Butler</strong> (00:45:38):<br />
+Also, design's changing all the time, and so people would share best practices, things that they were doing, resources, and that just became kind of a home for designers. So, we really went all in on Twitter. That really became a key, our channel that we focused on, and really only focused on one. That was it, and we got pretty advanced on how we did this. Dylan is also a great engineer, if you don't know that about him, or a scrappy engineer who-<br />
+<strong>PART 2 OF 4 ENDS [00</strong>:<br />
+46:04]<br />
+<strong>Claire Butler</strong> (00:46:00):<br />
+A great engineer if you don't know that about him, or a scrappy engineer who could figure things out. And he had this idea and he built this tool or this scraper where he identified a couple influencers in the design community. People he thought were people he wanted to learn from and to talk to. And he inputted them into this scraper thing that he made. And then back to this, another node graph, he figured out who followed them and who followed those people and also the influence that these people had over other people, and made this massive node graph of these pockets of different topics of design. And when he looked at it, you'd see a cluster. So you'd have the cluster of iconographers, graphic designers, product managers, and you'd see them all there and you'd see who the influencers were in those areas. And what we did is we found who were most influential to start.<br />
+<strong>Claire Butler</strong> (00:46:51):<br />
+And that was another source, back to using whatever you can to get people to try your products. That's who we asked for feedback in the early days too. Just DMed them. We were like, hey, Raji, we'd love feedback, your feedback on Figma. And that was one of the ways we got to people, but that's also people who we followed, people who we tried to build this connection with on Twitter in the early days. And that's also where we pushed out that technical content that I was talking about. And then we tried to just drive and spur a conversation about these things. First it was our launches, but then later it was this technical content or whatever it was that we were producing so that we could go to people instead of making them come to us just in their feed. And that became super important to us. We'd also interact with people. So Dylan has a huge presence, and especially in the early days and now even has a huge presence talking to users, we all did show too our engineering team. And so it wasn't just the brand handle, it was the people. And I think that that's really important to put a personal face behind things, connect with people, answer questions for people, live there. And over time, we just built this very engaged group of people on Twitter with Figma. And that's still a huge place for us where the design community lives and where we get a lot from our users too. And I think the focus on that, and I think why it's so important is it allows people to passively follow you over time without having to invest in you, within the tool. So it was our way, especially because we knew it would take a while to build a product and get to a place for people to switch full time for them to follow along with us and build that confidence with us over time and keep coming back to the tool.<br />
+<strong>Lenny</strong> (00:48:24):<br />
+That Twitter graph story is so legendary. I think Dylan even shared the code online. I'm going to try to find that tweet.<br />
+<strong>Claire Butler</strong> (00:48:30):<br />
+Yeah, it's so good. We still use it. We used it again when we were launching another product, we were like, oh, can we go pull that Twitter graph for another audience? I don't know if we ended up using, how much we ended up using it, but I definitely looked at it and I was like, oh, this is so interesting to see for developers or whatever it was that we were looking at.<br />
+<strong>Lenny</strong> (00:48:46):<br />
+And also what you just mentioned is really interesting that he wasn't using it to go sell people on the product. It was first get feedback on the product, which ends up selling them.<br />
+<strong>Claire Butler</strong> (00:48:54):<br />
+Oh no, we never heard sold the product. It was always about feedback. And I think that that's so key to all of this is all about feedback.<br />
+<strong>Lenny</strong> (00:49:02):<br />
+Awesome. There's so many lessons here. There's a fourth bullet I think, around building relationships with users.<br />
+<strong>Claire Butler</strong> (00:49:08):<br />
+Oh, just transparency and authenticity. So I think that that really comes into when you get to the scale part, I'm talking about early days, being transparent with your users, and a lot of that does come down to the stuff we talked about too, about downtime, about what that looks like. And we just did that naturally with people one-on-one in those early days. But I think where it gets harder, and we stuck with it because it's in our DNA and how we act, is when you get to scale and you have to still do that stuff with a lot of people who care and who do these things with you. But I think it's just so important that you are honest and also you don't hide behind the brand. That you're human and authentic and transparent with people. And we can pull up the examples. I think the better examples are probably at scale than even in the early days because that's when it gets harder to do that.<br />
+<strong>Lenny</strong> (00:49:52):<br />
+So let's chat about that. Just... So this is about getting started.<br />
+<strong>Claire Butler</strong> (00:49:56):<br />
+Yeah.<br />
+<strong>Lenny</strong> (00:49:57):<br />
+How do you do this at scale? Or does it change completely? Do you continue doing this in a different way? How do you approach it as the company grows?<br />
+<strong>Claire Butler</strong> (00:50:02):<br />
+You just totally still do it, right? I think that that's just so important, that's how it stays, right? In the early days you do this stuff and you kind of get the flywheel going. You get these people, you have these people who love you, but today that's still how Figma spreads the most, right? We're going into new markets, we're going into new places, we're launching a new tool, and that becomes so important to how we still drive adoption. And so some of those things, the tactics, look a little bit different, but the themes are still the same and what that looks like at scale. A couple of just examples of that are those advocates, right? That's I think a huge one. When I was a marketer that advocate was just my partner. He gut-checked everything that I did. He'd be like, no, that's too thirsty here.<br />
+<strong>Claire Butler</strong> (00:50:46):<br />
+You're using a fluff word again. You know what I mean? Also, he was how we pitched the company. He was the people we talked to, he'd go to lunch at Etsy or whatever and just get feedback on things. And that function has really grown with Figma. So now that's a whole team at Figma, it's a large team and it's scaled with us with every product that we launch. So now we have developer advocates, FigJam advocates, and regionally. So we go into a new region and they're part of the landing team. We're in Japan, we need to find the Japan, now we have two of them, it's the Japan designer advocate because it's just so core to how we do things and we've scaled that. So I think on the credibility side, I think that those advocates and scaling those advocates are the magic dust that, I always call them the magic dust, that make sure that we are able to build those relationships and stay authentic around everything we do.<br />
+<strong>Lenny</strong> (00:51:40):<br />
+And these advocates, again, they're just, their background is designer, and then they end up being an advocate designer?<br />
+<strong>Claire Butler</strong> (00:51:45):<br />
+It's now developer, FigJam person. But they're passionate that... Their profile is, they're passionate users who oftentimes they find us more than we find them, right? You couldn't just post this job online and go source for it. It's like this will emerge from the community and then they love it so much and they know the product so well. They're technical experts. But yes, they were, for the designer ones, they were all previously product designers.<br />
+<strong>Lenny</strong> (00:52:10):<br />
+Awesome. Is there anything else you want to share around at scale, how these things change? You mentioned transparency ends up being really important. What else there do you think is really important?<br />
+<strong>Claire Butler</strong> (00:52:18):<br />
+I think there's two examples. The one is building with users. Because I think this is a good one that I like to get into because you're like, how do you scale that? You get so many bug requests, you go to our feature request page on our forum, and it's just so many. But also as you're building product, you're always like, oh, well I could go do all of these fixes and bug updates, but I also have to go build new stuff to grow. And that's always a tension with any company as you're looking at a roadmap. One of the ways that we've done that and still continue to focus on things that people care about that's so related to the craft of quality is through we do quality weeks with engineering.<br />
+<strong>Claire Butler</strong> (00:52:53):<br />
+And then we decided a couple years ago, we had this idea where we were like, oh, what if we package all of those quality updates up into one thing and launch them together and we could even show the tweet or the forum request that spurred us to do this. And that was where our idea of little big updates came, which is a launch that we do every year. Figma, they come from these quality weeks with engineering, that's where the engineers can just go and look at Twitter, talk to our support team, get all these small things that annoy people to fix them, and they just fix them all and they get so many done. And then we launch them all together. And that's one of our most popular launches that we do because people are like, yes, I care about this. This improves my quality of life every single day.<br />
+<strong>Claire Butler</strong> (00:53:37):<br />
+Back to that discussion of two clicks versus one click and things like that, they're that small, but we still do it. And I love that little big updates when I think, Airbnb did something like that too, with the a hundred updates thing on their website.<br />
+<strong>Lenny</strong> (00:53:49):<br />
+Airbnb has shifted fully to that, which is only big launches, just wait twice a year and launch a bunch of stuff. That's exactly, that's fully how they operate.<br />
+<strong>Claire Butler</strong> (00:53:58):<br />
+That's another way that we do the building with, and I think that even giving the engineers, we give them the ability to pick them, right? So they're like, oh, yep, this tweet, I want to fix this bug.<br />
+<strong>Lenny</strong> (00:54:07):<br />
+That's got to be so satisfying.<br />
+<strong>Claire Butler</strong> (00:54:08):<br />
+Yeah, exactly. And in the marketing even, we'll pull examples like, oh yeah, that for one, the person who said that. So that one's big. And then on the transparency side, I think where this gets hard at scale is all of a sudden you have a lot of people who care about your products. And I think it's really easy as a brand because you are a brand at this point, as you're getting bigger to be like, oh, I can hide behind my handle or the Figma handle, or do I really have to say something about this? And so just two examples of things like that where you just, we've chosen to be transparent when we didn't have to be or you might not, or downtime. Downtime is always a big deal. And I remember there was a specific instance, I think it was last year, maybe two years ago, where there was this issue with these servers and an AWS cluster went down and we didn't know what was going on.<br />
+<strong>Claire Butler</strong> (00:55:01):<br />
+And so we had downtime multiple times in a week and people were pissed, right? Things were not going well. Again, back on Twitter, we built... The double-edged sword of Twitter is you build this strong communication channel with your users and they communicate right back to you if they're not happy. So it's inundating us. And I remember we did a public postmortem and we always do that. If something happens or something goes wrong, we're like, yeah, that was bad. Here's what happened and here's the technical reason and here's how we fixed it. And then we tweeted that and promoted it and took just full accountability for it. And we always choose to make those choices when they're hard. And that was just one example. But I think the hardest example, and back to your question of the most stressful days at Figma, the true most stressful day Figma, for me, was the day that we announced the acquisition.<br />
+<strong>Claire Butler</strong> (00:55:52):<br />
+That was probably one of the harder moments of my career, where... My brand is social, that's my job, is running social. And all of a sudden you have this onslaught on social and you have to figure out what to do. And I remember the way that we announced it was we just retweeted Dylan. That was all that we had said<br />
+<strong>Claire Butler</strong> (00:56:07):<br />
+Raji on our team, I remember I was talking to him about it and he was like, "We've got to talk to our users. We just have to talk to them directly. We have to show we're the same company. We just have to not hide behind the brand." And he was totally right. And so I remember we decided that day that the next day we just had to have an open public forum where we could talk directly with our users and let them ask us any questions. And so we'd held the Twitter space the next day with Dylan and Cho and Raji and Tom, and we just had it open and people could ask us anything they wanted and we were able to be just really honest and transparent with them about everything that we could.<br />
+<strong>Claire Butler</strong> (00:56:44):<br />
+And I think that that is just a really good example of how even when it's really, really, really, really hard, you still have to just be transparent. And I think that that's when the tide started to turn of people giving us a chance to prove that everything would be great, even when it's the highest stakes and the hardest thing of still listening to people, maintaining that connection and not hiding behind the brand.<br />
+<strong>Lenny</strong> (00:57:06):<br />
+It feels like transparency is core to the values of Figma. Have you codified your values and is that one of them and is there anything there?<br />
+<strong>Claire Butler</strong> (00:57:18):<br />
+Interesting. We have codified our values. It isn't explicitly listed out, which is interesting, but I think of it as our value, especially with our users. We think about our values a lot as have fun with it, build community, love your craft, and all of those definitely come through, play, but maybe that should be one because I think it's so core to how we make decisions and our framework of when we have a decision which way we're going to go.<br />
+<strong>Lenny</strong> (00:57:43):<br />
+And also we mentioned Cho a couple of times, but on Twitter, he is always asking people, what do you need in the editor? Here's what's going great.<br />
+<strong>Claire Butler</strong> (00:57:49):<br />
+Absolutely. It's still how we get so much feedback is talking to people directly and Kris will come on when people have bugs and just respond to them. He's our CTO. People are just actively on there, listening to people, fixing bugs, responding.<br />
+<strong>Lenny</strong> (00:58:06):<br />
+I want to shift to kind of the second step of the go-to-market motion, but before I do that, I have a couple of things I wanted to touch on briefly. One is you haven't mentioned Config, this conference that you ran, which is a good example I think, of scaling a lot of the things you're talking about. It used to be Twitter, social graph, find people on Twitter. Now it's like this epic conference that I think people just love. I was on Twitter the days of Config, and it's just my whole feed was just like, oh my god, Config is the best thing. So many talks and so many people.<br />
+<strong>Claire Butler</strong> (00:58:34):<br />
+Config is such a good example. I remember, I can happily talk about Config. The way that we do Config, I think... I'd never run a conference before, maybe that's probably part of it. And I brought somebody on who had, but she and I were both sitting together and being like, okay, so we're doing a conference. How do we get the content for this conference? What do we do? And we didn't know. And so we just decided, oh, so much of what we do is listen to our users. Let's put out this call for proposals and see what they want to talk about. And so that's how we got and get a lot of our content for the conference. And a lot of it comes back to what I was talking about earlier, which is very technical deep content that targets individual contributors for the practitioners of the tool.<br />
+<strong>Claire Butler</strong> (00:59:20):<br />
+And through that process, we build these relationships with these speakers, our advocates help them shape their talks. And then I think that we do produce really strong technical content through that process and through Config. And we're also able to, with these people that we work with, help them grow their own profiles and that also helps them stay more connected to us, helps them become thought leaders in their own right. And so I think we're able to just draw so many different people who are the practitioners and the ICs because we're not just putting thought leadership out there. We're talking directly to how to use the tool and the things that individual contributors are still dealing with.<br />
+<strong>Lenny</strong> (00:59:58):<br />
+Yeah, it's kind of a lot like this podcast and my newsletter. It's like how to actually do stuff, not just a bunch of big ideas.<br />
+<strong>Claire Butler (01</strong>:<br />
+00:03)<br />
+Really. Yeah, no fluff.<br />
+<strong>Lenny</strong> (01:00:04):<br />
+I remember seeing a tweet about it where someone filmed being inside of and they're like, it's a rock concert, it's not a conference.<br />
+<strong>Claire Butler</strong> (01:00:10):<br />
+Oh, that too. We also just have fun. That's another big part of it as well. I remember literally saying, how can I make this more fun? So that was a big part of it.<br />
+<strong>Lenny</strong> (01:00:19):<br />
+Sounds like another value.<br />
+<strong>Claire Butler</strong> (01:00:20):<br />
+Yes.<br />
+<strong>Lenny</strong> (01:00:21):<br />
+Okay. Let's talk about step two of this go-to-market motion that you've developed, which I think if I were to just simply describe it as help people spread it within the organization. Is that right?<br />
+<strong>Claire Butler</strong> (01:00:31):<br />
+Yep. Yep.<br />
+<strong>Lenny</strong> (01:00:33):<br />
+Cool. All right. How do you do that?<br />
+<strong>Claire Butler</strong> (01:00:34):<br />
+All right, so again, I've got four things here and I'll list them out and then we can go through them. The first is make it easy to try the tool and to share it without a lot of gates so that you can do this. The second is those DAs. I want to talk about how those DAs work in our sales process.<br />
+<strong>Lenny</strong> (01:00:50):<br />
+Oh, Designer Advocate.<br />
+<strong>Claire Butler</strong> (01:00:51):<br />
+Yeah, sorry. That's our acronym for them, designer advocates, because they are so core to how we sell and how this works. The third is finding the operational thing that allows you to scale. For us that's design systems, the thing that was the biggest blocker to somebody using Figma and turning it into your biggest reason to adopt. And then the last one was still about maintaining and growing that connection with those internal champions over time. So those are the four things, and again, it looks different, similar concepts with different ideas when you look at that in the early days versus what we do today with it with scale.<br />
+<strong>Lenny</strong> (01:01:30):<br />
+Awesome. Let's get into it.<br />
+<strong>Claire Butler</strong> (01:01:32):<br />
+All right, cool. So the first one's making it, the products easy to try and share. So we talked about this a little bit, but if you go to figma.com today, it's very easy to sign up for a free account. I have a free account myself on my personal side for designing my house, which is a thing I used to before, but you just go and you can try the tool. And I think that's so important for us to allow someone to use it over time for a long time until they have confidence enough to be able to want to spread it within their organizations. But then it's also pretty easy to create a free team and share stuff with your organization. In the early days, you could just share a link and that was it, and you could use the tool and everything was free. Once we implemented pricing, which was about two years after we launched, we had this thing called a starter team.<br />
+<strong>Claire Butler</strong> (01:02:21):<br />
+And this is actually something that was switched. So initially the way that it worked was our starter team was that you could have unlimited files but only collaborate with two or three people, and that was the starter team and you wanted to add more people to collaborate with, and then you hit the paywall. We realized that wait a minute, that's hurting us. And so we switched it and now it's like you can have something like three files, but unlimited collaborators. And that was huge for us. And that's a place where you can see it in the metrics very clearly, where it's like, oh, this is really easy for people now to share before they have to start paying. This is huge.<br />
+<strong>Claire Butler</strong> (01:03:01):<br />
+And so then you get people to start using it for free with their teams and the teams get confidence in it before then they all have to start uploading it to their procurement team or whoever it is to start paying for it. So not introducing payment too fast and giving people that time to build that advocacy and to try it out with their teams, with people before they have to pay, I think is huge there.<br />
+<strong>Lenny</strong> (01:03:24):<br />
+That's such a good and important topic that I want to pull a thread on a little bit. So what you discovered there is you don't want to get in the way of the growth engine of the product. If it's going to grow through people spreading it, you don't want to cut it off at three. That seems like a monumental decision that changed everything. Any sense of just how you came about to realizing that? Or was it just obvious, okay, of course we need to change this?<br />
+<strong>Claire Butler</strong> (01:03:45):<br />
+Well, I think it was intuitive and it was more about the change management process of how to do that when people... At this point people were using the tool and using that starter tier and setting people or what that looks like. And for a long time you could also get around that and just collaborate with people in drafts and just share a link too. And we wanted to shut that down. So it was a bigger decision on just change management, but I think we intuitively knew it and it was much more about to the change management of how to make that happen.<br />
+<strong>Lenny</strong> (01:04:13):<br />
+Is there anything else you learned about what should be in free and paywall versus what should be in freemium? Just broad thoughts.<br />
+<strong>Claire Butler</strong> (01:04:21):<br />
+Well, I think the other interesting thing is too, and I think I said this, but so much of ours is, so we have a couple tiers. We have a free tier and then we have a pro tier, and then we have our org tier. And the free tier, free tier includes this free starter team. And so you can just do that, go to figma.com, and go do that. Pro is all enter credit card, and then org is you talk to sales. Org and enterprise, you talk to sales. And so I think the other key thing here is we get a lot of upsells to org from pro. And so it's also a thought of what you put in org versus pro. So that's the other decision because pro is also relatively inexpensive, so that grows a lot too really quickly and it's still very important to us, but still most of our marketing qualified leads that are sales leads likely come from pro or from free.<br />
+<strong>Claire Butler</strong> (01:05:11):<br />
+And so it's the decisions that we think about are like, okay, what do you want to sell on? And to go from free to pro, it has to be pretty natural because you don't have any people involved. And so it's like they have to just do that on their own. And then when you go from pro to org or enterprise, it's more about the organization and the scale. And that's where that design systems conversation comes in that we could talk about. But that was the thing that we really indexed on for org and enterprise of why you would want to upgrade from pro to org. So it is this multi-step process, but it's also nice because you can increase your investment in the product as you're building your own confidence in the tool.<br />
+<strong>Lenny</strong> (01:05:51):<br />
+The other really important nuance in the way that you structured pricing, it's unlimited viewers, but it's just editors that you charge for.<br />
+<strong>Claire Butler</strong> (01:05:56):<br />
+Yes. So true. So many people, especially if you're a designer and you're working with our product manager, you can comment and so much of this is to yes, you can spread it and you can use Figma for free for a really long time because you can just comment on the tool. And it also gets us through many more places with the organization and helps us be more useful to more people because yeah, viewers are free.<br />
+<strong>Lenny</strong> (01:06:21):<br />
+This one topic could be a whole podcast. And I have so many questions. Let me ask maybe one more and then I'll move on. How often do you revisit the packaging and pricing at this point? And do you have any advice there?<br />
+<strong>Claire Butler (01</strong>:<br />
+06:32)<br />
+Yeah, I mean it's interesting because the product's still growing. We just launched variables and dev mode back in at Config this year, and that influenced pricing and packaging and still is, right? And so FigJam too. And so I would say the core foundations aren't something we revisit a lot, but we're continually adding new features and we have to think about what tiers should they go in, what does that look like? So those things influence that all the time.<br />
+<strong>Lenny</strong> (01:06:56):<br />
+By the way, I recently upgraded to the non-free pack because I hit that limit of three with the designer that I work with.<br />
+<strong>Claire Butler</strong> (01:07:02):<br />
+Yeah, it's also just kind of annoying because you have to keep moving things in and out drafts.<br />
+<strong>Lenny</strong> (01:07:06):<br />
+That's exactly what it is.<br />
+<strong>Claire Butler</strong> (01:07:07):<br />
+It's like, oh, this is worth my $12 a month or whatever, just to not have to bother with it.<br />
+<strong>Lenny (01</strong>:<br />
+07:11)<br />
+Yeah. Once you realize, okay, yeah, it's not that much in the scheme of things, I'm just going to, but it's interesting how it's not that much, but I still like, nah, I don't really want to pay that if I don't have to.<br />
+<strong>Claire Butler</strong> (01:07:20):<br />
+Oh, for sure. We all do that. Right? Especially because so much of pro, so many people have individual pro accounts, right? Because not necessarily a business or maybe it's a small business or you're an individual and it's very different from an organization where someone else is paying for it.<br />
+<strong>Lenny</strong> (01:07:33):<br />
+Yeah. So funny. Okay, step two is around designer advocates. Talk about that.<br />
+<strong>Claire Butler</strong> (01:07:39):<br />
+Yeah, so I just think these DAs, so sorry, I keep calling them DAs because that's what we call them internally.<br />
+<strong>Lenny (01</strong>:<br />
+07:44)<br />
+It's cool. Now we know.<br />
+<strong>Claire Butler</strong> (01:07:45):<br />
+Advocates are just so special and such a big part of Figma. And like I said, it took us so long to start charging or bring in a sales team. And when we first hired our first salesperson and our first sales rep was the same day that our next designer advocate started, who... Eventually the first designer advocate left and did something else. And we brought in another designer advocate and he started on the first day that the sales team started. And at this point, more people were using Figma. We'd had that pro tier going for a while, and Tom, who is still here today and is leading that team, Tom Lowry, he was a passionate Figma user, but he was a passionate Figma user who brought Figma to his organization. But the first one, we were so early, he didn't have an organization to bring it to, he just loved the product. But Tom, he brought...<br />
+<strong>PART 3 OF 4 ENDS [01</strong>:<br />
+09:04]<br />
+<strong>Claire Butler</strong> (01:08:27):<br />
+He really didn't have an organization to bring it to. He just loved the product. But Tom, he was the internal champion at his company, who got his company to adopt Figma. So, when he joined Figma, that was really the mindset that he brought to this, was also like, "How do you use this as a team?"<br />
+<strong>Claire Butler</strong> (01:08:42):<br />
+And why I think this is so special, and was so foundational that they started together, is that they would go talk to users together, and they would bring him into the sales process. But he was never a salesperson. Never had a quota, doesn't live on the sales team. Technical expert who has such a deep passion, and a deep, deep, deep, deep understanding of the tool, that he would come in and just help explain the product to other designers.<br />
+<strong>Claire Butler</strong> (01:09:08):<br />
+And it goes back to that same theme that I talked ab</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

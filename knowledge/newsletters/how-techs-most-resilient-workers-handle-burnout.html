@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How tech’s most resilient workers handle burnout — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How tech’s most resilient workers handle burnout</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How tech’s most resilient workers handle burnout</div>
+    
+    <div class="article-meta">2025-06-17<span>·</span>3,176 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">職涯</span> <span class="mini-tag">工程</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Three weeks ago, we shared the results of our first-ever large-scale <a href="https://www.lennysnewsletter.com/p/how-tech-workers-really-feel-about">tech worker sentiment survey</a>. The post generated <a href="https://www.linkedin.com/search/results/content/?keywords=lenny+tech+worker+sentiment+burnout&amp;origin=SWITCH_SEARCH_VERTICAL&amp;sid=AF5">tons of conversations</a>, in particular about burnout. Readers asked, “Who <em>are</em> these people who <em>aren’t</em> burned-out?”</p>
+<p><strong>So we decided to do a timely follow-up investigation to find out the common threads among respondents who:</strong></p>
+<ol>
+<li>Haven’t felt much (or any) burnout in recent months/years</li>
+<li><em>Have</em> felt burned-out but were able to deal with it <em>extremely effectively</em></li>
+<li>Feel like they’ve cracked the “secret code” for dealing with burnout</li>
+</ol>
+<p><img alt="Image from How tech’s most resilient workers handle burnout" src="https://substack-post-media.s3.amazonaws.com/public/images/11ddfea8-947c-46b6-8f21-6146f5137c70_1600x1242.png" /></p>
+<p>We ran open-ended, video-based surveys with about 175 respondents and interviewed about 15 people who reported low to no burnout in the original survey.</p>
+<p>Our respondents revealed that dealing with burnout isn’t simply about resilience or stress management. <strong>The key is to systematically design a career and lifestyle that make burnout structurally unlikely.</strong></p>
+<p>We call tech workers who manage to do this “burnout conquerors.”</p>
+<p><em>P.S. If you prefer, you can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<h1>Introducing ARMOR: five shields against burnout</h1>
+<p><img alt="Image from How tech’s most resilient workers handle burnout" src="https://substack-post-media.s3.amazonaws.com/public/images/d965e5d4-23ba-47f0-af77-1a826b9b4212_2913x1991.png" /></p>
+<p>My investigation revealed five core strategies for dealing with burnout. These strategies are the armor that tech workers are donning to protect themselves from burnout.</p>
+<h2><strong>A: Autonomy</strong></h2>
+<p>Many people we heard from immediately identified that autonomy is a critical ingredient to being happy at work.</p>
+<p><img alt="Image from How tech’s most resilient workers handle burnout" src="https://substack-post-media.s3.amazonaws.com/public/images/f9fe8588-bea0-4f43-bb41-dab4a6eeb394_1200x1374.png" /></p>
+<p>We also saw this again and again in our research.</p>
+<blockquote>
+<p><em>“I’ve had strong leaders who believed in my development and let me run with high autonomy to solve challenging problems. I’m happy more than 95% of the time.”</em></p>
+<p><em>“I intentionally seek out environments where I have autonomy and variety in my day-to-day work, which keeps things fresh and prevents stagnation. Ultimately, choosing a path that matches my strengths and curiosity has made all the difference in sustaining my motivation and well-being.”</em></p>
+</blockquote>
+<p>Burnout conquerors continuously strive to create as much autonomy over their work lives as possible. Here’s how:</p>
+<h4><strong>1. Proactively take control of your time and efforts</strong></h4>
+<p>Burnout conquerors keep a keen eye on how they spend their time and energy at work to make sure they’re working smarter, not harder. An open block in their calendar to do deep work isn’t just going to drop in from the sky. Their most productive hours aren’t going to magically become available for priority work. Burnout conquerors make their days their own.</p>
+<blockquote>
+<p><em>“For me, burnout happens when I become ineffective at my job, no matter how many hours I put in. When I start to feel like I’m not making progress, I immediately start examining why. A perfect example is right now—I’ve not moved the needle with my priorities in weeks. There’s been a lot of firefighting, but nothing proactive. I started to examine what I’m spending time on and how I can pivot to spending time on what I should be doing. Calendar audit was step #1, declined meetings I really didn’t need to be in, blocked off heads-down time, and, in a matter of days, I’m back on track.”</em></p>
+</blockquote>
+<h4><strong>2. Hit your goals to build trust</strong></h4>
+<p>Rather than expecting trust in the workplace, burnout conquerors earn it by consistently delivering regardless of the external circumstances. The more you deliver on what you promised, the more everyone will trust you and leave you alone to do what you need to do. But that trust is not granted; it’s earned through behavior and successes (which is accomplished by taking control of time!).</p>
+<blockquote>
+<p><em>“I control what I do; I control my success. I’m responsible for my failures. Some days are hard, and some people are difficult, but I choose how to respond and handle the situation to deliver on my goals.”</em></p>
+</blockquote>
+<p>To get this done, burnout conquerors focus on small sets of <em>quality</em> outcomes driven by highly targeted goals, which they <em>communicate up, down, and all around</em>.</p>
+<h4><strong>3. Overcommunicate your needs to others—and yourselves</strong></h4>
+<p>Burnout conquerors understand their own needs and communicate them clearly and appropriately to the people around them. They know that when people know what to expect of you, they are rarely caught off-guard and feel more comfortable letting you take the wheel. A common tactic for burnout avoidance we heard is to “overcommunicate” about everything.</p>
+<p>That includes far more than just what you’re working on and what resources you need to get it done.</p>
+<blockquote>
+<p><em>“Most of my peers focus on communicating what they’re working on. They forget about [communicating] the ‘hows’: their boundaries, their constraints, and their strengths.”</em></p>
+</blockquote>
+<p>Burnout conquerors overcommunicate how to best work with them and how they like to communicate, receive feedback, and make decisions. Set the foundations of those conversations with a “How I Work” document. Find a template <a href="https://lg.substack.com/p/the-looking-glass-a-user-guide-to">here</a>. (Also, learn to <a href="https://www.lennysnewsletter.com/p/managing-up">manage up</a> generally.)</p>
+<h2><strong>R: Rock-solid boundaries</strong></h2>
+<p>Burnout conquerors know that to ruthlessly protect their time and energy, they need to erect boundaries that can withstand the pressure of a fast-paced and results-driven workplace. Here’s how:</p>
+<h4><strong>1. Set, automate, and, yes, overcommunicate clear work-life boundaries</strong></h4>
+<p>Burnout conquerors create consistent time-based (e.g. “I’m ending the day at 6 p.m. to be with my kids”) or task-based (e.g. “I’ll focus on 3 to 5 essential and urgent tasks each day”) hard stops. Anything beyond that time or list gets pushed to another time (or <a href="https://www.lennysnewsletter.com/p/make-product-management-fun-again">delegated to AI agents</a>).</p>
+<blockquote>
+<p><em>“I try to be strict about when I’m</em> not <em>going to do work. More than generic advice about ‘disconnecting,’ setting really clear micro-rules for myself has helped me prevent work stress seeping into the rest of my life. I know it might sound sad to even need these micro-boundaries, but it was necessary, and it’s been incredibly helpful.”</em></p>
+</blockquote>
+<p>To ensure that those boundaries hold, the people we heard from automate their after-hours responses and set clear calendar blocks, so people get notified when they’re unavailable. They also share their working schedule with their colleagues up front, including daily constraints and personal needs, and then as needed when those boundaries get tested (which they always do).</p>
+<h4><strong>2. <a href="https://www.lennysnewsletter.com/p/how-to-say-no">Get comfortable saying no</a></strong></h4>
+<p>Boundaries will always get tested by new requests or projects—some of which are exciting and seriously appealing! <strong>But there’s</strong> <strong><em>always</em></strong> <strong>an opportunity cost.</strong> Burnout conquerors understand that saying yes to something means saying no to something else.</p>
+<p>They reframe no’s as tradeoffs—to themselves and others.</p>
+<blockquote>
+<p><em>“I don’t frame responses to colleagues with open-ended questions that block my ability to define a ‘ready’ state. To overly simplify, I don’t say, ‘I have options A or B. Which do you want?’ I say, ‘I have option A and B. Here’s how we got to these options. Here are the tradeoffs. Please let me know your thoughts. I’ll move forward with A if I don’t hear any new feedback.’”</em></p>
+<p><em>“I read this book called</em> You Have a Choice <em>by Eric Nehrlich. One of the big unlocks for me was ‘You don’t have to do anything you don’t want to . . . as long as you’re okay with the consequences.’”</em></p>
+</blockquote>
+<h4><strong>3. Take</strong> <strong><em>real</em></strong> <strong>breaks: rhythmic, reflective, restorative</strong></h4>
+<p>Breaks are necessary and reasonable for the roles and responsibilities we all have in this industry. Performing at a high level is essential at work, but turning off is too.</p>
+<blockquote>
+<p><em>“Someone once told me, ‘We’re not performing brain surgery,’ and it was such a good reality check. Unless you’re a literal brain surgeon, it’s OK to not be perfect and available all the time. When I’m on, I’m on 100%. And when I’m off, I’m off 100%.”</em></p>
+</blockquote>
+<p>We heard a lot about the types of breaks that are successful in helping people prevent burnout. We categorized them into three types.</p>
+<p><img alt="Image from How tech’s most resilient workers handle burnout" src="https://substack-post-media.s3.amazonaws.com/public/images/e7cb9bf1-68a9-44bd-a273-8d436a19b90e_2631x3934.png" /></p>
+<h2><strong>M: Maintenance rituals</strong></h2>
+<p>Burnout conquerors treat their health and wellness as critical professional infrastructure.</p>
+<p>We’ve all seen the advice on walking 10,000 steps a day or trying to get 7 to 8 hours of sleep. But the people in tech who are beating burnout go one level deeper. Here’s how:</p>
+<h4><strong>1. Develop powerful “early warning” abilities</strong></h4>
+<p>Burnout conquerors are incredibly in tune with the physical and emotional signals of burnout. They’re listening to the body’s stress indicators, aware of energy levels and mood changes, and carefully log sleep disruptions, tension, and other manifestations, like low energy.</p>
+<blockquote>
+<p><em>“One thing that I learned in the mental health program during my leave of absence was how to check in daily with my emotions. This sounds pretty basic, but it isn’t a practice people are typically skilled at. Paying attention to our bodies and feelings is critical to well-being and spotting early signs of burnout. I also created a coping ladder of different tactics to use when I noticed my emotions were elevated.”</em></p>
+</blockquote>
+<p>When people understand their baseline, they can detect when something’s off internally sooner than others might. The faster they know something’s wrong, the faster they can make it right.</p>
+<h4><strong>2. Monitor your health signals, maintain your wellness</strong></h4>
+<p>To keep that early-warning system sharp, burnout conquerors track all the things, like their sleep, nutrition, and exercise. But interestingly, our participants don’t get overly technical about tracking. They use <em>heuristics</em>:</p>
+<p><strong>Sleep:</strong></p>
+<blockquote>
+<p><em>“I track the number of nights with disrupted sleep. One night of occasional insomnia is OK, two nights is a sign of trouble, three nights is a major problem.”</em></p>
+</blockquote>
+<p><strong>Nutrition:</strong></p>
+<blockquote>
+<p><em>“Tracking nutrition can be challenging, so I use LLMs to build my weekly menus, and it gives me information on macros. All I have left to do is count how many times I cheated. . .”</em></p>
+</blockquote>
+<p><strong>Exercise:</strong></p>
+<blockquote>
+<p><em>“If I’m not getting enough steps in a day, I know something is amiss. It’s happening right now and I’m actively tackling it.”</em></p>
+</blockquote>
+<p>Wellness is treated as a non-negotiable business need, not optional self-care. No weeks off, scheduled sleep times, and a strong focus on consistency and intensity. Many of the exercise routines participants shared felt more like Dwayne “The Rock” Johnson’s than a tech worker’s exercise routine: weights 5 or 6 times a week, marathon training, mindfulness retreats, biohacking. Burnout conquerors are spending <em>significant</em> time outside of work in training.</p>
+<blockquote>
+<p><em>“I go to bed at the same time every night. We get up at the same time every morning.”</em></p>
+<p><em>“I cook all our food. The biggest difference for us was when we stopped eating out during the week. Eating out is a weekend treat.”</em></p>
+<p><em>“Turn off. And by turning off I don’t mean scroll social media—instead, every day, meet people, do something manual (cook, build, iron your clothes), read a paper book.”</em></p>
+<p><em>“I train 5 to 6 times a week (gym, run, padel, etc.). I have a fixed sleep habit, from 10 p.m. to 6-7 a.m. I eat simple. The intensity of my regimen helps to balance the intensity and speed of work.”</em></p>
+</blockquote>
+<h4><strong>3. Be open to all forms of therapy</strong></h4>
+<p>It really stood out in the data that burnout conquerors seem comfortable connecting with their emotions, going to therapy, and taking leave when necessary.</p>
+<p>Many of our participants consider therapy and mental health support as preventive care. They ignore stigmas around such support and leverage their companies’ mental health benefits to the fullest.</p>
+<p><em>“My secret weapon against burnout is rest and time away from work. I requested a mental health leave of absence this fall . . . I sought out additional mental health support. One thing that I learned how to do in the mental health program was to check in daily with my emotions.”</em></p>
+<h2><strong>O: Original thinking</strong></h2>
+<p>Burnout conquerors don’t accept conventional organizational expectations of employees. They don’t buy into the common corporate narrative that puts the onus on employees to deal with burnout. And they don’t feel guilty if they’re feeling bad or in need of a break. The people who are actively preventing burnout have a strong belief system that insulates them from falling victim to burnout-related organizational mind games. Here’s how:</p>
+<h4><strong>1. Understand that burnout isn’t your fault</strong></h4>
+<p>While burnout conquerors take actionable steps toward preventing burnout in their own lives, they also know that the kind of deep exhaustion so many in the industry are feeling should not be blamed on the people suffering from it. Burnout is “organizational warfare,” not a personal responsibility.</p>
+<blockquote>
+<p><em>“I’m super-annoyed by the common expectation that you have to deal with your burnout on your own, as if it’s a personal problem and not an organisational problem. Burnout is not a personality problem; it’s a result of broken processes, unclear expectations, bad incentives (e.g. dumb performance review cycles and expectations), and poor work conditions . . . and no, those free-pizza Fridays and free mental health sessions are not company benefits. They are band-aids and signs of serious organisational dysfunction.”</em></p>
+</blockquote>
+<p>The system is broken, and it’s not your job to fix yourself to fit a toxic system.</p>
+<h4><strong>2. Don’t assume that working harder always yields better results (karma’s involved)</strong></h4>
+<p>Burnout conquerors reject the fundamental meritocracy belief of tech—that effort directly correlates to outcomes. Instead, they embrace uncertainty, karma, and trusting that “things work out” regardless of individual grinding.</p>
+<blockquote>
+<p><em>“I think the conventional wisdom for many people is that if you work harder, you achieve greater results. I also believed this when I was younger. And then, with a lot of different cycles in life, I realized there are a lot of other things that play a role. There’s some karma, you know . . . I believe things will get right in the long run if my intention, my overall direction, is correct.”</em></p>
+</blockquote>
+<h4><strong>3. Feel feelings instead of optimizing them away</strong></h4>
+<p>Burnout conquerors don’t buy into the optimization culture of tech. When bad feelings arrive—and they always do at some point—they know it’s never more efficient to push them away to try to maximize consistent output. Instead, as one respondent says, “sometimes you need to just be human and feel terrible for a while.”</p>
+<blockquote>
+<p><em>“Generally, all advice sounds really good in theory, but it’s really hard to put it into practice, especially if people are already under pressure. Telling someone who needs rest to exercise regularly can just add to their stress . . . I think sometimes we just need to also fully feel what we feel—if we’re stressed, acknowledge that; if you need to cry, cry; if you need to take a couple of days to just lie on the couch and eat bad food, do it. As long as you set a light at the end of the tunnel for yourself.”</em></p>
+</blockquote>
+<h2><strong>R: Role architecture</strong></h2>
+<p>Burnout conquerors design their careers strategically from day one. That means choosing the right <em>company</em> and the right <em>role.</em> To make these decisions, burnout conquerors have rubrics for evaluating the best match for their needs. Here’s how:</p>
+<h4><strong>1. The relationship test</strong></h4>
+<p>Burnout conquerors realize that they can only thrive in an environment where they’re surrounded by people they want to be surrounded by.</p>
+<blockquote>
+<p><em>“Who you work with matters more than almost anything else about the job.”</em></p>
+<p><em>“Choose your job based on who you work with. Period.”</em></p>
+<p><em>“I prioritize who I work for and work with above all else.”</em></p>
+</blockquote>
+<h4><strong>2. The Sunday test</strong></h4>
+<p>They follow their gut feelings and take the “Sunday scaries” seriously. If they’re excited for the challenge of the next week and looking forward to working with colleagues, those are great signs. If they’re not . . . it’s not.</p>
+<blockquote>
+<p><em>“A great litmus test is how I feel on Sunday.”</em></p>
+</blockquote>
+<h4><strong>3. The energy test</strong></h4>
+<p>They optimize for “energy production.” Burnout conquerors seek meaning, challenge, and balance in their jobs and careers.</p>
+<blockquote>
+<p><em>“I’ve intentionally pursued work that gives me energy. I exit situations that drain my energy.”</em></p>
+<p><em>“If I’m not passionate about the thing that is interrupting my personal life, then I find something I am passionate about.”</em></p>
+</blockquote>
+<h4><strong>4. The values alignment test</strong></h4>
+<p>They reflect on what they really, really want, applying the “Five Whys” framework to their career. They don’t get enamored by shiny objects but, rather, focus on how a company’s culture aligns with their core values.</p>
+<blockquote>
+<p><em>“Is there anyone around me who is burned-out as well? Are there people who don’t respect my boundaries?”</em></p>
+<p><em>“Work cultures where you have ownership. Being trusted to make decisions and do good work is energizing.”</em></p>
+</blockquote>
+<h2>A final piece of advice: Your work reality can only be as good as your relationships</h2>
+<p>The last question in my survey or interview was <em>“What’s</em> THE <em>career choice that’s helped you avoid getting burned-out?”</em></p>
+<p>One set of responses stood out to me: how critical it is to prioritize <em>people and relationships</em> at home and at work.</p>
+<p>In one of my interviews, I spoke to <a href="https://www.linkedin.com/in/joshuaherzigmarx/">Joshua Herzig-Marx</a>. He told me that for him, partner or spouse involvement is crucial for managing burnout. His partner is a sounding board and collaborator. To him, solo burnout management is like trying to product manage without partnering with stakeholders. Partnership enables perspective sharing, empathetic listening, and brainstorming solutions.</p>
+<p>There was also a consensus among our burnout conquerors that, at work, who you surround yourself with matters more than anything else.</p>
+<blockquote>
+<p><em>“Don’t work with assholes, because one way or another, assholes lead to people around them burning out, either directly or indirectly.”</em></p>
+</blockquote>
+<h2>Check your own ARMOR strength</h2>
+<p>To find out how protected you are from the burnout that’s affecting the majority of tech workers, answer these questions for yourself now and any time you feel those feelings creeping in:</p>
+<p><img alt="Image from How tech’s most resilient workers handle burnout" src="https://substack-post-media.s3.amazonaws.com/public/images/2d14d6c3-5da3-46b4-b428-65fd5ee70765_2631x5907.png" /></p>
+<p>If you’d like to assess your burnout, take our burnout check <a href="https://theburnoutcheck.com/">here</a>.</p>
+<p>And if you answered no to the above questions, tried the suggestions from our burnout conquerors, and are still dragged down by that wiped-out feeling, it may be time to consider a bigger change.</p>
+<p>Special thanks to the nearly 200 tech professionals who shared their insights <em>again</em> for this follow-up research. Your candid feedback will help us deal with burnout in the tech industry. 🙏</p>
+<p><em>Thank you, Noam! You can find Noam on <a href="https://www.linkedin.com/in/noamsegal/">LinkedIn</a> and <a href="https://x.com/noamseg">X</a>.</em></p>
+<p><em>Have a fulfilling, productive, and non-burnout-inducing week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

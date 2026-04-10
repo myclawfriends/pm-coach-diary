@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to spot a top 1% startup early — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to spot a top 1% startup early</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to spot a top 1% startup early</div>
+    
+    <div class="article-meta">2025-12-09<span>·</span>2,707 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">職涯</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">AI/PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">Public speaking course</a></em>**</p>
+<p><em>Annual subscribers get a </em><em>free year of 19 premium products</em><em>: <a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Gamma, n8n, Bolt, Devin, PostHog, Linear, Wispr Flow, Descript, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, ChatPRD + Stripe Atlas</a> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>After reading the early draft of this post, my approach to investing and giving career advice immediately shifted. Thank you, Bob, Cristina, Soleio, Rasmus, and Sean, for sharing your incredible insights with us 🙏</p>
+<p><em>For more from <a href="https://trohan.com/">Terrence Rohan</a> (i.e. one of my absolute favorite seed investors), find him on <a href="https://x.com/tmrohan?lang=en">X</a> and <a href="https://www.linkedin.com/in/terrencerohan/">LinkedIn</a>. Also, don’t miss his previous beloved guest post: <a href="https://www.lennysnewsletter.com/p/raising-a-seed-round-101">Raising a seed round 101</a>.</em></p>
+<p><em>P.S. You can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from How to spot a top 1% startup early" src="https://substack-post-media.s3.amazonaws.com/public/images/1f1cf63c-0c3e-4ee0-942c-7f9392a3095d_1456x970.png" /><img alt="Image from How to spot a top 1% startup early" src="https://substack-post-media.s3.amazonaws.com/public/images/b3237a8e-9fc8-4fc2-a20c-eae06d44b6e7_1178x338.png" /></p>
+<p>There are endless posts and podcasts about how investors pick startups. But Lenny and I were curious about a quiet class of employees who seem just as good as—if not better than—the most famous VCs at spotting generational companies before they blow up.</p>
+<p>How do these rare folks keep joining world-changing companies before most of the world even notices them?</p>
+<p>To find out, we interviewed five people whose resumes include some of Silicon Valley’s most remarkable companies: <strong>Palantir</strong>, <strong>OpenAI</strong>, <strong>Facebook</strong>, <strong>Stripe</strong>, <strong>Linear</strong>, <strong>Figma</strong>, <strong>Notion</strong>, <strong>Slack</strong>, <strong>Box</strong>, <strong>Spotify</strong>, and <strong>Dropbox</strong>.</p>
+<p><img alt="Image from How to spot a top 1% startup early" src="https://substack-post-media.s3.amazonaws.com/public/images/2a5af163-9243-4a03-b132-feb10d3c7901_1638x1676.png" /></p>
+<p>Each joined at least two of these companies early—an extraordinary feat, especially since they committed as full-time employees, not diversified investors. Their “hit rate” is phenomenal.</p>
+<p><strong>We were curious: What did they see? How did they choose? Are there lessons to take from their experiences?</strong></p>
+<p>Across their stories, we saw three distinct factors that mattered most.</p>
+<p>Though originally written for job seekers, these insights apply much more broadly—for founders, investors, or anyone trying to recognize greatness early.</p>
+<p>Here’s what to look for.</p>
+<h2><strong>1. Ambition bordering on “ludicrous”</strong></h2>
+<p>This was the most novel takeaway for us: One of the clearest markers of a future generational company, according to our interviewees, is <strong>ambition</strong>. It came up again and again.</p>
+<p>Bob pointed out that “<strong>both Palantir and OpenAI were considered ludicrous when the companies were first started.</strong> Joining Palantir in particular seemed like a very risky proposition. But actually it wasn’t risky at all. If the company failed, at worst, I’d wasted a year of my life and would have to go back to my PhD. But if the company succeeded, it would be life-changing.”</p>
+<p>Soleio “was surprised by the <strong>ferocity</strong> and <strong>ambition</strong> of the early Facebook team. They all seemed too smart to be working on ‘social networking’ but had a lofty idea for where the internet was ultimately headed and how Facebook might completely reshape it.”</p>
+<p>Sean added, “If a company’s thesis is marked by <strong>extraordinary</strong> <strong>ambition</strong>, it’s probably worth paying attention.”</p>
+<p>“The key tell,” Bob said, “was always the <strong>ambition of the goal.</strong>”</p>
+<p>Rasmus explained, “The logic here is simple: If everyone says, ‘Yes, that’s clearly a great idea, and you have direct competitors on day one, you are definitely late to the game. Even if you excel and go above and beyond expectations, the chance of making a meaningful difference in this world is small-ish. However, if someone has sailed across the sea of exploration, waded through the bog of research, and is still going on about an idea, there’s a small chance that they are ahead of the rest of us and see something I’ve yet to see.”</p>
+<h4><strong>How to judge ambition</strong></h4>
+<p>What are signs that the founder’s ambition is big enough?</p>
+<p><strong>The founder sounds a bit crazy.</strong> Sean shared, “For Meter, to start from scratch to make your own hardware across many platforms . . . it really indicated that this company is taking a huge swing. Or they’re just <strong>crazy</strong>. Along those same lines, when I met Dylan Field [CEO and co-founder of Figma] on a bus to a developer conference in 2013, he was just starting Figma. I remember talking to him about what he was building, what he wanted to do with it, and how it seemed <strong>completely insane</strong> to do in the browser. It was clear Dylan was not going to stop, no matter what, and we know how that has gone.”</p>
+<p><strong>People laugh at them.</strong> Rasmus recalled, “Spotify, a little group of ‘nobodies’ in Sweden, said, ‘Let’s build a catalog of all the music in the world and give everyone access.’ People <strong>laughed at us</strong>—I mean that literally, as in record-label officials <strong>laughing at Daniel</strong> [Ek, CEO and co-founder], asking them to give us a chance. The key here was that businesspeople thought it was a bad, bonkers idea while friends thought it sounded like a perfect future.”</p>
+<p><strong>No one has ever attempted this idea before.</strong> Rasmus added, “It may be a bit of a cliché at this point, but <strong>if</strong> <strong>no one else is trying to do what a company is trying to change in this world, then there might be something interesting going on</strong>, <strong>especially if it’s ambitious.”</strong></p>
+<p>To close, in the words of Bob, “At one point at Palantir, [co-founder and CEO Alex] Karp said, ‘<strong>We want Palantir to be the most important company in the world</strong>, not the most valuable one. But if it’s really important, it’s going to be valuable too.’”</p>
+<h2><strong>2. Founders, founders, founders</strong></h2>
+<p>Building on the above insight, every interviewee emphasized the same point: the founders matter above all else. Not as one variable among many—this was <em>the</em> variable.</p>
+<p>Cristina (early Stripe, Notion, Linear) said it outright: “<strong>The founders (and early team)—nothing matters more than this to me.</strong> I’m going to work hard, and I want to win, but I want to do it with people whom I want to see win too. When I joined Stripe, I joined more because I thought the people were special. I had more conviction about the company itself later.”</p>
+<p>Sean (early Slack, Box, Meter) echoed her: “<strong>Quality (and authenticity) of founders</strong> have always been the most important variable to me.”</p>
+<p>Rasmus (early Spotify, Figma, Dropbox) distilled it even further: “<strong>People and mission.</strong> Who and why (not as much ‘how’).”</p>
+<p>Bob (early Palantir, OpenAI) added, “The common pattern was an incredibly <strong>ambitious goal combined with a credible team.”</strong> There’s that ambition again.</p>
+<h4><strong>How to judge founders</strong></h4>
+<p>Joining a company with great founders is easy to say and hard to do. What exactly makes a founder great? Many people call out intelligence, and we have a whole section highlighting the importance of ambition. But our interviewees mentioned some less obvious traits.</p>
+<ol>
+<li><strong>Ability to adapt</strong></li>
+</ol>
+<p>Bob pointed out that “both Palantir and OpenAI started with an unworkable initial strategy that perhaps the world was correct to mock. But both iterated over time to something that worked. <strong>It’s more important to be able to learn quickly than to have a good strategy.</strong>”</p>
+<p>Cristina shared the same sentiment: “It’s so difficult to build a company, and there’s so much you need to learn going from one stage to the next and scaling. <strong>Founders who truly love to learn and look at company-building as a learning experience are quite predictive of whether founders will build durable, special companies.</strong> I remember saying early on at Stripe that Patrick and John [Collison, co-founders] didn’t just want to build a great product; they wanted to build a great company. And in looking back, I remember their apartment had books piled to the ceiling—they knew so much about so many different topics, and they always sought advice from others. They had a learning mindset, and I think they still do.”</p>
+<p>Sean described this as “<strong>rate of change</strong>.”Soleio called it “<strong>clock speed</strong>,” adding, “The common thread I’ve observed with all of these companies is how fast they operated and how extraordinarily capable their early employees were. Are they building their ideas in real time or does it take months to see their visions crystallize in software?”</p>
+<ol>
+<li><strong>Ferocity</strong></li>
+</ol>
+<p>Rasmus looked for “clear <strong>passion</strong> from the people who are ‘the company.’ Passionate and interesting people have been a core aspect of my professional life.”</p>
+<p>Cristina said she “loved Ivan’s [Zhao, founder and CEO of Notion] <strong>intensity</strong>” and has always been drawn to “intensity plus intelligence.”</p>
+<p>And as you’ll recall from above, Soleio “was surprised by the <strong>ferocity</strong> and <strong>ambition</strong> of the early Facebook team.”</p>
+<ol>
+<li><strong>Founder-market fit</strong></li>
+</ol>
+<p>Sean always asked himself, “Do these people seem like they’re doing what they’re meant to be doing, and is there no question that no one else can do it as well as them?”</p>
+<p>Bob was optimistic about Palantir’s chances because <strong>“</strong>it was founded to take the ideas behind the analysis software that solved fraud at PayPal and apply them to the intelligence community.”</p>
+<p>To close, in the words of Cristina: “If the three most important things in real estate are location, location, location, <strong>the three most important things in startups are people, people, people</strong>.”</p>
+<h2><strong>3. Judging today’s product is a trap</strong></h2>
+<p>You’d think that for legendary product companies like Stripe, Figma, Slack, Notion, and Facebook, you could tell how special they were going to be by how good their early product was. It turns out this way of thinking is a trap.</p>
+<p>Soleio said that when he first logged in to Facebook, “<strong>I remember being disappointed</strong>. The version their team had described was light-years ahead of what I saw that day.” Likewise, Figma was <strong>more prototype than product</strong> the day Dylan laid out his vision to me for building a collaborative design platform.”</p>
+<p>Cristina had a similar perspective: “Many of the companies I’ve joined were developer products or products that were meant for teams, so I couldn’t truly try the product myself, as I’m not a developer or didn’t have a team use case for it. So in general, <strong>I discount my own thoughts about a product in those cases.</strong>”</p>
+<p>Sean told us that <strong>“in the earliest days of Slack, it was rough around the edges</strong>. <strong>To quote Stewart [Butterfield, co-founder], <a href="https://www.youtube.com/shorts/RaFX5rnKKtY">it was a giant piece of shit</a>.</strong> The bulk of the vision was there in that beta period from 2013 to 2014, but still awaiting refinement.”</p>
+<p>Rasmus rightly pointed out, “<strong>Almost every product I’ve worked on started out as one thing but was something quite different at the time of consumer success.</strong> Spotify was going to be a video streaming platform and Figma a meme generator.” So even if the product is great, it may have to radically change anyway.</p>
+<h4><strong>How to judge the product</strong></h4>
+<p>Instead of focusing on the product today, focus on the mission, the magic, and customer love—in other words, where the product is <em>going</em>.</p>
+<p><strong>1. Mission/vision</strong></p>
+<p>Rasmus explained that “<strong>the mission of a company is unlikely to change</strong> and it’s the reason we all show up, so you’ve got to be down with whatever that is.”</p>
+<p>Soleio said, “<strong>The vision the Facebook team had described a few hours earlier was light-years ahead</strong> of the pre-Photos, pre-News Feed version of Facebook I found that day.” Likewise with Figma. “In both cases, special companies have a crisp articulation of how future systems should look and how they break the mold of today’s user expectations. <strong>Their products, especially at the earliest stages, lag far behind their ambitions</strong>.” There’s that word <em>ambition</em> again.</p>
+<p>Bob recalled that he “didn’t initially have a lot of conviction that either Palantir or OpenAI would be world-changing. But I had conviction that <strong>they were doing something interesting</strong> <strong>and that I would learn a huge amount in one year if I was pushing on the right goal</strong>.”</p>
+<p><strong>2. Strong customer pull</strong></p>
+<p>Instead of using your own judgment, ask what customers are saying about the product. Cristina told us that “with Stripe, <strong>I never asked to even see metrics. I was instead observing what developers said about the product</strong> in forums I could access (Hacker News, Twitter, etc.). I deferred to others (e.g. I asked a friend who was a data scientist at Watershed why they switched over to Linear from a competitor) to better understand the product from their perspective. <strong>Even if it was early and the market was niche, I cared that people loved it enough to share it.</strong>”</p>
+<p>She added, “Find a company that’s building a product so good that its users can’t stop talking about it.”</p>
+<p>Soleio said that when he told his brother he was meeting the team behind Facebook, his brother replied, “Oh dude, Facebook is bigger than God out here! It’s blowing up.” Wisely, he listened.</p>
+<p><strong>3. A demo that leaves you feeling like you just glimpsed the future</strong></p>
+<p>Finally, Soleio had a fantastic metaphor for what to look for: “There’s an iconic scene in the original <em>Jurassic Park</em> where the tour stops so John Hammond and his guests can witness a raptor hatching. The group crowds around as a dinosaur emerges from its shell, while Hammond gushes about always wanting to be present for births. Even in this slimy, harmless form, you sense the world has shifted—an apex predator has entered it. <strong>I call these ‘</strong><strong><em>Jurassic Park</em></strong> <strong>moments’ at startups: early prototypes or demos that leave you breathless and feeling like you are being given a clear glimpse of the future. Even though it’s ugly and small, you can sense this product will grow up and one day eat things</strong>.”</p>
+<h2><strong>Now it’s your turn</strong></h2>
+<p>When looking for your next role, it is interesting to note that none of these people found their jobs through applications or recruiters. Their paths were unpredictable, even serendipitous.</p>
+<p>Cristina met Stripe’s Patrick Collison at a barbecue. Rasmus got a cold call from Spotify’s Daniel Ek in 2006. Soleio was invited to Palo Alto after winning an online design award. Bob already knew half of Palantir’s founding team from PayPal. ​Sean <a href="https://x.com/seanrose/status/482659147410706432?s=20">replied to Stewart’s Twitter thread</a> about a feature request.</p>
+<p>“You can’t manufacture luck,” Sean said. “But you can optimize for serendipity. Be genuine. Use what they’ve built. Reach out with real interest.”</p>
+<p>Rasmus put it simply: “Say yes to people who make you curious. That’s where the best adventures start.”</p>
+<p>When an opportunity does present itself, remember the golden advice of these illustrious early employees.</p>
+<ol>
+<li>Look for ambition—does it ooze from the founders, team, and product roadmap?</li>
+<li>Study the founders. Are they not only intelligent, but fast learners, with an undeniable passion for what they are building? Does it seem that they are uniquely fit for building this?</li>
+<li>And the product—if it is rough, do customers love it? And does it point to something bold and in the new future?</li>
+</ol>
+<p>If you answered yes to these questions, you might have just found the next rocketship.</p>
+<p><em>Thanks, Terrence! For more, find <a href="https://trohan.com/">Terrence</a> on <a href="https://x.com/tmrohan?lang=en">X</a> and <a href="https://www.linkedin.com/in/terrencerohan/">LinkedIn</a>. Also, don’t miss his previous guest post: <a href="https://www.lennysnewsletter.com/p/raising-a-seed-round-101">Raising a seed round 101</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mission → Vision → Strategy → Goals → Roadmap → Task — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Mission → Vision → Strategy → Goals → Roadmap → Ta…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Mission → Vision → Strategy → Goals → Roadmap → Task</div>
+    
+    <div class="article-meta">2022-10-18<span>·</span>1,528 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: How do strategy, vision, mission, goals, and roadmap all work together? Where should I start?</h2>
+</blockquote>
+<p>First, some definitions:</p>
+<ul>
+<li><strong>Mission:</strong> What are we trying to achieve?</li>
+<li><strong>Vision:</strong> What does the world look like when we’ve achieved it?</li>
+<li><strong>Strategy:</strong> What’s our plan for achieving it, i.e. what’s our plan to win?</li>
+<li><strong>Goals:</strong> How will we measure progress?</li>
+<li><strong>Roadmap:</strong> What do we need to build in order to get there?</li>
+<li><strong>Task:</strong> What’s one unit of work we can tackle next?</li>
+</ul>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/da08427f-3cd6-4a15-bb11-11d93c68ac0b_2400x1186.png" /></p>
+<h4>Where should you start?</h4>
+<p>Normally you start with your <strong>mission</strong>—why does your team (or company) even exist? What are you trying to achieve? What is your purpose?</p>
+<p>Some examples of great missions:</p>
+<ol>
+<li><strong>Tesla</strong>: “Accelerate the world’s transition to sustainable energy.”</li>
+<li><strong>TED</strong>: “Spread ideas.”</li>
+<li><strong>Stripe:</strong> “Increase the GDP of the internet.”</li>
+<li><strong>IKEA</strong>: “Create a better everyday life for the many people.”</li>
+<li><strong>Patagonia</strong>: “Use business to inspire and implement solutions to the environmental crisis.”</li>
+<li><strong>Slack:</strong> “Make work life simpler, more pleasant, and more productive.”</li>
+<li><strong>Google:</strong> “Organize the world’s information and make it universally accessible and useful.”</li>
+<li><strong>World Wildlife Fund:</strong> “Conserve nature and reduce the most pressing threats to the diversity of life on Earth.”</li>
+<li><strong>Nike:</strong> “Do everything possible to expand human potential.”</li>
+<li><strong>Square:</strong> “Make commerce easy.”</li>
+</ol>
+<h4>Vision</h4>
+<p>Next comes your <strong>vision:</strong> What does the world (or your product) look like when you’ve achieved your mission?</p>
+<p>Some examples of great <strong>vision</strong> statements:</p>
+<ol>
+<li><strong>Microsoft: “</strong>A computer on every desk and in every home.”</li>
+<li><strong>Alzheimer’s Association</strong>: “A world without Alzheimer’s disease.”</li>
+<li><strong>Teach for America: “</strong>One day, all children in this nation will have the opportunity to attain an excellent education.”</li>
+<li><strong>Tesla:</strong> “Create the most compelling car company of the 21st century.”</li>
+<li><strong>Lyft:</strong> “A world where cities feel small again. Where transportation and tech bring people together, instead of apart.”</li>
+<li><strong>Netflix:</strong> “Become the best global entertainment distribution service.”</li>
+</ol>
+<p>If you start with your vision before your mission, that’s totally OK. Elon Musk likely started with a vision of the world he wanted to see and then developed his mission around that. No problem. Don’t overthink it.</p>
+<h4>Strategy</h4>
+<p>Once you have your mission and vision, this is where <strong>strategy</strong> comes in. Your strategy is simply your plan to achieve your vision—your plan to win.</p>
+<p><a href="https://www.lennysnewsletter.com/p/getting-better-at-product-strategy">I’ve written about getting better at strategy</a>, and, to boil it down, a strategy is essentially a short description of your plan, with 3 to 5 concrete investments that, if you get right, will bring you closer to winning (i.e. achieving your vision). <a href="https://www.lennysnewsletter.com/i/683946/strategy">Here are some templates</a> to help you frame your thinking.</p>
+<p>Here are some high-level examples of <strong>strategies</strong>:</p>
+<ol>
+<li><strong>Tesla:</strong> Build a high-priced sports car → Use that revenue to build an affordable car → Use that revenue to build an even more affordable car → While doing so, also provide zero-emission electric power</li>
+<li><strong>Uber:</strong> Launch Uber Black → Bring prices down by launching UberX → Bring prices down by launching Uber Pool → Bring prices down by launching scooters, bikes, etc.</li>
+<li><strong><a href="https://on.substack.com/p/one-million-strong">Substack</a>:</strong> Build powerful publishing tools for writers → Help writers become better writers through value-add services → Grow their audience through network effects</li>
+</ol>
+<p>Additional examples of great real-life strategies:</p>
+<ol>
+<li><strong><a href="https://about.gitlab.com/company/strategy/">GitLab</a></strong>: Notice the clear mission, vision, and three-part strategy.</li>
+<li><strong><a href="https://www.salesforce.com/blog/2013/04/how-to-create-alignment-within-your-company.html">Salesforce</a></strong>: Simple, but tells you exactly what needs to be done.</li>
+<li><strong><a href="https://sriramk.com/memos/garlinghouse-peanut-butter.pdf">Yahoo’s “peanut butter” memo</a>:</strong> Notice how clearly this identifies the problem, and includes a three-part strategy. (Also, it’s obviously memorable since it’s now known as the “Peanut Butter Manifesto.”)</li>
+<li><strong><a href="https://www.tesla.com/blog/master-plan-part-deux">Tesla</a></strong>: Notice the narrative style, the detailed identification of the problems, and the very simple, ambitious yet clear four-step strategy at the end.</li>
+</ol>
+<p><a href="https://www.producttalk.org/opportunity-solution-tree/">Teresa Torres’s opportunity solution tree</a> framework is a great way to think through, and communicate, your strategy:</p>
+<p><img alt="A depiction of an opportunity solution tree." src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3bec10e3-def0-4986-b26b-6c2b9e3f0964_550x392.png" /></p>
+<h4>Goals</h4>
+<p>Next, you can begin to define your <strong>goal</strong>. Goals are simply a way to measure the progress of your strategy toward achieving your ultimate vision.</p>
+<p>Some examples of visions and their associated goals:</p>
+<ol>
+<li><strong>Microsoft:</strong> A computer on every desk and in every home → X% of homes with a computer</li>
+<li><strong>Teach for America:</strong> One day, all children in this nation will have the opportunity to attain an excellent education → X% of children with education</li>
+<li><strong>Alzheimer’s Association</strong>: A world without Alzheimer’s disease → X% decrease in Alzheimer’s cases</li>
+</ol>
+<p><a href="https://www.lennysnewsletter.com/i/403468/how-to-set-goals">Here’s my advice on setting goals</a> and on <a href="https://future.com/north-star-metrics/">choosing your North Star metric</a>.</p>
+<h4>Roadmap</h4>
+<p>And finally, once you have your goals, you can align around and prioritize a <strong>roadmap</strong>. <a href="https://docs.google.com/spreadsheets/d/1zlx3RuidNOW40Zf7gh07p2SqoR53Ungv9JFT-PhHwxI/edit#gid=184965050">Here’s a template</a> you can use.</p>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/91b7d355-a384-43ec-92ae-8ff781deaed2_1600x588.png" /></p>
+<p>Within the roadmap, you break out individual <strong>tasks</strong>,the atomic unit of work for your teammates.</p>
+<p>Why do you need goals before you align around a roadmap and prioritize tasks? Because when prioritizing the many ideas your team has, you look at the ROI—the effort vs. the impact. The <em>impact</em> you’re prioritizing against is based on how much you expect the project will impact your <em>goals</em>.</p>
+<p>That’s basically your plan as a product team, from the 10,000-foot mission to the day-to-day work of your team.</p>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d3dfa1b5-19a1-4a43-8d95-d89fad9f0980_2400x1186.png" /></p>
+<p>As an example, here’s how it all fits together in the case of Tesla:</p>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2acf78ea-a0c1-4a10-a280-26fc3b055557_2400x1186.png" /></p>
+<p>And finally, let’s look at another “real-life” example:</p>
+<h2>Mission → Vision → Strategy → Goals → Roadmap → Task, as taught to us by <em>Oceans Eleven</em></h2>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ce345218-885e-4162-9e50-df262590e3cf_482x200.gif" /></p>
+<h3>Mission: Rob the Bellagio, Mirage, and MGM Grand casinos, and get back at rival Terry Benedict</h3>
+<p><img alt="Ocean's Eleven (2001) - Photo Gallery - IMDb" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dd74c55b-0018-418d-80f7-cc87571f2aa6_2000x1313.jpeg" /></p>
+<h3>Vision: Great wealth (and get back with Tess)</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/09fca5c0-225a-48a3-8af7-a86730126e9e_356x200.gif" /><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/984e66dc-e41d-4044-bef5-12031a46bc71_482x200.gif" /></p>
+<h3>Strategy: Get into casino cage → get through doors with code that changes every 12 hours → Get into an elevator that requires fingerprints and vocal verification → Get past two guards with Uzis → Get into the vault that all three casinos share → Steal money → Get away</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5ab8ccba-151e-40e4-bdf3-64c113d83155_482x200.gif" /></p>
+<h3>Goal: Walk out with $150,000,000</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3b1c8ff3-733c-4b2e-a8a1-de34de7dc3c8_480x199.gif" /></p>
+<h3>Roadmap: Build a team of ~~10~~11, do reconnaissance at the Bellagio, find all of the routes in and out, tap into the power system, hack the security systems, create a precise replica of the vault, get security codes, find transportation, practice maneuvering through security systems, execute the plan, escape</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/48200814-d7a0-4c9b-910d-1dec863e583e_500x208.gif" /></p>
+<h3>Task: Arrive at the casino</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a658534a-4190-42e2-a4ef-26bf5d1663dc_350x200.gif" /></p>
+<h3>It’s a wrap 💰</h3>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b40775ca-81c1-45b5-af3a-d1027afd7e7e_480x199.gif" /></p>
+<p>P.S. If you haven’t seen the movie, <a href="https://www.netflix.com/title/60021783">it’s on Netflix</a>.</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/getting-better-at-product-strategy">Getting better at product strategy</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/prioritizing">Prioritizing</a></li>
+<li><a href="https://www.lennysnewsletter.com/i/415982/how-to-set-goals">Setting goals</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37">My favorite product management templates</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from Mission → Vision → Strategy → Goals → Roadmap → Task" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fd2a86a0-dc08-4cf2-9095-e88dd7f2e5cf_1476x856.png" /></p>
+<p>If you’re looking for a new gig, join to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Apply Now</a></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://www.youcangetitdone.com/post/50-ways">50 ways to be ridiculously generous—and feel ridiculously good</a></li>
+<li><strong>Read:</strong> <a href="https://www.albertbridgecapital.com/post/stay-in-the-game">Stay in the Game</a></li>
+<li><strong>Read:</strong> <a href="https://earlygtm.substack.com/p/rules-for-saas-pricing">Rules for SaaS Pricing</a></li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

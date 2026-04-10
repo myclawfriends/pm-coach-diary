@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to find the perfect name — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to find the perfect name</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to find the perfect name</div>
+    
+    <div class="article-meta">2025-09-02<span>·</span>2,114 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">職涯</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to Lenny’s Newsletter. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Courses</a></em>**</p>
+<p><em>P.S. Annual subscribers get a </em><em>free year</em><em> of 15+ premium products: </em><em><a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, and ChatPRD</a></em><em> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>Vercel, Azure, Pentium, PowerBook, Sonos, Swiffer, BlackBerry, Impossible Foods—if you recognize these names, you know <a href="https://www.linkedin.com/in/david-placek-05a82/">David Placek</a>’s work. Over 40 years, David and his team at <a href="https://www.lexiconbranding.com/">Lexicon Branding</a> have named nearly 4,000 brands and companies, pioneering the field of brand naming. Building on <a href="https://www.youtube.com/watch?v=adyIaTopO6g">his popular recent podcast appearance</a>, David breaks down his tried-and-tested step-by-step naming process, including a four-part framework you can use with your team to find the perfect name for any product or company.</p>
+<p><em>You can also listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from How to find the perfect name" src="https://substack-post-media.s3.amazonaws.com/public/images/d4fd77f7-22bf-43b8-832b-384cbbdb6714_1456x970.png" /></p>
+<p>If you’re launching a new product or company, the name you choose may be the single most important decision you make. A great name creates a foundation of trust with consumers, gives meaning and voice to a new idea, and builds cumulative advantage over time. Names that are too descriptive and too comfortable won’t generate the interest or memorability that a new brand needs to succeed.</p>
+<p>In my more than 40 years leading Lexicon Branding, we’ve created names like Swiffer, Sonos, BlackBerry, Azure, Impossible Foods, Vercel, Windsurf, and many more. In that time, I’ve seen too many teams treat naming as a low priority with marginal results. It’s one of the highest-stakes parts of building a brand, yet it’s too often delegated to junior staff or tackled in group brainstorming sessions.</p>
+<p>The difference between a good-enough name and the right name is the difference between solid performance and breakthrough success. The right name is a competitive advantage that no one can take away from you.</p>
+<p>Nobody knew Codeium until it became <strong>Windsurf</strong>.</p>
+<p>People didn’t care about computer processors until Intel introduced <strong>Pentium</strong>.</p>
+<p>No one loved mopping until Procter &amp; Gamble created the <strong>Swiffer</strong>.</p>
+<p>Nobody wanted to eat a Maraxi. But an <strong>Impossible Burger</strong>? Even meat lovers flocked to it.</p>
+<h3><strong>Why names must work harder than ever</strong></h3>
+<p>AI and technologies like VR are reshaping how people discover, evaluate, and experience brands. We’ll see more innovation and new brands in the next five years than in the previous 20. This creates six key challenges:</p>
+<ol>
+<li><strong>Unprecedented competition:</strong> More players, more noise, more choice.</li>
+<li><strong>Trademark clutter:</strong> Congestion across all 45 trademark classes. In the U.S., there are over 5,500,000 registered trademarks.</li>
+<li><strong>Attention scarcity:</strong> Audiences are distracted and overwhelmed.</li>
+<li><strong>Global digital commerce:</strong> Names must work across languages, cultures, and platforms simultaneously.</li>
+<li><strong>Institutional skepticism:</strong> People have learned not to believe hype.</li>
+<li><strong>Information overload:</strong> A signal must be stronger to stand out.</li>
+</ol>
+<p>For startups, the challenge is even greater. Your name must attract both investors and early adopters.</p>
+<h3><strong>The three pillars of effective naming</strong></h3>
+<p>To address these challenges, focusing on three dimensions will increase your likelihood of creating a truly effective name. While we have been using these three pillars for many years at Lexicon, the first pillar, “Build for trust,” has increased in importance. The marketplace is moving so fast now that a new brand must gain momentum early or it will fail. Trust is a key factor in momentum.</p>
+<h4><strong>1. Build for trust.</strong></h4>
+<p>The right name inspires both trust and imagination. Consider Microsoft’s Azure cloud services brand. The team at Microsoft considered calling it “Microsoft Cloud Services,” but there’s no news in such a straightforward name. When we presented this name, one senior Microsoft executive called it “a dumb idea.” Turns out, it wasn’t so dumb after all. It offered familiarity as a word while generating significant interest based on customer interviews. The sounds in Azure provide additional benefits: the “z” sound creates a strong signal, while the “zure” (like “sure”) creates a smooth experience.</p>
+<h4><strong>2. Communicate an original idea. Never describe.</strong></h4>
+<p>Anyone can describe what a company does. For example, Infoseek is descriptive and one-dimensional. A name like that is boring and likely to have a thousand similar names swirling around in the competitive landscape. On the other hand, Google—an invented, surprising word—signals a new idea. In our research, we know we have a winner when customers tell us, “They’re not like the other guys.” TripActions is another example of a very descriptive name. As the company grew and developed an expense platform as well, TripActions no longer worked even descriptively. We created Navan, a palindrome that links to travel (“navigation”) but offers the originality that the company wanted to help them move into financial services—and the flexibility to grow into new industries. Since the rebrand in 2023, Navan revenues have grown from $150 million to over $500 million in 2025.</p>
+<h4><strong>3. Be accessible.</strong></h4>
+<p>The human brain doesn’t like complexity—or remember it very well. Make sure your name is easy to process and contains familiar components. We used the simple and familiar geographic term “Outback” to create Subaru’s most successful brand to date.</p>
+<h3><strong>Case study: Intel’s Pentium</strong></h3>
+<p>The story of Intel’s Pentium is a perfect example of how to structure a naming process to get an effective result.</p>
+<p>Intel needed to differentiate its next-generation processor. Up to that point, chip manufacturers only used model numbers. While Intel’s 486 processor outperformed AMD’s 486, consumers perceived the two as identical. Can you blame them?</p>
+<p>Our first criterion was to develop a name that would differentiate Intel’s processor from all others. Based on interviews with Intel executives, we agreed that the new name needed to capitalize on the success of the “Intel Inside” campaign. “Prochip” was an internal favorite at the time. But our research gave us clear creative direction: <strong>develop a name that sounds and looks like an element inside the computer that is fundamental to performance.</strong> “Pentium” looked and sounded like familiar, science-based words such as “sodium” and “uranium,” using the “-ium” suffix for fluency. But while it was a familiar-seeming word, it was unexpected for the category—a strategic advantage that made it stick out and stick in people’s memory.</p>
+<p>Here’s a key insight: Invented names like Pentium actually take less money to build into brands than existing words—despite a common myth to the contrary. Invented names signal “new and innovative” better than most other name types. Further, because they are unexpected rather than descriptive or suggestive names, they generate more attention. Humans are more interested in the new.</p>
+<p>Research conducted by Lexicon in six markets provided data showing that “Pentium” delivered the magic Intel needed. Within months, consumers were asking for Pentium computers—to the chagrin of Dell, HP, and others.</p>
+<h3><strong>The Lexicon process: beyond brainstorming</strong></h3>
+<p>Creating the right name requires more than one or two brainstorming sessions. Those brainstorming sessions—especially with four or more participants—can get bogged down by everyone’s need to be right, and the peer pressure to agree on a popular solution. As a result, they usually deliver marginal results. When we work with clients, we stick to key process principles:</p>
+<p><strong>Set high standards, not narrow objectives.</strong> Aim for fresh, energetic ideas, not just basic objectives like “support the product’s positioning” or “keep it under seven letters.”</p>
+<p>We use a framework called the Diamond Framework to force clarity on business, marketing, and naming strategy. At the start of any project, we ask:</p>
+<ul>
+<li>What does winning look like?</li>
+<li>What do we have to win?</li>
+<li>What do we need to win?</li>
+<li>What do we need to say?</li>
+</ul>
+<p><img alt="Image from How to find the perfect name" src="https://substack-post-media.s3.amazonaws.com/public/images/c6ada04e-250c-47d8-8987-b2e0ef7612d7_1456x1070.png" /></p>
+<p>This creates alignment on the role of the name versus other brand elements like design and messaging. Here are the results of the exercise we did while working with P&amp;G to develop the Swiffer brand name.</p>
+<p><img alt="Image from How to find the perfect name" src="https://substack-post-media.s3.amazonaws.com/public/images/d1603058-087c-41b2-9e6f-f6c6a908adaf_1456x1070.png" /></p>
+<p><strong>Quantity breeds quality.</strong> Developing a brand name is a treasure hunt. You need to explore, and then explore again. And you need to explore in places where you think there may be no chance of finding the name. Naming is hard work. We recommend generating at least 1,000 creative ideas before selecting a shortlist of 50 to 100 candidates. (We usually generate thousands.)</p>
+<p><strong>Don’t underestimate the power of sound.</strong> Imagine the sound of your brand before you start naming. Should your name sound fast? Full? Reliable? Coca-Cola’s Dasani water brand exemplifies this. An invented name with the Latin word for health (“san”) in the middle, a “da” sound that delivers a crisp, clean experience, and an “i” sound that feels light and slim at the end.</p>
+<h3><strong>Case study: Swiffer and the invention of a new category</strong></h3>
+<p>P&amp;G had invented what they called a new mop, but it wasn’t really a mop. We started by interviewing 25 people about cleaning routines. Some enjoyed washing windows, others polishing furniture. No one liked mopping. One participant said, “It’s just moving dirt and grease from one place to another.” Another said, “Mopping is just not fun.”</p>
+<p>We reframed the problem around fun, eliminating names like “Promop” or “EffiClean.” One small team explored toys, other exotic vacations, and other easy-to-use tools. Our linguists focused on the actions and sounds of cleaning—sweeping, wiping, washing. When we merged the work, “Swiffer” sat in the middle.</p>
+<p>The best names don’t describe reality; they change it. Swiffer made mopping feel like a quick, joyful action. In research with our linguistic network and consumers, Swiffer was selected over 80% of the time as the new brand they would be most interested to try.</p>
+<h3><strong>Case study: The story of Vercel</strong></h3>
+<p>When we started working with a company called Zeit, the team and technology were impressive. Using our Diamond Framework, we defined winning as being the most innovative and “fastest-moving company in the category.” Based on that, we agreed that a coined, inventive name was the right direction. We built matrices of naming components, including prefixes and suffixes that communicated accuracy, speed, and flow; word parts that spoke to the company’s talent and recruiting; and a set of Greek, Latin, and Sanskrit words that meant reliability and power. And using our proprietary sound-symbolism software, we identified fast-sounding letters.</p>
+<p>Drawing from these components, we combined 55 prefixes and 102 suffixes and got about 60 interesting ideas—not solutions; not yet. We repeated the steps three times over two weeks. “Vercel” rose to the top with a sound that is alive and daring, six letters, familiar parts assembled in a unique way.</p>
+<h3><strong>What not to do</strong></h3>
+<p>Here are a few things that we have learned not to do over four decades of naming:</p>
+<ul>
+<li><strong>Don’t think you’ll “know it when you see it.”</strong> You won’t.</li>
+<li><strong>Don’t listen to anyone who dismisses bold ideas as “off-brand.”</strong> Bold often becomes the brand.</li>
+<li><strong>Don’t rely on large brainstorming sessions</strong> (they rarely work) or distant freelancers. Use small teams with real esprit de corps and grit.</li>
+<li><strong>Don’t play it safe.</strong> Most approaches favor comfort over competitive edge, producing forgettable names that disappear. There is no power in comfort.</li>
+</ul>
+<h3><strong>The bottom line</strong></h3>
+<p>The right name doesn’t just happen. It comes from a disciplined, creative process that pushes beyond comfort and challenges assumptions. It requires understanding your competitive landscape, your audience’s psychology, and the power of sound and meaning working together.</p>
+<p>Do that work, and your name won’t just label what you built—it will change how people experience it. In today’s noisy, AI-driven landscape, that difference will make or break your success.</p>
+<p><em>Thanks, David!</em></p>
+<p><em>For more, check out <a href="https://www.lexiconbranding.com/">Lexicon Branding</a>. And Lexicon is hiring! Reach out to <a href="mailto:careers@lexiconbranding.com">careers@lexiconbranding.com</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

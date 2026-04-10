@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autonomy vs. direction - Issue 35 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Autonomy vs. direction - Issue 35</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Autonomy vs. direction - Issue 35</div>
+    
+    <div class="article-meta">2020-07-21<span>·</span>2,120 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2B</span> <span class="mini-tag">工程</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>If you find this newsletter valuable, consider sharing it with friends, or subscribe if you haven’t already 👇</p>
+<h2><strong>Q: I’m finding that one of the most challenging things about being a manager is finding the balance between getting input from my team while also making sure the right course of action is taken. I feel like sometimes I am too soft or hesitant in “overruling” my team, and later regret that when it plays out the way I expected. Do you have any advice on this?</strong></h2>
+<p>My first management role was at a company called Webmetrics. I joined the company right out of college, first as an intern, then as a full-time software engineer, and eventually as the head of engineering, managing a team of ten.</p>
+<p>It was nice to be in charge — I felt good about my career trajectory and my mom was super proud. But it was tough. My weeks were filled with meetings, drama, and constant fires. The fulfillment I felt from coding was gone.</p>
+<p>When the company was acquired years later, I took that opportunity to give up the seemingly great gig (it included a huge office, can you believe it?) and went back to an IC role. I never thought I’d manage again.</p>
+<p>A handful of my friends have had a similar journey. They get into management, they realize they hate it and end up going back to IC work.</p>
+<p>Everyone wants to be a manager until they become one 🥴</p>
+<p>Why is that? Well, people often want to become managers because they believe they’ll finally get to do what they want. Finally, the power! Now, I’ll show them how smart I am! No more spending time convincing everyone of my ideas!</p>
+<p>True, there is more power. True, you have more say over what happens. But, what people don’t realize until they get into a management role is that you actually spend <em>more</em> time convincing people of your ideas. Not only do you still have to get your own manager onboard (and sometimes their managers), now you have to get <em>your report(s)</em> onboard as well. Much of your time is now spent keeping your team happy and motivated, making sure that they always feel bought-in, involved, and that they feel that have agency over their work.</p>
+<p>This brings us back to this week’s question: How does one strike the balance between letting your team do what they feel is right (and thus feeling good) vs. doing what you believe is right (and thus, in your eyes, increasing the odds of success)?</p>
+<p>Here are five strategies that have helped me through this classic management challenge:</p>
+<ol>
+<li>Align on the facts 🔬</li>
+<li>Know the difference between consulting, collaboration, and consensus ☝️</li>
+<li>It’s OKAY to overrule your team — disagree and commit 🤝</li>
+<li>Use the 90/10 rule 👌</li>
+<li>Always have a point-of-view 🤔</li>
+</ol>
+<p>Let’s dive in.</p>
+<h3>1. Align on the facts 🔬</h3>
+<p>Most disagreements are the result of having different information.</p>
+<p>I was once overseeing a team optimizing the Airbnb host referral program, and I was pushing them to keep increasing the bonus amounts. In the past, each time we increased the bonus amount growth went up. So my default assumption was to keep increasing this until it stopped paying off. The team was not onboard however, and so they didn’t prioritize it. I was getting frustrated.</p>
+<p>The PM on the team smartly recognized this, and more importantly recognized I didn’t have all of the information. She put together a simple memo with her team’s thought process, including a key chart that modeled the diminishing ROI on spending more in this area. With this new information, it was clear to me her team was right and I was wrong.</p>
+<p>When you find your team heading in the wrong direction, come back to the facts. Assume you’re wrong. What do you see that your team doesn’t see? More importantly, what does <em>your team</em> see that you don’t? You may find they know more than you give them credit for.</p>
+<p><em>Takeaway: Make sure you are working from the same set of facts (e.g. data, user research, past experience)</em></p>
+<h3><strong>2. Know the difference between</strong> <em>consulting, collaboration,</em> and <strong><em>consensus</em></strong> ☝️</h3>
+<ul>
+<li><strong>Consulting</strong>: everyone sharing their perspectives</li>
+<li><strong>Collaboration</strong>: everyone working together</li>
+<li><strong>Consensus</strong>: everyone agreeing</li>
+</ul>
+<p>When building a product, encouraging collaboration is vital, and consulting others is important (up to a point). But relying on consensus is an anti-pattern.</p>
+<p>I’ve rarely seen a great product come out of consensus-driven teams, while some of the best products come out of the <em>least</em> consensus-driven cultures (e.g. Apple, Tesla, Amazon). Operating by consensus slows everything down, it wastes everyone’s time, and rarely leads to the best outcome. It CAN work, but it’s rarely optimal.</p>
+<p>How do you find the right balance between the best ideas winning, getting things done, and teams feeling good? It’s all about setting expectations. Look at the diagram below (which is based on a chapter from <a href="https://www.amazon.com/Crucial-Conversations-Talking-Stakes-Second/dp/1469266822">Crucial Conversations</a>, illustrated by <a href="https://medium.com/@yingyingzux/how-do-you-make-a-decision-with-a-group-1c318d58aa57">Yingying Zhang</a>): Which of these decision-making frameworks does your team think they are using? Is that the <em>best</em> decision-making framework for your team?</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!H6u6!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F590d1f49-4b0b-471b-ba85-99e597104349_1668x2096.jpeg"><img alt="Image for post" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/590d1f49-4b0b-471b-ba85-99e597104349_1668x2096.jpeg" title="Image for post" /></a></p>
+<p>To help you through the process of finding the right balance, keep reading. Also, check out articles by <a href="https://svpg.com/consensus-vs-collaboration/">Marty Cagan</a> and <a href="https://www.mindtheproduct.com/how-to-make-product-decisions-with-transparency-and-trust/">Ellen Gottesdiener</a> for more great insights.</p>
+<p>Also, check out some of these popular decision-making frameworks:</p>
+<ol>
+<li><a href="https://coda.io/@gokulrajaram/gokuls-spade-toolkit">SPADE</a> by Gokul Rajaram</li>
+<li><a href="https://medium.com/@barmstrong/how-we-make-decisions-at-coinbase-cd6c630322e9">How we make decisions at Coinbase</a> by Brian Armstrong</li>
+<li><a href="https://firstround.com/review/this-matrix-helps-growing-teams-make-great-decisions/">Xanax for Decision-Making</a> by Gil Shklarski</li>
+<li><a href="https://blackboxofpm.com/making-good-decisions-as-a-product-manager-c66ddacc9e2b">Making Good Decisions as a Product Manager</a> by Brandon Chu</li>
+<li><a href="https://www.youtube.com/watch?v=6fQHLK1aIBs">How to Operate</a> by Keith Rabois</li>
+</ol>
+<p><em>Takeaway: Encourage collaboration and consulting with your teammates, but be wary of consensus-based decision making</em></p>
+<h3>3. It’s OKAY to overrule your team — disagree and commit 🤝</h3>
+<p>There’s a reason that there’s a <em>boss</em> on a team: to make decisions. It’s your responsibility (and, by definition, your job) to help the team achieve the best possible outcomes. Making the right decisions is a big part of the job. Don’t be afraid to use this power when you feel strongly about a direction. You can obviously go too far down this spectrum, but judging by the tone of your question you’re likely near the <em>opposite</em> end of the spectrum. So give yourself some freedom to press your views and see how it goes.</p>
+<p>If you’re uncomfortable, you could say something like “Normally, I want you all to feel great about the direction, but I feel strongly about this path, so can we just try it and see how it goes? If I’m wrong, I’m wrong, and I’ll take full responsibility.”</p>
+<p>In my experience, as long as team members have a chance to share their perspective, genuinely feel heard, and agree with your decisions most of time, they’ll often prefer someone just making a call and moving on, versus spending time getting every single team member onboard. Do not assume that team members will be upset if their suggestion is not followed.</p>
+<p>Coming back to the point about setting the right expectations, Amazon’s “disagree and commit” framework is a great model for this:</p>
+<blockquote>
+<p><em>“I disagree and commit all the time. We recently greenlit a particular Amazon Studios original. I told the team my view: debatable whether it would be interesting enough, complicated to produce, the business terms aren’t that good, and we have lots of other opportunities. They had a completely different opinion and wanted to go ahead. I wrote back right away with “I disagree and commit and hope it becomes the most watched thing we’ve ever made.” </em><em>Consider how much slower this decision cycle would have been if the team had actually had to convince me rather than simply get my commitment.”</em>**</p>
+<p>— Jeff Bezos</p>
+</blockquote>
+<p>Read more about disagree and commit <a href="https://tomtunguz.com/disagree-and-commit/">here</a> and <a href="https://hackernoon.com/disagree-and-commit-the-importance-of-disagreement-in-decision-making-b31d1b5f1bdc">here</a>.</p>
+<p><em>Takeaway: Hear your team out, take their perspectives into account, but make your decision. Then share your thinking behind the decisions. You’ll be surprised by how OK your team ends up being with this, and they’ll often be excited just to move forward.</em></p>
+<h3>4. Use the 90/10 rule 👌</h3>
+<p>It’s okay to go against your best judgment occasionally. A rule of thumb that I use is that 90% of the time, I should feel great about the path my team is taking. Occasionally though, it’s OK to give the team a chance to prove me wrong. Especially if it’s a t<a href="https://www.inc.com/jeff-haden/amazon-founder-jeff-bezos-this-is-how-successful-people-make-such-smart-decisions.html">wo-way-door decision</a> and not a large investment.</p>
+<p>I often use this as a “pressure release valve” — taking on something I’m not confident in, but that my team member(s) are super passionate about, as a way to avoid creating a morale issue. Best case, I’m proven wrong and the team benefits. Worst case, we waste a bit of time while the team feels heard. Used sparingly, this is a powerful tool in a manager’s tool-belt.</p>
+<p><em>Takeaway: It’s OK to occasionally prioritize an investment you disagree with for the sake of morale</em></p>
+<h3><strong>5. Always have a point-of-view</strong> 🤔</h3>
+<p>And finally, I can tell from your question that you know what the right course of action is, but you are unsure how to make it happen while keeping your team bought-in. The good news is that you have one-half of the challenge solved — having a point-of-view. That may feel like not a thing, but you’d be surprised how many leaders don’t actually know what they believe.</p>
+<p>Having your own POV is important because your focus shifts from “what should we do?” to “how do I make it happen?” Now it’s simply it’s a matter of doing what you know is right while keeping your team morale high.</p>
+<p>A thought exercise I recommend is to always ask yourself: <em>If I take people’s feelings out of the equation, what would I do?</em> This simple question often ends up revealing the right answer. With that, it then becomes a question of how to make people feel OK about this decision (e.g. personally walking people through your thinking, giving them a different project to work on, moving people to new teams, etc.).</p>
+<p>Having a POV is also important because it gives both you and your team a clear point of reference from which to work. “You believe X? Let’s see if we can confirm or deny this direction.” Without a POV, you won’t often know what questions to ask, know when to challenge your team, or know how far you are from being fully aligned.</p>
+<p><em>Takeaway: Always have a point-of-view. Plan to change your POV, and but always have a perspective.</em></p>
+<p>That’s it for this week!</p>
+<p>I hope this proves useful to you in your journey as a manager 🙏</p>
+<h2><strong>🔥 Job opportunities</strong></h2>
+<ul>
+<li>Growth: <a href="https://jobs.lever.co/airhouse/2fa1feb6-f994-4de2-8611-3ecf0abde767">Airhouse</a>, <a href="https://boards.greenhouse.io/cerebral/jobs/4076601003">Cerebral</a></li>
+<li>Design: <a href="https://www.cascade.io/jobs/analytical-product-designer">Cascade</a>, <a href="https://jobs.lever.co/pachama/f4f49853-9d59-4dcc-9d0b-143ca63a53d2">Pachama</a>, <a href="https://www.notion.so/Lead-Designer-first-design-hire-da77a3e4cfe94dfa80b4a4d4e01af034">Pairplay</a>, <a href="https://www.notion.so/Founding-Designer-San-Francisco-d1296f25efcc43a7833fd28ea3952b39">Primer</a>, <a href="https://sourcetable.com/jobs#contract-designer">Sourcetable</a></li>
+<li>Frontend engineer: <a href="https://www.cascade.io/jobs/front-end-product-engineer">Cascade</a>, <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Founding-Frontend-Engineer-San-Francisco-783c2072b9c047a88cb884babb47ef04">Primer</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li>Backend engineer: <a href="https://sourcetable.com/jobs#backend-god">Sourcetable</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li>Fullstack engineer: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a>, <a href="https://projectwren.com/careers/software-engineer">Wren</a></li>
+<li>iOS engineer: <a href="https://docs.google.com/document/d/1ZpH5WMQqg337hxpHMZGMPjmmzSfVRJdK76Lof8mw_V0/edit#">Ideaflow</a>, <a href="https://www.notion.so/Lead-iOS-Developer-ba18577b6ba44ad68e45b8e7a957353c">Pairplay</a></li>
+<li>Engineering exec: <a href="https://boards.greenhouse.io/cerebral/jobs/4076598003">Cerebral</a>, <a href="https://jobs.lever.co/snackpass/74686298-a043-4976-8f77-f4ef643f4200">Snackpass</a></li>
+<li>Sales/BD: <a href="https://boards.greenhouse.io/cerebral/jobs/4105169003">Cerebral</a>, <a href="https://angel.co/company/kudo-meeting/jobs/649855-vice-president-of-sales">KUDO</a>, <a href="https://jobs.lever.co/pachama/996cdde4-737b-4794-ad0f-d726448c3dfb">Pachama</a>, <a href="https://angel.co/company/swayable/jobs/808347-director-of-sales">Swayable</a></li>
+<li>Security: <a href="https://angel.co/company/kudo-meeting/jobs/592999-cybersecurity-compliance-program-manager">KUDO</a></li>
+</ul>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read</strong>: <a href="https://medium.com/craft-ventures/the-cadence-how-to-operate-a-saas-startup-436aa8099e8">The Cadence: How to Operate a SaaS Startup</a> by David Sacks</li>
+<li><strong>Scream</strong>: <a href="https://www.npr.org/sections/coronavirus-live-updates/2020/07/17/892195741/app-lets-you-destress-by-screaming-into-icelandic-wilderness">App Lets You Destress By Screaming Into Icelandic Wilderness</a></li>
+<li><strong>Watch</strong>: People's beautiful first expressions of hearing sounds for the first time</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

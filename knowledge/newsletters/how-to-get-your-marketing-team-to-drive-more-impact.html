@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get your marketing team to drive more impact — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get your marketing team to drive more impac…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get your marketing team to drive more impact</div>
+    
+    <div class="article-meta">2022-09-27<span>·</span>3,121 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">組織</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out about work.</em></p>
+<p><em>If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-get-better-at-influence">How to get better at influence</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/when-to-sunset-a-feature">When to sunset a feature</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/open-thread-whats-your-teams-communication/comments">Open thread: What’s your team’s communication rhythm?</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post from the past.</em></p>
+<p>Working with marketing can be a struggle. Especially as a PM. So many big ideas, so many resources and distractions, but often so little to show for it. I’ve worked with many great marketers and a few not-so-great, and I can tell you that it doesn’t have to be this way.</p>
+<p>While building and leading marketing teams at <a href="https://asana.com/">Asana</a>, <a href="https://carta.com/">Carta</a>, <a href="https://www.eventbrite.com/blog/ticketfly-moving-eventbrite/">Ticketfly</a>, and <a href="https://slack.com/blog/news/slack-acquires-astro-to-help-email-and-channels-work-together">Astro</a> (acquired by Slack), <a href="https://www.linkedin.com/in/emilykramer/">Emily Kramer</a> created and refined a framework called GACCS to help product, marketing, and sales teams collaborate. When I saw <a href="https://www.linkedin.com/in/katherinesmitchell/">Katie Mitchell</a> (marketing leader at <a href="https://sprig.com/">Sprig</a>) post this message on LinkedIn, I knew I needed to get Emily here to help spread the gospel.</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dd02b8ab-6177-435d-a054-ab07297fe999_1070x1040.png" /></p>
+<p>I’m excited to share this framework, and all of the insights Emily has about building an effective marketing organization, to save everyone countless hours of running in circles. Enjoy!</p>
+<p><em>You can follow Emily on <a href="https://twitter.com/EmilyKramer">Twitter</a> and <a href="https://www.linkedin.com/in/emilykramer/">LinkedIn</a>, and definitely <a href="https://mkt1.substack.com/">subscribe to her newsletter</a> (my #1 favorite marketing newsletter). Also, <a href="https://www.lennyspodcast.com/how-to-build-a-powerful-marketing-machine-emily-kramer-asana-carta-mkt1/">don’t miss my recent podcast episode with Emily</a>.</em></p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3a2130ff-d956-495f-a21d-09089544a20e_4096x1368.png" /></p>
+<p>My biggest secret to running an effective marketing team isn’t my depth of marketing expertise and skills. <a href="https://docs.google.com/document/d/1n8juNQVrs0tfM5dTpmsfp6SoQ2KCmf8xHnarTBDkJ_4/edit#">It’s this simple 5-part marketing brief</a>. The GACCS framework (Goals, Audience, Creative, Channels, Stakeholders) keeps teams from doing busywork, drives cross-team alignment, and helps marketers produce more work that your prospects and customers—and coworkers—love. In short, it helps stop marketing work from being a waste of time. I created and evolved this framework while leading marketing at Asana and Carta, and I constantly use it with startups I invest in and advise.</p>
+<h3>Marketing spends too much time on busywork—and other teams notice</h3>
+<p>It pains me to say this as a marketer, but much of the work marketers produce is a waste of time. Too often marketers spend time on work that doesn’t have an impact and doesn’t align with overall company goals. Typically this doesn’t result from bad intentions or lazy marketers, but from a lack of alignment and not looping in other teams <em>before the work gets started</em>.</p>
+<p><strong>To break this down more, here’s why marketing work often misses the mark:</strong></p>
+<ol>
+<li><strong>No goal:</strong> There wasn’t a good reason for the marketing work to be created in the first place. Work was created without a good “why” behind it and to check a box that didn’t need checking.</li>
+<li><strong>No prioritization:</strong> Everyone <em>thinks</em> they’re a marketer, somarketing gets lots of ideas and asks from across the organization. It can get overwhelming if there isn’t a clear set of goals that you use to prioritize.</li>
+<li><strong>Created for no one:</strong> The work was created without a specific enough audience in mind, so it doesn’t add value for anyone.</li>
+<li><strong>The work doesn’t stand out:</strong> The same thing already exists in the world and is better. The work adds no new value.</li>
+<li><strong>No distribution:</strong> The project was a great idea and even well-executed, but it never reaches the right audience.</li>
+<li><strong>Experts were excluded:</strong> The work took a long time to create, but it could have gone a lot faster and been higher-quality if the right people were looped in at the right time.</li>
+</ol>
+<p>You can eliminate many of these issues by getting on the same page before you dive into the work.</p>
+<h2>The best framework for driving marketing alignment and impact: GACCS</h2>
+<p><strong>If OKRs help you define your goals, GACCS helps you hit your goals.</strong> GACCS is a simple yet flexible framework for writing a marketing brief. It’s a common language to get buy-in and alignment on marketing work. You can also think of GACCS as the one-pager for marketing. Don’t start a project without it.</p>
+<h2>How to write a GACCS</h2>
+<p>When you are brainstorming a campaign, writing a blog post, planning an event, or creating anything longer than a tweet, you probably need a GACCS. Before you start the marketing project, write out a GACCS to give your work focus, set context for reviewers, and ensure that you have a plan for driving results.<a href="https://docs.google.com/document/d/1n8juNQVrs0tfM5dTpmsfp6SoQ2KCmf8xHnarTBDkJ_4/edit?usp=sharing">Use this template</a>—it has examples, too.</p>
+<p>You might think you are too busy to do the pre-work of writing a GACCS, and at first it does take a bit of time to get into the habit. But pretty soon, it becomes the most valuable 10+ minutes you spend on a project or task—it can save you hours of time on back-and-forth later.</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6409bef2-c40e-433c-a7b4-2d7aa1bead87_1447x1323.png" /></p>
+<h3>Goals: Why should I do this <em>now</em>?</h3>
+<p>Marketing is a game of prioritization. To determine what to create next, you need to consider the potential impact. The best way to do that is to make sure the work ladders up to a higher-level goal or OKR and to have a clear sense of what you are trying to achieve. It’s also helpful to think through and share <em>non</em>-goals. This helps prevent scope creep, especially when work is reviewed by others.</p>
+<p>Bonus: Including goals on all projects helps you connect the dots between day-to-day work and the annual and quarterly goals you likely spent so much time setting.</p>
+<p><strong>Examples:</strong> Support OKR: Increase free-to-paid conversion from x% to y%; Demo product to 100 leads at event and drive 20% to schedule a meeting; Support our overall story that we have the best benchmarks for people teams</p>
+<h3>Audience: Who is it for?</h3>
+<p>Pretty much the number one rule of marketing: Know your audience. If you make something for “everyone,” you are really making it for no one. Including the audience in the GACCS should force you to get specific—and if you just put “users,” you are about four levels too high. This is a great chance to reference those ideal customer personas you made and maybe forgot about, like “Sales Sam” and “Security Shaq.”</p>
+<p><strong>Examples:</strong> Heads of people teams at 50+-person venture-backed startups; attendees of “Shop ’Til You Drop” conference; active free-product users</p>
+<h3>Creative: How will it stand out?</h3>
+<p>There are two main components to this part of the GACCS: the unique point of view, message, or “so what”; and creative requirements for contributors and stakeholders. Both pieces are important to creating something impactful—much like a product needs to be differentiated, so does your <em>marketing</em> product.</p>
+<p>My rule of thumb: Marketing should always add value for your audience. If you don’t have anything unique to say or can’t make a piece of content that is better than what already exists on the topic, don’t make it.</p>
+<p><strong>Examples:</strong> Loom video that shows how our feature is 10x faster than the alternative; reuse Pop-A-Shot branded game, and add a discount as a prize; showcase the level of specificity in our benchmarks with a designed report</p>
+<h3>Channels: How will you distribute this?</h3>
+<p>Distribution is just as important as, if not more important than, what you are creating. If no one is going to see it, all the time you’ve spent making it is useless. Plus, where work will be distributed impacts what you make—you need to get channel/message fit.</p>
+<p>For more time-consuming work, just having a distribution plan isn’t enough. You need to make sure you can get “mileage” out of your ideas and work. <a href="https://mkt1.substack.com/p/high-impact-content">Mileage</a> is my term for taking one content idea or marketing asset and expanding upon it, repurposing it to various formats, and/or using the same research to create a new piece of content.</p>
+<p>In short, if you have no distribution plan, maybe wait on creating it.</p>
+<p><strong>Examples:</strong> Webinar a week after launch of blog post with guest Lenny Rachitsky; email sequence to our existing list of general managers; rank for SEO keywords “work better with marketing”</p>
+<h3>Stakeholders: Who needs to be involved?</h3>
+<p>The time spent building great relationships with other teams is useless if they feel left out of the loop and alienated from your work—a GACCS is an easy way to loop them in.</p>
+<p>Include the directly responsible individual, aka the DRI (hint: if you’re the DRI, you should be the one writing the GACCS), and also who needs to review or contribute to the work. This makes it easy to remember who needs to be involved at each step of the way and also lets people know who <em>isn’t</em> involved.</p>
+<p>It’s a waste of time to get feedback from reviewers if it’s too late in the process or they don’t have the necessary context. So share the GACCS with key stakeholders before you do the work so they can provide feedback before you’ve gone too far in the wrong direction.</p>
+<p><strong>Example:</strong> DRI: Emily; reviewers: Lenny, Kathleen; contributors: Nico (design), Keenan (web)</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b9275a88-a8ef-4405-94a3-3eb5019098d3_1600x1109.png" /></p>
+<h3>To write a GACCS, go back to basics first</h3>
+<p>If you are struggling to write a GACCS, it might mean you don’t have alignment on your marketing foundation. Your marketing foundation includes having a shared understanding of OKRs or goals, ideal customer personas (ICPs), your addressable market, your overall story, and your primary growth levers. If you don’t have these things, go back and make them. Drive alignment here and you’ll move faster on everything—GACCS writing included.</p>
+<p>Marketing foundation work that’s helpful for driving alignment and moving a whole lot faster:</p>
+<ol>
+<li><strong>Goals:</strong> <a href="https://mkt1.substack.com/p/goals">Set OKRs</a>, define KPIs, and map your funnel to be able to set goals faster.</li>
+<li><strong>Audience:</strong> Do <a href="https://mkt1.substack.com/p/weve-been-defining-product-marketing">audience analysis</a> through customer and prospect interviews, define your ideal customer personas, and do competitive analysis to make it easier to know who to target.</li>
+<li><strong>Creative:</strong> <a href="https://mkt1.substack.com/p/perceptions-our-favorite-marketing">Write your brand story</a>, define your brand attributes or values, and <a href="https://mkt1.substack.com/p/high-impact-content">define content pillars</a> so you know the story you are trying to tell and what you want to be known for as a company.</li>
+<li><strong>Channels:</strong> Make a checklist of all your <a href="https://mkt1.substack.com/p/content-roadmap">distribution channels</a> so you have a clear inventory to reference and don’t have to start from scratch every time.</li>
+<li><strong>Stakeholders</strong>: Make an <a href="https://docs.google.com/spreadsheets/d/1TYB3N8Q8IzMfi7lJc04VLX2i6KIQ1flxPv6fUzhXMbY/edit#gid=0">areas of responsibility list</a> (AORs) for marketing and marketing collaborators (see the bottom of this newsletter).</li>
+</ol>
+<h2>When to write and share the GACCS</h2>
+<p>GACCS is super-flexible and scalable for any size of team, and it’s helpful for almost any type of marketing work—from a one-off deliverable to a complex campaign. If founders or product, sales, and CS teams want to have a better and more productive working relationship with marketing, suggest that your marketing team share a GACCS with you before they do the work. If you’re a marketer or growth person (or anyone working on user-facing content), use the GACCS on all of your projects to create more impactful work that everyone in the company is proud of.</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/336d5cea-aa07-4e07-9c98-b67830c2755a_1109x417.png" /></p>
+<h3>Tactically, here’s how to use the GACCS:</h3>
+<ul>
+<li><strong>Add the GACCS into your working doc and/or task:</strong> Put it at the top of every working doc, whether that’s in Notion, Google Docs, Asana, or anywhere you’re working or your team members will be reviewing work. It could even be pinned to the top of a Slack channel.</li>
+<li>
+<p><strong>Share it early:</strong> Share the GACCS with relevant stakeholders before you start doing any work. Get alignment and have stakeholders poke holes in your plans. If you share it too late, you often end up too deep on the wrong work.</p>
+</li>
+<li>
+<p><strong>Share it with contractors too:</strong> One of the easiest ways to get on the same page with contractors and agencies is to agree on the GACCS before anything else happens.</p>
+</li>
+<li>
+<p><strong>Ask stakeholders (nicely) to get out of your way:</strong> After you have buy-in on the GACCS, you should be left to do the work. Some stakeholders may need to be looped in at the end to review, but most should feel confident that you are creating the right thing. This might require some cultural change, so make it clear that this is your intention by sharing the GACCS early.</p>
+</li>
+<li>
+<p><strong>Use it to give feedback:</strong> Feedback becomes less subjective when you are responding to the GACCS. “Given my recent customer interviews, I don’t think this will resonate with the stated audience” is better feedback for “This content is bad.”</p>
+</li>
+</ul>
+<h2>Why use GACCS?</h2>
+<p>When marketing work is not moving the needle, complicated systems and processes are often put in place to try to solve the problem—these never work:</p>
+<ul>
+<li>Someone adds another status meeting across teams to try to get aligned more regularly.</li>
+<li>Biz ops or a chief of staff puts in place an (arduous) process for creating and sharing OKRs across the company—now there are 17 layers of OKRs that are supposed to ladder up to each other that no one looks at.</li>
+<li>Other teams stop relying on marketing and work in silos, so the entire customer experience suffers.</li>
+</ul>
+<p><strong>Instead, when doing anything in marketing, know why you are doing it, who it’s for, how it will add value, and where you will distribute it. Get buy-in here and you’ll move faster on making high-impact work. The GACCS is the marketing brief that makes this process simple.</strong></p>
+<p><a href="https://docs.google.com/document/d/1n8juNQVrs0tfM5dTpmsfp6SoQ2KCmf8xHnarTBDkJ_4/edit#heading=h.8o7wyg5ixh8w">Start using GACCS</a> on your next project, and you won’t look back.</p>
+<h2>Bonus template: Areas of Responsibility (AORs)</h2>
+<p>To help the marketing organization work effectively with other teams, I also recommend the AORs framework. When working across teams, too much time is wasted figuring out who you should collaborate with. Marketing has many different subfunctions, so it’s especially hard for other teams to understand the various roles.</p>
+<p>The best solution I’ve found is a shared list of responsibilities across the company, but at the very least across product and customer-facing teams. I learned this system at Asana: areas of responsibility, or AORs. <strong>With AORs, there is extreme clarity on who owns what.</strong> I know exactly who to Slack when I need to collaborate, who to invite to the kickoff, and who to ask for help. This also makes filling out the S part of the GACCS much easier.</p>
+<p>Here’s <a href="https://docs.google.com/spreadsheets/d/1TYB3N8Q8IzMfi7lJc04VLX2i6KIQ1flxPv6fUzhXMbY/edit#gid=0">a spreadsheet template</a> for making an AORs list with many early- and growth-stage marketing responsibilities listed out, although it works great in an Asana project or Notion doc as well.</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/239ecbc4-6317-46f8-bf79-2a7590c3bec2_1600x1047.png" /></p>
+<p><strong>Here’s how it works:</strong></p>
+<ul>
+<li>Create a shared list of responsibilities for each employee, grouped by team or sub-team.</li>
+<li>The main purpose of this list is for other people in the company to be able to look up exactly who owns what, such as product onboarding copy, transactional emails, or web analytics.</li>
+<li>AORs aren’t job titles; those tend to not be specific enough for internal use (I mean—they aren’t really useful just in general . . . but that’s another post).</li>
+<li>Instead, include ownership areas where the employee is the directly responsible individual (DRI).</li>
+<li>If multiple people own the area on the list, you need to get more granular. You have the right level of detail when only one person owns each area.</li>
+<li>Each individual is responsible for keeping their responsibilities updated.</li>
+<li>Every time there’s a role or responsibility change or a new hire, this needs to be updated.</li>
+<li>If two teams are involved on something, such as the onboarding experience, include the owner from each team, like this: “Onboarding—marketing collaborator: Emily” and “Onboarding—product DRI: Lenny.”</li>
+</ul>
+<p>—</p>
+<p>For more on building effective B2B marketing functions, check out the <a href="https://mkt1.substack.com">MKT1 Newsletter</a> or register for an upcoming <a href="https://maven.com/mkt1/building-marketing">MKT1 101 course</a>. We also run a <a href="https://mkt1-jobs.pallet.com/jobs">job board</a> and <a href="https://mkt1.co/capital">early-stage fund</a> and <a href="https://mkt1.co/marketers">advise heads of marketing</a>.</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://review.firstround.com/give-away-your-legos-and-other-commandments-for-scaling-startups">‘Give Away Your Legos’ and Other Commandments for Scaling Startups</a> by Molly Graham, First Round Review</li>
+<li><a href="https://www.aprildunford.com/post/startup-market-segmentation-how-to-select-a-target-market">How to Select a Target Market</a> by April Dunford</li>
+<li><a href="https://review.firstround.com/how-this-head-of-engineering-boosted-transparency-at-instagram">RACI model</a> by James Everingham, First Round Review</li>
+<li><a href="https://www.loom.com/blog/daci">DACI: Make Better Decisions with This Framework</a></li>
+<li><a href="https://wavelength.asana.com/workstyle-aors/#close">How Asana uses AORs</a></li>
+<li><a href="https://mkt1.substack.com/p/goals">Crash Course in Marketing Goal Setting</a> by Emily Kramer (me)</li>
+</ol>
+<p><em>Thanks, Emily!</em></p>
+<h2>📣 Hiring, or open to new gigs?</h2>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Join Lenny’s Talent Collective</a> to get bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from How to get your marketing team to drive more impact" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fd2a86a0-dc08-4cf2-9095-e88dd7f2e5cf_1476x856.png" /></p>
+<p>If you’re looking for a new gig, join the collective to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>❤️‍🔥 Featured job <strong>opening</strong></h3>
+<p><strong>Slab:</strong> <a href="https://www.lennysjobs.com/jobs/900e2226-f222-4108-90a8-285824523cec">Frontend Engineer</a> (Remote)</p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

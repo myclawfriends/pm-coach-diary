@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Healing your co-founder relationship — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Healing your co-founder relationship</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Healing your co-founder relationship</div>
+    
+    <div class="article-meta">2021-05-18<span>·</span>2,635 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a> and welcome to a ✨ </em><em>once-a-month-free-edition</em><em>✨ of my newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<p>If you’re not a paid subscriber, here’s what you missed this month:</p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/14-habits-of-highly-effective-product">14 habits of highly effective Product Managers</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/types-of-business-models">How to make money</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/three-myths-about-sabbatical-programs">Three myths about sabbatical programs</a></li>
+</ol>
+<blockquote>
+<h2>Q: My relationship with my co-founder is fraying. It’s no longer enjoyable to work with them, and it’s getting worse. But I need to make it work for the good of the business. Any advice?</h2>
+</blockquote>
+<p>A co-founder relationship is a lot like a marriage—incredibly fulfilling when it’s working, incredibly painful when it’s not. But essential to keep healthy for the good of the k̶i̶d̶s̶ team.</p>
+<p>I’ve had my own trials and tribulations with my co-founder, and what I’ve learned is that, just like in marriage, issues are nearly always rooted in the soft skills of human interaction. To give you the best possible advice on this topic, I asked <a href="https://www.linkedin.com/in/carole-robin-ph-d-a8b5a91/">Carole Robin</a>, the co-creator of the legendary class at Stanford’s business school known as <a href="https://www.gsb.stanford.edu/experience/learning/leadership/interpersonal-dynamics">“Touchy Feely”</a> and co-author of the new book <em><a href="https://www.amazon.com/dp/B0894279WZ/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Connect: Building Exceptional Relationships with Family, Friends, and Colleagues</a></em>, to tackle this week’s question. I’ve been waiting for an excuse to bring Carole’s wisdom to this newsletter, and she did not disappoint. Enjoy!</p>
+<p><em>Thank you to <a href="https://twitter.com/JamesCurrier">James Currier</a> for connecting me to Carole, and if you enjoy this post, <a href="https://www.amazon.com/Connect-Building-Exceptional-Relationships-Colleagues/dp/0593237099/ref=tmm_hrd_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">don’t miss Carole’s new book</a>!</em></p>
+<p><img alt="Book - Connect: Building Exceptional Relationships" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/641d6c39-ed5e-4c4b-bd50-3eb5602f2bf8_752x1024.png" /></p>
+<h2>When Co-Founder Relationships Go Sideways</h2>
+<p><em>by Carole Robin</em></p>
+<p><img alt="Image from Healing your co-founder relationship" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6bde66e5-3cf6-48d6-b771-b95cba1f892e_1600x1067.jpeg" /></p>
+<p>Most co-founder relationships start out with excitement, alignment, appreciation, respect, and a great deal of energy and enthusiasm. If those feelings between or among you were not present, you would not in all likelihood have decided to start a venture together. And as is the case in all relationships, co-founders go through ups and downs with each other. How and if they weather the downs is the difference between staying together and parting ways. It also has a major impact on the health of the organization.</p>
+<h3><strong>Start by looking inward</strong></h3>
+<p>When the relationships go awry, a good place to start is to consider what is going on for you personally. In our book <em><a href="https://connectandrelate.com/">Connect</a>,</em> my co-author and I underscore the importance of understanding that we are all equipped with two personal antennae. One looks outward and picks up signals of what is going on for the other person. The other one looks inward and registers what is going on for you. Keeping both those antennae highly tuned helps you see the learning opportunity (for you and for them) embedded in every interaction. <strong>Begin by noticing how you are</strong> <strong><em>feeling</em></strong><strong>. Are you disappointed? Disillusioned? Resentful? Frustrated? Angry? Worried?</strong> It might be useful to think about this initial exploration as <em>intra</em>personal mindfulness. There is a reason the MBAs at Stanford who took the course on which the book is based called it “Touchy Feely.” They discovered the crucial role of emotions in developing functional and robust relationships.</p>
+<p>It isn’t always that easy to identify our feelings. Often there may be more than one, they might be jumbled, or they might seem contradictory (for example, you love your co-founder, but there are things she does that drive you crazy). The course syllabus includes a <a href="https://www.dropbox.com/s/s3zo7z4ut1gg69q/Vocabulary%20of%20Feelings_v3.pdf?dl=0">Vocabulary of Feelings</a>, which turns out to be a tool that students use for decades after graduation. We’ve included it in our book’s appendix.</p>
+<p><img alt="Image from Healing your co-founder relationship" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0be06a3b-bfba-4bab-ab7e-7a83ec721392_2986x2750.png" /></p>
+<h3><strong>Explore the root causes of tension</strong></h3>
+<p>Understanding what <em>you</em> are feeling more fully expands your choices and lessens the chances of being thoughtlessly reactive. Once you know what you are feeling, you can move on to exploring what happened that resulted in your feeling that way. How much of it has to do with organizational issues, shifting market conditions, or external factors? Are you faced with problems due to your very success? Has the excitement of meeting the challenges of a start-up been replaced by the routine of a more established enterprise? Or are you in disagreement about the company’s future direction? Do some of you want to flip the company and others want to develop it for the long term? Or are there disagreements as to how fast to grow the organization and in what direction? Even though these issues can be quite challenging to resolve, in many cases they can be settled either after full discussion or with the dissenting founder(s) departing, hopefully on good terms.</p>
+<p>Even more difficult and likely to result in departures that are not on good terms is what happens when the problems (and your feelings) are a result of your co-founder’s <em>behavior</em>. When that is the case, it’s useful to think about becoming more <em>inter</em>personally mindful. Interpersonal issues can arise from multiple sources. For example, one of you might perceive a significant power differential has come to exist that now complicates decision-making processes. One of you might be finding another especially difficult to influence. You might have come to discover you have very different leadership styles. Whatever form the issue takes, these tend to be even more challenging because they feel more personal. The dilemma is then how to raise them without causing more animosity and disrupting the company. And of course, if you don’t raise them, you can’t move toward resolving them. Issues like these tend to fester, and they complicate your ability to productively deal with core business dilemmas and strategic disagreements such as those mentioned above.</p>
+<h3><strong>Unpack the issues and look for common ground</strong></h3>
+<p>While there is a tendency to see the problem as “the other,” it’s important to realize that you don’t have the full story. First, you have only your perspective, and they are probably experiencing some version of what you are too. Second, it’s useful to acknowledge that most interpersonalissues have an <em>interpersonal</em> component. Is it that you tend to dominate or that I tend to go quiet? Do I present ideas in ways that indicate I am not open to hearing any alternatives or do you always go along with what I propose? Allowing for the possibility that we are both responsible in our own way for the situation we are in reduces the tendency for either of us to be accusatory and increases the chance that we can develop a joint problem-solving orientation. The more curious we can each be about the other’s feelings, the more productive and generative our conversations are likely to be.</p>
+<p><strong>It is also easier to move into joint problem-solving if you can find something you share in common and both really care about.</strong> You might already have that embedded in your initial concern—“to not disrupt the company.” That superordinate goal can move you both from “You are the problem” to “How can we resolve this in a way that leaves us both believing we have done what is best for the organization?”</p>
+<h3><strong>Stick to your reality</strong></h3>
+<p>There is another potential area of commonality, which is that if you are having trouble with the way I am showing up, maybe others are as well. That could move our conversation from “me vs. you” to a joint concern. It is also important to consider raising issues like this in ways that are likely to lead to a productive exchange. That requires “<strong>sticking with your reality,</strong>” a concept central to the Stanford course and the book. In any interaction between two people, there are actually three realities, as illustrated below. Initially, this man knows only two of the three—his intent/motives and his behavior. Likewise, this woman knows his behavior and its impact on her. Reality #2 is the only one they <em>both</em> know. The model includes a metaphorical net, as shown, between Reality #1 (his) and Reality #2, his behavior.</p>
+<p><img alt="Image from Healing your co-founder relationship" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/808408c3-8737-4abe-9248-faae7447e39a_960x540.png" /></p>
+<p>If she can stick with the two “realities,” she knows she might say something like, “This is the third time this month you have decided you want to do something different than what we agreed to after discussing all the pros and cons multiple times” (his behavior, known to both of them) “and I am feeling more and more frustrated” (the impact on her) “and if this is becoming a problem for me, I’m also concerned this might be discouraging for others, which is another reason I think it is important that we talk about it.” Notice how in raising the issue in this way, she has stayed on her side of the “net,” meaning she has not attributed a motive, imputed any intent, or made any judgment. If she had gone over the net, she would have said, “You always have to have the last word” or “I feel that you don’t know what you want” (which does not have a single feeling word in it), which would likely make him defensive and argumentative.</p>
+<p>Besides staying on her side of the net, she might add, “What is happening here that leads you to want to come back to revisit decisions we’ve already made? I’m wondering what we’re seeing differently that leads me to think we’re done with an issue and you don’t think so?” In being curious about what is going on for him, she is acknowledging that while she knows what she needs (to move on after making a decision), she doesn’t know what he needs or why he is acting the way he is.</p>
+<p>This exchange will hopefully lead them into a more productive problem-solving conversation. <strong>It may be useful to think about the process of generating a solution as answering three questions simultaneously: “What do I need?”, “What do you/others need?” and “What is best for the organization?”</strong> Curiosity—real curiosity—lowers defensiveness and builds relationships.</p>
+<p>Finally, it is important that the resolution include an understanding that what you agree to do differently going forward is a trial period to assess whether the impact of the changes you have committed to making is working for both of you, as well as some discussion about how to handle regressions should they recur.</p>
+<p>It turns out the interpersonal, or so-called soft skills, are often the greatest determinants of professional success, and they are also often the hardest. But in the end, as we point out in <em>Connect</em>, people do business with people, as much as if not more than they do with ideas, products, strategies, plans, or even money. Being an entrepreneur and a co-founder is challenging enough without having developed the interpersonal skills and competencies needed to navigate the journey!</p>
+<h3><strong>In summary, if you are having trouble with your co-founder:</strong></h3>
+<ol>
+<li>Stick with feelings (<em>actual</em> feeling words)</li>
+<li>Remain curious about the root causes</li>
+<li>Stay on your side of the net</li>
+<li>Move into problem-solving, and make agreements</li>
+</ol>
+<p>In our new book <em><a href="https://www.penguinrandomhouse.com/books/645809/connect-by-david-bradford-and-carole-robin/">Connect: Building Exceptional Relationships with Family, Friends, and Colleagues</a></em>, David Bradford and I go into much more detail on how to work through conflict productively and strengthen your relationships. If you have more thoughts or questions, in addition to checking out the book, check out <a href="https://leadersintech.org">https://leadersintech.org</a> or email me: <a href="mailto:carole@leadersintech.org">carole@leadersintech.org</a>.</p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<h4>Product Management</h4>
+<ol>
+<li><strong>Overtime:</strong> <a href="https://pallet.xyz/job/4296af21-ada7-47c8-bc19-9041724f3098">Product Manager</a> (New York City)</li>
+<li><strong>Maven:</strong> <a href="https://pallet.xyz/job/24216c2e-e429-456c-add2-0ac0662e04b7">Course Strategy and Operations Lead</a> (Remote)</li>
+<li><strong>Maven:</strong> <a href="https://pallet.xyz/job/b333db7b-c2f2-4f87-b82e-a8970ba14193">White-Glove Course Lead</a> (Remote)</li>
+<li><strong>Wrapbook:</strong> <a href="https://pallet.xyz/job/dea57461-eb0d-4edb-9097-91885482ce19">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>Immuta:</strong> <a href="https://pallet.xyz/job/7e71effa-1f76-4607-a9de-57ca1b07f261">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>LawnStarter:</strong> <a href="https://pallet.xyz/job/e55f36fa-2103-4ebf-bbe4-dbd4fc63fa4a">Founding Product Manager</a> (Remote)</li>
+<li><strong>Duolingo</strong>: <a href="https://pallet.xyz/job/16daa6a1-ff27-4097-89cb-41f7a1b33aa6">Principal Product Manager</a> (NY/Seattle)</li>
+<li><strong>Companion Labs</strong>: <a href="https://pallet.xyz/job/f1e8cbf6-7338-48ae-ba6f-2507b3427e0e">Head of / Senior Product Manager</a> (SF)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/400edfd5-43fb-45d1-a679-772cb7442b6e">Group Product Manager, Growth &amp; Subscription</a> (SF/Remote)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/f589c9bf-48c9-43df-8a3e-c418f92b715b">Group Product Manager, Medical &amp; Pharmacy Ops</a> (SF/Remote)</li>
+<li><strong>Grand Rounds</strong>: <a href="https://pallet.xyz/job/8f22029f-7685-443c-b595-588326096967">Senior Product Manager</a> (SF/Remote)</li>
+<li><strong>ClassDojo:</strong> <a href="https://pallet.xyz/job/a207cd17-0dd5-45a3-9068-5cabd6b30193">0 to 1 Product Manager</a> (SF/Remote)</li>
+<li><strong>AbstractOps:</strong> <a href="https://pallet.xyz/job/e5b97f68-c279-4830-bfda-749d54ec22bd">Head of Product</a> (Remote)</li>
+<li><strong>Dialogue:</strong> <a href="https://pallet.xyz/job/bd8a4d54-5b37-4de0-af2f-84ad640faa6e">Vice-President, Product Management</a> (Remote)</li>
+<li><strong>Amazon Music:</strong> <a href="https://pallet.xyz/job/650a0b97-3d81-46ae-8986-d72b4f3639f7">Principal Product Manager - Tech, Podcasts</a> (SF)</li>
+<li><strong>Intercom:</strong> <a href="https://pallet.xyz/job/fd328108-c412-40cd-91f3-0e3a324df4ad">Senior Product Manager - Self-serve Growth</a> (London/Dublin/Remote)</li>
+<li><strong>Chime:</strong> <a href="https://pallet.xyz/job/e0c51de6-26f9-4b5c-a758-4d6b6ae4899f">Senior Product Manager, Growth</a> (SF)</li>
+<li><strong>NexHealth:</strong> <a href="https://pallet.xyz/job/2d8e2cad-f0dd-4a21-88fd-6003e8c7c00c">First Product Manager</a> (SF)</li>
+<li><strong>Elementl:</strong> <a href="https://pallet.xyz/job/7422cd00-62dc-4ccf-b538-98482a78aec8">Product Manager</a> (SF/Remote)</li>
+<li><strong>Clockwise:</strong> <a href="https://pallet.xyz/job/c3bac4ce-f356-49b5-918b-110ec159c769">Product Manager</a> (SF/Remote)</li>
+</ol>
+<h4>Growth</h4>
+<ol>
+<li><strong>Free Agency:</strong> <a href="https://pallet.xyz/job/3445e94f-d760-4b3b-9c47-393a6f4702e8">Community Manager</a> (New York City)</li>
+<li><strong>Brex:</strong> <a href="https://pallet.xyz/job/1811f9d7-21c7-4cd0-8b81-050242749825">Growth Marketing Manager, Search (SEM+SEO)</a>(Remote)</li>
+<li><strong>OpenPhone</strong>: <a href="https://pallet.xyz/job/102a757f-cbea-4113-9588-cf1fc98a8d7a">Head of Marketing</a> (Remote)</li>
+<li><strong>neo.tax:</strong> <a href="https://pallet.xyz/job/2fd84c85-b209-47d0-9213-671e0342cff3">Head of Growth</a> (Mountain View/Remote)</li>
+<li><strong>Coda:</strong> <a href="https://pallet.xyz/job/bba22fae-9ec5-47a2-b6dd-157f498b1fba">Growth Associate Program</a> (SF)</li>
+<li><strong>Ojo:</strong> <a href="https://pallet.xyz/job/4fb7dc9e-52ca-4b94-8dce-1d72e643cc86">Head of Marketing</a> (Remote)</li>
+<li><strong>Labelbox</strong>: <a href="https://pallet.xyz/job/c6947128-80d8-49ab-a679-728f0aaf3430">Director of Growth and Demand Generation</a> (SF/Remote)</li>
+<li><strong>Livepeer:</strong> <a href="https://pallet.xyz/job/3f5394b4-3104-4670-9572-c045b065119a">Go To Market Lead</a> (Remote)</li>
+</ol>
+<h4>Engineering</h4>
+<ol>
+<li><strong>Discord:</strong><a href="https://pallet.xyz/job/71eeec4f-6dea-4645-95b7-44b1ea38507b">Engineering Manager</a> (SF)</li>
+<li><strong>G2i:</strong><a href="https://pallet.xyz/job/7a1c36d5-eb4f-43e5-b93f-c83f951a1ef9">Senior React, React Native, or Node Developer</a> (Remote)</li>
+<li><strong>Novi Connect:</strong><a href="https://pallet.xyz/job/1691057a-21ac-4450-b3d6-e2189a5cebc9">Senior Software Engineer</a> (Remote)</li>
+<li><strong>Endgame:</strong><a href="https://pallet.xyz/job/2f6285e1-d9d4-427f-9a62-3ec0e895ab7b">Principal Frontend Engineer</a> (Remote)</li>
+<li><strong>Eppo:</strong><a href="https://pallet.xyz/job/2cd3039f-b44d-4079-83e0-e303debf2f00">Backend / Infrastructure Engineer</a> (SF/Remote)</li>
+<li><strong>Causal:</strong><a href="https://pallet.xyz/job/6daf039f-a20e-4aa0-a7b0-54a8c19963b1">Full-stack Engineer</a> (Remote)</li>
+<li><strong>Flux.ai:</strong><a href="https://pallet.xyz/job/af3f67a4-e209-4b98-8a26-101c7805b207">Fullstack Software Engineer</a> (Remote)</li>
+<li><strong>Coinbase:</strong><a href="https://pallet.xyz/job/6ac840de-6951-42f8-a55a-051c56a3f303">University Grad, Software Engineer</a> (Remote)</li>
+</ol>
+<h4>Design</h4>
+<ol>
+<li><strong>ClassDojo:</strong><a href="https://pallet.xyz/job/d249ecad-d380-416f-a773-4650e28585cc">Design Leader</a> (SF/Remote)</li>
+<li><strong>Cameo:</strong><a href="https://pallet.xyz/job/d095ea77-d995-4895-b764-59b4297a1292">Senior Product Designer</a> (Remote)</li>
+<li><strong>Tango:</strong><a href="https://pallet.xyz/job/2a6c39e6-2dea-4e92-86c9-d147bb07d783">Product Design Lead</a> (LA/Remote)</li>
+<li><strong>Scratchpad:</strong><a href="https://pallet.xyz/job/b068e1e5-8ae3-4886-b542-fa3443f1ff9b">Senior Product Designer</a> (Remote)</li>
+<li><strong>Rewatch:</strong><a href="https://pallet.xyz/job/68207a68-6f8b-4099-8107-197922e2d8cf">Senior Product Designer</a> (Remote)</li>
+<li><strong>Orbit:</strong><a href="https://pallet.xyz/job/9b1f634f-6900-4322-9b6f-2ff38e477b63">Product Designer</a> (Paris/SF/Remote)</li>
+<li><strong>Imperfect Foods:</strong><a href="https://pallet.xyz/job/b9cab5f0-9bcb-4caf-a0bc-2443e4768b60">Senior Product Designer</a> (Remote)</li>
+<li><strong>Karat</strong>: <a href="https://pallet.xyz/job/29a7b24a-2ba0-489e-8222-d5d2b0b68e43">First Designer</a> (LA/Remote)</li>
+</ol>
+<p><em>To add your open roles, <a href="https://lennysnewsletter.com/jobs">visit Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week’s newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

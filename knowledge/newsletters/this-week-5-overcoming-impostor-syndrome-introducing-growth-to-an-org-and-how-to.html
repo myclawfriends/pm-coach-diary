@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Week #5: Overcoming impostor syndrome, introducing growth to an org, and how to partner with your data scientist — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">This Week #5: Overcoming impostor syndrome, introd…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">This Week #5: Overcoming impostor syndrome, introducing growth to an org, and how to partner with your data scientist</div>
+    
+    <div class="article-meta">2019-10-15<span>·</span>3,143 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello and welcome to my humble newsletter, where I attempt to answer your questions and offer candid advice about building product, driving growth, working with other humans, and anything else that’s stressing you out at the office. 🤝</p>
+<p>If you’re returning from last week, thank you! If you’re new, nice to have you! Help spread the word by telling your friends to <a href="https://www.lennyrachitsky.com/">sign up here</a>. 😎</p>
+<p><strong>New this week:</strong>A guest contributor <strong>😍</strong> Check out the second question about impostor syndrome. And from last week—our comment experiment from last week didn’t work. Turns you need to be on a paid plan for that feature to work. This is how we learn. 😩</p>
+<p>On to this week’s questions. . .</p>
+<p><img alt="Image from This Week #5: Overcoming impostor syndrome, introducing growth to an org, and" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/97ac70fe-c2dc-43c8-ada8-c731852f10ce_480x270.gif" /></p>
+<h3>Q: I’m wondering if you had any thoughts on impostor syndrome and product management? This job is really freaking hard, and most days I feel like I’m terrible at my job despite external signals like getting put up for promotion.</h3>
+<p>I ❤ this question. I went through some <em>serious</em> impostor syndrome myself for several years (does it ever totally go away?) right after a promotion at Airbnb. I had this sense that if I made a single mistake, in a meeting or with a launch, even once, everyone would see that I had no idea what I was doing and everything would crumble. It was real and it was rough. What helped me most during that period was actually talking to a professional coach. She helped me see different perspectives that I hadn’t seen, to understand that the downside wasn’t as bad as I thought, and that things were actually going really well.</p>
+<p><strong>🎉 As a treat for you all, my <a href="https://www.powerhouse-coaching.com/">favorite executive coach, Kate Hosie</a>, generously offered to share her advice on this question! Occasionally I’ll ask experts in a field to take certain questions, and this week we’re very lucky to have Kate help out. Enjoy! 🎉</strong></p>
+<p>—</p>
+<p>I have a few points of view on this question, coming from different angles. I’ll be starting from a place of <em>self-compassion</em> or <em>acceptance</em> about your impostor syndrome and then shifting more toward a position of <em>growth</em>. Try not to think of these as mutually exclusive, believing that the only way to grow is to judge yourself. Instead, self-judgment prohibits sustained healthy growth. It’s really difficult to improve ourselves when we don’t even want to truly look at ourselves. Instead, if you can imagine a polarity, with self-compassion and acceptance to the far left and growth to the far right, ask yourself what you recommend most for yourself right now. I sometimes see my work as both “comforting the afflicted and afflicting the comfortable,” so knowing whether you’re more afflicted or maybe a little too comfortable may help you to decide what’s more important right now:</p>
+<ol>
+<li><strong>See it as a sign of success</strong>: Impostor syndrome is normal and is generally a sign that you’re enjoying some degree of success in your life. Think of it this way: if you were pumping gas or stacking shelves somewhere, you wouldn’t be experiencing impostor syndrome. So first of all, you could stop and give yourself a pat on the back for at least being in a role that’s challenging enough to warrant having impostor syndrome about in the first place. As I’ve mentioned above, acceptance is underrated and the first step in any real change.</li>
+<li><strong>See the truth in it:</strong> Sometimes people experience impostor syndrome because it’s true. You may be in a new role or a new industry. Your role may be growing faster than you are. This happens all day long so, no judgment. However, the degree of negative emotion you’re experiencing regularly is directly related to the level of responsibility you’re taking in your life. It’s like a seesaw or teeter-totter: when negative emotion is up, responsibility is down, and vice versa. Only every single time. So if your negative emotions are recurring, it can help to step back and ask yourself where you’re not taking responsibility in your role. For example, where are you procrastinating, making excuses, blaming others, not addressing root cause issues, ignoring structural problems, not developing yourself but instead just coasting, not really delivering but instead going through the motions? Look for where you’re out of integrity with yourself and what you know you need to be doing.</li>
+<li>
+<p><strong>Look for burnout</strong>: Start to pay attention to what degree this feeling of your being an impostor is valid and to what degree it may just be what I call “the burnout talking.” Career burnout is very common and can be primarily traced back to three causes: (1) over-caring, (2) lack of appreciation, and/or (3) not working to your strengths or at the appropriate ability. Burnout directly impacts our self-confidence, and our self-talk invariably suffers, where we start to think that we’re not actually that good at what we’re doing anyway. Not a fun loop to find yourself in. I’ll speak to these causes of burnout one at a time:</p>
+</li>
+<li>
+<p><strong><em>Over-caring:</em></strong> To what degree are you caring appropriately about your work? Versus over-caring, where your identity is all wrapped up in what you do and the rest of your life is suffering from malnourishment. If you’re over-caring, you’re likely to be over-investing and have lost your sense of perspective. Perspective-taking capacity (PTC) is critical in leading others through ambiguity, and it’s often lost when we don’t take sufficient breaks, vacations, or sufficient care of ourselves. A typical scenario is when someone sacrifices sleep to get more done, thinking that they will only be impacted physically by the sacrifice. However, a lack of sleep impacts us physically, mentally, psychologically, and emotionally. How much sleep have you been getting lately? To what degree is that impacting how you feel about yourself? I will hazard a guess and say: more than you likely realize. Focusing on your own peak performance, or what I prefer to call “optimal functioning,” through getting your energizing and restoration habits in place, is critical and almost invariably requires a greater focus on recovery than most people give themselves.</p>
+</li>
+<li><strong><em>Lack of appreciation</em></strong>: This is also pretty common. You can be grinding things out and no one even notices or cares, or, even worse, you may feel criticized or judged for everything you have yet to do. If you expect appreciation to come from above, then you’re limiting yourself. Studies done on burnout recovery and prevention show that appreciation from peers is just as impactful as appreciation from whoever you’re responsible to, so think about how you may like to build this into or across your own teams and peer groups as a permanent structure in how you run your meetings, conduct your one-on-ones, etc. Also, acknowledging your own progress helps. It’s easy to see everything we still have not yet done, so find a way to pay attention to your own progress and celebrate that where possible. We can’t get everything done in one day or one week, but it’s highly likely that you’re always moving forward. Don’t lose sight of that, and give yourself some credit.</li>
+<li><strong><em>Not working to your strengths or at the appropriate ability</em></strong>: Most people build their careers on what depletes them. To what degree do you even know what your intrinsic strengths are, or what is naturally energizing for you, versus what you find depleting? Knowing and using your strengths will help you avoid burnout. When you avoid burnout, you will be less inclined to experience that fun voice in your head that we call impostor syndrome. Also, you would think that operating at a level below your actual ability would make you feel better about yourself, but the reverse is true. It diminishes your self-confidence. So you may like to step back and ask yourself if you’re operating at the right level or whether you’re living on your knees. No judgment, please. Just curiosity and compassion, which will allow you to be more honest with yourself.</li>
+<li>
+<p><strong>Sometimes the job is just plain hard:</strong> Product management is challenging. And that’s OK. You don’t need to be perfect. What I do suggest for people in highly complex roles is that they do four things in particular, which comes from the Four Factor Model I learned from Professor Michael Cavanagh, who is an expert in complexity theory from the University of Sydney. Those things are:</p>
+</li>
+<li>
+<p><strong><em>Keep your perspective-taking capacity</em></strong> (mentioned above) by looking at the big picture—more broadly than you would normally be inclined to do. A simple way to picture this is imagining that you’re working at ground level, versus looking at things from the top of a tall tower. When you’re at the top of the tower, you have PTC and an elevated ability to see all the connected parts. You can’t do this if you’re grinding it out at the coal face. If you’re leading others, the top of the tower is where you need to spend most, if not all, of your time, and to help others see what you can see from that vantage point.</p>
+</li>
+<li><strong>Take responsibility for your own mindfulness</strong>, for example by starting some kind of meditation practice of even 10 minutes a day using something like Headspace. This will help you keep yourself calm among all the VUCA (volatility, uncertainty, complexity, and ambiguity) elements you, your organization, and your industry are exposed to.</li>
+<li><strong>Ensure that you have a clear shared purpose</strong> with those around you, to keep you aligned when everything starts to come undone. It will bring you back to what matters most and prevents thrash.</li>
+<li><strong>Stay in dialogue</strong>. Talk often, talk broadly, and listen to people you don’t want to listen to. Stay open. Share what you see when you see it. This takes the burden from you, and you will find that you are a part of a shared responsibility. You can’t do your role on your own. Remember that. A great PM doesn’t try to work things out on their own but instead stays in good, open relationship, and in dialogue, as things constantly emerge. Be an open system. This is realistic. Be realistic.</li>
+</ol>
+<p>—</p>
+<p><em>You can learn more about Katherine Hosie at <a href="https://www.powerhouse-coaching.com/">www.Powerhouse-Coaching.com</a> or by emailing her at <a href="mailto:katherine@powerhouse-coaching.com">katherine@powerhouse-coaching.com</a>.</em></p>
+<h3>Q: What’s your advice for introducing growth to a company that has a pretty standard way of thinking about it, i.e. “sales and marketing”? The more involved I get, the more I notice that we can really benefit from switching our mentality toward “growth” and breaking down the barriers between marketing, product, sales, etc.</h3>
+<p>I’m inferring that you want to introduce a more cross-functional and “analytical” mindset to growth—what used to be known as “growth hacking” but is now known as just a “growth team”:</p>
+<blockquote>
+<p>[A growth team] is a hybrid of marketer and coders who looks at the traditional question of “How do I get customers for my product?” and answers with A/B tests, landing pages, viral factor, email deliverability, etc. On top of this, they layer the discipline of direct marketing, with its emphasis on quantitative measurement, scenario modeling via spreadsheets, and a lot of database queries. If a startup is pre-product-market fit, [a growth team] can make sure virality is embedded at the core of a product. After product-market fit, they can help run up the score on what’s already working.</p>
+<p>—Andrew Chen, <a href="https://andrewchen.co/how-to-be-a-growth-hacker-an-airbnbcraigslist-case-study/">Growth Hacker Is the New VP Marketing</a></p>
+</blockquote>
+<p>Good news: you’re right to try to make this shift. There’s no question that the tighter and unified your product, data, engineering, research, marketing, and sales teams are, the more bottom-line impact (and less waste) you’ll end up seeing. It just makes sense—fewer silos, more collaboration, being data-informed, and leveraging complementary skill sets lead to better outcomes. This is how all companies should and will operate eventually, and you’re pulling your company toward that future.</p>
+<p>Bad news: this will be hard. Once a company has a certain mindset for how growth happens, and enough senior leaders who want to protect their jobs/teams/power, it’s difficult to dislodge.</p>
+<p>Good news: reality isn’t going to change because people don’t want it. Change will come for your growth org eventually, whether folks like it or not.</p>
+<p>A few suggestions for how to accelerate the shift toward a “growth team”:</p>
+<ol>
+<li><strong>Bring in experts:</strong> Invite growth leaders from companies that your leaders admire to meet with your company’s leaders. Or even have them do a fireside chat that leaders attend. Ask them pointed questions about how they operate, and how marketing and sales fit in. An outside voice is often very impactful. These sorts of chats had a big impact at Airbnb.</li>
+<li><strong>Benchmark against other companies:</strong> A lighter-weight approach to the above would be to simply talk to these external folks yourself and collect lessons. Then build that into a pitch that you share with your execs.</li>
+<li><strong>Get buy-in from the top:</strong> For a real growth org to spring up, you need support from the CEO (or another senior leader). They need to make it clear that this is important and requires the support of the existing marketing and sales leaders. Without this, you’ll run into all kinds of friction, politics, and tension. Why? Because people will feel like their jobs are being threatened. Help them see where they’d fit into this new structure.</li>
+<li><strong>Run an experiment:</strong> If you can’t get buy-in on a big change, get buy-in for a small change—ask for a six-month experiment where you pull together a data scientist, an engineer, a PM (and, ideally, a designer and a researcher), and see what kind of impact you can make. Then show your leaders how much (measurable) growth this small investment has made, and what you could do with 5x more resources. Try to actually get six months—otherwise you’ll risk running out of time by the time you figure out how to operate as a team, instrument the product, design, build, launch, and wait for the results of your experiments.</li>
+<li><strong>Become a thought leader within the org:</strong> Send a weekly “This Week in Growth” email highlighting lessons from your company and other companies. Invite weekly or monthly speakers to talk about growth to your team. Start a Slack room where you jam on growth topics. Share podcasts, share articles, share books about growth. Become the person everyone thinks about when they think “How the heck do we drive more growth??”</li>
+</ol>
+<p><a href="https://www.lennyrachitsky.com/p/q-and-a-tackling-the-chicken-and">See Question #3 in this previous post</a> for advice on how to build your growth team once you have buy-in.</p>
+<h3>Q: I recently joined a company as a data scientist. While the team I am on is great and supportive, the engineering and product leads have not had much experience working with data scientists and the like. As a result, we have found it difficult to work out our processes and I don’t feel I am contributing as much as I would like. So I suppose, in short, my question is—how have you found success using data specialists in cross-functional teams?</h3>
+<p>In my experience, having a data scientist on your team is like having a superpower. You’ll see things you wouldn’t have seen, make faster and better decisions, and have significantly more impact. Eventually, your teammates will realize this too.</p>
+<p>Here’s what you do. Send the following email to your partners on the team, and if they disagree, send them my way:</p>
+<p>—</p>
+<p><em>Hello,</em></p>
+<p><em>I asked this guy <a href="https://lennyrachitsky.com">Lenny</a> for advice on how to get the most value out of your data scientist, and here’s what he said:</em></p>
+<ol>
+<li><em><strong>Treat them as a partner:</strong> Share</em> what <em>you are trying to achieve and</em> why<em>, not just the queries you need run. If they are senior (and good), you’ll be astounded by how many new ideas and novel insights they’ll bring to the table. 🤝</em></li>
+<li><em><strong>Know what motivates them:</strong> Find out what kind of work your DS partner enjoys doing most, and try to give them as much of that type of work as possible (when there is flexibility). Some DSs love knocking out answers to questions. Some love tackling long-term deep problems. Some love low-level infrastructure work. 🤗</em></li>
+<li><em><strong>Prioritize asks:</strong> DSs are often barraged with questions, seemingly always urgent—a lot of “this’ll be quick!” Work with your DS on a (public) prioritized list of outstanding to-dos, and when new asks come in, work together on the updated priorities. Review together weekly. 🧐</em></li>
+<li><em><strong>Know what you’ll do with the answer:</strong> For the questions you ask your DS, have a clear and precise answer for “What will you do with the answer when you have it?” Your DS should ask you this each time. You will find that many of the things you want to know are not actually going to change anything, and thus not worth looking into.</em></li>
+<li><em><strong>Share findings widely:</strong> Each time a data question is answered or an insight discovered, encourage the DS to share it with the wider team and other DSs. Try to save them somewhere that will last. This information is gold for when you are looking for new ideas. 🗣</em></li>
+<li><em><strong>Put them in the spotlight:</strong> Encourage your DS to be the one sharing their work in meetings, presentations, brainstorms, etc. Help them get the credit they deserve for the work they do. 👏</em></li>
+<li><em><strong>Find a balance:</strong> Don’t be data-driven—be data-informed. Use the insights from the data as one input to a decision (so critical), but leave a bit of room for other inputs beyond data. 🤔</em></li>
+</ol>
+<p>That’s it for this week!</p>
+<h3>Inspirations for the week ahead</h3>
+<ol>
+<li>Watch: <em><a href="https://www.generalmagicthemovie.com/">General Magic</a></em>—an inspiring, gripping, and improbable story about a small company in the ’90s that influenced much of the technology we use today. It’s also an excellent case study in what happens when you lack product management. 🤪</li>
+<li>Read: “<a href="https://www.collaborativefund.com/blog/three-big-things-the-most-important-forces-shaping-the-world/">Three Big Things: The Most Important Forces Shaping the World</a><em>”</em>—If you love <em>Sapiens</em>, you’ll love this. 🤓</li>
+<li>Learn: <a href="https://www.realsimple.com/home-organizing/decorating/decorating-bedroom/how-to-put-on-a-duvet-cover">How to Put on a Duvet Cover</a>—Life will never be the same. 🤯</li>
+</ol>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p>
+<p><strong>Please <a href="https://www.lennyrachitsky.com/">share this newsletter with your friends</a> if you’re finding it valuable.</strong></p>
+<p>And if you’d like some advice yourself, or just want to say hi, just reply to this email and ask! I’ll tackle three reader questions each week (keeping your name and company anonymous) until you quit sending me questions. I definitely won’t have all of the answers, but hey, it’s free! 🤝</p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

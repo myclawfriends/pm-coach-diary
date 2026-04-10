@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A builder’s guide to living a long and healthy life — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">A builder’s guide to living a long and healthy lif…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">A builder’s guide to living a long and healthy life</div>
+    
+    <div class="article-meta">2025-10-28<span>·</span>5,853 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">職涯</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">策略</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">My favorite AI and PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">My favorite public speaking course</a></em>**</p>
+<p><em>Annual subscribers get a </em><em>free year</em><em> of 17 premium products: </em><em><a href="https://www.lennysnewsletter.com/p/productpass">Devin, Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, and ChatPRD</a></em><em> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>Since turning 40, I’ve felt a lot less invincible. For the first time in my life, my annual bloodwork results weren’t 100% healthy. A few months ago, I broke my pinkie toe on the edge of a wall. Last month, I sprained my wrist trying to adjust an A/C unit. Last week, I banged up my knee after slipping on a staircase.</p>
+<p>Then I took a toxins screen and learned I’m half-man, half-plastic:</p>
+<p><img alt="Image from A builder’s guide to living a long and healthy life" src="https://substack-post-media.s3.amazonaws.com/public/images/681aff87-f5a9-4981-9a96-d69c0624d98e_2044x484.png" /></p>
+<p>So over the past year I’ve started getting serious about my health: tracking my nutrition, exercising, experimenting with supplements, focusing on my sleep, etc. Along that journey, I came across <a href="https://justinmares.substack.com/">Justin Mares</a>.</p>
+<p>Unlike the health folks everyone knows—Andrew Huberman, Rhonda Patrick, Bryan Johnson—<a href="https://www.linkedin.com/in/justinmares/">Justin</a> is a full-time builder. He co-founded <a href="https://kettleandfire.com/">Kettle &amp; Fire</a>, <a href="https://perfectketo.com/">Perfect Keto</a>, <a href="https://www.drinksurely.com/">Surely</a>, and now <a href="https://truemed.com/">Truemed</a>, and he’s basically a health nerd who spends hundreds of hours researching what to buy for himself and his family and shares what he learns in blog posts and tweets. When I decide what products to buy and which brands to trust, I’ve found myself <em>constantly</em> referencing his recommendations, more than anyone else’s.</p>
+<p>But I’ve always wanted more. So I pitched Justin on putting together a comprehensive and specific list of his favorite products and brands—the safest, least toxic, and highest-quality products he himself buys for clothing, sleep, food, toxin mitigation, and more. This is what you’ll find below. <strong>And as a bonus, at the end of the post, we’ve compiled a handy bullet-list summary of every product and brand mentioned.</strong></p>
+<p>Note, except for a couple that Justin explicitly calls out, neither Justin nor I is an investor in any of these companies, and there are no affiliate deals involved. This is just a well-meaning post to help you all live a long, healthy life . . . so that you can keep building beloved products for many years to come.</p>
+<p>A huge thank-you to Justin for spending endless hours compiling this list. I will be referencing it <em>frequently</em>.</p>
+<p><em>For more from Justin, check out his <a href="https://justinmares.substack.com/">newsletter</a> and <a href="https://www.truemed.com/">Truemed</a> (buy health products at a steep discount using your HSA). They’re also <a href="https://www.truemed.com/careers">hiring a marketer</a>!</em></p>
+<p><em>You can also listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from A builder’s guide to living a long and healthy life" src="https://substack-post-media.s3.amazonaws.com/public/images/a5218dbd-ce54-4b6f-8c73-3340a862544c_1456x970.png" /></p>
+<p>In 2011, I was working for my first company while also taking a full college course load. As a committed Tim Ferriss acolyte, I read a blog post about polyphasic sleep. For a whole month, I slept 3.5 hours a night and took a 20-minute nap every four hours, even if that meant leaving class or coming late to a fraternity party.</p>
+<p>This was insane. After a month of polyphasic sleep—and two crash-outs where I slept 18 hours in a row to recover—I realized it wasn’t for me. But what <em>was</em> for me, and what I’ve mostly stuck to in the 14 years since, is the paleo diet, which I decided to do after reading about it in the same blog post.</p>
+<p>I went paleo for two weeks my junior year of college (yes, I was the weird kid who would pass on the pizza and beer). And during this two-week experiment, my acne disappeared, I got leaner, slept better, and just had more energy.</p>
+<p>As it turns out, what you put in your body affects how you feel! If you’re not healthy, you’re not able to perform at your best, period. This is why so many in Silicon Valley are so obsessed with sleep tracking, diet, and other tools to help improve performance at work.</p>
+<p>Unfortunately, the West is in the <a href="https://justinmares.substack.com/p/the-great-american-poisoning">throes of a chronic disease crisis</a>. Americans today are the sickest population of humans to ever exist. Nearly 50% of adults have prediabetes or diabetes, 73% are obese or overweight, and the richest American men <a href="https://jamanetwork.com/journals/jama/fullarticle/2513561?guestAccessKey=4023ce75-d0fb-44de-bb6c-8a10a30a6173">live 15 years longer</a> than the poorest, almost entirely due to chronic disease burden. Diabetes alone has an economic cost of around <a href="https://diabetesjournals.org/care/article/47/1/26/153797/Economic-Costs-of-Diabetes-in-the-U-S-in-2022">$106 billion</a>.</p>
+<p>In this post, I won’t cover traditional health tips (exercise, get eight hours of sleep, etc.), though they’re crucial. Instead, I want to cover some of the lesser-known health gotchas that consistently sap your health. I’ve spent the past decade of my career building companies in this world: first with <a href="https://kettleandfire.com/">Kettle &amp; Fire</a> (now a $100M+ annual revenue brand) and now with <a href="https://truemed.com/">Truemed</a>. And I’ve spent hundreds (thousands?) of hours searching for products that are the most effective both at driving real health outcomes and at avoiding many of the common toxins, microplastics, and other unhealthy compounds we encounter on a daily basis. Here are my most recommended products:</p>
+<h3>Sleep</h3>
+<p>Getting good sleep is among the most critical things you can do to improve your health and set yourself up for peak work performance. There’s a ton of literature on why sleep is so important, but for the purposes of this post I’ll assume you’re already a believer.</p>
+<p>In my view, the 80/20 of sleep health boils down to three things:</p>
+<ol>
+<li>Exercise during the day</li>
+<li>Get morning sunlight</li>
+<li>Optimize your sleep setup (no external light, quiet, low CO2, cold) as much as possible</li>
+</ol>
+<p>Beyond the basics, I’ve found a few products that really help me get my best sleep. I love my <a href="https://www.eightsleep.com/">Eight Sleep</a>, and have found their pod works <em>incredibly</em> well to help me both increase my deep sleep and avoid wake-ups. For those who have trouble falling and staying asleep, magnesium <a href="https://pubmed.ncbi.nlm.nih.gov/39252819/">has been shown</a> to radically improve sleep quality. I think the <a href="https://www.livemomentous.com/products/magnesium-threonate">Momentous magnesium L-threonate</a> supplement is the best out there. If you’re really, really struggling to get to sleep, I have a few friends who swear by the peptide Epitalon . . . though it’s technically a research chemical, so I can’t point you anywhere to get it. Ask your doctor. Or buy it illegally online, but beware of sourcing!</p>
+<p>Studies have found that <a href="https://www.consumerreports.org/babies-kids/childrens-health/mattresses-can-be-source-of-harmful-chemicals-in-kids-rooms-a5263703680/">mattresses can be a source of harmful chemicals</a> (especially foam ones), as they emit phthalates, benzophenones, and other compounds that have been linked to asthma, developmental issues, and reproductive harm. Sadly, many of these chemicals have not been thoroughly tested (thanks to <a href="https://justinmares.substack.com/p/our-insane-approach-to-regulating">the insane way we regulate chemicals in the U.S.</a>), but the few studies we do have are concerning.</p>
+<p>You may or may not know this, but our current approach to chemical regulation relies on industries to run their own tests and make their own assertions that the novel, never-before-seen chemicals they’re inventing and putting in our products are safe and sound.</p>
+<p>When a pharma company invents a drug that humans take, it goes through a rigorous FDA approval process that takes a decade and is tested for safety. When a chemical company invents a compound that your body can’t break down and ends up in food, the water supply, and our bodies, regulators require . . . nearly nothing. How does this make sense?</p>
+<p>It gets worse! That’s our approach to <em>new</em> chemicals. But for the chemicals there <em>have</em> been safety testing for—the thousands that we know are harmful at some dose but where the dose makes the poison—how are exposure limits determined?</p>
+<p>To determine exposure limits, scientists follow a relatively simple process. First, they’ll expose a lab animal, often a rat, to small amounts of said chemical. They’ll then sit and watch for behavioral changes: Does the rat slow down, look like it’s in pain, or start wobbling a bit?</p>
+<p>They then continue to increase the dosing of the suspected toxin until they observe behavioral changes in the rat. At that point, they take the dose they exposed the rat to and multiply it by a “safety factor” (usually 100) to account for the difference in weight between rats and humans. And that’s it. Anything below the dose number that’s spit out is now considered . . . safe!</p>
+<p>To ensure you’re not inhaling toxic compounds that mattresses often off-gas (like VOCs, benzene, and formaldehyde) while sleeping, I highly recommend the <a href="https://thewoolshire.com/products/wool-pillow">Woolshire pillow</a>, the <a href="https://www.avocadogreenmattress.com">Avocado</a> mattress and pillows, and <a href="https://www.coyuchi.com/collections/sheet-sets">Coyuchi sheets</a>. Besides Avocado, I have heard good things about <a href="https://myessentia.com/">Essentia</a> and <a href="https://www.naturepedic.com/">Naturepedic</a>. And lastly, if you have $80,000 burning a hole in your pocket, I’m sure you can’t go wrong buying <a href="https://hastens.com/us/">Hästens</a> (though I wouldn’t know). Apparently, Drake bought eight of these mattresses for his Toronto home.</p>
+<h3>Clothing</h3>
+<p>Your skin is the largest organ in your body, and it consistently absorbs compounds and chemicals that it’s exposed to. Yet we rarely think about what’s in the clothes we spend nearly all our time wearing.</p>
+<p>Even though many clothes use dyes and chemicals known to be hazardous, there’s no such thing as a nutrition label, or even a disclaimer, as to what might be in the clothes you put on your body.</p>
+<p>Turning fibers into clothing is a complicated and chemically intensive process. Thousands of chemicals are used to make clothing, some 10% of which have been shown to <a href="https://www.kemi.se/en/publications/reports/2014/report-6-14-chemicals-in-textiles">disrupt the immune system, increase cancer risk, mess with hormones, and create reproductive issues</a>. Even worse, the fun, stretchy performance fabrics you love to wear probably have the highest level of chemical treatment, and heavily utilize PFAS (forever chemicals) and PBDEs (chemicals used as flame retardants). This could be one reason why PFAS are <a href="https://www.atsdr.cdc.gov/pfas/data-research/facts-stats/index.html">found in 97%</a> of Americans’ blood.</p>
+<p>It’s unfortunately not just the chemicals, dyes, and other additives that make your clothing choices important for your health. Extremely common materials like polyester can <a href="https://www.eviemagazine.com/post/polyester-underwear-could-be-causing-widespread-infertility-in-men">lower sperm count</a>, yet it’s by far the most popular material used in underwear. These fabrics, and the dyes and chemicals on them, can fairly easily enter the body, especially in areas where your skin is most permeable: your nether regions, feet, and armpits.</p>
+<p>I strongly recommend <em>at minimum</em> wearing toxin-free, organic cotton or linen socks and underwear. My favorite brands are <a href="https://industryofallnations.com/collections/underwear">Industry of All Nations</a> and <a href="https://wearpact.com/">Pact</a> for underwear (<a href="https://nadsunder.com/">Nads</a> as runner-up), and Pact for socks.</p>
+<p>For shirts, I like <a href="https://www.pakaapparel.com/">Paka</a>’s stuff, especially their T-shirts, as they use a blend of 85% organic cotton and 15% alpaca fibers. <a href="https://fahertybrand.com/">Faherty</a> has a surprisingly good selection of organic tees that I’m into. And lastly—though I probably shouldn’t share my secrets—<a href="https://waxlondon.com/collections/organic-cotton">Wax London</a> is my go-to fashionable brand that has tons of organic options.</p>
+<h3>Food</h3>
+<p>This is the area I feel most passionate about. The Standard American Diet (SAD) is terrible. Right now, many Americans get 55% of their calories from <a href="https://www.npr.org/sections/shots-health-news/2025/08/07/nx-s1-5495308/ultra-processed-food-upf-rfk-cdc">ultraprocessed foods</a>. The typical American diet is often bereft of nutrients, is riddled with toxins, and has created the sickest population of humans to ever exist on this planet 🇺🇲.</p>
+<p>In large part, this is because we have a food system that is uniquely permissive in what it allows in our foods. Worse, international companies (like Mondelez) actually have <em>American versions of the same product</em>, where the American version is simply more processed!</p>
+<p><img alt="Image from A builder’s guide to living a long and healthy life" src="https://substack-post-media.s3.amazonaws.com/public/images/870283f5-4fde-45f4-981e-5f11a90fce77_768x679.png" /></p>
+<p>When it comes to sourcing foods, the biggest things to optimize for are (1) nutrient density and (2) toxin avoidance. The most nutrient-dense foods are sourced more locally, which inherently means eating seasonally. The farther your food travels, the less nutrient-dense it is. One study found that after nine days of travel, spinach was <a href="https://www.chicagotribune.com/dining/ct-xpm-2013-07-10-chi-most-produce-loses-30-percent-of-nutrients-three-days-after-harvest-20130710-story.html">90% less nutrient-dense</a> than it was at harvest. Here in Austin, I am fortunate to live near an amazing grocery store (<a href="https://www.eatradius.com/">Radius</a>), but many major cities have excellent farmers markets or grocery stores to buy local.</p>
+<p>Beyond nutrient density, it’s important to mitigate common toxins like pesticides (glyphosate, atrazine), phthalates, microplastics (though it’s nearly impossible), and PFAS. That means buying organic where possible—especially the most-sprayed fruits and vegetables, called the “<a href="https://www.ewg.org/foodnews/dirty-dozen.php">dirty dozen</a>”—and, again, buying whole, unprocessed foods that require fewer chemicals to ensure some amount of shelf life. There are certifications (like glyphosate-free) that are fairly good signs that you’re buying from a brand that cares about sourcing, but these are few and far between.</p>
+<p>Beyond those principles, there are a few foods from companies I feel comfortable recommending:</p>
+<ol>
+<li><strong>Protein bars/snacks:</strong> I absolutely love these <a href="https://mauinuivenison.com/products/snack-membership?Title=Default+Title">Maui Nui meat sticks</a>. Maui Nui has the best-sourced meat I am aware of, anywhere in the world. (We partnered with them at Kettle &amp; Fire.) They actually hunt and harvest the animals they make the jerky from, and it shows in the taste and nutrient density of their meat sticks. It should be no surprise, but when animals live a longer time, forage, exercise, and are outside for their natural lifetimes, well, they tend to be more nutrient-dense and protein-rich: exactly what Maui Nui products are.<br />
+   I prefer these sticks to a protein bar most of the time. But if I’m running low, I absolutely love the <a href="https://eatjacob.com/">Jacob bar</a> in a pinch. Just be sure to <a href="https://x.com/jwmares/status/1904218913413672988">avoid David bar</a>. 😉</li>
+<li><strong>Bone broth:</strong> You probably knew I would say this, but I drink at least a carton of <a href="https://kettleandfire.com">Kettle &amp; Fire</a> bone broth each day. We made the first <a href="https://www.kettleandfire.com/pages/mauinui">wild-harvested bone broth</a> (with Maui Nui), which is my go-to. But all our flavors are good!</li>
+<li><strong>Beef:</strong> People should be eating far more organ meats, because they’re such a great source of key amino acids and other nutrients. I love Force of Nature and their <a href="https://forceofnature.com/products/regenerative-beef-ancestral-blend">ancestral blend</a>, which makes it easy to get organ meats in your diet while also buying some of the highest-quality regenerative beef out there. <a href="https://whiteoakpastures.com/">White Oak Pastures</a> also does an incredible job from a sourcing standpoint.</li>
+<li><strong>Coffee:</strong> This is a tough one to source locally. I buy a lot of coffee from the <a href="https://www.groundworkcoffee.com/collections/regenerative-organic-certified">Groundwork</a> team, who have worked hard to build one of the only regenerative coffee supply chains in the world. Bonus points if you want to stir in some <a href="https://manukahoneyofnz.com/products/mgo-1500-manuka-honey-umf-28?currency=usd">$400 manuka honey</a> (which is apparently lightly psychoactive, though I haven’t personally tried it).</li>
+</ol>
+<p>At this point in my life, there are very few national food brands that I support, as I tend to prefer buying locally and seasonally where possible. Scaling a food business while maintaining high standards is extremely difficult, and, to be frank, most companies out there don’t do a good job. Even Whole Foods’s beef <a href="https://www.eatradius.com/beef-plastic-testing/">has a high degree of phthalates!</a></p>
+<h3>Supplements</h3>
+<p>Many supplements are a waste of time and money. Much (most?) of what you’ll find on Amazon is probably fake, overhyped, or doesn’t have enough effective ingredients to do anything. A recent consumer test found that 4 of 6 creatine gummy brands <a href="https://www.wired.com/story/creatine-gummies-dubious-claims/">contained no creatine</a> at all!</p>
+<p>For almost everyone, getting core nutrients and amino acids from whole food sources is <em>far</em> superior to getting them from supplements. That said, many folks are still missing some of the building blocks the body requires to thrive. That’s where supplements can come in, to . . . <em>supplement</em> the diet. Some I like and recommend:</p>
+<ol>
+<li><strong>Protein powder:</strong> Protein is key, and most Americans don’t get anywhere close to the recommended 0.36 grams per pound of body weight. For those looking to increase protein intake, <a href="https://equipfoods.com/">Equip</a> is probably my favorite protein powder, with the <a href="https://www.livemomentous.com/products/grass-fed-whey-protein-isolate-powder-limited-edition-flavors">Momentous whey</a> a close second. I would recommend avoiding plant protein powders, as they (1) basically don’t work and are <a href="https://systematicreviewsjournal.biomedcentral.com/articles/10.1186/s13643-022-01951-2#:~:text=Proteins%20also%20inherently%20differ%20in,PDCAAS%20for%20different%20protein%20sources.">not bioavailable</a>, and (2) are often made from pea or soybean protein, which is among the most pesticide-sprayed crops out there. For example, a <a href="https://mamavation.com/food/pea-protein.html">Mamavation test</a> found Orgain’s organic pea protein powder had glyphosate levels roughly <em>1,000 times</em> higher than recommended.<br />
+   Beyond protein for building muscle, Americans also criminally underconsume collagen and gelatin, both of which are key building blocks for healthy joints, skin, hair, and gut. I have four or five servings of collagen per week (on top of my daily bone broth) and recommend the collagen from Equip, Momentous, <a href="https://lineageprovisions.com/products/creatine-monohydrate">Lineage</a>, and a company I started years ago, <a href="https://shop.perfectketo.com/products/grass-fed-collagen-with-mct">Perfect Keto</a> (if you want the extra boost that comes with coconut fats).</li>
+<li><strong>Creatine:</strong> Creatine is a naturally occurring amino acid stored in muscles and the brain that helps with energy creation. It’s been safely used by bodybuilders since time immemorial and is increasingly associated with a host of <a href="https://www.nature.com/articles/s41598-024-54249-9">mental performance benefits</a>. Pretty much the only creatine I would buy is <a href="https://www.livemomentous.com/products/creatine-monohydrate">Momentous</a>, as they are one of the only non-Chinese-sourced brands out there.</li>
+<li><strong>Nattokinase:</strong> This is a new compound that I am very bullish on. Heart disease is the leading cause of death in the U.S., and 70% to 80% of heart attacks are caused by atherosclerotic plaque. Certain dosages of nattokinase (at least 10,000 fibrinolytic units) were found to be more effective than statins at reducing arterial plaque, a significant contributor to <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9441630/">heart</a> <a href="https://pubmed.ncbi.nlm.nih.gov/28763875/#full-view-affiliation-2">disease</a>. For the many folks whose labs show high cholesterol or concerning ApoB/Lp(a) markers, I think taking nattokinase preventively is a good idea. I’ve been taking <a href="https://tokuhealth.com/">Toku</a>, which has the clinically effective dose plus vitamin K2 (I also invested in the company). A friend <a href="https://x.com/jwmares/status/1962904842281893898">found recently</a> that his ApoB dropped 16% and his LDL came down 20% after 60 days of taking Toku. Josh (the founder of Levels) <a href="https://x.com/joshuasforrest/status/1973062469036683487">found similarly</a>!</li>
+<li><strong>B vitamins and MTHFR:</strong> If you’re like me—and 30% of other people—you may have some variety of the MTHFR mutation. This mutation impairs the body’s ability to detox and can lead to higher levels of homocysteine, an amino acid in the blood that, at elevated levels, is linked to increased risks of heart disease, blood clots, strokes, and cognitive decline. I take this <a href="https://www.amazon.com/Thorne-Methyl-Guard-Plus-methylation-homocysteine/dp/B00O5AHC4S/">B complex</a> from Thorne daily to help with methylation (basically, how your body clears toxins) and give my body support to detox and function the way it should.</li>
+<li><strong>Organ supplementation:</strong> As I’ve mentioned, organ meats and connective tissue contain key amino acids and nutrients that are not found in muscle meats like steak or chicken breast. Unfortunately, most Americans primarily eat cuts of muscle meats, and thus don’t get many key amino acids in their diets. I get it: eating straight kidney and liver can be gross! Many people (aka me) prefer supplementing with organs in capsule form. My favorite <a href="https://mauinuivenison.com/products/organ-blend-supplement">organ supplement</a> is from Maui Nui (a partner of my company Kettle &amp; Fire), which I believe sources the best and most ethical animal protein in the world.</li>
+</ol>
+<p>Outside of those daily staples, I have a whole host of supplements I’ll take for specific life events, often from brands like Momentous or Thorne, which both have good sourcing practices. For example, when I’m sick, I follow the <a href="https://www.hubermanlab.com/episode/how-to-prevent-treat-colds-flu">Huberman protocol</a> and take 600 to 900 milligrams of N-acetylcysteine (NAC), along with 100 mg of zinc, per day for three to five days. I take <a href="https://www.amazon.com/Premium-Kinoko-Platinum-AHCC-Supplement/dp/B00HG0YZMG/ref=sr_1_6_pp">AHCC</a> and <a href="https://www.amazon.com/Pure-Synergy-SuperPure%C2%AE-Astaxanthin-Antioxidant/dp/B07KX3NZJ5/ref=sr_1_6_pp?dib=eyJ2IjoiMSJ9.RCID4tv3DFCQwIWFVzZA_22htPLJuRaXepz1XeDNiKAgy4p5vfIKZP6sGyNJD5hFJXqvQFTOpy8C_lEj7Oo0a0UfggDsEyQ7TSMQ_tYJ4dksab1_BZZdmSa5kIk_wybWHDd1Wg9HbjDWnDhfs_PDMBpnpWz1kyUbCNEccx4DaY4yq6PPyrbKqvAl1RsNhMjPrIrBepiFrNSYfslF_yqP2GMq9lexbpzkrExnOHYBvS7PihMY6w4kulumQ-hkYGLPd_t6FqTnjFdRv9PnnzgaRgVln-7t8jmbTEofVpm5Ru4.mtPHiGccPFeIAq40eQTDxzHJ-_glHBPnZDeNow4n-h4&amp;dib_tag=se&amp;keywords=astaxanthin&amp;qid=1758035441&amp;sr=8-6">astaxanthin</a> to help my body fight off the infection. I also mega-dose vitamin C and try to spend at least 30 minutes in the sauna.</p>
+<p>Though this regimen seems to help, nothing is better than not getting sick at all. That’s why whenever I fly, I use <a href="https://www.amazon.com/VIRALDINE-Povidone-Iodine-Designed-Congestion-applications/dp/B0CTWWS1DK">Viraldine</a> before getting on the plane to prevent catching anything (including feelings).</p>
+<h3>Toxin mitigation</h3>
+<p>In my view, environmental toxins are the trans fats of our generation. <a href="https://www.vox.com/2022/8/25/23318667/pfas-forever-chemicals-safety-drinking-water">PFAS</a>, phthalates, endocrine-disrupting chemicals, pesticides, and heavy metals are everywhere. They’re in your clothing, detergents, soap, shampoo, paint, furniture, water, and air. As of this writing, 92% of Americans have measurable phthalates in their body and 97% have PFAS in their blood. These chemicals have been shown to affect <a href="https://ehp.niehs.nih.gov/doi/10.1289/ehp.1205118">testosterone levels</a>, <a href="https://www.sciencedirect.com/science/article/pii/S0160412020318493#:~:text=Experimental%20data%20show%20that%20early,Gray%20and%20McNaughton%2C%202003%29.">anxiety</a>, <a href="https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas">cancer risk</a>, and even <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9986484/">sperm count</a>. <a href="https://www.nytimes.com/2022/05/19/science/early-puberty-medical-reason.html">Some researchers believe</a> that they even have a role to play in the fact that girls are hitting puberty one to two years sooner than they were 40 years ago.</p>
+<p>In large part, we are here because the FDA has totally dropped the ball on regulating new chemicals. The European Union, on the other hand, takes a “do no harm” approach and assumes that new chemicals may cause harm. So they regulate them! The EU currently bans more than 1,300 chemicals and compounds that the U.S. allows.</p>
+<p>The FDA takes the opposite approach: Sure, humans have never before been exposed to these classes of chemicals, but whatever—let’s assume they’re safe. The U.S. has over 40,000 chemicals allowed in our food, water, and environment, with minimal pushback from the FDA. Between this and the 50 years it took the FDA to act on <a href="https://justinmares.com/why-im-ignoring-the-nutrition-experts/">the whole trans fats thing</a> (and then, only after multiple lawsuits were brought against them), I think it’s safe to say that the FDA’s approach to chemical regulation has lots of room for improvement.</p>
+<p>Anyway, back to toxins. They’re everywhere (in breast milk, our blood, our urine), have tremendous health impacts, and are highly likely causing many of the chronic conditions that plague Americans today.</p>
+<p>Detoxing your environment is critically important but almost impossible to do completely. That’s why I think an 80/20 approach makes a lot of sense here: cut out toxins in the things you’re regularly exposed to, and use detox tools (like sauna, or fancy new blood cleaning approaches like <a href="https://www.inuspheresis.com/">Inuspheresis</a>/<a href="https://www.proxima.health/">Proxima</a>) to attack the remaining 20%.</p>
+<p>For many, this means cleaning up your home environment, your office environment, and your kitchen. Most of what I’ve learned about this I learned after having the <a href="https://lightworkhome.com/">Lightwork</a> (think: functional medicine doctor for your house) team do a thorough test and review of my home.</p>
+<p>Here are the things I’d buy to mitigate toxin exposure in all of those spaces:</p>
+<ol>
+<li><strong>Air purifiers:</strong> Most microplastics are inhaled, not ingested via water or food. On the high end, I like the <a href="https://jaspr.co/">Jaspr</a>, but if you’re looking for a great everyday purifier, the <a href="https://getpuroair.com/">PuroAir</a> is also quite good.</li>
+<li><strong>Water purifier:</strong> Our drinking water is riddled with PFAS, glyphosate, and many other toxins. <a href="https://www.ewg.org/news-insights/news-release/2025/04/cancer-causing-chemicals-drinking-water-put-122m-americans-risk">A recent study</a> found that 35% of Americans live in areas where their water exceeds the limit for one or more carcinogens, and that <a href="https://www.sciencedirect.com/science/article/pii/S0160412023003069?via%3Dihub=">half of all water</a> is contaminated with PFAS! To filter out as much as possible, I can’t recommend the <a href="https://rorra.com/products/countertop-system">Rorra</a> enough (I even invested in it). It’s the best countertop system available, and has the best showerhead filter to boot. If you’re looking for a whole home system (which I have), the <a href="https://www.aquasana.com/">Aquasana</a> is excellent—though if you’re in the market for a system that will have you going, “I cannot believe how much I just spent on this,” the <a href="https://www.ophorawater.com/whole-home/">Ophora system</a> is incredible.</li>
+<li><strong>Pesticide mitigation:</strong> I am becoming more and more concerned about pesticides. They’re everywhere, and by far the best thing you can do is improve your food sourcing by buying organic, local, and seasonal wherever possible. To the extent that that’s not an option, I use <a href="https://www.amazon.com/Renovera-Vegetable-Infant-Friendly-Powdered-Produce/dp/B07R3W8H41/ref=sr_1_6?dib=eyJ2IjoiMSJ9.7ckRjZuxqNsmcIyStMrrXpAzOIRLzBn5pK-NheGfpCW3tOfJyHpjBeUUCNV7yBLN1WgrRlm2XJo_HjN8nB7Fwh89tZOqwy0FqX6badqwutdzP_955CAkcfJxKbgosqeI8mN8PK-kYMzjrVn8ZRJVxIzX1I2pk4vd3OXFmRQmysJMhCUuSK8Mu6_lgmKI62YbVnggH6GxTsjS0bmlJrmnOBRaashycwL8zNBp2g_5OvuoM7AbY5NTIzPtPf1mYtT2RmgdZ5GTOdxzDu2c4q57wmbobh4oa6VoNisjINIVVls.GwBbqY-rk4UyrUW2xYSYDMssqD3bGtNWzRvvdwi8ea0&amp;dib_tag=se&amp;keywords=pesticide%2Bremoval&amp;qid=1754577982&amp;sr=8-6&amp;th=1">this cleaner</a> on much of my produce, and am going to start experimenting with one of <a href="https://www.amazon.com/Powerscale-Generator-Vegetable-Multipurpose-Pesticides/dp/B0D8DM18HV/ref=sr_1_17">these crazy devices</a> that removes much of the pesticide residue found on fruits and veggies.</li>
+<li><strong>Detoxing your kitchen:</strong> This is crucial but can be relatively simple. Most of the compounds you’re looking to remove are plastic items that will shed plastics and endocrine-disrupting chemicals like BPA, BPS, and phthalates. Remove plastic storage containers, plastic wrap, plastic cutting boards, plastic-coated pans, and so on, as a first step. I’d recommend replacing them with glass containers and ceramic pans (<a href="https://www.carawayhome.com/">Caraway</a> is great for both), <a href="https://www.amazon.com/Bees-Wrap-Assorted-Sustainable-Alternative/dp/B0126LMDFK/ref=sr_1_7?dib=eyJ2IjoiMSJ9.-6b6IdDUrHXN828SJ9DA6ti-e8Dl293N7a5T7Lj0_lGJdlOYOLcjmajLiRvwRm4a8FJFP0XdODb0iXLJl3UZLPlMVjn6ohUxVif3AZ2JmoPQQu86u4PIobVDvZv0_iDaHjEypAX-gjUsEJIIFbtKv1e7uIr6dzpUhsQK6gmqip5MFSYl6xmAzth3DP4pm8EOFvVlW45szdnJxLT4hwYTHHKBH7PLNrW70OinDQtTHA5634kAWPptxIZEd61Z7rTGLQwfSRgiNh0tL3rCGUasx_X7sXNKIZnyYCj3ax7RszI.IU6yXYPwmgZi-founYFc2aw1BdZd3AEkrLW8ssVkSlM&amp;dib_tag=se&amp;keywords=beeswax+wrap&amp;qid=1754578385&amp;sr=8-7">beeswax wraps</a>, and a <a href="https://teakhaus.com/collections/cutting-boards">teakwood</a> cutting board (no microplastics).</li>
+</ol>
+<p>A bit further off the beaten path, I increasingly notice that I feel a <em>lot</em> better when I’m not in lights that emit a lot of blue light or have a very high flicker rate. There’s a simple way to see just how often your lights are flickering: find a light in your home or office, and film it in slo-mo mode using your phone. Then watch the video—that flicker rate is happening all the time, stressing you out, all just below your conscious perception.</p>
+<p>I’ve replaced (first just a few, and now all) the bulbs in my house with <a href="https://thehealthyhome.shop/collections/lights">these circadian bulbs</a>. If you’re skeptical of the impact, try replacing one lamp with a circadian light bulb, and you’ll see a huge difference. I have people remark on how relaxed my house feels <em>all the time</em> when they walk in in the evening. If you want to go really deep on the topic, <a href="https://andybromberg.com/all-light">this post on light</a> is exceptional. But trust me, once you start removing blue light from your environment in the evenings, you’ll never go back.</p>
+<p>Lastly, there are electromagnetic fields (think Wi-Fi signals, Bluetooth, cellphone radiation, power infrastructure). Andy Bromberg of <a href="https://www.lightworkhome.com/">Lightwork</a> has another banger post on the <a href="https://andybromberg.com/rational-guide-to-emfs">skeptic’s guide to EMFs</a>. I think EMFs are a bigger deal than society thinks, but likely less harmful than many of the tinfoil-hat crowd believes. Still, they’re very much worth mitigating, which is simple to do: 80% of the battle is moving Wi-Fi routers away from your bed and workstations. To get to 90%, turn your Wi-Fi off at night (using a simple <a href="https://www.amazon.com/Govee-WiFi-Outlet/dp/B08731J1L4/ref=sr_1_6">smart plug</a>), and you’ll mitigate a huge amount of potential exposure.</p>
+<h3>Everyday items</h3>
+<p>A few everyday items I enjoy that I think are worth having:</p>
+<ol>
+<li><strong>Deodorant:</strong> I’ve used and loved <a href="https://primallypure.com/collections/deodorant">Primally Pure</a> for years now, though today there are plenty of good options that are free of heavy metals and actually effective. <a href="https://www.nativecos.com">Native</a> is also decent.</li>
+<li><strong>Blue-light blockers:</strong> I dig the <a href="https://raoptics.com/">Ra Optics</a> blue-light blockers for nighttime wear, or to wear if I’m staring at a screen for many hours. <a href="https://getchroma.co/collections/blue-light-blocking-glasses">Chroma</a> also makes excellent blue-light products, though I find them slightly less fashionable and comfortable to wear.</li>
+<li><strong>Soap/shampoo:</strong> You can’t go wrong with <a href="https://www.drbronner.com/">Dr. Bronner’s</a>.</li>
+<li><strong>Cleaning products:</strong> <a href="https://branchbasics.com/">Branch Basics</a> is the best by a mile. Huge fan.</li>
+</ol>
+<p>Skin-care-wise, I tend to like a few products but not go crazy. On the daily, I use <a href="https://mymirrorskin.com/">Mirror Skin</a> as a base layer and then add a <a href="https://karigran.com/products/essential-spf">mineral sunscreen</a> (when I remember, which is not always 😬). I also like <a href="https://www.shwallyhome.com/collections/our-balms/products/shwally-face-and-body-balm">this tallow balm</a>, although I can’t say I have seen amazing results or anything from it. For washing my face, I use the <a href="https://alitura.com/collections/skincare/products/the-meteorite-facial-scrub?selling_plan=4148527355">Meteorite scrub</a> fairly often, as well as <a href="https://alitura.com/collections/skincare/products/alitura-pearl-cleanser">this cleanser</a> on the daily.</p>
+<p>—</p>
+<p>Sadly, staying healthy in our current environment is hard. I am hopeful this changes in the coming decades, but until it does, you can take concrete steps to avoid the poor average health outcomes in the U.S. I know it’s helped me: since making many of these changes, I’ve had more energy and been better able to handle the startup journey. I hope this comprehensive list of everything I’ve learned over the years is helpful in your journey toward health.</p>
+<h1>Handy summary of every product/brand mentioned above</h1>
+<h4>Sleep</h4>
+<ol>
+<li><a href="https://www.eightsleep.com/">Eight Sleep</a></li>
+<li><a href="https://www.livemomentous.com/products/magnesium-threonate">Momentous magnesium L-threonate</a></li>
+<li><a href="https://thewoolshire.com/products/wool-pillow">Woolshire pillow</a></li>
+<li><a href="https://www.coyuchi.com/collections/sheet-sets">Coyuchi sheets</a></li>
+<li><a href="https://www.avocadogreenmattress.com">Avocado mattress</a></li>
+<li><a href="https://myessentia.com/">Essentia mattress</a></li>
+<li><a href="https://www.naturepedic.com/">Naturepedic mattress</a></li>
+<li><a href="https://hastens.com/us/">Hästens</a></li>
+</ol>
+<h4>Clothing</h4>
+<ol>
+<li><a href="https://industryofallnations.com/collections/underwear">Industry of All Nations</a></li>
+<li><a href="https://wearpact.com/">Pact</a></li>
+<li><a href="https://nadsunder.com/">Nads</a></li>
+<li><a href="https://www.pakaapparel.com/">Paka</a></li>
+<li><a href="https://fahertybrand.com/">Faherty</a></li>
+<li><a href="https://waxlondon.com/collections/organic-cotton">Wax London</a></li>
+</ol>
+<h3>Food</h3>
+<ol>
+<li><a href="https://mauinuivenison.com/products/snack-membership?Title=Default+Title">Maui Nui meat sticks</a></li>
+<li><a href="https://eatjacob.com/">Jacob protein bar</a></li>
+<li><a href="https://kettleandfire.com">Kettle &amp; Fire bone broth</a></li>
+<li><a href="https://forceofnature.com/products/regenerative-beef-ancestral-blend">Force of Nature beef</a></li>
+<li><a href="https://whiteoakpastures.com/">White Oak Pastures meats</a></li>
+<li><a href="https://www.groundworkcoffee.com/collections/regenerative-organic-certified">Groundwork coffee</a></li>
+<li><a href="https://www.eatradius.com/">Radius</a></li>
+</ol>
+<h4>Supplements</h4>
+<ol>
+<li><a href="https://equipfoods.com/">Equip protein</a></li>
+<li><a href="https://www.livemomentous.com/products/creatine-monohydrate">Momentous</a></li>
+<li><a href="https://lineageprovisions.com/products/creatine-monohydrate">Lineage</a></li>
+<li><a href="https://shop.perfectketo.com/products/grass-fed-collagen-with-mct">Perfect Keto</a></li>
+<li><a href="https://tokuhealth.com/">Toku</a></li>
+<li><a href="https://www.amazon.com/Thorne-Methyl-Guard-Plus-methylation-homocysteine/dp/B00O5AHC4S/">Thorne B complex</a></li>
+<li><a href="https://mauinuivenison.com/products/organ-blend-supplement">Maui Nui Organ Blend</a></li>
+<li><a href="https://www.amazon.com/Premium-Kinoko-Platinum-AHCC-Supplement/dp/B00HG0YZMG/ref=sr_1_6_pp">AHCC</a></li>
+<li><a href="https://www.amazon.com/Pure-Synergy-SuperPure%C2%AE-Astaxanthin-Antioxidant/dp/B07KX3NZJ5/ref=sr_1_6_pp?dib=eyJ2IjoiMSJ9.RCID4tv3DFCQwIWFVzZA_22htPLJuRaXepz1XeDNiKAgy4p5vfIKZP6sGyNJD5hFJXqvQFTOpy8C_lEj7Oo0a0UfggDsEyQ7TSMQ_tYJ4dksab1_BZZdmSa5kIk_wybWHDd1Wg9HbjDWnDhfs_PDMBpnpWz1kyUbCNEccx4DaY4yq6PPyrbKqvAl1RsNhMjPrIrBepiFrNSYfslF_yqP2GMq9lexbpzkrExnOHYBvS7PihMY6w4kulumQ-hkYGLPd_t6FqTnjFdRv9PnnzgaRgVln-7t8jmbTEofVpm5Ru4.mtPHiGccPFeIAq40eQTDxzHJ-_glHBPnZDeNow4n-h4&amp;dib_tag=se&amp;keywords=astaxanthin&amp;qid=1758035441&amp;sr=8-6">Astaxanthin</a></li>
+<li><a href="https://www.amazon.com/VIRALDINE-Povidone-Iodine-Designed-Congestion-applications/dp/B0CTWWS1DK">Viraldine</a></li>
+</ol>
+<h3>Toxin mitigation</h3>
+<ol>
+<li><a href="https://www.inuspheresis.com/">Inuspheresis</a></li>
+<li><a href="https://www.proxima.health/">Proxima</a></li>
+<li><a href="https://lightworkhome.com/">Lightwork</a></li>
+<li><a href="https://jaspr.co/">Jaspr</a></li>
+<li><a href="https://getpuroair.com/">PuroAir</a></li>
+<li><a href="https://rorra.com/products/countertop-system">Rorra</a></li>
+<li><a href="https://www.aquasana.com/">Aquasana</a></li>
+<li><a href="https://www.ophorawater.com/whole-home/">Ophora</a></li>
+<li><a href="https://www.amazon.com/Renovera-Vegetable-Infant-Friendly-Powdered-Produce/dp/B07R3W8H41/ref=sr_1_6?dib=eyJ2IjoiMSJ9.7ckRjZuxqNsmcIyStMrrXpAzOIRLzBn5pK-NheGfpCW3tOfJyHpjBeUUCNV7yBLN1WgrRlm2XJo_HjN8nB7Fwh89tZOqwy0FqX6badqwutdzP_955CAkcfJxKbgosqeI8mN8PK-kYMzjrVn8ZRJVxIzX1I2pk4vd3OXFmRQmysJMhCUuSK8Mu6_lgmKI62YbVnggH6GxTsjS0bmlJrmnOBRaashycwL8zNBp2g_5OvuoM7AbY5NTIzPtPf1mYtT2RmgdZ5GTOdxzDu2c4q57wmbobh4oa6VoNisjINIVVls.GwBbqY-rk4UyrUW2xYSYDMssqD3bGtNWzRvvdwi8ea0&amp;dib_tag=se&amp;keywords=pesticide%2Bremoval&amp;qid=1754577982&amp;sr=8-6&amp;th=1">Renovera</a></li>
+<li><a href="https://www.amazon.com/Powerscale-Generator-Vegetable-Multipurpose-Pesticides/dp/B0D8DM18HV/ref=sr_1_17">PowerScale</a></li>
+<li><a href="https://www.carawayhome.com/">Caraway</a></li>
+<li><a href="https://www.amazon.com/Bees-Wrap-Assorted-Sustainable-Alternative/dp/B0126LMDFK/ref=sr_1_7?dib=eyJ2IjoiMSJ9.-6b6IdDUrHXN828SJ9DA6ti-e8Dl293N7a5T7Lj0_lGJdlOYOLcjmajLiRvwRm4a8FJFP0XdODb0iXLJl3UZLPlMVjn6ohUxVif3AZ2JmoPQQu86u4PIobVDvZv0_iDaHjEypAX-gjUsEJIIFbtKv1e7uIr6dzpUhsQK6gmqip5MFSYl6xmAzth3DP4pm8EOFvVlW45szdnJxLT4hwYTHHKBH7PLNrW70OinDQtTHA5634kAWPptxIZEd61Z7rTGLQwfSRgiNh0tL3rCGUasx_X7sXNKIZnyYCj3ax7RszI.IU6yXYPwmgZi-founYFc2aw1BdZd3AEkrLW8ssVkSlM&amp;dib_tag=se&amp;keywords=beeswax+wrap&amp;qid=1754578385&amp;sr=8-7">Beeswax wraps</a></li>
+<li><a href="https://teakhaus.com/collections/cutting-boards">Teakhaus</a></li>
+<li><a href="https://thehealthyhome.shop/collections/lights">Circadian bulbs</a></li>
+<li><a href="https://www.amazon.com/Govee-WiFi-Outlet/dp/B08731J1L4/ref=sr_1_6">Smart plug</a></li>
+</ol>
+<h4>Everyday items</h4>
+<ol>
+<li><a href="https://primallypure.com/collections/deodorant">Primally Pure deodorant</a></li>
+<li><a href="https://www.nativecos.com">Native deodorant</a></li>
+<li><a href="https://raoptics.com/">Ra Optics blue-light glasses</a></li>
+<li><a href="https://getchroma.co/collections/blue-light-blocking-glasses">Chroma blue-light glasses</a></li>
+<li><a href="https://www.drbronner.com/">Dr. Bronner’s soaps</a></li>
+<li><a href="https://branchbasics.com/">Branch Basics cleansers</a></li>
+<li><a href="https://mymirrorskin.com/">Mirror Skin serum</a></li>
+<li><a href="https://karigran.com/products/essential-spf">Kari Gran sunscreen</a></li>
+<li><a href="https://www.shwallyhome.com/collections/our-balms/products/shwally-face-and-body-balm">Shwally tallow balm</a></li>
+<li><a href="https://alitura.com/collections/skincare/products/the-meteorite-facial-scrub?selling_plan=4148527355">Alitura Meteorite scrub</a></li>
+<li><a href="https://alitura.com/collections/skincare/products/alitura-pearl-cleanser">Alitura Pearl cleanser</a></li>
+</ol>
+<p><em>Thanks, Justin!</em></p>
+<p><em>For more from <a href="https://www.linkedin.com/in/justinmares/">Justin</a>, check out his <a href="https://justinmares.substack.com/">newsletter</a> and <a href="https://www.truemed.com/">Truemed</a>. They’re also <a href="https://www.truemed.com/careers">hiring a marketer</a>!</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

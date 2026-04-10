@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The most important consumer metrics to track — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The most important consumer metrics to track</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The most important consumer metrics to track</div>
+    
+    <div class="article-meta">2021-11-23<span>·</span>1,040 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2C</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m building a consumer app and wondering what metrics I should focus on.</h2>
+</blockquote>
+<p>There are many types of consumer businesses, and the metrics you focus on depend heavily on the type of consumer product you’re building. In particular, how you make money. Below I’ll focus on five types that I’m most familiar with:</p>
+<ol>
+<li><strong>Subscription—trial-based</strong> (e.g. Calm, Noom)</li>
+<li><strong>Subscription—freemium</strong> (e.g. Duolingo, Spotify)</li>
+<li><strong>Ad-based</strong> (e.g. Snap, Twitter)</li>
+<li><strong>Marketplaces</strong> (e.g. Airbnb, Etsy)</li>
+<li><strong>DTC</strong> (e.g. Hims, Glossier)</li>
+</ol>
+<p>Don’t look at these suggestions as the one and only answer. Instead, use them as a starting point. As you learn more about what levers most impact the health and growth of your business (e.g. retention, margins, acquisition, etc.), focus on those. Try to narrow in on the two or three metrics that most directly drive your business’s success. I’ve learned this lesson many times over: greater focus leads to greater impact.</p>
+<p><em>Big thank-you to <a href="https://www.notion.so/sriramkri/Sriram-Krishnan-5a434396fb9d43bfaebce6aa5c1f5e01">Sriram Krishnan</a> and <a href="https://www.linkedin.com/in/yuriytimen/">Yuriy Timen</a> for contributing to this post.</em></p>
+<h2><strong>The most important consumer metrics to track</strong></h2>
+<h4><strong>Subscription—trial-based</strong></h4>
+<p>Trial-based subscription products generally succeed through low acquisition costs, a high conversion rate from trial to paid, and high retention. I’d start by focusing on the following six metrics:</p>
+<ol>
+<li><strong>Trials growth:</strong> New trials started</li>
+<li><strong>Conversion:</strong> % of trials that convert to customers</li>
+<li><strong>Customer retention:</strong> Month 1/3/6 cohort retention</li>
+<li><strong>Revenue:</strong> Monthly recurring revenue</li>
+<li><strong>CAC:</strong> Cost of acquiring a trial</li>
+<li><strong>Growth spend efficiency:</strong> Payback period or CAC/LTV</li>
+</ol>
+<h4><strong>Subscription—freemium</strong></h4>
+<p>Freemium-based subscription products generally succeed through building large pools of free users (generally through WOM/virality), a high-enough conversion rate from free to paid, and high retention. I’d start by focusing on the following eight metrics:</p>
+<ol>
+<li><strong>User growth:</strong> New signups</li>
+<li><strong>User retention</strong>: Week 1/2/12 cohort retention</li>
+<li><strong>Customer growth:</strong> New paying customers</li>
+<li><strong>Customer retention:</strong> Month 1/3/6 cohort retention</li>
+<li><strong>Conversion:</strong> % of free users that end up converting to customers after 1-3 months</li>
+<li><strong>Engagement:</strong> Key action each day/week/month</li>
+<li><strong>Revenue:</strong> Monthly recurring revenue</li>
+<li><strong>Growth spend efficiency:</strong> Payback period or CAC/LTV</li>
+</ol>
+<h4>Ad-based</h4>
+<p>Ad-based products generally succeed through virality-driven (aka cheap) user growth, large percentages of daily/weekly engagement, and high retention. I’d start by focusing on the following six metrics:</p>
+<ol>
+<li><strong>User growth:</strong> New signups</li>
+<li><strong>Engagement:</strong> DAU, WAU, or MAU</li>
+<li><strong>Intensity:</strong> DAU/MAU, WAU/MAU, or <a href="https://andrewchen.com/power-user-curve/">L7/L30</a></li>
+<li><strong>Retention:</strong> Week 2/4/8 cohort retention</li>
+<li><strong>Activation:</strong> % of new users who “activate,” whatever that means for your product</li>
+<li><strong>CAC:</strong> Cost of acquiring a new user</li>
+</ol>
+<h4><strong>Marketplaces</strong></h4>
+<p>Marketplaces generally succeed through efficient acquisition costs, high-enough buyer conversion, and either high AOV or high purchase frequency. I’d start by focusing on the following five metrics:</p>
+<ol>
+<li><strong>Bookings:</strong> Total number of transactions</li>
+<li><strong>Revenue:</strong> Total GMV</li>
+<li><strong>Buyer retention:</strong> Month 1/3/6 purchaser retention</li>
+<li><strong>Supply retention:</strong> Month 1/3/6 supply cohort retention</li>
+<li><strong>Conversion:</strong> % of visitors who end up purchasing</li>
+</ol>
+<h4><strong>DTC</strong></h4>
+<p>DTC businesses generally succeed through highly efficient acquisition costs, sustainable margins, and high AOV. I’d start by focusing on the following seven metrics:</p>
+<ol>
+<li><strong>Customer growth:</strong> Number of new purchases/subscribers</li>
+<li><strong>Customer retention:</strong> Month 3/6/12 cohort retention</li>
+<li><strong>Revenue:</strong> Monthly (recurring) revenue</li>
+<li><strong>Growth spend efficiency:</strong> Payback period, and/or contribution margin, and/or ROAS</li>
+<li><strong>Gross margins:</strong> Net sales revenue minus the cost of goods sold (per purchase or from an annual subscription)</li>
+<li><strong>CAC:</strong> Cost to acquire a customer</li>
+<li><strong>AOV:</strong> Average order value</li>
+</ol>
+<h2>Summary image for reference</h2>
+<p><img alt="Image from The most important consumer metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2536735b-cb9c-4b4b-ac87-cf73a753c183_3038x5834.png" /></p>
+<p>Have any suggestions or feedback? Found anything else to be essential, or not useful? I’d love to hear from you 👇👇👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/the-most-important-consumer-metrics/comments">Leave a comment</a></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">What is good retention?</a></li>
+<li><a href="https://medium.com/ro-co/dtc-metrics-explained-29ff99ff5657">DTC Metrics, Explained</a> by Zachariah Reitano</li>
+<li><a href="https://nbt.substack.com/p/10-factors-to-consider-when-evaluating">10 Factors to Consider When Evaluating Consumer Subscriptions</a> by Nikhil Basu Trivedi</li>
+<li><a href="https://andrewchen.com/dau-mau-is-an-important-metric-but-heres-where-it-fails/">DAU/MAU is an important metric to measure engagement, but here’s where it fails</a> by Andrew Chen</li>
+<li><a href="https://andrewchen.com/power-user-curve/">The Power User Curve</a> by Andrew Chen</li>
+<li><a href="https://future.a16z.com/north-star-metrics/">Choosing Your North Star Metric</a></li>
+</ol>
+<p>Have a fulfilling and productive week 🙏</p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Panther:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e5d8025a-078b-48f5-b083-67978ff06b89">Product Manager (Core)</a> (Remote-Global)</li>
+<li><strong>The.com:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e3ea6743-db26-4796-bdfd-3a6885b7b3c3">Software Engineer</a> (SF)</li>
+<li><strong>Relive:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/7a4300f0-d46e-43a4-a8db-dfec28c4e511">Product Manager</a> (Remote-EU)</li>
+<li><strong>GetSetUp:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/522f84e1-0499-4ddd-975a-f996f648fa0a">Product Lead, Discovery</a> (Remote-Global)</li>
+<li><strong>Morty:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e30caace-f287-4fe1-8215-6d08c88f51c1">Founding Product Manager</a> (Consumer)</li>
+<li><strong>Otto:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/3e0d39f0-55dc-4bc8-bdd1-c58e5611ddf7">Senior Product Manager</a> (Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/fb8cc2e5-7d3c-48ca-9fa8-38fbb4a3411f">Product Lead, Leasing &amp; Residents</a> (Remote-US)</li>
+<li><strong>TaskRabbit:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/17de265a-eadd-4e61-9a8b-a4ff0dc0b494">Chief Product Officer</a> (Remote-US)</li>
+<li><strong>Fiveable:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/c569b4e4-3b48-4ed6-9e85-ca71fc7023f0">Head of Product</a> (Remote-US)</li>
+<li><strong>Catalog:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/f2bec9f3-9eaf-4d5f-aa4a-48e81f3e3a78">Senior Project Manager</a> (Remote-Global)</li>
+<li><strong>Enterpret:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/ffbf9d72-bac3-4a65-a086-43dcb9b46bcb">Principal Product Manager</a> (NYC)</li>
+<li><strong>Launch House:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/cc16e91a-64cd-40b0-b48b-0a9befd0a77b">Growth Associate</a> (Remote-US)</li>
+<li><strong>Hyphen:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/409ba7dc-d175-45cf-a3e8-5b50d020c874">Senior Software Engineer</a> (LA, San Jose, ATL, Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Listen:</strong> <a href="https://tim.blog/2021/11/15/balaji-srinivasan-2/">Balaji Srinivasan on Tim Ferriss</a></li>
+<li><strong>Read:</strong> <a href="https://www.notion.so/Content-marketing-for-founding-teams-fd1c96b0ef9840b29088b5385603ff12">Content marketing for founding teams</a></li>
+<li><strong>Subscribe:</strong> <a href="https://www.indiehackers.com/series/growth-acquisition">Growth &amp; User Acquisition</a></li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

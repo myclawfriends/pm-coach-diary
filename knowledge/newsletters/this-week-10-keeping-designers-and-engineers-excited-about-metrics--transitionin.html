@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Week #10: Keeping designers and engineers excited about metrics + Transitioning from DS to PM 🕺 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">This Week #10: Keeping designers and engineers exc…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">This Week #10: Keeping designers and engineers excited about metrics + Transitioning from DS to PM 🕺</div>
+    
+    <div class="article-meta">2020-01-14<span>·</span>2,031 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello and welcome to my humble newsletter where I attempt to answer your questions about building product, driving growth, working with other humans, and anything else that’s stressing you out at the office. Send me your questions and in return, I’ll give you candid real-talk advice 🤝</p>
+<p>If you’re returning from last week, thank you! If you’re new to this newsletter, nice to have you! 🤜🤛</p>
+<p><strong>This week (just two questions, an experiment):</strong></p>
+<ol>
+<li><strong>Keeping designers and engineers excited about growth (with special guest <a href="https://twitter.com/calexity">@calexity</a>!) 🤩</strong></li>
+<li><strong>Transitioning from Data Science to Product Management 🧟‍♂️</strong></li>
+</ol>
+<p>On to this week’s questions…</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!POGJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F57d7e70e-3b88-43e3-bfcf-4fee2fdbbd3d_4272x2848.jpeg"><img alt="Image from This Week #10: Keeping designers and engineers excited about metrics +" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/57d7e70e-3b88-43e3-bfcf-4fee2fdbbd3d_4272x2848.jpeg" /></a></p>
+<h3>Q: I’m finding it difficult to keep the designers and engineers on my team excited about driving metrics. We debate timelines, quality, and priorities and it’s never easy to get everyone on the same page. Any advice for getting everyone aligned around outcomes?</h3>
+<p><em>When I think about growth and design, I immediately think of <a href="https://twitter.com/calexity">Lex Roman</a>. She has consistently put out some of the best content about <a href="https://lexroman.com/blog/2019/9/30/practicing-growth-design">design and growth</a>, <a href="https://blog.alexaroman.com/the-ux-of-data-a03f938d84e3">design and data</a>, and <a href="https://www.invisionapp.com/inside-design/measure-value-design/">design and experiments</a>. I asked Lex to share her perspective on this question, and she kindly agreed (thank you Lex!). Enjoy.</em></p>
+<p>—</p>
+<p>This is a common challenge Product Managers face. They want to create cross-functional teams to leverage a diverse set of skills and perspectives and yet when they bring folks together from various disciplines, those differences often create tension.</p>
+<p>There are four changes I would make to help shift your entire team towards a unified outcome:</p>
+<ol>
+<li>Define metrics together</li>
+<li>Review metrics together</li>
+<li>Prioritize together</li>
+<li>Reflect on releases together</li>
+</ol>
+<h4><strong>1. Define metrics together</strong></h4>
+<p>Designers and engineers are most engaged when they are involved in goal setting and goal breakdown. Sometimes product managers hesitate to “waste people’s time” in sessions about goals, but I would argue it is the most valuable time to spend together.</p>
+<p><strong>When you define quarterly goals, invite your whole team to participate.</strong> Use the time to reflect on how you did last quarter and consider where to focus this quarter. Here’s a sample working session agenda:</p>
+<ol>
+<li>
+<p><strong><em>Review last quarter</em></strong></p>
+</li>
+<li>
+<p>Revisit goals and see how we tracked against them</p>
+</li>
+<li>Revisit major releases or experiments and how they performed according to their success criteria</li>
+<li>Discuss what went well and what didn’t (with a focus on goals and what helped or hindered progress towards them)</li>
+<li>
+<p><strong><em>Review company overall goals</em></strong></p>
+</li>
+<li>
+<p>Look at the company’s overall goals</p>
+</li>
+<li>Review how those goals are being measured and where</li>
+<li>Discuss what teams are involved in each goal and where those teams focus their work</li>
+<li>
+<p><strong><em>Define our next quarter</em></strong></p>
+</li>
+<li>
+<p>Review team mission and how the team measures success for that mission</p>
+</li>
+<li>Discuss what levers are at play that help you reach that mission metric (for example - what parts of your product are involved? What actions do you need users to take? What indicates you’re on the path to your mission metric?)**</li>
+<li>Define where you should focus to have the biggest impact on your mission metric</li>
+</ol>
+<p><em>(You can use the <a href="https://www.reforge.com/blog/growth-loops">Growth Loops</a>, <a href="https://www.dtelepathy.com/ux-metrics/#engagement">HEART framework</a> or <a href="https://amplitude.com/north-star">North Star framework</a> to help break down metrics into contributing factors.)</em></p>
+<p><strong>During these conversations, check in with your teammates. Do they seem excited and engaged? If not, try to figure out what gets them excited about working on this team.</strong></p>
+<p>I once worked with an extraordinary engineer who was really passionate about performance. We worked to connect the dots from performance to conversion to see if we could prove meaningful impact. Through this work, we could both stay focused on the business goals and tie into elements that mattered to engineering and design.</p>
+<h4><strong>2. Review metrics together</strong></h4>
+<p>One thing I see quite often is that designers and engineers do not have easy access to the metrics they are being held accountable for. Either, they don’t have access at all, or they have access but don’t really know what to look for.</p>
+<p>You can address this by reviewing your team metrics together. And often. <strong>Show what dashboards or charts you look at and explain how they tie into your quarterly goals or company health overall. Be patient and encourage questions.</strong></p>
+<p>It’s also really powerful when you can connect the dots from their work to their impact. Show a recent experiment or release and explain how the work created change (or didn’t). Ask the team to reflect on why. Involve them as you plan the next steps. Celebrate big wins with the team and when things don’t go so well, take the time to have thoughtful conversations about your decisions.</p>
+<p>When you review data with the team, you may also surface their interest in getting more into analytics. Help connect your teammates with resources or access so they too can explore their impact confidently.</p>
+<h4><strong>3. Prioritize together</strong></h4>
+<p>I like to start prioritization sessions by reviewing the team goals and how we are tracking against them. When you bring the goals and metrics forward each week, it helps everyone remember what we should be working on. And it makes it harder to go to bat for a low impact task.</p>
+<p>As you prioritize projects, experiments or stories, make room for your team to voice what they think is high impact. But also, challenge them on it. Say a designer wants to work on a navigation redesign - ask them how the navigation is doing today. Ask them how they would measure success for the business, or for the user. Ask them to make a case.</p>
+<p>Not everything will have a measurable impact, so you have to make a judgment call about what to push back on. Do so thoughtfully and carefully and without targeting any one individual. It’s important that everyone be upheld to the same standard on this--even PMs. Everyone should be able to explain why they want to prioritize something, what evidence they have for impact and how success should be evaluated. And occasionally, if someone really cares about something and it takes a couple of hours, let them do it. Respect what your teammates value and they will respect what you value.</p>
+<h4><strong>4. Reflect on releases together</strong></h4>
+<p>When you ship something, review how it has performed together. Talk about what was prioritized in this release and what wasn’t and whether or not that made a difference. Discuss what worked well and what didn’t.</p>
+<p>It helps if you document how you’re measuring success in a product or experiment plan before the release. Make sure your team is clear on what success means and evaluate together whether or not something was successful. Consider what you all might do differently next time.</p>
+<p>You can also try shipping some of the projects or improvements your engineers and designers are really fighting for. Give them a win. Define success together and review the impact together. Either they will see that they are pushing for the wrong thing or you will find out that they were right all along.</p>
+<p><strong>[Sponsored 🎁]</strong> This week’s featured open role comes from a company that I’ve been a fan of for many years: <a href="https://scottscheapflights.com/">Scott’s Cheap Flights</a>. Just a month ago, my wife and I flew to Mexico City solely because of an incredible deal we found through their weekly emails.</p>
+<p><strong><a href="https://bit.ly/scotts-cheap-flights-head-of-product">Scott’s Cheap Flights is hiring for a Head of Product — click here to learn more</a></strong> 👈</p>
+<p>I asked their product team to share one tactic that they leverage internally to build great product:</p>
+<blockquote>
+<p>“Support tickets are a gold mine of customer feedback and sentiment. Set up an automatic feed of product-related tickets in Slack to keep the entire team in the loop using an existing workflow.”</p>
+</blockquote>
+<p>Thanks, <strong><a href="https://bit.ly/scotts-cheap-flights-head-of-product">Scott’s Cheap Flights</a></strong>!</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!J99i!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fa854dfda-f95d-45a2-be27-3dc5e36e72fe_960x638.jpeg"><img alt="Image result for red pill blue pill" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a854dfda-f95d-45a2-be27-3dc5e36e72fe_960x638.jpeg" title="Image result for red pill blue pill" /></a></p>
+<h3>Q: I am a data scientist looking to make the switch to product. What are your thoughts on internal tracks from DS/design/eng to product, and how to best leverage my data science background in modeling and experimentation when I do so? Also, I’ve heard that the transition to PM internally will potentially result in a “demotion” to the base level for PMs so it’s better off transitioning to PM in a new company. Is this true and how would you advise I approach this.</h3>
+<p>If your goal is to break into Product Management, <strong>an internal transfer program is by far THE BEST way to do it</strong>. I previously wrote about <a href="https://medium.com/hackernoon/how-to-get-into-product-management-78c58bd9c8cf">the four most common paths into PM</a> and without question this path is the easiest, the least risky, and provides you with the most support. Some of the best PMs I’ve worked with got into PM this way.</p>
+<p>If you know you want to get in PM and your company offers a route there, don’t squander it.</p>
+<p>To your point about leveling, <strong>it’s very normal to move down a level when making this transition</strong>. And it makes sense – you’re doing a whole new job. However, normally you move down just one level. If you’re having to move down multiple levels, I’d push back to understand the rationale. If nothing else, get a clear sense of what your new manager will need to see in order to quickly move up a level.</p>
+<p>In terms of how to actually land the gig, having a DS background is both a superpower and a liability. As a DS, you’re probably strong at many of the hard skills (e.g. driving impact, prioritization, execution, strategy), but less experienced with the weird soft-skills of the PM role (e.g. influence, product taste, keeping a team you aren’t managing happy and productive). My advice is to leverage your strengths, and fill in your gaps:</p>
+<ol>
+<li><a href="https://medium.com/hackernoon/how-to-get-into-product-management-78c58bd9c8cf">Read through this post</a> and identify the skills that you believe you are weakest in. Then, find a way to develop them (starting with the links I’ve included in the post).</li>
+<li>Talk to whoever it is that decides if you can get into this transition program, and ask them what they believe you need to demonstrate in order to qualify. Work with them on a plan.</li>
+<li>Finally, closely observe the PMs that you work with day-to-day and identify what they do that is effective and ineffective. Then, try to model and avoid these things, respectively.</li>
+</ol>
+<p>Don’t expect this process to be quick (it often takes over a year) or easy (a PM’s job is pretty terrible sometimes), but keep at it and if you really want it, you’ll get there.</p>
+<p>That’s it for this week!</p>
+<h3>Inspirations for the week ahead 🧠</h3>
+<ol>
+<li><strong>Watch</strong>: <a href="https://www.instagram.com/p/Bg-XYEAnhby/">Moving Shapes</a> [Only 2 mins, trust me] (via Tim Ferris)</li>
+<li><strong>Read</strong>: <a href="https://www.scientificamerican.com/article/momentum-isnt-magic-vindicating-the-hot-hand-with-the-mathematics-of-streaks/">Momentum Isn’t Magic—Vindicating the Hot Hand with the Mathematics of Streaks</a> [Turns out the hot hand fallacy is not a fallacy 🤷‍♂️]</li>
+<li><strong>Listen</strong>: <a href="https://podcasts.apple.com/us/podcast/13-garry-kasparov-avoiding-zugzwang-in-ai-and-politics/id1469999563?i=1000457968500">Eric Weinstein interviewing Garry Kasparov</a> [Two geniuses talking]</li>
+</ol>
+<p><em>Images credits: <a href="https://www.pexels.com/@atulchoudharya9">Atul Choudhary</a>, <a href="https://www.forbes.com/sites/jessicabaron/2019/02/26/the-matrix-at-20-did-we-take-the-blue-pill/#18aca329140e">Forbes</a></em></p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>!</strong></p>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p>
+<p>If you’d like some advice yourself, just reply to this email. Each week, I’ll tackle a few reader questions (keeping your name and company anonymous) until you stop sending me questions 😬</p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>State of the product job market in 2025 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">State of the product job market in 2025</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">State of the product job market in 2025</div>
+    
+    <div class="article-meta">2025-05-13<span>·</span>1,376 words</div>
+    <div class="tags-row"><span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">AI</span> <span class="mini-tag">職涯</span> <span class="mini-tag">工程</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Last year, I did a two-part series on the state of the product job market (see <a href="https://www.lennysnewsletter.com/p/new-data-on-the-product-job-market">part 1</a>, <a href="https://www.lennysnewsletter.com/p/state-of-the-product-job-market-part">part 2</a>), where we found:</p>
+<ol>
+<li>A shift toward hiring senior candidates</li>
+<li>The decline of Scrum</li>
+<li>The share of remote roles shrinking</li>
+<li>The share of PM roles based in the Bay Area growing</li>
+</ol>
+<p>I<strong>t’s a great time to revisit the state of the product job market, and there’s a lot to be optimistic about! We’re seeing:</strong></p>
+<ol>
+<li><strong>Open PM and engineering roles are trending up</strong></li>
+<li><strong>AI PM roles (and AI-related roles in general) are exploding</strong></li>
+<li><strong>Layoffs are slowing</strong></li>
+<li><strong>Capital investment is increasing</strong></li>
+<li><strong>The Bay Area continues to be the center of opportunity</strong></li>
+<li><strong>Remote work opportunities are declining—and are probably near a new baseline</strong></li>
+<li><strong>There are lots of open PM roles around the world</strong></li>
+</ol>
+<p>A big thank-you to <a href="https://trueup.io/">TrueUp</a> for making this analysis possible through their incredible dataset. They continuously scan <strong>every open job at every big tech company and every top startup,</strong> and then categorize and tag each role. You can browse all open PM roles <a href="https://trueup.io/product">here</a>, and sign up to get job alerts when new product roles are posted.</p>
+<p>Now, on to the data.</p>
+<p><em>P.S. If you prefer, you can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<h2><strong>1. Open PM and engineering roles are trending up</strong></h2>
+<p>In spite of what you’re hearing about recessions and AI taking jobs, open roles for product managers and engineers at tech companies are <em>increasing</em>.</p>
+<p>There are over 6,000 open PM roles globally right now—53.6% above the bottom we saw in 2023, and already up 11% since the start of the year. This is the most open PM roles we’ve seen in over two years.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/6c8bdf74-b339-4a01-8bd4-d05c7b04ec1f_2913x2491.jpeg" /></p>
+<p>Engineering role growth looks very similar—just scaled up 10x. Open engineering roles saw an uptick earlier this year, and we’re currently seeing the highest number of open roles since late 2022.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/024a1995-988c-4f70-bc59-f757fc723b2d_2913x2491.jpeg" /></p>
+<p>Designer roles have been more stable over time than PM and engineering. They do seem to be dipping a bit recently, but they also never saw as deep a dip as PM and engineering did over the past few years.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/4b195c04-6a89-46a0-89c4-ba130785a6d8_2913x2491.jpeg" /></p>
+<h2><strong>2. AI roles are exploding</strong></h2>
+<p>When you look at just AI PM roles—which includes roles at both AI companies (e.g. OpenAI, Anthropic, Scale) and roles specifically focused on AI products/features at any tech company (e.g. AI/ML PM at Salesforce), the growth we’re seeing is insane. <a href="https://trueup.io/ai-product">There are 688 open AI PM roles today</a>.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/6f8715a7-df99-43eb-94f0-f549c2dd4d46_2913x2411.jpeg" /></p>
+<p>Zooming out further, here are all “AI” open roles globally. This includes all open roles at what we consider AI companies (e.g. OpenAI, Anthropic, Scale), roles at companies that are heavily AI-driven (e.g. Cursor, Harvey, Lovable), and AI-specific roles at non-AI companies (e.g. AI PM at Figma).</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/e1d51c6c-0707-40f6-9ea9-a671e3bce398_2912x2305.jpeg" /></p>
+<h2><strong>3. Layoffs are slowing</strong></h2>
+<p>More good news: We’re on track to see fewer layoffs this year than in the past four years. However, the possibility of future cuts is ever-present, even at the most respected companies.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/12c582e6-a67f-4739-9272-78f376814cf9_2913x2454.jpeg" /></p>
+<h2><strong>4. Capital investment is increasing</strong></h2>
+<p>We’re seeing more capital investment (e.g. GPUs, data centers, etc.) this year than ever (+29% from last year, +227% from five years ago). It’s still unclear if this only means more hardware or whether it will also lead to more jobs, but I’d rather see this than have it going in the other direction.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/15ac2f42-1f5c-480c-8ab9-8bdd011001e4_2913x3191.jpeg" /></p>
+<h2><strong>5. The Bay Area continues to be the center of opportunity</strong></h2>
+<p>For most tech roles, the Bay Area continues to have the most open roles of any city.</p>
+<p>For PMs, nearly 20% of all open roles are based in the Bay Area.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/8119b3f9-ff30-4dc2-864a-d9941ea02a6d_2913x2446.jpeg" /></p>
+<p><a href="https://www.lennysnewsletter.com/i/149172750/which-cities-have-the-most-open-pm-roles">Since our last analysis</a>, Berlin and Austin entered the top 10 locations with the most open PM roles, and Boston and L.A. fell out of the top 10.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/39fffad0-2136-4e17-a480-795462e17a7a_2913x2584.jpeg" /></p>
+<p>For engineering, over 17% of all open roles are based in the Bay Area—and that share is increasing.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/2d867446-b362-4b0d-ae66-48e4cd2377d9_2913x2446.jpeg" /></p>
+<p>Even more so for design roles (assuming that recent dip is temporary).</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/0747016a-e6ec-4fbf-a5a6-a714e953ec8d_2912x2446.jpeg" /></p>
+<p>The share of roles based in the Bay Area is even more interesting for “AI” jobs—almost a third of all open AI-related roles globally continue to be based in the Bay Area. 😮</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/42535ae1-79ee-4e4a-b2d3-acca19b8ff02_2913x2446.jpeg" /></p>
+<h2><strong>6. Remote work opportunities are declining</strong></h2>
+<p>The number of roles that allow you to work remotely continues to decline. At remote work’s peak in late 2022, we saw about 35% listed open PM roles as remote-friendly. Today, only 23% have a remote option.</p>
+<p>The trend is clear, and we’re probably near the new baseline of around 20% of roles being remote-friendly.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/439de8fe-9c97-47ab-af32-c8ee276720d4_2913x2445.jpeg" /></p>
+<p>That trend is identical for engineering and designer roles.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/184095e9-4219-4a61-b82c-dfe80fa006f2_2913x2445.jpeg" /><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/d949a6bb-395c-45c9-9f5c-0f37f36d7ee2_2913x2445.jpeg" /></p>
+<h2><strong>7. There are lots of open PM roles around the world</strong></h2>
+<p>Finally, if you’re looking for a PM gig and having a hard time, keep going. The roles are out there.</p>
+<p>Here’s a list of the top 20 companies that have the most open roles. <a href="https://trueup.io/product">You can browse all the open roles here</a>.</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/8f1f5268-ef61-495f-8bef-31570d3cfaf3_2913x4698.jpeg" /></p>
+<p>If you’re looking for an AI PM role specifically, here’s who’s hiring:</p>
+<p><img alt="Image from State of the product job market in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/bf1dfaf7-1b13-4c51-8dea-99f00d81b274_2913x4698.jpeg" /></p>
+<h2>Other trends we’re following</h2>
+<ol>
+<li>The rise of the product engineer: We’re seeing 415 open Product Engineer roles currently (e.g. <a href="https://job-boards.greenhouse.io/vercel/jobs/5466858004">v0</a>, <a href="https://job-boards.greenhouse.io/amplitude/jobs/7897466002">Amplitude</a>, <a href="https://jobs.ashbyhq.com/n8n/3075bca2-cfaf-474a-9161-f0d190fbad53">n8n</a>), and this seems to be growing.</li>
+<li>How AI copilot tools change PM interviewing: We’re seeing anecdotal evidence that this is becoming an issue and will change how PMs interview.</li>
+</ol>
+<p>Overall, there’s a lot to be optimistic about!</p>
+<p>I’m excited to continue to follow changes in the job market for product roles. Stay tuned for more updates.</p>
+<p>Have a fulfilling and productive week 🙏</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Miro builds product — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Miro builds product</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Miro builds product</div>
+    
+    <div class="article-meta">2023-05-09<span>·</span>3,681 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">組織</span> <span class="mini-tag">成長</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Varun Parmar’s <a href="https://www.youtube.com/watch?v=furNg4njlsg">podcast appearance</a> about Miro’s unique approach to product got so much love that I knew I needed to go deeper. In part four of an ongoing series on how the best product teams build product (don’t miss <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, and <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>), Varun delves into Miro’s OKR process, planning systems, design reviews, product building philosophy, and, as always, shares tons of plug-and-play templates you can start using today. With over 50 million users, and a valuation of $17.5 billion (making it one of the 10 most valuable U.S. startups), there’s a lot we can learn from Miro’s journey.</p>
+<p>What stood out to me most about Miro’s approach to product:</p>
+<ol>
+<li>Their focus on speed—and how they operationalize it</li>
+<li>Their systems for maintaining a high quality bar, including their “<em>Mona Lisa</em> principle” and their design review process</li>
+<li>Their AMPED team structure</li>
+<li>Their history with OKRs</li>
+<li>Their product principles</li>
+<li>The power of having a three-year “painted picture” vision</li>
+<li>Their epic team rituals, including MiroFest:</li>
+</ol>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/49615afd-80ad-4c20-b35e-09798e49e0d2_1600x1067.png" /></p>
+<p>Thank you, <a href="https://www.linkedin.com/in/vparmar/">Varun</a>, for taking the time to answer so many of my questions! Enjoy.</p>
+<h1>How Miro builds product</h1>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/20901a5c-0876-4dfc-b22c-b50f21b97107_1067x1600.png" /></p>
+<h3><strong>1. How is the Miro product org structured?</strong></h3>
+<p>Over time, we’ve experimented with multiple organizational structures. The first structure divided the org between “Core Product” and “Growth,” which allowed each team to stay focused on one priority: delivering product features or driving growth. Then we evolved our structure to focus more on users, experimenting with use-case-focused teams to solve specific user needs and end-to-end experiences, e.g. Miro for workshops.</p>
+<p>Today the product organization is a cross-functional team composed of <strong>A</strong>nalytics, (Product) <strong>M</strong>arketing, <strong>P</strong>roduct, <strong>E</strong>ngineering, and <strong>D</strong>esign—or <strong>AMPED</strong> for short. AMPED is organized into seven “product streams” aligned to the product component that each stream owns:</p>
+<ol>
+<li>Core product experience</li>
+<li>Enterprise</li>
+<li>Growth</li>
+<li>Core product foundation</li>
+<li>Infrastructure</li>
+<li>Platform</li>
+<li>Data</li>
+</ol>
+<p>Each stream focuses on a set of user personas or outcomes. For example, the Enterprise stream focuses on the enterprise admin and security persona, while the Platform stream is focused on developer persona, and the Growth stream is more horizontal, focusing on specific acquisition and activation outcomes.</p>
+<p>Finally, we have common metrics across all of AMPED that are supported by multiple streams and teams. For example, improving first-time user experience is an outcome that is supported across multiple streams.</p>
+<p>What we see is that the AMPED structure brings together all required functions into the team from the get-go; they bring diverse perspectives, as well as empathy for each other and the users, resulting in a much more effective product development process. Another great example here is that Product Marketing is part of our product development process from the start. So we’re not only thinking of what to build but how to position it, how to differentiate, and how to reach the users.</p>
+<h3><strong>2. How far out do you plan in detail, and how has that evolved over the years?</strong></h3>
+<p>At the company level, we have a “three-year painted picture,” which is a high-level picture that Miro’s Leadership Team co-develops and that defines the outcomes we want to achieve—both for our users and for Miro as a company. The painted picture is bold and ambitious, and establishes a general direction for the entire company.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/256b756b-e603-4769-b1b1-4556b85be2ef_1600x283.png" /><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/c194ba05-eb4f-4c54-8d10-00d723313f46_1600x903.png" /></p>
+<p>The painted picture informs our annual strategy, which sets the direction for the entire AMPED org for the next 12 months. We build the product strategy collaboratively in three steps, between November and January.</p>
+<ul>
+<li><strong>First, the Product Leadership Team identifies priorities for the year</strong> (e.g. outcomes we need to achieve) and an initial list of initiatives we want to pursue. This is the stage where we also select initiatives from the past year that should continue or stop and add new initiatives. The leaders consult their teams and represent their views in discussions.</li>
+<li><strong>Next, the AMPED leaders come together to refine our priorities, discuss conflicts, and make tradeoff decisions.</strong> Typically, this group meets at an in-person offsite and dedicates four or five days to finalizing the product strategy. We also start thinking about staffing needs here to ensure that our most important initiatives are staffed appropriately across all functions.</li>
+</ul>
+<p>Our last offsite was in Barcelona in mid-December—we had a lot of deep discussions, ensured that leaders understood many areas of the product, not just their streams, and also managed to spend some time at the Joan Miró museum for inspiration! The in-person discussions also made alignment a lot easier.<br />
+- <strong>Finally, the full 700-plus AMPED org reviews the product strategy.</strong> The product strategy document is shared with everyone; I present the strategy at an all-hands meeting, and we hold Q&amp;A sessions where AMPED leaders (not just product leaders) answer questions. This phase is about building broad awareness and providing teams with clarity on what we want to do. We got (and answered) more than 1,000 questions in the most recent iteration and refined the details based on the team’s input.</p>
+<p>Each stream takes the annual strategy as input and identifies which outcomes they will support and what initiatives they will drive. Teams also identify the estimated impact of their initiatives—this is helpful when we’re trading off between different opportunities they could pursue. The identified initiatives go into our product roadmap.</p>
+<p>Our product roadmap operates on a rolling six-month cadence—we have 80% confidence in the current quarter and 50%-plus in the subsequent quarter. We used to plan just two weeks out, but this longer-term cadence allows us to be more strategic, while also being nimble and reacting to market changes. And we’ll revisit and update our product strategy mid-year based on the progress until then and the emerging market context.</p>
+<p>For example, Miro AI is in beta as of March 9, a point the team reached in just eight weeks. When changes are happening in the market or inside the company, you should be agile and ready to adjust, not trapped by your own planning. Our flexible roadmap framework allowed us to embrace this watershed moment in AI capabilities; we prioritized initiatives and secured a team that rapidly ideated, built, and deployed the features. Other key factors that helped us act fast included: people who had passion around the topic (a motivated team can do a lot!); singular focus, as we deprioritized everything else for the core AI team; and fast, almost daily iterations and standups where we tweaked things, resolved blockers, and highlighted achievements.</p>
+<h3><strong>3. Do you use OKRs in some form?</strong></h3>
+<p>We do. And, like many other things, it is constantly evolving. We’ve improved a lot, but there’s also more work for us to do here.</p>
+<p>We used to have OKRs at each level in the organization: Company → AMPED → Product Stream → Team, and followed a quarterly planning process. It was great in theory but had many challenges.</p>
+<p>There were three big problems with this setup:</p>
+<ol>
+<li>
+<p><strong>Overlapping initiatives:</strong> Having OKRs at every level meant each team had to define their objectives and initiatives. This often resulted in teams rephrasing the same initiative at different altitudes and adding it to many key results. It was hard to do traction (check execution against goals) and was not providing clarity or alignment for teams. <em>So we’ve removed extra layers and now have Company-, AMPED-, and Product Stream-level OKRs, with each team just deciding which OKRs they will support. It has brought much-needed alignment and clarity to teams.</em></p>
+</li>
+<li>
+<p><strong>Too much time for the “process”:</strong> Quarterly planning needs a lot of time. In addition, the same DRIs had to present updates at multiple traction forums. It led to a lot of time being spent in following the process and was just not working. <em>So we’ve moved to a semi-annual OKR frequency and fewer OKR tractions each month, reducing duplicate and process-related work by a lot. We also do quarterly check-ins for course correction, if needed. For example, if a KR metric is no longer relevant, or based on rolling forecasts, we need to adjust targets.</em></p>
+</li>
+<li>
+<p><strong>Too many priorities:</strong> We were seeing approximately three to five objectives with three to four KRs per objective. At each level, we created new sets of metrics, dashboards, and monthly traction reports, making it difficult to get a comprehensive overview of our common priorities. It was clear we weren’t driving focus. <em>So we’ve started limiting the number of objectives and KRs (three to four objectives, two to three KRs) to start focusing from the top. This is still a work in progress, and we’ll continue to sharpen the pencil here.</em></p>
+</li>
+</ol>
+<p>Today we represent our OKRs as a ladder framework, where companywide OKRs are the most encompassing, followed by AMPED, and then the Stream, to avoid duplication. We also reduced the set of metrics that we track. The Product stream leaders present these to me as Chief Product Officer and to our CTO, Vadim Barshtak, for review and sign-off. We have an AMPED-wide monthly traction meeting where we discuss the most important topics and try to address the challenges that we see.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/cb7849eb-4ef9-49c0-bc05-4fe47261bcb1_1388x773.png" /></p>
+<h3><strong>4. How large is the product organization, and how many PMs do you have?</strong></h3>
+<p>AMPED is about 700 people, including over 50 PMs (<a href="https://miro.com/careers/open-positions/?searchTerm=&amp;selectedTeam=Product&amp;selectedLocation=&amp;currentPage=1">and we’re hiring</a>!). Geographically, the Product organization is based in Europe, and the go-to-market team is global.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/3f17106c-9e23-444c-aaea-584f23394b30_1004x995.png" /></p>
+<h3><strong>5. What would you say is unique or core to your product team’s philosophy for building products?</strong></h3>
+<p>The Product team’s motto is “Deliver customer value faster with high quality.” The most important thing is that customers see value in what we build and deliver. It’s what we want the product teams to focus on. We spent a lot of time within the Product Leadership Team to define what we mean by each word, how we use it, and how we measure it. It’s been a good journey, but, in many ways, we are still in the early stages.</p>
+<p>For example, product quality wasn’t always meeting our bar. We needed a way to help teams build a strong sense of what is good enough. One of the product leaders came up with the “<em>Mona Lisa</em> principle”—simply put, everything we ship should be like a <em>Mona Lisa</em> painting, something we’d be proud of putting our name on. When you look at a painting, you can easily say that something is a masterpiece and something is definitely not; the same is true with the product.</p>
+<p>It was simple and super-easy to understand and use. But it still didn’t help the team get better. So we iterated, and the Design team built the monthly design reviews. Every month, they review everything that was shipped and say what is high-quality or not. You know how a picture is worth a thousand words—similarly, real examples of high quality are a lot more powerful, and simple at the same time.</p>
+<p>I think that’s what makes us unique: focusing on customers, building with empathy, and iterating for better outcomes. (By the way, these are also three of Miro’s core values.)</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/22bec7f1-a52c-4964-ab49-93995f8dc675_1280x726.png" /></p>
+<p>In the broader product organization, we’ve codified eight product principles, which have become especially essential at Miro’s scale and pace of growth. We use the principles to make choices in what we prioritize, what design options we choose, etc., which ensures that our decisions are calibrated and that the product remains in line with the team’s core DNA.</p>
+<ol>
+<li><strong>Best-in-class collaboration</strong> before <strong>solo scenarios</strong></li>
+<li><strong>End-user adoption</strong> before <strong>top-down decision makers</strong></li>
+<li><strong>Holistic product experience</strong> over <strong>local optimizations</strong></li>
+<li><strong>Intuitive patterns</strong> before <strong>reinventing UX</strong></li>
+<li><strong>Measurable outcomes</strong> over <strong>deliverables</strong></li>
+<li><strong>Evidence</strong> over <strong>opinions</strong></li>
+<li><strong>Fast learning to get product-market fit</strong> before <strong>scaling</strong></li>
+<li><strong>Always customer value</strong> along with <strong>tech initiatives</strong></li>
+</ol>
+<h3><strong>6. How do your product/design review meetings work?</strong></h3>
+<p>Product reviews are a key ritual for us, and we spend significant time and energy on them.</p>
+<p>Product reviews can focus on different stages of the product development lifecycle:</p>
+<ul>
+<li>P-Strat: long-term strategy and vision</li>
+<li>P0: the opportunity and problem that we want to pursue</li>
+<li>P1: the proposed solution</li>
+<li>P2: what we launched and how it’s performing</li>
+</ul>
+<p>Each stage has a defined template outlining the type of information the team should bring (e.g. <a href="https://miro.com/blog/product-management-at-miro/">for P0 product alignment stage</a>). Large initiatives are discussed in a sync meeting with pre-scheduled slots (usually Mondays, Wednesdays, and Fridays) that teams can sign themselves up for. Small- and medium-sized projects are approved over Slack where everyone can engage.</p>
+<p>We spend about five hours per week on product review meetings for large initiatives. These reviews are cross-functional, and the AMPED product team presents together (not just the product managers). These reviews are open to everyone, but, to ensure it’s highly relevant and to reduce cost, we identify and ensure the participation of critical stakeholders who are needed to make decisions (e.g. DRIs as well as Product leaders, who can veto or provide specific direction). At the time of booking a slot, the Product team identifies who needs to be present and the Product Excellence team that runs the reviews tries to ensure their participation.</p>
+<p>During the meeting, we use the full power of <a href="https://miro.com/presentations/interactive-presentations/">interactive presentations</a> to share slides, relevant data from dashboards, and <a href="https://miro.com/blog/improve-collaboration-with-talktrack-videos/">Talktracks</a> (board recordings), and also capture reactions and questions from <em>all</em> the participants right there on the frames. As the questions are captured on the board, everyone can see them, and often questions lead to meaningful conversations even outside the presenting team. After the meeting, the PMs share the details and decisions in a dedicated Slack channel so everyone can see what we’ll work on and why.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/7241a323-081a-4878-b562-1fda7c214507_1328x752.png" /><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/91fa2d36-b2d9-4f0a-adf7-4ee74f2c8541_1600x843.png" /></p>
+<p>Overall, product reviews are one of the most engaging rituals we have. They’re a great opportunity for knowledge sharing, peer-to-peer learning, and raising the quality bar.</p>
+<h3><strong>7. What tools do you use for task management and bugs?</strong></h3>
+<p>We rely on Jira for task management and bugs; Slack for async messaging; and a variety of tools for documentation, ranging from Coda to Confluence, Google Docs, and, of course, Miro boards.</p>
+<p>We use Miro throughout the product development lifecycle — including for <a href="https://miro.com/miroverse/design-sprint-jake-knapp/">design sprints</a>, <a href="https://miro.com/miroverse/product-alignment-document-template/">product reviews</a>, <a href="https://miro.com/miroverse/sailboat-retro/">retros</a>, mapping user flows (see below), and other steps. One step for which we have yet to find the ideal tool is product roadmapping. It can be difficult to meet everyone’s diverse expectations and needs, so we’re still exploring solutions.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/2acad9a2-c985-4c32-825b-b82d0d0d0ae3_1600x734.png" /><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a6566327-fba6-4508-b6c3-46bc3b85e09d_1600x820.png" /></p>
+<p>Talktrack is a new feature that’s becoming quite popular. I get Talktracks from the PMs a few days in advance and review them async. I and others add comments or questions right there on the board, and in the meeting we skip a lot of the “presentation” and jump to the important discussions—it’s a game changer.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/8f85b8cf-fc9f-4d18-9451-2f9f752a7d55_600x365.gif" /></p>
+<p>Talktracks are used for async updates, and meetings focus on discussions.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/5d547e37-fea6-42b4-8241-9faacdb421fd_800x800.gif" /></p>
+<h3><strong>8. How does your team estimate work items, track velocity, and know when something’s off track?</strong></h3>
+<p>Miro’s Product organization is a constellation of autonomous teams, empowered to solve a business problem end-to-end. They leverage that autonomy to develop ways of working that enable them to succeed in their particular problem space. We don’t enforce a common system to do this.</p>
+<p>Our product development lifecycle consists of a number of phases. At the end of the first phase (the P0 phase we mentioned above), teams use relative estimation techniques—such as planning poker, Pomodoro, affinity estimation, or T-shirt sizing—to align on a rough timeline.</p>
+<p>Once a team is committed to building the solution (i.e. the P1 stage), we enable them to look at how their work flows through their delivery process—and we’re building a more robust telemetry system for both work tracking and team health tracking. The goal is to support teams in increasing their confidence on the plan and the date range when they expect to deliver.</p>
+<h3><strong>9. How do you, as a product leader and product team, balance resources between new product work vs. maintenance/bugs? Is there a general rule of thumb or system, or is it ad hoc and team-specific?</strong></h3>
+<p>Our general rule of thumb is to devote 60% of resources to product innovation, 20% to running the business (RTB, maintenance, and bugs), and the final 20% to tech innovation (reducing tech debt).</p>
+<p>That said, this balance depends on the maturity of the product. So if there are a lot of legacy issues, then tech debt requires more than 20%; or, if we’re shipping a new capability, product innovation is closer to 80%.</p>
+<h3><strong>10. What are some fun or unique traditions or rituals on your product team?</strong></h3>
+<p>My favorite rituals are those that bring us together to learn from and create with one another. These include:</p>
+<ul>
+<li><strong>“Miro Connect,”</strong> which started as a small experiment within the Product organization for teams to get together and showcase the cool stuff they’ve been working on. The teams loved it as a low-stress way to brainstorm, test their pitch, and get feedback. It became so popular, with over 140 teams presenting, that we’ve since opened it up to the full company across three locations the first Friday of every month. If I am in the office when Miro Connect is happening, I never miss attending because it’s so great to experience the energy.</li>
+</ul>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/35520daa-8139-4f4b-a8b6-e715433e38c9_1600x1234.png" /><br />
+- <strong>“Voice of the Customer” all-hands</strong>, hosted by our fabulous UX Research team, features insights from their research as well as that of the Marketing Insights and wider Marketing team that, in turn, drive product and business decisions.<br />
+- <strong>Semi-annual hackathons</strong> are a blast. Over two or three days, cross-functional teams transform an idea into a functional, user-tested prototype, many of which eventually make it to our public product release. It’s a great way to unlock creativity, meet new people, and have some fun along the way.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/693f1328-e32b-4238-b560-c70653beb0ae_1031x648.png" /><br />
+- <strong>In-person offsites</strong> bring together teams from Miro’s global hubs to take a step back and focus on the big picture, alignment, planning, and bonding. At the company level, we hosted our first post-pandemic, in-person MiroFest in September last year (see photo at top of this post); we gathered global employees in three hubs across three continents for a two-day event, full of keynotes from and panels with company leaders, ice-breaker activities and workshops, and socializing. Later in the year, AMPED leadership came together in Barcelona to build out our annual product strategy. In addition to productive breakout sessions and workshops, we visited the Miró museum, celebrated a team member’s birthday, and had a lot of deep conversations.</p>
+<h2>Bonus: Select clips from my conversation with Varun</h2>
+<p><a href="https://www.youtube.com/watch?v=voVzAZ9qpEk">Watch on YouTube</a><a href="https://www.youtube.com/watch?v=ucbRSZXEPls">Watch on YouTube</a><a href="https://www.youtube.com/watch?v=Nl4pXNKgOIU">Watch on YouTube</a><a href="https://www.youtube.com/watch?v=2DrWIUOy3vo">Watch on YouTube</a></p>
+<p><em>Thank you, Varun! And don’t forget, <a href="https://miro.com/careers/open-positions/?searchTerm=&amp;selectedTeam=Product&amp;selectedLocation=&amp;currentPage=1">they’re hiring</a>. Have a fulfilling and productive week 🙏</em></p>
+<p>P.S. I’ve got many more product-team deep dives in the works, but if there’s a specific company you’d especially love to learn about, please let me know in the comments 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/how-miro-builds-product/comments">Leave a comment</a></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How Miro builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/f8eb7d1d-965c-4b8a-813d-b233fc74197b_1526x1240.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/389f9fcf-65bb-4852-836e-f3a732203212">Creative Producer</a> (Canada, remote U.S.)</li>
+<li><strong>Mindbloom:</strong> <a href="https://www.lennysjobs.com/jobs/c74c7805-4b6c-42fa-a989-070e49a48898">Acquisition Growth PM</a> (Canada, remote U.S.)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/02f1d98a-a58e-427b-a46e-9e8b1fd52295">Product Marketing Manager</a> (NY, remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/e42afaf7-f323-441d-8f4c-cf7a252e9ca3">Senior Software Engineer</a> (Remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/b8d36434-9885-4d23-80bf-9ac3847e37de">Technical Account Manager</a> (Remote)</li>
+</ol>
+<p><strong>If you find this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. Check out <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

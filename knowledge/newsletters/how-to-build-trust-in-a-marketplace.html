@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to build trust in a marketplace — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to build trust in a marketplace</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to build trust in a marketplace</div>
+    
+    <div class="article-meta">2022-06-14<span>·</span>3,493 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span> <span class="mini-tag">創業</span> <span class="mini-tag">成長</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m building a marketplace startup. How do I build trust for my new marketplace?</h2>
+</blockquote>
+<p>Convincing people to get into the car of, send money to, or meet, a complete stranger is a hard problem, rooted in our evolution.</p>
+<blockquote>
+<h4>“Throughout human history, we have distrusted people outside our clan, our tribe. We believe strangers will do us harm. Why? In deep time, hominids outside the family group were likely to be a raiding party.” —<a href="https://www.amazon.com/gp/product/B00J0U6J4C/ref=dbs_a_def_rwt_bibl_vppi_i0">Gordon H. Orians</a></h4>
+</blockquote>
+<p>A lack of trust is why many marketplaces have struggled (e.g. Couchsurfing) and why those that cracked the trust problem (e.g. Airbnb) have gone on to do exceptionally well.</p>
+<p>To give you a comprehensive answer, I got in touch with the founders and early growth leaders at a dozen of today’s most successful marketplaces, including <a href="https://www.lyft.com/">Lyft</a>, <a href="https://thumbtack.com/">Thumbtack</a>, <a href="https://www.rover.com/">Rover</a>, <a href="https://shef.com/">Shef</a>, <a href="https://www.peerspace.com/">Peerspace</a>, <a href="https://www.snackpass.co/">Snackpass</a>, <a href="https://gooddog.com/">Good Dog</a>, and <a href="https://udemy.com/">Udemy</a>, and asked them what they found to be the <em>most</em> effective way to build trust in their marketplace early on. I was surprised by the variety of answers. I was expecting to hear “reviews” and maybe a couple of other tactics. Instead I found six effective ways to build trust in a new marketplace:</p>
+<ol>
+<li><strong>Reviews</strong></li>
+<li><strong>Verifying your supply</strong></li>
+<li><strong>Leaning on social proof</strong></li>
+<li><strong>Creating a perception of quality</strong></li>
+<li><strong>Providing a safety net</strong></li>
+<li><strong>Delivering magic</strong></li>
+</ol>
+<p>Let’s explore each in a bit more depth.</p>
+<p><em>Thank you to <a href="https://www.linkedin.com/in/alvinsalehi/">Alvin Salehi</a> (Shef), <a href="https://www.linkedin.com/in/archie-abrams-b6aa8b6/">Archie Abrams</a> (Udemy), <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (Lyft), <a href="https://www.linkedin.com/in/laurenmcdevitt/">Lauren McDevitt</a> (Good Dog)</em><em>,</em><em> <a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a> (Peerspace), <a href="https://www.linkedin.com/in/kevinhuangtan/">Kevin Tan</a> (Snackpass), <a href="https://www.linkedin.com/in/philipkimmey/">Philip Kimmey</a> (Rover), and <a href="https://www.linkedin.com/in/sander-daniels/">Sander Daniels</a> (Thumbtack) for sharing their insights with me for this post 🙏</em></p>
+<h3>1. Reviews</h3>
+<p>Reviews, as expected, were the most frequently cited strategy for building trust. They’re essentially table stakes these days.</p>
+<p>Here’s Joe Gebbia (co-founder of Airbnb) talking about the power of reviews for Airbnb’s early success (~90 seconds long):</p>
+<p><a href="https://www.youtube.com/watch?v=16cM-RFid9U">Watch on YouTube</a></p>
+<p><a href="https://www.linkedin.com/in/alvinsalehi/">Alvin Salehi</a> (co-founder of <a href="https://shef.com/">Shef</a>) shared a similar lesson:</p>
+<blockquote>
+<h4>“For the longest time, we only had star ratings on our platform. But we found that ratings alone weren’t enough to help customers make efficient decisions. As a result, we also began publishing full text reviews <em>and</em> photos of the dishes that were being reviewed to help customers avoid the paradox of choice and make well-informed decisions more quickly, which has had a positive impact on acquisition and retention.”</h4>
+</blockquote>
+<p><img alt="Image from How to build trust in a marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1b1fbf06-009f-49f1-b569-a09555fabf58_3456x1948.png" /></p>
+<p><a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a> (co-founder of <a href="https://peerspace.com/">Peerspace</a>) had the same experience building Peerspace, but with a twist:</p>
+<blockquote>
+<h4>“Initially, we started simple and built a mutual review system that was thorough, easy to complete, and required both sides to leave a review in order to transact again. That meant reviews didn’t expire and hosts needed to review their guests to accept their next inquiry. Perhaps not the friendliest UX, but this force-enabled early trust and social proof that propelled the marketplace forward.”</h4>
+</blockquote>
+<p>Same for <a href="https://thumbtack.com/">Thumbtack</a>, as <a href="https://www.linkedin.com/in/sander-daniels/">Sander Daniels</a> (co-founder) shared with me:</p>
+<blockquote>
+<h4>“We built reviews into the product from day one.”</h4>
+</blockquote>
+<p><a href="https://www.linkedin.com/in/laurenmcdevitt/">Lauren McDevitt</a>, co-founder of <a href="https://gooddog.com/">Good Dog</a>, found that traditional reviews alone weren’t enough, so they made them more personal:</p>
+<blockquote>
+<h4>“When we talked to our users, we found a lot of distrust in review systems. So instead, we focused on telling the meaningful stories of our users through a feature called ‘Verified Owner Stories’, where new dog owners are able to share detailed information and photos about their interactions with their breeder on our platform. The little details shared like, ‘they sent a blanket and photo book home with my puppy’ show the warmth and care our community puts into their work, leading to a more authentic feeling of trust and quality.”</h4>
+</blockquote>
+<p><img alt="Good Breeder Dashboard" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a077e66f-1610-4615-a48e-88c1fc384464_2880x1878.png" /></p>
+<p>And at <a href="https://www.udemy.com">Udemy</a>, <a href="https://www.linkedin.com/in/archie-abrams-b6aa8b6/">Archie Abrams</a> (early growth leader) found that the volume of reviews created an unexpected tension:</p>
+<blockquote>
+<h4>“There’s an interesting tension in something like number of ratings and the number of students. Look at the screenshot below. By putting the number of ratings in the review, you signal to the student you can trust this (good), but you also make the increments (i.e. courses with a lot of ratings) much more entrenched, hurting trust with instructors (particularly new ones). This was a constant balancing act.”</h4>
+</blockquote>
+<p><img alt="Image from How to build trust in a marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/02af7a06-7c2a-487f-aed2-aeb176744fd9_1437x864.png" /></p>
+<p>If you have a trust issue and you don’t have a review system—the path is clear.</p>
+<h3>2. Verify your supply</h3>
+<p>The second most frequently cited strategy for building trust was to take steps to verify that your supply meets a certain level of quality, or safety. And that makes sense. People will trust your marketplace if you’ve taken steps to make it trustworthy.</p>
+<p>For <a href="https://www.goat.com/">GOAT</a> (and <a href="https://stockx.com/">StockX</a>), verifying supply was the core of their entire strategy. Here’s Eddy Lu’s early thinking (via <em><a href="https://www.inputmag.com/style/goat-ceo-eddy-lu-interview-sneaker-apparel-resale-covid-19-coronavirus">Input</a></em> <a href="https://www.inputmag.com/style/goat-ceo-eddy-lu-interview-sneaker-apparel-resale-covid-19-coronavirus">magazine</a>):</p>
+<blockquote>
+<h4>“Why don’t we build a marketplace based on trust and safety so that no consumer has to ever have the experience that you just had of spending hundreds of dollars on a pair of shoes and get something that’s not authentic.”</h4>
+</blockquote>
+<p>And here’s how they do it:</p>
+<blockquote>
+<h4>“If you want to sell sneakers or any apparel on GOAT, for instance, you first have to be approved by a team that looks into your personal Twitter or Instagram account to ensure you’re an actual person and that you have a history of selling goods online. Then, before someone posts an item for sale, they have to send pictures to GOAT, which uses a combination of image recognition and machine learning to spot details that will ensure its authenticity. The final step in the process comes when the sneakers or clothes arrive in one of GOAT’s authentication centers across the world, when they’re inspected one last time by a human before they get shipped to the buyer if there are no issues with the product.” —<a href="https://www.inputmag.com/style/goat-ceo-eddy-lu-interview-sneaker-apparel-resale-covid-19-coronavirus">Edgar Alvarez Barajas,</a> <em><a href="https://www.inputmag.com/style/goat-ceo-eddy-lu-interview-sneaker-apparel-resale-covid-19-coronavirus">Input</a></em> <a href="https://www.inputmag.com/style/goat-ceo-eddy-lu-interview-sneaker-apparel-resale-covid-19-coronavirus">magazine</a></h4>
+</blockquote>
+<p>Good Dog similarly built their reputation on the quality of their supply, and thus required specialized training to do their verification of dog breeders:</p>
+<blockquote>
+<h4>“Vetting a source for a dog requires expertise that most people looking for a dog don’t have. What signals should you look for when assessing a dog breeder, shelter, or rescue to ensure you’re getting a dog from a source with responsible practices? We found that prior to Good Dog, people were attempting to make judgment calls based on their own intuition, which left them feeling unsure and uncomfortable. Our team is prepared and trained to make those judgment calls, which means potential owners feel safer on the platform and the breeders, shelters and rescues feel proud to support our community and mission.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/laurenmcdevitt/">Lauren McDevitt</a>, co-founder</h4>
+</blockquote>
+<p>For <a href="https://thumbtack.com/">Thumbtack</a>, verifying its supply (aka their “pros”) through background checks was instrumental in its early success, as co-founder <a href="https://www.linkedin.com/in/sander-daniels/">Sander Daniels</a> shared:</p>
+<blockquote>
+<h4>“To create trust early on, we built a number of trust and safety mechanisms into the product, including background checks for pros. We awarded and displayed badges on pro profiles for going through stages of our trust and safety process that verified their identity and work quality. This significantly helped build trust in the marketplace.”</h4>
+</blockquote>
+<p>As it was for <a href="https://www.rover.com">Rover</a>:</p>
+<blockquote>
+<h4>“Two things we’ve done for a long time that most helped create a sense of trust in the marketplace:</h4>
+<h4>1. Background checks</h4>
+<h4>2. Manual profile review for all sitters applying to the platform</h4>
+<h4>There’s lots of other stuff we do, but those two we’ve been doing for most of Rover’s history, and are likely the most impactful.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/philipkimmey/">Philip Kimmey</a>, co-founder</h4>
+</blockquote>
+<p>You can read about how Rover does this <a href="https://support.rover.com/hc/en-us/articles/206693486-How-does-the-sitter-profile-review-process-work-">here</a>.</p>
+<p>Is there something you can do to “verify” the quality of your supply?</p>
+<h3>3. Lean on social proof</h3>
+<p>A surprising number of founders referenced social proof as the most important ingredient in their early trust-building efforts.</p>
+<p>For example, <a href="https://snackpass.com/">Snackpass</a>:</p>
+<blockquote>
+<h4>“We primarily built trust by piggybacking on social proof and authority. We partnered with names that people were already familiar with—university sports teams, student clubs, frats and sororities, flagship restaurants.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/kevinhuangtan/">Kevin Tan</a>, CEO</h4>
+</blockquote>
+<p>And Udemy:</p>
+<blockquote>
+<h4><strong>“For instructors, the</strong> key tactic was making a few instructors a ton of money (i.e. $1mm+) and then leveraging that as social proof for other instructors. This did have some trust-draining effects for instructors who didn’t achieve that success (selling the dream vs. reality), but the social-proof effects built trust that Udemy could, theoretically, deliver a massive outcome for you ... therefore, a lot of instructors signed up.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/archie-abrams-b6aa8b6/">Archie Abrams</a>, early growth leader</h4>
+</blockquote>
+<p>In a sense, reviews are a form of social proof, as <a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a> (Peerspace) rightfully pointed out:</p>
+<blockquote>
+<h4>“Reviews create social proof—and they propelled our marketplace forward.”</h4>
+</blockquote>
+<p>How can you leverage social proof to build trust among your target audience?</p>
+<h3>4. Create a perception of quality</h3>
+<p>A somewhat higher-level strategy—to invest in creating a perception of quality—proved essential to a handful of the marketplaces I researched.</p>
+<p>For Airbnb, free high-quality professional photos of homes, along with host profile photos, contributed to an immediate feeling of trust for new visitors, as Joe Gebbia <a href="https://www.npr.org/transcripts/478563991">shared with Guy Raz</a>:</p>
+<blockquote>
+<h4>“Our design mantra at that time was fun and friendly. So anytime we could show a face in our service, we would—in search results, on profiles, on the actual homepage. I think the tone of voice that we used also engendered trust—and even some, like, maybe subtle things like the color palette.</h4>
+<h4>One of the important ways to build trust when two people are meeting for the first time is to encourage them to have the right amount of disclosure. And when a guest first sends a message to a host inquiring about their home, we can look at it and see what’s too short and what’s too long.</h4>
+<h4>So if somebody writes and says, ‘Hey, yo,’ the acceptance rate typically goes down. And if they write something that’s too long—it’s like a novella—their acceptance rates also go down. And so there’s a zone that’s just right, which is the ‘Hey, coming for vacation with my family, and man, I love the artwork in your place,’ et cetera, et cetera.”</h4>
+</blockquote>
+<p>While working on this post, I came across <a href="https://www.sciencedirect.com/science/article/abs/pii/S0261517716300127">a study</a> that looked into the impact of just profile photos on conversion. As expected, here was their takeaway:</p>
+<blockquote>
+<h4>“We suggest that the presence of [host profile] photos can have a significant impact on guests’ decision making. Specifically, we contend that guests infer the host’s trustworthiness from these photos, and that their choice is affected by this inference.”</h4>
+</blockquote>
+<p><a href="https://www.linkedin.com/in/alvinsalehi/">Alvin Salehi</a> (co-founder of <a href="https://shef.com/">Shef</a>) shared the same lesson from his experience building Shef:</p>
+<blockquote>
+<h4>“High-quality photos are incredibly important for building trust with customers, especially in the food industry. From day one, we over-indexed on processes that enabled ‘shefs’ to upload beautiful photos of their amazing dishes, and it’s been instrumental for new user conversion.”</h4>
+</blockquote>
+<p><img alt="Image from How to build trust in a marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/86681d67-0ad2-495b-aadc-4f4034492da2_3456x1870.png" /></p>
+<p>Beyond photos, there are other ways to create quality. Udemy found that price (i.e. a high price) also created a perception of quality, and thus helped build trust:</p>
+<blockquote>
+<h4><strong>“For students, price</strong> was an important trust signal. We <strong>purposely</strong> had instructors set their prices very high ($199). High prices signal value—‘If it’s this much, I can trust it!’ Then we discounted it down to $10. Because we split revenue with instructors on the sales price ($10), it was fine for our margins. Students trusted the high price to indicate quality.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/archie-abrams-b6aa8b6/">Archie Abrams</a></h4>
+</blockquote>
+<p>And Good Dog found that transparency and education made a big impact:</p>
+<blockquote>
+<h4>“We’ve found science-backed, easy to understand educational content to be incredibly powerful for building trust. As an example, I recently had a friend tell me that Good Dog helped him <strong>not</strong> get a dog. He said that thanks to us he learned that this likely isn’t the best moment for him to add a dog to his family and so he decided to wait, but talked about how much more eager he is to use the platform thanks to that experience.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/laurenmcdevitt/">Lauren McDevitt</a>, co-founder</h4>
+</blockquote>
+<p><img alt="Image from How to build trust in a marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fc7cedb4-77d3-410e-9a69-379e7a43daaf_2778x3153.png" /></p>
+<p>What’s one change you can make to your site to improve the perception of the quality of your marketplace?</p>
+<h3>5. Protection if something goes wrong</h3>
+<p>A somewhat obvious, but still underappreciated, lever for building trust is to create a safety net—to help your users feel protected if/when something goes wrong.</p>
+<p>Airbnb famously introduced a <a href="https://allthingsd.com/20120522/airbnb-will-now-cover-up-to-1m-worth-of-property-damage/">$1 million Host Guarantee</a> after a guest had a <a href="https://allthingsd.com/20110729/airbnbs-rental-nightmare-ends-in-arrest-and-one-still-very-unlucky-renter/">horrible experience</a>, and today most marketplaces have some sort of protection, including <a href="https://www.rover.com/rover-guarantee/">Rover</a>, <a href="https://swimply.zendesk.com/hc/en-us/articles/1500000533142-Swimply-Protection-Guarantee#:~:text=a%20Swimply%20reservation.-,The%20program%20provides%20protection%20in%20the%20unfortunate%20event%20that%20a,registered%20hosts%20are%20legally%20liable.">Swimply</a>, <a href="https://www.outdoorsy.com/help/physical-damage-coverage-for-outdoorsy-owners-us-rentals">Outdoorsy</a>, and <a href="https://www.peerspace.com/blog/peerspace-host-insurance/#:~:text=When%20a%20host%20opens%20their,our%20hosts%20to%20feel%20secure.">Peerspace</a>:</p>
+<blockquote>
+<h4>“Early on, we found many hosts wanted peace of mind when it came to transacting with strangers online. After a lot of searching, we partnered with a forward-thinking insurance company to build a custom policy that protected suppliers from liabilities for events that would not be traditionally covered.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a>, co-founder</h4>
+</blockquote>
+<p>What’s your users’ biggest fear, and how can you assuage it with a policy or guarantee?</p>
+<h3>6. Deliver magic</h3>
+<p>Finally, and arguably the most powerful lever in building trust long-term, is to actually deliver on your promise as a marketplace, and deliver an experience that blows your users’ minds.</p>
+<blockquote>
+<h4>“For [Thumbtack] pros, the magic moment is when they get hired and paid for their first job. ‘Wow, Thumbtack is really growing my business!’</h4>
+<h4>For consumers, the magic moment was when they used Thumbtack to hire someone better than they could’ve found through word of mouth. ‘Wow, maybe Thumbtack is a better place to find a pro than my personal network!’</h4>
+<h4>Getting to both of those moments was accelerated by having liquidity in the marketplace. The more consumers in the marketplace, the faster a pro could get hired and paid. The more pros in the marketplace, the higher the likelihood of finding the right pro for them.</h4>
+<h4>That’s why in the early days we focused above all on building liquidity in the marketplace. The more the supply and demand in the marketplace, the more trusted we were.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/sander-daniels/">Sander Daniels</a>, co-founder</h4>
+</blockquote>
+<p>Same for Lyft:</p>
+<blockquote>
+<h4>“The high-level story of Lyft, I think, is taking a ride experience that was <em>super</em>-unpredictable and making it super-predictable.</h4>
+<h4>If you rewind to 2010, taking a cab somewhere would generally involve <strong>not knowing</strong> (1) who was going to pick you up, (2) what route they would take, (3) their ETA or current location as the pickup time approached, (4) any information about the driver, like what other riders thought of them, (5) what vehicle they were driving or how many seats it had, (6) how to get in touch with them, or (7) what the ride would cost!</h4>
+<h4>Now all of those things have been solved for and are known. In the early days, though, just providing most of them—live location, ETA, driver rating, vehicle, a contact method—was a huge step up for everyone and gave riders a huge sense of trust.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a>, first PM</h4>
+</blockquote>
+<p>If you have a trust issue, it may be because you simply aren’t delivering on your core promise.</p>
+<h3>Bonus strategy: Highlight differentiation</h3>
+<p>Although this insight from Lyft didn’t fit into any of the buckets above, I wanted to share it anyway. Evan Goldin (first PM at Lyft) made the point that focusing on what made Lyft <em>different</em>,as compared with a regular taxi experience, went a long way in creating trust in its ridesharing experience:</p>
+<blockquote>
+<h4>“We were trying to communicate that this was a <em>different</em> type of ride than getting a taxi. It was supposed to feel like ‘a friend with a car’ picking you up, and we designed the ride experience accordingly, for example:</h4>
+<h4>1. It’s almost completely gone away by now, but in the early days, riders were strongly encouraged to sit in the front seat (especially if it was a solo trip). This helped break the ice, make the ride feel different, and make it feel like your friend was picking you up. It also helped improve ride navigation, which was important in the early days when we didn’t have in-app nav.</h4>
+<h4>2. Payments were optional. Obviously most people paid 100% or more of the suggested amount, but it was truly optional to pay, and that helped make it feel like a different kind of ride.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a></h4>
+</blockquote>
+<p>In your messaging and positioning, could you emphasize why your experience is <em>different</em>, vs. simply better?</p>
+<p>I hope this gives you enough to go on to build trust in your own marketplace. I’d love to hear if there’s anything else you’ve found to be effective in building trust—share it here so everyone else can learn from your experience 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/how-to-build-trust-in-a-marketplace/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=16cM-RFid9U">How Airbnb designs for trust, by Joe Gebbia</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=16cM-RFid9U">Watch on YouTube</a></p>
+<ol>
+<li>
+<p><a href="https://www.lennysnewsletter.com/p/why-marketplaces-fail?s=w">Why marketplaces fail</a></p>
+</li>
+<li>
+<p><a href="https://a16z.com/2020/02/20/marketplace-engagement/">Four Paths to Marketplace Success</a> by D’Arcy Coolican</p>
+</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from How to build trust in a marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fd2a86a0-dc08-4cf2-9095-e88dd7f2e5cf_1476x856.png" /></p>
+<p>If you’re looking for a new gig, join to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Apply Now</a></p>
+<h4><strong>🔥 Featured job openings</strong></h4>
+<ol>
+<li><strong>Ashby:</strong> <a href="https://www.lennysjobs.com/jobs/3f84ab83-6078-4607-b55b-d107a3674e1f">First Lead UX Designer</a> (LA, SF, West Vancouver, Austin, Texas, Tribeca)</li>
+<li><strong>Wethos:</strong> <a href="https://www.lennysjobs.com/jobs/a8779353-bfa9-4f10-9ab7-d96ec87ae733">Director, Growth Product Marketing</a> (Remote)</li>
+<li><strong>Scratchpad:</strong> <a href="https://www.lennysjobs.com/jobs/c4039341-f2c6-4ac9-bc69-7b52c457f621">Senior Product Manager</a> (Remote)</li>
+<li><strong>Net32:</strong> <a href="https://www.lennysjobs.com/jobs/b4a61fe4-0676-469c-8131-af743ca536bc">Senior Product Designer</a> (Remote, Cary NC)</li>
+<li><strong>Joby Aviation:</strong> <a href="https://www.lennysjobs.com/jobs/6e99a528-2443-435f-bd43-a86d437f6ff2">Air Taxi Product Manager-Operations</a> (Santa Cruz)</li>
+<li><strong>Firstbase.io:</strong> <a href="https://www.lennysjobs.com/jobs/06fe3597-dd58-4979-93d7-03ee8a0dbe24">Business Lead, Fintech</a> (Remote, NYC, Sao Paulo)</li>
+<li><strong>Weights &amp; Biases:</strong> <a href="https://www.lennysjobs.com/jobs/c0dab35d-dbb5-47a5-92cc-df0cde2ca009">Growth Project Manager</a> (Remote EU)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://future.com/gmv-retention-marketplace-metric/">Marketplace retention benchmarks</a> by Olivia Moore of a16z</li>
+<li><strong>Watch:</strong> <a href="https://ads.tiktok.com/business/creativecenter/inspiration/popular/pc/en?from=001114">Trending TikTok videos</a> via <a href="https://www.ben-evans.com/">Benedict Evans</a></li>
+<li><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/julie-zhuo-on-accelerating-your-career-impostor-syndrome/id1627920305?i=1000565522448">Julie Zhuo on my podcast</a></li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

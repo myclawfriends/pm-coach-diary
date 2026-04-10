@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interview Q Compilation — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Interview Q Compilation</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Interview Q Compilation</div>
+    
+    <div class="article-meta">2023-11-29<span>·</span>3,896 words<span>·</span>Interview Q Compilation</div>
+    <div class="tags-row"><span class="mini-tag">職涯</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">Podcast</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny</strong> (00:00:03):<br />
+Welcome to a very special episode of the podcast. Ever since I started this podcast, one of people's favorite segments continues to be the lightning round, and in particular, a question I ask guests around their favorite interview question that they like to ask candidates and what they look for in a good answer. What we've done is we've picked my favorite interview questions that guests have shared. Out of over a hundred guests on the podcast, we've got 17 of my favorite interview questions all combined in this one episode. You can use this episode anytime you are preparing to interview candidates, if you want to improve your existing interview questions, or if you're about to get interviewed and you want to prepare for the kinds of questions that you might get in the interview process.</p>
+<p><strong>Lenny</strong> (00:00:47):<br />
+Before we dive in, let me tell you about our product called Sendbird. The all-in-one communications API platform designed for both web and mobile apps. In a world saturated with multi-channel communication, product teams are discovering the effectiveness of in-app communication. With Sendbird, businesses can elevate their in-app experience with decluttered and branded communication featuring AI powered chatbots, one-way messages, chat, video calls and livestream capabilities, all tailored for commerce, marketing and top-tier support. Forward-thinking companies such as Hinge, Patreon, Yahoo, Accolade, and more use Sendbird to build in-app communication experiences that drive engagement, conversion and retention. In-app communication has the highest conversion, highest engagement and highest satisfaction of any communication channel. And when it comes to investing in this channel, trust Sendbird to take your in-app communication experience to the next level. Start today with Sendbird's free plan, and as a listener of Lenny's Podcast, you'll get an additional two months of unlimited usage and access to all premium features, including creating your very own generative AI chatbot. Visit sendbird.com/lenny to begin your free journey. That's sendbird.com/lenny.</p>
+<p><strong>Lenny</strong> (00:02:04):<br />
+This episode is brought to you by ePO. ePO is a next generation AB testing and feature management platform built by alums of Airbnb and Snowflake for modern growth teams. Companies like Twitch, Miro, ClickUp and DraftKings rely on ePO to power their experiments. Experimentation is increasingly essential for driving growth and for understanding the performance of new features, and ePO helps you increase experimentation velocity while unlocking rigorous deep analysis in a way that no other commercial tool does. When I was at Airbnb, one of the things that I loved most was our experimentation platform where I could set up experiments easily, troubleshoot issues and analyze performance all on my own. ePO does all that and more with advanced statistical methods that can help you shave weeks off experiment time, an accessible UI for diving deeper into performance, and out-of-the-box reporting that helps you avoid annoying, prolonged analytic cycles. ePO also makes it easy for you to share experiment insights with your team, sparking new ideas for the AB testing flywheel. ePO powers experimentation across every use case, including product, growth, machine learning, monetization and email marketing. Check out ePO at getepo.com/lenny and 10 x your experiment velocity. That's getepo.com/lenny.</p>
+<p><strong>Lenny</strong> (00:03:22):<br />
+First up, we've got Eeke De Miliano. Eeke was head of product at Retool. She was also a PM at Stripe. Currently, she's actually starting her own company. Here's Eeke sharing her favorite interview question.</p>
+<p><strong>Eeke De Miliano</strong> (00:03:36):<br />
+"To what do you attribute your success?" And you can't say "luck". Because I think humble people will always say "luck" in some way, and I always kind of want to know, how self-aware are you, basically, and how curious are you? I think people have really sort of gone back and reflected on why are they where they are today really says a lot about how they think about the world.</p>
+<p><strong>Lenny</strong> (00:03:58):<br />
+Next up, we've got Geoff Charles, Head of Product at Ramp, and also just happens to be one of the most popular episodes of the podcast.</p>
+<p><strong>Geoff Charles</strong> (00:04:06):<br />
+I ask, "What's the hardest thing you've ever done?" I ask that because working at Ramp is hard, and I want to understand what hard means for them. I want to understand why it was hard. I want to understand how they overcame that difficulty, how they worked with other people to overcome that difficulty, and how much agency they had in overcoming that. So it's a really good sign around what is difficulty to them and how much work they put into overcoming that.</p>
+<p><strong>Lenny</strong> (00:04:31):<br />
+Next up we've got Shishir Mehrotra CEO, and Co-founder of Coda. Funny enough, we posted this exact clip to TikTok and Instagram Reels, and it blew up. It's one of the most popular clips we've ever put on our channels. By the way, did you know I have a TikTok and an Instagram channel? Just look up Lenny's Podcast on TikTok or Instagram. Anyway, with that, here's Shishir Mehrotra sharing his favorite interview question.</p>
+<p><strong>Shishir Mehrotra</strong> (00:04:56):<br />
+It's a very simple question, and it's a coded Eigenquestion test. The question is, "A group of scientists have invented a teleportation device. They've hired you, Lenny, to be their business counterpart, bring this to market, product [inaudible 00:05:14]." This question will actually work well for any role. But say, "You could be a product manager for this thing, bring it to market. What do you do?" That's the whole question.</p>
+<p><strong>Shishir Mehrotra</strong> (00:05:23):<br />
+Usually people will start asking a bunch of questions and say, "Well, tell me more about this device. What does it do? How does it work? Is it big? Is it small? Is it vast? Does it disintegrate things or not? Does it need a receiver and a sender? Is it safe?" All these different questions come out.</p>
+<p><strong>Shishir Mehrotra</strong> (00:05:39):<br />
+I'll just let those questions come out, and at some point I'll say, "Okay, nice job generating all the questions. Turns out these scientists, they hate talking to people and they're kind of annoyed by all your questions. And so they've decided that they will answer only two of your questions, and after that they expect a plan. What two questions do you ask?"</p>
+<p><strong>Shishir Mehrotra</strong> (00:05:59):<br />
+Interestingly, all of a sudden the sharp product managers, engineers, basically every role, they very quickly find what are the one or two Eigenquestions on this topic. There's no right answer, but I'll tell you one of my favorite ones, because the product manager said, "Okay, if I had to ask two questions, the two questions I would ask, one, is it safe enough for humans or not?" That was a very crisp way to get to just safety. How reliable is it? They didn't ask how reliable it is, how many bits in the middle of this. "Just tell me, is it safe enough for humans or not?"</p>
+<p><strong>Shishir Mehrotra</strong> (00:06:31):<br />
+The second one is, "Is it more expensive CapEx or OpEx? Is it more expensive to buy them or to run them?"</p>
+<p><strong>Shishir Mehrotra</strong> (00:06:37):<br />
+And then he took those two questions, and he said, "Just with those two questions, I can form these quadrants." You can say, "Oh, it's safe enough for humans and they're very cheap to buy, but expensive to run." Then you probably run them like human fax machines. You put them everywhere you can and you say, "Hey, look, it's expensive to use, but you all have the ability to teleport anywhere you want and this is how we're going to run it."</p>
+<p><strong>Shishir Mehrotra</strong> (00:06:59):<br />
+On the other hand, they're very expensive to buy, but cheap to run, you'd probably have to place them very strategically, in which case what you'd probably do is replace airports. Because airports are pretty strategically placed in places where people are trying to get around places.</p>
+<p>If it's not safe enough for humans, then you've got a whole different class of use cases where you go value what goods are transported in very costly ways? And people come up with, "Do you do the most expensive things? Is teleporting people's replacement [inaudible 00:07:29], is that a really demanding thing?"</p>
+<p><strong>Shishir Mehrotra</strong> (00:07:32):<br />
+But these two questions kind of get to the heart of it. The question is totally made up. No teleportation device exists, at least not yet. I find that people's ability to learn the method is significantly higher if it's low stakes.</p>
+<p><strong>Shishir Mehrotra</strong> (00:07:45):<br />
+That question, by the way, if you ask a kid that question, the new teleportation device, you get to ask two questions, almost every kid will quickly get to two pretty good Eigenquestions. Again, kids are incredibly good at simplifying these things down. It's actually a skill we remove from ourselves. A lot of your candidates tell me things like, "I guess I would ask them what size it is." I'm like, "Why would you ask them? What decision is that going to allow you to make, to know what size it is?" Sometimes they can explain it, but sometimes not. They don't get hired.</p>
+<p><strong>Shishir Mehrotra</strong> (00:08:16):<br />
+But then, actually, the thing I'd say about it is, there are Eigenquestion kind of everywhere. You could take any product out there. I'll do it with my kids a lot. I was just riding with with my younger daughter, and she said, "How come there's three gas stations in the same corner? Why do people do that?" That's a really insightful observation. What's the Eigenquestion? How do you place a gas station? You can almost take anything and say, "What is the question that really drives this answer?"</p>
+<p><strong>Lenny</strong> (00:08:45):<br />
+This next interview question comes from Yuhki Yamashita, Chief Product Officer at Figma, also a former Head of Design at Uber.</p>
+<p><strong>Yuhki Yamashita</strong> (00:08:53):<br />
+"Describe to me a time when you were part of a controversial product decision. What did you do?" All those things. I think it's really revealing, because if they can set up this conflict and understand why this problem was really important and represent both sides and such that you can understand why that conflict existed in the first place, and they can do it in this kind of even-keeled way where you realize that they can take on these different perspectives, you start to learn a lot about that person, I think.</p>
+<p><strong>Yuhki Yamashita</strong> (00:09:25):<br />
+Or sometimes I just ask them for basic things like, "Okay, talk about a big problem that you worked on." The thought experiment for me is always, coming out of that, do I feel compelled to work on that problem? Right? No matter how boring it sounds on the surface, I think a really great product manager kind of casts something. It's like, "Well, this is why it's so existential and this is why it's so interesting, and really rallied the troops up. That's kind of one big thing of storytelling and communication, because at the end of the day, so much of our job is around that.</p>
+<p><strong>Lenny</strong> (00:09:57):<br />
+Next you'll hear from Katie Dill, Head of Design at Stripe; Karri Saarine, CEO of Linear; and Camille Hearst, Product Leader at Spotify, former Product Leader at Patreon; who all share the same favorite interview question.</p>
+<p><strong>Katie Dill</strong> (00:10:12):<br />
+"Tell me what work you are most proud of?" The reason I ask that is because, well, it helps me understand their taste and their judgment, what motivates them, what work they view as good and as a good outcome. It also helps me understand a little bit about what they like to do and where their gravity pulls them.</p>
+<p><strong>Karri Saarinen</strong> (00:10:36):<br />
+I think usually I like to ask what is the candidate most proud of and why on their professional life or otherwise. What they're most proud of and why? But I think it's gives you a little bit of indication of what the person values and how they think about things. Also, I think it's always nice that people can share something they think they did really well, and we can spend time on it, versus just asking something more negative things.</p>
+<p><strong>Camille Hearst</strong> (00:11:04):<br />
+I like to ask people to tell me about something they're really proud of that they accomplished, take me through the process, and talk to me about why they're proud of it. I find you can learn so much about a person's motivations, about their work ethic, about what they care about, what good looks like to them, and I think those are all really important things to understand about a person if you're going to work closely with them.</p>
+<p><strong>Lenny</strong> (00:11:29):<br />
+Next is JZ, Head of Product at Webflow, former Airbnb colleague, sharing her favorite interview question.</p>
+<p><strong>Jiaona Zhang</strong> (00:11:35):<br />
+I do like to do behavioral questions. Just really understanding, when they've been in challenging situations, when they've been in ambiguous situations, how do they navigate?</p>
+<p><strong>Jiaona Zhang</strong> (00:11:44):<br />
+Ambiguity is a big one for me, because at the end of the day, the PM job is really ambiguous. It's really hard to describe on a piece of paper all the things that you're going to encounter. Good answers are people who put structure and a way forward through the ambiguity. That's what you look for. You want your PM to not just be like, "Oh no, we're swimming in ambiguity," but actually put a path forward.</p>
+<p><strong>Jiaona Zhang</strong> (00:12:05):<br />
+I think, also, looking for people who are seeking help, seeking those inputs, as opposed to being like, "Yep, this is the way. This is very clear." Because, again, the chances of whatever path you chart out for any product, for anything that you're doing, is the right path from the first time that you do it, so rare. And so I want to see someone be able to get those inputs, be able to say, "This is the path. This is how I learned why I put this path together." And then going back to a lot of the stuff I think we touched upon in this podcast is like, what are the little milestones that make you say, "Hey, is this working? Is this not working?" And then make you either make a different decision. Seeing people do that really well is a big thing I look for.</p>
+<p><strong>Lenny</strong> (00:12:44):<br />
+Next up is Noah Weiss, Chief Product Officer at Slack.</p>
+<p><strong>Noah Weiss</strong> (00:12:49):<br />
+"What unfair secrets have you learned to improve the velocity and energy level of a product team?" When I say "unfair" or "secret", I usually mean not something that you probably read on a media [inaudible 00:13:02]. "What did you learn? How did you learn it? How does it work, and how do you apply it?" You also just get amazing, interesting bits of inspiration from asking that.</p>
+<p><strong>Lenny</strong> (00:13:11):<br />
+This next question comes from the very sultry voice of Ben Williams, former VP of Product at Snyk and now an advisor to product-led growth startups.</p>
+<p><strong>Ben Williams</strong> (00:13:22):<br />
+"Fast forward three years, what's different about you then?" A lot of people will default to telling you where they aspire to be in terms of role or title, but what I'm really looking for is signals of humility, of self-awareness, around areas of personal and professional growth. People who can be open about where they think they need to work on to grow themselves as people. I love that.</p>
+<p><strong>Ben Williams</strong> (00:13:49):<br />
+Also, just generally throughout interviews, I'm looking for curiosity. Day-to-day, good PMs will be asking "why" as much as my six-year-old son does, which is a lot, so I'll try and discern that through the course of the conversation. It's not really a question, but something I'm looking for.</p>
+<p><strong>Ben Williams</strong> (00:14:08):<br />
+And then maybe I want to flip it, because building on something that Adam Fishman was saying, his theme of evaluating the people dimension of folks you are potentially going to work with when you're interviewing with a company. This was a question I got asked myself recently by a candidate, which I just thought was brilliant, and that was, "Tell me about the diversity, equity, inclusion and belonging initiatives that you've recently personally been involved with?" It just felt like a really great way for them to be able to test alignment of their personal values with those of someone they'd be working with really closely, so I love that.</p>
+<p><strong>Lenny</strong> (00:14:42):<br />
+Next up is Meltem Kuran Berkowitz, Head of Growth and a very early employee at Deel.</p>
+<p><strong>Meltem Kuran Berkowitz</strong> (00:14:48):<br />
+"What would your siblings say about you?" It's very telling. If they have siblings; if they don't, I will say, "What will your parents say about you?" But it's very telling what you think other people think of you.</p>
+<p><strong>Lenny</strong> (00:15:00):<br />
+What do you look for in their answer that gives you a sign that they're a good candidate or not?</p>
+<p><strong>Meltem Kuran Berkowitz</strong> (00:15:05):<br />
+I look for sincerity and self-awareness. Your siblings are never ... I mean, I love my sister, but she'll call me. She'll talk to me a lot. Being aware of that is very important. If someone was like, "My siblings will say I'm very organized and that I'm the one that brings our family together," that's probably a bullshit answer. But if they're like, "Oh, yeah, they'll say these weird things about me," that shows a little bit of self-awareness and humbleness that I want to see in a person.</p>
+<p><strong>Lenny</strong> (00:15:30):<br />
+Next is Paige Costello, Co-Head of Product Management, and also Head of AI at Asana.</p>
+<p><strong>Paige Costello</strong> (00:15:36):<br />
+I like to ask, "Tell me about a time something went wrong. What was it? What did you do about it?" Yada, yada. Effectively, the question gets at, when the product failed, when something about the team didn't work, just things that go wrong because that's what happens when you're doing this work. Evaluating people's mindset, the way they talk about it, and the way they relate to evaluating the situation, I think it's a great question. It really tells you a lot about how people think and how they perceive themselves when things are not working well.</p>
+<p><strong>Lenny</strong> (00:16:15):<br />
+We are in the final stretch now. There's only five more interview questions to go. Next up is Nikhyl Singhal, VP of Product at Facebook, also one of the most popular episodes of the podcast.</p>
+<p><strong>Nikhyl Singhal</strong> (00:16:25):<br />
+"What's something that everyone takes for granted that you think is essentially hogwash or inaccurate?" Sometimes I'll ask a manager, "Look, you've managed hundreds of people in your career. What's conventional wisdom that you bet against, that you have found is actually inaccurate?" And you could do that for, "What do people think about AI that's inaccurate, that everyone believes?" You could do that for domains. You can do all kinds of things.</p>
+<p><strong>Nikhyl Singhal</strong> (00:16:53):<br />
+I'm always looking for people to break this sort of interview mindset. Everyone always prepares for interviews, and then their entire conversation is predicting what you think you want me to say. As a result, you can have high-quality people that you dismiss, because they weren't genuine.</p>
+<p><strong>Nikhyl Singhal</strong> (00:17:19):<br />
+There's no way to answer that question without being genuinely opinionated. Because it starts with, 'What is the thing that you think ...? I want to sit here and then tell me why it's inaccurate." When I break that wall, I'm testing, is this person authentic? Because sometimes I'm dismissing them because they told me nothing new. But I don't want the interview process to penalize them, and this was my save question.</p>
+<p><strong>Lenny</strong> (00:17:52):<br />
+This next question comes from Ayo Omojola, Chief Product Officer at Carbon Health, former Product Lead at Square, and also a former founder.</p>
+<p><strong>Ayo Omojola</strong> (00:18:01):<br />
+"Tell me something you did that worked out, but not for the reason that you thought it would work," or, "Tell me something you did that was a good decision that didn't work." A lot of my process is just teasing out introspection. It's just like, "Are you a person who is reflective about the decisions you've made, and why they worked and why they did not, and incorporating that into your model so you make different decisions next time?"</p>
+<p><strong>Lenny</strong> (00:18:21):<br />
+Next up is Scott Belsky, Chief Strategy Officer at Adobe, former Chief Product Officer of Adobe, also former Founder of Behance.</p>
+<p><strong>Scott Belsky</strong> (00:18:31):<br />
+I like asking about something people have learned about themselves that reveal the limitation in how they work. It's a way to test introspection, and once this person hits their limits or struggles, can they be open and introspective, or are they going to blame and point fingers? So I do ask that.</p>
+<p><strong>Scott Belsky</strong> (00:18:49):<br />
+I also like the question, "Do you consider yourself lucky?" I think it's a fascinating question, because some people who are super-insecure about where they are and how they got there and might decline admitting luck. Those who are comfortable should admit that they were lucky. I mean, I think the truth is, we're all very lucky and certainly privileged, and I just think that that's always an interesting conversation.</p>
+<p><strong>Lenny</strong> (00:19:18):<br />
+Our penultimate interview question comes from Lauryn Isford, Head of Growth at Notion, former Head of Growth at Airtable.</p>
+<p><strong>Lauryn Isford</strong> (00:19:26):<br />
+"Tell me about a time that you delivered something that was impactful." I'm looking for someone to help me understand how they define impact and what it means to them. I think a good answer for a growth practitioner is intrinsic motivation about having an impact on the business.</p>
+<p><strong>Lenny</strong> (00:19:46):<br />
+Our final interview question is actually advice for doing reference calls, which comes after finding someone great through your interview process. This comes from Paul Adams, Chief Product Officer at Intercom, with a killer Irish accent.</p>
+<p><strong>Paul Adams</strong> (00:20:00):<br />
+I have to do referral calls. You're interviewing someone, you want to give them the job, and they've got referees. Of course, the referees they have are the best people that they ever worked with and their favorite managers. This question is, "What feedback will I be giving this person in their first performance review?" It's an amazing question, because the person can't dodge it. There's an answer, and it's incredibly enlightening.</p>
+<p><strong>Lenny</strong> (00:20:23):<br />
+And it's a wrap. Thank you so much for listening. I hope you found this valuable. Leave a comment either on the newsletter post, or in the YouTube comments, or even on Twitter. Let me know what you think. If there's a great response, we'll continue to do this. If not, we'll never do this again. All right, thank you. Enjoy.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

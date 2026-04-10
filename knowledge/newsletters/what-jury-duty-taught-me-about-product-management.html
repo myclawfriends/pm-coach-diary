@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What jury duty taught me about product management — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What jury duty taught me about product management</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What jury duty taught me about product management</div>
+    
+    <div class="article-meta">2023-04-25<span>·</span>2,176 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">組織</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">職涯</span> <span class="mini-tag">產品管理</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>So, I had jury duty last week. Like everyone ever, I expected to get dismissed at some point in the process—until I was juror #1 on a weeklong criminal case.</p>
+<p>The experience was equal parts disruptive, rewarding, and fascinating. Being the product nerd that I am (and because we had a lot of time to sit around and think), I started to notice parallels and hidden lessons about leadership and product management. Trials, I realized, are a great lens for studying important soft skills. In both litigation and PM, you’re trying to convince a group of people to do what you believe needs to be done. And facing decades in prison is much higher-stakes than getting button copy wrong 😵‍💫</p>
+<p>Here are five lessons I took away from my jury duty experience:</p>
+<h3><strong>1. Be super-selective about who’s in the room</strong></h3>
+<p>The trial lasted a total of three days, including <em>one whole day</em> for jury selection. A third of the trial was picking the jury!</p>
+<p>Think about all the time attorneys put into laying out their case, interviewing witnesses, cross-examining witnesses, opening and closing statements, etc. The prosecution and the defense spent as much time picking <em>who</em> they were pitching as doing the actual pitching. I know this timeline isn’t the case for every trial, but from my research, it’s typical.</p>
+<p><strong>What’s the product lesson?</strong></p>
+<ol>
+<li><strong>Projects:</strong> Think carefully about who you want on your next team. Who’s going to help you align, make decisions, and ship—and who’s going to derail everything?</li>
+<li><strong>Meetings:</strong> Think carefully about who you want in that upcoming meeting. Who’s going to help you get to the outcome you want—and who’s going to create confusion?</li>
+<li><strong>Leadership team:</strong> Think carefully about who needs to be on your leadership team. Who’ll do real work and push the team forward, and who just wants to be involved?</li>
+<li><strong>Success criteria:</strong> Think carefully about how success will be judged for your project. How could you set your team up for success before you even start the project?</li>
+<li><strong>Career:</strong> Think carefully about who you want to spend your days with. Is the place you work full of people who are better than you, or do you constantly need to pull everyone along?</li>
+</ol>
+<h3><strong>2. Tell them what you’ll tell them → tell them → tell them what you told them</strong></h3>
+<p>Here’s how a trial unfolds:</p>
+<ol>
+<li>Jury selection.</li>
+<li>Opening statements by the prosecution and the defense, each laying out what you’ll hear during the trial. <strong>←(Unexpectedly important)</strong></li>
+<li>The prosecution makes its case by bringing up witnesses and asking them questions to lay out the facts as they see them.</li>
+<li>The defense makes its case by bringing up its own witnesses and asking them questions to lay out additional facts and dispute the prosecution’s facts.</li>
+<li>Closing arguments from each side.</li>
+<li>The jury deliberates and shares their verdict.</li>
+</ol>
+<p>What surprised me most was how impactful the opening arguments were on my mindset throughout the trial. Each side started by telling us <em>exactly</em> what their case was going to be—including who we’d hear from, what each person would tell us, and what evidence we’d see. There was no mystery. As a result, as the prosecution (who went first) laid out their case, I always had in the back of my mind, “This sounds damn convincing, but I know the defense will have someone later tell me this wasn’t how it happened at all.” Knowing the key points up front helped me avoid jumping to conclusions too early.</p>
+<p><strong>What’s the product lesson?</strong> The effectiveness of this simple presentation flow when trying to make an argument to an executive:</p>
+<ol>
+<li>Tell them what you’ll tell them.</li>
+<li>Tell them.</li>
+<li>Tell them what you told them.</li>
+</ol>
+<p>This framework is often referred to as the <a href="https://www.oreilly.com/library/view/interactive-lecturing/9781119277309/Barkley277309_c06_14_EPUB.xhtml">Aristotelian triptych</a> (though <a href="https://quoteinvestigator.com/2017/08/15/tell-em/">it’s not clear</a> whether it actually came from Aristotle), and it connects nicely with the <a href="https://www.lennysnewsletter.com/p/minto-pyramid-principle-scr">Minto pyramid principle</a>, which teaches us to start a presentation with your conclusion, instead of saving it for the end.</p>
+<p>Here’s Daymond John (from <em>Shark Tank</em>) sharing this lesson in 30 seconds—using the actual technique within the video:</p>
+<p><a href="https://www.youtube.com/watch?v=iegsoaG12_U">Watch on YouTube</a></p>
+<h3><strong>3.</strong> Don’t go into important meetings not knowing what key stakeholders will say</h3>
+<p>Most people imagine a trial going like this:</p>
+<p><img alt="Image from What jury duty taught me about product management" src="https://substack-post-media.s3.amazonaws.com/public/images/0589baf4-3d41-4299-b48e-80c085ded760_476x200.gif" /></p>
+<p>When they’re really mostly like this:</p>
+<p><img alt="Image from What jury duty taught me about product management" src="https://substack-post-media.s3.amazonaws.com/public/images/ea04b963-e170-4270-ba5a-206873d71b8e_480x304.gif" /></p>
+<p>Trials are very low-drama for one simple reason: <a href="https://www.youtube.com/watch?v=B1piLVzrlko">lawyers are taught</a> never to ask a question they don’t already know the answer to. To accomplish this, they spend a lot of time behind the scenes, pre-trial, deposing witnesses, doing research, and preparing. Most of the work they do to win their case happens before the trial even begins.</p>
+<p><strong>What’s the product lesson?</strong> Don’t go into important decision meetings not knowing how key stakeholders will feel. Meetings should be low-drama and full of non-surprises. To accomplish this, do the pre-work:</p>
+<ol>
+<li><strong>The meetings before the meeting:</strong> Schedule 15-minute pre-meetings with key stakeholders ahead of the meeting, to convince them of your case, and if nothing else, to get a sense of where they stand.</li>
+<li><strong>Get alignment outside of a high-pressure room:</strong> Aim for one-on-one low-stakes discussions vs. letting one loudmouth sway everyone.</li>
+<li><strong>Think like a Jedi:</strong> Be less Tom Cruise, passionately arguing your case, and more Obi-Wan, pulling strings behind the scenes.</li>
+</ol>
+<p><img alt="Image from What jury duty taught me about product management" src="https://substack-post-media.s3.amazonaws.com/public/images/c316af2b-c9af-4957-8a59-da12441a0446_471x200.gif" /></p>
+<h3><strong>4. Hunt for misalignment, and quickly push everyone back into alignment</strong></h3>
+<p>Although attorneys try to avoid surprises, surprises do happen. Particularly in cross-examination, when the other side tries to create doubt in a witness’s testimony.</p>
+<p>In my trial, the case revolved around a DUI—specifically, whether the defendant drank before he left a party (because the breathalyzer results weren’t conclusive). The defense brought up a witness who was at this party, who claimed he never saw the defendant drink. This witness even told a story of offering the defendant a drink that he declined, because he said he was a designated driver that night and wasn’t drinking. If true, this would create a big problem for the prosecution, whose case rested on the fact that the defendant drank heavily at the party. A serious misalignment for his case!</p>
+<p>So what did the prosecuting attorney do? He looked for ways to bring the jury back into alignment (with his story). He drilled into where the witness was throughout the party, and whether he always had eyes on the defendant. It turned out the witness was upstairs for some meaningful period of time making out with his girlfriend 🤣</p>
+<p><strong>What’s the product lesson?</strong> <a href="https://www.lennysnewsletter.com/i/33702655/great-pms-hunt-for-misalignment-and-quickly-push-everyone-back-into-alignment">An important habit</a> of highly effective product managers is to be endlessly hunting for misalignment—and quickly pushing everyone back into alignment. For example, rooting out misalignment between designers and engineers, researchers and PMs, and executives and the team. It’s some of the highest-leverage work you can do.</p>
+<p>Some ways to build this habit:</p>
+<ol>
+<li>When reviewing new designs, always bring people back to “What problem are we trying to solve here?”</li>
+<li>When you get a hint that team members are misaligned (e.g. quoting data not everyone has seen, optimizing for different goals, shifting priorities), just say, “We may be misaligned on this. What’s your understanding of X?”</li>
+<li>Create, and keep coming back to, a source-of-truth document that crystallizes the goal, the succinct problem being solved, key assumptions, and key decisions.</li>
+<li>Listen carefully in standups for anything that sounds like misalignment, and ask questions.</li>
+<li>Revisit priorities, plans, and assumptions with your manager in 1:1’s.</li>
+</ol>
+<h3><strong>5. Influence = evidence + trust</strong></h3>
+<p>A trial really boils down to which side is better able to influence you. It’s maybe the purest display of influence—with real stakes.</p>
+<p>In our deliberation process, before we actually headed into deliberation, the judge specifically gave us instructions to base our decision solely on:</p>
+<ol>
+<li>Evidence (e.g. a mark on a car)</li>
+<li>Expert testimony (e.g. from a breathalyzer technician)</li>
+<li>Witnesses’ firsthand accounts, and how much we trusted them</li>
+</ol>
+<p>She told us to ignore:</p>
+<ol>
+<li>What the attorneys told us happened</li>
+<li>Speculation or hearsay from witnesses</li>
+<li>Our own sympathy, or emotion, for the victim or defendant</li>
+<li>What we believe the judge thinks, based on how she interacts with both sides</li>
+</ol>
+<p>Essentially, we were told to focus on just the evidence and how much we trusted people. As one example of this in action, the defense attorney was not…great. The judge kept getting angry with him, he kept making mistakes with simple procedures, and he kind of annoyed everyone. But he won. His witnesses were trustworthy, and the evidence we did have pointed us to an acquittal. Many of us joked about how bad the defense attorney was, but that didn’t impact our conclusion.</p>
+<p><strong>What’s the product lesson?</strong> I previously wrote a post on <a href="https://www.lennysnewsletter.com/i/73401125/strategy-bring-evidence">how to improve your influence</a>, and looking through it again in relation to this trial experience, I’m reminded of how much of your ability to influence others really boils down to two things: (1) how convincing your evidence is and (2) how much people trust you, your evidence, and others on your side. If you’re having a hard time influencing someone, instead of assuming they have something against you, double down on evidence and trust.</p>
+<h3>Other parallels and lessons that I didn’t have time to explore because jury duty f’d my week</h3>
+<ol>
+<li>Getting a jury summons letter in the mail = Getting an invite to a meeting you didn’t want to be in</li>
+<li>The amount of resources spent on small crime = This meeting should have been an email</li>
+<li>The judge setting expectations that she wants the jury deliberation by end of the week = Great example of timeboxing</li>
+<li>Getting dismissed = An upcoming meeting getting canceled</li>
+<li>Proving something beyond a reasonable doubt = Statistical significance</li>
+<li>Hoping they don’t call your name when they’re calling out potential jurors = Hoping they don’t call on you in a big meeting</li>
+<li>Random jurors deciding your fate = An uninformed exec making the call on your project’s future</li>
+<li>Decision by consensus = 😵‍💫</li>
+</ol>
+<p>Finally, I’ll leave you with this clip from a new reality show called <em><a href="https://www.amazon.com/Jury-Duty-Season-1/dp/B0B8JM2BBS">Jury Duty</a></em>:</p>
+<p><a href="https://www.tiktok.com/@keshascastle/video/7219733026379418922"><img alt="Image from What jury duty taught me about product management" src="https://substack-post-media.s3.amazonaws.com/public/images/08b50214-e677-4309-ae1e-caab4971aeec_672x1232.jpeg" /></a></p>
+<p><a href="https://www.tiktok.com/@keshascastle">@keshascastle</a><a href="https://www.tiktok.com/@keshascastle/video/7219733026379418922">this is not even an ad im just urging u to watch bc its a hilarious show😭💀 #juryduty #jurydutyonfreevee #tvshow #theoffice #funny #showrecommendations</a></p>
+<p><img alt="Image from What jury duty taught me about product management" src="https://substackcdn.com//img/alert-circle.svg" />Tiktok failed to load.</p>
+<p>Enable 3rd party cookies or use another browser</p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from What jury duty taught me about product management" src="https://substack-post-media.s3.amazonaws.com/public/images/f8eb7d1d-965c-4b8a-813d-b233fc74197b_1526x1240.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Fitmate Coach:</strong> <a href="https://www.lennysjobs.com/jobs/4d6c9e6a-5f53-478b-be29-a87c6e8eb109">Product Leader</a> (Menlo Park, CA, or remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/02f1d98a-a58e-427b-a46e-9e8b1fd52295">Product Marketing Manager</a> (NY, remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/e42afaf7-f323-441d-8f4c-cf7a252e9ca3">Senior Software Engineer</a> (Remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/b8d36434-9885-4d23-80bf-9ac3847e37de">Technical Account Manager</a> (Remote)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://www.noahpinion.blog/p/five-big-trends-that-have-changed?publication_id=35345&amp;post_id=115309518&amp;isFreemail=false">Five big trends that have changed in the last few years</a> by Noah Smith</li>
+<li><strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=QHi479xN_po">Michael Jackson on Fire Diorama</a> via Tim Ferriss</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=QHi479xN_po">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read:</strong> <a href="https://sacks.substack.com/p/the-difficulty-ratio?publication_id=91289&amp;post_id=111941126&amp;isFreemail=true">The Difficulty Ratio</a> by David Sacks</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. Check out <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

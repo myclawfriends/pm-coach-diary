@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maintaining Quality 🏅 Phase 2 of Kickstarting and Scaling a Marketplace Business — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Maintaining Quality 🏅 Phase 2 of Kickstarting and …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Maintaining Quality 🏅 Phase 2 of Kickstarting and Scaling a Marketplace Business</div>
+    
+    <div class="article-meta">2019-12-17<span>·</span>3,083 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2B</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<p><strong>“French fries and buffalo wings are the most difficult problem in the restaurant delivery industry today.</strong> We are obsessed with challenging ourselves to consistently deliver them hot and crispy.”</p>
+<p>— Micah Moreau (VP Growth, DoorDash)</p>
+</blockquote>
+<p>Welcome to the second-to-last 😳 post of my eight-part limited series on kickstarting and scaling a marketplace business. <strong>In this post, I’ll share the top ten strategies that today’s biggest marketplace companies use to maintain the</strong> <strong><em>quality</em></strong> <strong>of their marketplaces.</strong> And later this week, in our final post, I’ll share what the leaders I spoke to would do differently if they could do it all over again. 🔮</p>
+<p><img alt="Image from Maintaining Quality 🏅 Phase 2 of Kickstarting and Scaling a Marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/18f5adc8-c6cb-4605-85a6-ab0247b09baf_220x161.gif" /></p>
+<p>This post contains some of my most favorite stories from the entire series — funny, surprising, and super insightful. Read on!</p>
+<h2><strong>Step 3: Maintain quality 🏅</strong></h2>
+<p>The topic of maintaining quality is one of the top five most common questions I get from leaders at marketplace companies. As you scale and attract a more mainstream audience, preserving the level of service that keeps customers coming back becomes increasingly difficult, but also increasingly critical. You’re forced to move beyond your eager early adopters, deal with issues you never anticipated, and develop rules and processes on the fly. I’ve personally spent a lot of time working on marketplace quality at Airbnb (e.g. the Superhost program, reviews, standards enforcement), so I was excited to learn from leaders across seventeen different marketplaces. I’m even more excited to share it all with you. Let’s dive in.</p>
+<p><em>The top ten strategies today’s biggest marketplaces employ to maintain quality:</em></p>
+<p><img alt="Image from Maintaining Quality 🏅 Phase 2 of Kickstarting and Scaling a Marketplace" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/37e69650-4e6f-408e-a766-f1e5e1c4ec36_2134x519.png" /></p>
+<h3><strong>1. Standards + penalties</strong></h3>
+<p>The single most common strategy to maintain quality in their marketplace, utilized by about two-thirds of the companies I spoke with, was to define (and share) clear standards for the minimum level of service. They then incentivize good behavior, and penalize bad behavior. At most companies, including Airbnb, this was an evolutionary process, starting with the simplest possible version, and iterating from there.</p>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“<strong>We published community guidelines that outlined what kind of events were permissible on the platform</strong> and invested in a fraud/spam team to build technology to catch bad actors. We saw ourselves as the fair arbiter between guests and sellers.”</p>
+<p>— Tamara Mendelsohn</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“<strong>Since early-on, drivers got a warning when they were below a 4.4 rating</strong>. In some markets there was remedial school, like if you had a 4.0.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>We created a set of levers to control the quality of the experience</strong>. As a passenger, you live in Oakland, driver comes and finds out you want to go to SF — cancels. That’s a terrible experience. We had a few levers to avoid that, <strong>mostly through education and penalties on the driver side</strong>. We also understand you have your life as a driver, we understand life gets in the way. For us it was about maintaining that balance, while having cancellation policies that give you a bit of freedom.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>DoorDash:</strong></p>
+<blockquote>
+<p>“<strong>To manage quality, we take a carrot vs. stick mentality</strong>. Sticks would be charging more if they don't hit SLAs for example. What we think is more valuable and better for restaurants long-term is to give them financial incentives to have great operations. For example, we'll lower your commission if you can reduce dasher wait time at the restaurants.”</p>
+<p>— Micah Moreau</p>
+</blockquote>
+<p><strong>Caviar:</strong></p>
+<blockquote>
+<p>“<strong>Our quality standards were  based on the local team's sense of quality</strong>. We felt that each region (eg: Dallas vs NYC) had a different sense of quality, so it didn't make sense to standardize nationally.”</p>
+<p>— Gokul Rajaram</p>
+</blockquote>
+<p><strong>Etsy:</strong></p>
+<blockquote>
+<p>“<strong>We cared a lot about making sure items conformed to the terms of service</strong>, but this was never actually very clearly defined. Any subjective notion of item ‘quality’ was emphatically not a thing we were policing. I did once have to write a heuristic to remove felt penises from a specific feature.”</p>
+<p>— Dan McKinley</p>
+</blockquote>
+<h3><strong>2. Manually onboard early supply</strong></h3>
+<p>The second most common approach, utilized by about half of the marketplaces, was manually onboarding new supply through 1:1 instruction, classes, and hands-on support.</p>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>An early part of our foundation was onboarding classes for drivers</strong>. We would bring bagels, and have dozens of driver applicants come at once to go through a series of educational videos &amp; chats.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“<strong>For every new listing we brought onboard, we went through a 12-point checklist (e.g. number of pictures, length of title, etc), so that every listing that went live had a minimum standard and was immediately bookable for guests.</strong> After listing the spaces, local teams helped to educate the hosts at every single touchpoint. For example, when there was a booking request, the Sales and Account Manager called or emailed the host to explain what is happening and how to convert the request into an actual booking. This global operation was supported by a central data team that allowed us to compare progress across countries and share learnings. Being in touch with nearly every host worldwide helped to get direct market feedback and adapt processes and tools quickly.”</p>
+<p>— Georg Bauser</p>
+</blockquote>
+<p><strong>DoorDash:</strong></p>
+<blockquote>
+<p>“First and foremost, the delivery experience reflects on the restaurant’s brand. We are taking ownership of their brand for as short period of time, which terrifies restaurants (understandably so!), and we take that responsibility very, very seriously. <strong>We do a lot of unsexy operational work with restaurants in order to help them feel comfortable with this, and to help them succeed</strong>. We have a whole team dedicated to merchant operations that helps restaurants understand what this experience (enabling delivery) will do to their kitchen, how do you handle the logistics, how they fill orders, hour by hour. We walk them through the setup, how Dashers will do pickups, how to create a flow.</p>
+<p>— Micah Moreau</p>
+</blockquote>
+<p><strong>Instacart:</strong></p>
+<blockquote>
+<p>“One element of quality in our marketplace is our product listing data. For the most part, our customers don’t buy items if they don’t have a good picture. <strong>So we went to incredible lengths to get image data for our catalog, even to the point where we would go to a store and buy one of every item just so that we could create the catalog for that store</strong>. With a high quality catalog we were able to offer customers a good experience, since what they ordered would be what showed up on their doorstep.”</p>
+<p>— Max Mullen</p>
+</blockquote>
+<p><strong>Caviar:</strong></p>
+<blockquote>
+<p>“We found that food standards don't go down — what goes up and down is operations / reliability. In fact, ironically, some of the best food restaurants might not have the best operations. So <strong>we had to really help work with the restaurant owners to focus on operations</strong>. Because the diner lumps both things together. Quality = great food + great reliability.”</p>
+<p>— Gokul Rajaram</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“<strong>Funny enough, in the early days, every driver was interviewed by an employee at Uber</strong>. The first 20 were interviewed by Travis, trying to get to a certain personality. Also, from a regulatory standpoint, you needed a vehicle inspection, so there was always an offline component.“</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<h3><strong>3. Reviews</strong></h3>
+<p>Having a review system was fundamental for maintaining a level of quality (and trust) for about a third of the marketplaces I spoke with.</p>
+<p><strong>GrubHub:</strong></p>
+<blockquote>
+<p>“<strong>On the supply side, we looked at ratings, reviews, and customer service contacts. If you got poor-enough reviews or too many complaints, we had someone talk to you and potentially remove you</strong>. This was done qualitatively by the CX team. An issue we ran into and had to work around is if you were a new restaurant and your first few orders go badly and you get screwed long-term.”</p>
+<p>— Casey Winters</p>
+</blockquote>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“At Airbnb we take reviews and ratings very seriously. <strong>In the early days, reviews were a great tool to vet supply (hosts and their listings) and demand (guests) on the growing marketplace.</strong> We called hosts and guests to provide feedback about their stay with Airbnb. We connected with everyone, the ones who received good and bad reviews, and the ones that didn't provide reviews. By encouraging people to give reviews we fostered the Airbnb ecosystem and accelerated the growth. A host with many reviews has a higher chance to get booked compared to hosts without reviews. By focussing on reviews we continuously gathered valuable customer insights in different markets and also from various cultures. This helped to improve product, localization and translation as well as on-boarding activities for guests and hosts.”</p>
+<p>— Georg Bauser</p>
+</blockquote>
+<p><strong>Zillow:</strong></p>
+<blockquote>
+<p>“We had different tactics in different marketplaces, but <strong>one of the biggest ones was customer reviews</strong>. This was extremely controversial – they had never been done in the real estate space before).”</p>
+<p>— Nate Moch</p>
+</blockquote>
+<h3><strong>4. Subsidize it</strong></h3>
+<p>A similar number of marketplaces, about a third, found ways to subsidize the customer experience in various forms in order to make sure that the customer had a good experience.</p>
+<p><strong>Breather:</strong></p>
+<blockquote>
+<p>“With low size transactions (e.g. 2hrs), you can’t walk in and have a place be schmucky. Lower size transactions means they have to be higher quality experience by definition, so you have to subsidize it. <strong>We heavily subsidize quality of the room, with great tables, great sound proofing. Meeting rooms are garbage normally. We went for quality through design.</strong> And if something went wrong, we solved this through exceptional customer service, and exceptional cleaning.”</p>
+<p>— Julien Smith</p>
+</blockquote>
+<p><strong>Instacart:</strong></p>
+<blockquote>
+<p>“<strong>We would absolutely go out of our way to make sure customers are happy.</strong> For instance, we would often redeliver a whole order at our cost in order to save dinner for a customer who received an item they couldn't use or didn't receive a key item in a recipe.”</p>
+<p>— Max Mullen</p>
+</blockquote>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“We always tried to align incentives as much as possible. <strong>When giving refunds for things like cancellations for example, it was always as safety net / guarantee for some form of behavior that created a higher quality experience.</strong> In other words: if a user does all the things expected out of them to provide a high quality transaction for all sides, and something happened in the middle, we would then rely on some subsidies.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<h3><strong>5. Use search ranking to promote the best supply</strong></h3>
+<p>One of the most interesting, and also most effective, levers for maintaining marketplace quality turns out to be the search ranking algorithm. When utilized well it’s one of the cheapest yet most powerful tactics you’ll find.</p>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“<strong>At Airbnb we thought about quality from both side of the marketplace: how could guests find listings most likely to give them an amazing stay, and, how could hosts ensure they got guests who would love what they had to offer?</strong> One of the most hotly discussed features was 'sort by price'. For a long time we didn't offer the ability to sort by price. Why? Because in a naive version, it lowered quality. Price was not always a good indication of quality. The listings at the ends (the most expensive and the cheapest) were more often than not just mis-priced, leading to mis-matched expectations. So we worked on many iterations until we figured out how to both identify mis-priced listings, and let guests express price preferences.”</p>
+<p>— Dan Hill</p>
+</blockquote>
+<p><strong>Rover:</strong></p>
+<blockquote>
+<p>“<strong>Search results were the lever that we used to control everything in the business</strong>. That <em>was</em> the product. The reason Rover pulled ahead of competition is that we had a much better understanding of marketplace dynamics. We knew where to seed supply in the search ranking, based on the investment we made in data science. We found that high quality supply drove repeat usage. For example, we prioritized sitters who have done multiple transactions with the same owner. We were constantly updating your quality score, seeding each new sitter appropriately in the search results. That allowed us to spend more to acquire supply, and get more LTV from each customer. We were confident they would be loyal to the platform. My advice is to figure out what the germane signals are for your transaction, and do everything you can to get more of that.”</p>
+<p>— David Rosenthal</p>
+</blockquote>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“<strong>To keep supply quality high, we initially used a basic algorithm</strong> that prioritized events in search results that were selling the most tickets.”</p>
+<p>— Tamara Mendelsohn</p>
+</blockquote>
+<h3><strong>6. Quality as differentiator</strong></h3>
+<p>A broad strategy that emerged from this research, that AngelList, Breather, Caviar, and Lyft utilized, is making quality a differentiator for your business (vs. the competition). It then becomes less about a few tactics to improve quality and more about how to infuse quality into every part of your offering.</p>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>Quality was always seen as a differentiator for us</strong>. We knew we had a higher bar than our competitors. Wanted to be the company with the most stringent background checks, highest bar for quality in the marketplace. Part of it was very intentional from the beginning.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>Caviar:</strong></p>
+<blockquote>
+<p>“<strong>The Caviar brand is all about quality</strong> — so we focused on restaurant supply above all else.”</p>
+<p>— Gokul Rajaram</p>
+</blockquote>
+<p><strong>AngelList:</strong></p>
+<blockquote>
+<p>“<strong>We only included high-quality investors and only sent them high-quality startups</strong> that we personally vetted.”</p>
+<p>— Babak Nivi</p>
+</blockquote>
+<h3><strong>7. Customer service</strong></h3>
+<p>Another effective tactic for maintaining quality is having a great customer service experience when things go wrong — something Breather, GrubHub, and OpenTable heavily invested in.</p>
+<p><strong>OpenTable:</strong></p>
+<blockquote>
+<p>“<strong>We invested heavily in customer support</strong>. On the restaurant side, it wasn’t just a direct sales force. We built a customer service org from the very beginning. We posted a 1-800-opentable help line on front of our hardware at the host stand. We likely knew more about the restaurant layout then any other supplier. We diagramed every outlet, power cord, phone line and electrical closet.  If a restaurant called we told them to walk 10 feet and check this cord and plug it in beyond panel. We knew if they were going from pen and paper to software, it had to be up available on a Friday night. If it wasn't, we were done as a business. We needed to be their IT staff, so we invested in that. We also created a client management organization that made sure they were getting the most out of the software.”</p>
+<p>— Mike Xenakis</p>
+</blockquote>
+<p><strong>GrubHub:</strong></p>
+<blockquote>
+<p>“On the demand side, <strong>we defined personas for eaters</strong>, a 2x2 of <em>Order with Other</em> vs. <em>Order by Yourself</em>, and <em>Planned</em> vs. <em>Spontaneous</em>. We found the toughest group was <em>Order by Yourself</em> + <em>Planned</em> — they complained the most, found coupon codes, etc. <strong>We trained CX to keep the time they give these folks limited</strong>. The only eaters we actually kicked off were fraudsters.”</p>
+<p>— Casey Winters</p>
+</blockquote>
+<h3><strong>8. Find early signals of quality</strong></h3>
+<p>Possibly the most interesting approach that I’ve come across is companies figuring out a very early signal from new supply that is predictive of long-term quality, and then helping that supply thrive.</p>
+<p><strong>TaskRabbit:</strong></p>
+<blockquote>
+<p>“We looked at the most successful TaskRabbits -- <strong>asked them to take a mini-Myers Briggs survey, which ended up showing two personality types were going to be good supply</strong>: Very service-oriented people, and people who took pride in making people happy. That became part of the onboarding questionnaire.”</p>
+<p>— Brian Rothenberg</p>
+</blockquote>
+<p><strong>Rover:</strong></p>
+<blockquote>
+<p>“<strong>We started to figure out what were the predictive signals of what would make good supply</strong>. When we would onboard supply, we asked them specific questions, and the question that was the most predictive of being a good sitter was <strong>‘Where the dog slept at night?’</strong> If they answered ‘In my bed’, we’d know they’d be a great sitter. So we boosted them in the search rankings. We figured out that people who have experience working with Vets were going to be amazing supply as well.”</p>
+<p>— David Rosenthal</p>
+</blockquote>
+<h3><strong>9. Add friction</strong></h3>
+<p>If you find that you have more supply than you know what to do with, like TaskRabbit did, adding friction to the onboarding process may be your best bet.</p>
+<blockquote>
+<p>“Eventually, we had <strong>new supply pay an application fee</strong>.”</p>
+<p>— Brian Rothenberg</p>
+</blockquote>
+<h3><strong>10. Set an example</strong></h3>
+<p>And finally, Etsy discovered a free and underutilized tactic for creating the type of behavior you seek.</p>
+<p><strong>Etsy:</strong></p>
+<blockquote>
+<p>“One fun accident was an early investment in merchandising. Etsy built a tool called Treasury that allowed sellers to curate collections around a theme that was then featured on their homepage. The incentive for sellers was that, if their Treasury was picked for the homepage, they would see a bump in views/sales due to the increase in traffic. The merchandising team only picked treasuries where all the items were beautifully photographed. <strong>Sellers saw the style Etsy’s merch team liked and mimiced it, creating a high quality bar with a little education/merchandising.</strong>”</p>
+<p>— Nickey Skarstad</p>
+</blockquote>
+<p>As a closing note, two meta-learning that emerged from my interviews:</p>
+<ol>
+<li>Almost all of the quality issues are supply-side (i.e. the customer is always right), so most of the focus went there.</li>
+<li>You never <em>solve</em> quality. It’s an ongoing battle, with unforeseen bumps and shifting expectations. And it only gets harder as you scale. Nearly every company ended up having full-time teams focused on maintaining (and improving) quality, with ever-increasing levels of sophistication, and no one was immune from quality faux pas.</li>
+</ol>
+<p><strong>Which is an excellent segue to our next, and FINAL, post —</strong> what leaders at these marketplace companies would have done differently if they were to do it all over again. Don’t miss it. And if you’re finding this series valuable, share it with your friends and click the little gray heart at the bottom (and top) of this email. &lt;3</p>
+<h2><strong>Overview</strong></h2>
+<p><strong>Phase 1: Crack the chicken-and-egg problem</strong> 🐣</p>
+<ul>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">Part 1</a></strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">: Constrain the marketplace 🔬</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Part 2:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Decide which side of the marketplace to concentrate on 🧐</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-911">Part 3:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-911">Drive initial supply 🐥</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Part 4:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Drive initial demand 👋</a></li>
+</ul>
+<p><strong>Phase 2: Scale your marketplace 📈</strong></p>
+<ul>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-know-if-youre-supply-or-demand">Part 1:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-know-if-youre-supply-or-demand">Determine if you are supply or demand constrained 🤹‍♂️</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/accelerating-growth-at-scale-phase">Part 2:</a></strong> <a href="https://www.lennysnewsletter.com/p/accelerating-growth-at-scale-phase">Scale growth levers 🔥</a></li>
+<li><strong>Part 3:</strong> Maintain quality 🏅 (this post)</li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/what-theyd-do-differently-kickstarting">Part 4:</a></strong> <a href="https://www.lennysnewsletter.com/p/what-theyd-do-differently-kickstarting">What would you have done differently if you did it again</a><strong><a href="https://www.lennyrachitsky.com/p/what-theyd-do-differently-kickstarting">🔮</a></strong></li>
+</ul></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

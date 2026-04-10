@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The ultimate guide to performance marketing | Timothy Davis (Shopify) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">The ultimate guide to performance marketing | Timo…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">The ultimate guide to performance marketing | Timothy Davis (Shopify)</div>
+    
+    <div class="article-meta">2024-07-28<span>·</span>18,540 words<span>·</span>Timothy Davis</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">領導</span> <span class="mini-tag">市場推廣</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=zNJyb3R_Pnc" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+Is performance marketing just something every company should be doing?</p>
+<p><strong>Timothy Davis</strong> (00:00:02):<br />
+Hot take, paid is for everyone. If you look at the way each platform is doing, Google, you have to scroll pretty far down to get to an organic listing. Meta, it's almost a pay for play now.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:13):<br />
+When you take over for an agency at a company, you crush their performance within a month. I'm curious to what you find they are doing wrong?</p>
+<p><strong>Timothy Davis</strong> (00:00:20):<br />
+Instead of thinking about being on top of the page, and that's like ego marketing, I want to be number one. I want to be there all the time. It's about showing to the right person as often as possible.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:31):<br />
+Any other tips for people just to experiment with the platform?</p>
+<p><strong>Timothy Davis</strong> (00:00:33):<br />
+Each platform is different. The user behavior is different. Make sure you're not too hard on yourself if it doesn't work. It's okay to fail because we're either winning or we're learning.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:45):<br />
+Today, my guest is Timothy Davis. Timothy has led performance marketing for all of Shopify for the past two and a half years, and as a consultant has helped companies like Pinterest, LinkedIn, Redfin, and Eventbrite kickstart and scale the performance marketing teams. In our conversation, we get incredibly tactical on all things to performance marketing and paid growth, when to start investing, how to run signs of life tests on each platform, what platforms to investigate and what platforms to bet big on, what types of companies are best suited to invest big on paid growth whether you should invest pre-product market fit or not, what agencies often get wrong and what to look for in your investment when you're just getting started? Plus, what your first three hires should look like, tips for which platforms are most interesting right now, a peek at Timothy's actual reports that he runs to judge performance, if you're watching this on YouTube and so much more.</p>
+<p><strong>Timothy Davis</strong> (00:02:04):<br />
+Yeah, thanks for having me. A long time coming.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:06):<br />
+Yeah, I'm really excited we're finally doing this. I actually posted on Twitter for people to suggest questions for this topic and there's just so much interest in what we're going to be talking about, which essentially we're going to be diving deep into all things paid growth, all things performance marketing. By the way, I have a cold. For people, if in case you wonder why I sound a little weird, but the show must go on. I want to start with just setting a little context for folks that aren't super familiar with performance marketing and paid growth. When we talk about performance marketing/paid growth, first of all, are those two terms interchangeable to you? And second of all, what falls under the umbrella of performance marketing/paid growth?</p>
+<p><strong>Timothy Davis</strong> (00:02:42):<br />
+Paid can be a lot of things. It can be online, it can be offline, it can also even be affiliates. Typically, when I talk about performance marketing, it's about online only, but you could argue offline could be performing and affiliates could be performing and stuff like that. They can be interchangeable, but I would recommend if you are talking about it, to specify which one you're talking about. Because when you do say paid, because I'm in the industry, I would just, "Oh, they do Google Search and they do Meta and they do things like that." But if you do offline and you just say paid, we may be talking about things, but missing each other on two ships passing in the night. So I think historically, people, when they have said paid growth, have been fully focused on just online.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:43):<br />
+Just online. Okay. Got it.</p>
+<p><strong>Timothy Davis</strong> (00:03:31):<br />
+But I would argue in the last couple of years, you could definitely roll offline into that conversation as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:38):<br />
+Okay. So performance marketing, when someone hears that term, it's essentially marketing that you can measure the performance up.</p>
+<p><strong>Timothy Davis</strong> (00:03:43):<br />
+Correct. Yes, nail on the head.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:46):<br />
+<strong>Christina Gilbert</strong> (00:05:07):<br />
+Yes. Thank you for having me on, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:09):<br />
+What is the latest with OneSchema? I know you now work with some of my favorite companies like Ramp, Vanta Scale and Watershed. I heard that you just launched a new product to help product teams import CSVs from especially tricky systems like ERPs.</p>
+<p><strong>Christina Gilbert</strong> (00:05:25):<br />
+Yes. So we just launched OneSchema file feeds, which allows you to build an integration with any system in 15 minutes as long as you can export a CSV to an SFTP folder. We see our customers all the time getting stuck with hacks and workarounds, and the product teams that we work with don't have to turn down prospects because their systems are too hard to integrate with. We allow our customers to offer thousands of integrations without involving their engineering team at all.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:47):<br />
+I can tell you that if my team had to build integrations like this, how nice would it be to be able to take this off my roadmap and instead, use something like OneSchema, and not just to build it, but also to maintain it forever.</p>
+<p><strong>Christina Gilbert</strong> (00:05:58):<br />
+Absolutely, Lenny. We've heard so many horror stories of multi-day outages from even just a handful of bad records. We are laser-focused on integration reliability to help teams end all of those distractions that come up with integrations. We have a built-in validation layer that stops any bad data from entering your system and OneSchema will notify your team immediately of any data that looks incorrect.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:18):<br />
+I know that importing incorrect data can cause all kinds of pain for your customers and quickly lose their trust. Christina, thank you for joining us. And if you want to learn more, head on over to oneschema.co. That's oneschema. co.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:32):<br />
+Is performance marketing just something every company should be doing or is there certain business models where it's like, "No, you're probably going to grow through other channels mostly like SEO or sales or word of mouth.</p>
+<p><strong>Timothy Davis</strong> (00:06:42):<br />
+Hot take. I would say, paid is for everyone. If you look at the way each platform is doing, Google introducing AI, plus with paid taking up the first four spots, you have to scroll pretty far down to get to an organic listing. Meta, it's almost a pay for play now. You have to do promoted posts for people to even see your content. I would say it does depend on the industry you're in. If you're say, leaning heavily into influencer marketing, that is still a paid component. You may not be doing Meta ads, you may not be doing paid search, but that is a paid component. But I would say at baseline, everyone should be doing paid search. The way I usually explain it to people is paid search is user driven. You have to type in a relevant keyword for your ad to show.</p>
+<p><strong>Timothy Davis</strong> (00:07:36):<br />
+Anything else is more disruptive media. You're on Meta and you're looking at pictures of babies and cats, and then all of a sudden, you see an ad for Shopify. You're watching a YouTube video, maybe a YouTube podcast, and then in between, you get advertisements maybe for Shopify, maybe for Pinterest, maybe for Eventbrite. So all of that being disruptive media may not make a whole lot of sense for where you are as a business, but I would say paid search being user-driven, having to type in a relevant keyword for your ad to show, should pretty much be for just about everybody.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:11):<br />
+Everyone should do it. Super interesting. There's also the most companies grow through one growth engine primarily, say word of mouth, or SEO, or sales or paid. So for some companies, paid will be most of how they grow like say, I always think of Booking.com and Credit Karma and just like most of their growth came from paid growth online, paid growth. For some companies, it's just like a layer, a small 10, 20% of their growth. What are signs that you have the potential for paid/performance marketing to be most of your growth, like say 70, 80%?</p>
+<p><strong>Timothy Davis</strong> (00:08:47):<br />
+I always say, where are your users? You will have some data that will allow you to understand that say right now, you're doing really well on TikTok. Some would argue that's an emerging channel right now. Great. If that's doing really well for you, maybe you take... Because that content could be used on something similar like Snap, see how that does for you. You could also lean into your Google Analytics or whatever analytics tool you are using and see if you're already getting users from that platform. If you're currently managing that, if you don't have a profile on there and obviously, you don't have a presence, it would be really hard for users to find you and get there. But always look at the data that's available to you within your analytics platforms and say, "Users are already finding us here. How can we turn that knob up to 11?" And you can do that with paid. Because if they're already finding you through that channel, what would happen if you were to just turn it up to 11?</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:46):<br />
+Is there an example of a company you worked with that's known that as an example of that, where you're like, "Oh, I see everyone's looking, finding them on Google. Let's go turn it to 11."</p>
+<p><strong>Timothy Davis</strong> (00:09:55):<br />
+Yeah. So there was a company I worked with a couple of years ago called, Hairstory and IPSY. I know, very funny. Guy with no hair working on a company called Hairstory, but they were doing really well from a Google shopping standpoint. But when I started consulting with them, we looked at the analytics and we actually saw that they were getting a lot of people from Meta and TikTok at the time. And TikTok was very, very new and they didn't really know what to do with it. So said, "We'll do a small test." We can start on Meta with just some customer testimonials. Let's see how that does. We'll get interest in, build a funnel, get retargeting, and hopefully get conversions. TikTok was so new at the time that it was like, "We don't know what's going to work. Let's just try with what is currently available."</p>
+<p><strong>Timothy Davis</strong> (00:10:47):<br />
+Then once we started doing it, we started noticing, "Hey, this doesn't make a whole lot of sense from a creative standpoint." We were missing the mark of what we were using on Meta was working, was not working on TikTok. So you can't always just take what is currently working on one platform and apply it to another because it is a different user experience. It is a different mindset that the user has when they're on there. So that was an example of where we were able to take those instances, look at their data and say, "They're already finding us here. How can we turn this up a little bit?" And I don't remember the numbers exactly, but it was pretty exponential.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:24):<br />
+Okay. So the core advice here so far, is look for where people are coming to you from today, and then that gives you a sign of where you should start to think about running paid ads, performance marketing on those platforms.</p>
+<p><strong>Timothy Davis</strong> (00:11:38):<br />
+Yeah. And also, there's a saying that my current director likes to use, which is signs of life. You can always do a very, very small test. You can just put a little money into a platform, see if there's a sign of life. If there is, then you can pull back and say, "Okay, we have signs of life. Now let's build a campaign around that." There's no reason to say, "All right, we have a signs of life. Let's now turn it up all the way." Do we have the right creative? Do we have the right campaign? Do we have the right messaging for the users on this platform? Then let's take that approach, as opposed to just, "Hey, signs of life, great, go run a hundred miles an hour." Make sure you're doing the right thing when you get into those platforms.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:22):<br />
+Let's follow that thread. A lot of people run little experiments on say, TikTok, and Snap, and Twitter, and things like LinkedIn, and they often don't see a lot of results and it's always like, "Hey, did we do it wrong or is it the platform's not working?" I know it's a very difficult question to give like, "Here's how you do a sign of life test correctly," But what are some things that you think either people do often wrong when they're trying to experiment with the platform or that you just think they should do when they're trying to look for signs of life?</p>
+<p><strong>Timothy Davis</strong> (00:12:49):<br />
+The number one thing I tell people all the time is use your own data, start with your own data. So take the existing customer base you have, load that up into the platform to build lookalikes. From there, you can do... And I'll use Meta as the example. You can do a 1%, all the way up to a 10%. So 1% match, 2%, 3%, so on and so forth.</p>
+<p><strong>Timothy Davis</strong> (00:13:12):<br />
+What I tend to do is build ad sets, one at 1% because we know that one's going to be highly correlated to what we're looking for. Then a two to four, and then a five to seven, and then an eight plus. More times than not, the eight plus does not work, but there have been times where it has, so it's, "Hey, let's do it. Let's try it." But if you also have a very limited budget because some people don't have the luxury of having an unlimited budget like we do in some of these other companies I've worked at, just start with the 1%. See what that sign of life is because you already know that this is so tied to your existing customer base. If that sign of life is giving you a positive signal, now you have the information you need to build a campaign you need to be successful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:02):<br />
+What are these percentages referring to? You may have mentioned it, but when you say 1%, 2%, 3%.</p>
+<p><strong>Timothy Davis</strong> (00:14:07):<br />
+Yeah, yeah. So that is how closely tied they are to that user's behavior on the platform. So they're 1% tied to what they're doing. They're visiting similar pages or they have similar behavior on the platform, so they're more than likely going to be tied to what that user... They're not going to be that user exactly, but they're going to be very correlated to them where 10% is pretty wide base that you're going to hit.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:35):<br />
+I see. So the smaller the percentage, the closer they are, the closer it will look like there.</p>
+<p><strong>Timothy Davis</strong> (00:14:39):<br />
+Yep, there you go.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:40):<br />
+How do you know if it's the creative that is failing versus it's just never going to work? Is there something that tells you that's what's not working?</p>
+<p><strong>Timothy Davis</strong> (00:14:47):<br />
+It's a million-dollar question, to be honest with you. Because you could look at some of the metrics that currently exist in the platform. Click-through rate basically just tells you, are the users engaged? Because start with the target. You're getting the impressions are there. Is the target right? That should be your first thing. Yes, the target is correct. Users that we want to see are seeing our ads, but they're not engaging with it. That would be the first thing.</p>
+<p><strong>Timothy Davis</strong> (00:15:15):<br />
+But the part that I think you're really trying to ask is creative versus the content. Because sometimes depending on the ad unit, you could have a story creative that is literally the creative has to stand on its own, not necessarily the content that's in it, but something like an in-feed creative has a headline, a primary, a description, and a creative. That's where honestly, the only way you're going to get an answer to that outside of the data that's available to you like click-through rate, reach, frequency and all those things to pull in more metrics, is a focus group to understand, "Hey, when you saw this image with this content, what was your result from it?"</p>
+<p><strong>Timothy Davis</strong> (00:15:58):<br />
+Now, you can build a test within the platform to do a control versus a test where say, you take the creative with the same primary and the same description versus a creative that's just your logo with the headline and the description and see what the results are. But more times than not, you're not getting the understanding from the user of, well, why doesn't that creative resonate with you? And they'll give you suggestions in the focus group. Why does that work better for you than not? So that's a really, really hard question to answer without having those dialogue with the user to understand that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:34):<br />
+Yeah, that makes a lot of sense. How long do you recommend these tests run for these signs of life tests? And I like this term, by the way. I haven't heard this before.</p>
+<p><strong>Timothy Davis</strong> (00:16:40):<br />
+Ideally, in a perfect world, you're going to hear the word, statistical relevance. Mathematicians will tell you exactly what that number is. And I'm not going to pretend like a mathematician, but a lot of times, it's budget constraint. So there could be a VP finance. Anyone like that could just come to you and just say, "Hey, do you have $25,000 for this test?" You only have 5,000. Just get that information, get that data. You can then also build an off size off of that. Hey guys, we worked with our Meta partners, we worked with our Google partners. We put $1,000 behind this test. We know that our impression share was this, our reach was this. If we were to put $10,000 into it, this is the expected return we can get from it based on the click-through rate, the conversion rate that we got from the test that we ran.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:34):<br />
+Got it. So basically, we have limited number of dollars to spend. That'll tell you how long you could run one of these for.</p>
+<p><strong>Timothy Davis</strong> (00:17:41):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:42):<br />
+Any other tips for someone that's trying to experiment with a platform early on for these signs of life tests? So one is try a lookalike that is the most targeted version of the lookalike. So 1% you said, and then incrementally grown and incrementally increase that percentage as you spend more. Any other tips, I guess, for people just to experiment with the platform?</p>
+<p><strong>Timothy Davis</strong> (00:18:04):<br />
+Make sure you're not too hard on yourself if it doesn't work. A lot of times, companies I've either consulted with or worked at, there was always pressure or there was always a need to succeed at whatever experiment we put into market. I believe in creating an environment where it's okay to fail because we're either winning or we're learning. And more times than not, if we put something new into a platform that we know nothing about, we're learning the bells and whistles, we're learning the functionality of it. Just know there's going to be things you're not going to understand because each platform is unique, each platform is different, the user behavior is different. So give yourself some grace, understand that this may not work. And as long as you're learning from it, you're going to be okay.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:56):<br />
+I love that. In terms of which platforms people should explore, obviously there's Google, there's Facebook, Instagram, what are the platforms people should seriously consider at this point?</p>
+<p><strong>Timothy Davis</strong> (00:19:09):<br />
+Google for sure. And when we say Google, let's make sure everyone understands what Google entails. Google is YouTube, Google is Google search, GDN, Google Display Network. There's a lot of things in Google that you can do. I always say, if you have the creative available, you should really, really be looking at doing video because video is one of those things that I'm very bullish on. It is doing really well when you measure it the right way. And as long as you can get that creative and get it consistently just because you have one piece of creative, if it's doing well, you do need to have that creative refresh, kind of that flywheel going. Make sure you're doing Google Search, again, user-driven, YouTube, and Meta, and Meta contains both Facebook and Instagram. And then based on the data available to you, if you do see users on TikTok, definitely go after those. But if you're just starting out and you just want to get your feet wet into something, I would say start with Google Search, then get into Meta. And if you have video available, definitely get into YouTube.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:19):<br />
+Awesome. Okay. So Google Search, YouTube, Facebook, Instagram, TikTok. What about LinkedIn? Do you see things happening there for say, B2B companies?</p>
+<p><strong>Timothy Davis</strong> (00:20:30):<br />
+Yeah. LinkedIn is very expensive in comparison. So just know if you're going into LinkedIn, it's going to look almost three times more expensive than other channels. The targeting that's available on LinkedIn, knowing job titles, industries, actually targeting people at certain companies is very powerful. The example I always tend to use is that I worked at a company called SoftLayer. SoftLayer was acquired by IBM because they were trying to build out their cloud portfolio, couldn't do it. So they're like, "Hey, let's do the next best thing and buy this company." But when we were just SoftLayer, we were trying to get Coca-Cola as one of our clients. And you know those Coke freestyles where you can pick whatever drink you want and put the flavor in it?</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:21):<br />
+No, that's awesome.</p>
+<p><strong>Timothy Davis</strong> (00:21:22):<br />
+Oh man, these are great. Maybe it's a cell thing, but basically, you go up to a Coke freestyle and say, "I want Dr. Pepper and I want cherry flavor in it." Or you want Coke Zero with cherry and vanilla in it, you can do that. It's the freestyle you get to pick. The reason they wanted it to be cloud-based is because there's a ton of drinks in there. So you need to be able to efficiently and effectively say, "This store needs more Sprite or this store needs more Sprite Zero." Because you have your whole portfolio in this one machine, so you want to be able to update things more readily. And it was between us, AWS and Microsoft. And met with the sales team and said, "What do we need to do to win this?" Because it was a big ticket item for us.</p>
+<p><strong>Timothy Davis</strong> (00:22:14):<br />
+And what we found out was they had two concerns about us. It was recency and private security. So what we did was we found out where the decision makers were. So A, in LinkedIn, we took the anyone who works at Coca-Cola, we want you to see ads about security and recency. Outside of that, we also geo-fenced it because you would think Coca-Cola Atlanta, that's where the decision maker sits, but they were actually in LA. So in LA, we geo-fenced them, and we knew that they worked at Coca-Cola. The next time the salesperson got on the call with the team to say, "Hey, just wanted to check in." He was like, "Hey, hey, I get it. Security is fine. Recency is fine. We hear you." That was great to hear because it was something we were able to do on LinkedIn and we did it in other platforms as well. But we knew we were able to get not only to the decision maker, but everyone around that decision maker to say, "Hey, these guys may be the ones we need to go with."</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:16):<br />
+Okay. So just to mirror back what you're saying, you're saying you ran ads on LinkedIn targeting the execs at Coca-Cola, trying to influence them to overcome these barriers they had to buying to working with you guys. Amazing. I've seen people do that on Google Search, but I've never heard of... It makes so much sense to do on LinkedIn and it worked. And did they know that you did this or they're just like, "Oh, I just changed my mind"?</p>
+<p><strong>Timothy Davis</strong> (00:23:42):<br />
+One of them was like, "We get it. We're seeing it everywhere." We actually tried because at the time, we didn't have an offline team. We actually tried to buy the billboards around the office as well, but I didn't know enough at the time from an offline perspective of the right people to talk to, how long it would take to do it. So we were trying to pour it on hard.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:03):<br />
+That's incredible. I could see why LinkedIn is more expensive. That's incredibly powerful. And is the advice then that LinkedIn makes more sense for higher LTV, higher CB type of products?</p>
+<p><strong>Timothy Davis</strong> (00:24:15):<br />
+Yeah, exactly. I would not recommend getting into LinkedIn and my LinkedIn reps may kill me for this. I would not recommend getting into LinkedIn until you've tested Google and Meta first. Now, you could be an enterprise level company and it does make sense to start with LinkedIn for sure, but depending on your audience, I would say more times than not, it would be a Google, Meta discussion before going to LinkedIn.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:40):<br />
+Okay. So just generally, start with Google and Meta. Is there one or the other usually? I guess, yeah, which one would you start with if you had to pick one?</p>
+<p><strong>Timothy Davis</strong> (00:24:49):<br />
+Always Google Search. I'm always going to say, start with Google search, but it's also creative dependent. If you don't have the right creative for Facebook, it's going to be really hard to convert because users are just going to either be turned off by what you're putting out there. And then also, depending on where your user base is. If they're not on Facebook, it's kind of a moot point. But if they're browsing around on GDN or YouTube, it makes more sense to go there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:15):<br />
+And then you said this insight about video is performing super well right now and you're recommending people use video. And the key there is you need to be able to make videos, video ads.</p>
+<p><strong>Timothy Davis</strong> (00:25:25):<br />
+Yeah. You got to make sure you have that flywheel.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:27):<br />
+And the flywheel is just people internally or some company agency that can make video ads for you?</p>
+<p><strong>Timothy Davis</strong> (00:25:32):<br />
+Correct. Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:33):<br />
+Cool. I guess, is there any advice there of just how to do that or what ads work well or anything there for someone else-</p>
+<p><strong>Timothy Davis</strong> (00:25:39):<br />
+So yeah. The thing with YouTube is I always say, start with emotion. If you can have an emotional connection with the user, is going to be way more impactful and way more powerful than anything else. And to take that further, when I say emotion, I'm talking about comedy, I'm talking about...</p>
+<p><strong>Timothy Davis</strong> (00:26:00):<br />
+I'm talking about happiness. It's not necessarily just, "Oh, we need an emotional connection with the brand." It is just making sure the user feels something after seeing your ad. Because then, they're more times not going to remember it, which then they will take a favorable action after the fact.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:21):<br />
+That is super interesting. One last question about platforms. Are there any other platforms you see working for people that are emerging maybe that people aren't thinking about, Reddit, or Snap, or X, or I don't know, anything along those lines?</p>
+<p><strong>Timothy Davis</strong> (00:26:34):<br />
+When you say emerging channels, my brain kind of goes to connected TV, podcast, VR, advertising, audio/voice search, and even AI stuff right now. I can tell you podcasts are doing really well for the people that I know are able to measure it correctly. Connected TV is also doing really well. You can take the, again, you're doing YouTube right now, being able to take that creative and repurpose it. But the VR stuff and the AI stuff, that is stuff that is, I would say, very emerging right now. Because to be completely transparent, I haven't experimented with those things yet. I kind of like letting other people be the guinea pig and learning from them, and then if someone comes to me and they're like, "Hey, we have budget for this, let's go ahead and test it." "Great. Let's go. Let's see what we can learn."</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:34):<br />
+Awesome. Podcast ads. I'm glad you suggested that. I'm a huge fan. Thank you. They're working really well for a lot of our sponsors and I'm very biased, so you don't need to pay attention to me. But I also think there's a lot of opportunity there. Okay. Let's talk about when to start investing in performance marketing/paid growth. So, say, you're a startup, do you have any advice for when it's time to start, signs of life test or even... And then also, just when is it time to scale to go like, "Okay, let's go big on this."</p>
+<p><strong>Timothy Davis</strong> (00:28:08):<br />
+If you are a startup, typically, whenever I consulted with them, it was what are the goals, what are we trying to achieve, and when? Because if you're looking for something quick, paid needs to start immediate. And paid [inaudible 00:28:24] started yesterday because SEO takes time. SEO, depending on the market you're getting into, if it's emerging, people may not even know your product exists. There was a product I was working on years ago that if you were traveling to a hotel, and say, it was a romantic getaway with you and your partner. And you wanted the hotel suite or room done up with flower petals, and champagne, and stuff like that, they would do it for you. Well, they were working with someone before that was like, "Oh, we should totally be in paid search." And if you look at the keywords that they were doing, it was like, booking hotel rooms. It's like, "No, that's complete disconnect." And they're like, "Yeah, but we're trying to build awareness."</p>
+<p><strong>Timothy Davis</strong> (00:29:08):<br />
+You don't want to build awareness through search. You build awareness through display media-based type media. When we transitioned all of their money over at the time, and this will age me, before Meta was a thing, when we transitioned everything over to GDN, that's when the company started really reaping the rewards. Because we were building the awareness around the product. So, it depends on what is the demand of your product and market. If you're doing something that is similar to another product and market, you could do competitor, I call it coattail riding. Say, Lenny, you and I create a product that is similar to monday.com. We can go out there and just start bidding on monday.com and say, "See why Lenny and Tim are better than monday.com." And start getting some people in interested, maybe kicking the tires, starting free trials, but they also have other keywords that they can go after in market. But if you're going after something new like hotel room, flowers, and I forget what keywords we were bidding on for that, it was years ago. People weren't thinking of that. It wasn't something they were searching for. So, it just really depends on, A, when do you expect results because SEO can take time. And B, what is the demand in the market for your product?</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:33):<br />
+Some people use paid ads to drive early growth to bring customers, to help them figure out what to build kind of pre-product market fit growth. Is that something you recommend? Is that something you'd advise against? Is that strategy that you've seen work?</p>
+<p><strong>Timothy Davis</strong> (00:30:48):<br />
+Yeah. Product market fit is a huge thing. We've run into some of this at Shopify, and we definitely ran into this at IBM. So, for the longest time, IBM is, "We're a global company, we should be everywhere." But when we started looking at the data, it was, "Should we be everywhere?" For example, Africa, we were in the whole continent. We weren't just in, say, South Africa, or Egypt, or something like that. And the more we dug into it, the more we realized the biggest issue wasn't necessarily that users weren't interested in our product and weren't purchasing it, it was because we didn't have a product market fit mainly from an operation standpoint.</p>
+<p><strong>Timothy Davis</strong> (00:31:33):<br />
+In Africa, there are multitudes of different types of currency. There's the franc, there's the rand, there's the shill, and we were just, "Hey, USD, thank you." So, of course, they weren't converting unless they were going out of their way to make a way to convert that. So, when we took a step back and we said, "Okay, where do we want to start?" It was South Africa. That's really where we were trying to get, quote, unquote, "stronghold" in, so we had to make sure we had the rand available. Once we did that, we started doing tremendously better because we had a product market fit. They had demand for our product, and now we were able to serve them, meet them where they were.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:19):<br />
+So essentially, you're saying probably not smart to run a bunch of ads if it's not working, if you don't have something people actually want yet in that market?</p>
+<p><strong>Timothy Davis</strong> (00:32:28):<br />
+Right. Or able to convert.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:31):<br />
+Because conversion is going to end up being really low, no one actually cares about what you're doing.</p>
+<p><strong>Timothy Davis</strong> (00:32:35):<br />
+All you're going to do is really annoy the users. Because, say, in the future they are, "Hey, I'm still interested, but I don't want to use that product because I already tried." It's like, "No, no, you can totally use it now." "I already tried. I had a bad experience with them." And some users will hold you accountable to that. One bad experience and I'm just never giving you my business.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:56):<br />
+Interesting. So, is that generally your advice if you're startup, you're not feeling like you actually have product market fit yet, should you even experiment with and do signs of life tests, or should you hold off until it's like, "Okay, it's actually working, let's go."</p>
+<p><strong>Timothy Davis</strong> (00:33:10):<br />
+From an operation standpoint, I always want to make sure those things are tied off. Yeah, it doesn't make sense to, again, if you have a major budget and you're trying to get awareness into a market, great, yeah, you can go after a market. But just know that it's probably not going to convert very well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:28):<br />
+Got it. So-</p>
+<p><strong>Timothy Davis</strong> (00:33:29):<br />
+I wouldn't recommend it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:31):<br />
+Okay, great. Awesome. Very clear answer. Let's talk about the mistakes that you see companies make when they're investing in performance marketing. We got introduced through Casey Winters's illustrious former podcast guest, two-time podcast guest and asked them about you. And he told me that when you take over for an agency at a company that you've worked with, you crush their performance within a month. I'm curious to what you see and find they are doing wrong that allows you to be such a hero when you come in and take over.</p>
+<p><strong>Timothy Davis</strong> (00:34:03):<br />
+I think agencies have playbooks. Now I've worked at agencies, I did consulting for a long period of time and it was never an approach I took. I looked at each account and each company as its own thing. But I think a lot of agencies just come in and they go, "Oh, this is like AB&amp;C company. And this is what we're doing. Copy, paste, done, move on." And they're also not willing to get deep, deep, deep into the weeds of stuff. I may get a little too far into data than some other people. For example, I have ops cadence that myself and my team follow. So, within that ops cadence, we have things like finance, performance, structure, keywords, ad copy, quality score, targeting, et cetera, et cetera. And then, within each of those we have specifics. For example, the keyword subsection is keyword granularity, brand versus non-brand, search query reports, negative, so on so forth.</p>
+<p><strong>Timothy Davis</strong> (00:35:06):<br />
+I feel like agencies don't necessarily get into all of those things every single month where some of those we're doing weekly, some of those we're doing biweekly, and some of those we're doing monthly. But they touch the things that they think they need to touch. They turn on automated bidding, they're doing their search query reports, and then they just kind of move on with their day because they have 50 other clients they have to get to. Well, what about looking at your conversions? Where are we converting? Have we tested different landing pages? What is a better user experience that we could be getting users right now? It's a five-step process, can we get it to a three? Partnering with PMMs to say, "Hey, here's something that I think could help improve our lead to conversion." Just stuff like that, that they're too busy with too many other things to focus really, really deep into those.</p>
+<p><strong>Timothy Davis</strong> (00:36:03):<br />
+And typically, whenever I managed an agency in the past and I consulted, I made sure that you weren't stretched thin enough that you couldn't do those things. Because I'm a firm believer in hiring smart people and then getting out of their way. But each week having one-on-ones with them, just spot checking things, just saying, "Hey, I looked at this. This doesn't look right. What's going on there?" "Oh yeah, I do that on this day." "Okay, great. Just making sure you're covered." Because sometimes people won't scream uncle when they should be screaming uncle because they think it's a sign of weakness.</p>
+<p><strong>Timothy Davis</strong> (00:36:40):<br />
+But let me know when you're overwhelmed. Maybe I have a solution for you. Maybe there's a way I can coach you to be better at something, or we just need to hire more resources. Because the client portfolio you have is five, and when we took them on, they were all at 100K, but now they're all spending 2 million plus. We need to offload some of that from you because you're doing such a good job that you've scaled them up. Let's give you three clients instead of five and hire someone to take those two.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:08):<br />
+So it sounds like basically they just don't have the time to care and spend on all the things that they need to be doing. And when you've held companies, you actually go deep and you have the time to do it well. I guess, when someone's trying to find an agency or someone like you, I know you don't do this much anymore. Any advice for just how to know if they're going to be great? Is it just agencies in general probably not a good choice? Is it hire someone in-house? I guess, what advice do you offer people that are like, "Oh man, I want to avoid this."</p>
+<p><strong>Timothy Davis</strong> (00:37:43):<br />
+Agencies are a good place to get things started. Even when I was consulting, I would, honestly, I'm a big believer in forward thinking, backwards planning. So, if I'm taking this contract on with this new client, what's the end goal for you? If your end goal is to have this at performing in $100 million spend, there's no way one person can do that. So let's create milestones along the way of making sure we're checking in and saying, when is the right time to hire? Whether that's a data scientist, whether that's a creative person in-house or replacing me full time. There's no reason that you should be holding a company back. If anything, you should be helping them get to that milestone. And I think that's why I've been able to do so well for myself because I show that, "Hey, I have the best interest for you and your company." As opposed to how much more money can I squeeze from you by holding onto you as a client.</p>
+<p><strong>Timothy Davis</strong> (00:38:47):<br />
+I would say, agency consultant is a good way to start. Because if you as a business owner, you shouldn't have to log into, "Oh, I haven't logged into Google in three weeks to look at stuff because I'm doing payroll, I'm doing HR stuff, and I'm meeting with clients, and I'm doing sales." Start there, get it to a good place. Create that milestone of, "Hey, when we're spending 50K a month, I need to hire somebody full time to take this over." And just have that conversation with your agency and your consultant. I think more times than not, you will have a positive reaction to that. But if you don't, I would say that's a major red flag and probably someone you shouldn't be partnering with.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:27):<br />
+Awesome. Okay, so your advice is to get started on paid growth, buying an agency or a small shop consultant type person to get you started, have a conversation. And when we reach a certain scale, we're going to hire someone internally to run this for us. And then, potentially, they'll keep working with you. Potentially they'll start things in their own. Or is the assumption they'll start working with you, they'll become the owner of this thing, or is it like we may transition you out?</p>
+<p><strong>Timothy Davis</strong> (00:39:52):<br />
+That's a really good point actually. So, there have been times where a client's like, "Hey, we've reached our milestone. I want to bring someone in." That person comes in, and say, they're an expert in social media, like, "Hey, I still want you to execute on Google and Bing, because that is just not my bailiwick. I'll take over the social stuff, but we do need to talk about your fee. Maybe it does need to go down." "Completely acceptable. Let's have that discussion, make sure we're both aligned to what that should be." But yeah, there have been times where they're like, "Hey, we've reached our milestone. We got to bring someone on." But that person that they bring on is like, "Actually, I see expansion in this direction, but I can't do this. Are you willing to stay on, and help me with this? Great. If not, I'll just have to find someone else who can."</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:37):<br />
+I want to talk about the team that you build over time, but later. But specifically, for this first person that you hire, what sort of person is this person? Is it like a data person? Is it a person that's just done specific performance marketing on channel? Or what do you look for ideally?</p>
+<p><strong>Timothy Davis</strong> (00:40:55):<br />
+I'm a big believer in... There was a book written by Nate Silver called The Signal and the Noise. Are you familiar with it?</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:04):<br />
+No.</p>
+<p><strong>Timothy Davis</strong> (00:41:07):<br />
+So, Nate Silver is the guy who created.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:08):<br />
+FiveThirtySeven?</p>
+<p><strong>Timothy Davis</strong> (00:41:12):<br />
+Yeah, yeah. And in the book, he basically... I'm going to use the word art, I'm going to use the word art, detailed the art of probability statistics and applied him to real world circumstances. It included case studies with baseball, which of course I loved. Elections, climate change, poker, stuff like that. And I liked that book. It's kind of dense. But the thing I liked the most about it was the title. And just changing the title ever so slightly to signal not noise. So typically, whenever I hire people, I want to hire smart people and kind of get out of their way. But the biggest thing I want to focus on is what is your thought process when it comes to data?</p>
+<p><strong>Timothy Davis</strong> (00:42:05):<br />
+Because I can teach anyone how to do Google ads. I can teach anyone how to do Meta ads. That is not the hard part. It is the data part that is the hard part because there is so much noise going on in those accounts. They give you everything, which is great. It's great that they give you all this information, but you can have someone that's "Oh, but look at the reach, look at the frequency, look at the CPMs, look at the CPC, look at the conversion rate. Look at the cost per lead. Look at the cost per MQL. Look at this." Hold on, that's a lot of noise you just said. So what is the signal and what is the noise? And let's make sure we're focusing on the right signal versus the right noise. And that has to be a data person because there's a lot of data in these platforms.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:51):<br />
+<strong>Timothy Davis</strong> (00:44:28):<br />
+Yeah. So I played baseball my whole life, but when you blow out your arm and you're as fast as a sea otter, it's not very conducive for you to continue chasing that dream. But the one thing I always liked was the stats. Even as a kid when I would watch baseball games on TV, it's like, what's this guy batting? How often is he getting on base? How many RBIs? Like, "Oh, this guy is terrible average, but he has a lot of RBIs, so that means if there's a runner on base, he may not get a hit, but he's going to get that guy in. So you want to make sure you put him in the right spot in the batting order, so on and so forth." I could talk about that for hours. But again, that could be another thing where there's a lot of data available, which one should you focus on?</p>
+<p><strong>Timothy Davis</strong> (00:45:16):<br />
+And ultimately, what is the optimization you're going to make to the lineup or to where you place fielders on the field to ensure that we're doing the right thing and becoming as efficient and effective as possible? As far as dealing with all that data, that is just, I would say, a skill I've learned over time. Early in my career, whenever someone was like, "Oh, we have this new project. Who wants to work on it?" "I'll do it." I was always just eager like a sponge. I wanted to get in as much stuff as possible. I did SEO for a portion of my career. I did email marketing. I did affiliates. And then, eventually, I remember the first time I saw paid, because again, I was doing SEO where I was like, "Yeah, we're going to do this and we think it's going to work." But we won't know for about six months.</p>
+<p><strong>Timothy Davis</strong> (00:46:12):<br />
+Someone showed me the paid platform. I was like, "Wait, you know this is the keyword you're bidding on. This is how many times the ad was shown, how many people clicked on it? How many... Wow, this is amazing. I need to get more into this." And that's just kind of where it started. And when I usually hire people and we go through the interview process, I make sure that they can be data focused. Really, it's just ensuring that we're focusing on that signal and not the noise. And one of the interview questions I usually ask is I throw a bunch of data points at them and then say, "Out of all that, what would you do to optimize the account?" And more times than not that they're just overwhelmed. But the people that I like are like, " Well, what's the purpose of the campaign?"</p>
+<p><strong>Timothy Davis</strong> (00:47:02):<br />
+"The purpose of the campaign is to drive conversions." "Okay, well, I would focus here, focus on how many clicks we're getting, and how many conversions, are we targeting the right people?" Because who cares about how many impressions you're getting? Who cares about the reach? Who cares about the frequency? If the goal of the campaign is to get the conversions, that's what we should be doing. If it was awareness, it's how many people saw it. If it was a consideration, how many people were getting into the funnel and are considering us from a white paper download or a demo as the product solution that they're looking for.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:34):<br />
+That's a great segue to the next question I wanted to ask you, which is just metrics that you love to focus on, pay attention to when you're helping people with paid ads. A lot of people think about CAC, a lot of people think about return on ad spend, LTV to CAC. I know it really depends on the goals as you said, but I guess, is there anything that you find is like, forget these metrics, these are kind of the bucket that you focus on most?</p>
+<p><strong>Timothy Davis</strong> (00:48:01):<br />
+Yeah, so for those metrics, I would say, I really hope you have a great finance partner. Shout out to Courtney and Nick the fantastic finance partners I have at Shopify. Nick's not there anymore. Sad cry emoji. But Courtney, we're able to collaborate on those things. Understand, this is the investment we're putting in, this is the expected return, this is the CAC that we can basically put a guardrail on. You have to be within. So, hopefully you have a really strong financial partner you can use for those. But as far as the stuff that I focus on, there are things that whenever we're looking at accounts, we'll kind of hyperfocus on. For example, Google will give you information about what is going on with your ad copy and how to ultimately show as often as possible. What I'm showing here is a visual of brand versus non-brand when it comes to expected click-through rate, landing page experience, and ad relevance.</p>
+<p><strong>Timothy Davis</strong> (00:49:08):<br />
+The reason I like building reports like this is because it'll kind of show you where your hole in the ship is. If you look on the left side expected click-through rate, 75% above average. Landing page experience, 84% above average. Then you get down to ad relevance, a lot more colors than there are green, only 35% above average. So, for your brand ad copy, the clear direction you have from the data that's available to you is jump into the account and make it more relevant. That will improve your ad strength. And once you improve your ad strength, that will improve your quality score. And more times than, I think, it's a 12% increase in the number of impressions you can get if you increase from a below average to an above average for the data that's available here. And then, on the non-brand side, clear expected click-through rate, you really need to be working on.</p>
+<p><strong>Timothy Davis</strong> (00:50:13):<br />
+And that data is also available here that you can kind of see. I put in red the one for brand, your quality score being at a nine, but your average CPC is $8. That is very interesting. It should be, the higher your CPC is, the lower your CPC should be. So that is an investigation that's like, "Hey, here's a signal, let's go do a deep dive." So there's further reports that you could look at. Looking at the ad strength again, average, excellent, good, or poor. You can see clearly on the non-brand side doing really well. They're doing really well here. Most of their ads, 46 of their ads are excellent and a bulk of their spend is going there. But if we look on the brand side, you have one ad, one ad that you could go in and just click pause on, that is a poor. And look at that CPC $7.</p>
+<p><strong>Timothy Davis</strong> (00:51:19):<br />
+So just turning that ad off by itself, not only will... I'm a firm believer in that there's an account level quality score, not just necessarily a keyword or an ad quality score. So, just turning this one off and removing it from the account, this one ad could dramatically improve your performance. And then, Google actually tells you what you need to do to increase those strength things. So this report is ultimately powered by this one. So for your ad strength improvements, they'll tell you, "Try adding a few more unique headlines or unpinning some of the ad sets. Try including more keywords in your descriptions or your headlines." So-</p>
+<p><strong>Timothy Davis</strong> (00:52:00):<br />
+Including more keywords in your descriptions or your headlines. So they're actually giving you this information, but more times than not, I just feel like people are just missing this and just not taking action on it. So definitely some stuff available within the account that will help you focus on that signal versus the noise that you could be just getting from the clicks, the impressions and all those things that are available to you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:24):<br />
+That was amazing. For folks not watching on YouTube, you pulled up actual reports from, I think, imagine, past clients, is that what the data was from?</p>
+<p><strong>Timothy Davis</strong> (00:52:24):<br />
+Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:32):<br />
+Okay, so actual reports from past clients of how you evaluate, and this is Google Ads, basically.</p>
+<p><strong>Timothy Davis</strong> (00:52:38):<br />
+Correct.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:38):<br />
+Google Ads data. Incredible. Okay. And so within those reports, you had poor, excellent. How do you determine when something is going great? Is that something you set, like if it's above this threshold? Is that a benchmark you have, or is that Google telling you, "This is poor, or this..."</p>
+<p><strong>Timothy Davis</strong> (00:52:54):<br />
+Yeah, so that's Google telling you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:56):<br />
+Okay.</p>
+<p><strong>Timothy Davis</strong> (00:52:57):<br />
+There's sometimes where you'll work really, really hard to take that poor to an average, that average to an excellent, and there's just not a whole lot you can do sometimes. It kind of is what it is. But I would argue more times than not, people are not doing those things to improve their ad strength. So just if you have the change history available in every account, in Meta, in Google, if people are doing the test to try and improve and get better, great. You have the right people working. But if not, that's a clear indication that there's definitely room for improvement.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:40):<br />
+Something that someone asked on Twitter is for benchmarks around any of the stuff. How do you know when your CPC is good? I guess you just look at... Do you look at Google telling you it's excellent versus poor? How do you know if your conversion rate is good? How do you know if your CAC is good?</p>
+<p><strong>Timothy Davis</strong> (00:53:54):<br />
+Yeah, every industry and every company is going to be different, healthcare, lawyers, those are some of the highest cost and average CPCs I've seen. If I was to compare that industry, say to a B2B industry, it would not be very good at all. Honestly, what I would tell the user to do, every single platform has partners available, more times than not, they're kind of like salespeople. I actually really like the partners that we have at Shopify, because I do feel that they are partners. Shout out to Francisco at Google, and Sami and Alana at Meta. And Nick, and Sam, and Brian at LinkedIn, in case they all hear this. But I think they're really great partners, and they will give you that information.</p>
+<p><strong>Timothy Davis</strong> (00:54:44):<br />
+They will actually say, "If you give me the five people you consider to be your top competitors, I will tell you if you are above or below a certain threshold." Now they can't tell you CAC because they would have to have transparency into conversions. But click-through rate, conversion rate, cost per click, things like that, they will give you that information because they will anonymize it, so you won't know who is who. If you say, "My competitor's monday.com," they won't say, "monday.com has a click-through rate of 5%." They won't tell you that. But they will tell you, "Of the competitors you gave us, and we added three more in just to say, hey, we found some people." And also to where if you only give them two, you can be like, "Oh, it's one or the other." That they'll give you that information because they want you to succeed. Because if you succeed, you spend more money on their platform.</p>
+<p><strong>Timothy Davis</strong> (00:55:38):<br />
+So if you find out your average CPC is really high, take the actions that are in the account that tell you what you can do to lower it. But if you find out that you have a lower CPC, you're like, "Oh, great, I thought that was worse." And then you can communicate that internally to your team and say, "Hey, our average CPCs may seem high, but in reality we got with our partners, and we are on par with the industry."</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:02):<br />
+Got it. So the advice is, don't seek generic benchmarks for any of these metrics. You can talk to your rep at Google, Facebook, LinkedIn, et cetera. And they'll give you essentially the numbers-</p>
+<p><strong>Timothy Davis</strong> (00:56:13):<br />
+Great summary. Yes, yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:14):<br />
+Amazing. Okay, going back to the report you just showed, is that a report you developed custom that gives you, here's the most important stuff to pay attention to? Or is it basically an export from Google Ad Manager, and...</p>
+<p><strong>Timothy Davis</strong> (00:56:26):<br />
+So these are all exports, so that this is just the visualization of the data that's available. So this all data is available in every account. This is data available in the account, this is data available in the account. Now in saying that, there are more reports that we get into, like impression sharing frequency. This is something I tend to look at, that not a lot of other people do. It's not about showing as often as possible because that's what impression share tells you, and that's kind of like ego marketing. I want to be number one, I want to be there all the time. It's about showing to the right person as often as possible.</p>
+<p><strong>Timothy Davis</strong> (00:57:06):<br />
+Instead of thinking about being on top of the page, you should think about serving the right user, which can be measured with our click share. And then Google will put us on top of the page, which we can see through our top impression share. That's what this whole visualization is here for, where I feel like a lot of people don't do this type of visualization. And this can be done by leveraging all the user data available on Google, such as demographics, locations, if any audiences, in-market audiences. Testing different bid strategies and more.</p>
+<p><strong>Timothy Davis</strong> (00:57:40):<br />
+So the data's readily available, but it's just making the visualization a little bit more digestible. And the reason that I actually have two here to show is because this is an example of when I was working on an account back in 2023, where we started making some changes. And you can see that, clearly, our impression share, I would say was baseline. It didn't really change too much, but look at our click share going up. Because now again, we're talking more to the right people, not necessarily just everyone, generic people. Versus this campaign that was... This was the test and this was the control, and you can clearly see that we were talking to a lot of people, but no one cared about what we were talking about. So this was an easy test to call and just say, "This one's performing a lot better." And then verifying the other metrics still look good, conversion rate, number of conversions, stuff like that. This one was the clear winner, so we went in this direction.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:41):<br />
+This is super cool. I love that you're showing this. And again, plug for YouTube to actually see the charts you're talking about. I see one more slide on this deck. I'm curious, what's there?</p>
+<p><strong>Timothy Davis</strong> (00:58:49):<br />
+Yeah, so this one, I'm hoping you have show notes that we can give a shout-out to somebody.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:55):<br />
+Yeah, absolutely.</p>
+<p><strong>Timothy Davis</strong> (00:58:56):<br />
+Yep. There's a website called PPC Hero. What I usually tell people is, "Terrible name, great content." The actual website used to be a little bit more cartoonish with superheroes on it, but now it's, they've refined it. But the writer there, his name's Jacob Brown. This is what he calls the true competition metric. And again, this is why I highly recommend we give people the link to the article because this does get a little dense. So what he does is that he creates four new metrics with the Auction Insights that are available. And two of those metrics are position above rate when we show, and amount of times they show and we don't. Added together, and it will show how often a competitor ranks above you in all auctions you're available for. Using this type of lens is an effective way to identify genuine threats.</p>
+<p><strong>Timothy Davis</strong> (00:59:56):<br />
+Not that just, this data can be used to gain comprehensive insights like determining your position and impression share, but by creating a baseline that you can see how this data changes over time through different bid strategies, keyword ad copy optimizations and more. This is a very, very powerful one, because I do know a lot of people are always concerned about, "What are my competitors doing? How are they doing it? Why are they doing it?" And with all the smart bidding currently available...</p>
+<p><strong>Timothy Davis</strong> (01:00:25):<br />
+Back in my day, it was all manual bid, so you could change the bid ever so slightly, and then be like, "Oh, now my competitor's showing above me," and this is even before Google gave us Auction Insights data. This is now available to us in the platform. Using this report will actually identify a true threat, as opposed to making an assumption based on personalization that maybe you're seeing when you Google a keyword, or using a tool like Semrush that ultimately is saying, "Oh, this person's appearing above you. Well, let's run this report and see if it's a genuine threat," as opposed to just maybe ego marketing going on.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:09):<br />
+Super cool. And this comes from PPC Hero, is this what you're saying?</p>
+<p><strong>Timothy Davis</strong> (01:01:13):<br />
+Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:13):<br />
+Cool. We'll definitely link to that. Are there any other tools or workflows that you find really helpful in analyzing this endless amount of data?</p>
+<p><strong>Timothy Davis</strong> (01:01:24):<br />
+Please, audience, if you are using AI in this way, let me know because a lot of this stuff I do can be a little manual and can be a little time-consuming. If they've found ways to automate through AI where I can provide the information that isn't sensitive, that they will make it a lot cleaner, and a lot more digestible, let me know. But a lot of the things, I have templates that you can load the data into, and it will just automatically give you the result from it. But yeah, right now, it is a little manual, but if there's a way to automate this through AI, please, users, contact me on LinkedIn and let me know.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:09):<br />
+Sounds like a startup opportunity right there.</p>
+<p><strong>Timothy Davis</strong> (01:02:11):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:12):<br />
+Sweet. Okay, let's move in a slightly different direction. Attribution, what a sexy, exciting topic. So attribution, basically it's how do you assign credit to a channel and to a campaign, so that you know where growth is coming from, what's working? What's the state of attribution today? What do you find is helpful? How do people do attribution well in today's world?</p>
+<p><strong>Timothy Davis</strong> (01:02:35):<br />
+Yeah, I'm a big believer and proponent in multi-touch. I fall into the camp of more time decay. Historically, the research I've done, users tend to forget very quickly where they first found your brand. Yes, you should get credit because this is the first time they saw your brand or the first time they interacted with it, for sure, let's give you some credit for that. But definitely not the reason that they ultimately converted. Linear is fine as well, but overall, I do think attribution by itself is biased. It does not answer the question of whether the person clicking on or seeing an ad would've converted anyways, even in the absence of that ad.</p>
+<p><strong>Timothy Davis</strong> (01:03:24):<br />
+This is why numerous companies like Netflix and eBay have done studies to get an understanding of the incrementality of paid advertising campaigns, whether that's conducting GeoX or Conversion Lift tests at important slices of the marketing channel. I know eBay was very popular when they did that experiment. I think it was like 2012, and I'll have a link for you for that as well. Where they ultimately decided to cut almost all of their brand spend, because they found that users were already going to find them through organic anyway, so they were just kind of throwing money out the window. And it was really hard for competitors to get their ads at the top of the page because their quality scores were so low.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:07):<br />
+Okay, so multi-touch is the way you like to think about it. Basically give credits to all of the channels that you detected the user saw your ad on, and less credit if it was further back in time.</p>
+<p><strong>Timothy Davis</strong> (01:04:19):<br />
+Right, yep.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:20):<br />
+And then in terms of tooling, is there tools you love? Is it stuff you build in-house generally? How do people go about doing this sort of stuff?</p>
+<p><strong>Timothy Davis</strong> (01:04:28):<br />
+Yeah, I don't know if I want to say I have been fortunate or not, but most of the companies I've worked with, like the big companies of the world, the Pinterests, the Shopifys, the IBMs of the world tend to build things in-house. So from a third-party tool, unfortunately, I don't have a whole lot of go-tos for that. So again, either that's a, I've been fortunate or I've been sheltered.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:54):<br />
+And then, are there tools that you see people use, or is it just really nothing amazing out there?</p>
+<p><strong>Timothy Davis</strong> (01:05:00):<br />
+Yeah, none that I've seen that's like, "Oh wow, that's amazing." I will always say, make sure you're trying to leverage the in-platform tools because the biggest thing with performance marketing is the signal you're sending the platform. Because if you are telling the platform, "Oh, I want to get more of the users that are doing this action," it's going to do a really good job of giving you that. But if that action doesn't equal business results, you're not helping yourself at the end of the day. You're giving it, again, a lot of noise instead of the right signal. So try and leverage the in-platform tools. Or if there is a tool you're using, make sure it does allow third-party integration through the Google, Meta, TikToks of the world.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:51):<br />
+Then let's talk about incrementality. You mentioned this idea of how do you know if the money you spent led to incremental growth that wouldn't have happened if you didn't run that ad. Is there any advice there, anything you've seen about just how to think about incrementality correctly, and not just give yourself all this credit for stuff that would've happened anyway?</p>
+<p><strong>Timothy Davis</strong> (01:06:09):<br />
+Yeah, I mean, there are many ways to judge the effectiveness of growth overall. Like some of the stuff we talked about before, brand metrics, awareness, recall, things along those lines. There are also, I know some companies look at leading indicators like visits, and clicks, or tribute, which of the efforts are linked to or perceived drivers of actions. Like leads, conversions to prospect, prospect to scale. But really the results should be coming from either that GeoX or Geo experiment or Conversion Lift. The results of those experiments should ultimately fuel the plans for what we call IAF, incrementality adjusted factor, and will allow you to be more precise and how efficient each channel is.</p>
+<p><strong>Timothy Davis</strong> (01:07:03):<br />
+Ideally, by region, sometimes you just have a holistic of like, "This is how Meta is, this is how YouTube is." But if you don't have it by region, don't fret, it's fine, just have it by platform. And kind of like what does that look in practice? When you're running a Conversion Lift test, you intentionally do not show your ad to some users when you win an auction, and instead Google shows the next bidders' ad. This is your control group, and adds up to some opportunity costs that is estimated in terms of impression share percentage, as well as spend holdback. Spend holdback is like how much money you will not spend because of this test.</p>
+<p><strong>Timothy Davis</strong> (01:07:42):<br />
+And all of the platforms are willing to partner with you on this, because Facebook knows this, LinkedIn knows this. All of them know that they are very visually-based creative assets that are not getting as much credit as they deserve. So if you go to any of them, if say you don't have a dedicated rep you can call, and if you ask for this, more times than not, they are willing to partner with you in saying that, if you're not spending enough, they probably will not help you with this. Because there are certain spend thresholds you do need to meet. But I would say at least start there. And also if you're not spending more than I would say 50K a month in the platform, doing this is going to be a lot more work than you're going to get result from, you're just not going to have enough signal there.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:36):<br />
+So basically don't worry about running incrementality tests when you're-</p>
+<p><strong>Timothy Davis</strong> (01:08:39):<br />
+Yeah, when you're starting out.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:42):<br />
+Got it. Okay. And so basically to understand actual incrementality, every platform has a way for you to actually test it on the platform, and the team there can help you run it.</p>
+<p><strong>Timothy Davis</strong> (01:08:51):<br />
+Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:52):<br />
+Awesome. Okay. Let's go back to talking about team structure and how to build your own performance marketing team. So we talked about the first person that you hire and the advice there was someone that's very, understands how to find signal in noise. So there's that one person, and your advice there was maybe around like 50K. Was that like an actual threshold that you usually recommend, or is that just like an example?</p>
+<p><strong>Timothy Davis</strong> (01:09:14):<br />
+Every business is slightly different. I mean, if they're well funded, 50K may not... the threshold may be higher. But yeah, everyone's different. 50K may be, like if somebody said... If you were to just say, "Hey, give me a number," I would say, "50K to start having those conversations." Because if you're at 50K, say for the month of June, great, it's going to take us three months to hire someone anyway, so at least start the conversations now.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:39):<br />
+Awesome. Okay. What do the first three to five hires look like generally, that you recommend for scaling internally from its marketing?</p>
+<p><strong>Timothy Davis</strong> (01:09:48):<br />
+So the first thing, like we said, someone data-driven that can get into the platforms. The next is going to be creative. Because I need those two now working hand-in-hand, making sure the creative is matching the tone and also the performance that we're trying to achieve as a business. And then third would be a dedicated data scientist, a fully dedicated person. Because they can help you with things like the incrementality testing. They can help create reports that will ultimately make everyone's lives better. They will be able to build analyses that as a generalist will not be able to do yourself. There's a saying of like, "I'm not a data scientist, but I like to play one online." Because what they do, they ultimately make us look really good. Because we're ultimately the ones reporting on the performance of it, but they were the ones that helped build that environment, and build all those things for us to succeed.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:54):<br />
+And then in terms of the creative person, is that like a graphic designer? Is it like a marketing person? What's the actual skill set there?</p>
+<p><strong>Timothy Davis</strong> (01:11:02):<br />
+It would be more graphic design/branding. The reason for that is because if you have a good marketing mix, you're going to have... If we keep it to a three-step funnel of awareness, consideration, purchase, you're going to need to build some brand equity in a specific direction. You're going to need to make sure you're communicating value, which now you're not being as creative, you're being more directional. And then ultimately the purchase is like, "Hey, click here, convert now." So you do want to give them the ability to still be creative. "Hey, I hired you because you have a good creative eye and you're good at what you do, but now we need to focus on getting that person to convert." So you give them a little free rein to be creative, but then you also need them to be able to execute against that creative, you need to get those users to convert.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:54):<br />
+And they're also writing the copy, I imagine for the Google Ads.</p>
+<p><strong>Timothy Davis</strong> (01:11:59):<br />
+I usually say that should be collaborative. The performance marketer should be able to write most of the ads, but I can't tell you how many times in my career where I've written an ad and I'm like, "This is the greatest ad ever written known to man. People will write stories about this ad, it is amazing." And it flops because I'm not the target audience, more times than not. So I think it should be collaborative, and no idea should be left on the cutting room floor because... Perfect example. I was working with ADT, the security company. We wrote the most perfect ad when Google Ads only allowed a headline and two descriptions of 35 and 35. We got every single value prop in there somehow, it was amazing.</p>
+<p><strong>Timothy Davis</strong> (01:12:50):<br />
+And the ad that it was going against was dollar sign, zero setup fee, dollar sign, zero install fee. That ad won. It was like that is... No, how did that... It barely uses any of the characters, and it tells you almost nothing, but it won. Had more conversions, a higher click-through rate. So we took that, and we applied that with the value props, and it did better. So it should never be like, unless the idea is don't buy our product, which hopefully someone is not writing that ad copy. It shouldn't be left on the cutting room floor. Always test it. Always be willing to learn what works, what doesn't.</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:34):<br />
+For this first hire, what's the title of this person, usually in your experience?</p>
+<p><strong>Timothy Davis</strong> (01:13:38):<br />
+Lately, it's been growth marketing specialist, growth marketing manager, because they're going to wear multiple hats. Like at any startup that you're at, you're going to be asked one day to, "Hey, I want you to do performance ads," and then tomorrow it's like, "Hey, I need you to help me build out this spreadsheet for a spec sheet that you have no idea what you're doing." So you're always going to wear multiple hats, so just having a general title like that to start out with. And then if that person matures into a role, you can make them more of a specialist. Or if they start showing signs of like, "Hey, I really like doing the social stuff, and we've scaled enough. Okay, let me hire a paid search person." So yeah, I always start with a general, and then as the team grows, we get more into specialties.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:28):<br />
+So growth marketing person, it's kind of like the broad umbrella.</p>
+<p><strong>Timothy Davis</strong> (01:14:32):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:32):<br />
+And then are these people sitting in Google Ad Manager and Meta Ads and just like running ads manually?</p>
+<p><strong>Timothy Davis</strong> (01:14:38):<br />
+At Shopify, we call it GSD, getting shit done. I'm a firm believer in getting shit done. You should be in the account, like I mentioned earlier with that ops cadence, we have stuff we need to be doing weekly, bi-weekly, monthly. The bigger the company gets, the [inaudible 01:14:55] you wind up in more and more meetings talking about the things you want to do, and how you're going to do it and stuff like that. But keeping those people kind of sheltered away from that and focused on those things, are going to drive the best results for you, you possibly can get.</p>
+<p><strong>Timothy Davis</strong> (01:15:11):<br />
+And that means hands-on keyboards in the Ads Manager, tweaking things. Setting up a calendar. I'm a firm believer in setting up a calendar. "We started this test on this day, that means this test will end a month from now." Put a notification, so you have a cool down period, and you report out to the org what you did, how you did it, why you did it, and then the results from it. And then, all right, what we learned from this is this, and we will be applying that to our next test, and this is how. So yeah, hands-on keyboards doing all of those things. So again, hiring those smart people, and just getting out of their way.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:47):<br />
+I love that. In terms of how this team grows, you mentioned when we were chatting, that you wait for someone to cry uncle, to hire more and to add to the team to kind of avoid bloat. Talk about that.</p>
+<p><strong>Timothy Davis</strong> (01:16:02):<br />
+Unfortunately, we've seen a lot in the news lately with a lot of tech companies letting go of some really talented people, and that is, I feel like just created bloated organizations. We, every month, my current manager, Dean, created this calculator that we look at that says, "How much time are you spending in meetings?" If you have any PTO coming up, put that in there. Optimizations, reporting, stuff like that to basically add up to how many days are in the quarter? Because every quarter... Well, not every quarter, but most quarters you'll have vacation, or you'll have, say, what we call a Shopify burst, where it's we meet in real life to get shit done in real life as opposed to remotely. Put all that in there, and then what does the number equate to? Oh, we're in the red right now for these two to five people.</p>
+<p><strong>Timothy Davis</strong> (01:16:59):<br />
+How many quarters has it been that way? Okay, it's only this quarter. This quarter, we have a summit coming up, or we have a burst coming up, or we have a lot of travel because we're meeting with partners, so on and so forth. So maybe this is an isolated thing, let's go ahead and wait till next quarter. All right, next quarter, it's red again. All right, now maybe we need to start having the conversation of, what this new hire will take over, what they will be responsible for, and how much work they'll be taking on and doing, to replace some of this red that is going on.</p>
+<p><strong>Timothy Davis</strong> (01:17:31):<br />
+And if it equates to a full head, great, we can move forward, we've made our business case. But sometimes it doesn't. Sometimes we're just red, and we need to do a better job of making sure, "Hey, we need to step out of these meetings. These meetings are sucking out our time and we don't need to be a part of it." Or, "This launch, we don't need to be a part of. We just need to be consulted on it. We don't need to be in every single meeting every single time, or every single communication." So just making sure we're looking at the right things before we decide to hire someone and making-</p>
+<p><strong>Timothy Davis</strong> (01:18:00):<br />
+Just making sure we're looking at the right things before we decide to hire someone and making sure that we have stuff for them to do.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:06):<br />
+And red means they have more work?</p>
+<p><strong>Timothy Davis</strong> (01:18:09):<br />
+Yeah. More days than there are in the quarter.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:12):<br />
+And so they basically estimate, "Here's how many days I need to do the things I've committed to for the quarter." And then it's like, "How many actual days do you have this quarter?"</p>
+<p><strong>Timothy Davis</strong> (01:18:20):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:20):<br />
+That is super cool. And so step one is, 'Okay, if you're in the red, let's cut some stuff." And then if they're still in the red and you've cut stuff, then, " Okay, we need to start hiring."</p>
+<p><strong>Timothy Davis</strong> (01:18:31):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:32):<br />
+That is very cool. Is that a Shopify thing or is that something you do at your team?</p>
+<p><strong>Timothy Davis</strong> (01:18:36):<br />
+I've done stuff like that at other companies before, but kind of bringing it forward again, I don't want to take the credit for it. Dean was the one that brought it back up. It was like, "Oh yeah, I used to do this. I don't know why I stopped doing it." So it's definitely something I've used at other companies for sure.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:52):<br />
+That is super cool. You mentioned this opps cadence. Is that something you can describe just what this cadence looks like of how you run?</p>
+<p><strong>Timothy Davis</strong> (01:18:59):<br />
+Yeah. So I love me a spreadsheet. So it's just a spreadsheet. And visually, I'll do my best to describe it. Let's say column A has those buckets I was talking about a finance, performance structure, keywords, so on and so forth. And then within those buckets ... Or let's call those ... Everyone loves rocks and pebbles right now, right? So that's your big rock. Your big rock is keywords.</p>
+<p><strong>Timothy Davis</strong> (01:19:24):<br />
+Then within that you have pebbles. Keyword granularity, brand versus non-brand, search query reports, negatives, so on, so forth. And then within that we say how often we're doing it. Are we doing it weekly, bi-weekly, monthly? And then that allows us to ... If anyone in the organization's like, "Hey, how often are you guys updating ad copy?" Easy answer. "How often are you guys doing search query reports?" Easy answer, And it allows us to make sure we hold ourselves accountable to those things because a lot of times we have a lot we're doing, We're working in Google, we're working in Meta, we're working in YouTube. You could easily forget, "Oh, I didn't do that. I got to make sure I do that again." So it's </p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

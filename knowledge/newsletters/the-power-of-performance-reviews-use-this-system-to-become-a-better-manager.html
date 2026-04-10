@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Power of Performance Reviews: Use This System to Become a Better Manager 🤝 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The Power of Performance Reviews: Use This System …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The Power of Performance Reviews: Use This System to Become a Better Manager 🤝</div>
+    
+    <div class="article-meta">2019-07-18<span>·</span>1,297 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">工程</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Ever since my <a href="https://lenny.substack.com/p/what-seven-years-at-airbnb-taught">first piece of writing</a> after leaving Airbnb, I’ve been wanting to do a deep dive into performance reviews. IMHO, they are the secret weapon of the best managers. <strong>Done well, they improve performance, align expectations and accelerate your report's career. Done poorly, they accelerate their departure.</strong> I’ve been fortunate to have amazing managers, like <a href="https://www.linkedin.com/in/vladimirloktev/">Vlad</a>, who showed me how powerful performance reviews can be, and so when the First Round Review reached out about doing a guest post, this felt like the perfect opportunity to share these learnings. Below is an excerpt from <a href="https://firstround.com/review/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager/">the full article</a> — enjoy!</p>
+<h2><strong>FOLLOW THIS THREE-STEP PERFORMANCE REVIEW SYSTEM</strong></h2>
+<p>The system I’ve come to rely on is made up of three equally important parts:</p>
+<ul>
+<li>
+<ol>
+<li>Prepare</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Deliver</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Follow-up</li>
+</ol>
+</li>
+</ul>
+<p>This template forms the foundation of the system, and we’ll walk through each section in detail below. <strong><a href="https://docs.google.com/document/d/1SXO4eH8ZvpuONpdlxpu6y1ufDS0n6vbciV4IJzpm-sc/edit?usp=sharing">Here’s the Google Doc version of the template for your own easy use.</a></strong></p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!bJVo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4bcf3d5-b8b0-4913-8c01-0b0012a9076e_640x1027.jpeg"><img alt="Image from The Power of Performance Reviews: Use This System to Become a Better Manager 🤝" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f4bcf3d5-b8b0-4913-8c01-0b0012a9076e_640x1027.jpeg" /></a></p>
+<h2><strong>STEP 1: PREPARE, PREPARE, PREPARE</strong></h2>
+<p>This is where the bulk of your time should be spent, as it sets up the steps that follow. Start by gathering data on how your direct report did, both by seeking input from your report’s peers and a self-assessment from the individual directly. You want to get as much signal as possible at this stage, ideally as early on in the process as you can (I typically start at least a month before a scheduled performance chat, since it often takes a while to get everyone’s responses). There are many ways to do this, and most companies have their own system for gathering feedback, but you can always take a lightweight approach over email.</p>
+<p>First, work with your direct report to identify five to eight people who’d be able to provide input. Then fire off emails (bcc’ing everyone) asking <a href="https://hbr.org/2011/08/three-questions-for-effective-feedback">three simple questions</a>:</p>
+<blockquote>
+<p><em>Hi Joe,</em></p>
+<p><em>In an effort to help Jane level up in her career, I’m gathering peer feedback from people she works most closely with. I would really love your input. If you can find 5-10 minutes in the next few days to answer these questions, I would truly appreciate it (and so will Jane):</em></p>
+<p><em>1. What are 2-3 things Jane should start doing? Why?<br />
+2. What are 2-3 things Jane should continue doing? Why?<br />
+3. What are 2-3 things Jane should stop doing? Why?</em></p>
+<p><em>I will keep your answers anonymous, unless you tell me otherwise. Please be honest and candid, as that’s what’ll help me give Jane the best support in her career. And, if there’s anything else you’d like to share, good or bad, I’d love to hear it.</em></p>
+<p><em>Thank you!</em></p>
+</blockquote>
+<p>In parallel, ask your report to do self-review, with an email such as:</p>
+<blockquote>
+<p><em>Hi Jane,</em></p>
+<p><em>Ahead of our upcoming performance conversation, I would love to get your perspective on how things went. Could you please answer these three questions, along with anything else you’d like to share, and get back to me by X/X?</em></p>
+<p><em>1. What were your top five accomplishments in this cycle?<br />
+2. What 2-3 areas do you want to focus on developmenting over the next cycle?<br />
+3. What are your goals for your career over the next two years?</em></p>
+<p><em>Thank you!</em></p>
+</blockquote>
+<p>While you’re waiting for the feedback, I strongly recommend you start crystalizing your opinion on how your report performed. What did they do well? What is keeping them back? What are the one or two most critical development areas for them to focus on over the next cycle? This is a key step to reducing bias and avoiding being completely swayed by what peers say.</p>
+<p>As you begin to gather your thinking, and as peer feedback begins to roll in, start to flesh out <a href="https://docs.google.com/document/d/1SXO4eH8ZvpuONpdlxpu6y1ufDS0n6vbciV4IJzpm-sc/edit?usp=sharing">the template</a> referenced above, which you’ll eventually share with your report. Let’s walk through each section:</p>
+<p><strong>Accomplishments:</strong>Detail the person’s accomplishments over the course of the period. Collect these from the report’s self-review, peer feedback, and your own notes that you’ve been keeping throughout the year. Each item here should be significant and meaty. For example, write “Hit team’s goals” and “Shipped project X on time and under budget," not “Held a great meeting” or “Went to three conferences." In this same section, I also like to include a sampling of the best positive peer feedback I’ve collected, ideally three to five of the best quotes about the person (anonymized of course).</p>
+<p><strong>Superpower:</strong>Most performance reviews over-index on development areas. The reality is that an individual will have just as much impact (if not more) on an organization if they flex what they are really good at, instead of just trying to improve on the areas they’re struggling with. Here, you have a chance to highlight that. Describe their biggest superpower, and how they can flex it further. A few examples of superpowers that I’ve highlighted in the past include a special knack for storytelling, execution, or galvanizing a team. There’s a lot of <a href="https://hbr.org/ideacast/2016/01/stop-focusing-on-your-strengths.html">research</a> that shows focusing on strengths is much more effective than obsessing over weaknesses. Note that it’s important to watch for bias here, since many of us unconsciously describe the same behavior by men as a strength and as a weakness by a woman. (You can read more on this topic <a href="https://hbr.org/2018/05/the-different-words-we-use-to-describe-male-and-female-leaders">here</a>, <a href="https://fortune.com/2014/08/26/performance-review-gender-bias/">here</a>, and <a href="https://hbr.org/2017/04/how-gender-bias-corrupts-performance-reviews-and-what-to-do-about-it">here</a>).</p>
+<p><strong>High level feedback:</strong> Next, I take a step back and summarize the report’s performance in a short narrative, about four to six sentences. I try to make a simple story arc, starting by describing how far they’ve come, then a sentence or two about how they did this cycle, and ending on a high-level overview of what they need to focus on next.</p>
+<p><strong>Development areas:</strong></p>
+<p>Identify one to two development areas to focus on for the next cycle, and put them in the middle column (see the screenshot below). This part is core to the performance review, so selecting these with care is absolutely critical. A few specific suggestions for how to nail these down:</p>
+<ul>
+<li>What is <strong>most</strong> holding the person back from the next level? If your company has a leveling system, leverage it to explain your thinking.</li>
+<li>Do any clear themes emerge from the peer feedback or self-review?</li>
+<li>If your company does calibration, is there a key issue you’re hearing from other managers? Even if it’s not something you agree with, it’s something you’ll need to address.</li>
+<li>Make sure you still identify important development areas for even the highest of performers. No matter how amazing someone is, there’s almost always something they can focus on to get to the next level.</li>
+</ul>
+<p>A few examples of potential development areas include reliable execution, increasing code quality, and more succinct verbal communication. Don’t worry so much about making the descriptions super comprehensive here, as the details will be filled into the next column. A common mistake here is including <em>too many</em> development areas (more than two makes it very hard to make meaningful progress on any), or not making the development opportunities concrete enough (where your direct reports are left guessing at what you really mean).</p>
+<p><strong><a href="https://firstround.com/review/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager/">Read the full article here</a></strong></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

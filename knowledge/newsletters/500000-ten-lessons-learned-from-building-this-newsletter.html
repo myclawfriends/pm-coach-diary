@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>500,000 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">500,000</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">500,000</div>
+    
+    <div class="article-meta">2023-09-11<span>·</span>2,527 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>This week the newsletter hit 500,000 subscribers, which I’m told makes it among the top five largest newsletters on Substack and one of the largest newsletters broadly. Friggin’ bonkers.</p>
+<p>A big round number is a good time to reflect, so I’ve collected some lessons from my journey. I still only sort of know what I’m doing, and it’s unclear where this all goes, but if you’re thinking about embarking on a writing journey, or are just curious about this path, I hope you find this useful.</p>
+<p>To everyone who reads this newsletter, has been a paid subscriber, or has even just shared a post with a colleague—from the bottom of my heart, thank you for allowing me to do the most meaningful work of my life 🧡🥹🙏</p>
+<h2>Lessons learned</h2>
+<h4><strong>1. Quality + consistency = all that matters</strong></h4>
+<p>Things that don’t matter: your design, your title, your strategy, your growth plan, vision . . . most things.</p>
+<p>Things that matter:quality, consistency.</p>
+<p>There’s no trick to making something like this grow. Growth comes from publishing something valuable, that people want to share with their friends and colleagues, over and over and over.</p>
+<p>If your newsletter isn’t growing, it’s most likely either a quality problem or a consistency problem. Here’s some advice for improving both.</p>
+<p><em>“Strive</em> not to be a <em>success</em>, but rather to be of <em>value</em>” —Albert Einstein</p>
+<h4>2. Do your “job to be done” better than anyone else in the world</h4>
+<p>You can bucket every great newsletter into the “job” it’s doing for people:</p>
+<ul>
+<li>Help me parent better: <a href="https://emilyoster.substack.com/">ParentData by Emily Oster</a></li>
+<li>Help me cook better: <a href="https://www.brokenpalate.com/">Broken Palate</a>, <a href="https://anewsletter.alisoneroman.com/">a newsletter</a></li>
+<li>Help me understand what’s happening in tech: <a href="https://stratechery.com/">Stratechery</a>, <a href="https://www.platformer.news/">Platformer</a></li>
+<li>Help me understand what’s happening in the world: <a href="https://www.noahpinion.blog/">Noahpinion</a>, <a href="https://www.thefp.com/">The Free Press</a></li>
+<li>Inspire me: <a href="https://adamgrant.substack.com/">Adam Grant</a>, <a href="https://austinkleon.substack.com/">Austin Kleon</a></li>
+<li>Entertain me: <a href="https://lizadonnelly.substack.com/">Seeing Things</a>, <a href="https://etgarkeret.substack.com/">Alphabet Soup</a></li>
+</ul>
+<p>There are many more categories of jobs, and there’s room for many winners within each category. So you don’t necessarily need to be the best in the world. But you should strive to be.</p>
+<p>My newsletter’s job-to-be-done is to help you get better at work—specifically, building and growing your product and career. If I can do this job super-well for you, consistently, you’ll keep reading.</p>
+<p>Start by figuring out what job you’re doing for someone by answering these two questions:</p>
+<ol>
+<li>Who <em>exactly</em> is your audience? Think of a specific person—what would they find extremely interesting or useful?</li>
+<li>What is the <em>concrete</em> job you’re doing for them? Is it entertainment, helping them make money, inspiring them, helping them understand the world, something else?</li>
+</ol>
+<h4>3. Follow your energy</h4>
+<p>Writing consistently is a grind. Best-case scenario, you’ll be thinking, writing, and learning about this topic for years. To continue to do this work at a high caliber, you need to be genuinely curious about your topic area. Otherwise, you will create a job for yourself that you will hate.</p>
+<p>To find a topic that is right for you:</p>
+<ol>
+<li><strong>Follow your energy</strong>. What topics give you energy to think about, write about, and talk about? What saps you of energy? Spend more on the former and less on the latter. This one trick will tell you a lot.</li>
+<li><strong>Make sure it’s based on your real-life experience.</strong> You need to know what you’re talking about. People can tell if you don’t. Notice how the best newsletters are by people who have deep experience in that space. What’s at the center of the Venn diagram of your unique skills and background that together create an interesting topic?</li>
+<li><strong>Pay attention to what people value.</strong> I deliberately made this the third item because many people start here, which is a trap (see below). But it’s still important for there to be people who care about your ideas. What do people often ask you for advice about? What has been the most helpful thing you’ve shared with friends? Where do you find pull from others?</li>
+</ol>
+<p>Finally, it’s important to find a niche (aka build a personal monopoly), but be careful about getting too niche. You have to write/think/learn about one narrow topic for a long time, and if it’s too narrow, you’ll get bored as hell.</p>
+<p>If I followed the classic advice of picking a narrow niche, I’d have focused on just product management. But I don’t care about product management <em>that</em> much. I’m interested in the wider space of building products, helping them grow, improving your career, and building startups. So I kept my focus areas broad and went where my interests took me. Although this made it harder to explain what my newsletter was about, the topics were close enough to make sense together, and I was able to stay excited about the work.</p>
+<p>As a good rule of thumb, start by getting <a href="https://kk.org/thetechnium/1000-true-fans/">1,000 people</a> to think your newsletter is the best newsletter in the world. Interestingly, <a href="https://twitter.com/lennysan/status/1288622024328269825?s=20">when I hit 1,000 paid subscribers</a>, I was able to make a real living from this newsletter.</p>
+<h4>4. Spend more time on it</h4>
+<p>You may feel like there are a billion newsletters out there—how can you possibly break through? I felt the same way when I started. It turns out that 99% of the content in the world is not very good. There’s always room for, and interest in, better content. You just need to rise above what’s already out there. And that takes work.</p>
+<p>I spend a median of 10 hours per post. Some posts take hundreds of hours (<a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">like this series</a>). There’s a strong correlation between the time I spend on a post and how well it does. This is also why it’s hard to do this well when you have a full-time job.</p>
+<p>Along these lines, any time you have allotted for working on your newsletter that is not writing (and making your writing better) is time wasted. Many newsletter writers spend time optimizing their website, creating a brand, crafting a big strategy around their newsletter—and their growth slows. If you can spend almost zero time working on anything that isn’t creating the content itself, you’ll have an advantage. This is actually why Substack is so great. I can focus exclusively on the writing and they do everything else.</p>
+<p>Speaking of Substack, <a href="https://on.substack.com/p/recommendations">the recommendations feature</a> is a total game changer. IMHO it’s one of the most impactful growth features in history (<a href="https://www.youtube.com/watch?t=206&amp;v=zKP2HrMc23s">which I explored in a recent podcast episode</a>) and, as you can tell in the graph above, totally changed the trajectory of my newsletter. The way it works is newsletter authors can recommend other newsletters they enjoy. Currently, over 9,000 other newsletters recommend my newsletter 😱. It’s not because of anything I did actively. It all comes back to what I said in point #1—if people find your stuff valuable, they’ll want to share it with others.</p>
+<p>More significantly, thanks to this feature, there’s never been a better time to start a newsletter. If you create great stuff, other authors will recommend it, and you’ll grow faster than at any other time in history.</p>
+<h4>5. Cut 30%-50% of your words</h4>
+<p>Before I started this newsletter, I’d never written anything publicly, taken writing courses, or studied writing. But after doing a bunch of writing, and reading three impactful books (<em><a href="https://www.amazon.com/Writing-Well-Classic-Guide-Nonfiction/dp/0060891548">On Writing Well</a></em>, <em><a href="https://a.co/d/gt08rKH">Nobody Wants to Read Your Sh*t</a></em>, and <em><a href="https://a.co/d/9trLEs9">Several Short Sentences About Writing</a></em>), the biggest lesson I’ve learned is to cut, cut, and cut some more<strong>.</strong></p>
+<p>Cut every word that isn’t ~~absolutely~~ necessary. Make your intro 50% shorter. Get into the meat of your post as quickly as possible. <a href="https://twitter.com/wes_kao/status/1257771556152934402">As Wes Kao puts it</a>, “Start your story right before you get eaten by the bear.”</p>
+<p>As an example, with almost every guest post that I edit, if I remove the first paragraph of the first draft, the post immediately gets stronger. Try this with your next piece of writing. Cut the intro and get right into it.</p>
+<h4>6. Contribute something new to the conversation</h4>
+<p>Most writing is a rehashing of something that’s already been said, or a superficial pontification that people don’t need. <strong>What are you adding to the conversation?</strong> What <em>new</em> ideas, insights, and concepts are you contributing? This is what people want.</p>
+<p>Most of <a href="https://www.lennysnewsletter.com/archive?sort=top">my top newsletter posts</a> are the result of my spending tens of hours doing primary research and uncovering new insights that haven’t been shared before. I’m doing a lot of work on behalf of the reader, so it makes sense that people find it valuable.</p>
+<p>To do this well, consistently, you need to have real-life experience in the space you’re writing about. Many people start writing publicly without having done much in their life or career, and they run out of experiences to tap into. This is why I continue advising work on the side, to not lose complete touch with the real work.</p>
+<p>If you’re considering going all-in on content creation, my advice is to first spend many years (e.g. 10) actually doing the work. Build up as much real-life experience as you can first. This also gives you more “career optionality,” as <a href="https://elenaverna.substack.com/p/the-dark-side-of-the-leadership">Elena Verna</a> describes:</p>
+<blockquote>
+<p><em>“I finally realized that I set out the wrong end goal for myself. Leadership title should have never been the end goal—only a step toward the ultimate unlock: </em><em>career optionality</em><em>.</em></p>
+<p><em>Career optionality may look different for people, but it materialized into becoming a solopreneur for me. As a solopreneur, my brain is my product, and I created a solo business around it with various monetization streams: advising, interim, public speaking, workshops, course creation, etc. VP titles validated my abilities and impact, aiding my journey toward solopreneurship. But only in solopreneurship did I find a happy place for my career: fulfilling, flexible, challenging, and impactful work.</em></p>
+<p><em>So do set out the goal to get to the leadership titles, which are quite valuable. But not as an end destination. Work towards unlocking career optionality as an end goal, which will enable you to craft your career any way you’d like.”</em></p>
+</blockquote>
+<h4>7. Commit to a consistent cadence, and make sure it’s sustainable</h4>
+<p>Having a deadline to ship is an essential forcing function to write consistently. <a href="https://twitter.com/lennysan/status/1172237713711542273?s=20">Here’s how I created a deadline for myself</a> when I launched the newsletter. Pick a cadence, share it publicly, and try your hardest to stick to it.</p>
+<p>A weekly cadence is a great starting point. People often start publishing at too fast a rate and quickly burn out. I can only sustainably write one great post a week. Crazies like <a href="https://stratechery.com/">Ben Thompson</a>, <a href="https://noahpinion.substack.com/">Noah Smith</a>, and <a href="https://heathercoxrichardson.substack.com/">Heather Cox Richardson</a> can do this almost daily. Others can do it only monthly. All these routes are fine. Depending on your goals, even one incredible post a year is very valuable. The key is to find a cadence you can keep up for years.</p>
+<p>Remember, quality + consistency = you win, and people don’t want more emails. They want better emails.</p>
+<h4>8. Get started by just getting started</h4>
+<p>Joan Didion said, “I don’t know what I think until I write it down.” I write not to share a crystallized thought I have in my head, but instead to mold a rough idea into something that makes sense.</p>
+<p>What’s something that you want to get out of your head and crystallize? Start with that. Write it out, and share it online. Just see how it goes. Don’t overthink it. And I’d post it on Substack or a similar platform so that you can start collecting email addresses, in case it does turn into something.</p>
+<p><a href="https://marker.medium.com/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">Here’s my first piece</a> that I put out publicly. It came out of my simply wanting to remember what I learned from my time at Airbnb. I found that people found it valuable, so I wrote more stuff. And it continued from there.</p>
+<p>People always ask how I got going with the newsletter, so here is what that looked like:</p>
+<ul>
+<li><strong>First 100 subscribers:</strong> <a href="https://marker.medium.com/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">Medium post about Airbnb</a> → helped me grow Twitter audience → tweeted that I’m launching a newsletter → first 100 subscribers</li>
+<li><strong>Next 1,000:</strong> Guest post on <a href="https://review.firstround.com/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager">First Round Review</a> and <a href="https://andrewchen.com/grow-marketplace-supply/">Andrew Chen’s blog</a></li>
+<li><strong>Next 10,000:</strong> Writing useful stuff every week for 9 months → tweeting summaries of it + word of mouth</li>
+<li><strong>Next 100,000:</strong> Writing useful stuff every week for 2 years → tweeting + word of mouth</li>
+<li><strong>Next 200,000:</strong> Continuing to write useful stuff week after week</li>
+<li><strong>Last 200,000:</strong> Continuing to write useful stuff week after week + <a href="https://twitter.com/lennysan/status/1581331300325109765?lang=en">Substack’s recommendations feature</a></li>
+</ul>
+<h4>9. It’s not all rainbows and butterflies</h4>
+<p>There are major downsides to this life. No PTO, no benefits, no 401(k) matching, and no one to write for me if I’m sick. To take parental leave, I had to work doubly hard for a couple of months to create a backlog of content.</p>
+<p>Also, unless I shut this thing down, in theory I have to write an awesome newsletter every week for the rest of my life. I’m used to it now, but this is what every week basically feels like:</p>
+<h4>10. This is the most fulfilling work of my life, and I highly recommend it</h4>
+<p>Never did I imagine this was where my life would take me, but I followed what gave me energy, and this is where I ended up. As a result, I now do the most fulfilling work of my life. My personal mission is to help people get better at their work, and to increase net happiness in the world, and I feel like I’m doing this at scale. I’m so incredibly grateful.</p>
+<p>Thank you for being a part of this journey, and for continuing to read, subscribe, and share. The best is yet to come.</p>
+<h2>📚 If you want more</h2>
+<ol>
+<li><a href="https://www.fastcompany.com/90940453/lenny-rachitsky-newsletter-podcast-job-board-substack">A recent</a> <em><a href="https://www.fastcompany.com/90940453/lenny-rachitsky-newsletter-podcast-job-board-substack">Fast Company</a></em> <a href="https://www.fastcompany.com/90940453/lenny-rachitsky-newsletter-podcast-job-board-substack">profile</a></li>
+<li><a href="https://www.canva.com/design/DAESBO5RCnw/msMLA8QJNmPQi0H1GNHl3Q/edit">A presentation I once gave on creating a writing habit</a></li>
+<li><a href="https://www.canva.com/design/DAD8irTiMoI/igeI5Uv-4TWSbGV4WnbgIQ/edit">A presentation I once gave on launching the paid plan</a></li>
+<li><a href="https://growthinreverse.com/lenny/">An impressive reverse engineering of my newsletter journey</a> (though the numbers aren’t totally accurate)</li>
+<li><a href="https://www.lennysnewsletter.com/archive?sort=top">My most popular posts of all time</a></li>
+</ol>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

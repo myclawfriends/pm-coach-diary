@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ethan Smith: The power of internal linking for SEO — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Ethan Smith: The power of internal linking for SEO</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Ethan Smith: The power of internal linking for SEO</div>
+    
+    <div class="article-meta">2024-08-06<span>·</span>1,419 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">AI</span> <span class="mini-tag">策略</span> <span class="mini-tag">工程</span> <span class="mini-tag">B2B</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><img alt="Image from Ethan Smith: The power of internal linking for SEO" src="https://substack-post-media.s3.amazonaws.com/public/images/ba6b7abd-356a-4b50-bfc6-ba4ad78ba369_1280x720.jpeg" /></p>
+<p>What do MasterClass, Medium, and Upwork have in common?</p>
+<p>They’re hugely successful companies that knew search engines like Google and Bing could play a significant role in their growth — and they all turned to search engine optimization (SEO) guru Ethan Smith to make it happen.</p>
+<p>Good SEO increases a website’s visibility to bring in more organic traffic. And the more users entering a business’s sales funnel, the greater their revenue. It’s a concept most companies understand, at least at a surface level. But putting the idea into practice can feel more like a dark art than a learnable skill.</p>
+<p>Enter <a href="https://www.graphitehq.com/">Graphite</a>, the boutique growth agency Ethan co-founded to assist companies with programmatic SEO, content strategy, and growth design. Lenny welcomed Ethan to <a href="https://www.lennyspodcast.com/">the podcast</a> for an in-depth conversation about all things SEO, including one of its most essential yet overlooked aspects: internal linking.</p>
+<h2>What’s internal linking?</h2>
+<p>There are three main types of SEO:</p>
+<ul>
+<li><strong>Programmatic SEO. The production of product pages, landing pages, and other web pages automatically generated from a database of information.</strong></li>
+<li><strong>Editorial SEO.</strong> Articles, guides, and other content generated manually (written by a person) instead of automatically.</li>
+<li><strong>Technical SEO.</strong> A website’s infrastructure, including site architecture, internal link architecture, category pages, tags, redirects, and page speed.</li>
+</ul>
+<p>Internal links are part of both editorial and technical SEO. As the name suggests, they connect one web page to another page or resource on the same website, internally, via hyperlink. Your site may also include external links, or backlinks, which connect a page on your site to a high-quality resource outside of your domain.</p>
+<p>A site’s internal linking structure is one of Graphite’s key focuses when conducting SEO, says Ethan. “Consistently, we'll see [that] if you don't have good link spread, fixing it has significant opportunity.”</p>
+<p>“Of anything that I can recommend to companies, as the quick win, the thing to do at the start, it's this.”</p>
+<h2>The different types of internal links</h2>
+<p>You can use two types of internal links on your website:</p>
+<ul>
+<li><strong>Contextual links. Hyperlinks within the body of a website’s content, such as blog posts, that lead to another page on the same site are contexual, driving deeper engagement by encouraging visitors to explore related topics and spend more time on your site. These links are more valuable for SEO because they connect pages and deepen context.</strong></li>
+<li><strong>Navigational links.</strong> Menu links in a website’s header, footer, or sidebar that allow users to quickly find to other pages are for navigation. These links help users easily move through your website to find the content they seek.</li>
+</ul>
+<p>Including both types of links in your internal linking strategy allows you to create a website that’s informative, easy to navigate, and optimized for Google and other search engines.</p>
+<h2>The power of internal linking in SEO</h2>
+<p>In SEO, internal links are an often underappreciated lever for growth — a tool Ethan estimates more than 90% of websites aren’t utilizing. “Google is crawling the web and your site through links,” says Ethan. “And if you don’t have links, then Google doesn’t have paths to find all of your pages.”</p>
+<p>So not only do internal links help SEO, but they’re actually make-or-break if you want your site to rank higher on search engine results pages (SERPs). Here’s what links do</p>
+<ul>
+<li><strong>Teach search engines about your website’s structure. Internal links allow search engine crawlers to index your site’s pages more effectively by showing how your content is interconnected. This helps the search engines understand the hierarchy of your content.</strong></li>
+<li><strong>Distribute link equity.</strong> When you link out to another internal page, you pass some of the authority and credibility of the original page to the linked resource. This is how you distribute link equity (or “link juice”) throughout your site.</li>
+<li><strong>Improve the user experience.</strong> Internal links help users navigate your site more easily, improving the user experience and enticing visitors to stick around longer. In turn, a high-quality experience increases engagement, social shares, and backlinks to your website.</li>
+<li><strong>Help target specific keywords.</strong> By linking to pages that target a specific keyword, you signal to search engines which pages on your site are most relevant for search queries containing that keyword. Engines prioritize credibility and relevance in content, putting stronger content on SERPs, in turn generating more traffic and visibility for your site.</li>
+</ul>
+<h2>Ethan’s 4-step guide to building an internal linking strategy</h2>
+<p>If you’re looking to optimize your website but don’t have the human or budgetary resources to devote to highly specialized programmatic SEO, focus your efforts on the editorial side of things — that’s where internal linking really comes into play.</p>
+<p>Here are the four steps Ethan recommends to build your internal linking strategy:</p>
+<h3>1. Perform a site audit</h3>
+<p>Using a program like <a href="https://www.screamingfrog.co.uk/">Screaming Frog</a>, crawl your site to pull data for an internal link audit. You’ll learn the total number of internal links, find any broken links that take visitors to an error page, and gain performance metrics that show you which pages are most in need of improvement.</p>
+<h3>2. Identify your best-performing pages</h3>
+<p>Your audit is likely to show that a small percentage of pages are bringing in the most traffic. Low-traffic pages generally benefit from additional internal links to pages that already rank well and earning significant clicks.</p>
+<p>These high-authority and popular pages, called “crawl points,” are locations where Google enters your site. And a page’s proximity to a crawl point influences its share of the link juice. “You want the shortest path from a crawl point,” says Ethan.</p>
+<h3>3. Identify related content.</h3>
+<p>Look for pieces of content that are relevant to your best-performing pages, whether existing or new. These internal resources can benefit one another thanks to the power of linking.</p>
+<h3>4. Link related content to the best-performing pages.</h3>
+<p>Use internal links to connect pages — the more, the better. (Ethan recommends at least 5–10 links per page.) Just be sure to use descriptive anchor text that’s relevant to the content it’s linked to.</p>
+<h2>The importance of human-generated content</h2>
+<p>Don’t underestimate the power of the written word — according to Ethan, editorial SEO has become more effective at driving traffic than programmatic SEO. “The way that you grow is with programmatic and with editorial SEO,” he says. “And I think editorial SEO, and by that I mean articles and content, manually written content, is underappreciated.”</p>
+<p>Whether you’re updating existing content or creating new material for your website as part of your digital marketing and internal linking strategies, you might be tempted to save time and resources by using an AI tool like ChatGPT. But although Ethan believes AI is useful for the parts of the content creation workflow that lead up to writing — such as extracting structure, identifying topics and subtopics, and performing keyword research — he cautions against using it for the writing itself.</p>
+<p>“A lot of times, it’s indistinguishable from a human,” he says. “The problem is that you want the sentence to be factual.” And because GPT-3 works by crawling very large data sets and generating sentences similar to those it finds, the sentences it produces may or may not be accurate.</p>
+<p>Google’s algorithm places a higher value on pages with quality, relevant content, so inaccuracies can have a negative impact on your site’s performance. And, more importantly, unreliable information can harm your users. “If I have cancer, and I’m researching cancer options, and this AI content suggests some treatment that isn’t a good treatment, that’s a big problem,” Ethan says.</p>
+<h2>Power up your SEO strategy</h2>
+<p>Lenny’s Podcast features interviews with world-class product leaders and growth experts to uncover concrete and actionable advice and empower you to launch your own product. Listen to the full <a href="https://www.lennyspodcast.com/the-ultimate-guide-to-seo-ethan-smith-graphite/">interview with Ethan Smith</a> for a comprehensive breakdown of internal linking best practices to improve your website’s search rankings and help Google drive more traffic to your business.</p>
+<p>For answers to reader questions about product and career growth, subscribe to <a href="https://www.lennysnewsletter.com/">Lenny’s Newsletter</a>. And be sure to explore the full <a href="https://www.lennyspodcast.com/episodes/">podcast archive</a> for valuable conversations on topics such as:</p>
+<ul>
+<li><a href="https://www.lennyspodcast.com/how-to-build-a-cult-like-brand-laura-modi-bobbie/">Building a cult-like brand</a></li>
+<li><a href="https://www.lennyspodcast.com/hot-takes-and-techno-optimism-from-techs-top-power-couple-sriram-and-aarthi/">Techno-optimism</a></li>
+<li><a href="https://www.lennyspodcast.com/the-ultimate-guide-to-product-led-sales-elena-verna/">Product-led sales</a></li>
+<li><a href="https://www.lennyspodcast.com/blog/defining-your-ideal-customer-profile-pete-kazanjys-perspective/">Defining your ideal customer profile</a></li>
+<li><a href="https://www.lennyspodcast.com/blog/when-to-quit-your-job-ada-chen-weighs-in/">When to quit your job</a></li>
+</ul></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

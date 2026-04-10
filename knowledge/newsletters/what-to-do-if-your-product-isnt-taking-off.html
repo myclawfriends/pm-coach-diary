@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What to do if your product isn’t taking off — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What to do if your product isn’t taking off</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What to do if your product isn’t taking off</div>
+    
+    <div class="article-meta">2024-01-09<span>·</span>4,611 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">B2C</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. <a href="https://lennyswag.com/">New swag drop</a></em></p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/2ccd76ff-41d8-4a0c-adca-ee405dcf8d93_3600x1200.png" /></p>
+<blockquote>
+<h2>Q: I’ve been working on my startup for a couple of years now. What are my options if my product isn’t taking off?</h2>
+</blockquote>
+<p>First of all, I’m sorry. Spending years of your life on an idea that isn’t clicking—the long hours, the stress, your reputation on the line, and not seeing the fruit of all that labor—it sucks. Especially while everyone around you is seemingly killing it.</p>
+<p>Most startups, and new product ideas, fail—we all know this—but it’s different when it’s <em>your</em> product.</p>
+<p>If it’s any consolation, this is going to be happening to a lot of startups in the coming months:</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/059f5017-b2ce-46b4-b757-f925dbcfe531_2160x2160.png" /></p>
+<p>To help you make it through the darkness, here’s a series of concrete actions you can take today to try to turn things around:</p>
+<ol>
+<li><strong>Talk to more users (actually do it)</strong></li>
+<li><strong>Change your target audience/ICP</strong></li>
+<li><strong>Change your positioning/messaging/pitch</strong></li>
+<li><strong>Try a “kickstarter” to get the word out</strong></li>
+<li><strong>Find something that</strong> <strong><em>is</em></strong> <strong>working and pivot fully to that</strong></li>
+<li><strong>Give it a bit more time</strong></li>
+<li><strong>Give up and move on</strong></li>
+</ol>
+<p>Remember, many product builders have gone through what you’re going through now and have found a way. You can too.</p>
+<h3><strong>1. Talk to more users (actually do it)</strong></h3>
+<p>This <a href="https://twitter.com/tomerlondon/status/1740958900982259842">tweet</a> from <a href="https://www.linkedin.com/in/tomerlondon/">Tomer London</a> (CPO of Gusto) sums it up:</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/4cfb31af-23b9-446c-a931-93223971ec03_2160x2776.png" /></p>
+<p><a href="https://twitter.com/gustaf?lang=en">Gustaf Alströmer</a>, a Group Partner at Y Combinator, shared this same advice during our chat after I asked him why most startups fail:</p>
+<p><a href="https://www.youtube.com/watch?v=ZoKLofsp8u0">Watch on YouTube</a></p>
+<blockquote>
+<p><strong>“If I drill down what makes companies fail, it’s quite simple: They don’t talk to users, which means they don’t find product-market fit. And if they don’t find product-market fit, nothing else really matters. This is the mistake most people make. It’s all about talking to customers and learning that you’re building something that’s actually useful. YC’s headline is ‘Make things people want,’ and it’s still true and it’s always going to be true.”</strong></p>
+</blockquote>
+<p>Also:</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/17c4a37b-057f-41a7-b587-a1096c9aba1f_2160x1336.png" /></p>
+<p>I know you’ve heard this advice before, and you’re probably doing it, but if you’re not, make it a point to talk to 5 to 10 potential customers this week. If you already are, that’s great.</p>
+<p>When talking to people, look for two things: <em>pain</em> and <em>pull</em>. Pain tells you there’s an opportunity to solve a problem. Pull tells you that you’re actually solving the problem.</p>
+<p>Here’s what pain and pull look like in practice:</p>
+<ol>
+<li><strong>People pay you money:</strong> Several people start to (or offer to) pay for your early product, ideally people you don’t have a direct connection to.</li>
+<li><strong>Strong emotion:</strong> You’re hearing hatred for the incumbents (i.e. pain) or a deep and strong emotional reaction to your idea (i.e. pull).</li>
+<li><strong>Cold inbound interest:</strong> You’re seeing cold inbound interest in your product.</li>
+<li><strong>Continued usage:</strong> If you’ve got a prototype running, people continue to use your product even if it’s bad.</li>
+</ol>
+<p>When I was building my startup <a href="https://www.fastcompany.com/1773652/how-small-and-local-businesses-can-benefit-localmind">Localmind</a>, we were talking to users all the time, and people constantly told us they loved the product, but, looking back, we didn’t hear much about their pain point. The pain we were solving turned out to be very low (helping people decide where to go out). It was a magical experience when it worked, and some people continued to use it, but for most people, it was more of a novelty than solving a real problem. We should have been more focused on the problem, and the pain we were solving, than the novelty of the solution.</p>
+<p>If you boil it down, to build a successful business, you need to solve a big enough problem for a big enough group of people to make a profit. Everything in this post is a way to help you find a bigger problem or a bigger group of people.</p>
+<p><strong>Homework:</strong></p>
+<ol>
+<li>Talk to 5 to 10 new customers, or potential customers, this week</li>
+<li>Read <a href="https://www.lennysnewsletter.com/i/137198748/dont-confuse-people-rooting-for-you-with-market-signal">Don’t confuse people rooting for you with market signal</a></li>
+<li>Read <a href="https://www.lennysnewsletter.com/p/how-to-validate-your-b2b-startup">Four strategies for validating your B2B startup idea</a></li>
+<li>Read <a href="https://www.lennysnewsletter.com/p/validating-your-startup-idea">How to validate your startup idea</a> by Todd Jackson</li>
+<li><a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How the most successful B2B startups came up with their original idea</a></li>
+<li><a href="https://www.lennysnewsletter.com/i/48316625/how-to-come-up-with-a-startup-idea">How the most successful B2C startups came up with their original idea</a></li>
+</ol>
+<h3><strong>2. Change your target audience/ICP</strong></h3>
+<p>You may have the perfect solution to a different person’s problem.</p>
+<p>Instead of trying to bang your head against the wall to convince the same people they need your product, try pitching someone else entirely.</p>
+<p>The founders of Pinterest started off by pitching tech people, but almost by accident realized the group that needed Pinterest was <a href="https://arc.net/l/quote/jjyjujfr">30-something female bloggers</a>. The founders of Retool thought their product was for ops teams, but <a href="https://arc.net/l/quote/wecnypnn">it turned out it was CTOs</a>. DoorDash started with only independently owned restaurants in tier-2 and tier-3 cities. Stytch first went after growth teams, but then realized <a href="https://arc.net/l/quote/aoauliwg">engineers wanted it most</a>. Netflix realized their initial target audience should be <a href="https://arc.net/l/quote/silwxypk">DVD fanatics in online communities</a>, because that’s who most wanted endless DVDs. Instagram initially went after <a href="https://arc.net/l/quote/dsajztba">designers interested in photography who had large Twitter followings</a>. Snapchat initially went after <a href="https://arc.net/l/quote/mqaanmln">high school students in Orange County</a>.</p>
+<p>Your target audience should also be very narrow. Almost comically narrow. Shoot for at least three narrowing characteristics. For inspiration, here are the original ideal customer profiles (ICPs) for top B2B products and, below that, the original target audience for top B2C products (what I call the “super-specific who”).</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/c2b296c3-8bd6-4088-8219-c0086e8ea22b_2276x4584.png" /><img alt="Image from What to do if your product isn’t taking off" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/804f31f0-eb40-4f4a-aac6-36b109d4b06d_2374x5634.png" /></p>
+<p>Why should your target market be so narrow? Several reasons:</p>
+<ol>
+<li><strong>Focus:</strong> It’s hard enough to solve one big problem for one person. By focusing all of your efforts on this one use case, you’ll have the best chance of solving a problem better than anyone else. Once you get one person to <a href="https://www.lennysnewsletter.com/i/119122450/step-get-one-company-to-love-your-product">love you</a> (which most products aren’t able to do), you can expand from there.</li>
+</ol>
+<p>“The goal is for a fledgling start-up to take customers away from an established incumbent by focusing all their power at a single point of attack. This will be a problem that conventional solutions are not addressing well, one that is increasing in severity and attracting the attention of top management. The start-up commits to solving this problem 100%.” —Geoffrey Moore, author of Crossing the Chasm</p>
+<ol>
+<li><strong>Distribution:</strong> It’s easier to get people excited about your product if it feels like it’s made for them. It’s also easier to get in front of people with the same interests or problems. Tinder started with party-going college students at USC (one location). WhatsApp started with Russian emigrants in San Jose (one neighborhood). Discord started with PC gamers playing Final Fantasy XIV (one niche community). Instagram started with designers interested in photography who spent time on Twitter (i.e. easy to get to them), and from that beachhead expanded. <strong>Watch this short clip to get a sense of why starting highly niche counterintuitively helps you grow more quickly:</strong></li>
+</ol>
+<p><a href="https://www.tiktok.com/@redpoint/video/7226402166490041646"><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/bada8101-e696-4b0d-9bed-cfcb8577daef_1080x1920.jpeg" /></a></p>
+<p><a href="https://www.tiktok.com/@redpoint">@redpoint</a><a href="https://www.tiktok.com/@redpoint/video/7226402166490041646">Niche content ftw ▶️ #socialmediamarketing #socialmediamanager #contentcreators</a></p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substackcdn.com//img/alert-circle.svg" />Tiktok failed to load.</p>
+<p>Enable 3rd party cookies or use another browser</p>
+<ol>
+<li><strong>Early adopters get your flywheel spinning:</strong> As Geoffrey Moore taught us over 30 years ago, most people aren’t early adopters. Instead, they wait for others to tell them a new product is worth their time. They wait for social proof. Early adopters, on the other hand, love new stuff. They’re less focused on pain points, and mostly just want to stay ahead. But once they get excited, they tell others. That’s how you cross the “chasm.”</li>
+</ol>
+<p>“We want to light a billion-dollar bonfire. How do you light a billion-dollar bonfire if all you have is a match? You don’t hold it under a big log. You get some kindling together, you bunch some paper underneath it, you get your match, and you light the corner of the paper under the kindling, under the log.</p>
+<p>Until I get the fire started somewhere, I shouldn’t try to spread my heat.”</p>
+<p>—<a href="https://www.youtube.com/watch?v=4RFBdcJRdbA">Geoffrey Moore</a></p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/821c6166-2a3a-4dae-abb2-633ef08bf4c4_640x431.png" /></p>
+<p>“It’s a lot easier to boil a thimble than the ocean.” —Sarah Tavel, GP at Benchmark</p>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/i/137198748/if-you-allow-your-icp-to-fray-youll-lose">If you allow your ICP to fray, you’ll lose</a></li>
+<li><a href="https://www.lennysnewsletter.com/i/38459103/how-to-identify-your-super-specific-who">How to identify your super-specific who in B2C</a></li>
+<li><a href="https://www.lennysnewsletter.com/i/113763794/how-to-identify-your-icp">Stories of how top B2B companies found their ICP</a></li>
+<li><em><a href="https://www.amazon.com/Crossing-Chasm-3rd-Disruptive-Mainstream/dp/0062292986/ref=pd_lpo_sccl_1/139-8635645-0507405?content-id=amzn1.sym.1ad2066f-97d2-4731-9356-36b3edf1ae04">Crossing the Chasm</a></em></li>
+</ol>
+<h3><strong>3. Change your positioning/messaging/pitch</strong></h3>
+<p>You may have the perfect solution for the perfect person, but if they don’t understand how your product will help them, they won’t pay attention.</p>
+<p><a href="https://www.lennysnewsletter.com/p/positioning">In her amazing guest post</a>, April Dunford relays how simply changing her team’s product positioning from a “Microsoft Access killer” to an “embeddable database for mobile devices” changed the trajectory of their business. In my <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-consumer">post on crafting your pitch</a>, I share stories of how DoorDash, Netflix, and Behance took off only once they figured out how to pitch their product effectively (and without changing the product itself).</p>
+<p>In the case of Ramp, all they had initially was the messaging:</p>
+<blockquote>
+<p>“When we launched, in mid-2020, I think we had ‘message-market fit.’ We were able to differentiate and have people be interested in our unique messaging, but we didn’t have the product there yet. In terms of the product itself, where suddenly it was spreading, that came later, probably fall of 2020, when it was finally delivering on the messaging we had.” —<a href="https://www.linkedin.com/in/eglyman/">Eric Glyman</a>, co-founder and CEO</p>
+</blockquote>
+<p>Here are examples of how some of the most popular B2C apps successfully pitched their products early on:</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c9c489a5-3e04-4983-940a-eee9e9b346f1_2374x5634.png" /></p>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/i/38501162/how-to-craft-your-hook">How to craft your hook</a></li>
+<li><a href="https://www.positioning.show">Positioning by April Dunford</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-build-a-killer-sales-pitch">How to build a killer sales pitch by April Dunford</a></li>
+</ol>
+<h3>4. Try a “kickstarter” to get the word out</h3>
+<p>Maybe you do indeed have the right solution, for the right people, with the right pitch, but these people just haven’t heard about you yet.</p>
+<p>In this case, building on my <a href="https://www.lennysnewsletter.com/p/the-racecar-growth-frameworkexpanded">Racecar Growth Framework</a>, try a few kickstarts to get the word out:</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/926e599f-b02f-460c-93ad-35be770e6941_5056x2672.png" /></p>
+<p>“<a href="https://www.lennysnewsletter.com/i/75292796/kickstarts">Kickstarts</a>” are unscalable tactics for acquiring your first 1,000 users. Once you get going, your strategy will shift to building a <a href="https://www.lennysnewsletter.com/i/75292796/the-growth-engine">scalable growth engine</a>, but for now, don’t worry too much about that.</p>
+<p>For more tactical ideas, also see “<a href="https://www.lennysnewsletter.com/i/75292796/turbo-boosts">turbo boosts</a>” and my evergreen list of <a href="https://www.lennysnewsletter.com/p/growth-ideas">60+ growth ideas</a>.</p>
+<p><em>Warning: Many founders assume this is the problem—that people just haven’t heard about them yet—and put all of their efforts into “growth.” Most likely this is not the problem. But it’s still worth a shot!</em></p>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/the-racecar-growth-frameworkexpanded">The Racecar Growth Framework</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/consumer-business-find-first-users">Find your early adopters by doing things that don’t scale</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-win-your-first-10-b2b-customers">How to find and win your first 10 customers</a></li>
+</ol>
+<h3><strong>5. Find something that</strong> <strong><em>is</em></strong> <strong>working and pivot fully to that</strong></h3>
+<p>In my research, I’ve found that something like 20% of successful consumer companies pivoted at least once in their early history, and a whopping 40% in B2B:</p>
+<ul>
+<li><strong>Segment</strong> started as a university classroom lecture tool</li>
+<li><strong>Loom</strong> started as a marketplace for companies to hire subject-matter experts</li>
+<li><strong>Retool</strong> started as Venmo for the U.K.</li>
+<li><strong>Instagram</strong> started as a location check-in app</li>
+<li><strong>YouTube</strong> started as a video-based dating site</li>
+<li><strong>Slack</strong> started as a game called Glitch</li>
+<li><strong>Amplitude</strong> started as a voice recognition application that allowed you to send and receive text messages by talking to your phone</li>
+<li><strong>Notion</strong> started as a no-code website builder</li>
+<li><strong>Lyft</strong> started as a long-distance ridesharing service, Zimride</li>
+<li><strong>Box</strong> started off as a “box” to put photos and content in on Facebook</li>
+</ul>
+<p>Four of my most successful portfolio companies found their big idea through pivots. <a href="https://vanta.com/">Vanta</a> started as a B2B Alexa and pivoted to compliance and security. <a href="https://www.captions.ai/">Captions</a> started as a high-school closed-community Snapchat killer and pivoted to an AI-powered creative studio. <a href="https://www.freshpaint.io/">Freshpaint</a> started as a Segment killer and pivoted to analytics for HIPAA-compliant websites. <a href="https://ziphq.com/">Zip</a> went through <a href="https://arc.net/l/quote/vfkclbsb">six or seven pivots</a> before landing on a next-generation platform for the procurement space (now worth over $1B).</p>
+<p>If your core product isn’t working, find a feature or piece of functionality that is showing strong pull, from your existing users or even from your employees. A few examples of how this might look and feel:</p>
+<p><strong>Instagram:</strong></p>
+<blockquote>
+<p><strong>“We knew it wasn’t working when we would give it to people and they’d just keep bouncing off. The one thing that people would continue to do on the service was post square images from either Hipstamatic or CameraBag or whatever filter app existed out in the world, and people loved these posts.</strong></p>
+<p>They got the most likes. They got the most comments. I would ignore every other post on Burbn except for the photos.</p>
+<p>One day, Mike, my co-founder, and I sat down, and we were like, ‘All right, we have to change something, because no one knows what we’re doing.’ We were like, ‘You know what? <strong>Let’s do what everyone’s doing on our service anyway. Let’s cut everything except for photos.</strong> Let’s build the filters in, and let’s allow for likes and comments and see what happens.’ I swear, the first day we launched it, we got 25,000 users.”</p>
+<p>—<a href="https://en.wikipedia.org/wiki/Kevin_Systrom">Kevin Systrom</a>, CEO and co-founder, via <a href="https://www.startups.com/library/founder-stories/kevin-systrom">Startups.com</a></p>
+</blockquote>
+<p><strong>Loom:</strong></p>
+<blockquote>
+<p>“Loom was the result of two previously failed attempts in the video space. Our first was a marketplace for companies to hire subject-matter experts (i.e. product managers, designers, engineers, etc.) for feedback on checkout flows, UX, sales funnel, onboarding, and more. While we saw initial revenue here, this failed to get the traction to warrant additional build time (we were already four months in at this point). The second was a SaaS tool that any company can embed on their website and get instant feedback from their users in the form of a user test. Similar to the first iteration, this failed to get any real momentum after three months, although it led us to a remarkable insight from one of our few design partners.</p>
+<p><strong>Three months into this second idea, we had an aha moment when a client used the product to record a video of himself summarizing all of the user tests his team had collected. That’s when it occurred to us that there could be</strong> <strong><em>something</em></strong> <strong>here.</strong></p>
+<p>A month later, we launched on Product Hunt and had thousands of people who’d downloaded the extension by day’s end. That made it clear to us that we should double down on this new direction, and we’ve never looked back.”</p>
+<p>—<a href="https://www.linkedin.com/in/shahedkhan/">Shahed Khan</a>, co-founder</p>
+</blockquote>
+<p><strong>Discord:</strong></p>
+<blockquote>
+<p>“His first company started as a video game studio and even launched a game on the iPhone App Store’s first day in 2008. That petered out and eventually pivoted into a social network for gamers called OpenFeint, which Citron described as ‘essentially like Xbox Live for iPhones.’ He sold that to the Japanese gaming giant Gree, then started another company, Hammer &amp; Chisel, in 2012 ‘with the idea of building a new kind of gaming company, more around tablets and core multiplayer games.’ It built a game called Fates Forever, an online multiplayer game that feels a lot like League of Legends. <strong>It also built voice and text chat into the game, so players could talk to each other while they played.</strong></p>
+<p>And then that extremely Silicon Valley thing happened: Citron and his team <strong>realized that the best thing about their game was the chat feature</strong>. This was circa 2014, when everyone was still using TeamSpeak or Skype and everyone still hated TeamSpeak or Skype. Citron and the Hammer &amp; Chisel team knew they could do better and decided they wanted to try.</p>
+<p>It was a painful transition. Hammer &amp; Chisel shut down its game development team, laid off a third of the company, shifted a lot of people to new roles, and spent about six months reorienting the company and its culture. It wasn’t obvious its new idea was going to work, either. ‘When we decided to go all in on Discord, we had maybe 10 users,’ Citron said. There was one group playing League of Legends, one WoW guild, and not much else. ‘We would show it to our friends, and they’d be like, ‘This is cool!’ and then they’d never use it.’</p>
+<p>After talking to users and seeing the data, the team realized its problem: Discord was better than Skype, certainly, but it still wasn’t very good. Calls would fail; quality would waver. Why would people drop a tool they hated for another tool they’d learn to hate? The Discord team ended up completely rebuilding its voice technology three times in the first few months of the app’s life. Around the same time, it also launched a feature that let users moderate, ban, and give roles and permissions to others in their server. <strong>That was when people who tested Discord started to immediately notice it was better. And tell their friends about it.</strong>”</p>
+<p>—<a href="https://www.protocol.com/discord">David Pierce,</a> <em><a href="https://www.protocol.com/discord">Protocol</a></em></p>
+</blockquote>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/i/48316625/strategy-pay-attention-to-whats-already-working-and-double-down-aka-pivot">Pay attention to what’s already working, and double down</a></li>
+<li><a href="https://www.lennysnewsletter.com/i/113130490/path-present-pullidentify-something-youve-built-that-is-showing-signs-of-pull-pivot-fully-to-that">Identify something you’ve built that is showing signs of pull. Pivot fully to that.</a></li>
+</ol>
+<h3><strong>6. Give it a bit more time</strong></h3>
+<p>Finding product-market fit takes longer than most people think, especially in B2B. Here are the timelines for top B2B and B2C companies.</p>
+<p><img alt="Image from What to do if your product isn’t taking off" src="https://substack-post-media.s3.amazonaws.com/public/images/6ae1275f-1b3e-49d3-afcb-f4ca9045279e_5438x6448.png" /><img alt="Image from What to do if your product isn’t taking off" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b5a35a80-d754-4264-a944-4273a785f9e8_3654x3286.png" /></p>
+<p>In consumer, if PMF isn’t immediate, it usually takes 6 to 18 months. In B2B, the median time is two years. These timelines are extended if you’re building something that requires network effects (e.g. a marketplace, a social network).</p>
+<p>To pursue this route, you obviously need to have enough runway to last you through the darkness. So either raise a lot of money or conserve cash.</p>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/finding-product-market-fit">A guide for finding product-market fit in B2B</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-consumer-9c8">Iterate until enough people stick around</a></li>
+</ol>
+<h3><strong>7. Give up and move on</strong></h3>
+<p>Life is short.</p>
+<p>Are you happy that you’re spending years of your life working on this problem? Did you ever imagine you’d be spending this long on it?</p>
+<p>Consider calling it quits.</p>
+<p>I promise you that your investors (or boss) will understand. <a href="https://x.com/dunkhippo33/status/1657438019794898945?s=20">At least the good ones</a>.</p>
+<p>There are too many zombie companies, zombie projects, and zombie teams. They <em>could</em> keep going for years—they raised a lot of money, they cut costs substantially (and are living on nothing)—but they shouldn’t.</p>
+<p>Yes, sometimes it takes five or more years to find PMF, as it did with Figma and Slack. But chances are you aren’t Figma or Slack.</p>
+<p>It might feel like you’d be a failure for quitting, but many of the most successful people in history quit. As <a href="https://www.sethgodin.com/">Seth Godin</a> argues in <em><a href="https://www.amazon.com/Dip-Little-Book-Teaches-Stick/dp/1591841666">The Dip</a></em>, quitting is often the best move:</p>
+<blockquote>
+<p><strong>“Sometimes we get discouraged by inspirational writing, like stuff from Vince Lombardi: ‘Quitters never win and winners never quit.’ Bad advice. Winners quit all the time. They just quit the right stuff at the right time.” […]</strong></p>
+<p><strong>“Winners quit fast, quit often, and quit without guilt.”</strong></p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Phil_Knight">Phil Knight</a>, co-founder of Nike, had the same advice in his memoir <em><a href="https://www.amazon.com/Shoe-Dog-Memoir-Creator-Nike-ebook/dp/B0176M1A44">Shoe Dog</a></em>:</p>
+<blockquote>
+<p><strong>“And those who urge entrepreneurs to never give up? Charlatans. Sometimes you have to give up. Sometimes knowing when to give up, when to try something else, is genius. Giving up doesn’t mean stopping. Don’t ever stop.”</strong></p>
+</blockquote>
+<h4>Signs it might be time to give up:</h4>
+<ol>
+<li>“I have looked in the mirror every morning and asked myself: ‘If today were the last day of my life, would I want to do what I am about to do today?’ And whenever the answer has been ‘No’ for too many days in a row, I know I need to change something.” —<a href="https://youtu.be/UF8uR6Z6KLc?si=hkqcYzXtjGNvEYev&amp;t=561">Steve Jobs</a>:</li>
+<li>“How much conviction do you have in what you’re building? I know in the beginning, before you knew all you know now, you had tons of conviction. That’s what caused you to leave your job. But now knowing all you know, <strong>do you have more or less conviction in the problem and the solution you’re building?</strong> Some people are like, ‘I have more conviction; all that I’ve learned, all the validation I’ve received from customers—we just haven’t figured it out yet. We’ve tried three times and still, each product fails, but I have more conviction than ever before.’ For those people, you’re just in the messy middle. Stick with it. This is par for the course. But oftentimes I’ll hear, ‘Honestly, if I knew then what I know now, I would not have done this.’ Then it’s like, holy shit—then quit! Your life is short.” —<a href="https://www.youtube.com/watch?v=HCKosdV1J-8">Scott Belsky</a></li>
+<li>You have an instinct that this isn’t going to work. Trust your instinct.</li>
+<li>You’ve run out of good ideas.</li>
+<li>You don’t want to work with your co-founder any longer.</li>
+<li>You’re running out of money.</li>
+<li>You’re exhausted.</li>
+</ol>
+<p>All good reasons to call it quits. Or, if nothing else, to timebox how much more time you’re going to stay with it.</p>
+<h4>Routes to quitting:</h4>
+<ol>
+<li>Try to sell your company. Difficult these days. <a href="https://review.firstround.com/how-to-sell-your-startup-the-complete-guide-to-running-an-manda-process-as-a-founder">Here’s a great guide</a>.</li>
+<li>Keep trying new ideas until you run out of cash. Sometimes it’s best to know you did every possible thing you could.</li>
+<li>Stop now and give your remaining money back to your investors. In my experience, most investors prefer this versus your running out of cash.</li>
+</ol>
+<p>If it makes you feel any better, I’ve also never heard a founder regret shutting things down. Usually, like relationships, you realize later that you should have ended it much sooner.</p>
+<p>If you are winding your startup down, check out <a href="https://www.sunsethq.co/">Sunset</a> (disclaimer: I’m an investor), which makes the shutdown process super-easy.</p>
+<p>To leave you with some inspiration, here’s a list of founders who failed before they succeeded:</p>
+<ol>
+<li><strong>Jeff Bezos</strong>—Before Amazon, Bezos launched an online auction site called zShops that failed miserably.</li>
+<li><strong>Oprah Winfrey</strong>—Before becoming a media mogul, Winfrey was fired from her job as a television reporter because she was deemed “unfit for TV.”</li>
+<li><strong>Reid Hoffman</strong>—Before co-founding LinkedIn, Hoffman co-founded SocialNet, a dating and social networking site that ultimately failed.</li>
+<li><strong>Travis Kalanick</strong>—Before Uber, Kalanick co-founded Red Swoosh, which faced endless challenges and was eventually sold for a fraction of its original valuation.</li>
+<li><strong>Sara Blakely</strong>—Before founding Spanx, Blakely had several failed job applications, including at Disney World, and also had a stint selling fax machines door-to-door, where she faced constant rejection.</li>
+<li><strong>Steve Jobs</strong>—After leaving Apple, Jobs founded NeXT Computer, which struggled.</li>
+<li><strong>Max Levchin</strong>—Before co-founding PayPal, Levchin founded NetMeridian Software, a company that developed marketing tools for software developers, which failed.</li>
+<li><strong>J.K. Rowling</strong>—Before the Harry Potter series, Rowling was rejected by 12 different publishers.</li>
+<li><strong>Reed Hastings</strong>—Before Netflix, Hastings started a company called Pure Software that had issues with scaling and culture fit, eventually leading to its sale. This experience taught him valuable lessons, which he applied to Netflix.</li>
+<li><strong>James Dyson</strong>—Before creating the Dyson vacuum cleaner, James Dyson went through 5,126 failed prototypes over 15 years.</li>
+</ol>
+<p><strong>Homework:</strong></p>
+<ol>
+<li><a href="https://www.ycombinator.com/library/3S-when-to-shut-down-a-startup">When to Shut Down a Startup</a> by Aaron Harris</li>
+<li><a href="https://blog.eladgil.com/p/5-reasons-to-sell-your-startup">5 Reasons to Sell Your Startup</a> by Elad Gil</li>
+<li><a href="https://www.lennysnewsletter.com/p/your-startup-idea-probably-isnt-venture">Your startup idea probably isn’t venture-scale</a></li>
+</ol>
+<p>Good luck 🙏</p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

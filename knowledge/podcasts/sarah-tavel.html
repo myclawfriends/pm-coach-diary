@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The hierarchy of engagement | Sarah Tavel (Benchmark, Greylock, Pinterest) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">The hierarchy of engagement | Sarah Tavel (Benchma…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">The hierarchy of engagement | Sarah Tavel (Benchmark, Greylock, Pinterest)</div>
+    
+    <div class="article-meta">2023-12-27<span>·</span>19,216 words<span>·</span>Sarah Tavel</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">B2C</span> <span class="mini-tag">成長</span> <span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=H9g4pzcz6Tk" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Sarah Tavel</strong> (00:00:00):<br />
+I think a lot of people think about markets almost like these bodies of water, it's like it's this big body of water that we're going after. I actually think that the most interesting markets, you have to think of them like currents where you're there's something happening in the market that's creating this current where you can have a plank of wood that you've put on the river and it's going to pull you forward. Versus a market that doesn't really have that momentum to it, you're going to have to build something really big and fancy to make any progress. That's why we care less about market size because really, what you're looking for when you're looking at a market, are what are the dynamics of change, what's the current and momentum that's going to pull the company and make the job easier for the founders to actually build something that endures. </p>
+<p><strong>Lenny</strong> (00:00:56):<br />
+Today, my guest is Sarah Tavel. Sarah is a partner at Benchmark, one of the most preeminent venture capital funds in the world, where she focuses on investing in consumer and marketplace startups. Prior to Benchmark, Sarah was the first product manager at Pinterest. And though I normally have a policy against VCs on the podcast, as you'll see, Sarah thinks very much like a product and growth leader. And I always learn a ton talking to Sarah about startups and marketplaces. We also learn in our conversation, she used to play rugby and was apparently one of the best tacklers in her league. </p>
+<p><strong>Sarah Tavel</strong> (00:03:12):<br />
+Super excited to be here. </p>
+<p><strong>Lenny</strong> (00:03:13):<br />
+So you may or may not know this, but actually, normally have a policy of no VCs on the podcast. But you're a very special VC because you're a former product manager. Many people don't know you were the first product manager at Pinterest. To me, you still think like a product manager so I'm very excited to break my rule and have you on the podcast. </p>
+<p><strong>Sarah Tavel</strong> (00:03:31):<br />
+Thank you for the exception. </p>
+<p><strong>Lenny</strong> (00:03:33):<br />
+What I want to do with our time together is dig into two frameworks that you've developed and use with founders that you work with to help them build successful companies. One is focused around customer businesses, and one marketplace businesses.</p>
+<p><strong>Lenny</strong> (00:03:49):<br />
+Let's just start with the first framework. I think you call it the Hierarchy of Engagement. Just to start, could you maybe just share a broad overview of this framework? And also, just where it emerged from, where you came up with this concept? </p>
+<p><strong>Sarah Tavel</strong> (00:04:02):<br />
+Sure. I think one thing you'll notice about me is that I have an allergic reaction to vanity metrics, what people talk about as vanity metrics. When I made the transition from Pinterest, where I was leading product for the discovery team, so I was responsible for all the discovery surfaces on Pinterest. The home feed, the search, the recommendations, a couple other teams. Ultimately, what those teams were about was about engagement, increasing engagement of Pinterest. It was helping people, when they were on Pinterest, find something that they loved enough that they wanted to pin it to one of their boards.</p>
+<p><strong>Sarah Tavel</strong> (00:04:48):<br />
+When I started to meet with all these really talented consumer founders building consumer social products, this was during a time when everybody was getting excited about growth hacking. What you would see is that you would see all these founders coming in, and they all had these up and to the right graphs, whether it was sign-ups, or downloads, or MAUs. It felt to me like it wasn't obvious that those metrics that they were all getting very attached, and focused on, and showing in these presentations was the wrong thing to focus on. It didn't get to the heart of whether they were on the path to building enduring consumer social product. They were missing, at the core, the criticality of engagement. </p>
+<p><strong>Sarah Tavel</strong> (00:05:45):<br />
+I just started to feel this and it became like a pebble in my shoe. I started just to go through that process that you've gone through many times before of writing and distilling it, and that's where I came up with this hierarchy. What you realize when you look at social products is that they're almost is this action which I call the core action of that product that forms the foundation of the product. When a user completes this action, it's clear that they both understand the utility of the product, they understand what that product is all about, and it's an action that, if they perform the action, they're very likely to come back. So for Facebook, the obvious action is friending, in the beginning days. For Pinterest, it's pinning. I don't know if you're an Evernote user. For Evernote, it's writing a note. When you perform that action, that means you're an engaged user. Of course, there's a lot of other actions that you have to do. You can follow people on Pinterest, you comment on Facebook. But the end of the day, if you're not doing that action, you're not really a user to the product. That's why the MAU thing doesn't really mean anything. It's really looking at, I think, of users completing the core action. You can look at this as a cohort, weekly, daily, whatever the right cadence is. But that's the foundation, that's level one. </p>
+<p><strong>Lenny</strong> (00:07:16):<br />
+Basically, there's some definition of an active user that a consumer business basically needs to define, and essential figure out what is that action they're taking that makes them an active user versus just opening up the app, or whatever it is. For Snapchat, it might be sending a snap.</p>
+<p><strong>Sarah Tavel</strong> (00:07:34):<br />
+That's right.</p>
+<p><strong>Lenny</strong> (00:07:35):<br />
+For What's App, it might be sending a message. Okay, cool.</p>
+<p><strong>Sarah Tavel</strong> (00:07:36):<br />
+Yes. Yes. By the way, this action, it's very important to pick the right action. You want to make sure it's an action that scales to enough users. You want to think about, "If I think about my product roadmap and optimize for it, what do we end up doing?" </p>
+<p><strong>Sarah Tavel</strong> (00:07:56):<br />
+Just to give you a more concrete example, actually in the early days of Pinterest, we weren't sure what it was. We had all these things we were measuring. We were measuring follows, we were measuring clicking through, liking something, pinning obviously, time on site. We would do these experiments and you would get all this different data where some things would go up, some things would go down. What were we optimizing for? </p>
+<p><strong>Sarah Tavel</strong> (00:08:24):<br />
+There's something that's really, really important about having that clarity of this is the action that is most important for our product. All things, our NUX has to lead to this. If a user isn't doing this, then there's something missing from their experience of the product. It's super important to get real clarity and know exactly the one that you're going to be picking to go forward. </p>
+<p><strong>Lenny</strong> (00:08:49):<br />
+One more question along these lines. How do you think about this milestone versus the activation milestone for a new user? Do you find they're often the same? Getting your user to that aha moment-</p>
+<p><strong>Sarah Tavel</strong> (00:09:00):<br />
+Yes. </p>
+<p><strong>Lenny</strong> (00:09:00):<br />
+Versus ongoing? </p>
+<p><strong>Sarah Tavel</strong> (00:09:01):<br />
+Right. Part of it is how do you measure the success of your NUX, of the activation? To me, it is are you taking those new users and helping them understand the mental model of your product well enough that they start completing the core action.</p>
+<p><strong>Lenny</strong> (00:09:18):<br />
+Awesome. </p>
+<p><strong>Sarah Tavel</strong> (00:09:19):<br />
+There was a NUCs once that we played with at Pinterest where we didn't even teach people what pinning was. It was their feed magically appeared and it was a real ... That was an example of okay, we have to help people understand that they are here to discover something and save it to their board. </p>
+<p><strong>Lenny</strong> (00:09:35):<br />
+Just in case people don't know what NUX is, new user experience. It's just an acronym for new user experience.</p>
+<p><strong>Sarah Tavel</strong> (00:09:40):<br />
+Thank you. Yes.</p>
+<p><strong>Lenny</strong> (00:09:42):<br />
+Okay. Maybe one more just foundational thing that I think we maybe skipped is what's the best way to think about using this framework? Is this essentially where you should focus your energy, on which elements of your product you should be driving, which metrics to focus on? Is that a simple way to think about ... Basically, we've talked about layer one and there's three layers. What's the best way to think about, as you're talking through this framework, of how to apply it and use it? </p>
+<p><strong>Sarah Tavel</strong> (00:10:02):<br />
+In a way, you have to think holistically when you're building these consumer products, when you're designing it. But I think it's very important, once you get the product out and you're starting to optimize, to start thinking through each of the levels. That's just very focusing, to help a founder understand, "What are the levers that I really have to be focusing on to improve?"</p>
+<p><strong>Lenny</strong> (00:10:26):<br />
+Awesome. I want to come back to how to apply it, in maybe some examples, after we go through the three levels so I'll turn it back to you. </p>
+<p><strong>Sarah Tavel</strong> (00:10:32):<br />
+Perfect. Let's say you're building your product and you're starting to see that you have users completing the core action. Then, the next challenge you have, and I've seen this many times before, is that then you have to figure out how to get those users to stick around. You want to retain those users. Obviously, if they do the core action once or twice, and then they run out of steam, you're going to be in a really challenged position to build something that endures. </p>
+<p><strong>Sarah Tavel</strong> (00:11:03):<br />
+The test for me, of whether you're building a product that has the ingredients to create a retentive product on a micro level, just at the user level, is that the product should get better the more you use it, and you'll have more to lose by leaving it. I'll give you a couple examples there, a couple of my favorite products. </p>
+<p><strong>Sarah Tavel</strong> (00:11:26):<br />
+Obviously, Pinterest. One of the features that I worked on when I was at Pinterest and we shipped was this idea of a picked for you feed. The idea was every time you pinned something to a board, we would take that information that the user gave us and use it to create recommendations in their home feed. It may have been the first algorithmic feed that was in a social product because, suddenly your home feed wasn't just things and people that you followed. The truth is, people weren't really following other people on Pinterest so we needed a way to make the experience get better the more you used it, so we started to do these recommendations in your home feed. </p>
+<p><strong>Sarah Tavel</strong> (00:12:10):<br />
+It was this experience that, the more you pinned, the more personalized your home feed got for you. Then, the more you pinned, you also had more to lose by leaving Pinterest because, all of a sudden, you had all your favorite books, articles you wanted to remember, the recipes that you were planning on cooking one day, the holiday planning that you were doing. So you wouldn't abandon Pinterest because Pinterest was this repository for these different expressions of your identity, or these different bookmarks that you wanted to back to. That was this idea. It's very important that the core action is the thing that you use as the product to make the experience better over time. </p>
+<p><strong>Sarah Tavel</strong> (00:12:52):<br />
+Evernote, another example. I don't know if you're an Evernote user.</p>
+<p><strong>Lenny</strong> (00:12:57):<br />
+No. I tried it once and it was way too complicated, and I gave up quickly.</p>
+<p><strong>Sarah Tavel</strong> (00:13:01):<br />
+People still laugh at me for being an Evernote user.</p>
+<p><strong>Lenny</strong> (00:13:05):<br />
+Oh, wow. </p>
+<p><strong>Sarah Tavel</strong> (00:13:06):<br />
+I'm a lifetime user. </p>
+<p><strong>Lenny</strong> (00:13:09):<br />
+Wow. </p>
+<p><strong>Sarah Tavel</strong> (00:13:09):<br />
+It's one of those things that I take all my notes in Evernote. I dump documents in Evernote. What I means is that, the more I use it ... Now I know that I can do a search in my Evernote and I'm going to find the document I'm looking for. Now, I can never leave Evernote. It has everything. I have thousands and thousands of documents in Evernote. That's a product that's incredibly retentive. </p>
+<p><strong>Lenny</strong> (00:13:37):<br />
+Unless someone builds a great exporter, and then there goes that piece of friction. </p>
+<p><strong>Sarah Tavel</strong> (00:13:41):<br />
+People keep telling me I need to move on to Notion or something else, but not yet. I will remain a dinosaur here. </p>
+<p><strong>Lenny</strong> (00:13:48):<br />
+Wow. I love that that's an example of someone can break that barrier and make it less retentive, by making it easier to get off.</p>
+<p><strong>Sarah Tavel</strong> (00:13:55):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:13:56):<br />
+It's interesting growth strategy, basically. </p>
+<p><strong>Sarah Tavel</strong> (00:13:57):<br />
+Yes. Yeah, it's very true. Let's say, now, you have a product, it's growing, more people are completing the core action. When they complete that core action, the product gets more retentive for them. It gets better the more they use it, they have more to lose by leaving it. Then, your tall task, and this is the hardest thing to overcome, is how do you make the product self-perpetuating? This is where I love to think of every time a user users your product, let's say they're clicking on the mouse or they're tapping on their phone, I love to think of it as this kinetic energy that they're putting into your product. You're taking that energy, and your job with a great product, is to take that energy and, as much as possible, convert it back to the experience that they're having with your product. </p>
+<p><strong>Sarah Tavel</strong> (00:14:55):<br />
+Now, the biggest thing that you can do is a network effect. The more I pin something on Pinterest, the better the experience for every user on Pinterest. Every time I add a pin to a board, I'm creating a new edge in Pinterest Graph, that Pinterest then uses to create recommendations and enrich their understanding of all those objects on Pinterest. The network effect is the strongest thing that you can do. And obviously, if you have that, which all social products have to in some way, you have to spend time, as much as possible, just maximizing where that shows up, fine-tuning it, removing friction so that it's a flywheel that spins faster and faster. </p>
+<p><strong>Sarah Tavel</strong> (00:15:42):<br />
+But, there's other loops too, that you have to identify and then maximize. These are the growth and re-engagement loops. These are classic loops, you talk about these a lot, they exist in marketplaces and social products. How do you get it so that, as your users use the product, they want to share it with other people? They create metadata that you can then use for SEO. You have collaborative experiences that pull other people in. There's all different things you can do here. And then, there's also things that you can do to re-engage a user.</p>
+<p><strong>Sarah Tavel</strong> (00:16:18):<br />
+As an example, in the early days of Pinterest, if you pinned something, you're pinning something that you found on Pinterest that somebody else pinned. So we would send a push notification, "Hey, Lenny, Sarah just pinned your pin to her art board." Now, if you were a dormant user at that point, it's been a couple weeks since you'd used Pinterest, that notification might pull you back into Pinterest and be like, "Hey, I wonder what other pins Sarah has on her art board." It's a great re-engagement loop where Pinterest doesn't have to do anything there intentional. The user is creating the action that drives the outcome that Pinterest wants in that example. </p>
+<p><strong>Sarah Tavel</strong> (00:17:03):<br />
+Now, as much as I love Evernote, this is a place where Evernote obviously falls down. There's no loops that they can take advantage of, that when I use the product, I make it better for you. There's no loop where, when I use the product, I want to pull you into the product. They tried at some point, to do collaborative journals, it doesn't work. That's a place where, because of that, Evernote had to spend money to acquire users, they tapped out. They missed that level three. </p>
+<p><strong>Sarah Tavel</strong> (00:17:38):<br />
+There's other examples I could speak to, of companies that weren't able to transcend to level three, that you wouldn't otherwise think. I think of companies like Houseparty and Clubhouse. What was interesting about both of those products is that you would think that the more users that came into Clubhouse or Houseparty, the faster the flywheel should spin. But the challenge was that they relied on push notifications. I don't know if you had this experience, but let's take Houseparty as an example. You started to follow a lot of people on Houseparty, and then all of a sudden, your push notifications just got overwhelming. Because it was a realtime product, that you had to use push noti cations to know the moment to join the product, but when you had so many push notifications because the more people you followed, the more notifications you had, you just get to this point where you start ignoring them. It becomes this thing where, even though the flywheel should be spinning faster, it starts breaking down. That's the real tricky nuance in this level three.</p>
+<p><strong>Lenny</strong> (00:18:52):<br />
+I think people hearing this are going to be like, "Okay, getting people to use your product more often, increase retention, make it viral basically," it's stuff they already know. But I think what's powerful about this is this is just a lens, a clarifying lens on what is most important. There's so many things you can be focusing on to increase your product's success and help it grow. What I love here is just, "Here's the three most important things, and then here's the levels." They build on each other. If you want to increase retention, get people to do the core action more often. If you want to help it grow, focus on helping it spread, self-perpetuate. </p>
+<p><strong>Sarah Tavel</strong> (00:19:30):<br />
+Yeah, I know. That's absolutely right. The importance of it is I can't emphasize enough how important focus is when you're building these companies. It's so hard. There really isn't a playbook. Every company, the ones that succeed have to be fundamentally different from anything that was before it. But there are these first principles of the ingredients that they all share, and you can use those ingredients to really focus you when you're going through the inevitable growth curve and wanting to know, "Well, how do we maximize this moment? How do we really focus on the things that will set us most up for success?" That's where I think a framework like this can be really clarifying. </p>
+<p><strong>Lenny</strong> (00:20:17):<br />
+There's a lot of depth behind each of these things that you're being modest about. One is, with the top of this pyramid of making it self-perpetuating, the reason that's really important is for a consumer app to work well most of the time, it has to be able to spread really cheaply. The cost of acquisition needs to be very low, unless you somehow figure out some paid ad strategy where you can make money with paid ads, which is very rare. So maybe speak to why that's so important to a consumer product.</p>
+<p><strong>Sarah Tavel</strong> (00:20:45):<br />
+Yeah. What are you trying to build with a consumer product? You're not trying to build something niche. You want to build something that can be a mass-market, hundreds of millions of users, billions of users. It would take considerable capital to do that with marketing. There's one example that we have so far, which is TikTok, of spending more than $1 billion, once they figured out actually the first two levels in order to grow. They didn't actually put user acquisition spend behind TikTok until they had a product that was retentive, and then they know that they really wanted to maximize that. But every other social product has grown organically. They've been able to do so because they've figured out how to maximize these loops. Even TikTok got to millions over users before they spent all the capital to acquire those remaining users. </p>
+<p><strong>Lenny</strong> (00:21:52):<br />
+I didn't know that number. TikTok spent $1 billion on paid ads-</p>
+<p><strong>Sarah Tavel</strong> (00:21:56):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:21:56):<br />
+To get to where they are today? </p>
+<p><strong>Sarah Tavel</strong> (00:21:57):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:21:57):<br />
+Holy moly. </p>
+<p><strong>Sarah Tavel</strong> (00:21:58):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:21:59):<br />
+I knew it was many millions, but I didn't realize it was $1 billion.</p>
+<p><strong>Sarah Tavel</strong> (00:22:04):<br />
+Yes. </p>
+<p><strong>Lenny</strong> (00:22:04):<br />
+That just shows you how hard it is to break in and become a new social network, essentially, or a new social app. </p>
+<p><strong>Sarah Tavel</strong> (00:22:10):<br />
+It is hard. And then, at the same time though, we do see exceptions to it where I still feel like consumers are hungry for new experiences. We've seen a couple over the last few years that have gone into tens of millions of users. Nothing that has really created the experience that's sticky enough to pull minutes away from, really TikTok and Instagram, which just are these dominant forces right now. </p>
+<p><strong>Lenny</strong> (00:22:42):<br />
+Your message also reminded me of a recent guest post on my newsletter about this app Saturn, I don't know if you read it. </p>
+<p><strong>Sarah Tavel</strong> (00:22:49):<br />
+Oh, I didn't. But I know of the app, and it's just an awesome founder.</p>
+<p><strong>Lenny</strong> (00:22:53):<br />
+Yeah. It was really interesting. They had a really interesting insight about, first of all, very few apps ever make it to the top of the app store that break through what's already there. The ones that do almost always spend a few days there and then, are gone because it's a one shot thing. What they basically talked about is many apps have this viral K-factor, where they spread like crazy, everyone starts using them, everyone's in there. But then the opposite happens very quickly, too, where if a few people miss using it a few days, you go in there and it's, "Oh, nothing's happening here anymore," and it quickly crumbles. Clubhouse essentially went through this, BeReal started go through this, where people stopped posting and then, "All right, forget this. Everyone's gone." Most apps have this destructive K-factor that kicks in, the same way it kicked in to get it to spread. </p>
+<p><strong>Sarah Tavel</strong> (00:23:36):<br />
+Yes. As people say, when something grows really quickly, it also can collapse really quickly. </p>
+<p><strong>Lenny</strong> (00:23:43):<br />
+Yeah. Tough. I guess along those lines, is there anything you've seen or learned ... The idea of this framework is to avoid that, essentially. But I guess, is there anything comes to mind to avoid that? </p>
+<p><strong>Sarah Tavel</strong> (00:23:55):<br />
+One other thing that I've seen that runs into a challenge, and I find it runs into a challenge particularly with level two, is anonymity. Anonymity is something where ... Pseudo-anonymity and anonymity are very different concepts. With pseudo-anonymity, we have it on Twitter, you have it on Reddit. You have a persistent identity that you're creating, and that identity then can have accruing benefits, mounting loss. My pseudo-anonymous account on Twitter that just flames other VCs ... I'm just kidding.</p>
+<p><strong>Lenny</strong> (00:23:55):<br />
+This is breaking news.</p>
+<p><strong>Sarah Tavel</strong> (00:24:35):<br />
+I'm not funny enough to make something like that. But for the people who do have it, they get accruing benefits because they get people to follow them. And that's the mounting loss too, where they've grown their identity on a platform even though it's a pseudo-anonymous identity. The challenge when you have pure anonymity is that you don't have that accruing benefit or mounting loss that happens. </p>
+<p><strong>Sarah Tavel</strong> (00:25:05):<br />
+I don't know if you ever played with Secret, but it's similar to TikTok or something like that. These are the types of experiences where, over time ... The network effect doesn't work because the anonymity creates the conditions for bad behavior, so that starts to pull down the community. And then, it is also the experience where you'd use a product and you can delete, and then come back three months later, and because of the anonymity aspect of it, your experience isn't any different. I find anonymity, people keep trying it, and super talented founders keep hitting their head against that wall because it has the very early fun growth, but it just continues to be a product that isn't able to persist without some persistent identity. </p>
+<p><strong>Lenny</strong> (00:26:05):<br />
+I'm going to pull on this thread of just ways to increase retention. Basically, this is one of the things, maybe the main thing you're telling people to help increase retention, make it so that it's really hard to leave. Before we get there, just to make it clear, is this framework mostly for social consumer products, or do you generalize it to consumer products? </p>
+<p><strong>Sarah Tavel</strong> (00:26:25):<br />
+I think it's consumer products in general.</p>
+<p><strong>Lenny</strong> (00:26:29):<br />
+Okay.</p>
+<p><strong>Sarah Tavel</strong> (00:26:29):<br />
+But it makes the most sense for consumer social. </p>
+<p><strong>Lenny</strong> (00:26:34):<br />
+Okay, got it. </p>
+<p><strong>Sarah Tavel</strong> (00:26:34):<br />
+It works for Evernote. Evernote isn't a consumer social product. </p>
+<p><strong>Lenny</strong> (00:26:39):<br />
+Awesome. Okay, so it's most helpful for if you're the social, your friends are in it sort of product?</p>
+<p><strong>Sarah Tavel</strong> (00:26:45):<br />
+Right. You have the chance of level three with social.</p>
+<p><strong>Lenny</strong> (00:26:48):<br />
+Right, awesome. Okay. On this thread of retention, it's a thing that I speak about often, everyone always talks about. The most important thing you got to get right is get retention to a good place because if you can't retain people, nothing's going to work anyway. </p>
+<p><strong>Lenny</strong> (00:27:02):<br />
+So just to spend a little more time here, is there anything else you recommend to founders to help them with increasing retention and getting to a healthy place with retention? </p>
+<p><strong>Sarah Tavel</strong> (00:27:13):<br />
+Number one is actually measuring it. I can't tell you how many times I suggest to a founder to track cohorts and that's a new thing. Just being really, really clear and intellectually honest on looking at cohorts I think is number one. </p>
+<p><strong>Lenny</strong> (00:27:34):<br />
+Okay, maybe just describe that briefly, and then we'll link to an article that I have about how to do that. </p>
+<p><strong>Sarah Tavel</strong> (00:27:38):<br />
+Perfect. These are the moments when I should probably turn the mic over to you, to talk about-</p>
+<p><strong>Lenny</strong> (00:27:44):<br />
+Nope, you're in the hot seat. </p>
+<p><strong>Sarah Tavel</strong> (00:27:46):<br />
+[inaudible 00:27:46]. A cohort, what I always like to look at is weekly cohorts for these products. You look at them in two ways. Which is one, for each vintage of cohorts, you're looking at a group of people who signed up in a given week, and that's one. </p>
+<p><strong>Sarah Tavel</strong> (00:28:00):<br />
+... like a group of people who signed up in a given week and that's one cohort. You look at it both on an active user basis, like are those people continuing to come back to the product? And I particularly love to look at that on a weekly active user completing the core action pieces of like, are users completing the core action? How is that changing overtime for each of the cohorts? And then also, looking at activity level within those cohorts. And so, what you love to see is the kind of classic smile graph where, as the network grows and users start to use the product more and more, you start to see that, overtime, they actually become more retained in the product as opposed to kind of the classic leaky bucket where the cohort just keeps on dwindling down. And until you reach a point with your cohorts where there is a plateau, you have more work to do on figuring out the retention of your users.</p>
+<p><strong>Sarah Tavel</strong> (00:29:04):<br />
+The second thing is just focus. So I can't tell you how how many times also you'll meet a founder and they will... There was one example I saw, it was a kind of a dating app, friend making app, and he was growing it via TikTok, which is not geographically constrained at all. And so, he's growing the user numbers, but without focusing on a specific geography, it's gonna be really difficult to make that type of product a high retention product.</p>
+<p><strong>Lenny</strong> (00:29:39):<br />
+Coming back to the framework, which layer do you find most often is the one founders maybe are under-investing in/maybe the most important to focus on if you had to pick one of these, or is it super dependent on your situation?</p>
+<p><strong>Sarah Tavel</strong> (00:29:54):<br />
+What I often feel is that, a lot of times, product founders, consumer founders, see where they want to get to, they compare themselves to the full expression of a product that you see with other products, ROBLOX, Instagram, TikTok, whatever it may be, and they want to get there.</p>
+<p><strong>Sarah Tavel</strong> (00:30:19):<br />
+But what that ends up meaning when the when a new user signs up is that there's too much in the beginning to to take in and understand, and you don't then have a very focused product that gets the user to the thing that you most want them to do. And that's actually part of the importance of understanding level one, what your core action is, is that you want to make sure that when a user comes to your product, signs up for the first time, doesn't have necessarily a lot of contacts on what the product is itself, that they see the thing that they're supposed to do and you get them to do it. And a lot of times, in the beginning, there are just so many other things that a product might have that you're defusing that attention that they would otherwise have had on the on the thing that's most important. </p>
+<p><strong>Sarah Tavel</strong> (00:31:19):<br />
+And so, I feel that that's the first mistake, and it's kind of natural that it would be the first mistake, but maybe the largest mistake that I see people make. </p>
+<p><strong>Lenny</strong> (00:31:32):<br />
+Essentially, not getting the activation moment right, not focusing enough on getting people to that aha moment as people describe, and then again, that repeating again and again as a core action. </p>
+<p><strong>Sarah Tavel</strong> (00:31:42):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:31:43):<br />
+To close the loop on this sort of discussion, could you just share again a few examples of core actions/activation moments, just to make this fresh again in people's minds? And then also, just whatever you could share about helping people decide what that is. I know it's a difficult thing to do well, but any advice for how to find that activation?</p>
+<p><strong>Sarah Tavel</strong> (00:32:03):<br />
+I mean, I'll tell you the exercise that we did at Pinterest because as I mentioned before, it wasn't obvious to us in the beginning of Pinterest like were we a social network? Like should we optimize for the follow graph? But you have to remember, Pinterest, this was 2011, you had Twitter growing like crazy, Instagram was growing. Those were both asymmetrical follow graphs that they were creating, right? And so, it wasn't clear at the time whether Pinterest was actually just creating a new follow graph, but that was about things instead of what Twitter was or what Instagram was. And so, it wasn't obvious.</p>
+<p><strong>Sarah Tavel</strong> (00:32:45):<br />
+And what happened actually is that there was two efforts that I think of as like kind of bottoms-up and top-down that helped really clarify that, actually, pinning something was the core action, it was going to be our North Star. We called it weekly active pinners.</p>
+<p><strong>Sarah Tavel</strong> (00:33:03):<br />
+And the two things were, there's always this like bottoms-up analysis that you do, which is, we looked at every action that you could do on Pinterest, so we had liking, following, clicking through, time on site, pinning, repinning. And we looked at, first of all, what percentage of users complete those actions? And if you do that action in a week, what's your propensity to come back the following week? And we basically ranked that.</p>
+<p><strong>Sarah Tavel</strong> (00:33:38):<br />
+And what we saw was that if you pinned something, repinned something, which is finding something on Pinterest, I'm using those synonymously, or click through, you had an incredibly high probability that you would come back. So if someone's pinning something, they're coming back to Pinterest the next week with a super high, more than 90% probability at the time.</p>
+<p><strong>Sarah Tavel</strong> (00:34:02):<br />
+And then there's like the top-down way of thinking about it, which is, well, what is Pinterest for? And if a user does come to Pinterest and they never add something to a board, do they really understand what Pinterest is? And yes, clicking through makes you want to save it. The click through is valuable, you want save it, so clicking through is obviously really important. But at the end of the day, if they don't like that pin enough that they want to save it themselves to their board, then we haven't done our job. </p>
+<p><strong>Sarah Tavel</strong> (00:34:36):<br />
+And so, we did this kind of top down, bottoms up analysis to make it very clear that when we launch an experiment or launch a new feature, if the probability, if the percentage of people that pin something doesn't go up, or the number of pins for that cohort doesn't go up, that experiment is not a a successful experiment.</p>
+<p><strong>Lenny</strong> (00:34:58):<br />
+Awesome. There's a post I'll link to in the show notes where there's actually a guide to doing this regression analysis on how to figure out your activation milestone.</p>
+<p><strong>Sarah Tavel</strong> (00:34:59):<br />
+Amazing.</p>
+<p><strong>Lenny</strong> (00:35:08):<br />
+Basically, what is most causal of retention as you're describing. And I love this example from Pinterest. Any other just examples? Again, you shared a few at the beginning of just examples of great activation milestones/core user actions.</p>
+<p><strong>Sarah Tavel</strong> (00:35:20):<br />
+I'll tell you one other one that I thought was super interesting, which is that when I initially published this post, I had assumed wrongly that YouTube's core action was watching a video. And then Shishir Mehrotra, who was the kind of CPO of YouTube, he reached out to me and he said, "That's what it was in the early days, but we started to realize that it wasn't actually our core action. And we did a lot of analysis on YouTube and what we realized was that subscribing was the core action on YouTube."</p>
+<p><strong>Sarah Tavel</strong> (00:35:59):<br />
+And it makes so much sense when he said it, right? You're a creator, you're uploading content onto YouTube, there are a lot of other places at that time that you could have uploaded that content to, but you care about YouTube because that's where you're growing your audience, right? And so, the more people that subscribe to your content on YouTube, the more you have the accruing benefits and mounting loss of using YouTube.</p>
+<p><strong>Sarah Tavel</strong> (00:36:26):<br />
+And so, that was super important on the creator side, which, one of the funny things that will bridge to our next conversation is that all social products are really marketplaces, right? YouTube is a marketplace. You have the creators uploading content and the viewers who are watching it, supply and demand.</p>
+<p><strong>Sarah Tavel</strong> (00:36:46):<br />
+And so then, the subscribe button is also very interesting because then from the demand side, the viewer, why would I come back to YouTube consistently versus, again, all the other places I could spend time on if it weren't for me having found creators for whom their content really resonates with me so much so that I subscribe to their content? </p>
+<p><strong>Sarah Tavel</strong> (00:37:10):<br />
+And so, I loved that example because it showed a little bit the evolution that can happen with these companies, but then also, just the beauty of like you know you've got something really right with the core action when it's helping both sides of your network.</p>
+<p><strong>Lenny</strong> (00:37:26):<br />
+Awesome example. And I think it's also a good reminder people change these things. "You come up with your best bet. Okay, we tried this for six months, maybe let's try something else. We've learned something new."</p>
+<p><strong>Sarah Tavel</strong> (00:37:36):<br />
+Exactly.</p>
+<p><strong>Lenny</strong> (00:37:37):<br />
+I'm also going to link to this post I wrote around finding your North Star metric, which was like such a multimedia conversation with just links for all these topics to go deeper. Essentially, I figured out the North Star metric for, I don't know, 30 companies. And I feel like the North Star metric of a company ends up often being this core user action. So like Pinterest, it sounds like those WAPs, weekly active pinners.</p>
+<p><strong>Sarah Tavel</strong> (00:38:00):<br />
+Yeah. Pinners, yeah.</p>
+<p><strong>Lenny</strong> (00:38:01):<br />
+And YouTube is subscribers.</p>
+<p><strong>Sarah Tavel</strong> (00:38:04):<br />
+In the beginning we called it weekly active repinners and war because we felt like we were at war, so it was good.</p>
+<p><strong>Lenny</strong> (00:38:09):<br />
+And then, it became peacetime maybe.</p>
+<p><strong>Sarah Tavel</strong> (00:38:10):<br />
+Yes, exactly. </p>
+<p><strong>Lenny</strong> (00:38:11):<br />
+Awesome.  So maybe just to close the thread on this framework, can you just briefly summarize who this is most helpful for and just how they could apply it if they're maybe not growing as fast as they want or they're just getting started as a founder building a consumer product?</p>
+<p><strong>Sarah Tavel</strong> (00:38:29):<br />
+Yeah, I think about consumer founders, product founders, product leaders in these companies that are thinking through the road map. What is the most important things that they need to prioritize, the big rocks, for the immediate short-term? And the framework then provides a lens on what to prioritize.</p>
+<p><strong>Lenny</strong> (00:38:51):<br />
+And we'll link to the whole framework for people that want to go deeper.</p>
+<p><strong>Sarah Tavel</strong> (00:38:54):<br />
+Awesome.</p>
+<p><strong>Lenny</strong> (00:38:54):<br />
+Okay, so let's move on to your second framework that you called the hierarchy of marketplaces. And first of all, I want to give a shout-out to Mike Williams, who's the founder of Everything Marketplaces, who gave me a bunch of good question suggestions to ask as we do this.</p>
+<p><strong>Sarah Tavel</strong> (00:39:07):<br />
+Wonderful, now I'm nervous. </p>
+<p><strong>Lenny</strong> (00:39:10):<br />
+He's Mr. Marketplace.</p>
+<p><strong>Sarah Tavel</strong> (00:39:11):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (00:39:12):<br />
+Okay, so let's start with the same question, just what's kind of the broad way to think about what this framework is and who it's for? And then, where did it come from?</p>
+<p><strong>Sarah Tavel</strong> (00:39:18):<br />
+It's a framework or hierarchy that is for marketplace founders. It could actually be B2BC or B2C, or marketplace product leaders that are like either getting started or scaling their marketplace and helping kind of prioritize and focus on the things that most matter.</p>
+<p><strong>Sarah Tavel</strong> (00:39:42):<br />
+And it came out of a similar reaction, a very similar parallel to what I was experiencing, meaning, all these consumer social founders. Like they would talk about MAUs and I just felt like it didn't get to the heart of whether they were building enduring value. And I actually started to realize that GMV was very similar. GMV, it's a metric that it seems like... Of course, you can't build a marketplace without growing GMV in the same way that you can't build a social product without growing MAUs. But if you focus, if the race that you think you're running is to grow MAUs or to grow GMV, you're not actually going to run the right race. It can take you... </p>
+<p><strong>Sarah Tavel</strong> (00:40:32):<br />
+And actually, with marketplace, very interestingly, it can take you in the wrong direction. So what would happen is I would meet all these founders and everybody got fixated on this milestone of $1,000,000 of GMV. Right. And I think a lot of people started to feel like if you could hit $1,000,000 of annualized GMV, it means you're ready for your Series A. But it's kind of self-evident that not all GMV is created equal, right?</p>
+<p><strong>Sarah Tavel</strong> (00:41:02):<br />
+So imagine a food delivery company 10 years ago. You could have $1,000,000 of GMV by focusing on LA, or $1,000,000 of GMV by focusing on Boston, or you could have $1,000,000 of GMV by having $500,000 here, $200,000 here, like spreading it out. And I would meet so many founders who would say, " Oh, well, I thought we had to prove out that the value proposition resonated in these other cities and so, that's why we're diffusing our focus." But what they what I would always feel is like they were just making their job so much harder by doing that.</p>
+<p><strong>Sarah Tavel</strong> (00:41:46):<br />
+The other way you could think of it is like if you're trying to get to $1,000,000 of GMV as quickly as possible, you're actually motivated to go after a really big market, right? It's a lot easier to get to $1,000,000 of GMV when you're skimming the cream on this big ocean of a market, then to be very, very focused on a smaller market. And getting to $1,000,000 of GMV in a constrained market is a lot harder, takes longer, but it's actually the path to building something that endures.</p>
+<p><strong>Sarah Tavel</strong> (00:42:16):<br />
+And so, I was having the same conversation again and again and I just felt like I needed to crystallize it or synthesize it in a way that would be easier to communicate, and that's what led to this hierarchy.</p>
+<p><strong>Lenny</strong> (00:42:30):<br />
+Awesome. Okay, cool. So you've touched on a number of the important elements of this hierarchy, so let's dive in.</p>
+<p><strong>Sarah Tavel</strong> (00:42:35):<br />
+Okay. There's probably a couple core insights, but the first one that I think about with this hierarchy is that when you're building a marketplace, you actually have to start from the goal and work backwards from there.</p>
+<p><strong>Sarah Tavel</strong> (00:42:51):<br />
+Now, what's the goal? Marketplaces, I mean, you have so much incredible content on this, they're just incredibly difficult to build. You're basically building two companies at the same time, right? You have the product and go-to-market org for the demand side, the product and go-to-market org for the supply side. And somehow, you have to make these two line up so that they serve each other's needs. It's an incredibly difficult dance. And yeah, it's one of the hardest types of companies in the software world that I think you can build.</p>
+<p><strong>Sarah Tavel</strong> (00:43:29):<br />
+And you do it because you think about the the full expression of these models and you think about companies like Airbnb or Amazon or eBay or Google, where once you have scale and have very dominant market share, you have a product that just is the best place without question of fulfilling this need. And they end up being very profitable cash-flowing businesses. And you see that, and that's the business that you want to build, that's why you're going through all the hardship of building a marketplace, getting the marketplace off the ground to get to that place.</p>
+<p><strong>Sarah Tavel</strong> (00:44:10):<br />
+And there's kind of very clear analysis. I published it in the hierarchy. I have this incredible graph that I remember seeing when I board observer for this online classified company called OLX led by Fabrice Grinda. And it kind of shows that the more dominant a marketplace is relative to the number two in its space, the more profitable that business is. And so, it's just like a very clear like you don't want to be... Obviously, when you're building a marketplace, you don't want to be in the middle of the pack, but even being number one but just barely number one doesn't give you any of the benefits of a marketplace model, you're fighting for each incremental point of market share. It's not clear to the supply side or the demand side that you're like the main place to be. And so, it only becomes really clear once you have that dominant market position where you're just so much bigger than the number two</p>
+<p><strong>Sarah Tavel</strong> (00:45:09):<br />
+And the only way to get to that place, to get to that moment of real dominance where you have this winner take most dynamic is that you have to tip your market, and that's the only scalable way to do that, and that's what level two is.</p>
+<p><strong>Sarah Tavel</strong> (00:45:26):<br />
+And so, how do you maximize your chance of tipping a market? You have to focus on a really constrained opportunity, and that is level one. So that's kind of like the broad framing, which is like a really important thing of how, when you're building a marketplace, you actually are building towards that point of dominance. And so, it's part of the reason why being really, really, really focused in level one is so important.</p>
+<p><strong>Lenny</strong> (00:45:57):<br />
+Awesome. So you walked through this backwards. Just to summarize in case people didn't totally catch it, basically, layer one is focus, layer two, tip the market, layer three, dominate the market.</p>
+<p><strong>Sarah Tavel</strong> (00:46:08):<br />
+Exactly.</p>
+<p><strong>Lenny</strong> (00:46:09):<br />
+Awesome.  So let's maybe start with layer one of just focus-</p>
+<p><strong>Sarah Tavel</strong> (00:46:09):<br />
+Let's do it.</p>
+<p><strong>Lenny</strong> (00:46:13):<br />
+... which I think is the most counterintuitive step for people building a marketplace where, as you said, normally, it's go big as fast as possible, get as much GMV as possible, just make everyone happy as quickly as you can. And your advice is, essentially, do the opposite. Make it very...</p>
+<p><strong>Lenny</strong> (00:46:29):<br />
+You have this like great acronym of thimble that, I imagine, you'll talk about that I love, I always think about. So yeah.</p>
+<p><strong>Sarah Tavel</strong> (00:46:34):<br />
+Yeah. And part of what's so hard about this idea focus is I'm lucky to meet with just incredibly ambitious founders. And the hardest thing I think about building these marketplaces is that the ambition can often feel like this sun, like the heat of the sun that's trying to warm everything up, and you're going after this big market, warming the ocean.</p>
+<p><strong>Sarah Tavel</strong> (00:47:05):<br />
+And I think that, really, what the the best, ambitious founders do is they focus that ambition like a laser beam on a small market, the thimble. And what you do is like you're getting that thimble, you're getting the product market fit really, really right with this like small, constrained market. And if you heat that up really, really hot, then it expands from there. </p>
+<p><strong>Sarah Tavel</strong> (00:47:29):<br />
+And part of this is that we have to accept a couple of points of scarcity. One is that, you can't raise hundreds of millions of dollars from the start, where we, especially today, live in a world where there is a constraint around capital. And so, you have to be able to take that capital in the beginning and make the most out of it. And the only way to do that is to be very, very focused.</p>
+<p><strong>Sarah Tavel</strong> (00:47:57):<br />
+And the second thing is that the constraint is the founder's attention. And again, these things are really, really difficult to to get off the ground, and the only way that you can do it is by having myopic focus on a segment.</p>
+<p><strong>Sarah Tavel</strong> (00:48:13):<br />
+And the example that I always think about was a very cool thing that we all got to see, which is when the food delivery wars happened, where you had companies like DoorDash and Postmates and Uber Eats, and then, the incumbents of Grubhub, take very different strategies. I make comparisons to Postmates and and DoorDash, both successful companies, but Postmates, from the very beginning, had very big ambition and went after all the big cities. They went after, not just restaurants, but restaurants and Apple and retail, bicycle. I remember, there were so many things that they went after all at the same time.</p>
+<p><strong>Sarah Tavel</strong> (00:49:06):<br />
+And when you're playing that game, you're always being compared to whatever other substitutes there are in the market, right. And you're it and that just when you have constraint of capital and attention you're you're spreading yourself thin across a lot of different vectors of kind of preference for the customer and the seller.</p>
+<p><strong>Sarah Tavel</strong> (00:49:28):<br />
+DoorDash on the other hand, famously and very controversially went after the suburbs in the beginning. And the beautiful thing about the suburbs is that there is very little competition because no one thought that you could do it economically. And they probably weren't wrong in the beginning, like DoorDash lost a lot of money in the beginning fulfilling delivery in the suburbs, just because the delivery times, the driving was so long, but by going after a market that other people weren't focused on, it let them get to a place where they were able to really make the customers on both sides of their marketplace happy enough that they retained.</p>
+<p><strong>Sarah Tavel</strong> (00:50:11):<br />
+And this word happy I use, I should expand on it a little bit because the realization I had as I reflected on this kind of feeling that GMV is really actually a vanity metric, it doesn't get at the core of whether you're building enduring value. It's like very clear and there's plenty of examples I could give where there are companies that had incredible scale and still were disrupted by a startup. And it's because actually, customers don't care how big you are, they don't care how many transactions you've accumulated. What they care about is when they have a transaction with you, how happy do you make them? How much better is the experience that you provide than any other substitute that they could use? And if you do a good job, then they're gonna keep coming back to you. And so I call it happy GMV.</p>
+<p><strong>Sarah Tavel</strong> (00:51:11):<br />
+And that's actually the thing that I think you as a founder or product leader have to focus on, which is, what do I think is going to be the experience of a buyer or seller that leads them to retaining and tracking that as like the happy path and therefore, the happy GMV.</p>
+<p><strong>Lenny</strong> (00:51:29):<br />
+Amazing. I love that concept, happy GMV. You also kind of extend this idea and I think you call it the minimum viable happiness is what you want to create when you're building this marketplace, this symbol of water that you're trying to boil into something incredible. What's the minimum version of that that creates really happy customers?</p>
+<p><strong>Sarah Tavel</strong> (00:51:52):<br />
+That's right.  Yes. And kind of the way to think of it is like, obviously, when you're a marketplace founder you know that in order to build something endures, you're going to have to grow. But you in the beginning, you're you're doing all these things that don't scale, you're working on your product experience, you're taking friction out of the transaction, and you want to get to a point where there's a certain percentage of people that retain after having done a transaction. And so, you're kind of doing the work, doing the work, doing the work to get to that minimum threshold. And that's when you know you get to kind of go to the next step of starting to figure out the levers to really scale what you're doing.</p>
+<p><strong>Lenny</strong> (00:52:36):<br />
+Awesome.  And again, it's easy to say, it's difficult to do as a founder to tell them like, "You just need to get a small version of this marketplace working, versus you go big really quickly." And so, most of the time, I think it's actually like location, basically start in a city if it's location-oriented. Or if it's all online, pick like one niche to focus on, like Etsy was like, craft fair goods, right?</p>
+<p><strong>Sarah Tavel</strong> (00:53:02):<br />
+Exactly. And sometimes, as we saw with Postmates, sometimes it's both, which is, geography and category. Again, you have to assume scarcity of your capital, of your attention, of your customers attention and so getting complete clarity of what is the experience that you want to really nail, what's that happy path you're optimizing for, constraining that in the beginning gives you the option, the optionality to grow beyond that, but if you don't constrain, you just won't be able to get there fast enough.</p>
+<p><strong>Lenny</strong> (00:53:42):<br />
+This entire episode is brought to you by Gelt, your gateway to smarter tax solutions. Navigating the world of taxes can be complicated and stressful, Gelt is here to change that. They blend advanced technology with expert CPA knowledge to handle your taxes effortlessly. Whether you're a business owner, investor, or executive, Gelt is here to optimize your tax strategy and enhance your financial success. People working at companies such as Notion, Google and Lyft have already experienced the guilt difference. They've seen significant savings and a transformation in their tax handling. And now it's your turn.</p>
+<p><strong>Lenny</strong> (00:54:18):<br />
+Why choose Gelt? Because they offer year-round proactive tax planning and clear, fast communication. With their technology, you'll stay ahead, making the most of every tax benefit. Ready to elevate your tax strategy? Visit joingelt.com/lenny today. With Gelt, you'll save more and stress less. Again, that's joingelt.com/lenny, join, G-E-L-T.com/lenny. Redefine your approach to taxes with Gelt.</p>
+<p><strong>Lenny</strong> (00:54:47):<br />
+I want to talk about what it looks like when you you've got it working and it makes sense to start expanding, but before I do, there's one kind of example I found in my research which is really interesting, which is Thumbtack where they, from the beginning, went national and across many categories. And the founders admit maybe that wasn't the right idea. It took them a long time to get to something that was really working. But on the other hand, their thinking was to create enough of a flywheel for people to keep coming back. How often do you need a plumber? How often do you need a DJ? So there's-</p>
+<p><strong>Sarah Tavel</strong> (00:55:22):<br />
+I was just going to say that is the trickiness with Thumbtacks model and it persists as the trickiness with their model, which is that you don't have a high repeat use case there and so you have to... One of the really important things with building a marketplace is cornering the buy side, like having a relationship with the buy side where they don't even think about where they're gonna go, they come to you. And if it's a plumber, you use that so infrequently that every time you are going to look for a plumber, you're gonna start at Google, right? You're not gonna assume, "I'm gonna go to Thumbtack to find that because-</p>
+<p><strong>Sarah Tavel</strong> (00:56:00):<br />
+I'm not going to assume I'm going to go to Thumbtack to find that because you've already forgotten by that point. And so you need to have enough touch points with the consumer so that they'll have a relationship with you and start to think of you as a place to go to. And that's probably, that was the trickiness with Thumbtack. And by the way, when we talk through level two, that also level two will articulate some more of that trickiness.</p>
+<p><strong>Lenny</strong> (00:56:27):<br />
+Awesome. By the way, I do use Thumbtack. It's implanted in my head of that's where to go to find plumbers and stuff.</p>
+<p><strong>Sarah Tavel</strong> (00:56:32):<br />
+That's great. I mean those founders, I adore Marco. He is an incredible, incredible founder.</p>
+<p><strong>Lenny</strong> (00:56:38):<br />
+As a segue to layer two, what are signs that you've done a good job at focusing and things are working? You have this term that I love of creating a white hot center, so maybe speak to that, or just what tells you, it's like, "Cool, I think we've got this very focused thimble. How do we know it's time to go?"</p>
+<p><strong>Sarah Tavel</strong> (00:56:57):<br />
+Yeah, I think it's very much that you see people retaining. You just feel that where people are texting you or emailing or whatever it is, that they've had a great experience and you see them coming back. And you're not going to make everybody happy. Let's all accept that. But there's a core of users, a persona that you are able to make really happy. That's when you know that you're on the right track.</p>
+<p><strong>Lenny</strong> (00:57:29):<br />
+Awesome. It's essentially the very fuzzy product market fit question.</p>
+<p><strong>Sarah Tavel</strong> (00:57:33):<br />
+Yes, yeah.</p>
+<p><strong>Lenny</strong> (00:57:33):<br />
+And I'll link to a few posts I've written that help people get there. I guess is there anything you want to add there like this?</p>
+<p><strong>Sarah Tavel</strong> (00:57:39):<br />
+The only thing I'll add, those two things related I'll add. I don't like NPS for this, and I have a whole blog post on this. I like Sean Ellis's question of how disappointed would you be if this product disappeared? And I think it's if you have at least 40% of people respond that they'd be very disappointed, then you're on the right track. That's kind of the feeling that should tell you you're on the right track.</p>
+<p><strong>Lenny</strong> (00:58:06):<br />
+Awesome. Okay, let's talk about layer two around tipping the marketplace.</p>
+<p><strong>Sarah Tavel</strong> (00:58:10):<br />
+So layer two, I think, will actually illuminate again the importance of that constrained focus for layer one. You're doing all these things that don't scale, that you've written so much about, Lenny, about kick-starting, the marketplace, all those things that you can't just keep on doing forever.</p>
+<p><strong>Sarah Tavel</strong> (00:58:29):<br />
+Now, layer two, level two is about figuring out how to do things that do scale. And really, you're doing it in service of this kind of mythical moment of a tipping point. And the tipping point is this idea that you often reach some kind of saturation point in a market. You've reached an experience, you've kept on working on the product experience, you've taken a lot of friction out, and you keep on growing, growing, growing. And you're doing that in service of increasing happiness.</p>
+<p><strong>Sarah Tavel</strong> (00:59:06):<br />
+And this is a really important thing. The growth that you're doing, you should have a lot of clarity on your flywheel at this point, and know that you're growing in service of accelerating your flywheel. And people talk about the flywheel as liquidity. You could think of it as happiness, which is that the more the flywheel spins, the more you're able to make both sides of your marketplace happy.</p>
+<p><strong>Sarah Tavel</strong> (00:59:33):<br />
+And what you're doing is you're growing into a greater percentage of your market. And as you're doing all these things again that don't scale, then you reach this moment where things start to get a lot easier. You've kind of pushed the boulder up the hill and it starts to slide down. And what you notice first, I think, is you start to see it on a micro level where you might have suppliers that start to tip to you or buyers that tip. You might see your cohorts get a little bit better. You start to see some organic growth.</p>
+<p><strong>Sarah Tavel</strong> (01:00:06):<br />
+And let me give a story or an example of a company that I got to see where the marketplace started to tip. So we're investors in a company called REKKI. And REKKI is a marketplace for restaurants and their suppliers. And it's, imagine in the beginning, this kind of app that you could use. It almost looked like WhatsApp, that a chef could use instead of doing a voicemail at midnight when they're leaving the restaurant or typing something into WhatsApp and texting it to their supplier, an email, whatever it is. They could use this REKKI app and it would make it a lot easier for them to do that. And then of course the marketplace elements is that then they'll be able to discover other suppliers on REKKI if they need them.</p>
+<p><strong>Sarah Tavel</strong> (01:00:57):<br />
+Now in the beginning, REKKI had to have their own sales force and they were going to London, knocking on the doors of these restaurants, finding and cornering probably the chef in the kitchen to show them the app, to get them to change to this new app called REKKI. And it's a very high cost of sales effort to have, as you might imagine. But then what started to happen is that every time they got a new chef onto REKKI, that order would then go to the supplier that that restaurant normally ordered from. And so instead of getting the voicemail, the supplier would start to see a nice order form that was from the restaurant and provided by REKKI, powered by REKKI.</p>
+<p><strong>Sarah Tavel</strong> (01:01:43):<br />
+And what would happen is that as REKKI grew more and more in London, these suppliers started to get more and more of their restaurants ordering via REKKI. And then some of the early suppliers started to be like, "Well, this is so much easier for me. I would much rather get this order form from REKKI than have to listen to an hour of voicemails from chefs with different accents and different ways of ordering their food in the morning when I come in.</p>
+<p><strong>Sarah Tavel</strong> (01:02:12):<br />
+And so then the suppliers would reach out to REKKI and be like, "Hey, here's a CSV of all of our customers. Can you reach out to them and onboard them to REKKI because I'd much rather have my orders come via REKKI than the way I'm getting them." And so you go from this moment of the hard high cost of sales, pounding the pavement, to getting a list on a silver platter of restaurants to onboard. And that's that feeling of tipping, where all of a sudden something goes from being really freaking hard to so much easier.</p>
+<p><strong>Lenny</strong> (01:02:52):<br />
+It feels a lot like how people describe finding product market fit. Things start to feel like you're not pushing anymore and it's just coming to you.</p>
+<p><strong>Sarah Tavel</strong> (01:03:00):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (01:03:01):<br />
+In your experience, is this tipping often just happens as you become more successful in this thimble of a marketplace? Or is it things you have to do actively to tip to get to this place? It sounds like in REKKI it was like this feature they built of just recommending, "Hey, you should check out REKKI, and maybe other suppliers would help you have an easier time if they're joining." So is it usually like it just happens with scale, or is there usually something you have to change to create this tipping point?</p>
+<p><strong>Sarah Tavel</strong> (01:03:32):<br />
+I don't think Ronan predicted that that was what was going to happen. And you're constant, that kind of customer obsession, having the relationships with the suppliers, having the relationship with the buyers, so that you have your ear to the ground. And when they start to lean in a little bit, you're there to receive them. And so I think this is very much part of what great marketplace founders are able to do, is they're able to start to feel that there's something tipping in their direction and then create momentum behind it.</p>
+<p><strong>Sarah Tavel</strong> (01:04:10):<br />
+And that's a lot of what this level two is all about, which is that, I think, every marketplace has to figure out what I call tipping loops. And there's two types of tipping loops that work together symbiotically to help a marketplace scale.</p>
+<p><strong>Sarah Tavel</strong> (01:04:28):<br />
+The first are the growth loops. And so we just talked about an example with REKKI. There are many examples of this Hipcamp, another marketplace I'm lucky to work with. If you and I went camping on Hipcamp and I booked a tree house on Hipcamp, and you are going to join me on it, I could then as part of my checkout flow, essentially invite you to my reservation so that you could see the maps, the more information about the tree house and any of the sites around it. And so I'm the person that Hipcamp acquired, but then I pull you into my experience and that's a great buyer to buyer growth loop.</p>
+<p><strong>Sarah Tavel</strong> (01:05:12):<br />
+There's classic seller to seller loops or buyer to seller, all these directions. And then the great marketplaces see those loops and they figure out ways to accelerate them. So classic seller to seller referrals. Uber drivers would tell their friend, "Oh, you should start driving for Uber, it's great." But then Uber incentivize it with a referral bonus, and you started to see Uber drivers literally writing blog posts about how much they loved driving for Uber because some of them were making more money getting the referral bonus then actually driving. And so you're trying to find these growth loops and you maximize them.</p>
+<p><strong>Lenny</strong> (01:05:56):<br />
+Awesome. I'll link to a post that has a lot of these insights from this work that I've done on marketplaces, but a few others that are just interesting. Basically you're trying to figure out how do you create a engine that continues to drive supply and also drives demand. So a fun example is when Etsy was getting started, as you know, they went to craft fairs and pitched sellers, "Hey, sign up for Etsy. You could sell your stuff online." And then all their sellers started telling all their buyers, "Hey, buy my stuff on Etsy."</p>
+<p><strong>Sarah Tavel</strong> (01:06:24):<br />
+Etsy literally gave them business cards. So Etsy gave their sellers business cards that made them feel like, "Oh, I'm a real..." Made them feel professional. And the link on it was to their Etsy store.</p>
+<p><strong>Lenny</strong> (01:06:39):<br />
+I love that. One of the most magical growth engines of marketplaces is when your supply brings on the demand. So that's a really good example. Another one is DoorDash, where basically a restaurant signed up for DoorDash and then they tell all the customers, "You want to order our food? Go to DoorDash and order it." And so all the restaurants are telling everyone about DoorDash and then they become DoorDash users and they order from other restaurants.</p>
+<p><strong>Sarah Tavel</strong> (01:07:01):<br />
+Yes, and it shows how creative DoorDash was to both sides of the market in that example.</p>
+<p><strong>Lenny</strong> (01:07:08):<br />
+And then Faire is an awesome example too. It sounds similar to REKKI as you described, where Faire is basically a B2B artisanal items marketplace where boutique shops buy nice candles and blankets for their store to sell. And essentially they did what you described, where they signed on a store and they basically told them, "All your vendors can join for free and not have to pay any fees if they sign up for Faire, and it makes it easy for you to buy their stuff." And then on the other side, a candlemaker tells all the places they sell to, "Hey, you should use Faire. It's so easy to buy our stuff, and we can communicate through there." And they can sign up without any fees. So basically everyone just invites all their existing partners on Faire, and then everyone's on Faire. So yeah, there's a lot of ways to do it.</p>
+<p><strong>Sarah Tavel</strong> (01:07:53):<br />
+I love it. And so the second type of loop, and again this loop works symbiotically with the growth loop, is what I call happiness loops. And I think of them almost as the kidneys for your marketplace as you grow. The happiness loop, the idea is you have a lot of new sellers coming in, and of course you have new buyers, but you want to make sure that you are matching your buyers with the sellers that are going to give them the best experience.</p>
+<p><strong>Sarah Tavel</strong> (01:08:23):<br />
+And so, normally in a consumer social product, churn is heartbreaking. Once a user churns, they're almost never going to come back. And with a consumer social product, you're trying to get to massive scale. But when you're building a marketplace, actually, there's a healthy amount of churn that you want on the supplier side because there are just going to be suppliers who aren't going to create a great experience for the buyer, and you can't do anything about that.</p>
+<p><strong>Sarah Tavel</strong> (01:08:53):<br />
+And so we've all had the Uber driver who you give one star to. That person you don't want on your marketplace getting matched with buyers. And so you're trying to then make sure that, as you grow, you have a natural mechanism in your marketplace to reward the suppliers that you want to reward and to churn out the ones that you don't. Of course your job is to do your best to set all the sellers up for success, but it's an inevitability.</p>
+<p><strong>Sarah Tavel</strong> (01:09:24):<br />
+And so there's two great examples I think of in these happiness loops, which is around search ranking, and then reputation. Search ranking is just a very obvious one, which is, you're trying to understand what creates a happy experience for the buy side, and then reward the sellers that provide that experience.</p>
+<p><strong>Sarah Tavel</strong> (01:09:47):<br />
+So I think an interesting example that ended up actually changing but still is illustrative, is that UberEats in the very beginning of their journey, thought that their advantage in the market was going to be about having really fast delivery, right? Because they already had this network of drivers and so they thought that that's where they were going to really lean in and have an edge over any competition. And so in the search ranking, they rewarded restaurants that prepared the food quickly, and so answered the Uber Eats request, and then actually got the food out as fast as possible so that Uber Eats became synonymous with the quickness by which you got the delivery. And so that restaurant that takes 40 minutes to prepare the food, they would get ranked low in the experience for Uber Eats, even if the food was really, really great.</p>
+<p><strong>Lenny</strong> (01:10:45):<br />
+Okay, so we've been talking about tipping of the marketplace. Is there anything else there that you want to share before we move on to the third layer?</p>
+<p><strong>Sarah Tavel</strong> (01:10:53):<br />
+Yeah, there's two other things that come to mind. One, just as a reminder, and then one as a caution. So the reminder is in order to tip a market, you have to reach a saturation point in that market. You can't tip a market before you've penetrated it to some saturation level. And it goes back to level one of why you want to focus on a constrained market.</p>
+<p><strong>Sarah Tavel</strong> (01:11:23):<br />
+Let's take growing a food delivery product in Des Moines, Iowa versus LA or New York. When you're growing in a small city and you're focused on restaurants, you're going to be able to get to this tipping point a lot faster and more efficiently than if you're going after a very big market. And so there's a real advantage to being able to prove out the playbook as quickly as possible and as efficiently as possible before you move on to bigger challenges. And so I think it underscores, again, why it's so valuable in the beginning to focus on something that is constrained.</p>
+<p><strong>Sarah Tavel</strong> (01:12:09):<br />
+And again, Postmates focusing on San Francisco, the city. DoorDash focusing initially on the suburbs, much smaller opportunity, but one that they could really knock the cover off the ball on. They had no competition. They had a customer that was desperate for attention, and so they could make them happy. And that just sets you up for real success to go from strength to the adjacent market.</p>
+<p><strong>Sarah Tavel</strong> (01:12:38):<br />
+The second thing that I'd say is, and this is so important is that not all markets are susceptible to tipping, right? We've all experienced this, I'm sure Lenny, with the companies that you work with, the companies I work with, where there are conditions of a market that make it vulnerable to tipping. I have six in my post just to name a couple classic ones.</p>
+<p><strong>Sarah Tavel</strong> (01:13:11):<br />
+The first obvious one is just concentration on the supply side. In order to be able to tip a market, you need suppliers to want to lean in on your marketplace. My partner, Bill Gurley talks about how great marketplaces create the new incumbents. So you basically have suppliers who aren't the incumbents. The incumbents aren't going to lean in on your marketplace, they're already fat and happy, but you want to have these hungry suppliers who lean in. But if there's already concentration in your marketplace, in the ecosystem, the market that you're playing in, then you're not going to have sellers lean in, and you're not going to be able to create a flywheel that spins where the more sellers you bring on, the better the pricing or experiences on the demand side because the sellers are happy and there's nobody that's hungry or fighting. And so that's just a critical, critical point.</p>
+<p><strong>Lenny</strong> (01:14:14):<br />
+Bill Gurley and I actually had a little Twitter debate once about supply versus demand and which one's more important. And basically his pitch was like, "All that really matters in the end, to build a successful marketplace, is can you find the demand? Can you bring the demand to your marketplace?" It makes all the sense in the world. Everything in the end is, "Can you find customers?"</p>
+<p><strong>Lenny</strong> (01:14:34):<br />
+In the work I've done looking into marketplaces, what I find is the hardest thing to do, to bring people to your marketplace, is to find the supply and bring it to people, basically aggregate it. And your point here is exactly right, is that basically the value of your marketplace is to find this non-concentrated demand that's all over the place and bring it together and make it easy to transact with. So I think that is really important, just to double down on this point, that what makes the marketplace valuable is supply that is hard to find that you make easy to find and transact with. And I feel like that's almost the core of what makes marketplace work.</p>
+<p><strong>Sarah Tavel</strong> (01:15:13):<br />
+I think you're both right.</p>
+<p><strong>Lenny</strong> (01:15:14):<br />
+Yeah, I think we're both right. Right, right.</p>
+<p><strong>Sarah Tavel</strong> (01:15:15):<br />
+Because in the beginning, the only way you get started with the marketplace, obviously, is you're bringing the supply online, and that's what opens up the opportunity. And the only way then for you to have a chance at tipping the market is if there's enough fragmentation on the supply side to create a differentiated experience for the demand side to care about your marketplace. But the only way to build long-term enduring value with a marketplace is to corner the demand side. And so it's kind of a little bit that evolution of a marketplace that ends up changing who you focus on.</p>
+<p><strong>Sarah Tavel</strong> (01:15:55):<br />
+And I don't know if you've experienced this in my experience with the marketplaces that I work with, it's a constant like, "I have to focus more on the demand side right now. Okay, now we got to focus more on the supply side." And it's just back to how difficult these businesses are to build, especially when you have limited resources, that it's like the forever battle of building a marketplace.</p>
+<p><strong>Lenny</strong> (01:16:15):<br />
+Yeah, especially if it's a geographically oriented marketplace like a DoorDash. Sometimes you have more customers than restaurants.</p>
+<p><strong>Sarah Tavel</strong> (01:16:15):<br />
+Right.</p>
+<p><strong>Lenny</strong> (01:16:22):<br />
+Sometimes you have too many restaurants, not enough customers.</p>
+<p><strong>Sarah Tavel</strong> (01:16:23):<br />
+Yes.</p>
+<p><strong>Lenny</strong> (01:16:24):<br />
+So, it's very city dependent. At Airbnb we had basically many attempts at a dashboard of which market is supply constrained, which is demand constrained. Along the same lines, I think it's also something I think about with B2B marketplaces, the reason they're challenging, in my experience, to work, there's so few of them, is the supply is rarely fragmented. Usually there are very few suppliers, so it's pretty easy. "I'm just going to pick one of these 10 and I don't need you." Is that true? Is that how you think about the challenges of B2B marketplaces?</p>
+<p><strong>Sarah Tavel</strong> (01:16:53):<br />
+There's definitely that, but I think actually the bigger challenge with B2B marketplaces is on the homogeneity of the supply. When you think about a lot of labor marketplaces, and let's take a classic example of Mechanical Turk, right? What you need in a marketplace for that flywheel... I have a graph in my slides where you show that the more you penetrate the market, the happier you're able to make your customer. You should have an exponential experience where the flywheel doesn't slow down. Now you take Airbnb as an example, there isn't a limit to how valuable it is to have more supply on Airbnb because everybody has their own special preferences. And there probably is a theoretical limit, but you just feel like there is always going to be the, there's such heterogeneity in the supply for Airbnb, that that's what has let Airbnb really close and escape competition.</p>
+<p><strong>Sarah Tavel</strong> (01:18:04):<br />
+With B2B marketplaces what sometimes happens, like a labor marketplace, is that you have this homogeneity in the supply, where it's not clear that adding the next incremental unit of supply actually changes the experience for the demand side. And so at Mechanical Turk, whether Mechanical Turk has a hundred thousand Turkers or 5 million Turkers, it probably doesn't really change the experience for somebody who is using Mechanical Turk. And that's why in the early days, a Mechanical Turk, you saw a lot of other copycats or clones of Mechanical Turk doing something similar because it didn't take that much supply for them to be able to create an experience for a segment of the market that was as good as the already scaled Mechanical Turk.</p>
+<p><strong>Lenny</strong> (01:18:55):<br />
+Awesome. I'm glad we got into that. We're getting real dirty about marketplaces. Exactly what I was hoping for. You said that you had something else you wanted to share along these lines.</p>
+<p><strong>Sarah Tavel</strong> (01:19:04):<br />
+And there's so many other examples of reasons why a marketplace won't tip competition. Again, you're a food delivery company and you go after the suburbs where there's no competition. That makes your job really easy to tip the market. You go to New York City where you have an entrenched competitor of Grubhub plus Seamless Web, a different culture around delivery where the restaurants mostly have their own delivery fleets, and it's just going to be so much harder for you to tip that market. And so, I think you have to be really context aware when you're building a marketplace of what your competition's going to be so that you see if there is a path for you to actually tip the market.</p>
+<p><strong>Lenny</strong> (01:19:52):<br />
+And even if you've tipped the market, it may get untipped, like Uber comes in and starts to eat your lunch, no pun intended. It doesn't last forever. You have to keep fighting for it.</p>
+<p><strong>Sarah Tavel</strong> (01:20:01):<br />
+Well, and it's such an important point, which is that you can never rest on your laurels when you're building a marketplace. The history of places is one in which you have a marketplace that feels dominant and then gets disrupted by a competitor. HomeAway, VRBO being disrupted by the likes of you at Airbnb.</p>
+<p><strong>Lenny</strong> (01:20:23):<br />
+I wish I could take credit for all that. Yeah, so one way I think about it is you're talking about this idea of tipping is, a simple way to think about if tipping is happening, if you're tipping it successfully, is percentage of your growth that's starting to come from organic word of mouth, people just becoming like, "This is the default way I'm going to order food, travel, book a ride."</p>
+<p><strong>Sarah Tavel</strong> (01:20:43):<br />
+I think you see two things. You see one, the cohorts getting better. So people start using you more. As the supply side gets more diverse, you have more and more use cases that you start to be able to serve. And so you get the demand side leaning in more, the cohorts get better. And then to your point, you have the organic growth that happens where you don't have to fight to get each new participant on both sides of your market. There's something that starts to happen where the value proposition is just so strong relative to any other substitute that the market starts coming to you.</p>
+<p><strong>Lenny</strong> (01:21:27):<br />
+Awesome. So essentially, cohort retention starts going up because more and more valuable, and more people are coming to you, just word of mouth or through some loops that you built.</p>
+<p><strong>Sarah Tavel</strong> (01:21:36):<br />
+Exactly.</p>
+<p><strong>Lenny</strong> (01:21:37):<br />
+Awesome. Anything else on this layer/level of the [inaudible 01:21:41] before?</p>
+<p><strong>Sarah Tavel</strong> (01:21:41):<br />
+No.</p>
+<p><strong>Lenny</strong> (01:21:42):<br />
+Okay, cool. Let's talk about dominating the marketplace and what that looks like, and how you do that. How do you dominate a marketplace and win, Sarah Tavel?</p>
+<p><strong>Sarah Tavel</strong> (01:21:51):<br />
+So yes, level three, and this is the one I feel like every founder who starts a marketplace, they're chomping at the bit to be able to really focus now on growth. Because all along, I feel like we've been holding you back of just, "Focus, focus, focus." And what you're doing through level one and level two as you're honing what you're building, is that you're basically building a playbook. You don't yet know whether this playbook is repeatable. It's not always the case that the dynamics of one market is the same elsewhere. I'll take REKKI as an example. In the London food scene, there's significant fragmentation of suppliers. In the Berlin food scene, that's not the case. And so it's not always the case that whatever you did in one market works in another market, but usually there's something that rhymes. There's a hint of what is going to work.</p>
+<p><strong>Sarah Tavel</strong> (01:22:56):<br />
+So what happens now is you have a market that's tipping, and the question then is, are you ready to take your eye off the ball and start to diffuse your focus into other markets? So there's kind of three vectors then that any marketplace can grow at this point.</p>
+<p><strong>Sarah Tavel</strong> (01:23:17):<br />
+The first vector is within the existing market where you already are tipping that market. You as a founder then have to make a very personal decision, that what you're looking at is the context of your competitive situation. So if you're tipping a market and you have no other co</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

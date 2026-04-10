@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Saying no — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Saying no</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Saying no</div>
+    
+    <div class="article-meta">2021-09-28<span>·</span>2,993 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">組織</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I find myself often having to say no to my manager. What’s an effective technique for saying no while maintaining their trust and not making them see you as the “no” person?</h2>
+</blockquote>
+<p>First of all, it’s OK to be the “no” person. It’s literally your job—to create focus and stability for your team and company. Saying no is how you do that. And I bet your leader (mostly) appreciates you for it, even if it doesn’t feel good.</p>
+<p>But that doesn’t answer your question. There’s certainly a skill to saying no, especially when you have to do it often.</p>
+<p>Whenever I reflect on a question like this, I try to flip the script and imagine I’m the other person in the situation. As a <em>manager</em>, how would I want my report to deal with the barrage of ideas that I throw at them?</p>
+<p>Me, I’d want them to:</p>
+<ol>
+<li>Truly listen</li>
+<li>Assume I know what I’m talking about</li>
+<li>Come at it with an attitude of “How <em>could</em> we do this, if we wanted to?” vs. “Here are all the reasons we can’t”</li>
+<li>Be direct and honest about where they see gaps in my thinking</li>
+<li>Be open-minded to big, radical, scary ideas</li>
+</ol>
+<p>Basically, to treat me like an adult.</p>
+<p>Yes, managers differ in how strongly they hold their views and handle criticism. And yes, not every idea your manager suggests will be good. Or feasible. But your manager almost surely has broader context, insight, and experience than you, and they are looking to you to help them make their ideas stronger—not just point out all the reasons it can’t be done.</p>
+<p>At the same time, your team has limited resources, and you have limited brain capacity to evaluate every idea. So you’ll be saying <em>no</em> often. It’s important to get good at it.</p>
+<p>My advice to you for saying <em>no</em> effectively is to follow this three-step process:</p>
+<ul>
+<li><strong>Step 1: Listen, ask questions</strong></li>
+<li><strong>Step 2: Form your own point of view</strong></li>
+<li><strong>Step 3: Respond constructively</strong></li>
+</ul>
+<p>Below, I’ll unpack each of these steps, but to give you a glimpse of where we’ll end up, here are five lines you can use to effectively say no (sorted by how good the idea is) :</p>
+<blockquote>
+<p><strong><em>“Yes, but here’s what’ll need to change. Should we move forward?”</em></strong></p>
+<p><strong><em>“Yes, but not right now because we should stay focused on X because of XYZ. Do you agree?”</em></strong></p>
+<p><strong><em>“No, but how about we do XYZ in instead, which achieves a similar outcome?”</em></strong></p>
+<p><strong><em>“No, but there’s something there. Let’s explore it further. Here’s what I suggest as a next step…”</em></strong></p>
+<p><strong><em>“No, because it’s a bad idea for reasons XYZ. Do you agree?”</em></strong></p>
+</blockquote>
+<p>Let’s dive in.</p>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/020d3622-4a7f-4516-b547-721395df6380_2048x1024.png" /></p>
+<h3>Step 1: Listen, ask questions</h3>
+<p>When you first hear your manager’s idea, avoid reacting with a quick yes or no. Especially if you think it’s a terrible idea. Instead, start by getting curious. Force yourself to ask at least three questions. For example: What does my manager see that I don’t see? Am I too in the weeds? Am I afraid of shaking things up and doing something risky? Am I missing some important broader context?</p>
+<p>For example, say your manager proposes building a Clubhouse-like audio experience into your product. Before immediately responding with “That’s a terrible idea,” take a breath. Start by saying something like:</p>
+<blockquote>
+<h4>“Interesting! Let me try to better understand what you’re thinking here…”</h4>
+</blockquote>
+<p>Make it clear you’re open-minded to their idea. You can start by saying “I’m into it” or “Interesting!” or “I’m intrigued.” You want your manager to feel that you’re genuinely open to the idea. And actually try to be!</p>
+<p>Then pivot to “Let me try to better understand what you’re thinking…”</p>
+<p><strong>Questions you may want to ask:</strong></p>
+<ol>
+<li>Can you help me visualize what it’ll look like in the product, roughly?</li>
+<li>How high of a priority is this for you, vs. other work we’re doing? Do you think we hop on this now or queue it up for our next planning cycle?</li>
+<li>How perishable do you think this opportunity is—if we tackle it next year, would the opportunity still be there?</li>
+<li>What gets you most excited about this idea?</li>
+<li>How do you see this fitting into our broader strategy—or is this a new direction you think we should take?</li>
+</ol>
+<p>Essentially, practice the Socratic method:</p>
+<p><a href="https://www.youtube.com/watch?v=aOdjpByHLEQ">Watch on YouTube</a></p>
+<p>Dig as far as you can, in the time you have, both to understand where your manager is coming from and to make sure they recognize that you genuinely care about the idea.</p>
+<p>This step becomes even more effective if you can turn it from a verbal to a written conversation, where you and your manager are forced to crystallize your thinking in writing. Here are a few templates to get you started:</p>
+<ol>
+<li><a href="https://docs.google.com/document/d/1RQWuvWDgcAv1ylksFXtiwhuTbHLcL1byIcoXsbCQfic">Initiative strategy template</a></li>
+<li><a href="https://writingcooperative.com/the-anatomy-of-an-amazon-6-pager-fc79f31a41c9">Amazon 6-pager</a></li>
+<li><a href="https://coda.io/@shishir/eigenquestions-the-art-of-framing-problems">Eigenquestions: The Art of Framing Problems</a></li>
+<li><a href="https://coda.io/@lshackleton/two-way-writeups-coda-s-secret-to-shipping-fast">Two-way writeups: Coda’s secret to shipping fast</a></li>
+</ol>
+<p>Only after you’ve given the idea a real chance should you proceed to the next step.</p>
+<h3>Step 2: Form your point of view</h3>
+<p>With context, you can now form your own opinion. The key here is to form <em>your own</em>, independent point of view. Forget what others believe and what’s easy. Do you, as a leader within the company, believe this is a good idea? Come at it with an open mind.</p>
+<p><strong>Tips for staying open-minded:</strong></p>
+<ol>
+<li>Take your team’s feelings out of the equation. You can always think about how to message and implement the changes later. If you didn’t have to deal with any drama, is this an objectively good idea?</li>
+<li>Is it perishable? Does it need to happen now?</li>
+<li>What’s the potential downside if it fails? What’s the potential upside if it succeeds?</li>
+<li>Does it align with your business and/or product strategy? Or is it orthogonal and a distraction?</li>
+<li>Is it likely your business will be better off if it happened?</li>
+</ol>
+<p>As you think through the idea, consider where you land across this spectrum of options:</p>
+<ol>
+<li>Yes, this is an amazing idea and should happen ASAP.</li>
+<li>Yes, this is a great idea and should definitely happen, but not right now.</li>
+<li>Yes, this is an interesting idea and we should explore it further.</li>
+<li>No, this is a bad idea, but we can achieve similar results with a variation of it.</li>
+<li>No, this is just a bad idea and we shouldn’t do it.</li>
+</ol>
+<p>The hardest part of this step is often not deciding whether it’s a good idea or not but finding the time to think through each aspect in depth. One trick I use is to spend 10 minutes filling out a <a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">1-Pager</a>, fleshing out the problem being solved, the evidence of the problem, and a high-level strategy. This helps me narrow in on the biggest gaps in the idea, which I then follow up on with the original idea-giver.</p>
+<p>Once you’ve formed your own point of view, you can focus on how best to respond and articulate your answer back to your manager.</p>
+<h3><strong>Step 3: Respond constructively</strong></h3>
+<p>The final step is to get back to your manager with your answer. Depending on how you feel about the idea, below are five phrases you can use to form a response. You’ll notice the first two start with “yes”—but if you look closely, they actually help you say no. Keep reading.</p>
+<h4>Path 1: “Yes, but here’s what’ll need to change. Should we move forward?”</h4>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/56bd5168-a29b-4d3b-8404-5782a306de62_2048x770.png" /></p>
+<p>Go this route if (1) you actually believe this idea should happen immediately or (2) more to our point, you don’t actually love the idea and instead want to communicate how painful it’ll be to make it happen:</p>
+<ol>
+<li>Existing priorities that will get pushed</li>
+<li>Launch dates changing</li>
+<li>Resources getting moved around</li>
+<li>Risks being introduced</li>
+<li>Impact on dependencies and other projects</li>
+</ol>
+<p>Lay out the rough plan for how you’d go about changing course and jumping on this opportunity. Try to be as precise and unbiased as possible. The goal here isn’t to be deceitful but to clearly and transparently give your manager all the information they’ll need to make a well-informed decision. If you firmly believe this is a bad idea though, I suggest going a different route.</p>
+<h4>Path 2: “Yes, but not right now because we should stay focused on X because of XYZ. Do you agree?”</h4>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/db44c7af-edce-433e-996f-e69ba4ad7359_2048x770.png" /></p>
+<p>Go this route if you like the idea but don’t believe it’s worth disrupting the work that’s in-flight. In my experience, a majority of ideas will fall into this bucket.</p>
+<p>The key here is to remind your manager of <em>why</em> your team is focused on something else right now, and why it’s best to keep it that way.</p>
+<p><a href="https://www.bringthedonuts.com/about/">Ken Norton</a> shared some great advice:</p>
+<p>When speaking with your manager, your job is to help them see what you see—that the work in progress should stay the highest priority. To do this, you can:</p>
+<ol>
+<li>Bring up the roadmap and review it together—point out what impact each of the major tracks of work aims to have</li>
+<li>Bring up slides/memos from your last planning session—review the high-level strategy</li>
+<li>Discuss the broader strategy—and how this project does or doesn’t fit</li>
+<li>Bring up some of the pain that would be involved in making a change</li>
+<li>Discuss how urgently this needs to happen, vs. waiting until the next planning cycle</li>
+</ol>
+<p>Again, the goal is to avoid disrupting existing impactful work, even if the idea is a good one, by reminding your manager why you committed to it in the first place.</p>
+<h4>Path 3: “No, but how about we do XYZ instead, which achieves a similar outcome?”</h4>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/63249c07-1497-4e85-9bfe-300f84d7d5e9_2048x770.png" /></p>
+<p>You know how, as PMs, we learn to listen to customers to understand their problems but not necessarily rely on their proposed solutions? It works the same way with colleagues. Your manager may have identified a big opportunity but may not have nailed the optimal way to tackle it.</p>
+<p>While marinating on the idea in step 2 of our process, look for a simpler, or even more impactful solution, to the opportunity your manager found. Ideally one that doesn’t disrupt what your team is currently working on. Win-win!</p>
+<p><a href="https://www.lennysnewsletter.com/p/where-great-product-roadmap-ideas">Check out this post</a> for some inspiration, and when presented with a new idea, always ask yourself: Is there a better way to achieve the same outcome? Can I pivot my manager’s idea to something even stronger?</p>
+<h4>Path 4: “No, but there’s something there. Let’s explore it further. Here’s what I suggest as a next step…”</h4>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a8c8d3cb-4509-4f33-ac9b-ac48624bf95f_2048x770.png" /></p>
+<p>Use this path sparingly, because it’s the easy way out. Many ideas will be interesting and worth exploring, but you have limited time to explore every interesting idea.</p>
+<p>Having said that, many ideas will be worth exploring. So go ahead and explore. Just make sure to communicate a clear next step, and a timeline for the exploration.</p>
+<blockquote>
+<h4>“Originality is fragile. And, in its first moments, it’s often far from pretty. Our newest and most daring ideas are ‘ugly babies’ … They are not beautiful, miniature versions of the adults they will grow up to be. They are truly ugly: awkward and unformed, vulnerable and incomplete. They need nurturing—in the form of time and patience—in order to grow.”</h4>
+<h4>—Ed Catmull, co-founder of Pixar</h4>
+</blockquote>
+<p>A few ways to explore a nascent idea:</p>
+<ol>
+<li>Discuss it with smart colleagues</li>
+<li>Create wireframes and run them by potential users</li>
+<li>Prototype it</li>
+<li><a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">Write a 1-Pager</a></li>
+<li>Run a quick A/B test to see if there’s a bigger opportunity.</li>
+</ol>
+<p>At the end of your exploration, you’ll end up down one of the other four paths.</p>
+<h4>Path 5: “No, because it’s a bad idea for reasons XYZ. Do you agree?”</h4>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a065c439-cd81-48fc-96cd-0cde3fd42573_2048x770.png" /></p>
+<p>Finally, there are ideas that are just plain bad. They should never be done, and it’s your job to cut them off quickly. Some of the reasons an idea could be bad:</p>
+<ol>
+<li><strong>Low ROI</strong>: The workload will be very high, and the impact will not be as high as one thinks.</li>
+<li><strong>Strategically misaligned:</strong> This idea doesn’t support the broader strategy and is a distraction.</li>
+<li><strong>Too high-risk:</strong> This has too high a chance of failing and/or hurting the business.</li>
+<li><strong>Bad product experience:</strong> This will hurt the product experience, without enough benefit.</li>
+<li><strong>High cost:</strong> The cost to design, build, launch, and maintain it will simply be too high for this to be feasible.</li>
+</ol>
+<p>When laying out your case for why this is a bad idea, remember that you’re trying to convince your manager they are wrong. Never an easy task. You need to come at it with a clear and convincing argument. Don’t half-ass it.</p>
+<p>What I find works best is to be as unbiased as I possibly can in my writeup. Let facts speak for themselves. Leave opinions off the table, especially at first.</p>
+<p>I like making a pros/cons list, and occasionally use a <a href="https://www.lennysnewsletter.com/p/minto-pyramid-principle-scr">Minto pyramid</a> structure, leveraging all of the raw evidence at my disposal:</p>
+<ol>
+<li><strong>Data:</strong> What evidence do we have (either quantitative or qualitative) that this is a good idea? Is there evidence telling us it’s a bad idea?</li>
+<li><strong>Working backward:</strong> If we work backward from our <em>ideal</em> product experience (i.e. our vision), does this play an important role in that future?</li>
+<li><strong>Strategy:</strong> How closely does this align with our product strategy?</li>
+<li><strong>Opportunity cost:</strong> How much work is this expected to take, and what work would be deprioritized in order to make this happen?</li>
+<li><strong>History:</strong> Is there anything we’ve done in the past that’s similar to this idea that has worked out, or failed, that informs this idea’s chances of success?</li>
+<li><strong>Authority:</strong> Do smart people with experience with the problem space tell us there’s something great here?</li>
+<li><strong>A quick test:</strong> What’s the quickest test we can run (either in product or in user research) to give us evidence this will work?</li>
+</ol>
+<p>In this process, you may even convince yourself it’s a great idea. Or you may find there’s just enough reason to give it a shot if your manager feels strongly about it.</p>
+<p>Managers come in all shapes and sizes, some more rational and open to feedback than others. Sometimes you’ll succeed, sometimes you won’t. That’s normal. The more you do this, the better you’ll get. And eventually you’ll be the person on the other side, sharing your many brilliant ideas with your direct reports, hoping you don’t hear this:</p>
+<p><img alt="Image from Saying no" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/4d855f11-95f5-49f1-a899-73f52ef4f21d_480x400.gif" /></p>
+<p>Good luck! If you come across any other great advice, I’d love to hear it in the comments 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/saying-no/comments">Leave a comment</a></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://twitter.com/JorgeO/status/1438255769934200833?s=20">This Twitter thread, by Jorge Ortiz</a></li>
+<li><a href="https://www.starterstory.com/how-to-say-no">Templates for how to say no</a></li>
+<li><a href="https://www.askamanager.org/2019/03/how-to-say-no-to-your-boss.html">Ask a manager: How to say no to your boss</a></li>
+<li><a href="https://www.themuse.com/advice/how-to-tell-your-boss-nowithout-saying-no">How to Tell Your Boss “No”—Without Saying “No”</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Brace:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/f04ce367-5a1f-462e-a79d-725870b8eded">Senior Product Manager</a> (NYC)</li>
+<li><strong>Goldin Auctions:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/9c678421-6315-445c-a735-9362904b5229">Director of Marketing</a> (Remote-Global)</li>
+<li><strong>Highlight:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/6db63ec8-0421-4e06-9908-0376f44c2f99">Founding Blockchain Engineer</a> (Remote-Global)</li>
+<li><strong>Pinpoint:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/70b2de44-b90f-4d37-a146-948144a92873">Product Manager</a> (Remote-Global)</li>
+<li><strong>Aescape:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/117d35d9-a9b3-49d0-82df-b27a6c074e0f">Product Management Lead</a> (Brooklyn, NY)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c4bde52c-d66e-4b42-96fb-2ba861f72e27">Senior Growth Product Manager</a> (Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/b6da1eaa-5a2b-4ad4-92f9-5ac4b9f764e5">Product Lead, Internal Tools</a> (Remote-US)</li>
+<li><strong>CHPTR:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c96f89cb-0288-4028-ae4d-f380567449de">Founding Back-End Engineer</a> (Remote-US)</li>
+<li><strong>Permutive:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/1ff1e376-ab34-4138-ba4a-822475672a93">Senior Product Manager</a> (NYC)</li>
+<li><strong>CloudTrucks:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/68d092da-db3a-4f25-8b95-2072342c18fe">Product Manager-Console</a> (SF)</li>
+<li><strong>Fairchain:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/f2963b88-7eaf-4b4d-9788-4b58f5c6b785">Software Engineer, Full Stack</a> (NYC)</li>
+<li><strong>HomeLight:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/48c02f5e-e681-4b83-9012-fb08ae2c1e52">Senior Product Manager, Listing Management</a> (SF, Phoenix, Seattle)</li>
+<li><strong>Perfect Recall:</strong><a href="https://pallet.xyz/list/lennys-jobs/job/7ac1bf05-0aa6-436e-8546-6e14c5222f7e">Founding Fullstack Engineer</a> (Waterloo)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=z7pxUWAWjvs">Japanese Curry Udon Noodles</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=z7pxUWAWjvs">Watch on YouTube</a></p>
+<ol>
+<li><strong>Listen:</strong> <a href="https://www.thetwentyminutevc.com/casey-winters/">20Growth: How to Hire a Head of Growth</a> with Casey Winters and Harry Stebbings</li>
+<li><strong>Read:</strong> <a href="https://svpg.com/executive-engagement/">Executive Engagement</a> by Marty Cagan</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

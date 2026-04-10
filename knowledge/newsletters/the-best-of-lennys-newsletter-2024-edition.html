@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Best of Lenny’s Newsletter—2024 Edition — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The Best of Lenny’s Newsletter—2024 Edition</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The Best of Lenny’s Newsletter—2024 Edition</div>
+    
+    <div class="article-meta">2024-12-17<span>·</span>2,128 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to this month’s ✨ </em><em>free edition</em><em> ✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/which-companies-accelerate-your-pm">Which companies accelerate PM careers most</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-become-a-supermanager-with">How to become a supermanager with AI</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-givedirectly-increased-donations">How GiveDirectly increased donations by over $3 million/year through experimentation</a></em></li>
+</ol>
+<p><em>For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://www.lennysjobs.com/">Hire your next product leader</a></em><em> | </em><em><a href="https://maven.com/lenny">My favorite courses</a></em><em> | </em><em><a href="https://lennyswag.com/">Swag</a></em>**</p>
+<p>This was a big year for me—the biggest of my career:</p>
+<ol>
+<li>We hosted the first-ever <strong><a href="https://lennyssummit.com/">Lenny and Friends Summit</a>.</strong> It was a huge undertaking, and a smashing success. <a href="https://www.linkedin.com/posts/lennyrachitsky_some-reflections-on-the-lenny-and-friends-activity-7256770312699076609-zxJQ/">I shared some reflections</a>, and <a href="https://www.youtube.com/playlist?list=PL2fLjt2dG0N4z9w9pkeMgdPq2xcpME_N2">most of the videos</a> from the Summit are now online. Here’s a photo of the audience when I asked who came from outside the Bay Area.</li>
+</ol>
+<p><img alt="Image from The Best of Lenny’s Newsletter—2024 Edition" src="https://substack-post-media.s3.amazonaws.com/public/images/fd3bb713-ca29-473b-a7ba-7957e6649eb1_4032x3024.jpeg" /></p>
+<ol>
+<li>
+<p><a href="https://www.lennysnewsletter.com/p/community">The reader community</a> organized a record 287 meetups globally this year, including in cities like Cape Town, Cairo, Mexico City, Shanghai, Prague, Mumbai, Warsaw, Riyadh, and Zurich.</p>
+</li>
+<li>
+<p>The <a href="https://www.lennysnewsletter.com">newsletter</a> hit 900,000 subscribers, and continues to be the #1 business newsletter on Substack.</p>
+</li>
+</ol>
+<p><img alt="Image from The Best of Lenny’s Newsletter—2024 Edition" src="https://substack-post-media.s3.amazonaws.com/public/images/ccc6a0e6-0812-470e-a767-3fb48e7c7df1_1312x972.png" /><br />
+4. The <a href="https://www.lennysnewsletter.com/podcast">podcast</a> crossed 10 million downloads, and is already approaching 20 million. It also continues to be a top-10 tech podcast globally. The two stats I’m most proud of:</p>
+<ol>
+<li>A 5.0- and 4.9-star rating on Apple and Spotify, respectively. Few podcasts of this scale continue to be so highly rated.</li>
+<li>It’s the #1 most listened-to podcast for over 25,000 people on Spotify 😮<img alt="Image from The Best of Lenny’s Newsletter—2024 Edition" src="https://substack-post-media.s3.amazonaws.com/public/images/b3cb17e2-dbbc-4b51-b4b0-30c108020bb2_1080x1080.png" /></li>
+<li>The <a href="https://www.youtube.com/@LennysPodcast">YouTube channel</a> crossed 200,000 subscribers and 1 million hours watched. 😮 They sent me this fun plaque to celebrate 100,000 subscribers earlier this year.</li>
+</ol>
+<p><img alt="Image from The Best of Lenny’s Newsletter—2024 Edition" src="https://substack-post-media.s3.amazonaws.com/public/images/8cc750b7-f4c5-4ea2-9fc0-5627306c18c1_3072x4096.jpeg" /><br />
+6. I launched <a href="https://www.lennybot.com/">Lennybot</a>! I’m increasingly convinced this is the future of this newsletter, and that my job is to feed it more great content. When you play with it, make sure to check out the “call” feature.</p>
+<p><strong>Looking ahead, a few things I’m planning to explore in 2025 (no promises!):</strong></p>
+<ol>
+<li>Launching a product</li>
+<li>Launching a new newsletter or podcast vertical</li>
+<li>Lenny and Friends Summit 2.0 (?)</li>
+<li>Making the paid subscription an absolute no-brainer by adding more killer perks (in addition to <a href="https://www.lennysnewsletter.com/p/get-perplexity-pro-free-for-1-year">a free year of Perplexity Pro</a> and <a href="https://www.lennysnewsletter.com/p/community">access to the community Slack</a>)</li>
+<li>Above all else—continuing to deliver a high-quality newsletter and podcast every week</li>
+</ol>
+<p>Now, on to this week’s post. Below I’ve collected my best posts and podcast episodes of all time—from day one until now—categorized by the problem you need solved.</p>
+<p><img alt="Image from The Best of Lenny’s Newsletter—2024 Edition" src="https://substack-post-media.s3.amazonaws.com/public/images/3e4c433e-6433-4d45-9f2b-a824dc70c517_1456x720.jpeg" /></p>
+<h3>I want to learn to build better products</h3>
+<ol>
+<li>How the best companies operate: <a href="https://www.lennysnewsletter.com/p/how-linear-builds-product">Linear</a>, <a href="https://www.lennysnewsletter.com/p/how-perplexity-builds-product">Perplexity</a>, <a href="https://www.lennysnewsletter.com/p/building-product-at-stripe-jeff-weinstein">Stripe</a>, <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">Ramp</a>, <a href="https://www.lennysnewsletter.com/p/how-shopify-builds-product">Shopify</a>, <a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">Notion</a>, <a href="https://www.lennysnewsletter.com/p/building-wiz-raaz-herzberg">Wiz</a>, <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, <a href="https://www.lennyspodcast.com/an-inside-look-at-deels-unprecedented-growth-meltem-kuran-berkowitz-head-of-growth/">Deel</a>, <a href="https://www.lennysnewsletter.com/p/the-unconventional-palantir-principles">Palantir</a>, <a href="https://www.lennysnewsletter.com/p/how-gong-builds-product">Gong</a>, <a href="https://www.lennysnewsletter.com/p/metas-head-of-product-naomi-gleit">Meta</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/mission-vision-strategy-goals-roadmap">Mission → Vision → Strategy → Goals → Roadmap → Task</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/getting-better-at-product-strategy">How to get better at product strategy</a> (also check out <a href="https://www.lennysnewsletter.com/p/the-ultimate-guide-to-strategy-roger-martin">this</a>, <a href="https://www.lennysnewsletter.com/p/good-strategy-bad-strategy-richard">this</a>, and <a href="https://www.lennyspodcast.com/mastering-product-strategy-and-growing-as-a-pm-maggie-crowley-toast-drift-tripadvisor/">this</a> podcast episodes)</li>
+<li><a href="https://www.lennysnewsletter.com/p/product-sense">How to develop product sense</a> (also check out <a href="https://www.lennysnewsletter.com/p/building-beautiful-products-with">this</a> podcast)</li>
+<li><a href="https://www.lennysnewsletter.com/p/first-principles-thinking">How to develop first-principles thinking</a></li>
+</ol>
+<h3>I want to grow my product</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/the-racecar-growth-frameworkexpanded">The Racecar Growth Framework</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/consumer-business-find-first-users">How the biggest consumer apps got their first 1,000 users</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/growth-ideas">Growth ideas</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/growth-inflections">Growth inflections</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-duolingo-reignited-user-growth">How Duolingo reignited user growth</a> (and <a href="https://www.lennysnewsletter.com/p/the-secret-to-duolingos-growth">then accelerated it</a>)</li>
+<li><a href="https://www.youtube.com/watch?v=bhnfZhJWCWY">How to consistently go viral: Nikita Bier’s playbook for winning at consumer apps</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/positioning">Crafting your positioning</a> (also check out <a href="https://www.lennysnewsletter.com/p/april-dunford-on-product-positioning#details">this</a> podcast)</li>
+<li><a href="https://www.lennysnewsletter.com/p/gtm-motions">GTM motions of 30 B2B SaaS companies</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/the-math-formula-behind-your-business">How to describe your business as an equation</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/the-subscription-value-loop-a-framework">A framework for growing consumer subscription businesses</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/five-steps-to-starting-your-plg-motion">Five steps to starting your product-led growth motion</a> (plus <a href="https://www.lennysnewsletter.com/p/the-ultimate-guide-to-adding-a-plg">this</a> podcast)</li>
+<li>Specific growth tactics: <a href="https://www.lennysnewsletter.com/p/this-week-21-strategy-and-tactics">Conversion</a>, <a href="https://www.lennysnewsletter.com/p/how-to-increase-your-products-retention">Retention</a>, <a href="https://www.lennysnewsletter.com/p/increasing-virality">Virality</a> (also, it’s a <a href="https://www.lennysnewsletter.com/p/virality-is-a-myth-mostly">myth</a>), SEO <a href="https://www.lennysnewsletter.com/p/the-ultimate-guide-to-seo-ethan-smith">1</a>, <a href="https://www.lennysnewsletter.com/p/rethinking-seo-in-the-age-of-ai-eli-schwartz">2</a>, and <a href="https://www.lennysnewsletter.com/p/crafting-an-seo-strategy-issue-34">3</a>, sales <a href="https://www.lennysnewsletter.com/p/building-a-world-class-sales-org">1</a>, <a href="https://www.lennysnewsletter.com/p/master-founder-led-sales-jen-abel">2</a>, <a href="https://www.lennysnewsletter.com/p/how-to-build-a-killer-sales-pitch">3</a>, <a href="https://www.lennysnewsletter.com/p/founder-led-sales-pete-kazanjy-founding#details">4</a>, <a href="https://www.lennysnewsletter.com/p/mastering-paid-growth-jonathan-becker">paid growth</a>, and <a href="https://www.lennysnewsletter.com/p/how-to-successfully-launch-on-product">launching on Product Hunt</a></li>
+</ol>
+<h3>I want benchmarks</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">What is good retention</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-a-good-activation-rate">What is a good activation rate</a> (and <a href="https://www.lennysnewsletter.com/p/how-to-determine-your-activation">how to determine your activation metric</a>)</li>
+<li><a href="https://www.lennysnewsletter.com/p/payback-period">What is a good payback period</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/monthly-churn-benchmarks">What is good monthly churn</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/measuring-cohort-retention">How to measure cohort retention</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-a-good-growth-rate">What is a good growth rate</a></li>
+</ol>
+<h3>I want to become a better leader and manager</h3>
+<ol>
+<li><a href="https://review.firstround.com/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager">The power of performance reviews to become a better manager</a></li>
+<li><a href="https://review.firstround.com/the-secret-to-a-great-planning-process-lessons-from-airbnb-and-eventbrite/">The secret to a great planning process</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-become-a-supermanager-with">How to become a supermanager with AI</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/my-favorite-decision-making-frameworks">My favorite decision-making frameworks</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/master-public-speaking-tristan-de-montebello">Why most public speaking advice is wrong—and how to finally overcome your speaking anxiety</a></li>
+</ol>
+<h3>I want to get ahead in my career</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/the-magic-loop">The Magic Loop: A framework for rapid career growth</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-communicate-tradeoffs-so-leaders">How to communicate tradeoffs so leaders will listen</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/minto-pyramid-principle-scr">The Minto Pyramid Principle and the SCR framework</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/prioritizing">Learn to prioritize</a> and <a href="https://www.lennysnewsletter.com/p/introducing-drice-a-modern-prioritization">DRICE: a modern prioritization framework</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/a-pms-guide-to-influence">A PM’s guide to influence</a> and <a href="https://www.lennysnewsletter.com/p/how-to-get-better-at-influence">How to get better at influence</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/14-habits-of-highly-effective-product">14 habits of highly effective product managers</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/become-a-more-technical-product-manager">How become a more technical product manager</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/managing-up">Managing up</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/product-management-career-ladders">Product management career ladders</a></li>
+</ol>
+<h3>I want to get smarter about AI</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-use-chatgpt-in-your-pm-work">How to use ChatGPT</a> and <a href="https://www.lennysnewsletter.com/p/how-to-use-perplexity-in-your-pm">Perplexity in your PM work</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/five-proven-prompt-engineering-techniques">Five proven prompt engineering techniques (and a few more-advanced tactics)</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/you-should-be-playing-with-gpts-at">You should be playing with GPTs at work</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/why-pms-are-best-positioned-to-thrive">Why PMs are best positioned to thrive in an AI world</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/counterintuitive-advice-for-building">Counterintuitive advice for building AI products</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-ai-will-impact-product-management">How AI will impact product management</a></li>
+</ol>
+<h3>I want to start a company</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-the-most-successful-b2b-startups">How to kickstart and scale a B2B business</a> (7-part series)</li>
+<li><a href="https://www.lennysnewsletter.com/p/kickstarting-and-scaling-a-consumer">How to kickstart and scale a consumer business</a> (7-part series)</li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">How to kickstart and scale a marketplace business</a> (8-part series)</li>
+<li><a href="https://www.lennysnewsletter.com/p/raising-a-seed-round-101">Raising a seed round 101</a></li>
+<li><a href="https://www.youtube.com/watch?v=yc1Uwhfxacs">A framework for finding product-market fit</a></li>
+<li><a href="https://www.youtube.com/watch?v=h9o6gPQA6LA">How to find a breakthrough startup idea</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/lessons-learned-from-a-startup-that">Lessons learned from a startup that didn’t make it</a></li>
+<li><a href="https://www.youtube.com/watch?v=m7LvNTbaqSI">Lessons from 1,000+ YC startups: Resilience, tar pit ideas, pivoting, more</a> (plus <a href="https://www.youtube.com/watch?v=ZoKLofsp8u0">this</a> podcast)</li>
+<li><a href="https://www.lennysnewsletter.com/p/the-art-of-the-pivot-part-1-the-definitive">The definitive list of successful pivots</a> (plus <a href="https://www.lennysnewsletter.com/p/the-art-of-the-pivot-part-2-how-why">how, why, and when to pivot</a>)</li>
+</ol>
+<h3>I want to hire the best people</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-learn-the-most-about-a-candidate">How to learn the most about a candidate from a single interview question</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/my-favorite-pm-interview-questions">My favorite PM interview questions</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-interview-product-managers">How to interview product managers</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/hiring-your-early-team-b2b">Hiring your early team</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/hiring-growth">Six rules of hiring for growth</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/when-they-hired-their-first-pm">When to hire your first product manager</a></li>
+<li><a href="https://www.lennyspodcast.com/my-favorite-interview-questions-from-100-guests/">My favorite interview questions from 100+ guests</a></li>
+</ol>
+<h3>I want to get a job</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-pass-any-first-round-interview">How to pass any first-round interview (even in a terrible talent market)</a></li>
+<li><a href="https://www.youtube.com/watch?v=OH3nzRdwYPA">Land your dream job in today’s market: negotiation tactics, job search councils, more</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/negotiating-comp">The 10 commandments of salary negotiation</a></li>
+</ol>
+<h3>I want to be more productive</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Product manager is an unfair role. So work unfairly.</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/time-management-techniques-that-actually">Time management techniques that actually work</a> (plus <a href="https://www.lennysnewsletter.com/p/part-2-time-management-techniques">part two</a>)</li>
+<li><a href="https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37">My favorite product management templates</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/episode-3-shreyas-doshi">The LNO framework</a></li>
+</ol>
+<h3>I want to feel less stressed</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/why-no-productivity-hack-will-solve">Why no productivity hack will solve your overwhelm</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-know-when-to-stop">How to know when to stop</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/on-asking-for-help-even-when-you">On asking for help (even when you really don’t want to)</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-fire-people-with-grace-work">How to work through fear, and nurture innovation</a></li>
+<li><a href="https://www.youtube.com/watch?v=DYkE1gf37ts">How embracing your emotions will accelerate your career</a></li>
+</ol>
+<p><em>Happy holidays! Have a fulfilling and productive week 🙏</em></p>
+<p><em>P.S. Overwhelmed by how much stuff there is to read and listen to? Just ask <a href="https://www.lennybot.com/">Lennybot</a> what you want to know.</em></p>
+<h2>Hiring? 👀</h2>
+<p>I run a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), working with a few select companies to fill their open roles. If you’re hiring, apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

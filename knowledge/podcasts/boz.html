@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Making Meta | Andrew ‘Boz’ Bosworth (CTO) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Making Meta | Andrew ‘Boz’ Bosworth (CTO)</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Making Meta | Andrew ‘Boz’ Bosworth (CTO)</div>
+    
+    <div class="article-meta">2024-03-03<span>·</span>21,821 words<span>·</span>Boz</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2C</span> <span class="mini-tag">職涯</span> <span class="mini-tag">工程</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=_XqDB2Upr3s" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny</strong> (00:00:00):<br />
+You were basically the 10th engineer at Facebook. I imagine there was a lot of pain and suffering that people don't often hear about.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:00:07):<br />
+I didn't sleep for more than four hours at a time. I'd wake up every four hours and check the report and see if anyone was attacking the site. They don't tell you about that stuff in the movies.</p>
+<p><strong>Lenny</strong> (00:00:14):<br />
+You worked 120 hours per week., you had no hobbies.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:00:17):<br />
+I don't want to take away from the romanticism of it. It's just that most often, we hear those romantic stories from the successes. It's a healthy thing for people to want to throw themselves into something and take that risk, but it is not glamorous at the time.</p>
+<p><strong>Lenny</strong> (00:00:29):<br />
+The newsfeed. That was one of your early projects at Facebook. People did not want it. They were wrong, clearly.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:00:33):<br />
+Now, newsfeed was an easier case than people suspect. Everyone was outraged at the same time as they immediately doubled their usage of the product.</p>
+<p><strong>Lenny</strong> (00:00:40):<br />
+In terms of the economic utility, the Venn diagram of Boz, of newsfeed and ads created $1 trillion of value.</p>
+<p><strong>Lenny</strong> (00:00:48):<br />
+Today, my guest is Andrew Bosworth, or Boz, as most people know him. Boz is the chief technology officer of Meta. He joined what was then called Facebook in early 2006 as one of the first engineers, and during his 18-year tenure at Meta, he created some of the most impactful and important products in internet history, including the Facebook newsfeed, which was the first ever algorithmically ranked content feed of any social network, and is basically what people think of as Facebook today.</p>
+<p><strong>Lenny</strong> (00:01:17):<br />
+He also built the original Facebook mobile ads platform, which he then ran for another four years. He also helped build and scale the Facebook messaging system, the profile, the timeline, Facebook groups, and even the internal engineering boot camp. Most recently, he served as VP of ads and business platform, where he led engineering product, research, analytics, and design. And in 2017, he created the company's AR/VR organization, now called Reality Labs.</p>
+<p><strong>Lenny</strong> (00:01:42):<br />
+These days, Andrew leads Meta's efforts in AR, VR and mixed reality, along with consumer hardware across Quest, Ray-Ban, Meta smart glasses, and more.</p>
+<p><strong>Lenny</strong> (00:01:52):<br />
+In our wide-ranging conversation, we touch on so many important lessons and stories, what it was really like in the early days of Facebook, why you should be asking your manager for help more often, why communication is the job. Lessons from Meta's turnaround over the past couple of years, Boz's thoughts on the Apple Vision Pro, a bunch of leadership and career advice, what it was like to build the very first newsfeed, and lessons from that experience, and stories of failure and stories of success, and so much more.</p>
+<p><strong>Lenny</strong> (00:02:22):<br />
+If you enjoy this podcast, don't forget to subscribe and follow it in your favorite podcasting app or YouTube. It's the best way to avoid missing future episodes, and it helps the podcast tremendously.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:04:55):<br />
+Thanks for having me. I've been a long-time fan of your program and all the things that you've been putting out, so I'm glad to finally get a chance to join.</p>
+<p><strong>Lenny</strong> (00:05:01):<br />
+Same. I'm really excited to have you here. I have at least a billion questions I want to ask you. But I want to start with a few fun facts that I've found about you, and what if I go through them and then just pick one that stands out, and then tell the story behind it? How does that sound?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:05:17):<br />
+All right, sounds good.</p>
+<p><strong>Lenny</strong> (00:05:18):<br />
+Okay. You went to 14 proms.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:05:22):<br />
+Yeah. It's true.</p>
+<p><strong>Lenny</strong> (00:05:22):<br />
+Okay, I'm going to keep going. Okay.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:05:25):<br />
+Wow, that's a strong opener.</p>
+<p><strong>Lenny</strong> (00:05:27):<br />
+That might be the one. You were a national Taekwondo champion in college. You were Mark Zuckerberg's TA in college in a class on AI, which isn't actually how you landed at Facebook, from my understanding. Harvard was recruiting you to play football for them. You were very active in the 4-H Club, and you raised animals and showed them at county fairs when you were growing up. You once shared a stage with David Copperfield.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:05:52):<br />
+That's true.</p>
+<p><strong>Lenny</strong> (00:05:52):<br />
+MC Hammer once told you that your outfit was stylish. And president George W. Bush complimented you on your shoes and the shine of your head.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:06:03):<br />
+Yeah, these are all true. I want to say, wow. First of all, I got to make sure that people understand, I was a national collegiate champion, in as a green belt, which that's like being the JV champion. Just so everyone's clear on what that is.</p>
+<p><strong>Lenny</strong> (00:06:15):<br />
+W's a W.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:06:16):<br />
+Heavyweight sparring. I'll tell... The prom story is a funny one. It's related to the 4-H story. I was a big-time 4-H'er, National 4-H Hall of Fame, did all this stuff there.</p>
+<p><strong>Lenny</strong> (00:06:29):<br />
+As a comeup to that, 4-H is a wonderful program, youth program, it's coed program, and I was all over the state, all over the country, doing leadership events and doing these conferences, and doing a lot of public speaking.</p>
+<p><strong>Lenny</strong> (00:06:39):<br />
+And almost every 4-H event has a dance. People don't know that. At the end of a conference, at the end of the, literally camp, you'd go camping for a week, at the end there's a dance.</p>
+<p><strong>Lenny</strong> (00:06:49):<br />
+And so, as a consequence, the most important thing, if wanted to go to a lot of proms, I was a good dancer. And it turns out, the high-level bit, at least in the 1990s, for girls selecting who they might want to go to prom with was, will he and can he dance? And the answer with me was yes. And combine that with the fact that I knew a bunch of girls who went to different schools, that's the recipe for success right there, if that's the goal that somebody has. Two my junior year and 12 my senior year. I once went to three in one weekend, a Friday, a Saturday, and a Sunday night.</p>
+<p><strong>Lenny</strong> (00:07:21):<br />
+Another fun fact about you is you were basically the 10th engineer at Facebook, initially, way before it was a clear success story. I imagine there was a lot of pain and suffering and struggle that people don't often hear about those early days. They see a movie like The Social Network. It looks like, "Oh, that was so much fun. I've got to start a company. It's going to become a trillion-dollar success story." I'm curious just what those early days were like. Are there memories that stand out to you?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:07:47):<br />
+Yeah, there's a bit of a joke in the 10th thing, which is me and five other guys all joined at the same time, and there was nine engineers before us. We joined the same day, so we're all the 10th engineer. So, somewhere between 10 and 16, depending on how you want to do the numeration on that.</p>
+<p><strong>Lenny</strong> (00:07:59):<br />
+I've written about this in my blog, and I tell this story a lot, which is it was fun, and there was tremendous camaraderie and memories that were formed, but they were formed in a kind of forge of really intense times.</p>
+<p><strong>Lenny</strong> (00:08:13):<br />
+At that time, almost all of us lived within one mile of the office. We ate most of our meals together because we were working, not to say we weren't also friends, but because we were working, it's like, oh cool, you just roll into a meal and roll back into work.</p>
+<p><strong>Lenny</strong> (00:08:26):<br />
+And there's little things that you don't appreciate, which is like there was nobody to help you. There was no expert. And so, it wasn't like, "Hey, I'm struggling with this one tricky problem. Who should I talk to?" It's like, nobody. You should talk to yourself and figure this out. Or it's like, "Oh, man. My servers are out of capacity." It's like, "Cool. You should go to Fry's Electronics, you should buy a bunch of components, you should build a new server, and then you should run it. Maybe drive into the colo, rack it, and then get back and run it."</p>
+<p><strong>Lenny</strong> (00:08:52):<br />
+People really undervalue the fact that when you go to work, even a moderate mid-size corporation today, especially with the tremendous growth of startups supporting startups, things like payroll and finance and IT and HR, these things are professionally handled in many cases.</p>
+<p><strong>Lenny</strong> (00:09:10):<br />
+That was just not the case in the early 2000s. It was just you, and your personal car, and whatever you wanted to do with your time.</p>
+<p><strong>Lenny</strong> (00:09:18):<br />
+So, I don't want to take away from the romanticism of it, it's just that it's most often we hear those romantic stories from the successes. We so rarely hear somebody who went through really sacrificing a lot of my 20s from any kind of social or outgoing, fun environment.</p>
+<p><strong>Lenny</strong> (00:09:37):<br />
+It paid off for me, so no one feels bad for me, nor should they. But there are other people who do the exact same thing, maybe they worked harder, maybe they were smarter, maybe they did better, and it didn't play out for them. And it's a big sacrifice.</p>
+<p><strong>Lenny</strong> (00:09:48):<br />
+And so, I love the enthusiasm for startups, I love startup culture. I think it's a healthy thing for people to want to throw themselves into something and take that risk. But it is not glamorous at the time. In retrospect, it's like, "Oh, it can be..." We have a little halo around it. But at the time, it doesn't feel glamorous.</p>
+<p><strong>Lenny</strong> (00:10:06):<br />
+Yeah. In this post you mentioned, you said that you worked 120 hours per week.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:10:07):<br />
+Yeah.</p>
+<p><strong>Lenny</strong> (00:10:10):<br />
+You had no hobbies, and you gained a lot of weight.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:10:15):<br />
+Yeah. We drank a lot to make up for it, so I gained a lot of... And you weren't eating healthy. It was crazy.</p>
+<p><strong>Lenny</strong> (00:10:22):<br />
+I think I've told this before. There was a time where one of the first things I built was an anti-spam, kind of anti-scraping defense mechanism. But we didn't have any ops support. There was no 24/7 online support.</p>
+<p><strong>Lenny</strong> (00:10:35):<br />
+So, I built this tool. I had to wake up every four hours. For about two years, I didn't sleep for more than four hours at a time. I had to wake up every four hours and check the report, and to see if anyone was attacking the site. And if they were, I was up, and I had to go battle back. And if they weren't, cool, I'd go back to sleep. But that's the thing, they don't tell you about that stuff in the movies.</p>
+<p><strong>Lenny</strong> (00:10:55):<br />
+That's almost worse than having a kid, a newborn.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:10:59):<br />
+And nobody asked me to do it. Nobody even asked me to do the anti-spam, anti-scraping stuff. I just thought it was a problem, and I went and did that, and that was the solution I come with. If I was a better engineer, maybe I'd have solved a better problem.</p>
+<p><strong>Lenny</strong> (00:11:11):<br />
+So, maybe just to close out that thread, when you talk to founders, what advice do you give them along these lines?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:11:18):<br />
+I want to be cautious about this, because what I tell founders... The first thing I tell founders is that I've never been a founder, and I want to recognize the difference. I joined January 9th, 2006. That's almost two years after Mark started the company. I wasn't involved with fundraising, I didn't have to do any of that side of the things, and I didn't even have to deal with the board or the business side of things. I really was lucky, in a way, to have joined when I did.</p>
+<p><strong>Lenny</strong> (00:11:42):<br />
+But the first thing I tell founders is like, "You should take my advice with a grain of salt. I have not actually been in your shoes."</p>
+<p><strong>Lenny</strong> (00:11:47):<br />
+If I can compliment you, really, one of the things I like about your program is, there's a whole system of professionals in our industry. And when I grew up in technology in the valley, you always heard about the ACM, right? The Association of Computing Machinery. You heard of these legendary professional organizations that supported people in our fields.</p>
+<p><strong>Lenny</strong> (00:12:09):<br />
+And by the nature of the rapid pace of change in the technology, and the nature of the engagement of those institutions, even academics, even academia broadly, kind of are out of touch. The tools that you got from those places weren't useful in our field.</p>
+<p>So, I do think the mentorship that we give each other has been a critical and sustaining resource. There is, today, now, resources like your podcasts and your newsletter that are actually really designed to help people who are professionals in our industry in a way that is almost kind of missing for 15, 20 years, and I love to see that. Because if you're an up-and-coming [inaudible 00:12:45], literally you used to have to know somebody and ask them a question.</p>
+<p><strong>Lenny</strong> (00:12:48):<br />
+And so, a lot of times what I'm helping founders with, I can help them with the strategy, I can help them think through the technology choices, I can help through business, I can think through the management, the organization structure. But I also try to be very clear, there's a bunch of stuff that I just was never exposed to.</p>
+<p><strong>Lenny</strong> (00:13:00):<br />
+So, even as we just talk about how tough it was for the average engineer joining Facebook in 2006, man, it was even tougher for Mark Zuckerberg in 2004, probably. And that's a story that's been told, I'm sure, but still. So, I think these are both... It's almost all scale and variant. No matter how far you dial back, the challenges are interesting and are worth talking about.</p>
+<p><strong>Lenny</strong> (00:13:22):<br />
+One of maybe your most popular posts is this quote that you share about the advice you often give. What you say is, "The advice I find I have to give more frequently than any other in my career, as a manager, a board member, an advisor and a friend, is for people to more directly leverage their leaders." Can you talk about that and what that means, and what that looks like?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:13:40):<br />
+It's such a normal and natural healthy thing. And by the way, we do it in our personal relationships. Like I said in the post, we want to do it ourselves. We want to do it ourselves to prove to everyone that we can do it ourselves.</p>
+<p><strong>Lenny</strong> (00:13:52):<br />
+And we think in our heads, "If I ask for help, haven't I already given up that goal? Haven't I just admitted defeat on one of my top level goals, which is to demonstrate that I can do it myself?"</p>
+<p><strong>Lenny</strong> (00:14:04):<br />
+But what so often we forget is, more often than not, your job is not to do it yourself. Your job is to get it done, is to have the thing done, done well, done right, done competently. And a lot of times, the tools that you need to do that live with your manager, with your partner, with your advisor, with your mentor. That's where they live.</p>
+<p><strong>Lenny</strong> (00:14:25):<br />
+So, how many times as a manager have I gone through, and somebody's told them, "Here's the job." They're like, "I got it." They go off, they come back, it's done, it's wrong. And I'm not blaming them for it being wrong. They didn't check in with me. They misunderstood. We miscommunicated. I'll take the L on that. That's no problem.</p>
+<p><strong>Lenny</strong> (00:14:42):<br />
+But here we are, six months later, it's not done right because they misunderstood the brief. We miscommunicated with the brief.</p>
+<p><strong>Lenny</strong> (00:14:49):<br />
+Or they come back, and it took a year. And I'm like, "Why did this take a year instead of six months?" And they're like, "Oh, man. I had all these things I had to deal with." Where, if they had emailed me, I could have bulldozed that stuff. I could have cleared the path. I could have said, " Oh, no, no, no. Don't worry about that. This is the thing." And then we'd have been done six months sooner, and they would've been less frustrated. And so, light touches.</p>
+<p><strong>Lenny</strong> (00:15:09):<br />
+Now, I do think as a manager we also have a job to say, "Hey, that's kind of the work, so you got to kind of go figure that out." And one of my things I always tell my managers, one of the most powerful things we do is refuse to rule. Someone will bring me a thing. A lot of times we feel obligated to weigh in and help. I'll be like, "Nope, but look, I think you've got it. I think the challenges you're facing are the right challenges. I think you're approaching it in the right way. Just do your best there." And that's what it is. And so, there is a responsibility as well for those of us who are leaders, mentors, advisors, board members to do that.</p>
+<p><strong>Lenny</strong> (00:15:39):<br />
+But, by the way, we do this... Personal relationships. You're with your partner, and you're trying to do something the right way, but you're not talking to them about it. You're just taking a huge risk there, and for very little reward. They're not going to be mad if you ask them, like, "Hey, is this how you wanted it done? I don't know."</p>
+<p><strong>Lenny</strong> (00:15:56):<br />
+And so, I do think it's kind of funny how much we build these castles in our mind, these little silos that keep us from engaging the structures that are built around us, that are designed to help us succeed. I saw this great quote, actually just yesterday. I saw Patrick Stewart, who is one of my favorite actors of all time, and whose characters I love, and he talked about people going on casting calls. And this is a brutal thing for actors, right? You're going on 30, 40 things, you're getting rejected. It's tough. Everyone's kind of heard about this. And he said, "No one wants you to succeed more than the person you are auditioning for, because they want you to be awesome. Because as soon as you are awesome, they're done. They want you to be amazing."</p>
+<p><strong>Lenny</strong> (00:16:37):<br />
+That's like your manager. Nobody wants you to be more awesome than your manager does, because when you're amazing, your manager, his life gets easier, her life gets easier. So, I just think that's the mentality we get into is like, "No, no, no. They're testing me." They're not. They are rooting for you. I promise you that.</p>
+<p><strong>Lenny</strong> (00:16:53):<br />
+I love that advice. I imagine the reason people don't do this, as you said, is they don't want their managers to think they don't know what they're doing, or they can't solve it. Do you have any advice and guidance for when it makes sense to go reach out and ask?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:17:06):<br />
+One of the things I think, for people who are timid about this especially, is I think you can put a framing around it that's really easy for your manager to engage with. You can say, "Hey, I'm making progress on this. This is what I'm blocked on, this is the current program." And I'll even say, "Hey, if this all looks good to you, no response required. If there is something here that you want me to do better, different, that you think you could help with, let me know."</p>
+<p><strong>Lenny</strong> (00:17:32):<br />
+I love a typed, five-, 10-sentence email, "No response required. Here's where things are." Even if everything is going really well, I'm like, cool, this person understands the urgency, they understand the assignment, and they're giving me a little heartbeat, a little ping back.</p>
+<p><strong>Lenny</strong> (00:17:53):<br />
+And then also, if two weeks later, let's say the blocking issue is bad, then you say, "Hey, I am sorry, but I do actually need your help now. I'm actually blocked on this thing." I have the context. I have a mental model of you toiling away on the right thing, on the thing I asked you to do over there. Even then, when you're blocked, you can make my life super easy. Like, "Hey, what I'd love for you to do, if you could send an email to this person, here's a draft with this thought, that would help."</p>
+<p><strong>Lenny</strong> (00:18:23):<br />
+Or it's like, here are specific questions framed up. "I think this is what you want. Is this right? Yes or no? If no, okay, we'll come back and we'll spend more time. If yes, we're all good." So now, not only am I up to speed, I have a mental model, I'm engaged. Also, you've made it super cheap for me to help you. And people are always surprised. People who work for me are always surprised when I tell them how big a part of my job is doing these little types of things.</p>
+<p><strong>Lenny</strong> (00:18:53):<br />
+It's a little spinning plates at my scale. I've got 10,000 or 15,000 employees, depending on how you want to count different things. And so, you're just like, every now and then I got to get a whole new plate, a whole new rod, and just really put the effort into it. But for the most part, I'm just trying to touch everything and keep the momentum going. And so, if something falls, and somebody didn't tell me that "Hey, we're losing rotational velocity here. We're losing momentum." Oh, I'm bummed. I'm like, "Ah, now that plate fell. I got to start a whole new thing over here now."</p>
+<p><strong>Lenny</strong> (00:19:22):<br />
+So, I think people underestimate. They think of my job differently than my job actually... My job is actually tons of little touches.</p>
+<p><strong>Lenny</strong> (00:19:29):<br />
+So, I think a key takeaway here is, one, index more towards asking your manager and leaders for help. And I love this way of framing it of, it doesn't always need to be like, "Here's what I need from you." It's, "Here's what's happening. Here's things that might be blocking me. Here's questions I have. Here's things that are going on."</p>
+<p><strong>Lenny</strong> (00:19:44):<br />
+This is actually similar to something I found really powerful that I'll share real quickly, this idea of a state of... I call it the State of Lenny email. And I sent this email to my manager every week. The State of Lenny. It's kind of like State of the Union. And it's, "Here's my current priorities, here's what's on my mind broadly, and then here's blockers that I need your help with.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:20:02):<br />
+We actually used to have a format for that we called HPMs. Highlight, people, me. And every manager at Facebook from like 2008 to like 2014 would send to their manager, or even their leadership group. I mean, at one point when I was running what we called comm apps, I just sent it to Zuck and the whole leadership group.</p>
+<p>It's like, what's the highlights include? And it highlights [inaudible 00:20:27] flow. What's the big ticket things you need to know? Where are people? Like is somebody in trouble? Is somebody at risk? Is somebody doing really amazing work that needs a shout-out? And then me, how are you personally doing? HPMs, we called them.</p>
+<p><strong>Lenny</strong> (00:20:39):<br />
+Actually, it's funny. I hadn't thought about that in a long time. But yeah, no, I think this kind of thing can work. And look, every manager is different, so even at the Meta level, by the way, is another success. I think what people do is they want to treat every manager the same, and that's not going to work because every manager is different.</p>
+<p><strong>Lenny</strong> (00:20:54):<br />
+But every manager, you can ask, "How do you like to get updates?" You can ask them when you first start working with them. Like, "Hey, what's your cadence? How do you like to stay informed?" And so, for me, I do regular one-on-ones. As the org's has gotten bigger, those have gotten more distant, so people have replaced those with more written things.</p>
+<p><strong>Lenny</strong> (00:21:11):<br />
+But no manager will get pissed at you if you're like, "How do you like to get information about me?" That's a totally reasonable thing to ask.</p>
+<p><strong>Lenny</strong> (00:21:18):<br />
+I love the specific idea you shared of just drafting the email to say the other team leader, "Here's what I need you to tell them. That would really unblock this thing." And that's such a cool idea.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:21:27):<br />
+By the way, I always put my own... I don't take that copy paste it. I'm always looking at that and be like, "Okay, I understand." A lot of it is actually not about what you want the other person to hear, it's about the voice, the tone.</p>
+<p><strong>Lenny</strong> (00:21:41):<br />
+It includes a lot of history. I don't know. Have you been going back and forth with them for 12 rounds, and this is going to feel to them like I'm really coming over the top? Or is this like, "Hey, first time you're hearing about this, my bad. Here's what we're doing. Need your help."</p>
+<p><strong>Lenny</strong> (00:21:54):<br />
+So, a lot of that isn't even about making my life easy because I want to copy paste. A lot of it is, actually, there's a rich set of information in how you tone and how you draft that note that's going to help me land it correctly and not feel like I'm just out of band, heavy coming in.</p>
+<p><strong>Lenny</strong> (00:22:11):<br />
+This touches on something that I often hear is very core to the way Meta works, which is transparency. Anyone can ask Zuck questions at the Q&amp;A's. People are encouraged to post constantly internally of what they're thinking, what they're working on. All the data is shared publicly. Which often leads to leaks, which I hear you hate, and that is a pet peeve of yours.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:22:32):<br />
+Just feels like a violation of the team trust. Just feels like... I grew up with playing sports, right? I was football, soccer, track. And you just can't imagine one of your guys calling out the play to the other team. Can you imagine what you would do in that case? "You're off the team. I'm sorry, you can't be here." Anyways, sorry. Carry on.</p>
+<p><strong>Lenny</strong> (00:22:48):<br />
+Yeah, and there's so many more people, it's hard to find. Who is this? So, with this downside as an example, and I imagine there's other downsides also takes a lot of work, and it puts people on the spot a lot of times, what have you seen as benefits and why is that such a big part of Meta's way of working?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:23:05):<br />
+Yeah. This kind of comes back to, I think, the principle that really good, talented people, you want to leverage them fully. You really want to make sure that they are fully leveraged. And so, anytime they have the wrong information, or they don't have the information, you've now blocked one of the economically most valuable things that your company possesses, which is this person's time, attention, talent. Not only that, you've also made them more frustrated, and now they are more likely to leave.</p>
+<p><strong>Lenny</strong> (00:23:35):<br />
+If the lifeblood of any company are the people inside of it who collectively commit to some kind of a goal and a mission and work together, then you want to maximize that potential. And creating this really open information ecosystem is one of the ways that we do that. So often, great, phenomenal work that has happened at our company has not come from this one top-down mandate, but has come from people understanding not just what we're trying to accomplish top down, but also having way more information at their disposal to be able to act on it.</p>
+<p><strong>Lenny</strong> (00:24:16):<br />
+People talk about top-down or bottoms-up culture, and it's a bit of a myth, in my opinion. If you've ever met Mark Zuckerberg, it's not a bottoms-up thing. The ideas that we're pursuing are Mark Zuckerberg's ideas, first and foremost. That's not to say that he's not open to new ones, and of course he is, and that's a form of bottom-up, people can bring ideas to him and he internalizes them and acts them or not. But when he brings things top-down, he's not micromanaging, he's in the details. I'll be careful on that.</p>
+<p><strong>Lenny</strong> (00:24:44):<br />
+But he does create the space for you to bring back three or four versions of the thing that he's talking about, and then he shapes it from there. And you can't do that if there's... If you don't have degrees of freedom, sure, but also if you don't have the information. Otherwise, if you don't have the information available, what we're trying to accomplish, why we're trying to do it, what the infrastructure is like, what the availability is like, what the performance is going to be like, well, you just are stuck. You're just going to have to follow the script. That's very boring for high-talent, high-creativity, high-engaged people.</p>
+<p><strong>Lenny</strong> (00:25:15):<br />
+Now, it does come at a tremendous price. You have to get really good at managing information on the incoming. Most people at most companies consume all the information that's given to them, but the information itself is carefully managed. They're getting all the information they're intended to get.</p>
+<p><strong>Lenny</strong> (00:25:32):<br />
+We've turned that on its head, and it sounds great, but it's not free. Even somebody senior coming from outside of the company to the company, one of the things I have to coach them on is, how do you find signal amongst all the noise?</p>
+<p><strong>Lenny</strong> (00:25:45):<br />
+You have to have a system for managing your information. You have to have a system for triaging the incoming, getting rid of a bunch of stuff that is on the wrong channel, or it doesn't matter to you, figuring out what's the... groups that you want to be a part of, but you consume only when you choose to and-</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:26:00):<br />
+... groups that you want to be a part of but you consume only when you choose to. And where are the things where you're getting push notice? Like that's the real time thing, and that takes some time.</p>
+<p><strong>Lenny</strong> (00:26:08):<br />
+This point you made about bottom up versus top down is really interesting, because, when I think of Meta, I think it's a very bottom up culture. I hear everyone comes up with their ideas, runs experiments, is very encouraged to just try stuff, and it's really interesting to hear that. And it makes a lot of sense that most of the big ideas actually do come from the top.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:26:26):<br />
+It's of these mythology things. I don't think it's the wrong... As a contract, it's more bottoms up than many other companies, because you do have these degrees of freedom within the construct. But make no mistake, like Mark or me or Chris Cox or Javi, they have very strong opinions about what we should be doing as a company, and your bottoms up-ness works within that framework. But it is true that you can ask Mark any question, and he's going to answer it. Same with me, same with Chris, same with Javi and also that we certainly take inspiration from the discussion that we have with employees. So I don't know, it's just not as black and white as people tend to paint it.</p>
+<p><strong>Lenny</strong> (00:27:02):<br />
+I think one of the biggest lessons here is making it at least feel like you have a lot of say, even though a company is very, "Here's the big strategic [inaudible 00:27:10]," you're very good at making people feel like they can have an impact and a say.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:27:14):<br />
+And can I tell you, the most important thing is just giving people clear guidelines so they know where they... Like, "Where do they have space and where do they have no space?" One of the things that we go in these reviews with Mark or my team with me I'm sure, and I'm like, "For this part of the UI, it is going to... Like, I will draw it for you. It's going to be like this." And this other part. I'm like, "Cool, that's important, too. I don't have a clear vision of it. Why don't you do it?" So there's just really clear guardrails of like, "Okay, where are we just on assignment? And where do we have more flexibility?"</p>
+<p><strong>Lenny</strong> (00:27:45):<br />
+Is there an example of that that comes to mind where you were just very in the details and drawing the screen?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:27:51):<br />
+Over the course of time, there's been quite a few examples. I think early on, when we were working on News Feed, mark was absolutely whiteboarding every single pixel that the team had to put on the front end. On the back end, he was like, "Make it rank, have some ranking." So I felt like I was lucky there. I was just like, "Cool, I'm off to the races on some ranking stuff." And Chris Cox and all these other guys are having to really pixel-match these things. But it's not always that way by the way. So now fast-forward and we're talking about ranking, it's not like Mark is always hands-off on that. When we got into modernizing our ranking systems, which we've done over the last five years, Mark was heavily involved and like, " Hey, what's the mix shift and how are you weighing different things?"</p>
+<p><strong>Lenny</strong> (00:28:33):<br />
+And so it can go both ways. For me personally, I've gotten really involved in some relatively esoteric things. I was really adamant, for example, that hand tracking and mixed reality make it into the headset. Let's just say that there weren't any supporters in the team. Obviously we had a hand tracking team, which is phenomenal, mixed reality team, but there was a lot of people who were like... They did not feel those features were going to be critical for this to become a mainstream device. I always believed that they were for ease of use and for... So I just really forced the issue and didn't give anyone any room and held really high standards for the performance benchmarks we were going to hit on the hand tracking. And teams told me it was impossible. And it wasn't. It did great.</p>
+<p><strong>Lenny</strong> (00:29:11):<br />
+This touches on something that comes up a lot on this podcast. And there's this debate between how in-the-weeds founders and execs should be, whether they delegate, empower, versus, "No, we're just going to do it this way. I'm going to be very involved in every mock." And there's always this up and down that happens where it's like, "Okay, cool, we're going to let people run and do their thing," and then things start to not work as well often. And then, "We're going to take back control." You have just a perspective on when it makes sense to go deep, how founders execs should think about that?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:29:41):<br />
+Such a useless answer for founders, it depends on the weeds. There are some weeds that really matter and there's some weeds that really just don't, and I should say, that doesn't mean they don't matter at all. You have to do them, but they aren't the hinge upon which success or failure will happen. Yeah, there's people I really respect, Brian Chesky's been on and said, "Look, the Airbnb is going to work only on the things that I can work on. It's that's the extent of what it's going to do." And that's a super extreme form of it. I have a lot of respect for him and how they're working things. I think that if you have great super talented people that you can trust who can own bigger pieces, that's one option. If there are ways to structure it so that you can check in effectively and make sure that it's on track, that's another way to structure it.</p>
+<p><strong>Lenny</strong> (00:30:27):<br />
+And there probably is still work happening at Airbnb, that has to happen, finance and accounting and HR, that Brian isn't personally managing. So there are clearly non-technical areas that we do. Or legal. There are areas that we do trust that this is happening at. And so I think a lot of founders regret delegating too much, from my conversations. And I totally get that. Or they delegated something critical that really turned out to be the most important thing. For me, the judgment is like, "How do you, most important, determine what is what matters the most?" And so Mark, we joke inside of Meta, to this day, we call it the eye of Sauron. When Mark has determined that the thing that you're working on is the most important thing, there is no detail too small for him to notice.</p>
+<p><strong>Lenny</strong> (00:31:17):<br />
+He will be in a review, and in the same review. We'll be like, "Strategically, I think we're off course. And also, this one pixel is definitely wrong. You have to fix that." That's a big range. Frankly, I'll be a little bit self-congratulatory, I pride myself on being able to do the same. And I think people who work with me often comment that the style of leadership that we have, and I think Chris Cox is the same, is where it's like we will go where hide a low on the things that matter a ton. And there's a bunch of other things that certainly matter. We're glad we're doing them, but either they have pretty clear roadmaps, pretty clear examples in the industry, or it's like that's a feature that you have to have but isn't going to determine success or failure. So getting it into rough shape and then iterating on it is fine. And so I think it really does depend on the weeds, how deep you want to get.</p>
+<p><strong>Lenny</strong> (00:32:08):<br />
+It's so funny, I use exactly that same metaphor, the eye of Sauron, when I talk about working on things that Airbnb that matter a lot to Brian. And my advice to people is, "You don't want to be in that eye of Sauron for too long in your career, because you're just going to burn out if you're working on the most important thing all the time, but want to be close. You don't want to be in the Shire, but you want to be around the [inaudible 00:32:26].</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:32:26):<br />
+That's right. They're both... So I worked for years in ads. From 2012 to 2017, I ran ads in a business platform, this big ads group, and it was an area where certainly it was very important, but Mark had so many other things going on with the transition to mobile, he did kind of delegate it to me. And it was awesome, and it was so cool to have that kind of trust from him. And also, you're constantly terrified, because like, "Mark does not know. What if this is all..." My leads would be worried, because they just hadn't had a review with Mark in a while. And it's like, yeah, you suffer in the intensity of the gaze of Sauron. You also suffer in the shadow of its absence. There's no perfect place to be.</p>
+<p><strong>Lenny</strong> (00:33:09):<br />
+That's hilarious. I'm trying to think of the part of Middle Earth that is a metaphor for that.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:33:14):<br />
+Yeah.</p>
+<p><strong>Lenny</strong> (00:33:15):<br />
+Okay, so you talked about the News Feed, which was one of your very earliest projects at Facebook. Here's a couple fun facts I know about the News Feed. One is that it was the very first algorithmic News Feed of its kind of any social network and maybe of any sort of product like this. And two, it was the very first AI code that was written at Facebook to rank the actual News Feed. So there were a lot of firsts, and clearly this became a huge deal. The News Feed is essentially what people think of when they think of Facebook now, but it was super controversial when it came out. People were very against this. They did not want to be sharing this much information with people, or so they thought, and then they realized eventually, "Oh, this is actually exactly what I want." What did you learn from going through that experience of building something that people initially reject and then later realize that they actually do want this and this is exactly what they're waiting for?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:34:08):<br />
+This is a story that you tell a lot actually through your interviews, which is just like, "You have to have conviction in what you're building." You're choosing your customers as much as your customers are choosing you, is one way I think about it sometimes, and one mistake that you do see sometimes startups make is they get an early cohort of users whose needs actually take them kind of orthogonal to a larger market. And so they become kind of held hostage by their earliest customers now. So time and time again, we've had a vision for what we thought this should look like, and it wasn't the thing we were delivering right now. And so people who were using the thing we currently had were not sure that that change was what they wanted. But we had a confidence that over time they would, and we're not always right, but in these cases we were right. Now News Feed was an easier case than people suspect, because everyone was outraged at the same time as they immediately doubled their usage of the product.</p>
+<p><strong>Lenny</strong> (00:35:05):<br />
+So we had a few advantages there, which was, it was literally like everyone was like, "I hate this so much." And they would refresh, refresh, refresh. And so we were like, Okay, wait, there's cognitive dissonance here between what the stated preferences and what the revealed preferences are in the economic sense. So News Feed was a little easier than people suspect, to us, to stick with. But people sometimes misunderstand that. They think, "Oh, the lesson is don't listen to your customers. Not at all." And we certainly care a tremendous amount. And even with News Feed, we did actually screw some things up. I kind of always make this joke that it's almost like... You know when you're at the party and music's loud, you're talking to somebody and the music cuts out right when you're saying something at a super high volume, and so everyone in the party hears the last thing you said?</p>
+<p><strong>Lenny</strong> (00:35:42):<br />
+Now you were saying it in a public place, so it wasn't like it was a private comment, but you also didn't mean to broadcast it at that volume. We kind of did that to the entire user base. We took what had been wall posts, which sure, anybody could have gone to that profile and seen and then put it kind of on blast, on Main, as the kids say these days, "Put it on Main," and someone's like, "Ah." So we did that. I don't want to say it like... We did screw things up. It wasn't like, "Oh, this is a clause execution." So another thing to know is like, "When did you screw something small up, and when did you do something big up?" When is the thing itself wrong, versus when were the details wrong? That is an art. That is a real art, and you don't always have user data to determine it like we did.</p>
+<p>And so a lot of that is, "Do you have a clear vision and intuition for what you expected to happen?" And then what happened instead and can you diagnose the delta there? So in the News Feed case, we made a bunch of little mistakes. The thing itself was right, and I really am quite proud of the work we did there. Me and Chris Cox at the most core probably in the engineering side, which you saw as the PM, there was no ranked feeds before that. We did have some AI that I built before for the anti-spam, anti... things, but it was pretty rudimentary, but it was probably the first consumer AI that was in a website of that kind around content. And we built the most efficient monetizing surface in history outside of Search, I think. [inaudible 00:37:04] for those who are curious, I don't use monetization because I think money's the most important thing. I do think it suggests the economic power you've created, which I do think correlates very strongly with human utility. Although obviously I respect that some people may disagree.</p>
+<p><strong>Lenny</strong> (00:37:17):<br />
+In terms of the economic utility, the Venn diagram of Boz, of News Feed and ads, create $1 trillion dollars of value.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:37:24):<br />
+It's not-</p>
+<p><strong>Lenny</strong> (00:37:24):<br />
+Well done.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:37:25):<br />
+It's not nothing, not nothing.</p>
+<p><strong>Lenny</strong> (00:37:27):<br />
+[inaudible 00:37:27].</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:37:27):<br />
+We're proud of that work.</p>
+<p><strong>Lenny</strong> (00:37:28):<br />
+You have this quote in one of your posts about the News Feed where you said, "It consumed me more fully than anything in life had ever consumed me. It opened up to me the truth that when you're passionate about something, you do better work, you do smarter work and you're, in order of magnitude, more productive."</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:37:43):<br />
+There's no substitute for it. One thing I've learned about myself since that post actually is just the degree to which I am somebody who is inclined to be passionate about things. And it's a gift that I'm lucky to have, and I understand that's not every person. And so actually the ads thing is a good example. When Mark told me to go work on ads, I was like, " No, I don't want to. I don't think I have a passion for that." I had this idea of myself. I had a very strong identity of myself as this AI infrastructure product guy, and I was working in this space and nope, I was wrong. I just am a guy who gets excited about things. Once I get into ads, it's like, "Oh, this is fascinating. It's a three-sided marketplace, and there's all these different..." It felt like I was playing chess times in terms of the moves with the other players in the industry, and I was super pumped about that.</p>
+<p><strong>Lenny</strong> (00:38:26):<br />
+And then when he wanted me to work on hardware, I was like, "No, I'm not. I'm a software guy. I'm a software guy, Mark." And now, I love this work. That's such a fascinating space that I've learned so much. So I do think that's right. I do think what I find something I'm passionate about that's good. What I have learned since then is to give myself a space to understand if I can get passionate about it. Now, there are parts of jobs that I've had before where I just never found the passion, and after six months I just have to move on. Literally it's like I'll either quit, get fired, I'm doing bad work, I don't care about the work. And so I do have a self-awareness. It's not that I can get passionate about anything, but I do have a pretty broad palette, it turns out.</p>
+<p><strong>Lenny</strong> (00:39:01):<br />
+I think that's a really interesting career lesson of, "Don't assume you won't be excited about something that may come up." Is there anything there that you'd share with folks of just like, "Explore it, give it six months, see if you can get excited about it?"</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:39:14):<br />
+Absolutely. So I have a very unusual career arc in some ways, which is I really almost changed jobs every six months for a long time. I was working on this integrity stuff with News Feed in the background. Then I was working on News Feed for about a year. Then I worked on site speed and infrastructure and detecting SAVs and issues. And then I worked on Bootcamp, and then I worked on messaging and groups. I had this really funny thing. I was kind of joking it was like, for those who are old enough to remember Karate Kid, I felt like I was painting a lot of fences, waxing a lot of cars, and at the end I knew karate. I was like at the end, at the end I had the payoff, because I'd gone through and I'd met a lot of people and I'd worked in these different areas and I understood different dynamics. Well, other people who joined in my cohort were getting promoted, but they were in a single track. They just stayed in one place and they got promoted, whereas I kept moving around. And it probably at some point early in my career felt like I was moving more slowly relative to my peers. And then when I finally turned the corner, really with the ads appointment, which I did for five years, I went vertical. I just like my career went vertical. And since then I've kind of been on that trajectory. And so advice I most often give people, for me at least, the lesson that I take from this, is I just was willing to learn aggressively. I would move because I wasn't learning enough. I was bored, and so I wasn't learning enough new stuff. And what was cool about finally getting to the ads job, and likewise in the job I'm in now, is those jobs, I learned a ton for five years. I'd never stopped learning in those jobs. You will occasionally find those jobs where they're super deep and you can just keep learning.</p>
+<p>Meanwhile, a lot of my friends whose careers were on a better trajectory [inaudible 00:40:55] then earlier, they literally got bored of what they were doing, but they didn't have any place to jump to. There wasn't some other... They'd become domain specialists in a domain that they'd kind of exhausted for themselves. And maybe they'd even stuck around longer than they wanted to because it was comfortable or because the company wanted them to. And it ended up kind of being a hindrance to them in the middle of their career. And so for me, it's like, "Jump into new things, give it six months. If it's not the thing, no problem. You just built a ton of new skills that's going to come in handy, I promise you that. Keep going." And likewise, when you do make that jump early career, optimize for learning, optimize for... Think about a compound interest. It's like the first 10 years of compound interest don't look that impressive. It's like after 10 years it starts to look good.</p>
+<p><strong>Lenny</strong> (00:41:43):<br />
+I love that advice. It's similar advice I always give of, "Variety of experience often ends up being the most valuable thing you build over time," just trying to bunch of stuff, doing some internal tools, maybe working on customer support, I don't know, trust and safety, user-facing products, infrastructure. I'm thinking from a PM's perspective, maybe an engineers, and other functions. One question along those lines. So we talked about the eye of Sauron and working on the most important thing at the company. Do you have any advice on how much of your career you should be working in that center?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:42:12):<br />
+Yeah, listen, [inaudible 00:42:12] being equal, I think there's two really good places to be. I think one is carrying a lot of water in areas that the company's not paying attention to but you are important. And it needs to be a lot. You got to own that stuff and really move mountains over there, because I promise you, as an executive, when there's a huge dam holding up the floodwaters, you respect the heck out of the person who is holding that dam up. You're like, "You keep doing that, Atlas, that is good work over there." The second-best place to be, or maybe equally, is on the most important thing. And on the most important thing, that's where you get to the advice that Eric Schmidt gave Sheryl Sandberg, which is like, "Hey, it's a rocket ship. Get on. Don't ask what seat I'm in. Just get on."</p>
+<p>If it's the most important thing, you're going to get a smaller piece. Everyone wants to be there. Get the piece. If it's the most important thing, get the piece that you can crush, kill, do a great job at and grow from, because you're going to get a ton of visibility, you're going to get a ton of experience. You're going to see what it looks like in the fire, in the fire, and that is invaluable. You will use that everywhere. And so I say that. That's at project selection time, but now I'll be cautious. Understand, projects that start in the fire, hopefully, are forged in some manner of metal that cools and is no longer in the fire, like God willing. And likewise, things like dams that are holding up floodwaters have a tendency to crack or break or floods overcome [inaudible 00:43:42]. So I think you do want to be at selection time in one of those two places, but then you also... You're going to stick with the ride.</p>
+<p>And again, to my point, if you're not engaged, if you aren't doing great work, if you don't love it, then move on. If you've exhausted it, you used to love it, but you don't anymore, move on. If you still love it and you're engaged, great. That's cool. That's a great thing. You deserve to go from the forge to the dam and back over time. You don't have to always just keep jumping onto the latest fire. I tried to do that once, after the ad [inaudible 00:44:14]. Actually, so I spent six months and we built the first mobile ad product in 2012 and kind of saved the IPO, which had gotten pretty grim [inaudible 00:44:23]-</p>
+<p><strong>Lenny</strong> (00:44:23):<br />
+Yeah, I remember that.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:44:24):<br />
+... that point. And I told Mark, I was like, "This is so fun. Maybe you can just keep doing this, just putting me on the biggest fire every six months." And he turns to me, he said, "Buzz, that's not a real job."</p>
+<p><strong>Lenny</strong> (00:44:32):<br />
+He's like, "I need you to stay here and usher this forward," which I did for the next four and a half years. And it was amazing. It was amazing. And again, I do give him such... It's funny, I'm going to get a hard time in this. One of our biggest critics as well as being one of his biggest fans. I have both those jobs, but today we're talking about stuff that I think Mark really demonstrates really well. And he did a great job of pushing me in my career to different places where I didn't think I could succeed. And he saw the opportunity that made it happen.</p>
+<p><strong>Lenny</strong> (00:45:01):<br />
+What have you learned about that, giving Mark negative criticism, anything that he accepts? What do you learned about that?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:45:08):<br />
+Mark's voracious for all information and all points of view. One of the things that's pretty interesting, I talked earlier about how much, as a founder, I think especially, you have to have tremendous conviction. You just have to have a tremendous degree of confidence. And I think Mark is somebody who is maybe the strongest willpower of a person I've ever met, just in a pure willpower sense. One thing that's interesting about Mark is you'll give him feedback, he listens. He's a kind person to work for, so you'll give him feedback, and he'll listen. Truly. He'll most often tell you that you're wrong, why you're wrong. That's just like most often. And what will happen is... It's uncanny. It's like over the course of the next week or two, you'll just see shifts. And I don't think he's doing it...</p>
+<p><strong>Lenny</strong> (00:45:55):<br />
+I've always joked that the information gets to him. So much information every day gets him. And then at night, he re-compiles the whole world with all that information and comes back. And by the way, this is not just true about product work. In my head, I was thinking about product stuff where he was like, "Hey, I think this product is doing this wrong." He's like, "No, no, that's why it's not that way." And the product will start to shift. Also to give him feedback just on his own presence in a meeting or delivery, he'll be like, "Oh, well here's why I did it that way." And then a couple weeks later, you'll get in a similar situation, and he will moderate how he shows up. So I actually find him somebody who's really satisfying to give him feedback. It really works. It's very effective, but you do have to take the long view on it. And he will have a... The things he did, he didn't do an accident. He will have a reason why he did them the way he did them.</p>
+<p><strong>Lenny</strong> (00:46:39):<br />
+It's a great example of strong opinions, loosely held.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:46:42):<br />
+Yeah, that's right.</p>
+<p><strong>Lenny</strong> (00:46:44):<br />
+It also makes me think, I think you used the compiler analogy. I'm thinking the model training. He's retrained his model overnight.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:46:50):<br />
+Yeah, that's right. It's funny. One of the things that's so funny about Mark is if you give him some feedback in the morning, the next six meetings he has, whether it's about that product or not, he'll ask people what they think of that feedback. He won't attribute. He's just like, "Hey, what do you think about this in this product? And so you'll be in a meeting with him and you'll see him doing it. He'll come to the meeting with you about some other topic. He'll be like, "Hey boss, what do you think about this product and this idea?" And so he will, over the course of the day, take that little note and kind of pressure test it, and he loves to triangulate. Where are all the points of view on this that maybe you didn't see? So he really values a broad perspective on each thing that's being discussed, which is really fun.</p>
+<p><strong>Lenny</strong> (00:47:29):<br />
+Trying to get more training data for his model. I get it.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:47:32):<br />
+You can't get me to call Mark an LLM. That's not fair. That's [inaudible 00:47:35].</p>
+<p><strong>Lenny</strong> (00:47:35):<br />
+We could all hope to be as smart as Mark. As you were talking, I noticed your tattoos, and it reminded me that you've got at least two tattoos that I'm aware of.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:47:35):<br />
+Oh, yeah.</p>
+<p><strong>Lenny</strong> (00:47:45):<br />
+One is of California, which I completely understand. California is a very special place, but you have this other tattoo that is just the words Veritas. Can you talk about what that's about and why that's important to you?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:47:58):<br />
+The funny thing about tattoos in general is I came out of high school, I was like... I don't know if there was an archetype for me, but I didn't drink until I was 21. I was a very rule-following person. I was like, "Why are you going to get a tattoo, affect your body? "Why would you dye your hair? Just let it be what it was." And some of this was I think I was somebody who was privileged and had a great deal of self-confidence in who I was and what I wanted to be, and that was fine. But in some ways I was also weirdly judgey about other people in a way that's kind of off- brain for me, certainly today it would be, but at the time, getting a tattoo is a big deal for me. I was like, "Oh, this is just the vehicle for my life and you can do whatever you want with it. And it's not like a... It's something that you possess, and if you feel like if you want to decorate it, you can decorate it.</p>
+<p><strong>Lenny</strong> (00:48:47):<br />
+And so getting a tattoo was a big deal to me actually, and I completely shifted my mindset of how I thought about my body and how I thought about people's body and their presence and their time, maybe to some degree, even an understanding of mortality. Like, "Hey, can't take it with you. It's all going to go..." When you're 18, you think you're going to live forever, and by the time you're 22, a grizzled 22-year-old veteran, you're like, "Ah, tattoo that bad boy up. It's all going down." And so yeah, that's why I got the Veritas tattoo, which is Latin for truth, which is... I will say it's a little cheesy, because it's also Harvard's motto. But I got it in a monotype font. This is the programmer's font here.</p>
+<p><strong>Lenny</strong> (00:49:28):<br />
+The other thing that's interesting to me about tattoos was it's also part of a generational shift. We grew up in a time when tattoos were really seen by adults as gangs or bikers or sailors or certain types. Now my understanding, I saw a stat recently that more people in my generation have tattoos than don't have tattoos. And so I think we also just culturally shifted positions in a way that... I find richness of self-expression wonderful. I really think it's great. And so I'm here for all of it.</p>
+<p><strong>Lenny</strong> (00:49:56):<br />
+My assumption from what you're describing is, this idea of truth is very important to the way you think and work.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:50:01):<br />
+My reputation does precede me on this point, I'm afraid, which is... I think when I was young, I saw being honest... And I was wrong by the way. I saw being honest as kind of a get out of jail free card. You could say whatever you wanted as long as you're being honest. That's just not the case at all. I've written about this before, but by far my biggest professional regrets were me not being kind. And I used to think... I wrote this note a while back called Be Kind, where being nice, that's like patronizing, or telling somebody things that are half-truths or just getting by. And I'm against that. But being kind isn't that. Being kind is like, "Hey, how can I deliver this feedback in a way that is actually productive and helpful, in a way that is going to help them and not cause them just to feel bad and helpless?</p>
+<p><strong>Lenny</strong> (00:50:50):<br />
+And I think I did that wrong a lot as a kid, as a young man. And so being honest is still a big part of my personality. No one would ever accuse me of being dishonest who knows me. And I think people understand and respect that I'm pretty direct, and if I have concerns or issues, I'm going to bring them up. I'm just much better at bringing them up now and expressing a true care and belief. I wouldn't bring it up if I didn't think we could do better, if I didn't think we could fix it, if I didn't believe in this situation. And so being honest is still a huge part of my identity, and I think that's something I'm very proud of. But I will say the contextualization of how I'm honest has changed immensely since I got this tattoo.</p>
+<p><strong>Lenny</strong> (00:51:29):<br />
+That seems reasonable. This touches a little bit on something I definitely wanted to talk about, which is one of your most classic pieces, and this is the way I first learned about you, is a piece that is called Communication is the Job.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:51:40):<br />
+Yep.</p>
+<p><strong>Lenny</strong> (00:51:41):<br />
+I know many people have read this, many people haven't. I'd love for you to just talk about what this means and why this is important, why this is something that you wanted to share.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:51:49):<br />
+Yeah, it's one of the things that, especially if you aspire to be a leader... And leadership isn't management, and leadership isn't being the only person responsible, it's not even always the same as accountability. But if you want to have an impact...</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:52:00):<br />
+It's not even always the same as accountability, but if you want to have an impact on the world around you, it is exclusively done through the creation of artifacts or verbalizations that affect other humans. That is all there is. That's all there is if you want to have an impact, if you want to create some kind of a lasting change. And it could be in your little relationship, it could be in your team, it could be in your company, it could be in the world. It is down to communication. And so often you hear people saying, "Oh yeah, I wrote that up a year ago." It's like, "Yeah, but you did a bad job of writing it up a year ago, or we would've not wasted a year not doing it."</p>
+<p><strong>Lenny</strong> (00:52:47):<br />
+People always think that's, "Oh, I had that idea," and that's means anything. It means nothing. It means absolutely nothing. Or it's like, "Oh, I wrote this post." Well, you didn't break through with it. That's on you. It's not on the audience. People want to blame the audience. Well, the audience is just there. I mentioned this even earlier, and I hope people caught it, when I said, "Hey," I give somebody a piece of work and they come back six months later and they have done the wrong thing, I'll take the L. I will take the L on it. It's not great for them. They'll be pissed they wasted their time, but like I said, that's my responsibility. I did not communicate clearly what I wanted, what the expectations were.</p>
+<p><strong>Lenny</strong> (00:53:25):<br />
+Could they have also helped themselves? Sure, they could have, and that's a thing that takes all sides. We should work on this problem for both angles. I have another post called Listening is the Job, which is the other side of this. But communication is the job is, I really believe... Actually, it's the relationship to this idea that came out of the US Marines and the SEALs of extreme ownership, which is... So whenever thing goes wrong, I ask myself, "What could I have done differently in terms of how I communicated things for this to have gone better?" Could I have set priorities better? Could I have set expectations better? Did I need to have a better metric that I pointed the team at? Did I put the wrong people on it?</p>
+<p>By the way, the thing I talk about is org charts are communication devices. They don't exist. There's not a physical string between you and your manager. They're just communication tools that are supposed to give people a rough sense of how things are organized and where to go with who. And so all these things are communication. Silence is communication, me not reaching out to you to check on you, to check on your project. We talked about the [inaudible 00:54:29] earlier. What does that mean? That means trust. That means responsibility. The absence of check-ins has meaning. You cannot not communicate. You are always communicating something with your face, with your clothes, with your body. What are you communicating?</p>
+<p><strong>Lenny</strong> (00:54:45):<br />
+I'll give you a funny example, which I hope we get to put in the podcast, because if you're watching this on video, you will have noticed that my camera cannot stop adjusting light. It's just constantly too dark or too bright. I'm trying a new camera. I'm a nerdy guy. I try a lot of camera gear, I try a lot of microphone gear. I love to have all the latest gadgets and gizmos, so I'm trying something new. It's not working. And in my head I'm like, what is this communicating about me? People are going to think that I don't care or that I'm not competent.</p>
+<p><strong>Lenny</strong> (00:55:15):<br />
+That's what I'm talking about. And now, I felt compelled to explain it in the podcast so that I can communicate clearly that that's not the case. I really just think so much of what I try to do in my professional life is understand the mental model of other people. Where are they right now? And I mean specific people, like my managers or my key technical leaders, and I mean general people like teams, and I mean broadly just the average human. Where are they at in this conversation? And how can I craft my language, my presence, my persona, everything to usher them from where they are to where I want to get them?</p>
+<p><strong>Lenny</strong> (00:55:52):<br />
+And that requires me to have a very clear idea of where I want to get them, have to have a clear idea of where they are. And I want to tell you, it's not as much work as it sounds like. I think no one would accuse me of having this big fabricated persona. It's not that. But it is having tremendous empathy for where people are starting. That was the lead for me. All the rest of it, all the rest of how I show up in meetings trying to smile more, because I'm like a big scary guy, those things are little things that you work on and they become second nature and they're easy. The hard thing is just having the empathy for your audience and being, "Where are they? Where are they starting?" And when you miss taking responsibility for that, extreme responsibility for that.</p>
+<p><strong>Lenny</strong> (00:56:31):<br />
+There's so much good advice in that. There's so many threads I want to follow, but let's just follow this last one of trying to understand how someone is best communicated to. Is there an example to make that a little more real for people of just what you've done to, "Oh, here's how I'm going to communicate with this person?"</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:56:46):<br />
+I'll give you a couple. One is multimodality. There's an old saying, repetition never spoiled the prayer. And I think most experienced communicators, whether they be writers, whether they be public speakers, talk about the importance of reiterating a point several times and in several different ways to make sure that people have a chance to internalize it. You want to use it, you want to say it directly, you want to use metaphor. And so for me, I will give an all-hands and then write a post with the content of the all-hands, because different people are going to respond differently to these modalities and are going to absorb information at different rates on these different modalities. That's a trivial one.</p>
+<p><strong>Lenny</strong> (00:57:23):<br />
+Another one that I think of all the time is making sure that you address people's fears and concerns. People will not listen to you if they think you don't know what's going on. And so, one of my favorite things to do when we're talking about some kind of issue is right up top and say, "Hey, let me be clear. This is the issue we're having. I know we're having it. I know what matters." And then I'll say the same thing that I would've said, but they would've literally ignored me, because how can they trust my conclusions if they don't accept the premise? You know what I'm saying? I think there's a whole piece there. Obviously when you're in person, it's a lot easier because you're reading facial expressions. Even on this, I'm reading you nodding on that. I'm like, "Okay, he's with me." And then I throw in a, "You know what I mean?" Whereas if you give me a cocked head, I then bring a second example to try to drive the point home. But you build yourself up. Most people are going to realistically start in their careers trying to influence one or two people. That's where you start. One or two people. That's who you got to communicate with. Your manager, one teammate, that's who you got. And then you build up and build up and build up a skillset to do it at a larger and larger scale.</p>
+<p><strong>Lenny</strong> (00:58:36):<br />
+I love so much of this advice. I think it's also helpful for relationships. "Here's what you're upset about."</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:58:42):<br />
+Totally, a hundred percent.</p>
+<p><strong>Lenny</strong> (00:58:43):<br />
+"Here's what I think we can do."</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:58:46):<br />
+Again, the work that I've had so graciously supported to do on myself at Meta with great mentors, Sheryl Sandberg, Mark Zuckerberg, a bunch of others and coaches absolutely made me a better partner and husband, and my wife. And then by the way, vice versa. Having kids and getting deep in the literature around raising children. Congratulations to you, by the way. Getting deep in that literature made me a better manager. Absolutely made me a better manager in terms of thinking about how people are managing their emotions and how to engage with them in those times.</p>
+<p><strong>Lenny</strong> (00:59:16):<br />
+Amazing. We need a second edition of this Boz's Parenting Advice.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:59:19):<br />
+That's right.</p>
+<p><strong>Lenny</strong> (00:59:20):<br />
+And relationship advice.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:59:21):<br />
+It's all the good stuff. No bad kids, Lansbury, it's good inside, Dr. Becky. It's all-</p>
+<p><strong>Lenny</strong> (00:59:28):<br />
+I like Dr. Becky.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (00:59:28):<br />
+I really think that the modern parenting canon is really rich.</p>
+<p><strong>Lenny</strong> (00:59:33):<br />
+<strong>Andrew ‘Boz’ Bosworth</strong> (01:00:57):<br />
+Actually, Mark and I tried it together and I want to say, first of all, when the headset came out, we breathed a little sigh of relief because the stuff inside of it didn't represent a fundamental breakthrough. Everything inside of it was something that we probably could have gone and done, with the exception of Apple silicon, which is a marvel, but it's worth nothing. Apple Silicon is like a 2X marvel when doing things like scaling display resolution is unfortunately a quadratic proposition, and so a 2X linear scaling advantage doesn't buy you as much as you might expect when you're trying to scale resolution. And so that was step one. But we still assumed at that price point, with their legendary attention to detail and polish, they probably produced a great product. And the line that I said actually my own podcast with Matthew Ball a week ago was, "Look, I was prepared to come to market and say we have the best value headset. If you want an outstanding, best possible headset for the money, we've got it. It's the Quest 3."</p>
+<p><strong>Lenny</strong> (01:01:55):<br />
+And I was so thrilled when I tried the AVP next to Mark, we were like, "No, we think we have the actual best headset." Now, we're not saying it's the best at all things. If you're sitting still and watching a movie a high-res movie, Apple Vision Pro is really great. It's really great. The resolution shines. The way they've tuned the pass-through shines if you're stationary and looking straight ahead. And they've done some really nice things with the UI. It's one of these things that we do get annoyed about, a mile aside, we get a little bit annoyed about as product people.</p>
+<p><strong>Lenny</strong> (01:02:31):<br />
+I know that this happens to all of us. It happens to Apple, happens to Google, happens to us. We have a bunch of internal things we've been playing with, which will at some point ship and we will be accused of having stolen them when we actually did not steal them. If you want, you can go see my Quora answer on the history of the like button where this happened previously, where we had built the like button internally before it was launched elsewhere. Anyways, it's a whole thing. This happens in our industry a lot, and I really shouldn't care as much. It's a little bit of my ego peeking through, which I should control and tamp down, if I'm being responsible.</p>
+<p><strong>Lenny</strong> (01:03:03):<br />
+The beautiful UI polishes, they did a tremendous job with eye tracking. One of the things that's interesting about the eye tracking is, to do it the way they've done it, that's why you have to have the prescription insert, so it doesn't support your glasses. You have to get prescription inserts. They're expensive. And they can shoot the cameras that track your eyes through the lens as well as the light around it. Ours go from the side on the Quest Pro, and that allows you to wear corrective lenses.</p>
+<p><strong>Lenny</strong> (01:03:27):<br />
+And so different choices like that have trade-offs, but it's still cool. It's great that they got that in there. At the same time, our hand tracking is better. Obviously, the app library we knew was going to be better. That's not totally fair to them. They've just launched and they have small volume still, but I just find the comfort... The thing that really got me the most, the field of view is really small on the Apple Vision Pro. And some people are characterizing it incorrectly on the internet. They're doing a characterization up close to the lens. Once you factor in the eye relief, the distance between where the lenses are and your eyeball is, their field of view gets pretty narrow for almost all faces relative to ours, which I find distracting.</p>
+<p><strong>Lenny</strong> (01:03:59):<br />
+Their displays are much dimmer than ours, and I find the motion blur really distracting when I'm in mixed reality use cases. And as I mentioned earlier in the podcast, I'm a huge mixed reality buff. I'm a huge fan of that potential for exactly the same reason that they are, by the way, which I think hands and mixed reality make it feel much more accessible to more people. I'm pretty glad we have the controller in our set though, because it really expands what you can do. And we don't just operate our computers with just one thing. We have a keyboard, we have a mouse, we do multiple modalities all the time. I really feel like the comfort, the lack of persistence and motion blur in our pass-through, the brightness of our displays, I was like, "Oh man, if you gave me one to take, I would take Quest 3."</p>
+<p><strong>Lenny</strong> (01:04:40):<br />
+Now, people have rightly said, "That's pretty biased." Of course it is. Go get your own opinion. But what kills me is most people haven't done that. They have not tried the Quest 3. That's what kills me the most. If you go and try Quest 3, ask yourself if you'd rather have seven of those, one for you and six of your best friends, or one Apple Vision Pro. I'm sure the answer isn't Quest 3 for every person. There are people for whom there are use cases that really fit their life, the Apple Vision Pro, I'm cool with it.</p>
+<p><strong>Lenny</strong> (01:05:05):<br />
+But people don't even know that the Quest 3, you can do Remote Desktop. You can do it both through an app called Remote Desktop, which is very popular, or you can go into workrooms and you can have three monitors surrounding you streamed from your machine. I think some of this is just people have not even done the work. They haven't even tried it. I welcome all of you who think I'm biased to prove one way or the other what you think, but don't do it without putting the Quest 3 on and giving it through its paces, because it's a pretty great device. And you can do a lot with $3,000 extra dollars.</p>
+<p><strong>Lenny</strong> (01:05:38):<br />
+How did they get away with that, by the way? We launched a headset that was $1,299 and people lost their minds about it. They're like, "Ah, $3,500, it's fine. This is fine. No one cares." I don't know. Fairness is too much to ask, and I don't care about that. Apple has earned the great brand that they've built. They truly have. I think it's tremendous. I certainly celebrate a large number of Apple product. I'm a huge fan of their work. I'm a huge fan of what they do. That's probably why I expected more from the AVP.</p>
+<p><strong>Lenny</strong> (01:06:06):<br />
+Well, I'll show you my favorite AR device, which is these Ray-Bans. I actually bought them.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:06:13):<br />
+Yeah.</p>
+<p><strong>Lenny</strong> (01:06:13):<br />
+Here, I'll put them on it. Here, what I'm going to do is I'm going to record. I didn't tell you I was going to do this. I'm going to record this as we're talking. Look at this.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:06:20):<br />
+I like that. They look so good on you too. This is a good fit.</p>
+<p><strong>Lenny</strong> (01:06:23):<br />
+My mother-in-law's like, "You look so sophisticated. You look really smart with these on." And we bought these actually to film our kids, or our kid, instead of having Cameron's face. And it's been awesome.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:06:34):<br />
+It's really the best. It is so hard to look at a phone screen and have the real thing be in between you. No, the glass is the way to do it.</p>
+<p><strong>Lenny</strong> (01:06:43):<br />
+Look at this, my new look. I'm just going to have glasses on all the time.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:06:46):<br />
+We got to get you the multimodal. I've been playing with that since December, where you can use the camera to ask a Meta AI assistant about things. It's really good. I was in a ski village recently with my family and I had them on. I'm just like, "Hey, take a look. Tell what you see." And I had found a sign and it gave me directions. "Hey, the bathrooms are down those stairs to the right. Do you want food? It's over to the right." It couldn't tell what village I was in, but it was like, "You're in a ski village somewhere. Here's the amenities." And I was like, "Wow." There's something real magical here.</p>
+<p><strong>Lenny</strong> (01:07:18):<br />
+I feel like I need this for my podcasting interview so I could just have a little voice tell me questions to be asking and where I'm at.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:07:25):<br />
+Right, totally. Yeah.</p>
+<p><strong>Lenny</strong> (01:07:26):<br />
+How helpful would that be?</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:07:27):<br />
+Okay, I'm going to cheat on this one and say, obviously we've been talking for a while, but playing with glasses that have full AR capabilities, and we've got one that has rumored to be coming internally soon, so heavily rumored in fact that you might even say it's almost been confirmed. And what's been really fun is being able to play with these time machines, really, in terms of what they are. It's amazing technology. People were giving us speeches, big company-wide speeches, and had all their notes on the glasses. And they could control the slides just using a gesture.</p>
+<p><strong>Lenny</strong> (01:08:05):<br />
+Oh my God.</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:08:07):<br />
+There's exciting things afoot. The future's looking pretty bright.</p>
+<p><strong>Lenny</strong> (01:08:10):<br />
+Something that I wanted to touch on, which is when Mark put out this whole video of, "Here's what I think of Apple Vision Pro versus the Quest," a lot of people are just like, "Oh man, because he's putting out this video, he must be so afraid of what's happening and it's not the right move." What went into thinking? Was there strategic thinking there? Was it just him, "Here's what I think?"</p>
+<p><strong>Andrew ‘Boz’ Bosworth</strong> (01:08:29):<br />
+This guy does [inaudible 01:08:30] about the modern era. Everyone's in their Meta head about everything. Everything's a four-dimensional chess. That was just what Mark thought of the thing. That's what he thought about it. I think he wanted to make sure people remembered, hey, Quest 3 is literally a better device, and people haven't even tried it.</p>
+<p><strong>Lenny</strong> (01:08:46):<br />
+And so we're not always playing four-dimensional chess over here. Sometimes we're just like, "Here's a thing that I believe is true. I'm going to say it out loud with my mouth." That's what he did. It's not that hard. When I do it, everyone expects it because of my persona or brand or whatever the thing is. I guess people are surprised when a CEO does it. All right, I get that. That's cool. There's other sets of societal expectations there.</p>
+<p><strong>Lenny</strong> (01:09:08):<br />
+And we're all familiar with Apple putting the Welcome IBM ad in the New York Times, and then Slack doing the same thing with Microsoft and the Ballmer iPhone comments. None of those were true discussions of the technical merits of a product. Those were all just big, rally the troops gestures. This is not that. Mark is deep. He's an expert in this stuff. I'm an expert in this stuff. I feel great about our choices.</p>
+<p><strong>Lenny</strong> (01:09:39):<br />
+By the way, when I've used it, I could get myself completely into the head of t</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Virality is a myth (mostly) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Virality is a myth (mostly)</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Virality is a myth (mostly)</div>
+    
+    <div class="article-meta">2023-01-03<span>·</span>3,820 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span> <span class="mini-tag">職涯</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Happy new year!</p>
+<p>Over the holiday break I was reading <em><a href="https://www.amazon.com/Hit-Makers-How-Succeed-Distraction-ebook/dp/B01HNJIJ58/ref=tmm_kin_swatch_0?qid=&amp;sr=">Hit Makers</a></em> by <a href="https://twitter.com/dkthomp">Derek Thompson</a> (thanks, <a href="https://twitter.com/gabor">Gabor Cselle</a>, for the recommendation!), and one of the chapters forever changed the way I think about growth. I’m curious if you feel the same after reading this post.</p>
+<p><em><a href="https://www.amazon.com/Hit-Makers-How-Succeed-Distraction-ebook/dp/B01HNJIJ58/ref=tmm_kin_swatch_0?qid=&amp;sr=">Hit Makers</a></em> is about how hits become hits. Why do some songs, books, movies, and products win, while others don’t? What ingredients do they have in common, and what drives their success? Derek Thompson wanted to find out, and he ended up dispelling a number of myths along the way.</p>
+<p><strong>One of his most surprising findings (at least for me) was that going “viral” is mostly a myth. We think that products often grow through friends telling friends, who tell more friends, and this cascades to so-called viral growth. It turns out this is almost never how products grow. Instead, products explode in popularity when someone (or a few someones) with a large platform shares the product with their audience.</strong></p>
+<p>Here’s <a href="https://twitter.com/dkthomp">Derek Thompson</a> describing this phenomenon:</p>
+<blockquote>
+<p>“People are social creatures—they talk, they share, they pass things along. But unlike with an actual virus, a person chooses to be infected by an idea, and most people who confront any given thing don’t pass it along. Viral diseases tend to spread slowly, steadily, across many generations of infection. But information cascades are the opposite: They tend to spread in short bursts and die quickly.</p>
+<p>The gospel of virality has convinced some marketers that the only way that things become popular these days is by buzz and viral spread. <strong>But these marketers vastly overestimate the reliable power of word of mouth.</strong> <strong>Much of what outsiders call virality is really a function of what one might call ‘dark broadcasters’—people or companies distributing information to many viewers at once, but whose influence isn’t always visible to people outside of the network.</strong>”</p>
+</blockquote>
+<p>In <a href="https://www.youtube.com/watch?v=0renk9Zy2Wk&amp;t=3133s">a recent interview on the Acquired podcast</a>, <a href="https://stratechery.com/">Ben Thompson</a> (author of <a href="https://stratechery.com/">Stratechery</a>) shared this same finding from his personal experience:</p>
+<blockquote>
+<p>“<strong>The problem with a word-of-mouth business and exponential growth is people run out of people to talk to.</strong> That’s the limiting factor. There’s a little bit of exponential with every new subscriber, because they will tell new people, but networks get exhausted.”</p>
+</blockquote>
+<p><strong>My argument in this post is this:</strong></p>
+<ol>
+<li>True virality rarely exists.</li>
+<li>When it does, it’s very short-lived, and quickly reverts to linear (or worse) growth.</li>
+<li>When we see a product going “viral,” it’s very rarely driven by a many-to-many spread, but is instead the result of someone with a large audience broadcasting it (i.e. one-to-many).</li>
+<li>Even though products don’t grow virally for long, it’s still absolutely worthwhile to optimize mechanisms of virality (e.g. word of mouth, invites, referrals, a remarkable product), since that can drive ongoing (free) growth.</li>
+<li>At the same time, to ignite (and re-ignite) moments of “virality,” you’ll need to invest in getting large one-to-many broadcasts. For example, PR, influencers, TV.</li>
+</ol>
+<p>Before going further, let’s define virality. Something is viral when the average new user brings more than one additional user. This is often referred to as the viral coefficient, or <a href="https://en.wikipedia.org/wiki/K-factor_(marketing)">k-factor</a>, being higher than 1.0, and it looks something like the green or blue line:</p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3570f124-f412-4d61-bd7d-d8d84bc80334_1278x994.png" /></p>
+<p>When calculating k-factor for yourself, there’s an important nuance around the cycle time between new users and referred users (read more <a href="https://david-pardy.medium.com/helpful-how-the-math-of-viral-growth-actually-works-a4fcee693ace">here</a> and <a href="https://adamnash.blog/2012/04/04/user-acquisition-viral-factor-basics/">here</a>), but for the purpose of this discussion, let’s keep it simple and think of viral growth as primarily self-driving (i.e. users bringing in new users), and faster than linear growth.</p>
+<p>Let’s dive deeper by starting with this excerpt from <em><a href="https://www.amazon.com/Hit-Makers-How-Succeed-Distraction-ebook/dp/B01HNJIJ58/ref=tmm_kin_swatch_0?qid=&amp;sr=">Hit Makers</a></em>:</p>
+<p><em>It’s become fashionable to talk about ideas as if they were diseases. Some pop songs are infectious, and some products are contagious. Advertisers and producers have developed a theory of “viral” marketing, which assumes that simple word of mouth can easily take a small idea and turn it into a phenomenon. This has fed a popular conception of buzz that says that companies don’t need sophisticated distribution strategies for their product to go big. If they make something that is inherently infectious, they can sit back and wait for it to explode like a virus:</em></p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5f059ce1-a830-4d94-904b-96e5af1de3c9_1066x804.png" /></p>
+<p><em>In epidemiology, “viral” has a specific meaning. It refers to a disease that infects more than one person before it dies or the host does. Such a disease has the potential to spread exponentially. One person infects two. Two infect four. Four infect eight. And before long, it’s a pandemic.</em></p>
+<p><em>Do ideas ever go viral in that way? For a long time, nobody could be sure. It’s difficult to precisely track word-of-mouth buzz or the spread of a fashion (like skinny jeans) or an idea (like universal suffrage) from person to person. So, by degrees, “That thing went viral” has became a fancy way of saying, “That thing got big really quickly, and we’re not sure how.”</em></p>
+<p><em>But there is a place where ideas leave an information trail: on the Internet. When I post an article on Twitter, it is shared and reshared, and each step of this cascade is traceable. Scientists can follow the trail of e-mails or Facebook posts as they move around the world. In the digital world, they can finally answer the question: Do ideas really go viral?</em></p>
+<p><em>The answer appears to be a simple no. In 2012, several researchers from Yahoo studied the spread of millions of online messages on Twitter. More than 90 percent of the messages didn’t diffuse at all. A tiny percentage, about 1 percent, was shared more than seven times. But nothing really went fully viral—not even the most popular shared messages. The vast majority of the news that people see on Twitter—around 95 percent—comes directly from its original source or from one degree of separation.</em></p>
+<p><em>If ideas and articles on the Internet essentially never go viral, then how do some things still achieve such massive popularity so quickly? Viral spread isn’t the only way that a piece of content can reach a large population, the researchers said. There is another mechanism, called “broadcast diffusion”—many people getting information from one source. They wrote:</em></p>
+<blockquote>
+<p><em>Broadcasts can be extremely large—the Super Bowl attracts over 100 million viewers, while the front pages of the most popular news websites attract a similar number of daily visitors—and hence the mere observation that something is popular, or even that it became so rapidly, is not sufficient to establish that it spread in a manner that resembles [a virus].</em></p>
+</blockquote>
+<p><em>On the Internet, where it seems like everything is going viral, perhaps very little or even nothing is. They concluded that popularity on the Internet is “driven by the size of the largest broadcast.” Digital blockbusters are not about a million one-to-one moments as much as they are about a few one-to-one-million moments.</em></p>
+<p><em>Extended to the full world of hits, this new finding suggests that articles, songs, and products don’t spread like in the first picture we saw. Instead, almost all popular products and ideas have blockbuster moments where they spread from one source to many, many individuals at the same time—not like a virus, but something like this:</em></p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a1d13fc4-241a-4940-8173-8db4fb488c22_1085x334.png" /></p>
+<p><em>Imagine you go to work on a Monday and a coworker tells you about a new guacamole recipe she read in the</em> New York Times<em>. Several hours later, you go to lunch with another coworker, who asks if you’ve heard about the new guacamole recipe he read about in the</em> New York Times<em>. After work, you go home to your spouse, whose coworker evangelized a new guacamole recipe she found in the</em> New York Times<em>. The common observation is: “The</em> Times <em>article about guacamole went absolutely viral.” But the truer observation is that the article didn’t go viral in any meaningful sense of the word. It reached a lot of people who read the recipe section of a large international newspaper, and a few of them talked about it.</em></p>
+<p><em>Disease is an infectious metaphor. We need a revised epidemiological analogy to rival the viral myth—one that explains how ideas can spread to many people at once, like a thousand people getting the flu from one source.</em></p>
+<p><em>In fact, there is a perfect story for this purpose. It is one of the most celebrated episodes in the history of disease research, taught in several medical schools and investigated in popular nonfiction books, like Steven Johnson’s</em> The Ghost Map<em>. It begins in the Soho district of 1850s London.</em></p>
+<p><em>Two hundred years ago, the popular theory of disease held that people got sick because of a spectral force called “miasma”—invisible poisons lofted by the winds. Miasma theory persisted because, like vampires and virality, it was a great story with inconspicuous flaws. The spread of disease was once as difficult to track as word-of-mouth buzz, and there was little understanding of germs, bacteria, and viruses.</em></p>
+<p><em>In the middle of the nineteenth century, London was both the greatest city in the world and a massive stinking cesspool of disease. In 1854 a cholera outbreak struck the city, killing 127 people in three days and causing 75 percent of residents to flee the working-class Soho neighborhood within a week. The city government still assumed that the disease was carried through smells and inhaled by residents.</em></p>
+<p><em>The scientist John Snow disagreed. A doctor with the instincts of a journalist, Snow interviewed hundreds of sick and healthy families from the neighborhood. He plotted their cases on a map, where dark bars signified households with cholera.</em></p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d40da845-cccb-433e-af7b-fe5c481dd686_1116x1038.png" /></p>
+<p><em>Snow’s investigation uncovered several critical clues:</em></p>
+<ol>
+<li><em>The infected houses clustered within a few blocks.</em></li>
+<li><em>Outside of that cluster, there were practically no incidents of cholera.</em></li>
+<li><em>In the heart of the cluster was a brewery whose workers were remarkably healthy.</em></li>
+</ol>
+<p><em>Imagine yourself as a detective with these clues and this map. Given the pattern of the disease, you might rule out the miasma theory. But you’d still wonder if this disease was spreading between houses—like a virus—or spreading from one source to many houses. And why would beer offer immunity to workers in the midst of an urban epidemic?</em></p>
+<p><em>Snow added more details to the map—restaurants, parks, water pumps—and he noticed something. On blocks where the Broad Street water pump was the nearest source of water, cholera cases were numerous. On blocks where the residents were more likely to retrieve water from another pump, cholera was rare. The families with cholera had one thing in common: They were drawing water from the same source.</em></p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/409a03e0-3edf-4fc2-8c5e-1f34eda8c1a1_1063x497.png" /></p>
+<p><em>“There were only ten deaths in houses situated decidedly nearer to another street-pump,” Snow wrote in a letter to the editor of the</em> Medical Times and Gazette<em>. “In five of these cases the families of the deceased persons informed me that they always sent to the pump in Broad Street, as they preferred the water to that of the pumps which were nearer. In three other cases, the deceased were children who went to school near the pump in Broad Street.” And what about the healthy brewers in the heart of the hot zone? They were lucky lushes. For their labor, the brewers received malt liquor, whose fermentation process required boiling the water and removing the toxic particulates.</em></p>
+<p><em>The disease wasn’t spreading through the air. It wasn’t spreading between households. Many infections were coming from a single source: an infectious water pump. The disease was a broadcast.</em></p>
+<p>You may be thinking, sure, maybe virality is a myth for cholera, and mayyyyyybe for articles, videos, and books—but what about software? They go viral all the time, don’t they? Let’s investigate.</p>
+<p>First, I revisited my research into <a href="https://www.lennysnewsletter.com/p/consumer-business-find-first-users">how the largest consumer products got started</a>. It turns out that of many of the products we’d consider super-viral, most actually got their start (and as you’ll see below, their biggest growth spurts) from one-off broadcasts. Some examples:</p>
+<p><strong>Spotify (influencers talking about it)</strong>:</p>
+<blockquote>
+<p>“<a href="https://www.google.com/search?q=mark+zuckerberg+spotify+facebook+post&amp;rlz=1C5CHFA_enUS915US915&amp;tbm=isch&amp;sa=X&amp;ved=2ahUKEwiK_-qwypftAhWPvJ4KHbr1AqkQ_AUoAnoECA8QBA&amp;biw=1440&amp;bih=789">[Mark Zuckerberg] wrote about Spotify</a>, Sean Parker reached out to us, and we <a href="https://web.archive.org/web/20190530203143/https://rsms.me/we-have-let-spotify-out-of-its-cage">seeded it with influencers</a> (journalists, musicians, tech CEOs/founders, etc.) who all raved about us. So this built up pent-up demand.”</p>
+</blockquote>
+<p><strong>Twitter (one influencer writing about it):</strong></p>
+<blockquote>
+<p>“The first public mention of the service I can find is on [co-founder] Evan Williams’s blog late on July 13th, but you can see that even on the 12th there was a mini-boom in registrations. Then <a href="https://gigaom.com/2006/07/15/valleys-all-twttr/">Om Malik’s post on the 15th</a> really pushed it over the top, with more than 250 people signing up the next day. What I find fascinating is that there were less than 600 people on the service at that point, so it was a very prescient plug. […]</p>
+<p>A recurring theme is the power of that initial publicity in driving the early users, and the feeling that it was a way to connect with an interesting group of people. Evan’s high profile and Om’s endorsement must have been a big help in building that sort of buzz.”</p>
+</blockquote>
+<p><strong>Airbnb (press about their cereal boxes)</strong>:</p>
+<blockquote>
+<p>“The event that marked the turning point in the business was the 2008 Democratic National Convention (DNC) in Denver, Colorado. The pair [Brian Chesky and Joe Gebbia] saw an opportunity to capitalize on the quadruple-overattended event that caused a massive shortage in rental housing. Finding hosts to offer up rooms in their houses was actually the easy part. Getting people to rent those rooms proved more difficult.</p>
+<p>The first counterintuitive strategy was to pitch only the bloggers with the smallest audience possible.... As ridiculous as it sounds, the coverage by these bottom-feeder press was the social proof that more-prominent publications needed to piggyback on the story. Eventually, national news networks, including NBC and CBS, were interviewing the founders of the unknown startup that was housing the biggest political convention in history.”</p>
+</blockquote>
+<p><strong>Instagram (press on the day of launch):</strong></p>
+<blockquote>
+<p>“People actually said to us, there’s no point contacting publications such as the <em>New York Times</em> and that we’d be wasting our time. But not only did <a href="https://bits.blogs.nytimes.com/2010/10/19/a-photo-sharing-app-with-bigger-aspirations/">the</a> <em><a href="https://bits.blogs.nytimes.com/2010/10/19/a-photo-sharing-app-with-bigger-aspirations/">New York Times</a></em> speak to us, they also sent someone to meet with us.’ On the day of launch in October 2010, all the press coverage happened at roughly the same time and their servers were hit hard.”</p>
+</blockquote>
+<p><strong>Notion (press; from my interview with <a href="https://www.lennyspodcast.com/how-notion-leveraged-community-to-build-a-10b-business-camille-ricketts-notion-first-round-capital/#transcript">Camille Ricketts on my podcast</a>):</strong></p>
+<blockquote>
+<p>“David Pierce, who I think is one of the best working journalists in tech today, he’s at <em>The Verge</em> now. He was covering personal tech for the <em>Wall Street Journal</em> early on at Notion and published a story that said this is the one work-life productivity app that you’ll ever need. And that was Notion’s big break. Truly, if you look back at the graphs, that made a demonstrable difference.”</p>
+</blockquote>
+<p>Even Tinder’s breakout moment was a one-off event, <a href="https://www.thedailybeast.com/sochi-athletes-get-it-on-at-the-tinder-olympics">the Sochi Olympics</a>:</p>
+<p>Let’s dig further.</p>
+<p>I <a href="https://twitter.com/lennysan/status/1583539227785994242">asked founders on Twitter</a> for examples of products growing virally. Though there were certainly times where k-factor was above 1.0 (e.g. <a href="https://twitter.com/nikitabier">Nikita</a> and his breakout app <a href="https://www.gasapp.co/">Gas</a>, though it’ll be interesting to see how long this lasts) …</p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/75dc11b4-d17d-41f0-952e-fefb34c4a1e4_1178x360.png" /></p>
+<p>… the thread also confirmed that real virality is very rare and, more importantly, never lasts very long:</p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c0532b2b-0051-4337-8a93-6b4b5db8d34e_1172x832.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/54d9c3ea-4c40-43a9-b929-19a57123ddc5_1184x268.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f08315c8-be17-483e-846b-571102ded711_1186x360.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/070797db-f9b0-4bf7-bca3-3c1a61669435_1188x234.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8af0ed1b-c91e-4d6f-864b-4cb9f179c8bc_1192x352.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/36fdf847-d50a-4335-afc5-6f1e91a53d04_1186x278.png" /><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/04399ec0-6b8d-4836-aeec-fc043714fdbf_1186x214.png" /></p>
+<p>Let’s linger on Dropbox for a moment. Dropbox is famous for early viral growth. But here’s Dropbox’s growth over time:</p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/07a0cb52-a3ba-47f0-8e11-769e7169ce17_906x531.webp" /></p>
+<p>Looks pretty linear to me. Yes, there were moments of real virality (e.g. the “Space Race,” as ChenLi mentioned above, aka the <a href="https://twitter.com/joshpuckett/status/1583548671164964864?s=20">Dropbox referral program</a>), but they were short-lived and don’t even register in the broader growth trajectory.</p>
+<p>Here’s Facebook’s MAU growth over the first 15 years. Rather non-viral:</p>
+<p><img alt="Facebook MAU worldwide 2022 | Statista" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1d0f6bbe-09bb-43e8-a92f-b82cf491841d_1000x743.png" /></p>
+<p>Snapchat:</p>
+<p><img alt="Snapchat daily active users 2022 | Statista" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0b652d5f-db3c-46cc-aa3d-64bffe00acda_1000x743.png" /></p>
+<p>Slack:</p>
+<p><img alt="With 10+ million daily active users, Slack is where more work happens every  day, all over the world | Slack" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d7307951-c931-4bc8-a89c-545da5ed9488_950x589.png" /></p>
+<p>Instagram:</p>
+<p><img alt="Infographic: Instagram's Rise to 1 Billion | Statista" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/35193cd8-8343-48f4-b725-3b9cdeb5969f_960x684.jpeg" /></p>
+<p>Looking at these charts, it surprised me how non-viral the growth of most “viral” products looks when you zoom out.</p>
+<p>No question many of these products had moments of true virality. But it’s better to think of these viral moments as <a href="https://medium.com/parsa-vc/jumping-s-curves-building-a-high-performance-startup-80e4410466a5">a series of S-curves</a>. Short-lived accelerations, sparked by one-off broadcast events.</p>
+<p><img alt="The S-Curve Pattern of Innovation: A Full Analysis" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/58dff274-4c10-45db-8b5b-a11f2a6f322b_1280x720.png" /></p>
+<p>Clubhouse’s growth story is a great example of this:</p>
+<p><img alt="2022 Clubhouse User Statistics - Trends &amp; Data (Full List)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dffafec5-69e5-40ee-af8a-f6f79b64dece_950x608.jpeg" /></p>
+<p>In May 2020, Clubhouse had 1,500 users. By the end of that year, they hit 600,000. About a month later, they had 2 million and, a month later, 10 million. Feels viral. However, these growth spurts came from one-off broadcast events. Initially with folks like <a href="https://twitter.com/naval">Naval</a> and <a href="https://twitter.com/pmarca">Marc Andreessen</a> hosting sessions, and then <a href="https://techcrunch.com/2021/01/31/elon-musk-goes-live-on-clubhouse-but-with-the-room-full-fans-stream-audio-on-youtube/">Elon Musk</a> joining in January.</p>
+<p>Most interestingly, as this chart shows, virality quickly petered out. A classic S-curve. After each event, virality took it only so far. Without new one-to-millions broadcast events, growth appears to have ceased.</p>
+<p><strong>What does all of this mean for your product?</strong></p>
+<p>If you’re a founder or growth leader building a product that aims to grow through virality:</p>
+<ol>
+<li>Absolutely continue investing in mechanisms of virality (e.g. facilitating word of mouth, invites, referrals, and building remarkable product). The higher your k-factor, the faster you’ll grow.</li>
+<li>But, more importantly, make sure to invest in a strategy of ongoing one-to-many broadcasts (e.g. PR, influencers, TV, etc.). You need to keep reigniting your viral spread, however much of it even exists.</li>
+</ol>
+<p>In the words of the <a href="https://www.lennysnewsletter.com/p/the-racecar-growth-frameworkexpanded">Racecar Growth Framework</a>, virality and turbo boosts go together like peanut butter and jelly. The higher your k-factor, the more juice you’ll get from each broadcast. But you’ll get no juice if you don’t find a way to get your product in front of a huge number of people at once. <a href="https://www.lennysnewsletter.com/p/turbo-boosts">Here are 60 examples</a> of creative (and successful) turbo boosts, a bunch of <a href="https://www.lennysnewsletter.com/p/creating-buzz-at-launch">ideas to drive buzz</a>, and <a href="https://www.lennysnewsletter.com/i/75292796/turbo-boosts">more reading on turbo boosts</a>.</p>
+<p>I’ll leave you with a (hilarious) example of a viral app getting a large one-to-many broadcast (2.4m views online alone):</p>
+<p><a href="https://www.youtube.com/watch?v=yzeH4BBxDew">Watch on YouTube</a></p>
+<p>I’d love to know what you think! Leave a comment 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/virality-is-a-myth-mostly/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><em><a href="https://www.amazon.com/Hit-Makers-How-Succeed-Distraction-ebook/dp/B01HNJIJ58/ref=tmm_kin_swatch_0?qid=&amp;sr=">Hit Makers</a></em> by Derek Thompson</li>
+<li><a href="https://david-pardy.medium.com/helpful-how-the-math-of-viral-growth-actually-works-a4fcee693ace">How the math of viral growth actually works</a> by David Pardy</li>
+<li><a href="https://adamnash.blog/2012/04/04/user-acquisition-viral-factor-basics/">User Acquisition: Viral Factor Basics</a> by Adam Nash</li>
+<li><a href="https://longform.asmartbear.com/docs/exponential-growth/">The Elephant in the room: The myth of exponential hypergrowth</a> by Jason Cohen</li>
+<li><a href="https://www.lennysnewsletter.com/p/increasing-virality">How to increase virality</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from Virality is a myth (mostly)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fd2a86a0-dc08-4cf2-9095-e88dd7f2e5cf_1476x856.png" /></p>
+<p>If you’re looking for a new gig, join to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent/welcome">Apply Now</a></p>
+<h4><strong>🔥 Featured job openings</strong></h4>
+<ol>
+<li><strong>TryHackMe:</strong> <a href="https://www.lennysjobs.com/jobs/4ff08da3-df3e-4952-95bb-b4a032dba623">Senior Growth Product Manager</a> (Remote)</li>
+<li><strong>TryHackMe:</strong> <a href="https://www.lennysjobs.com/jobs/f0b0d2d4-f721-4903-a1ef-9125b28b1755">Head of Marketing</a> (Remote)</li>
+<li><strong>Pogo:</strong> <a href="https://www.lennysjobs.com/jobs/1d236a59-399d-4a81-8dcd-664d76f06cae">Product Manager</a> (Remote)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://youtu.be/OnvQggy3Ezw">One Breath Around The World</a> via</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=OnvQggy3Ezw">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read:</strong> <a href="https://tedgioia.substack.com/p/what-can-we-learn-from-barnes-and">What Can We Learn from Barnes &amp; Noble’s Surprising Turnaround?</a> by</li>
+<li><strong>Read:</strong> <a href="https://www.bloomberg.com/opinion/articles/2022-12-23/the-happiest-place-on-earth-hawaii-and-the-rest-of-america-too?cmpid%3D=socialflow-twitter-view&amp;sref=htOHjx5Y">Americans Have Found Their Happy Place</a> by Tyler Cowen</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, feel free to share it with friends, and consider subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

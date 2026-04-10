@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Everyone should be using Claude Code more — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Everyone should be using Claude Code more</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Everyone should be using Claude Code more</div>
+    
+    <div class="article-meta">2025-10-14<span>·</span>4,098 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">職涯</span> <span class="mini-tag">領導</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Favorite AI and PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">Favorite public speaking course</a></em>**</p>
+<p><em>Subscribers get </em><em>19 premium products for free for one year</em><em>: <a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Gamma, n8n, Bolt, Devin, Wispr Flow, Descript, Linear, PostHog, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, ChatPRD + Stripe Atlas</a> (<a href="https://www.lennysnewsletter.com/i/168890236/important-offer-details-read-before-subscribing">terms apply</a>). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/6b68fd37-43ed-49a8-889d-7f49e6102eb0_1456x970.png" /></p>
+<p>Ever since <a href="https://youtu.be/crMrVozp_h8?si=Kx_XeBfEM2pPJ1Ib&amp;t=429">my chat with Dan Shipper</a>, I couldn’t stop thinking about his hot take that <a href="https://www.claude.com/product/claude-code">Claude Code</a> was the most underrated AI tool for non-technical people. A few weeks ago, I finally started playing around with it, and holy sh*t, we’ve all been sleeping on Claude Code.</p>
+<p><strong>The key is to forget that it’s called Claude Code and instead think of it as Claude</strong> <strong><em>Local</em></strong> <strong>or Claude</strong> <strong><em>Agent</em></strong><strong>.</strong> It’s essentially a super-intelligent AI running locally<a href="#footnote-1">1</a>, able to do stuff directly on your computer—from organizing your files and folders to enhancing image quality, brainstorming domain names, summarizing customer calls, creating Linear tickets, and, as you’ll see below, <em>so much more</em>.</p>
+<p>Since it’s running on your machine, it can handle much larger files, run much longer than the cloud-based Claude/ChatGPT/Gemini chatbots, and it’s fast and versatile. Claude Code is basically Claude with superpowers.</p>
+<p><strong>To inspire your own ideas, I’ve collected 50 of my favorite and most creative ways non-technical people are using Claude Code in their work and life. This list includes my own favorite use cases, and the best examples y’all shared with me on <a href="https://x.com/lennysan/status/1960417604948123663">X</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_do-you-use-claude-code-or-some-other-cli-activity-7379238388391923713-nVnf?rcm=ACoAAABGvmoB4S920iEQfSFO_P91nw2wPqfPoic">LinkedIn</a> of how you use Claude Code.</strong></p>
+<p>A huge thank-you to the more than 500 of you who shared your stories. 🙏</p>
+<h2><strong>But first, let’s install Claude Code on your computer</strong></h2>
+<ol>
+<li>
+<p><strong>Open your Terminal app</strong></p>
+</li>
+<li>
+<p>On a Mac, press <strong>Command (⌘) + Space</strong>, type <strong>“Terminal”</strong>, and hit <strong>Return</strong></p>
+</li>
+<li>In Windows, press <strong>Windows key + R</strong>, type <strong>“wt”</strong>, and press <strong>Enter</strong></li>
+<li>
+<p><strong>Install Claude Code</strong></p>
+</li>
+<li>
+<p>On a Mac, run this command: <em>curl -fsSL https://claude.ai/install.sh | bash</em></p>
+</li>
+<li>In Windows, run this command: <em>irm https://claude.ai/install.ps1 | iex</em></li>
+<li><strong>Launch Claude Code:</strong> <em>claude</em></li>
+</ol>
+<p>If you run into any trouble, just ask your favorite chatbot for help. Or better yet, install <a href="https://www.warp.dev/">Warp</a> (<a href="https://www.lennysnewsletter.com/p/productpass">free with your newsletter subscription</a>!), which replaces your local terminal app and automagically solves any issues you encounter trying to install stuff like Claude Code. That’s how I solved the problems I ran into, and I highly recommend you do the same.</p>
+<h2><strong>Five ways I’ve been using Claude Code this month</strong></h2>
+<h4>1. Clearing space on my computer</h4>
+<p>Prompt: “<em>How can I clear some storage on my computer?</em>” I then discuss my options.</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/12f869f9-6519-4870-be16-dffe585eb475_1600x690.png" /></p>
+<h4>2. Improving the image quality of screenshots</h4>
+<p>Prompt: “<em>Improve the image quality of [filename]</em>”. I used this many times for the screenshots below.</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/dc76e64e-df51-4461-83e8-1bbd89b0b67c_1962x1598.png" /></p>
+<h4>3. Downloading YouTube videos</h4>
+<p>Prompt: “<em>Download this YouTube video: [URL]</em>”. Then I ignored all the warnings 🤫</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/b4166da8-693b-432f-a509-284e4848e9de_2132x1260.png" /></p>
+<h4>4. Downloading all of the images embedded inside a Google Doc</h4>
+<p>Prompt: “<em>Download all of the images in high-res from this Google Doc: [URL]”.</em> This paired well with item #2.</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/2aee1f08-2f50-4ae9-b6db-0a1dec2e7a38_2394x1066.png" /></p>
+<h4>5. Picking a random raffle winner from a Google Sheet of submissions</h4>
+<p>Prompt: “<em>Pick a random row from this Google Sheet to select a winner for a giveaway.</em>” I used this for a recent Sora 2 giveaway in our subscriber Slack community.</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/6acf2721-9fb9-424b-9737-8ccc235e42c0_2170x770.png" /></p>
+<h1><strong>50 creative ways non-technical people are using Claude Code</strong></h1>
+<p>Out of the over 500 ideas you shared with me on <a href="https://x.com/lennysan/status/1960417604948123663">X</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_do-you-use-claude-code-or-some-other-cli-activity-7379238388391923713-nVnf?rcm=ACoAAABGvmoB4S920iEQfSFO_P91nw2wPqfPoic">LinkedIn</a>, here are my favorites (with screenshots):</p>
+<h3><strong>1. Brainstorming domain names, from <a href="https://x.com/benaiad">Ben Aiad</a></strong></h3>
+<blockquote>
+<p>“Just describe your project, and it’ll suggest creative options across multiple TLDs (.com, .io, .dev, etc.) while verifying what’s actually available to register.”</p>
+</blockquote>
+<h3><strong>2. Finding high-quality leads, from <a href="https://www.linkedin.com/in/jeff-lindquist-0497b625/">Jeff Lindquist</a></strong></h3>
+<blockquote>
+<p>“I literally just typed: look at what I’m building and identify the top 5 companies in my area that would be good for a pilot for this. Then I go to LinkedIn and message them. If it’s not clear, I do this in the source directory of the code of my app so the first thing it does is figure out what it is that I’m building.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/01eff5de-1cb0-4601-897e-6c1b931a1ee6_2560x1704.png" /></p>
+<h3><strong>3. Same as above, but instead, scraping GitHub repos, from <a href="https://www.linkedin.com/in/szotov/">Sergei Zotov</a></strong></h3>
+<blockquote>
+<p>“My product masks sensitive data in code assistant queries. So Claude Code proposed the idea to find potential leads in the GitHub repos, by searching for the actual sensitive values in them (and whether in the repo we see some evidence of using coding agents). This was actually genius—not only does it filter out a lot of companies, but it also provides instant value to the lead. Here’s what it came up with: repos list, priority score, even LinkedIn URL.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/5be22cc6-7cd7-4366-9e8d-cc237e8542f4_1280x428.png" /></p>
+<h3><strong>4. Noticing when you’re avoiding conflict, from <a href="https://x.com/danshipper">Dan Shipper</a></strong></h3>
+<blockquote>
+<p>“I download all of my meeting recordings, put them in a folder, and ask Claude Code to tell me all of the times I’ve subtly avoided conflict.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/489eaeb3-c920-472e-9f0b-6745759e4867_1484x1853.png" /></p>
+<p><em>Pro tip: Use <a href="https://www.granola.ai/">Granola</a> (<a href="https://www.lennysnewsletter.com/p/productpass">first year free</a>!), and ask Claude Code how to download your meeting notes into a folder.</em></p>
+<h3><strong>5. Figuring out why your computer is running slow, from <a href="https://www.linkedin.com/in/anthonyrouxfr/">Anthony Roux</a></strong></h3>
+<blockquote>
+<p>“I sometimes use Claude Code for system diagnostics when my Mac slows down.</p>
+<p>I use it to check load averages, memory pressure, disk space, stuck processes, and swap activity, then it dives deeper to find what’s actually causing issues. It can calculate cache sizes, check Docker usage, find Time Machine snapshots eating space, etc.</p>
+<p>It is usually faster and more user-friendly than running all the commands and trying to extract the right numbers myself. It can explain what the analyses mean and why they matter, and suggests fixes with the actual commands while assessing the risk of running each of them.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/a522d04f-f7a7-4e50-8032-a8bcc8ec5392_1904x2082.png" /></p>
+<h3><strong>6. Cleaning up messy invoice files, from <a href="https://www.linkedin.com/in/martin-merschroth/">Martin Merschroth</a></strong></h3>
+<blockquote>
+<p>“I use Claude Code to sort my invoices for taxes. It reads each file in a messy folder, renames it to ‘YYYY-MM-DD Vendor - Invoice - ProductOrService.pdf’, and moves it into the right folder.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/48d52c72-a709-4b94-beb4-c70abebdbada_739x645.png" /></p>
+<h3><strong>7. Organizing files and folders across your computer, from <a href="https://www.linkedin.com/in/justindielmann/">Justin Dielmann</a></strong></h3>
+<blockquote>
+<p>“For me, staying organized is a huge chore. The cognitive load of figuring out where to store files and keeping everything clean and up to date was insane. My hack: I run Claude Code from my home directory and use it as my personal organization assistant. I’ll ask it things like:</p>
+<ol>
+<li>‘Find duplicate files and help me decide which to keep’</li>
+<li>‘Organize these downloads into proper folders’</li>
+<li>‘Review my directory structure and suggest improvements’</li>
+<li>‘Find old files I probably don’t need anymore’</li>
+</ol>
+<p>It’s like having a thoughtful assistant who actually understands context and can make smart decisions about file organization. Game changer for reducing mental clutter.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/a0c4a412-51f2-48c5-8295-dc0624f5ad59_1136x1242.png" /></p>
+<h3><strong>8. Building a slide for your child, from <a href="https://www.linkedin.com/in/johnbconneely/">John Conneely</a></strong></h3>
+<blockquote>
+<p>“I built my own DIY subagent last week to help me build a slide tower for my son 😀”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/cc626b43-9eef-4145-a899-7c88d0c2a28c_1116x1566.png" /></p>
+<p>The finished product:</p>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/79b18afd-e4d7-4c8a-bf9d-260a2f5d2ac7_1280x720.png" /></p>
+<h3><strong>9. Organizing scattered thoughts, from <a href="https://www.linkedin.com/in/helenleekupp/">Helen Lee Kupp</a></strong></h3>
+<blockquote>
+<p>“I’m a mom who voice-records ideas during morning stroller walks, not a developer. The terminal interface? Overwhelming at first. The word ‘Code’ . . . but what if I don’t have a ‘coding project’? After 3 weeks of struggling to organize my scattered thoughts, I tried it anyway. And discovered something wild: Claude Code isn’t about coding at all. It’s about having an AI that manages your entire process—whatever the goal might be.</p>
+<p>How I use it:</p>
+<p>→ Fed it rambling voice notes from stroller walks<br />
+→ It organized them into coherent research themes<br />
+→ Wrote a full article in <em>my</em> exact voice (pulled from my own examples!)<br />
+→ Created LinkedIn versions automatically (this post is one of them!)<br />
+→ Everything saved and ready to publish (including grabbing a screenshot of the template repository that I’m adding here!)” [<a href="https://github.com/WomenDefiningAI/claudecode-writer">Here’s the repo</a>]</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/d39ecb30-620e-4df9-bba6-7dd9d2e47990_1724x1500.png" /></p>
+<h3><strong>10. Writing a job description, from <a href="https://x.com/JustinBleuel">Justin Bleuel</a></strong></h3>
+<blockquote>
+<p>“I used it to generate a full job description, hiring plan, interview plan, and rubric for a new role at Clay.</p>
+<p>I made a folder with internal Notions of our hiring material for PMs, added similar role JDs from other companies, then in planning mode asked to generate the same collateral for this new role.”</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/9392251d-0b64-45e5-9d46-05fa1c7ed491_1513x893.jpeg" /></p>
+<h3><strong>11. Synthesizing transcripts of calls with customers, from <a href="https://www.linkedin.com/in/derekdehart/">Derek DeHart</a></strong></h3>
+<blockquote>
+<p>“My current Claude Code jam is synthesizing transcripts of calls with customers to compile evidence that supports or invalidates a running tally of assumptions/requirements/hypotheses/whatever. Given MCPs to interact with other tools in our productivity stack—Fireflies, Linear, Notion, etc.—it’s become my hub for ongoing product research and development.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/14db451f-0dad-4236-b0da-efcef7ee88dd_1280x720.png" /></p>
+<h3><strong>12. Improving your writing, from <a href="https://www.linkedin.com/in/teresatorres/">Teresa Torres</a></strong></h3>
+<blockquote>
+<p>“I now write all of my content with Claude Code in VS Code. We iterate on an outline, it helps me improve the hook, it conducts research for me and adds citations to my outline, and it reviews and gives feedback on each section as I write. It has completely changed the way I write.” [<a href="https://www.producttalk.org/21-ways-to-use-ai-at-work/">Much more on Teresa’s process here</a>]</p>
+</blockquote>
+<p><img alt="Screenshot of a writing workspace with three panels: a markdown article draft on the left, a list of AI use cases in the middle, and grammar and style feedback on the right." src="https://substack-post-media.s3.amazonaws.com/public/images/07200b8d-a92d-473e-bb43-3743d22e5985_2000x752.png" /></p>
+<h3><strong>13. Working with audio files, from <a href="https://www.linkedin.com/in/thedanheller/">Dan Heller</a></strong></h3>
+<blockquote>
+<p>“I’m working with multiple audio files. I use Claude Code to manipulate them, convert the sample rates, rename them, and translate them from Portuguese to English.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/bab43e55-862f-48af-9428-ec49136af776_1280x739.png" /></p>
+<h3><strong>14. Creating “self-driving” documentation, from <a href="https://www.linkedin.com/in/jamespember/">James Pember</a></strong></h3>
+<blockquote>
+<p>“The most interesting use case we’re playing with is something I call ‘self-driving documentation.’ Basically, how can we give an Agent the responsibility of figuring out how/where our documentation can be better and more comprehensive. We’ve been experimenting with using Claude Code together with <a href="https://playwright.dev/">Playwright</a> to automatically explore our software independently, identify knowledge gaps in our documentation, and then create those changes itself. Very promising!” [<a href="https://jamespember.substack.com/p/self-documenting-software">More here</a>]</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/2001bcaa-90d7-48a0-84d7-79f21dbf01e8_2560x1706.png" /></p>
+<h3><strong>15. Creating a self-improving feedback loop, from</strong> <strong><a href="https://www.linkedin.com/in/limgangrui/">Gang Rui</a></strong></h3>
+<blockquote>
+<p>“I created a slash command that analyzes my journal entries + Git commits (for the past 7 days; usually I use this weekly), spots gaps between what I said vs. did, and suggests system improvements. Like having a COO that learns from my patterns.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/61b9353c-e8a1-4c17-90a7-64fcb3e09112_1432x1774.png" /></p>
+<h3><strong>16. Getting inspiration from competitors’ ads, from <a href="https://www.linkedin.com/in/sumantus/">Sumant Subrahmanya</a></strong></h3>
+<blockquote>
+<p>“Extract ads from competitors to find the problem, use case, or copy/asset that’s working for them, and then repurpose it for my ads. Claude Code built out these scripts that would screen-grab all ads running on the ad library, and it’s super cool to watch it navigate to the browser and grab all screenshots in an almost ‘agentic’ way.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/2cb3d9d0-51d6-4c6b-9d59-654b87d25b97_1280x1385.png" /></p>
+<h3><strong>17. Automatically creating changelogs, from <a href="https://www.linkedin.com/in/aggarwalmanik/">Manik Aggarwal</a></strong></h3>
+<blockquote>
+<p>“I use Claude Code to create user-facing changelogs. I ask Claude Code to scan all commits from a specific time period, then pull in my changelog guidelines. It drafts a clean, structured changelog that usually needs few quick edits. What earlier took me hours is now down to 10–15 minutes. Most of our changelog output is created with Claude Code, with a final polish done by me.”</p>
+</blockquote>
+<p><img alt="Image from Everyone should be using Claude Code more" src="https://substack-post-media.s3.amazonaws.com/public/images/7e0b5a53-032a-4b0a-9737-d37cd4797527_2560x1596.png" /></p>
+<h3><strong>18. Building presentations, from <a href="https://x.com/HankYeomans">Hank Yeomans</a></strong></h3>
+<blockquote>
+<p>“All my slide work is done in Claude Code as HTML, then imported into PPT.</p>
+<p>First, I make a couple of slides that I need with some simple but well-prompted data, while also prompting to create them as html pages. Otherwise they might get created as SVGs or ‘slop AI images.’ I work with Claude Code making any adjustments.</p>
+<p>When I get it the way I want it, I ask Claude Code to make a template that I can use to ensure all future slides added are the same format, branding, look, and feel.</p>
+<p>This template becomes an .md file (I’ve put a snippet of that file below). With html you can be extremely specific—‘change this wording to say that’—and then you can use an MCP to view the ‘slides’ to show what you mean as well for greater context. With this, I have added several more slides as well as changed others using the template to keep things the same. Yes, hallucinations happen, that has to be accepted going in. Someone who knows what they want and can articulate what they want will not have too much trouble.</p>
+<p>When I want to put these into PPT, I just do well-thought-out screenshots. But honestly, If I’m using these for a customer or some presentation, I just open a browser and I have ‘previous’ and ‘next’ buttons built into them so that I can click through. Claude Code creates these as interactive html ‘slides’ so they react to the mouse.”</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/29355a05-9769-415a-b7ab-0257fbd13b6a_680x423.jpeg" /></p>
+<h3><strong>19. Doing social media research, from <a href="https://x.com/dannyshmueli">Danny Shmueli</a></strong></h3>
+<blockquote>
+<p>“Using Claude Code as a social media research assistant. I built 4 custom subagents that scan Reddit and X for developer pain points about AI coding tools. One command → finds relevant threads → drafts authentic replies.</p>
+<p>We have a marketing GitHub repo with subagents in .claude/agents/:</p>
+<ul>
+<li>Reddit replier: tracks AI coding frustrations</li>
+<li>Reddit promoter: finds productivity/burnout posts</li>
+<li>X specialist: hunts Claude Code pain points</li>
+</ul>
+<p>Each knows exact keywords and communities to monitor.”</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/12966ce4-1aee-4754-8cc6-6fbdcafe7fbf_408x418.png" /></p>
+<h3><strong>20. Roadmapping, from <a href="https://x.com/abhi_chandwani">Abhi Chandwani</a></strong></h3>
+<blockquote>
+<p>“Because it has access to my repos, I am able to get a pretty good view on the impact vs. effort across the roadmap. Basically, hero story/press release thinking for new launches.</p>
+<p>I find it very useful, again because it is super rich in context.</p>
+<p>I run this through a repo that I have named {https://project.name}-product. See structure in the image below. Regularly Git push with verbose Git commit messages to create context for Claude to run some part of my decisioning workflows in future.</p>
+<blockquote>
+<p>https://CLAUDE.md has paths to my engineering repos for architectural review, tradeoffs, and decisions. Broad structure below, and <a href="https://x.com/abhi_chandwani/status/1960434310759993555">here’s my prompt</a>.”</p>
+</blockquote>
+</blockquote>
+<p><img alt="A directory structure displayed in a file explorer. Folders named latent-product, bugs, execution, press-release, product-flywheel, user-research, and vision are visible. A file named CLAUDE.md is highlighted with a star icon next to it." src="https://substack-post-media.s3.amazonaws.com/public/images/e23707e1-deef-44ca-a883-6933312a4068_678x370.png" /></p>
+<h3><strong>And all kinds of stuff:</strong></h3>
+<ol>
+<li>“Fully uninstalling Adobe products from their computer. Notoriously hard to do.” via <a href="https://www.linkedin.com/in/stiansen/">Jonathan Stiansen</a></li>
+<li>“Automating Jira. I take a call transcript with my eng team, write up action items, create tickets in Jira using MCP—hands-off with the most annoying product in the world!” via <a href="https://x.com/itsmeterrylin">Terry Lin</a></li>
+<li>“I use it to summarize recent tickets in Intercom and create bug reports in Asana, including the ticket link, user information, and steps to reproduce. I believe Claude could handle this directly, but CC feels easier to use.” via <a href="https://x.com/merengunduz">Eren Gündüz</a></li>
+<li>“I use it for the majority of my PM tasks: custom commands for refining Linear issues, explaining features/codebase to me, writing release notes, discussing UX improvements, and polishing the UI. For good or bad, I talk to Claude more than anyone else. <a href="https://share.cleanshot.com/mmxwTzgk">Demo</a>.” via <a href="https://x.com/trist_adlington">Trist Adlington</a></li>
+<li>“I just joined a startup as CPO, so to make conversations with my dev team the most productive, can ask questions about what our code can/can’t do before asking them.” via <a href="https://x.com/brandon_edu">Brandon Dorman</a></li>
+<li>“I host a weekly figure-drawing event where we hire a model. I sent an email to my model list asking for a few dates when they are available, and let Claude create a schedule for the next few months by reading the replies. I give it access to Gmail like <a href="https://code.dblock.org/2025/07/30/using-claude-code-with-google-sheets.html">this</a>.” via <a href="https://x.com/dblockdotorg">Daniel Doubrovkine</a></li>
+<li>“I have several Wi-Fi routers, and there were problems with connections and speed between them and my devices. Using MCP <a href="https://github.com/microsoft/playwright">Playwright</a>, it logged in and configured everything.” via <a href="https://x.com/Alekenov">Chingis Alekenov</a></li>
+<li>“I made an audio recording of my doctor’s appointment. Took the audio, chunked, transcribed, and now I have an assistant using this as context.” via <a href="https://www.linkedin.com/in/iliya-valchanov/">Iliya Valchanov</a></li>
+<li>“My daughter needed to present her artwork for her school application. I took photos of her work and asked <a href="https://www.warp.dev/">Warp</a> to resize the photos and add them all to a PDF. Would have take me a lot of time to do this manually.” via <a href="https://x.com/donvito">Melvin Vivas</a></li>
+<li>“I created ‘Claude CEO,’ which connects to my Gmail, Brex, Mercury, and Linear each day and gives me a comprehensive report on what I need to focus on each day.” via <a href="https://x.com/DennisonBertram">Dennison Bertram</a></li>
+<li>“I used Claude Code as a <em>monster</em> research unit. Get it to parse arXiv or any other databases with reports and research papers. Compile thousands of papers to find a needle-in-a-haystack problem/solution. Find commonalities among papers, weird cross-connects, and new discoveries. Nerdy stuff, but I love it.” via <a href="https://x.com/troyassoignon">Troy Assoignon</a></li>
+<li>“I use it to review my Slack conversations from the past day and identify conversations I participated in where I learned something or solved a problem and, turn that into an organic (personal-experience-based) social post that others can benefit from the learnings.” via <a href="https://x.com/chadboyda">Chad Boyda</a></li>
+<li>“I’ve definitely used it to reverse-build documentation and requirements. We were building so fast on this side project, we were making decisions on the fly but losing the context and location of those decisions. I was crudely copy/pasting materials and conversations into Claude Code and leveraging its ability to reference the code itself to draft a PRD for better internal discoverability, decision logging, and source listing.” via <a href="https://www.linkedin.com/in/masalisbury/">Megan Salisbury</a></li>
+<li>“I recently used Cursor (with Claude) to resize a 23MB GIF that was too large for most online converters. Also, formatting an NTFS SD card so my Mac could read it. Super cool.” via <a href="https://www.linkedin.com/in/akileshbapu/">Akilesh Bapu</a></li>
+<li>“Storing all contracts and being able to then query these easily (e.g. which customers have X clause).” via <a href="https://www.linkedin.com/in/agrawalpulkit/">Pulkit Agrawal</a></li>
+</ol>
+<h3><strong>For more, here are some of my favorite much-more-advanced use cases:</strong></h3>
+<ol>
+<li><a href="https://x.com/JucelyMarie/status/1960828753317339220">Refining your backlog in Linear</a></li>
+<li><a href="https://x.com/SamZoloth/status/1960418474779697326">Managing user research, concepts, test results, and strategy</a></li>
+<li><a href="https://x.com/raizamrtn/status/1960454186757448087">Building a command center for your attention</a></li>
+<li><a href="https://x.com/_HelenaT/status/1960448248088551892">Turning product discovery notes into PRDs, and optimizing PRDs for coding agents</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379244841391554560%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379244841391554560%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Coming up with the first drafts of product messaging</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713/?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379260143655342080%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379260143655342080%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Running standups, sprint retros, and PRD reviews, and building a career OS</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379536238078328832%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379536238078328832%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Running a branding studio</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379244841391554560%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379244841391554560%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Running your marketing</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379259023898038272%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379259023898038272%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Running your product</a></li>
+<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:7379238388391923713?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7379238388391923713%2C7379382232454680577%29&amp;dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287379382232454680577%2Curn%3Ali%3Aactivity%3A7379238388391923713%29">Running your entire life</a></li>
+</ol>
+<p>Have you found a fun way to use Claude Code? Leave a comment!</p>
+<p><a href="https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p>
+<p><a href="#footnote-anchor-1">1</a></p>
+<p>Claude Code does not actually run “locally” on your machine—the AI/LLM processing happens in the cloud—but you run the commands locally (directly on your machine), it has access to all of your local files and computer interfaces, and its specifically designed to feel “local.”</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

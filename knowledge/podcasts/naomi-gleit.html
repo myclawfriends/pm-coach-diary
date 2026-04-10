@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meta’s Head of Product (and 29th employee) on working with Mark Zuckerberg, early growth tactics, why PMs are like conductors, and more | Naomi Gleit — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Meta’s Head of Product (and 29th employee) on work…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Meta’s Head of Product (and 29th employee) on working with Mark Zuckerberg, early growth tactics, why PMs are like conductors, and more | Naomi Gleit</div>
+    
+    <div class="article-meta">2024-10-27<span>·</span>18,109 words<span>·</span>Naomi Gleit</div>
+    <div class="tags-row"><span class="mini-tag">產品管理</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">工程</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=sTYuKgzZoL8" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Naomi Gleit</strong> (00:00:00):<br />
+I really believe in frameworks for things that helps drive extreme clarity. I work on a lot of different projects. A lot of times I'm ramping up a new project, I'm like, "Where can I learn what I need to learn about this project?" I ask five different people, get five different answers. That is unacceptable. Of course, I'm sure there's hundreds of docs associated with the project, but there needs to be one canonical doc. Everyone should know exactly where the canonical doc is. That's the one place I can go to get all the information I need about a project and it will link to all the other docs, things on the canonical doc are.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:33):<br />
+Today my guest is Naomi Gleit. Naomi is head of product at Meta. Other than Mark Zuckerberg, she's the longest-serving executive at Meta. She joined what was then called Facebook as employee number 29 and has been at Meta for almost 20 years. She's seen the company scale from 30 employees to the one and a half trillion dollar business that it is today. Naomi does very few podcasts and interviews and so I was really excited to chat with her and have her on this podcast. In our conversation, we dig into the many lessons that she learned from Facebook's early and legendary growth team, her superpower of taking really complex and gnarly problems and projects, simplifying them and delivering results. We also get into leadership lessons she's learned from Zuck, including his recent transformation into possibly the coolest CEO in tech. Also, why PMs are the conductor of product teams, some very tactical tips for running meetings, writing docs, working out, getting better sleep, and even how to get more protein in your diet.</p>
+<p><strong>Naomi Gleit</strong> (00:02:00):<br />
+Thanks so much for having me. As I told you earlier, I refer your podcast all the time and so I can't believe I have the opportunity to actually talk on it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:08):<br />
+Wow, I'm so flattered. I never get tired of hearing that. Appreciate you sharing that. I want to share a couple of tidbits about you because it's pretty crazy when you see this list. Okay, so you are Meta's longest serving executive other than Mark Zuckerberg. You're employee number 29 at Facebook. You've been there for over 19 years. Sorry, at Meta, formerly Facebook.</p>
+<p><strong>Naomi Gleit</strong> (00:02:35):<br />
+I do that all the time. That's what happens when you've been at Meta for 19 years is you can't get the name right.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:42):<br />
+Okay, good. I won't feel bad about that Then and then the last thing is just you've been at the center of some of the most foundational products that Meta and Facebook have worked on, including working on the early growth team and thinking about the early growth strategy. Basically you've been there from employee number 30 to today, a one and a half trillion dollars company, one of the largest companies in the world today. Very few people have ever seen this sort of growth and scale from the inside.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:09):<br />
+First of all, I guess let me just ask this, do you ever reflect on this and just realize like, "Holy shit, what a journey I've been on. How wild."?</p>
+<p><strong>Naomi Gleit</strong> (00:03:16):<br />
+It is a great question. I would love to say that I reflect on it. The truth is I think I barely have time to reflect right now. I'm thinking about all the things that I need to do on my to-do list, so I'm pretty in it still. Even after 19 years, I am really focused on the work that I need to do. I do honestly have moments where I get to reflect. For example, on this podcast. Sometimes people do ask me and I think especially as I approach the twenty-year milestone, my twenty-year Faceversary, I'm sure that will give ample opportunity for me to look back.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:55):<br />
+Such a classic product manager answer. I have too much to do-</p>
+<p><strong>Naomi Gleit</strong> (00:03:55):<br />
+Too busy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:59):<br />
+I have to think about this. Yeah, I got to hit some goals here.</p>
+<p><strong>Naomi Gleit</strong> (00:06:54):<br />
+Facebook as part of being an academic, researching Facebook, also being a Stanford student using Facebook. I was like, "I really want to work here." Facebook had just moved to Palo Alto. Mark had driven across country I guess, and arrived in Palo. Alto opened up an office at 443 Emerson Avenue or Emerson Street. It was right above the Jing Jing's Chinese restaurant in downtown Palo Alto and I just went to the office sort of cold called the equivalent of just walking into the office and seeing if there were any available jobs. There were not. I think I did that maybe five to 10 more times.</p>
+<p><strong>Naomi Gleit</strong> (00:07:31):<br />
+Eventually, there was an opening to interview for Sean Parker's personal assistant. He was at the time I think the president. I did interview and I did not get the job. A few months later I found out about a marketing role that was available. And one interesting thing I haven't really talked about was I got an offer from Facebook. I also got a competing offer from LinkedIn, and so at that time I made the choice to go to Facebook because I was interested in the social networking aspect of it. Why was I so bullish on this website at the time it was www.thefacebook.com. Why was I so excited about this thing?</p>
+<p><strong>Naomi Gleit</strong> (00:08:12):<br />
+I think it's because I definitely saw that there was product market fit. I saw that students at Stanford were obsessed with it, but it also had a long list of colleges that were really excited and on the waiting list to be accepted onto Facebook, and so there was this product market fit piece and also a huge demand from other audiences, other colleges, but our younger brothers and sisters were also sort of interested about Facebook and it seemed like it had this much broader appeal. So that's what happened. I got the marketing job. Cheryl also talks about when you are on getting a rocket ship, don't ask what seat. That was my foot in the door and here we are 19 years later.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:02):<br />
+I was just going to say that that's such a good example of what she recommends of if you can get a seat on a rocket ship, don't ask which seat. And I love the Sean Parker piece. I did not know that. That's hilarious. What a different life would've been if you got that job and went down that track.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:18):<br />
+So a couple of takeaways here for people that are trying to pick where to work, what I love about your story is one is you just had so much. You just had confidence that this business would work and you just knew that you wanted to get on this rocket ship. You saw attraction. So that told you I guess that added to this confidence that this was going to work out. And then you said that you walked into the office kind of cold, not even cold emailing or calling, but cold arriving. Five to 10 times you said?</p>
+<p><strong>Naomi Gleit</strong> (00:09:45):<br />
+Yeah, it was pure just refusing to quit. I think I just walked into the office, I talked to the person at the front desk, "Is there anything that I can do?" They weren't hiring non-technical people. I didn't have a computer science degree. I wasn't technical. I had this bachelor of arts degree and that's why the personal assistant in the marketing role eventually did open and was something that I thought I could be qualified for.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:12):<br />
+Cool. I think that's such an empowering lesson of if you look at someone like you and they're like, "Oh, she was so early at Facebook, how lucky," clearly wasn't luck. You knew you wanted to work at this company. You put a lot of effort into making it happen no matter the job. I think that's a really good takeaway and lesson. So if there's a company today that you are excited about that you're just like, "This is going to be a massive success," what I'm hearing is just do everything you can to try to land a job there and eventually you'll be in a role you actually want. It doesn't have to start there.</p>
+<p><strong>Naomi Gleit</strong> (00:10:41):<br />
+When I got to Facebook, I knew I wanted to build. As someone who wasn't really technical, I wasn't going to be an engineer or a coder. I wanted to work with the engineers and the coders to build products. I thought product management was the right function for me, and so my dream was always to be a PM and it wasn't luck as to how I ended up becoming a PM. I sort of took the same approach showing up at the office asking if there were any roles.</p>
+<p><strong>Naomi Gleit</strong> (00:11:08):<br />
+By then, we had moved to 156 University and all of the PMs and engineers worked on the second floor, and I was working in marketing, like I mentioned, and I worked on the third floor and all the business functions worked on the third floor, and my goal was to be a PM. I ended up going, sort of the analogy, I went to the second floor most days after work, asked if there were any projects that I could help out with.</p>
+<p><strong>Naomi Gleit</strong> (00:11:34):<br />
+It was very early days. There was always more to do than people to do it. And so eventually I picked up a few projects, helping with program management, giving my product feedback, and by the time that I actually applied formally to be a product manager, I had been doing the job voluntarily, almost informally for a few months.</p>
+<p><strong>Naomi Gleit</strong> (00:11:58):<br />
+And I remember this because I had a seat on the third floor. I picked up all the stuff on my desk, put it in a box, walked down to the second floor once I got the job to become a PM. And when I got to the second floor, I distinctly remember everyone on the second floor standing and clapping. And so it was a big standing ovation. I'll never forget, Boz was there, by the way. I know Boz has been on your podcast, but even Boz was there sort of standing and clapping. And so I guess to the lesson that you were trying to extract from my story, I do think I sort of tried to create the luck by not giving up and just repeatedly cold calling or cold showing up or cold volunteering until I sort of was able to make it happen.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:51):<br />
+Amazing. Again, very empowering. It's not just like, "Oh, there's these people that just get lucky they land this PM job." It's like you landed at the company. I want to be a product manager, which is interesting. Most people don't grow up in I want to be a product manager. That's like a rare thing people even want, especially that early on. So it's interesting that you already knew that, but you basically did the job. You did the job of PM before you had the job, and by the time you actually asked for it, you've been doing it for a long time and you could show, "Hey, look, I'm actually good at this. I can do this job." Awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:22):<br />
+By the way, I love the Boz connection. I'm finding that Boz is connected to the most guests of this podcast in so many different ways.</p>
+<p><strong>Naomi Gleit</strong> (00:13:29):<br />
+Really?</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:29):<br />
+Curious. Yeah, like Ami and-</p>
+<p><strong>Naomi Gleit</strong> (00:13:32):<br />
+Oh yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:33):<br />
+And a few other people. It's just interesting. There's a Boz spiderweb of connections throughout this podcast so far. Okay, so I'm going to fast-forward to today. So your role today is head of product at Meta?</p>
+<p><strong>Naomi Gleit</strong> (00:13:46):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:46):<br />
+What does that mean? What do you do at Meta today? How would you describe your role?</p>
+<p><strong>Naomi Gleit</strong> (00:13:52):<br />
+There are a few thousand PMs at Meta. They do not all report to me. I would say a few hundred of them report to me on the teams that I directly manage, but I feel responsible for the entire PM community at Meta. There are things that we do centrally, things like PM performance, PM culture PM onboarding and training, and that's the kind of thing that I look out for.</p>
+<p><strong>Naomi Gleit</strong> (00:14:16):<br />
+Obviously I wanted to be a PM. Head of product is my dream job. I am deeply supportive of the PM function, and so I really care and I think PMs are a huge point of leverage in a company for how we can actually get stuff done and help accomplish the company's goals. And so I sort of focus on PM as a really important exponential lever for doing that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:45):<br />
+I love that. Okay. I'm going to come back to what you've learned about what makes super successful PMs, what makes you really successful. I want to take a tangent to Zuck.</p>
+<p><strong>Naomi Gleit</strong> (00:14:54):<br />
+Please. Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:56):<br />
+So you've known Zuck for over 20 years at this point, and I just have to ask a few Zuck questions because people are always curious to learn from what has worked so well for him. The first question is just there's been a pretty profound transformation in Mark over the past few years, both in terms of how he leads and also just in his coolness and vibe factor. What are your thoughts on just this transformation and how he's been able to pull it off?</p>
+<p><strong>Naomi Gleit</strong> (00:15:22):<br />
+So I've always said that there is the biggest gap of anybody I know between what people think of Mark and who Mark really is. And so I think this is the Mark that I've known for the past 20 years and the world is finally getting to see what I've been lucky enough to see. And that gap that we've talked about is really starting to close.</p>
+<p><strong>Naomi Gleit</strong> (00:15:46):<br />
+How did we get here? I always say Mark is a learn it all, not a know-it-all. He is the fastest person at upskilling of anyone I've ever met. He used to do these annual challenges. One year I did them with him, it was learning Chinese, and within a year he was able to basically achieve an eighth grade fluency in Chinese. And that's just one example. Obviously, he's gotten incredibly great at guitar, MMA, a lot of his passions, but he's also gotten a lot better at some of the professional skills. And I think negotiation, public speaking is one of those. I think before in the early days, it just wasn't something that he was very comfortable with. He's talked himself about coming across as a little scripted. I think he was not confident and pretty careful about how he showed up and he's upskilled here. He's just gotten a lot more comfortable, and so people are able to see who he really is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:44):<br />
+He was also like, I don't know, 20 something when he started Facebook and now he's running a 80,000 person org. I could see the emotion habits.</p>
+<p><strong>Naomi Gleit</strong> (00:16:52):<br />
+Yes. I think he might've been 19 or 20 when I came.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:56):<br />
+Oh God, that's insane. So yeah, I could see why someone would change. I was at the Acquired podcast Chase event with him being interviewed, and he's just such a cool dude now. He just has these big shirts with his own letters on it, his own phrases, his chain. What a cool dude.</p>
+<p><strong>Naomi Gleit</strong> (00:17:16):<br />
+His long hair.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:17):<br />
+His long hair.</p>
+<p><strong>Naomi Gleit</strong> (00:17:18):<br />
+His watch. Yeah, I was at that event too. I thought it was great. I think, yeah, that's the no gap between who Mark is and what the world sees.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:30):<br />
+I love that. Is there something about Zuck that you know that most people don't know? Something that would surprise us?</p>
+<p><strong>Naomi Gleit</strong> (00:17:37):<br />
+The one thing I would say about Mark is I think people know he's married. He has three daughters. He's a really great dad, he's a really great husband. I would say he's also a really good friend. Maybe that's something that I can sort of speak to from experience. He's just an incredibly thoughtful friend. There was a period in my life, I think it was 10 years ago when I was going through just sort of a really hard time. I had come out of a breakup, but Mark saw that I was having a hard time. He asked me if I wanted to volunteer to teach a class in East Palo Alto after their school day.</p>
+<p><strong>Naomi Gleit</strong> (00:18:15):<br />
+And in retrospect, it's pretty funny, but Mark and I taught a class about how to build a business. So you had the CEO of Meta teaching this class to a bunch of middle school students, and we got really close to them through that process. We made some really important mentorship connections. For years, we met with them. I think we still continue to, even though they've now at this point graduated from college and have real jobs.</p>
+<p><strong>Naomi Gleit</strong> (00:18:43):<br />
+But one of the lessons that we taught during that class that I remember Mark distinctly writing on the whiteboard, or not the whiteboard, there actually was chalk, it was with chalk on a chalkboard with the four life lessons. That was one, and I kept these for myself as well, love yourself. Two, only then can you truly serve others. Three, focus on what you can control. And four, for those things never give up.</p>
+<p><strong>Naomi Gleit</strong> (00:19:12):<br />
+And that was sort of his life lessons, four steps to how to approach life. And we actually made stickers for these four steps that the students could actually put on their composition notebooks as a reminder. And I think obviously that has really helped me over time, but I think that in that you can see some of what I think we all see in Mark, for example, for those things never give up. He has that aspect of him and it makes sense. For me number three is really the hardest, which is focus on what you can control. I think I probably think I can control more things than I actually can.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:53):<br />
+So do we all. I love that he was sharing that in a class on how to start a business, this life advice.</p>
+<p><strong>Naomi Gleit</strong> (00:20:00):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:02):<br />
+Oh man, that's amazing. I want to chat a bit about, so at this point is 86,000 employees, something like that. That's what I found online. So he has to run this massive org as this CEO, one person. I know that one way that he does this, he has something called a small group. Is that the term?</p>
+<p><strong>Naomi Gleit</strong> (00:20:24):<br />
+Yes, small group.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:25):<br />
+Okay, cool. So he's got the small group that he calls it and it's essentially is like core execs and this group meets regularly, and that's kind of how he's able to manage the entire org through this small group. For people that are struggling to run an increasingly larger org, are there any tidbits from how Mark and the small group operate that might be helpful to folks?</p>
+<p><strong>Naomi Gleit</strong> (00:20:47):<br />
+Sure. So I think the first thing is small group is sort of the leadership team. It's the leaders working on the most important projects at the company, sort of independent of reporting structure and stuff. It's like who are the leaders on the big most important projects or functions? They will be represented in small group.</p>
+<p><strong>Naomi Gleit</strong> (00:21:08):<br />
+What makes this group unique? A lot of them are people like me, people that have been there for a very long time. So I think the tenure of small group is really rare. Why I think that's important is you have a lot of people that are motivated by mission rather than climbing the corporate ladder at this point. And so there are a lot of what I call disagreeable givers.</p>
+<p><strong>Naomi Gleit</strong> (00:21:34):<br />
+So just to back up, I don't know if you've heard this framework, but I think I learned this from Adam Grant during an executive learning and development session, and he was saying that if you think of a two-by-two, there's people who are agreeable and disagreeable, and then there's people who are givers and takers.</p>
+<p><strong>Naomi Gleit</strong> (00:21:52):<br />
+And the most dangerous kind of person to have in an organization is an agreeable taker. And what that means is an agreeable person, super nice, everyone likes them, really easy to get along with, but they're a taker and maybe their motivation is more self-interested rather than what's best for the company, which is how I would define a giver. And the most precious person in an organization is the disagreeable giver. Those are the people who are really motivated to do what's best for the company, but they can be a little bit disagreeable in the sense that they may not say what you want to hear. They may push back on things, they may fight for things. And so I think small group is characterized by a lot of disagreeable givers and I think that's really important for an organization.</p>
+<p><strong>Naomi Gleit</strong> (00:22:41):<br />
+One thing I think Mark has done really well in general is just have a culture, including on his leadership team, of people who give him feedback. I think a lot of times as you get more successful or as you have more fame or if you have more wealth, you lose having an accurate feedback loop. And people may not want to be a hundred percent honest with you for various reasons. And Mark has tried to ensure that he himself has an accurate feedback loop, or we as a company have more of an accurate feedback loop by surrounding himself and our leadership team and creating a culture of giving direct and honest feedback. So that's some of the unique properties of small group.</p>
+<p><strong>Naomi Gleit</strong> (00:23:25):<br />
+From a process perspective, we have one weekly sort of strategic meeting. It's more open-ended, there is time for discussion. It's longer and it's sort of more unstructured. We also have one weekly operational meeting, which is highly structured where we go through all of the priority projects. The person who owns each of the projects will actually speak to the weekly updates for that project. And it's very operational and tactical.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:55):<br />
+Awesome. I just love this name, small group. It's just like a cozy name. It's not like executive staff or ESA after all these terms people always use. And that's just our small group.</p>
+<p><strong>Naomi Gleit</strong> (00:24:07):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:09):<br />
+And then this framework you described, it sounds a lot like radical candor of challenging directly, but caring deeply.</p>
+<p><strong>Naomi Gleit</strong> (00:24:16):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:16):<br />
+Where being disagreeable, but being constructive and additive. Is that the term? What was it? Disagreeable, but?</p>
+<p><strong>Naomi Gleit</strong> (00:24:23):<br />
+A giver.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:24):<br />
+Giver? Yeah.</p>
+<p><strong>Naomi Gleit</strong> (00:24:25):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:26):<br />
+Okay. That's great.</p>
+<p><strong>Naomi Gleit</strong> (00:24:26):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:28):<br />
+If there's nothing here, totally cool. But is there something that you changed Mark's mind about? You've talked about he's good at seeing new data and being like, "Oh, okay, I see, I see." Or is there anything that you were successful there that is an interesting story?</p>
+<p><strong>Naomi Gleit</strong> (00:24:42):<br />
+One of the things that we did in the early days on the growth team, because I'm not sure that necessarily when we talk about this sort of legacy or the history or the lore around the growth team, and this may not be a direct answer to the question, but it didn't really necessarily-</p>
+<p><strong>Naomi Gleit</strong> (00:25:00):<br />
+And this may not be a direct answer to the question, but it didn't really necessarily come from Mark. Mark wasn't like, "You guys should create a growth team. Here's how you should operate." And so I think in some ways we established and grew a growth team and Mark got on board or saw the value in it and was a huge proponent of it, but I'm not sure it necessarily originated with him. And indeed, I think sometimes the focus on being so data- driven might've been something that myself, Alex Schultz, Javier Olavon, these are some of the original people that were on the growth team and that my closest coworkers now may have really pushed on and highlighted the value of for Mark. I'm happy to talk about the growth team, which is something I get asked a lot of questions about, if you want.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:53):<br />
+Yeah, I'd love to. That's exactly where I was about to segue since you brought that up. So the Facebook growth team, it's a legendary team. I think it was probably the first real growth team in tech. The team developed some of the most core growth levers and techniques that companies use today, and so I'm really excited to chat a bit about this and what you learned from that time. One thing I wanted to start with is there's this legendary activation metric that you all had, the goal was to get, I think it was seven friends in 10 days or something like that. Is that a real thing? Is that what you guys actually did? Anything more there for folks that are like, "Oh, we got to come up with something like this"?</p>
+<p><strong>Naomi Gleit</strong> (00:26:30):<br />
+Sure. So yes, seven friends in 10 days was a thing. 10 friends in 14 days was also a thing. They're the same thing, they're just different points on a retention curve. I would say the key insight here is when we started the growth team, I think we were pretty focused on acquisition. We had a notion though of growth accounting, which looks at what's our net growth every day? And that would look at the number of new users that registered minus the number of users that actually went stale. So after a 30-day period, that's how we define it, they no longer logged in. And then plus the number of users that resurrected, which is after 30 days they came back. And what we found was the churn in resurrection lines were actually much larger than the new user line, which implied to us that retention and driving those two lines was actually our biggest lever to drive net growth.</p>
+<p><strong>Naomi Gleit</strong> (00:27:22):<br />
+And so while we were focused on acquisition, a lot of our focus shifted to be around engagement and retention. How do we drive engagement and retention? We look at the variables that correlate most with that outcome. What we found was friending. And so those two magic moments, having seven friends in 10 days or 10 friends in 14 days really just map to when we feel like your likelihood of being a retained user goes up because you've seen the value in Facebook. And it makes sense, Facebook is much more compelling if you have 14 friends. And the other thing around 10 or 14 days is we wanted it to happen quickly, we wanted to have you experience the magic moment soon after you had registered on the site to prevent you from churning and then us having to resurrect you again.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:17):<br />
+One of the most interesting lessons from this activation metric that people talk about, because right now everyone's like, "Yeah, of course retention is what you need to focus on. That's what product-market fit is." I think right now that's what everyone knows. I love that you guys basically figured that out, was one of the first times of, "Here's how we understand if our product will last and how to grow retention because it matters most." And retention cohort curves I think was one of the innovations y'all thought about early of just like, "Here's how we track retention, people joining at a certain time, how long do they stick around?"</p>
+<p><strong>Naomi Gleit</strong> (00:28:48):<br />
+Totally. And that was Danny Ferrante who really came up with the growth accounting framework, which I guess is quite obvious, but the plus new minus stale plus resurrected. The thing that I feel like may be valuable for PMs and is one of my Naomi-isms is I think what the growth team really pioneered was being data-driven and product-driven, especially in an area that was historically more of a business function. So I think at that time a lot of the growth in new users was expected to come from marketing or comms, whereas the insight that we had is actually the product is the biggest lever to drive growth, and that means we should have a product and engineering team working on optimizing things like the registration flow, the invite flow, the new user onboarding, getting you seven friends in 10 days.</p>
+<p><strong>Naomi Gleit</strong> (00:29:43):<br />
+One of my Naomi-isms is really understand, identify, and execute. That framework came from 2009 where the growth team at the time, it was fledgling and it just started, was focused on only instrumenting data. And Alex often wears a shirt that says, "I guess when you can know." We just didn't have the data that we needed to make informed decisions to know really what were the biggest levers to drive growth. And so in 2009 in January, we basically stopped doing anything on our roadmap except data instrumentation. And that's when we instrumented every step of the registration flow, instrumented every step of the news or onboarding experience. We knew where there was drop off. And so we understood, which allowed us to identify what were the key opportunities to drive growth and maybe, hey, it's increasing friending in the user experience or 20% drop off on registered users at the email confirmation step, how can we address that? These are the opportunities that we identified and then we would execute by building products.</p>
+<p><strong>Naomi Gleit</strong> (00:30:50):<br />
+So having this data-driven product-driven approach to what I think historically was more of a business responsibility at a company was sort of the special sauce of the growth team. We eventually extended that approach. I think that approach started with the growth team, but we extended to other areas. So for example, one of the projects that I took on after growth was social impact. And instead of what I think a normal company might do, which is start a corporate social responsibility wing, we decided, no, we're going to take a data-driven product-driven approach to driving social impact. Instead of having a foundation that's distributing money, we're going to build a product that actually raises money from our community. And many years later we've raised billions of dollars from the community for charity. So that's sort of the approach that I think is unique about the growth team that expanded to other areas and that I think that the company in many ways has taken to most of the problems that we face.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:55):<br />
+That's such a good point. And I almost took that for granted, but there was such a huge shift that y'all started from moving from marketing being the driver of growth to product and data and experiments and all that stuff. And so I think that's such a good reminder that, fun fact on the social good team, I'm really close friends with the designer that was on my team, his name's Mickey. He was on that team for a while and really enjoyed and yeah, really enjoyed working with you. Fun fact.</p>
+<p><strong>Naomi Gleit</strong> (00:32:22):<br />
+Oh, that's so great. I remember Mickey, what is his last name?</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:26):<br />
+Settler.</p>
+<p><strong>Naomi Gleit</strong> (00:32:27):<br />
+Okay. Yes, I definitely remember this, yes. And social impact is just one thing that I think I'm really proud of. And again, remember social impact used to be a business thing. You would create this corporate social responsibility part of the company that was very separate from the product and engineering team.</p>
+<p><strong>Naomi Gleit</strong> (00:32:48):<br />
+Another thing that we did in the early days was there was a juncture where it was like, "How are we going to translate this site?" And I think we could have taken more of a non-technical traditional approach and had professional translators translate the entire site into the different languages, and instead sort of what the growth team suggested was why don't we build a version of Facebook that allows you to make translations in line? And so the community of people using Facebook at the time who actually knew the product the best could actually insert translations and there was a whole system that we built around how to up-rank the best translations and down-rank, sort of like Wikipedia. And to this day, we have over 100 languages supported. So we're always trying to find these product technology solutions to these sort of traditional problems.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:39):<br />
+I totally remember that, where it's like you ask your users to help translate the site.</p>
+<p><strong>Naomi Gleit</strong> (00:33:43):<br />
+Yes, yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:46):<br />
+I want to come back real quick to the activation metric because it's something that a lot of people somewhat misuse and think maybe incorrectly about. So to come up with an activation, as you described, you basically figure out what's the regression of if someone does X, retention increases, and so let's focus on getting them there. And a lot of people struggle with coming up with that metric. Do you have any thoughts on just how important it was to have that very specific activation milestone of seven exact friends in exactly 10 days versus the value of just having anything that is a rallying point for everyone to focus on and drive?</p>
+<p><strong>Naomi Gleit</strong> (00:34:19):<br />
+I think the majority of the value is in the latter, is just having extreme clarity around the goal and that allowed everybody to work towards optimizing the same goal. You're right, we did sort of just pick a point on the curve. I think it could have been any of those. And indeed, as part of preparing for this, I was like, "Was it seven friends in 10 days?" I had to go back and I asked a few people that I worked with back in the day and they were like, "Well, I thought it was 10 in 14." I mean, I think it doesn't matter, it's just that we picked one of them and what mattered there was we had the same goal, what mattered was that it was a retention goal or an activation metric.</p>
+<p><strong>Naomi Gleit</strong> (00:34:59):<br />
+And one of the most important things that actually came out of having that goal was building a new user experience. Believe it or not, when we first launched Facebook, I wasn't around then, but in the early days of when it was just a college site, we didn't need a news or onboarding. We didn't need to explain to people that they had to find their friends. They were sort of automagically connected to everyone on the college campus and sort of knew how to use this product, it felt very intuitive. Again, we were college students building a product for other college students. They were sitting next to each other in libraries or at desks and sort of through osmosis understanding how the product worked.</p>
+<p><strong>Naomi Gleit</strong> (00:35:38):<br />
+It was more when we launched the ability for teens to register and then work networks, and then in 2006 open registration where we started getting all kinds of people with any email address, before it was .edu or a microsoft.com email address that was required in order to sign up for Facebook and then anyone with any email just could register including people like my dad and my grandma that we realized, wow, in order to get people to this magic moment, how are we going to do that? What's the most effective way that insight resulted in building a new user experience? I remember it was just like step one, upload your profile picture. That was really important so people could find you and know who you were. Step two, find your friends. That's where a lot of the contact importing and people you may know and, "Here are other people at your school and here are mutual friends." That step in the news or experience ultimately became one of the most important drivers of that activation metric that we talked about.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:40):<br />
+I love that you shared that, such a recurring theme on this podcast, the power of onboarding, the value of investing in onboarding and the ripple effects of opportunities there. I love that you also were kind of like the first like, "Onboarding, that's a thing, we need onboarding."</p>
+<p><strong>Naomi Gleit</strong> (00:36:55):<br />
+I know. I mean, I remember the day where I was like, "Do we need to explain to people how to use this? Is it not obvious?" And it's like my dad's like, "I don't understand this whatsoever." My dad would go on to become Facebook's biggest power user because I always beta tested everything with him. But that was not obvious to us at the time in 2006 that we had to explain to people how to use Facebook.</p>
+<p><strong>Naomi Gleit</strong> (00:37:25):<br />
+And again, remember that it's fun talking about this because obviously the product has evolved so much, but the principles are relatively the same. It was thefacebook.com, eventually it became facebook.com, but eventually we built a mobile app and then it was mobile first product, and then it was about mobile photos, and then it was about mobile videos. So over time, the technology has really changed, but the core use case that we really need to educate people on, which is how to connect with their friends on Facebook and whatever iteration or product is the same. And so obviously we still have an onboarding today and it's relatively the same principles, like get a profile picture and find your friends.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:12):<br />
+Along those same lines, just maybe a last question around the growth stuff that you worked on for folks that are thinking of driving growth, working on onboarding maybe specifically just are there any lessons from things that worked super well when you were looking to accelerate growth of the Facebook early on that you think people are maybe sleeping on as lepers and tactics that worked back then that might still be really powerful today?</p>
+<p><strong>Naomi Gleit</strong> (00:38:36):<br />
+Well, definitely the understand, identify, execute. I would just ask yourselves, do you have the data that you need to know what you need to do on growth? And if not, definitely take the time to instrument that data.</p>
+<p><strong>Naomi Gleit</strong> (00:38:49):<br />
+The thing that, I think we were relatively lucky, I talked about why I was bullish on Facebook in 2005 even was because there was product-market fit. And so for us growth, as much credit as we give to the growth team, I'm actually not sure how much credit we deserve and how much incremental growth we drove above and beyond the fact that this was a product that had product-market fit and we benefited in a huge amount from having high demand for the product.</p>
+<p><strong>Naomi Gleit</strong> (00:39:23):<br />
+So at every step, and I talked about the growth team, the projects that we were working on were really at a high level around removing barriers. There were macro barriers, like the first project I worked on was high school students on Facebook, which is an interesting story in and of itself because at that time we almost created a separate website called Facebook High just to keep them separate from the college students. But at that time we were like, "No, this is one graph. This is one community. College students have friends and people they're connected to of all different ages. Why bifurcate the graph?" And obviously we've maintained that principle ever since.</p>
+<p><strong>Naomi Gleit</strong> (00:40:04):<br />
+But it was about removing barriers. So you had to be a college student, then you had to be a high school student, then you had to be in a work network, then you had to have any email address. One of the next projects I worked on was not everyone has access to a smartphone, how can we remove the barrier of having access to a smartphone and building more of a rich Facebook experience for someone that was using a feature phone or a lower-end device? Internet.org, what about removing the barrier of having access to the internet or being able to afford a data plan? And so those are the macro barriers that thematically the growth team has worked on.</p>
+<p><strong>Naomi Gleit</strong> (00:40:40):<br />
+What I would say is maybe applicable is really the micro barriers. All of the work that we did on growth around optimizing the flows were really about removing micro barriers. One of the things that I thought was just so elegant was after we did that 2009 instrumentation of all the flows, the product flows relevant to growth, what we found is 20% of people aren't actually confirming their email. We tried sending them an SMS, so maybe they would confirm the SMS instead. What we found was a lot of people are actually still clicking on notifications that they're getting, but because it wasn't the specific confirmation email, we weren't able to confirm the account.</p>
+<p><strong>Naomi Gleit</strong> (00:41:21):<br />
+And so what we did was allow people to get notifications even as an unconfirmed account, and then if they clicked on any of those notifications, that would count as an account confirmation as well because they proved ownership of the email. It's just removing a micro barrier of having to go find the confirmation email, click it before you can do anything on the site. So I do think we've been relatively lucky in having a lot of high demand That meant that we could focus on just removing micro barriers. And then on the growth team, a lot of the iterations and optimizations were about removing just sort of friction.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:56):<br />
+I love that framework of micro barriers and macro barriers, just thinking about ways to make this accessible to more people and also just helping them get through the flow faster. I also love your point about how a lot of growth teams get a lot of credit for growing a business when really in many ways it could have done really well even without that team potentially because product-market fit was so strong. I think about this with Airbnb honestly as just such after it gets to a certain point, such good product-market fit that who knows what would've happen if there was no one working on growth? It probably would've been okay for a long time.</p>
+<p><strong>Naomi Gleit</strong> (00:42:27):<br />
+Totally. And then maybe where we do sort of see the impact is maybe something like the translations thing that we talked about. With the macro barrier, removing the language barrier, and so maybe the approach we took meant that we supported 100 plus languages instead of whatever the professional translators, we have the long tail of languages so that last person who's still speaking a near extinct language can still use Facebook. But yeah, I think that's right. I sometimes think that maybe some of our efforts were really more on the margin of a bigger trend around product-market fit.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:06):<br />
+Final little thing I would just want to highlight again that you said that I think is so important, and I've always thought is true and I love that you confirmed it, is that the activation metric that you all rallied around the biggest value of it wasn't this is exactly the right regression connection to retention, it's more that we have something we are all going to focus on, and that is where most of the impact comes from is let's get more people to that point, whether it's perfectly right or not, it doesn't really matter.</p>
+<p><strong>Naomi Gleit</strong> (00:43:32):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:32):<br />
+Love that. And I think that's really freeing to a lot of people because they're like, "Oh, we don't know if we're going to be as perfect about this versus let's just drive some growth and get people who are good enough thinking on that." Okay, great.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:45):<br />
+You mentioned Naomi-isms, I want to segue to that. So let me first read a quote. So I asked Adam Mosseri, who is Head of Instagram, what to ask you. I know you guys work together on a bunch of stuff. Here's how he described you, "Naomi is called the conductor here at Meta. She has an incredible ability to handle the most complex projects and problems and bring the right people together to simplify and solve them. She is very firm yet kind. Her standards are extremely high, and she sets the bar." Also many other people that I messaged said very similar things about you, about how you're incredibly good at taking very complex problems and getting shit done, getting them done, simplifying them and getting them done.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:27):<br />
+So I want to spend some time understanding what you've learned about how to do this well. What are the skills you've collected that allow you to take really complex problems and get to a solution, stay kind but firm and take on these really hard challenges? So maybe just broadly, I'm curious, what are some of these skills that you have built that allow you to do this?</p>
+<p><strong>Naomi Gleit</strong> (00:44:51):<br />
+Yeah, well also that's very kind of Adam. I adore Adam obviously, he is one of the tenured people in small group and I've actually gotten the opportunity to work even more closely with him than usual. We recently launched something called Teen Accounts and Adam and I worked very closely on that.</p>
+<p><strong>Naomi Gleit</strong> (00:45:10):<br />
+In terms of how I do the things people say that I can do, I really rely on Naomi-isms. Like I said, and actually I refer your podcast out a lot because there isn't just a PM university that I can send people to, there isn't a formal training that people can get to become a product manager, and that's where Naomi-isms came from. It was stuff that I learned on the job from other people, including from Adam, that I found myself repeating over and over again. "A good PM looks for a way to make that more efficient," for me, that was writing them down, people started calling them Naomi-isms. I started sharing them internally. And then I think two years ago, I also started sharing them externally.</p>
+<p><strong>Naomi Gleit</strong> (00:45:52):<br />
+Adam referred to me as a conductor, that's one of the Naomi-isms, in my role as Head of Product, I want to educate the PM community about what is PM? It's the most common question I get from PMs and non-PMs, "What do PMs do? What makes a great PM?" And what I say is a PM is a conductor. It's as though the team that you are a PM on is an orchestra. There are many different functions in your team that includes legal policy, comms, data analytics, engineering, design, much like there are many different instruments in an orchestra. And as a PM, your job is to make sure everyone's playing their part correctly, every section in the orchestra is playing their part, but at the same time, they're playing together, they're unified in the music that they're producing and that they're playing at the right tempo.</p>
+<p><strong>Naomi Gleit</strong> (00:46:48):<br />
+And a lot of times I think people use music analogies or vocabulary to describe the work, and that includes things like people being in harmony, like a good team, a good PM, a good orchestra is in harmony, they're in sync, they're at the right tempo, they have the right cadence. That's sort of how I imagine what a PM does at work. Important characteristics are the PM is not the star of the show. Indeed, conductors don't even say anything during the performance. And also, I would at the same time give PMs little metronomes and conductor wands. This was something that I used to do when we were smaller., Just to sort of take the analogy way too far.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:29):<br />
+That's so funny. You actually gave him conductor wands and metronomes?</p>
+<p><strong>Naomi Gleit</strong> (00:47:32):<br />
+Oh yeah, just to wave around. Yeah, I love that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:35):<br />
+I would love a conductor wand.</p>
+<p><strong>Naomi Gleit</strong> (00:48:57):<br />
+So PM as conductor is sort of how I describe the product management function, but one of the key Naomi-isms that I think is really critical to getting stuff done is what I call extreme clarity. I think our jobs are super hard. Extreme clarity means everyone's on the same page. It definitely doesn't mean that they all agree with each other, but they just have the same understanding of the facts. So we can disagree, but we all believe in the facts, which is that there's A, B, C, our options are X, Y, Z and here are the trade-offs 1, 2, 3. That kind of shared understanding is what extreme clarity is.</p>
+<p><strong>Naomi Gleit</strong> (00:49:36):<br />
+That came from a place of just being in many meetings, on many emails, in many situations where I felt like we actually agree on something, the nature of this conflict is a result of misunderstanding. And that seems like an incredible waste of time. And so we want to have extreme clarity so we can just focus our conversations on things when we actually agree, not when we are misunderstanding each other. There are a lot of tactics that I use to drive extreme clarity.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:03):<br />
+Yeah, I was going to ask how you do that, that sounds great.</p>
+<p><strong>Naomi Gleit</strong> (00:50:00):<br />
+... Tactics that I use to drive extreme clarity.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:03):<br />
+Yeah, I was going to ask how do you do that. That sounds great. How does one get to extreme clarity?</p>
+<p><strong>Naomi Gleit</strong> (00:50:07):<br />
+So another name I'm using is canonical everything, so that includes canonical nomenclature, I often talk about canonical nomenclature. One way to ensure extreme clarity is we have the shared vocabulary. I've been in a lot of situations where people are using the same or different words to describe the same or different things, which results in talking past each other. One of the most egregious examples of this is when I was working, I was in a conversation around how our reviewers and global operations were performing, and we were using consistency and accuracy interchangeably. Consistency refers to how often different reviewers agree on the decision. Accuracy refers to how often the decision is correct according to ground truth. Those are very different things. We don't want to optimize for consistency because you could be consistently wrong. We want to optimize for accuracy.</p>
+<p><strong>Naomi Gleit</strong> (00:50:56):<br />
+And so that is what canonical nomenclature is literally writing out all the words in their definitions, so when we communicate, we are using the same vocabulary. I really believe in visuals. I think sometimes just having a conversation or a big meeting where people are talking, I'm just not very auditory, I'm a very visual person, it's hard for me to follow along just by listening. I will often have a visual in a meeting. I will leverage that visual to literally real time edit what is being decided. For example, if we have multiple options, I will edit the slide that's being projected to say, "We decided on option one, here are the next steps, 1, 2, 3." A lot of times people are saying, "That's not what I heard. I heard this as a next step, or I heard that as a next step." I love that because that avoids leaving the meeting and being like, "I don't know what we agreed to. I heard this, you heard that." No, actually we haven't agreed upon set of decisions and next steps that we all real time edited and looked at together.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:54):<br />
+Just to double click on that one real quick, so what you're describing for the visual is you're presenting here's our options, here's our three options on a slide. You all decide we're going to go with option two, you edit the slide with a star, here's what we chose, and then maybe change some stuff. And this is exactly to your point of extreme clarity, people can see clearly this is what we're choosing. If they disagree and don't realize that's what's happening, it'll be really clear.</p>
+<p><strong>Naomi Gleit</strong> (00:52:17):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:18):<br />
+Awesome.</p>
+<p><strong>Naomi Gleit</strong> (00:52:19):<br />
+And one thing people make fun of me a lot for that I think is just a great example of extreme clarity is I never use bulleted lists because you can never refer to a bullet. I always use numbered lists because you can always in the visual in a meeting as referenced in number two, I have feedback on that, versus the third bullet, two up from the second, whatever, that is not extreme clarity. So it's very, very small tactical things to bigger things like canonical everything. But I can be a little bit strict.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:54):<br />
+I love that very tactical tip and that is awesome, that's exactly the stuff I look for. Is there any other very nuanced tip along those lines that is helpful in extreme clarity or canonical everything?</p>
+<p><strong>Naomi Gleit</strong> (00:53:09):<br />
+Canonical everything... And stop me if I'm getting too wonky, I can really get into this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:16):<br />
+We got a ways to go.</p>
+<p><strong>Naomi Gleit</strong> (00:53:18):<br />
+When I had a face bursary, along the years people have given me posters and the posters say these Naomi-ism, so extreme clarity is one, canonical everything is another. I think people really associate me with canonical, canonical, canonical. I always want a canonical doc. This came from a place of me I work on a lot of different projects, a lot of times I'm ramping up mid-project, I'm like, "Where can I learn what I need to learn about this project?" I ask five different people, get five different answers, that is unacceptable. Everyone should know exactly where the canonical doc is. That's the one place I can go to get all the information I need about a project and it will link to all the other docs. Of course, I'm sure there's hundreds of docs associated with the project, but there needs to be one canonical doc, and that canonical doc really has to have the basic information that you need to know.</p>
+<p><strong>Naomi Gleit</strong> (00:54:05):<br />
+For any project, the basic information that you need to know is what are the discrete areas of work, I call those work streams, this is pretty obvious. Who are the owners on those work streams? So for every work stream there's an owner. Again, it seems pretty obvious. Sometimes I'm like, "Who's owning this?" And it's like people don't know. That's why I think it's very important to have a single-threaded owner. We used to call this a directly responsible individual or a throat to choke. We obviously don't say that anymore. Single-threaded owner, every work stream has a single-threaded owner. Sometimes work streams are really big. You have sub work streams underneath them. Everything canonical needs to recurse, so you should have an owner or an STO for the sub work stream. The other things on the canonical doc are what is the process by which the people on this team work together.</p>
+<p><strong>Naomi Gleit</strong> (00:54:54):<br />
+I hate pairwise conversations. I feel like they're a waste of time. I feel like you could have four conversations with four different people or one conversation with all four people. Everyone has the same context. Ideally there's a visual in that meeting and you real time edited it, there is extreme clarity. The canonical doc will have what is the canonical meetings that people have, what is the canonical email list that you're going to use, what is the canonical workplace chat. Let's not reinvent the same audience 10 different times with different permutations of the people on the working team. Let's just have one canonical chat. And then often the canonical doc will have the canonical nomenclature. I really believe in frameworks for things that helps drive extreme clarity. A framework is best understood when there's a visual representation of the framework in my mind, and so we'll have canonical visuals and that's what I mean by canonical everything. So anytime I start on a new project, everyone knows to send me the canonical doc.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:52):<br />
+I love this. If you come into a that you've given that's really gnarly and complex, what do you find are the first couple things you do that make a big dent on helping everyone align and understand what happens, what they should be doing and what they should be prioritizing?</p>
+<p><strong>Naomi Gleit</strong> (00:56:12):<br />
+A lot of times I'm simplifying. A lot of times there isn't a canonical doc and so I'll go through the process of creating that, but I think that really falls under the simplification thing. I often go into a project, everyone's operating at a PhD level, I'm coming in at a kindergarten level, and so I need to understand... It's almost like all of this complexity we're at a PhD level, I need to create the curriculum, go back to basic building blocks for the kindergarten level, how do I explain that and understand this project at a kindergarten level. It doesn't mean I want to oversimplify, that's not what a simplifier does. They're not oversimplifying, but what they are doing is identifying the most basic building blocks of a complex problem and then unfolding, or revealing or building on top of them additional complexity and details as you go along.</p>
+<p><strong>Naomi Gleit</strong> (00:57:06):<br />
+And so sometimes I talk about a school pyramid, but I need to establish the kindergarten curriculum and then the elementary school curriculum and then the high school curriculum and then the college curriculum, and then we can operate at the PhD level. But oftentimes people on the project are at really different levels of understanding or complexity. And until we have what we call the school pyramid, the curriculums for every level of the project, it's really hard to make progress. A lot of times that process of simplification will often identify what are the most important things to deal with on the project.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:48):<br />
+And so what I'm hearing is when you come into a project and the way you simplify is you start putting together a doc that describes these things you're talking about, here's the work streams, here's the owners, here's the process, here's our canonical meeting style, and that reveals here's what matters most and where there's confusion.</p>
+<p><strong>Naomi Gleit</strong> (00:58:07):<br />
+Yes, yes. Yeah, that is. And a lot of times what needs to happen in the project is sometimes there's a strategy or an execution issue and sometimes there's a people or a process issue. I would say 80% of the time I think it's a people or process issue. And that refers to not having the right people on the project, or having the right people but not having the right process by which they work together, a strategy or execution issue. When we get to that, I first try to tackle those or in general I think it's really important to have perfect execution. I want to make sure a project is perfectly executing, because only then can we really reevaluate whether or not this strategy is right or wrong. We're in the worst of all worlds where we are imperfectly executing and therefore, at the end of the day, the project might fail, but we don't know why.</p>
+<p><strong>Naomi Gleit</strong> (00:59:02):<br />
+Is it because the strategy was right or wrong or is it because the execution was poor? The ideal case is the strategy was right and you perfectly executed on it. The next best case scenario is the strategy was wrong, but you perfectly executed on it, because then you learned the strategy was wrong. Revamp the strategy and try again.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:22):<br />
+You're really in the PM part of my brain. I feel like most PMs listening are like it has clean documents, really simple processes, there's one person to charge, it links to everything. It just feels good.</p>
+<p><strong>Naomi Gleit</strong> (00:59:34):<br />
+Totally. And, again, sometimes I feel the need to defend that the process is not for process' sake, it's ultimately to help us all move faster and work better. So hopefully that comes through. But I deeply believe that it is through this approach that we can move faster. And you have to prove that nobody wants more process and more meetings and more, but my goal is that with this we're actually simplifying process and getting less meetings and just making things clearer and ultimately moving faster.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:08):<br />
+I'm going to read another quote from another one of your co-workers, Charles Porch, he's vice president of global partnerships at Instagram and he basically said what we've been talking about, some of the biggest strategic bets and biggest swings Meta has made have had Naomi at the helm. No one can hurt cats, drive clarity, and get to outcomes more seamlessly than she can. She's legendary within Meta for her canonical documents.</p>
+<p><strong>Naomi Gleit</strong> (01:00:33):<br />
+Great.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:34):<br />
+Maybe just following this thread a little bit further, what's the gnarliest project that you've worked on that would be a good example of you coming in and helping simplify and get it over the finish line?</p>
+<p><strong>Naomi Gleit</strong> (01:00:47):<br />
+Well, Charles may be thinking of the most recent project that we worked on. I don't know if it's necessarily the gnarliest, but it's definitely one of the most cross-functional projects that I've worked on before. Basically every team at the company in some way works on youth. And last week we actually launched teen accounts, which was a very complex project. Again, it involved the Instagram team, the central youth team, the different teams working on various aspects of this, every function, legal policy, comms, marketing product. And I think we definitely leveraged a lot of these Naomi-isms. And just to give you a sense of what teen accounts is, it was basically putting all teens into the safest settings by default on Instagram. And the reason I'm working on this, I work across multiple teams at Facebook, so obviously Adam is the head of Instagram and I work closely with him on this, like I was referring to yesterday.</p>
+<p><strong>Naomi Gleit</strong> (01:02:02):<br />
+But this is something, these teen accounts, is something that we are thinking about how we expand to the other apps that we have, including Facebook and WhatsApp and Threads. And I tend to work on projects that are across our family of apps and future platforms, and that's why I was involved in this. But basically what teen accounts does is put teens in these safest settings. It's super focused on trying to address parents' biggest concerns around their teens on social media. This has obviously been a really big topic. We've had a lot of these features and tools. What this launch did is simplify things, standardize things, and add a lot more functionality that gives parents control.</p>
+<p><strong>Naomi Gleit</strong> (01:02:42):<br />
+I think the thing you really need to know is that for under 16-year-olds, if they want to change any of these defaults, they're going to have to get their parents' permission. And so it's interesting that we're really going to create an incentive for teens to get their parents involved and to actually set up parental supervision, especially because one of the default settings is a private account. So there's tens of millions of teens that currently have public accounts today that we are going to automatically transition to private accounts unless they get their parents' permission to stay public. And so it's a relatively big shift, fundamental change for how Instagram works for teens, and I would say one of the more complicated projects that I've worked.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:28):<br />
+Yeah, and it just launched, right?</p>
+<p><strong>Naomi Gleit</strong> (01:03:30):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:31):<br />
+As a new father, I'm excited for you all to be working on these sorts of things. I don't need it yet, but I'm glad it's going to be there. And it's funny how Meta and Facebook is in this world where people complain about teens using social media and then you work on making the product better for teens and kids using social media, and then it's like, "Facebook's getting teens on social media." There's no way to make it feel good to people. No matter what you do, people are going to complain. That's what-</p>
+<p><strong>Naomi Gleit</strong> (01:04:00):<br />
+Totally. And I think the goal of this launch was to orient ourselves and really there's a lot of complaints, there's a lot of different voices. I think we just are focused on parents. We think parents know best. Every kid is different and parents know their own kid the best. So that has been our north star in terms of the approach here. When I talk about teen accounts, as product people I think one thing that you would appreciate is the thing that I think is really important when it comes to teens on the internet is really having an understanding of how old someone is when they're using our apps. And it's important that we know how old they are because then we can put them in an age-appropriate experience. So now we have teen accounts, we want to put all teens into teen accounts.</p>
+<p><strong>Naomi Gleit</strong> (01:04:49):<br />
+We all know sometimes teens lie. That's been the biggest feedback that we've been getting is teens are really smart, they're going to find workarounds, they're going to be creative, they're going to lie about their age. And as a product person, the way that I think this should really work is that instead of everyone entering... Teens use, on average, 40 apps, instead of Instagram and the other 39 apps that teens use trying to verify the age of the person using their app is for two companies to do this, which is Apple and Google, they do collect the age, they should make that available to developers. And we ask for information from the device all the time with user consent, can Instagram have access to your camera, can Instagram have access to your location information? Apps should be able to ask, can Instagram have access to your birthday? And that would, I think, elegantly from a product perspective, from a simplification perspective, from a privacy preserving perspective and what's easiest for parents, that would be the right product solution to solve this problem around age that we're all trying to grapple with right now.</p>
+<p><strong>Naomi Gleit</strong> (01:05:56):<br />
+And there's a lot of stuff that we're doing. Part of the reason that this project was so complicated, and I mentioned the age team, is we're building classifiers to try to predict how old people are based on not just the age that they've stated, but based on who they're talking to, what kind of content they're looking at, what the age of the people they're connected to is, do we think that this is actually an adult like they say, or is it really a teen. And so we're doing a lot to try to predict age or prevent people from lying about their age, but I think this would be a really big win for the industry.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:31):<br />
+Makes sense to me.</p>
+<p><strong>Naomi Gleit</strong> (01:06:33):<br />
+Okay. Thank you, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:38):<br />
+So to close out this portion in this chapter of our conversation on Naomi-isms, I know something else that you're really good at that I've heard from a few people is running meetings, something that a lot of people always want to get better at. Any tips? What have you learned about running a great meeting?</p>
+<p><strong>Naomi Gleit</strong> (01:06:54):<br />
+A meeting is a high value and it's high cost amount of time, and then I want to make sure it's as productive as possible. What I will do is send an agenda 24 hours prior to the meeting. That agenda will include a pre-read. I've talked to people who if the pre-read is not attached to the calendar invite or associated with a meeting at least 24 hours in advance, they will cancel the meeting. That just goes to show we want everybody in the meeting to have full context, have read the pre-read. Often what will happen in the previous 24 hours is because we're all sending pre-reads on Google Slides, there will be a lot of conversation and questions that get hashed out leading up to the meeting. During the meeting, like I said, I think it's really important for a group of people to be looking at something and anchoring people on something.</p>
+<p><strong>Naomi Gleit</strong> (01:07:48):<br />
+If somebody joins the meeting, say, five minutes late, they should know exactly where in the agenda you are in the meeting and what is being discussed based on catching up from the visual that's being projected. Usually a meeting can be and hopefully a meeting is really either is a decision meeting. So if there is a decision, I need three options and I need a recommendation that should hopefully help focus the meeting. And then, like I said, I will real-time edit the visual such that we document and have extreme clarity on what is the option that we agreed on and any next steps that we also agreed to.</p>
+<p><strong>Naomi Gleit</strong> (01:08:28):<br />
+After the meeting, anyone who wasn't in the meeting, that's fine because within 24 hours post-meeting I will send the notes, reply all to the meeting invite and send the notes. So just tactically, I use the calendar invite as the canonical unit by which to handle all of this communication because a lot of times meetings are one-offs, there isn't an existing email or chat thread that maps perfectly to the audience of the meeting, so for me that is the meeting or the calendar invite. So I'll click on the calendar invite, reply all, include the pre-read, pre-meeting, and then do this reply all again post-meeting 24 hours with the notes and the decisions and the next steps.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:11):<br />
+I love this. So many very specific tactics here. I love it. This is food for my brain. I love the always have three options and a recommendation, that's such a simple thing to recommend, but such a powerful way of operating as a PM, just like, "Here are the options, here's what I recommend, here's why."</p>
+<p><strong>Naomi Gleit</strong> (01:09:29):<br />
+Oh, one thing I forgot that I learned from Guy Rosen, he is our chief security officer, is when you have three options and a recommendation, in terms of evaluating the options, I don't love pros and cons. It's a flat list of text. It's hard to just get the big picture from that. Oftentimes we'll use a traffic light. That means that the three options are three rows. The columns in the table will be criteria by which to evaluate the options. Those could either be functions. So for example, if I have three options as the rows, column one could be the legal perspective, column two could be the policy perspective, column three could be the privacy or product perspective. Alternatively, the columns could map to different criteria like what we're optimizing for. So it could be the user experience, it could be the engineering feasibility, it could be the internal complexity, whatever are the criteria should be laid out in the columns.</p>
+<p><strong>Naomi Gleit</strong> (01:10:31):<br />
+And then obviously it should be color-coded, red, yellow, green based on how it stacks up against those criteria. And what this allows is to get back to the point of the visual is you can quickly look at the three options, see where's the most red, and rule that out. Ideally, the recommendation has some combination of the more green or yellow than the other options. And then obviously within these cells you can spell out the specific rationale for the coloring. But I think this is a really good way to run a meeting and just create extreme clarity around how you're evaluating the options in a way that a flat list of pros and cons just doesn't.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:12):<br />
+What other podcasts would have this level of detail of how to run a discussion on a decision? And this is exactly what people want to hear, so I love it. So product market fit for listeners of this podcast. I love it. I love it. And obviously the reason this is more effective is it's not just like, "Here's a quick sentence on the pro and con." It's like, "Here's what I actually think this is good or bad for the things that matter to the business."</p>
+<p><strong>Naomi Gleit</strong> (01:11:39):<br />
+That's exactly right.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:40):<br />
+So that makes tons of sense.</p>
+<p><strong>Naomi Gleit</strong> (01:11:41):<br />
+It also gives people a framework to plug into. A lot of times the creation of a pre-read for these discussions involves many different people from many different teams and functions. If you have a traffic light, they can own filling out their cell, they can own the rationale behind the legal position on option one, two, and three. And, in general, I'm super into frameworks that allow people to plug into and clearly represent their point of view.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:08):<br />
+I love it. Final question, completely different topic. I saw a Wall Street Journal story about how you exercise and your exercise regimen, and how important that is to your life and career. Now, most people don't have a Wall Street Journal story about their exercise regimen, especially a tech worker. And I know this is just important to your work, and they wrote that this basically helps you become better at your job. Any advice there for folks that want to lean into exercise, exercise more for how to actually do that? Because your advice is this actually makes you better at work and life.</p>
+<p><strong>Naomi Gleit</strong> (01:12:44):<br />
+People are always like, "What are you training for?" And I'm like, "I'm training for life." I have four musties, it is eat, sleep a long time, and exercise. Those are the things that I need in order to perform. And the other areas of my life seems pretty obvious, but until recently I actually did not prioritize sleep. My boyfriend is actually super into sleep and we have the Eight Sleep, we have eye masks, we have blackout shades, we have good sleep hygiene, and so I'm getting much better at that. But exercise is something that I've always been on top of. Alone time is also a musty for me because I'm an introvert, I need that time to recharge, otherwise I think I get weird around people.</p>
+<p><strong>Naomi Gleit</strong> (01:13:28):<br />
+In terms of how I prioritize it, it's a non-negotiable or table stakes, every morning I have to work out. I am also lucky enough to work in an environment where I can wear workout clothes to work, which I often do. I think working out is sure the hour of the day that I'm doing my exercise, but I also view, like I said, life is a workout, performing at work is a workout. I need to be able to move. I need to feel comfortable. It's very physical, I think, especially if you're trying really hard to be a conductor, and I'm running around with a metaphorical conductor wand, I need to be able to move. A while ago, and that's what the Wall Street Journal article was about, I set a goal of doing five pull-ups. I'd read somewhere in an article that less than 1% of women can actually do. I think having a goal is really helpful.</p>
+<p><strong>Naomi Gleit</strong> (01:14:22):<br />
+That's something that I worked on, and anyone can do this truly if you train for it. I think it's potentially more technique for me than strength per se, and I worked up towards that goal. I think exercise, in addition to all of the physical benefits, primarily has a mental health benefit I think for me. And also there are just a lot of lessons that I think I take from exercise. For example, I think being able to do five pull-ups taught me I can do hard things in this really narrow, measurable way, which gave me confidence in other aspects of my life.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:01):<br />
+I had a friend who her goal was...</p>
+<p><strong>Naomi Gleit</strong> (01:15:00):<br />
+Another aspect of my life.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:02):<br />
+I had a friend who her goal was do one push-up.</p>
+<p><strong>Naomi Gleit</strong> (01:15:06):<br />
+One push-up.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:06):<br />
+She's like, "I want to be able to do one push-up" and that was really motivating to her. And then she finally got there and then she could do more.</p>
+<p><strong>Naomi Gleit</strong> (01:15:12):<br />
+That's awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:13):<br />
+Yeah, similar. I have so many notes here as that you were talking. The other is sleep advice. So eye mask. I have an awesome eye mask that I'll recommend in the show notes. It's funny.</p>
+<p><strong>Naomi Gleit</strong> (01:15:23):<br />
+Please.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:24):<br />
+What is that? Of all the things I've recommended in all the various places I get the most comments about, "Thank you for this very specific eye mask. It changed my life." It's like WAOAW, it's one Tim Ferriss has often recommended.</p>
+<p><strong>Naomi Gleit</strong> (01:15:36):<br />
+Okay.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:37):<br />
+W-A-O... I'll link to it in the show notes, but it's-</p>
+<p><strong>Naomi Gleit</strong> (01:15:39):<br />
+Oh, great.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:41):<br />
+WAOAW, let me look it up real quick 'cause people are going to be like, "Oh, I got to get it." WAOAW eye mask.</p>
+<p><strong>Naomi Gleit</strong> (01:15:46):<br />
+The one that we have has cushions around the eyes such that it's not flush against your eyes.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:54):<br />
+Yeah, this is the same. Okay.</p>
+<p><strong>Naomi Gleit</strong> (01:15:55):<br />
+Oh great.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:58):<br />
+W-A-O-A-W sleep mask on Amazon. It's 13 bucks and amazing. My wife and I both sleep with these eye masks. It's ridiculous until you're like, "I can't sleep without one now."</p>
+<p><strong>Naomi Gleit</strong> (01:16:10):<br />
+Totally. Well there's a lot of research that even ambient lighting results in lower quality sleep. So I think that's why the blackout shades and the eye mask just help ensure it's truly dark.</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:20):<br />
+Yeah, I was just watching a podcast and the advice there is even your smoke alarm with a little light is too much light. You need to cover that up to create real darkness and why not just wear an eye mask? You don't have to worry about any of that.</p>
+<p><strong>Naomi Gleit</strong> (01:16:35):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:36):<br />
+Okay, and then one thing I didn't mention when you're talking about the conductor, the PM as a conductor, that's exactly the metaphor I've always used my entire career when people ask me about what is product manager? So we're alike.</p>
+<p><strong>Naomi Gleit</strong> (01:16:46):<br />
+Really?</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:47):<br />
+Yeah, I have all these slides of here's the PM and it's like a symphony and the conductor standing there.</p>
+<p><strong>Naomi Gleit</strong> (01:16:52):<br />
+Lenny, do you know how happy that makes me? Because I feel like sometimes people are like, "That sounds crazy," but the fact that you actually came to that same conclusion makes me... Why did you come to that conclusion? I'm just curious</p>
+<p><strong>Lenny Rachitsky</strong> (01:17:09):<br />
+Because as you said, the PM's not making the thing. They're just helping each of the people who are the most talented at their very specific skill do the best possible work and their back is to the audience. They're trying to stay out of the way even though they come in, everyone claps for them, the outstanding event, and then in theory they could step in a little bit to help out when they can pinch it on design here and there and research here and there, probably not engineering. So those are the reasons and they're not in charge. The chair wind violinist is the actual person that's making the music and the best at this thing.</p>
+<p><strong>Naomi Gleit</strong> (01:17:48):<br />
+It's so great to hear somebody else talk about this too. Thank you. And I think that that is really how I view my role and what I do and I think maybe just hearing you talk about it reminded me why I think I put so much emphasis on just elevating the people on my team and the people around me and candidly, one of the development areas for me, and it could be downstream because I do have this analogy of how to be a PM, is that the growth feedback or the constructive feedback for me is really learning when to lead from the front more. Maybe when to be less of a quiet conductor that's really elevating the first chair violinist and be more front facing.</p>
+<p><strong>Naomi Gleit</strong> (01:18:39):<br />
+I think a lot of my approach and my leadership style is really leading through the people on my team and helping grow them. And a lot of times I think that they're dedicated, they're experts, they know particular areas. Obviously as a head of product, I manage a portfolio of different projects of which each of them has the incredible leader on it. And so oftentimes I'm just really trying to lead from behind and help them be as successful as possible. But there is a time and a place when maybe that silent conductor needs to take more of a vocal and front facing role.</p>
+<p><strong>Lenny Rachitsky</strong> (01:19:16):<br />
+I know exactly what you mean. I had the same problem when I was a PM because there's always this fear that PMs in charge and telling everyone to do. And so I had the opposite of like, "Okay, and that's not me. I'm going to just let you do the things you think are best and I'll just make sure the best ideas come to the surface," and I have to learn exactly the same thing. Sometimes people just want you to point them in the right direction and make the decision in the end. And the best PMs are people that have the best opinions about what is going to work, how intuition of what users need, have strong product sense and all that stuff. I've had this post that I'm trying to work on along these lines where there's this reaction to PMs aren't the CEO of the product.</p>
+<p><strong>Lenny Rachitsky</strong> (01:19:56):<br />
+They're just like... No, don't call yourselves that. I think it's the opposite. I think PMs actually should think of themselves as the CEO of the product, not in terms of they are in charge and can fire people and manage people, but they're the closest heuristic for what the CEO and the founder wants. They think of what does the business need, what is going to help the customers, what's going to help us grow? And I think the PM is the closest to that role and so I think it's important to think of that role as that even though</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

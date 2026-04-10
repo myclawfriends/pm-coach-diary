@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>“Dumbest idea I’ve heard” to $100M ARR: Inside the rise of Gamma | Grant Lee (CEO) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">“Dumbest idea I’ve heard” to $100M ARR: Inside the…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">“Dumbest idea I’ve heard” to $100M ARR: Inside the rise of Gamma | Grant Lee (CEO)</div>
+    
+    <div class="article-meta">2025-11-13<span>·</span>24,649 words<span>·</span>Grant Lee</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">創業</span> <span class="mini-tag">AI</span> <span class="mini-tag">市場推廣</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=3H0ngGU5pbM" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Grant Lee</strong> (00:00:00):<br />
+I'm in my third pitch in, I get to the very end of the pitch, feeling pretty good about myself. The investor pauses a little bit, and then just says, "That has to be the worst pitch, worst idea I have ever heard. Not only are you trying to go against incumbents, you're going against incumbents that have massive distribution. You are never going to succeed."</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:18):<br />
+You guys are at over 100 million ARR now, worth over $2 billion. One of the most interesting ways you guys grew early on was influencer marketing.</p>
+<p><strong>Grant Lee</strong> (00:00:25):<br />
+All the initial influencers, I onboarded manually myself. I would jump on a call with each one of them so that they understood what Gamma represented, how to use the product. You want to be able to have them tell you story but in their voice. I think a lot of people think influencer marketing and they'll think these big trendy creators, people that have a million followers. This is the wrong approach. You basically give them a script to read, immediately feels like an ad. That product is not connected really to them in any way. You're much better doing the hard thing, which is hard to scale, finding the thousands of micro influencers that have an audience where your product maybe is actually useful. People really trust what they say. That ends up becoming this wildfire that can spread really, really fast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:04):<br />
+Something you talk about it, there is actually a lot of ways to think experimentally, even in the early stages.</p>
+<p><strong>Grant Lee</strong> (00:01:08):<br />
+We would have an idea in the morning, come up with some sort of functional prototype, recruit a bunch of people that are legitimately good prospective users, but have zero skin in the game, ship fast so people can start playing with it. In the afternoon, we're already running pretty full scale experiment. You start actually hearing other people describe their usage of the product. We can also watch them struggle. By the evening or by the next day. We can actually go through all of it together and say, okay, we're going back and we have to fix this. This is not usable and we've done that for everything.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:36):<br />
+Today my guest is Grant Lee, CEO and co-founder of Gamma. This is a really unique and inspiring, and very tactically useful conversation because Grant is building something that is essentially the dream for most founders. A massive AI startup that's profitable, and has been for a long time, that didn't raise a lot of money for a long time. And as a small team, it's just around 30 people, all who can fit in a small restaurant serving over 50 million users globally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:02):<br />
+If you're not familiar with Gamma, they're an AI powered presentation and website design tool. They just hit 100 million ARR in just over two years. They're valued at over $2 billion. And unlike a lot of the fast growing AI startups that you hear about, they're growing profitably and sustainably, and in a category that most people did not believe had a huge business opportunity. As you'll hear in the conversation, one investor told Grant, this is the dumbest idea that he has ever heard.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:29):<br />
+In this conversation, Grant shares the very counter-intuitive lessons that he's learned, finding product market fit, how he knew they had product market fit, the specific tactics that helped them grow, including a deep dive into influencer marketing, which blew my mind. Also how they figured out their price, his thoughts on building a GPT wrapper company that is durable, a ton of hiring advice, and so much more. This could honestly have been another two hours of conversation. I suspect we'll do another follow-up conversation next year.</p>
+<p><strong>Grant Lee</strong> (00:05:19):<br />
+Lenny, it's so great to be here. Thank you for having me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:21):<br />
+I see your face all the time in my LinkedIn feed. I don't know if you know this is a thing. On these JPMorgan Chase ads. I'm so curious if other people see this or if it's just me. Did you know this was a thing?</p>
+<p><strong>Grant Lee</strong> (00:05:31):<br />
+I think it's maybe once a day now I get a text message and just no message. It's just a screenshot or an image of me doing something in San Francisco on one of these ads that we're seeing. And so yeah, kind of embarrassing, but also we're happy customers of JPMorgan Chase, so trying to represent.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:49):<br />
+Oh my God, I hope you love them. Because it's always you. There's no one else. It's like Grant.</p>
+<p><strong>Grant Lee</strong> (00:05:54):<br />
+I know. Can I talk to you [inaudible 00:05:56] swap somebody out. I mean that'd be great. I'm totally fine with that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:59):<br />
+Okay, so to get serious, the reason I'm really excited to have you here is, unlike a lot of super fast growing AI startups, you are both growing like crazy, you are growing very profitably. We're going to talk about this. You did not raise a ton of money when you started. You waited a long time to raise a bunch of money. You also built a business in a category that I think most people never imagined there was this big of an opportunity. And you're basically, you've achieved the dream of a lot of founders these days, especially people building AI startups.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:31):<br />
+So my goal with this conversation is essentially do an anthropological study of a really successful AI startup. Talk about how you found product market fit, how you grew, all the lessons you've learned along the journey. And I'm going to break this conversation up kind of along the different milestones of the journey. Before we get into the first piece, is there anything that you think is important for people to hear broadly about the story of Gamma?</p>
+<p><strong>Grant Lee</strong> (00:06:57):<br />
+Yeah. Maybe I'll just start with a quick story if that's okay. And it's really just the founding story. So we started the company back in 2020. This is peak pandemic. And even fundraising was just so different. So all of the fundraising was done over Zoom. You were kind of sitting in these Zoom meetings trying to pitch. Many investors you never met in person. So just a different era. And so for us, we're first time founders. I was actually living in London at the time, and so different time zone. I had to do all of my pitches at night. And I have two little kids, so wait for them to go to bed. 8:00 PM. We had a pretty modest flat, so nothing big. I would basically find this little corner between the kitchenette and the laundry room to kind of set up shot, far enough from the kids so they wouldn't be woken up.</p>
+<p>In between 8:00 PM and like 2:00 AM, I'm just pitching. Trying my best. I had the fake Zoom background so people didn't know where I was, and just pitching. And so really the first day, I'm in my third pitch in, trying to tell the story of Gamma, obviously just starting to get the hang of the pitch. And I get to the very end of the pitch feeling pretty good about myself. And the investor pauses a little bit, and then just says, "That has to be the worst pitch, worst idea I have ever heard. Not only are you trying to go against incumbents, you're going against incumbents that have massive distribution. You are never going to succeed."</p>
+<p><strong>Grant Lee</strong> (00:08:23):<br />
+And so in my head, I'm already kind of shell shocked and thinking what's my rebuttal? And before I could even respond, he hangs up. And so I'm there sitting there thinking about it. And before I could really get down on myself because I had to prepare for the next pitch, I just internalize this feeling that maybe he's right. Maybe something about what he's saying is actually correct. And so for me, I started thinking about, if we're going to succeed in this category, we're going to really have to think about growth from the very beginning. This category is going to be really, really hard to break into.</p>
+<p><strong>Grant Lee</strong> (00:08:58):<br />
+And so we really kind of made this sort of promise to ourselves, that as we continue to build, growth was going to be critically important. And so my thing to your audience is that I don't come from a growth background. So if I can learn growth, anybody can learn growth. And I think especially in this sort of market, hyper competitive, oftentimes very crowded, it's going to be essential.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:19):<br />
+That is such a fun story. Oh my god. How bad must this investor feel at this point. We won't name names. Just to share some stats, I know this is going to be by the time this launches, this will be out, but you guys are at over 100 million ARR now, worth over $2 billion. A business that, again, most people did not think was going to work in this category.</p>
+<p><strong>Grant Lee</strong> (00:09:41):<br />
+Yeah, thank you. Yeah, we feel super proud to have accomplished that. And again, yeah, I'm excited to share some of the growth tactics and things that worked for us because I think hopefully it'll help others kind of on their journey as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:53):<br />
+Okay. So let's dive into it. Let's talk about product market fit. Tell us the story of just how you found product market fit, and how you knew you found product market fit.</p>
+<p><strong>Grant Lee</strong> (00:10:02):<br />
+Yeah. I'll start by telling kind of the moment where we thought we maybe had product market fit. And I think a lot of founders ask themselves, do we have it or are we not? And I think there's often a sort of temptation to kind of almost fool yourself into thinking you have it. And so we sort of did our first public beta launch, this is back in August of 2022. We launched on Product Hunt, and felt really good. We had what we felt like was a great launch, ended up winning product of the day, product of the week, product of the month. And it was like, wow, I think we have something here.</p>
+<p><strong>Grant Lee</strong> (00:10:32):<br />
+And then we'd look at signups, and you'd get that initial spike in signups, and then they sort of flatten out. We were still getting new users every day, but it was clear we didn't have strong word of mouth. There wasn't strong organic virality. And so if we just kind of played things out, we knew that the product wasn't going to grow on its own. Something was missing there. We didn't have that strong word of mouth so that the product could just continue growing.</p>
+<p><strong>Grant Lee</strong> (00:10:55):<br />
+And so we really asked ourselves, okay, what do we need to change? And the answer is we need to fundamentally change everything. It for us almost became this sort of bet the company sort of moment. Because at that point we were running low on runway. We knew we needed to make progress and we didn't really know what could be done. And so we got everyone together. At this point, the team was just over 12 people. And we said, okay, it's going to be all hands on deck.</p>
+<p><strong>Grant Lee</strong> (00:11:22):<br />
+We are going to do everything we possibly can to make the first 30 seconds of the product feel magical. The moment you land into the product, it has to be great, and it has to be so great that someone that goes through that onboarding is going to tell all their friends. And if we can get that right, then maybe we have a chance at actually doing something in this space. And so we spent three, four months actually after the product launch, we felt great, but we knew we had to go back to the drawing board.</p>
+<p><strong>Grant Lee</strong> (00:11:48):<br />
+We spent the next three, four months actually revamping the entire onboarding experience. And of course, this is also where AI for us kind of played a big role. We actually rebuilt it so that AI was part of the actual onboarding. So every single new user would experience this sort of magic in the first 30 seconds. And so we relaunched, this is end of March 2023. And all of a sudden, we'd go from a few hundred signups a day to now first day it was like a couple thousand, and then the next day would be like 5,000 signups, and then 10,000 signups a day, and then 20,000 signups a day.</p>
+<p><strong>Grant Lee</strong> (00:12:21):<br />
+And then it just kept going up. And we weren't doing any sort of marketing, no advertising. It was all sort of organic word of mouth virality of the product, people using the product and sharing it with others, where we for the first time really felt this pull. We didn't have to do anything. Product was just growing. And it was just such a distinct difference between that feeling and coming out of the Product Hunt launch where we could have fooled ourselves into thinking we have product market fit. I think the temptation would've been, hey, let's just spend more on ads or spend more on marketing. Because we'll just fuel the top of the funnel and everything else will work itself out.</p>
+<p><strong>Grant Lee</strong> (00:12:53):<br />
+I think that would've been a trap. I think that would've led us down to this path of trying to brute force our way into product market fit. And it would just always be sort of a fleeting sort of destination. We would never actually arrive. And so I think we made the tough call, the right call. It was a sort of bet the company moment, and I think on the other side it just felt so different.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:11):<br />
+Grant, this is exactly what I wanted this conversation to be. I'm so excited. I have so many questions I have to follow up on the stuff you shared before we even get to the rest of the journey. So one is essentially what you're describing is product market fit to you was when organic growth started to really take off, and it was just growing through word of mouth. You weren't doing much because it was so awesome, people were telling their friends about it. Is there anything more there that might be helpful for people to share just to hear about just like, okay, here's what it actually looks like?</p>
+<p><strong>Grant Lee</strong> (00:13:38):<br />
+Yeah, I mean my one piece of advice is when you're early on, your mindset should almost be like you're trying to create a word of mouth machine. If you can get that part right, everything else becomes significantly easier. And if you have any, and I think this applies to both prosumer, B2C, as well as even B2B products, if you have a B2B product, even if you're not telling all of your friends, you should be telling colleagues where that product is relevant. You should probably be telling former coworkers where, hey, you've discovered something like, oh, I wish we had this in our prior lives, and that should even be magical.</p>
+<p><strong>Grant Lee</strong> (00:14:14):<br />
+And then you should see that in all the leads that are coming through or people coming through through your prospects and your existing customers. If you're not seeing a healthy chunk of those leads come through that way, I would go back. I'm like, why? Why is that not happening? Because again, that's the massive tailwind you need where every single thing you do on top of that, all the marketing, all the sales, all the advertising, you're just going to have it becomes way, way easier.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:36):<br />
+How much of this was, you described it as a word of mouth machine, how much of this was word of mouth loops and virality features versus just the product itself? One was awesome and two is kind of innately shareable because it's presentations people share with each other.</p>
+<p><strong>Grant Lee</strong> (00:14:50):<br />
+Yeah, totally. I think for us, we do benefit from being in a category where, by nature of it, if you like Gamma, you're sharing it, presenting it to others. So I think for us it's a combination of both. And ideally, you have other ways where word of mouth or organic virality can happen in your product. So by nature of usage, like it's being shared.</p>
+<p><strong>Grant Lee</strong> (00:15:09):<br />
+We basically had an internal mantra that, we go back to the first 30 seconds, we want it to be dead simple for someone to create content, we want to be dead simple for them to share it. And everything we did for that first 30 seconds, or call it the first few minutes, is remove friction so that they can do both of those things. Create and share. And I think other people, when you look at your own product, you think about, okay, what is it about my product and how it gets used? Can you remove friction such that it can actually spread, and even if it's locally within an organization or within a workspace, just be able to enable that as much as you possibly can.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:43):<br />
+The other really profound point you're making here is the story of you won product of the day on Product Hunt, which alone is so hard. So many people try to win and don't. Most people don't. I've tried to help companies win, and it's a really hard thing to achieve. And then you won product of the week and product of the month, and still you're like, no, this isn't working. Most people that achieve that are like, no, we got this, and they would not have to bet the company. There wouldn't be a feeling that we have to rethink everything. What is it there that you're just like, no, this isn't going to work, as much as exciting as this is, this isn't it?</p>
+<p><strong>Grant Lee</strong> (00:16:20):<br />
+Yeah, I mean part of being a founder is being as self-aware as you can and be your own worst critic. And so oftentimes you want to have these vanity metrics that feel good to celebrate, and you should celebrate. But you should know when it's a vanity metric versus is this core to our growth engine? If this number goes up, does it mean the product is working? And I think that's where we looked at, okay, it felt good to win those things. We kind of put ourselves at least on the map. But it wasn't good enough to actually have this sort of feeling that we had a core growth engine we could just invest in and get better and better. That wasn't there yet.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:53):<br />
+So essentially it kind of started to just plateau and slow. It wasn't like this rocket ship that took off from that point.</p>
+<p><strong>Grant Lee</strong> (00:17:00):<br />
+Yeah, it was still like we were still getting signups. They were coming through. But you could just tell there wasn't this building momentum. And I think that's where it's always hard to tell. You have to, me and my co-founders, we sat down, we're trying to be honest with ourselves. Okay, is this going to be enough? And it just really felt like it wasn't going to be good.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:17):<br />
+The other point here is the power of onboarding, which comes up a bunch on this podcast when you talk about driving retention. So you launched Product Hunt, did great and then started kind of petering out. How much did the product change after things started to work versus onboarding? Just like how important was onboarding? And then just tell us why the first 30 seconds, where'd you come up with that number?</p>
+<p><strong>Grant Lee</strong> (00:17:41):<br />
+Yeah. So for us, the onboarding and the product experience, for us that's intertwined. The analogy I always think about is if you go into a restaurant and maybe the food is good, but when you really think about the user experience, it's like the moment you walk into the door, you get seated, the waitress, waiter comes by, greets you, you can order. And of course the food has to taste good. And then you finally get the bill and you leave. Is that entire experience something that feels delightful? Is it good enough for you to tell your friends about? If someone just came by and dropped the food on your plate on the table, and just left and never came with a bill, I'm like, okay, maybe I'm not going to recommend this to somebody else.</p>
+<p><strong>Grant Lee</strong> (00:18:18):<br />
+And so for us, we thought about, okay, the first moment someone walks through our door, dropping into the product, what is something we can give them? Can we shorten that time to value as much as possible? A lot of this is inspired by Scott Belsky, he talks about that first mile, the first 15 minutes. And I think that's totally right. And I think one approach is you think about new users as you almost have a cynical view of them. You have to think about them being selfish, vain, and lazy, right? They're coming in, they have no desire to learn a new tool.</p>
+<p><strong>Grant Lee</strong> (00:18:48):<br />
+And so what can you give them in that first 30 seconds that earns you the next 30 seconds and then the next 30 seconds? And so for us, we knew that if we can't, people's attention span is even shorter to today than maybe 10 years ago, and so what is it in that first 30 seconds, can we actually show you something and earn the right to keep building that relationship with you? We really thought a lot about that, and certainly that's all we could really afford at the time. We only had 12 people building. It's like we couldn't make an entirely revamp the entire product. We knew that we had to least put all of our energy into one spot, and so we made that coming into the door, come through the door, make that moment feel magical so that we can do a little bit more over time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:27):<br />
+I love your point about how you could think of it as like, okay, it's onboarding versus the product. The lens of how do we make this incredibly valuable and aha-ish for the first 30 seconds almost informs what the product should be.</p>
+<p><strong>Grant Lee</strong> (00:19:39):<br />
+Yeah. It really helps you pull forward what is the most magical thing about your product. Sometimes founders will think about the five, 10 features. Well, maybe there's only one thing that kind of differentiates you. I try to learn a lot from, we'll get into some of the marketing pieces of this, but even just having this sort of founder led marketing lens of what can I do to help a new user just understand. There's this thing from consumer advertising, which is you throw a consumer one egg, they can probably catch it. You throw them four or five eggs, they're probably going to drop all of them.</p>
+<p><strong>Grant Lee</strong> (00:20:12):<br />
+And oftentimes founders want to talk about the four or five features they have, maybe 10 features. And then the consumer is totally confused, like why do I need this thing? We try to just give them that one egg, that one first experience. We're like, okay, create a slide in seconds. That's the egg. I'm going to throw you this egg. Is that compelling to you? Some people are still going to opt out, but for the people that catch that, you're solving a real problem for them, and then you can continue building on that over time. You've given them enough so that they'll sit around and keep playing with your product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:41):<br />
+That is a hilarious metaphor I've never heard for onboarding time to value, just focus on one egg at a time. Just going even further back, what was the original insight that you had that led to Gamma and what Gamma is today?</p>
+<p><strong>Grant Lee</strong> (00:20:55):<br />
+After the last startup I was at was acquired, I went back into kind of my roots, which is consulting. I was advising early stage startups. And the sort of medium I was using was Google Slides. So I just remember this late night trying to prepare for next day's meeting, trying to format and figure out the right layout, and spending hours just trying to get the sort of look and feel right, rather than the content itself. And for me, that just felt completely backwards. I should be spending 90% of the time on the content, 10% maybe on the design and formatting.</p>
+<p><strong>Grant Lee</strong> (00:21:25):<br />
+And so the question just was what if there's a better way? What if we could reimagine this format from the ground up? Slides have been around for almost 40 years as the default medium of choice for a lot of this. And so we thought about, okay, if we had different building blocks, different primitives, so you're not locked into the fixed 16 by nine slide, what could we offer to users? And so that was really the starting point of all this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:48):<br />
+Hearing this, I could see why investors would be like, I guess so. But slides has been around, PowerPoint has been around 40 years. I get it. I get why people would be... And specifically AI, was that a part of the vision initially, or did AI start to come up, and then wow, great timing,</p>
+<p><strong>Grant Lee</strong> (00:22:04):<br />
+Great timing. It wasn't part of the original vision, although the spirit was there, which is we wanted to make it incredibly fast and effortless for people to create content. So it just so happened that AI was a magical gift that allowed us to do all those things along the same sort of ambition or vision that we had. And so we integrated it core to all the building blocks we were already building well before AI was part of the picture.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:27):<br />
+It's such a cool other example. There's just so many examples of ideas that were not possible before are now very possible with AI. And it's a great opportunity for people to come after as these places, categories, people think is an impossible place to build a big business. AI now allows it. Awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:43):<br />
+Speaking of that, let's talk about the growth journey, and how you actually grew from nothing to 100 million ARR in just over two years. I'm thinking we break it up. I know these milestones aren't that clear, but kind of like zero to 100 million ARR, one to 10, 10 to 100, something like that. And let's just see how it goes. How did you get your first set of users? How'd you get your, say, first 100 users? How'd you get to 100 million ARR from zero?</p>
+<p><strong>Grant Lee</strong> (00:23:10):<br />
+Our first 100 looks very different, I'd say. So this was even pre this sort of AI launch we had. The first 100 users for a product like ours, you're trying to convince all your friends to use the product. Anybody that's ever made a slide deck, you're trying to talk to. And I think early on, your friends want to do you a favor, so they're going to try the product. They're also going to lie to you. They're going to tell you how great it is. And then you look at the usage and nobody's coming back.</p>
+<p><strong>Grant Lee</strong> (00:23:33):<br />
+And so I think our first 100 was sort of gradually hard-earned post the product launch, people learning like, okay, this is kind of becoming a little bit more useful. Usage was still pretty episodic, so they weren't coming back every week. And then I do think the moment post the AI launch is where all of a sudden we saw that sort of organic growth happening, people coming back to the product regularly. And so that's where, it wasn't even the first hundred, it was like probably the first 10,000 users all came within a pretty short time period after that initial launch.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:02):<br />
+Awesome. We're going to talk about monetization pricing later, which is obviously an important part of actual getting to million ARR and 10 million AAR. So what I'm hearing essentially is the Product Hunt launch was a big part of just the first 10,000-ish users. I know there was also a tweet when you relaunched that helped in a big way. Talk about that.</p>
+<p><strong>Grant Lee</strong> (00:24:24):<br />
+Yeah. So when we did our AI launch, we didn't do our AI launch on Product Hunt. We basically said, hey, let's just put it out on Twitter, see if we can get some virality. And honestly, we kind came up with kind of a clickbaity sort of tweet. It was like the most valuable skill in business is about to become obsolete. And so it was intentional in that we wanted to create a little bit of engagement. We knew that having sort of a more provocative in a tweet would allow people to engage with it.</p>
+<p><strong>Grant Lee</strong> (00:24:54):<br />
+And so after a couple of days, all of a sudden it started getting a little bit more viral and a lot more engagement. And we looked and it was basically because Paul Graham had commented and saying something like, "Surely, the thing that the slide deck is describing is more valuable than the slide itself." And obviously it was fun just to see that comment. I think once that comment came through, even more engagement on the post. And then that was really the whole intent of that post was just to be able to have that level of engagement so that people, it would have some level of reach.</p>
+<p><strong>Grant Lee</strong> (00:25:24):<br />
+And so for me, it was almost like my first learning moment, going back to what does founder led marketing even mean? It means how do you actually break through the noise? How do you get a chance to have people even engage with a post like that? Part of that is copywriting, part of that is storytelling. Part of that is just having even the right visuals to share. And so it was for me kind of a moment just understanding, hey, to kind of do this right, you kind of have to do things that maybe you're not super comfortable with, but it makes a difference.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:52):<br />
+Such a fun story. So you intentionally set that announcement up to be controversial is what I'm hearing?</p>
+<p><strong>Grant Lee</strong> (00:25:58):<br />
+Totally. Yeah. I'd say provocative. A little spicy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:01):<br />
+That is so cool. So essentially you got to 10,000 users through Product Hunt, and then essentially one controversial tweet that ended up baiting Paul Graham to comment.</p>
+<p><strong>Grant Lee</strong> (00:26:11):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:12):<br />
+Amazing. And it was just a comment. It wasn't even him retweeting it.</p>
+<p><strong>Grant Lee</strong> (00:26:16):<br />
+No, just a comment. And then others would pile on.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:19):<br />
+Yeah. It's interesting how much a comment can increase the distribution of a tweet versus them retweeting it or quote tweeting it.</p>
+<p><strong>Grant Lee</strong> (00:26:26):<br />
+Totally. And of course the algorithm change all the time. So part of it was just luck based on when it happened, how it happened, who posted.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:32):<br />
+And you use this term founder led marketing, which I love, and I'm already seeing it in action here. This is you thinking about, it's not delegating to someone in marketing, it's not hiring an agency, it's like how do I tell a story that I think will break through the noise based on you building this company, having the insight to build this product. And I guess is there anything more there you think is important for people to hear about the importance of the founder thinking through this stuff?</p>
+<p><strong>Grant Lee</strong> (00:26:56):<br />
+Yeah. I mean, I think most people today are probably familiar with founder-led sales, which is still very, very important. I think before you hire your first salesperson or AE, it's great for the founder to understand what it takes. And they're going to craft the right narrative, the right story. At my previous role, I was the COO at a startup where I was doing a lot of, I wasn't founder, but I was early. And so I was helping the founders go through this, and really helping go into meetings with a client or a prospect and saying, "Hey, this is why our product is interesting."</p>
+<p><strong>Grant Lee</strong> (00:27:26):<br />
+And I think today there's so many AI startups that are much more either B2C or prosumer. And so you're not necessarily talking to individual prospects, but the idea that you can be really in control of the narrative on the marketing side is really, really important. And I think I'll describe a few things where, over time, I think that skill set just really, really helps you.</p>
+<p><strong>Grant Lee</strong> (00:27:48):<br />
+One is you have a chance to be a creator yourself these days. I think a lot of founders are trying to be more active on social media. And I think if you can kind of overcome the initial cringe factor of seeing yourself and postings like, oh, this doesn't feel authentic, if you can overcome that initial feeling, you start investing into like, okay, how do I become a better copywriter? How do I articulate something that is clear, not just clever? I think there's that saying where obviously if you can have that clarity, that's super important. And most people will try to get super creative with their copywriting, but that's not usually the right way to break through and communicate something. So how do you improve your own copywriting?</p>
+<p><strong>Grant Lee</strong> (00:28:27):<br />
+And then that allows you to actually have a higher bar when you start working with other marketers, or in this case for us, working with influencers. If you're working with influencers and creators, and you can totally empathize with how they approach that work, and you know what a good hook looks like or you know how to structure a good post, you can only do that if you've gone through it a little bit yourself and you know how hard it is. And I think too many founders will then just say, they'll write something that just feels so much like an ad, and then they'll give it to a creator to help amplify. And then that just never works. And so I do think part of founder-led marketing is going through this yourself.</p>
+<p><strong>Grant Lee</strong> (00:29:00):<br />
+And so I do think part of founder-led marketing is going through this yourself, using your own platform. In the beginning it's probably going to be super small. But as you get bigger, you have a platform to ... You have a voice and people listen. And you're going to get better and better at your own storytelling. I think these are all skills you should invest in as early as possible, because you know you're going to have to get better and better. It's like practice, you got to practice over and over.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:21):<br />
+I definitely want to pull on this thread more because you tweeting the lessons you learned building Gamma is what led to this conversation. I was reading, I'm like, " Okay, he's sharing a bunch of stuff, but there's so much more I want to hear." And we're going to talk through this and go in a lot more depth than what you've shared on Twitter. But I love that that's example of that working, having this conversation.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:41):<br />
+So let me ask a couple of questions here. One is just how do you find time as a founder or CEO of a very fast growing crazy startup? We have so much to do. How do you just allocate the time to do this? And then any just key lessons you've learned about doing this well, beyond what you've already shared for people that want to try to start sharing things on LinkedIn and Twitter?</p>
+<p><strong>Grant Lee</strong> (00:30:00):<br />
+My advice is definitely just to try to start small. Don't let it become so intimidating that you just don't get started. For me, it was like just having a notepad or a Google Doc around in the beginning where I would just constantly jot down, okay, this is something I learned or something I observed or something that worked well, something that was unintuitive but worked, and just start creating a log of that. And then once I had enough of those, and I'd spend basically every week, I'd block off a few hours to go a little bit deeper. I'd take a lot of those bullet points and try to say, "Is there enough here to turn this into maybe a post or something that can be shared broadly?" And in the beginning I didn't have enough. It was all sort of scattered thoughts. But over time you start accumulating some interesting themes. And then I would start stress testing some of that.</p>
+<p><strong>Grant Lee</strong> (00:30:45):<br />
+So I would tell my teammates like, "Hey, this is something interesting. Do you find this interesting?" And if there were enough like, "Oh yeah, I would not have expected that", or, "That's not something I've ever heard before," then I'd actually start crafting the initial post. And then you actually just put it out there. I think what I've learned is, even for LinkedIn versus Twitter, the audiences want different things. And so you almost have to then have different tones of voices or even nuggets or sharing. For me, I invested much more in LinkedIn early on just because it felt a little bit more natural for me. And then over time I said, "Okay, well I'm going to start packaging certain content for Twitter that's actually different than what I would post on LinkedIn." Sometimes on Twitter you get even more tactical or even more into the weeds. And so I found that to be helpful.</p>
+<p><strong>Grant Lee</strong> (00:31:27):<br />
+But honestly, I'm still learning. And so every time you post, you go back, after a couple of weeks you go and say, "Okay, what things are actually being engaged with? Are things actually creating ..." Ideally you're creating enough value where people are either bookmarking it, sharing it, retweeting it, these things that are signals for there's something valuable there. And then you just go back and you start collecting your own sort of, these are my all-star posts, these are the ones that I've actually broken through. And then you go back and try to understand, okay, what about that post do I think was actually useful? Was it the actual content? Was it the structure of the content? Was it some sort of contrarian advice? And you start thematically bunching that together such that as you're brainstorming every week, you just have a good sort of body of work to work off.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:10):<br />
+This is so interesting and valuable. So let me mirror back a few of the lessons that I heard here that I think is easy for people to miss. So one is just what to share. What I heard here, and I completely agree with this, and this is what I try to do, is pay attention to things you've learned, things that you find interesting, things that are unintuitive to you. Just have a doc and just put these there. And every time you learn something, find something interesting, just add it to the doc. Or yeah, I haven't heard before is a good one too.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:39):<br />
+So it's essentially just like if you find it interesting, people on social media will also find it interesting. And one approach is just share it as it's happening, which is what I try to do. Just like, "Oh hey, just learned this thing with with clock code. Check it out." Or save it up for a big long post. The other interesting, I've never heard this before, of post different things to LinkedIn and Twitter. I just copy and paste the same thing. I love that you do something different for the two platforms.</p>
+<p><strong>Grant Lee</strong> (00:33:05):<br />
+I think we all kind of have intuition that there's just different audiences, right? And so if you know that kind of fundamentally, then the question is how do you package up the story the right way so that the audience is ready to receive it? And I think this can differ by the type of creator or the founder, whoever's posting it, and of course the actual content itself. And so for me, I'm still tweaking, but I do find that just copy and pasting from one to the other doesn't usually work. You almost need to be in the right mindset of, okay, what do I think will be more engaging on Twitter? And then what do I think will be more engaging on LinkedIn? And then test a bunch, see what actually works. Go back and iterate a little bit.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:49):<br />
+So if you had one bullet point tip for what works on Twitter versus LinkedIn, you shared maybe more tactical on Twitter, is there anything more there you can share?</p>
+<p><strong>Grant Lee</strong> (00:33:56):<br />
+Yeah, that's what I've found is tactical, oftentimes more contrarian on Twitter. And also I would say technical too. People really like to know, again, going back to getting into the weeds, is this something I feel like I could replicate? And I'm not going to give you ... There's no credibility if you just give a blanket statement or something that feels generic. I really need to know, if you could show me the metrics, even better. I feel like that ...</p>
+<p><strong>Grant Lee</strong> (00:34:22):<br />
+Versus LinkedIn, it's oftentimes more even just either more aspirational or aspirational or a topic or a theme that just feels relevant at that point in time. And you can just kind of make more of a broader statement. It doesn't need to be as tactical. It's more like inspirational, is like, "Oh, okay, now I need to go and learn a little bit more about pricing and packaging," for instance. And that could be the sort of spark that somebody needs. And you don't need to spell it completely out. Part of it's also that on LinkedIn you can't really do threads. And so doing a super long form post isn't as practical. Maybe that changes in the future, where maybe the tactical pieces, that element might actually change.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:01):<br />
+And last piece is you said you just block off time. Is there a specific time of the week you do this? How do you actually ... Because everyone's like, "Oh sure, I'll block off time. And then, I don't know, okay, but I actually got to do all this other stuff so I'm not going to use it this time or maybe next week."</p>
+<p><strong>Grant Lee</strong> (00:35:12):<br />
+For me, it's usually two times of the day, very first thing in the morning and last thing at night. And partly it's because of kids. It's almost like I need time where there's just zero distraction and there's no noise in the house, and so I can actually think. And then I think in the mornings it's about where are you finding inspiration, what are topics you're energized by? And then I think at night it's about reflection. What are the things you actually went through that day? You can almost pull up your calendar and be like, "Okay, I talked to X, Y and Z people. And was there anything from those conversations that might be relevant?" That's where I write some of those things. It's more of a recap of actually what happened.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:50):<br />
+And what helps me to not feel like this is some cringey self-promo egotistical stuff is just it's useful stuff that I've learned that ends up being helpful to people. And people in the comments are always just like, "Oh, that is really cool and useful. Thank you." It's not like self-promotion-</p>
+<p><strong>Grant Lee</strong> (00:35:51):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:05):<br />
+... it's not just like, "Look how amazing I am. Check out my amazing products." Like, "Here's a thing I learned. You might find it useful."</p>
+<p><strong>Grant Lee</strong> (00:36:11):<br />
+That's exactly right. I think one way of thinking about it, with founder-led sales, it's always about exchange of value, right? You want to be able to give the customer this feeling that they're getting an amazing product. In exchange they're going to pay you money for it. I think with founder-led marketing, it's almost this mindset of you want to give people a ton of content, maybe it's a value in the content, so you're sharing something, maybe some secret tactic or you're giving them something where inherently there's value in it, and in exchange you sort of get goodwill back. You're not necessarily getting money back, you get goodwill. They're going to follow you, they're going to engage with your post, they're going to tell others about it. And then over time you can exchange maybe some of that goodwill for actually talking about my product and announcing it and they're going to help amplify the news. And I think that's magic, where you kind of bank the goodwill for a long period of time by providing just a ton of value with no expectation of anything immediately in return.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:06):<br />
+The book I always point people to when they're struggling with this sort of thing and like, "Okay, I did this and no one cared, didn't do any good," is there's a book by Scott Pressfield, I think is his name, called Nobody Wants to Read Your Shit, which is exactly what is right. Nobody wants to read it. The bar for people to care is very high. There's so much stuff to read and process. And so this book gives you a really good lens of just like, okay, the bar is very high and nobody wants to read your shit, so you have to try really hard to make it really good.</p>
+<p><strong>Grant Lee</strong> (00:37:38):<br />
+Great reminder.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:39):<br />
+We'll link to that in the show notes. Okay, let's come back to the growth of Gamma. So we've talked about how you got your first tens of thousands of users, essentially product hunts, rethinking, onboarding, making it really magical, and then this very controversial tweet that Paul Graham commented, created some buzz. Let's talk about the next phase and maybe, I don't know, tell us kind of the ARR at that point through 100 million. Just broadly, what should we know?</p>
+<p><strong>Grant Lee</strong> (00:38:07):<br />
+So when we got to about 10 million in ARR, I think there was this feeling for me, which was we knew we needed ways to help just continue to amplify and spread the word about Gamma. I think it was already working in terms of the organic virality was there, and so we did feel like it was time to start amplifying some of this. And I think the main blocker of my mind that I started feeling was that our initial brand was holding us back. And I think a lot of people will discount whether or not a rebrand is valuable. And I think sometimes it is, sometimes it isn't.</p>
+<p><strong>Grant Lee</strong> (00:38:39):<br />
+For us, there's a few different things we looked at. So one, our initial brand was almost more of a placeholder brand because we created it the moment we incorporated the company, which was again late 2020, beginning of 2021, where we needed something so that as we built, we could at least share it with people. We could put up a landing page and just feel like, okay, there's something here. But we didn't invest a whole lot into it. And so it was pretty limited in sort of what I call the DNA of the brand. There wasn't that many ... The art direction was very limited in scope. There wasn't much when it came to voice and tone.</p>
+<p><strong>Grant Lee</strong> (00:39:12):<br />
+And so it was something that we knew was good enough to start, but it wasn't scalable. And when I think about something that could be scalable, it's almost like you can take the ingredients of a brand and replicate it a ton, this DNA is something where you can imagine creating tons of content around and all feeling pretty cohesive. And I think that needs to be done by design. You're really being thoughtful about every single element. Like what is the art direction you want to go with? What is the voice and tone? Such that as you're creating thousands of pieces of copy, it all feels pretty cohesive.</p>
+<p>And so we went back to the drawing board and we spent many months rethinking what would be the brand, what is this vision that we have longer term? Our creative director internally partner with Smith &amp; Diction, an amazing agency that has helped folks like Perplexity also do their rebrand or their initial brand. And we [inaudible 00:40:05] many months just really trying to craft what we think is the core DNA of the brand, and doing so in a way that we could replicate it as much as possible.</p>
+<p><strong>Grant Lee</strong> (00:40:15):<br />
+Replication piece of it comes into play, because as you start scaling you're going to have to create a ton of content, your own content on social media, ads for performance marketing, assets for influencers to be able to use and showcase in their content. And so you're going from tiny pieces of content to all of a sudden every week we're testing thousands of pieces of creative. And you cannot do that if you don't feel confident that as you're replicating, you have that sort of cohesive feel. So for us that we realized it was going to be necessary and it's why we invested so much. It ended up being way more expensive, way more time consuming than I would've imagined. But I think coming on the other side of it being the right investment, feeling that that was the right time to do it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:55):<br />
+I love how many things you did that feel like this will not work out. Building a startup within the presentation space, doing a whole rebrand in the middle of scaling, also just reworking the entire product after you launched and just rethinking the whole thing. All these things and everyone's always like, "No, this is not how we win." And interestingly, worked out for you guys.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:19):<br />
+I want to come back to the brand stuff, but one of the most interesting ways you guys grew early on was influencer marketing, which a lot of people hear about and talk about. I haven't heard much of how to actually do this and what actually works. Talk about that as a broad growth lever for you guys. And then I want to get into just what tools did you use, who actually was really helpful there, thing like that. So yeah, just give us the big picture.</p>
+<p><strong>Grant Lee</strong> (00:41:44):<br />
+Yeah. I think a lot of founders assume that with influencer marketing it's almost like turnkey. You set aside a budget, you find some creators, you figure out the right campaign or the right moment of time to do it and it's all done, you're ready to go. And I think the reality is, going back to this founder-led marketing mindset is like, well, you're going to set yourself up for success if you actually are super involved in that entire process. So for us, what this meant was all the initial influencers I onboarded manually myself. I would jump on a call with each one of them so that they understood what Gamma represented, how to use the product. You want to be able to have them tell your story but in their voice, right? And they can't do that if you're not willing to put in that investment.</p>
+<p><strong>Grant Lee</strong> (00:42:32):<br />
+And so we would spend a lot of time going through ... It wasn't my job to tell them how to pitch Gamma, but it was my job to make sure that they understood what Gamma was as a product. And so we'd spend a lot of time, like me just walking through the product, them asking questions, us just kind of brainstorming what could the hooks be, and me just giving them some initial feedback and saying, "Oh yeah, this one, I love that. I figure it's going to work great for your audience." But not trying to be super prescriptive. And working with a ton of micro influencers, people that don't have massive followings but are committed to ... Going back to giving value to your audience. They're committed to giving value to their audiences. They want to be able to showcase tools that actually they would use or they are using. And how do you do that in an authentic way? You can't really fake that. You really need to spend the time doing that.</p>
+<p><strong>Grant Lee</strong> (00:43:16):<br />
+And just like you would onboard a customer, you onboard an influencer the same way. You want them to be an extension of your team. And I think they can feel whether or not you're willing to put in the work. And if you're not, then they're just going to treat it like any other project, ship it and be done with it. If you invest in that relationship, guess what? They'll be back to actually post about you again. And you're all of a sudden having this sort of this relationship that actually you can build over time. I think that's really where the magic is. Too many people discount that initial piece.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:47):<br />
+This is awesome. To be clear, influencer marketing, essentially a person with a following on say TikTok, Instagram, Twitter, LinkedIn, whatever, gets paid in some way to promote your product. That's the simple way to understand influencer marketing, yeah?</p>
+<p><strong>Grant Lee</strong> (00:44:00):<br />
+Yes, that's definitely the simple way. And I'd say there's definitely different levels. I think a lot of people think influencer marketing and they'll think these big trendy creators, people that have a million followers for instance. And the idea is that, okay, we're going to carve out a really big budget, we're going to choose five or six that we feel like are really the tastemakers in the space and put all of our money into just having them talk about our product. And I think usually this is kind of the wrong approach. Because many of them, they do have massive audiences. And for you, you basically give them a script to read and it immediately feels like an ad. That product is not connected really to them in any way. It's just something that they're ... For this week they happen to be working with you and then they move on with their life. And it never feels organic or authentic and you wasted a ton of money doing so.</p>
+<p><strong>Grant Lee</strong> (00:44:55):<br />
+I think you're much better doing the hard thing, which is hard to scale, but it's finding the thousands of micro influencers that have an audience where your product maybe is actually useful. And for instance, for us early on it'd be educators, people that for them, part of their job is creating slides every day because they need to engage their students. And so for them, having a tool that actually saved them a ton of time was something they love talking about. And if you can find some of these pockets, we call them echo chambers, where if you find a pocket like educators, teachers love telling other teachers about products they love using. During summer break, they all come together and talk about, "Okay, what are the things that are going to actually improve my job next school season?" And obviously during this AI wave, a lot of those have been, "Okay, what are the AI tools that just save me a ton of time?"</p>
+<p><strong>Grant Lee</strong> (00:45:43):<br />
+And so if you can start actually tapping into these pockets of echo chambers, that's even better. It doesn't have to be this flashy, well-known influencer. It's actually just this person that has an audience where people really trust what they say. And that's amazing. That ends up becoming this sort of wildfire that can spread really, really fast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:03):<br />
+And what's the dollar amount these folks get? It's like a few hundred bucks, a few thousand bucks, something like that?</p>
+<p><strong>Grant Lee</strong> (00:46:07):<br />
+Yeah, few hundred to low thousands, low single digit thousands.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:11):<br />
+How do you find these folks? Is there tools that you use? Is it just like a bunch of manual searching and looking?</p>
+<p><strong>Grant Lee</strong> (00:46:17):<br />
+Yeah, in the very beginning it was all manual, a lot of cold outreach. And then we ended up finding a couple of different things. One is a platform, a YC company called 1stCollab. That has been amazing. They basically do all of the automated outbound for you. Plus you can help them actually create profiles or personas of different creators, so for instance educators being one, and then they'll go out and actually, based on that profile, find all the right creators for you. So they've been amazing, really great to work with.</p>
+<p><strong>Grant Lee</strong> (00:46:46):<br />
+And then we've also found small agencies to also help kind of augment that. I look for agencies that are super young and hungry. These are people that they're native to social media and so they really understand it. And they can really be able to bring in creators that are great to work with. And I think part of it is if you find creators that are great to work with, everything else becomes easy. So we've had a few, one is AKG Media, actually out in the UK, and they've been fantastic to work with as well. So you kind of find a few different things, either agencies or platforms that can help you actually scale this thing up.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:22):<br />
+And when they post, they're generally transparent about this is a paid promotion, right?</p>
+<p><strong>Grant Lee</strong> (00:47:23):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:27):<br />
+They're not just pretending, "I found this tool and I love it"? Cool.</p>
+<p><strong>Grant Lee</strong> (00:47:31):<br />
+Yeah, exactly right.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:32):<br />
+Okay. And so how much impact did this lever of influencer marketing have on your growth, say from 10 to 100? Is this the biggest lever of growth other than just word-of-mouth, people continue to share it?</p>
+<p><strong>Grant Lee</strong> (00:47:44):<br />
+Yeah, so word-of-mouth has definitely been the biggest. So we look at all new subscriber growth, over 50% of this is word-of-mouth. It's either people searching direct, coming direct, entering Gamma.op, or going through search and typing in Gamma, like a branded keyword search, where they're looking for Gamma, they've heard about Gamma. But I think for us, social media and influencers specifically has always been an amplifier. So every time we invest in influencer marketing, we actually see word-of-mouth increase even more. And it's always like you can just see it. Basically anytime you spend a little bit of money, you start seeing people come through influencer, the word-of-mouth factor actually will get another 1.5 additional users on top of that, which has been really interesting to see.</p>
+<p><strong>Grant Lee</strong> (00:48:29):<br />
+And I think part of this is just recognizing that ... And I think we kind of understand it, but with influencer marketing, why it's so effective, we all know Dunbar's number, which is have this number of 150 people that you call kind of your network. And your network you trust more than the average stranger down the street. If they tell you something, they recommend something, there is a sort of halo effect, you learn to trust them. A lot of these influencers, the reason why they share so much about their lives is because they want to be in your network. They want you to feel super close. And once you feel super close, you trust them to actually share things that are going to be useful.</p>
+<p><strong>Grant Lee</strong> (00:49:05):<br />
+And so when they recommend a tool, there is a sort of halo effect, where it doesn't feel like it's coming from a stranger, it feels like it's coming from a friend. And that's where every time we've spent money there you actually see this amplifications, like, "Okay, that's kind of interesting." You wouldn't necessarily expect that. But for us it's been this sort of amplifier from the very beginning.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:24):<br />
+This is so fun to hear about. I've not heard this level of detail on how influencer marketing works and how to make it work. A few more questions here. So you said there's maybe a few thousand people you ended up working with, roughly, influencers?</p>
+<p><strong>Grant Lee</strong> (00:49:35):<br />
+Over the course of a year. It wasn't all in the same time. Basically in the beginning you do ... In the very, very beginning we had a small budget. It was like 20 creators a month. And then you start increasing that to like 50, then 100. We're definitely not fully scaled at this point, but I could easily see a point where you're working with many, many creators every single month. And that gives you a chance to actually test a variety of, again, content hooks, ways to talk about the product, value props.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:03):<br />
+Amazing. And you said the key here is you spend time with every one of these creators, influencers early on to help make sure they understand what you're doing and get excited about it. It isn't just like a thing you outsource.</p>
+<p><strong>Grant Lee</strong> (00:50:16):<br />
+I think there's a lot of value there. It's again hard to quantify. And most founders probably feel like they're too busy to allocate that time. But I think it was a good investment. Because going back to you want them to feel like an extension of your team. They're not going to feel like an extension of your team if, one, they've never met you, and two, you've never even told them really how the product works. They're forced to go to your website to figure it all out. Those are going to be not a whole lot of love that they're feeling from the outset.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:47):<br />
+So what I'm hearing is quality over quantity, especially when you're getting started. And then there's this other piece of niche which I think is very counterintuitive. Instead of going to large influencers with a huge audience, it's good with folks that are small. What's like a audience size roughly that you think is ideal for this, or what niche just means?</p>
+<p><strong>Grant Lee</strong> (00:51:05):<br />
+Honestly, I don't think there's a minimum, because even with platforms like TikTok, they oftentimes are giving you credit for a brand new account. They want to help amplify that new account, because obviously if they're thinking from a creator perspective, if that new creator feels like, "Oh, coming to TikTok is a massive win for me," they're going to be more invested in it. And so there really isn't a minimum. A lot of these platforms are trying to shift to kind of the same thing, where they really reward new creators on the platform. And so you could have a small audience, it doesn't really matter. You could have 10,000 followers, that's also good. I think as long as the content feels, again, engaging, authentic to the people you're talking to I think it has a really good chance of actually taking off.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:46):<br />
+That's such a good point with TikTok, where it's not follower related, if it's useful and people find it clickable or whatever, likable, viewable, the algorithm will spread it to a lot of people. Such a good point.</p>
+<p><strong>Grant Lee</strong> (00:51:59):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:00):<br />
+Okay, there's a couple more points you made in the tweet that I want to make sure we highlight. So one is you made this point that 90% of your reach in influencer marketing comes from less than 10% of people. Is there anything there that you think is important for people to hear?</p>
+<p><strong>Grant Lee</strong> (00:52:11):<br />
+Yeah, I mean this just goes back to it's hard to know where that 10% is going to come from. So you kind of just have to cast a super wide net. You can sort of, I think try to, again, trick yourself into thinking you're great at picking creators or you're great at telling them how to post about your stuff. But the reality is, even for me, I could never guess. I kind of had some idea, but I just had to make sure that I was meeting enough creators broadly such that when you meet enough, they're all posting, there's some pocket that end up just taking off. And I was not a good predictor of that. I was not smart enough to actually know which ones would take off. I just knew that we had to play the sort of numbers game to make it work.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:49):<br />
+So one of your tips here is people fail often in this because they start too small or their budget's a little too small. You recommend 10,000 to 20,000 a month over six months and just trying this. It sounds like you're doing like 20 to 30 creators a month. Is that the right framework for how to just start this thing and explore?</p>
+<p><strong>Grant Lee</strong> (00:53:07):<br />
+Yeah, totally. And I'd say it's not just that the budget's too small, it would be that they put all their eggs in one basket. So you can also easily blow that 20 K on just one bigger influencer and then be like, "Oh, that didn't work, so I'm going to try it again. That didn't work. Okay, I give up." And I think rather than doing that, you should be like, "Okay, that 20 K, I could actually probably work with 40 different influencers and see what actually works." And across the 40, I'm going to try to find a variety of personas, a variety of use cases, spend a lot of time with them, and then actually see what's working, what's not.</p>
+<p><strong>Grant Lee</strong> (00:53:39):<br />
+And then next month take those learnings and double down. If educators are working, go with educators. If consultants are working, go with consultants, find more consultants, there's going to be more there. I think that's where the putting all your eggs in one basket is just probably the surest way to fail, because you're going to miss a ton and it's going to take you way too long to learn and you're going to come to the conclusion that it's a waste of time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:00):<br />
+I feel like this whole podcast conversation could be just about this one lever. So much I want to keep talking about, but there's more questions here because this is so useful and interesting. You had this line in your tweet about how reality is not an accident and that this approach is how you figure out what actually works. And then once you do that, then you start leading into that messaging. Talk about that.</p>
+<p><strong>Grant Lee</strong> (00:54:20):<br />
+This goes back to obviously if you're testing a bunch, you'll finally find that sort of post or set of posts that actually go viral. Going back to just the fundamentals, like make it easy for your influencers to be able to tell your story in their voice. One thing we did, we open sourced basically our entire brand. We have Brand.gamma.app, which is everything about our brand, our voice and tone, our art direction, what we use in mid-journey to create the sort of art direction that we have so that a creator can do the same, right? And they can actually just copy all of that so that they don't have to reinvent the wheel every time they're trying to post about Gamma. They have all of that.</p>
+<p><strong>Grant Lee</strong> (00:54:56):<br />
+And I think going back to this notion of just make it dead simple for them, remove friction. They already have enough on their plate to have to figure out. Don't make it any harder than it is. And if you remove friction, then it's like, oh, you get into this rhythm of adding creators is easy, having them post is easy, reviewing what's working, what's not is easy. And if you're able to do that relentlessly over many, many months, then all of a sudden hitting the sort of viral post is easy because you're going to have enough bats there where some are actually going to pop off. But you only can get there after you've done all the hard work before that to remove friction from the process. And feeling like it's almost like a well-oiled machine at that point.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:38):<br />
+Is there a platform you find most helpful for the stuff you guys are doing? Is it like TikTok, Instagram, LinkedIn, something else?</p>
+<p><strong>Grant Lee</strong> (00:55:45):<br />
+Yeah, I mean this is one where for us we cast a pretty wide net too. But it's very clear, LinkedIn, the conversion rates are just substantially higher. They're 4X, maybe 5X higher than other platforms. And I think a lot of people are probably still sleeping on LinkedIn, frankly. And so it's one where some of the influencers there or creators there can be a little bit more costly. But if you can eventually be more targeted knowing that, hey, this type of creator is pretty impactful for our product, then working with them, it's just like, "Oh, that's great." The conversion rates are just so strong and it really feels like we're just getting started there.</p>
+<p><strong>Grant Lee</strong> (00:56:22):<br />
+So if in the beginning you're not sure, it's always helpful to cast a pretty wide net. And then similar to just the influencer strategy, like test and iterate, you'll figure out ... Many of these things will follow a power law. So it's like one or two channels are going to be the most important for you. For instance, Twitter for us hasn't been that impactful. And I think for tools like Notion, they've been really, really impactful. You're not going to really know, and so just test and then double down on the ones that really move the needle for your product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:48):<br />
+I think that many people listening now are like, "Wait, LinkedIn posts are sponsored sometimes? I didn't know that." How do you know if it's a sponsored post? Is it like a #sponsored or something like that? How do they communicate this?</p>
+<p><strong>Grant Lee</strong> (00:56:57):<br />
+Usually they'll say they're a partner or yeah, basically it is sponsored in some form, or they'll #ad or something along those lines. So that's probably the way you'll see it the most.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:12):<br />
+Cool. By the way, I don't do this sort of stuff. Have you ever seen me on LinkedIn? I'm not doing any paid stuff. It's just so people know. And I don't plan to do that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:00):<br />
+... Often share Miro templates. I use it all the time to brainstorm ideas with my team. Teams especially can work with Miro AI to turn unstructured data, like sticky notes or screenshots, into usable diagrams, product briefs, data tables, and prototypes in minutes. You don't have to be an AI master or to toggle yet another tool. The work you're already doing in Miro's Canvas is the prompt. Help your teams get great work done with Miro. Check it out at miro.com/Lenny. That's M-I-R-O .com/Lenny. Let's come back to this brand point. So, one of your big lessons is invest in brand before you go heavy into hit paid ads and performance marketing. I imagine you do some ads at this point on Facebook and Google and things like that.</p>
+<p><strong>Grant Lee</strong> (00:58:42):<br />
+Yeah, we run ads performance marketing. I think there's this stigma that brand marketing and performance marketing are sort of at odds with each other. I very much follow the sort of thought that brand marketing is performance marketing. Everything is some form of performance marketing. It just might not be as attributable, so the ability to actually map back to every single dollar spent is a little bit harder, but it doesn't mean that it's not impactful.</p>
+<p><strong>Grant Lee</strong> (00:59:12):<br />
+And I think as a company scales, you have to invest in both, and ideally they work really, really well together. The more you invest in brand marketing, it strengthens your performance marketing. This goes back to having enough creative to even test. If you're too limited in scope and you don't have a brand, you feel like you can actually amplify your handicapping, your ability to actually have a good performance marketing program.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:32):<br />
+I love that heuristic of how do you know if you are under invested in brand is if you're limited in the number of ideas you can try in performance marketing.</p>
+<p><strong>Grant Lee</strong> (00:59:32):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:43):<br />
+Is your design system just... Is everyone having to redesign things from scratch and come up with all these frameworks every time they run an ad?</p>
+<p><strong>Grant Lee</strong> (00:59:52):<br />
+Exactly. Yeah, yeah. Basically you kind of have a feeling for, "If I were to scale this up to a thousand pieces of creative, would it still feel cohesive or is it kind of all over the place?" And if it feels like it's all over the place, then you kind of have to go back to the drawing board.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:05):<br />
+You said when you talked about the rebrand, that it took a lot longer than you expected, that it was more expensive than you expected. That's the fear, I think, everyone has when they hear this like, "Oh, I don't have time for a rebrand." I also imagine, because your product is so visual, that it makes more sense to invest there and to spend the time and money.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:23):<br />
+For the typical founder, do you have any just, I don't know, thoughts of just like, "Here's when it makes sense. Here's a sign you really need to invest here heavily." Versus, "It'll probably be all right."</p>
+<p><strong>Grant Lee</strong> (01:00:32):<br />
+Yeah. I mean, I do think it's probably more geared toward anything that's a little bit more prosumer or consumer because so much of your product, you're trying to create this feeling for a user, what are they experiencing. And the experience happens way before they even drop into your product. It might be they see an ad or they see a billboard or they see something. It's like, "Okay, that piqued my interest a little bit."</p>
+<p><strong>Grant Lee</strong> (01:00:56):<br />
+And then you need some sort of symmetric messaging in that they see there's some symmetry in that, they see the ad, then they drop into the product or they land on your website, it feels cohesive and it feels like, "Okay, this is interesting. I'm going to go all the way through to sign up and then maybe actually start using the product."</p>
+<p><strong>Grant Lee</strong> (01:01:12):<br />
+That's a little bit different when it's a B2B product or where there isn't as much reliance on that initial moment. They might just hear about it through a colleague and then sign up for it and then go through a huge procurement process and then it's like, "Okay, maybe it matters, but probably not so much as for a product where the brand can have so many different touch points."</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:33):<br />
+I want to talk about some broader things that have worked to help you grow, but before we do that, I just want to visualize the pie chart of how Gamma grows. Say, post-10 million ARR. If I have it correctly in my head, it's over 50% just word of mouth, organic, people are sharing it, doing presentations for each other, "Oh, it's Gamma. Just go check it out, sign up." Then it feels like the second-biggest bucket is influencer marketing, social stuff. And then is the third performance/paid marketing?</p>
+<p><strong>Grant Lee</strong> (01:02:03):<br />
+Yep, that's right. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:04):<br />
+Cool. On that last piece, is there anything else there for people that are starting to explore performance marketing, essentially Facebook Ads, Google Ads, all these other platforms, is there anything else that you think might be helpful for people to hear or learn just to get started down this road?</p>
+<p><strong>Grant Lee</strong> (01:02:19):<br />
+I would just have two recommendations. One, going back to my initial piece of advice, which is don't invest until you have word of mouth. Don't fool yourself into thinking that you'll solve other problems by just starting to ramp up a performance marketing program. Just get the word of mouthpiece first, so that you're coming into this program with some tailwinds and then start ramping it up.</p>
+<p>The second piece is: set some constraints. You don't want your product to be at a point where more than 50% of your acquisitions are coming through paid acquisition. I think if that is happening, your core growth engine is broken. And it feeds right back to point number one, which is if your core growth engine is broken, you just have this leaky bucket. You're trying to spend so much money building top of the funnel, people are not making it all the way through. Something else should be fixed before you really try to dial it up. And it doesn't mean you don't spend a little bit of money, but just don't dial it up until you feel like your core growth engine is actually working.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:17):<br />
+When you said the first point about wait until you have word of mouth before investing in performance marketing, is that essentially a large chunk of your growth should be coming from word of mouth, direct, organic?</p>
+<p><strong>Grant Lee</strong> (01:03:29):<br />
+Yeah, yeah. And for us, even at scale, again going back to more than 50% of new signups still come through word of mouth. That, for us, is a sign like, "Okay, if something is still working, people are using the product, telling other people, then you want that feeling before you really start dialing anything else up."</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:45):<br />
+Is there a percentage that you think is helpful for people to think about just... Is it 25% or more something like that or just word of mouth for you to feel like, "Okay, we actually have organic growth as a major growth engine"?</p>
+<p><strong>Grant Lee</strong> (01:03:55):<br />
+Yeah, I think this comes back to maybe just how maybe aggressive you want to be. I think just rough heuristic is the more, the better. If it's over 50%, I think that's great. If it's approaching that, good. And just going back to, don't fool yourself into thinking just ads is going to be the way you grow. Because you can do that, but everything else becomes harder and harder. </p>
+<p><strong>Grant Lee</strong> (01:04:16):<br />
+If you rely on paid acquisition to be the main growth engine, you should be prepared for things like CAC, like customer acquisition costs, to keep going up. The more you're trying to reach a new audience, it gets more and more expensive. So, don't assume it's going to be flat, and then all of a sudden you're running on this treadmill that's actually running faster and faster. And so that's where it's easy to get hooked on that early on when you're just investing a small amount of money, and then it's almost impossible to get off that treadmill when you're too far into it. So, anticipate that and give yourself a better chance at actually being able to sustain that growth long-term.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:50):<br />
+Important advice. Okay. There's a couple more elements you've shared that were key to Gamma's growth. One is sharing prototypes with users before you ship. What does that look like? What does that mean? Why is that so powerful?</p>
+<p><strong>Grant Lee</strong> (01:05:05):<br />
+Yeah. I mean, this for us was a huge unlock. Going back to early days, when you're just trying to get your product into anybody's hands, you're getting to your friends trying to use it, and again, they're going to lie to you, tell you how great it is, and then never come back to using the product. </p>
+<p><strong>Grant Lee</strong> (01:05:19):<br />
+I think what you want to be able to do, the ideal situation is, you recruit a bunch of people that are legitimately good prospective users or customers of your product, but have zero skin in the game. They do not care at all whether or not your product succeeds. They're just in it to test it. And for us, it was people that have made slide decks or make slide decks regularly, let's drop them into Gamma, give them very little context. We just tell you, "Hey, this is an alternative to PowerPoint. Go ahead and try it."</p>
+<p><strong>Grant Lee</strong> (01:05:48):<br />
+And then as you're going through the onboarding flow and testing the product, just tell us everything that's going on in your head, describe what you're seeing, tell us what you're trying to do. We'll give you maybe a few different tasks like, "Oh, create a piece of content." And when you watch them do that and also hear what they're saying, you just immediately feel the pain. </p>
+<p><strong>Grant Lee</strong> (01:06:10):<br />
+All the places they're struggling and all the places are so confused by what they're seeing and you sort of then can internalize that pain and say, "Okay, we're going back and we have to fix this. This is not usable." We, oftentimes, are dog-fooding everything. And so you can get to the point where you're so familiar with your own product, everything feels kind of easy and you know where things are, but when you start actually hearing other people describe their usage of the product, that's a gift.</p>
+<p><strong>Grant Lee</strong> (01:06:36):<br />
+You're all of a sudden you're like, "Okay, now I know where to actually spend the time." People aren't even getting to the third screen. They're stuck on the first screen because they can't even find the button that we think is so dead obvious, and so let's go back and actually re-engineer, re-architect that piece of it.</p>
+<p>And we've done that for everything: landing pages, onboarding experience, new feature launches, export, sharing, every single piece of that such that we can actually see where things are working or not. And then every time, we'll learn something that's kind of painful, but obvious that we need to fix and we go back and fix it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:08):<br />
+How do you scale this sort of thing? How do you run every new big idea, new feature change by people? Do you have a closed beta group, a decent platform? How do you actually do this?</p>
+<p><strong>Grant Lee</strong> (01:07:19):<br />
+There's a couple of great platforms. Voicepanel, which is also YC company, full disclosure, angel investor, and then there's also platforms like UserTesting, that really help you source and find these people that fit again, that persona or profile you're looking for. So, in our case, people that are in a specific job function or create decks regularly, and so you can use those platforms to really scale up these programs pretty fast.</p>
+<p><strong>Grant Lee</strong> (01:07:45):<br />
+And then once your team knows how to use those platforms... We would have an idea in the morning and in the afternoon, we're already running a pretty full scale experiment or a research study, and by the evening or by the next day, we can actually go through all of it together. So, it's pretty fast once you have it set up. It's more about how do you get the program onboarded the right way. </p>
+<p><strong>Grant Lee</strong> (01:08:06):<br />
+I think the other sort of mechanism we did early on was once we had some repeat users, we created sort of a program for our power users. We called it the Gammaster Program, which is we put them into a separate Slack workspace, and that was a place for us to share very, very early prototypes like wireframes, sometimes they were functional prototypes, and get them to get some initial feedback as well. This definitely helps with more later stage or features or things that aren't going to be necessarily important as part of onboarding, but once you understand Gamma, like, "Oh, how do you share it?" </p>
+<p><strong>Grant Lee</strong> (01:08:41):<br />
+For instance, this was a great way to start testing some of that b</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

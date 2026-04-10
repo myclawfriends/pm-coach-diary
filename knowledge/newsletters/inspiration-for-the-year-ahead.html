@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inspiration for the year ahead — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Inspiration for the year ahead</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Inspiration for the year ahead</div>
+    
+    <div class="article-meta">2024-01-02<span>·</span>4,753 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">創業</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Don’t miss </em><em><a href="https://www.lennybot.com/">Lennybot</a></em><em> ✨ (an AI chatbot trained on my newsletter posts, podcast interviews, and more) and my new </em><em><a href="https://lennyswag.com/">swag store</a></em><em> (great gifts for your favorite PMs, or yourself!).</em></p>
+<blockquote>
+<h2>Q: Do you have a favorite life motto that you come back to often and share with friends, either at work or in life?</h2>
+</blockquote>
+<p>At the end of each podcast conversation, I ask my guests a series of “lightning round” questions. A few months ago I added the question you see above. This has unexpectedly led to some of the most profound insights of the podcast. To kick off 2024 with a dose of inspiration, I’ve pulled together my favorite and most meaningful life mottos—the ones that have stuck with me most. As you read through this collection, pick one that strikes a chord and put it on a post-it on your monitor. The next time you find yourself in a place of stress or indecision—come back to it. If you do this one thing today, your 2024 will already be brighter.</p>
+<p><img alt="Image from Inspiration for the year ahead" src="https://substack-post-media.s3.amazonaws.com/public/images/a2600a9e-c0d9-43fc-bc20-d7c46d8069a6_4032x3024.jpeg" /></p>
+<h2>1. “A positive mental attitude will be your key to success.”</h2>
+<blockquote>
+<p>“This changed my life, really. When I was in fourth grade, a teacher—and I don’t remember which teacher it was, which kills me—when I was having a bad day, the teacher said to me, ‘Listen, a positive mental attitude will be your key to success.’ And I don’t know why it’s stuck in my head, but it did. I have said that to myself 100,000 times.</p>
+<p>I am a relentlessly positive—my wife says I’m an offensively positive—person. She’s like, ‘You know what? Some days you can have a bad day.’ And I said, ‘I just don’t. Because a positive mental attitude is my key to success.’ And it’s really the way I frame so much of my life, looking to the positive, looking to the good. And I do it for people whenever I can. And sometimes it frustrates people. But I really believe that most of life is the mindset that you bring to it. For me in fourth grade, ‘A positive mental attitude will be your key to success,’ for some reason, hit me at the right moment in the right way and has stayed with me ever since.” [<a href="https://youtu.be/J4wguyJZI6A?si=3RX5fFI2j8CmmRXK&amp;t=5779">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/matthew-dicks-84a95711/">Matthew Dicks</a></em><em> is a best-selling author, columnist, blogger, podcaster, playwright, and teacher. He wrote my all-time favorite book on storytelling,</em> <a href="https://www.amazon.com/Storyworthy-Engage-Persuade-through-Storytelling/dp/1608685489/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1511398548&amp;sr=1-1&amp;keywords=storyworthy">Storyworthy</a><em>. He is an elementary school teacher by day and by night teaches storytelling and public speaking to individuals, corporations, universities, religious institutions, and school districts around the world. He’s taught storytelling at Yale, MIT, Harvard, and Purdue, along with Amazon, Salesforce, Slack, Lego, and others.</em></p>
+</blockquote>
+<h2>2. <strong>“It matters not how strait the gate, how charged with punishments the scroll, I am the master of my fate, I am the captain of my soul.” —‘Invictus,’ William Ernest Henley</strong></h2>
+<blockquote>
+<p>“I love this quote because he was going through issues with his legs and was going to potentially lose them, and then wrote this quote. The last two lines, ‘I am the master of my fate, I am the captain of my soul,’ is literally my Twitter/X bio. It’s such a powerful reminder of freedom and responsibility.” [<a href="https://youtu.be/tBPTwUmaxDs?si=WMoItT8UHMU07Tdg&amp;t=5682">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/ebiatawodi/">Ebi Atawodi</a></em><em> is a director of product management at YouTube, former head of product at Uber, and a former director of product at Netflix.</em></p>
+</blockquote>
+<h2>3. “Strive not to be a success, but rather to be of value.” —Albert Einstein</h2>
+<blockquote>
+<p>“It’s a great motto for people and also for companies. It’s something that guides me in my life.” [<a href="https://youtu.be/aJWSn-tz3jQ?si=9haWFAHAxxrse02x&amp;t=4193">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/itamargilad/">Itamar Gilad</a></em><em>, the author of</em> <a href="https://evidenceguided.com/">Evidence-Guided: Creating High-Impact Products in the Face of Uncertainty</a><em>. He’s also a product coach, author, and speaker with over two decades of experience in senior product roles at Google, Microsoft, and various startups.</em></p>
+</blockquote>
+<h2>4. “The world is run by insecure overachievers.”</h2>
+<blockquote>
+<p>“I used to think my insecurity was a downfall and I would just hide it and try to pretend it’s not there. And then someone that I really look up to told me this, and I’m like, okay, so I’m not the only one. I think the world is run by a bunch of people that have something to prove, for a good reason or not, but it’s better to embrace it than to pretend you’re all confident and you’re just doing this because you’re brilliant.” [<a href="https://youtu.be/C1_sM0_ds2c?si=eYRxfjMI4iAXkqID&amp;t=4160">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/meltem-kuran-berkowitz-4721114b">Meltem Kuran Berkowitz</a></em><em> is the head of growth at Deel, which went from $0 to $300m in ARR in three years (the fastest company in history to do so). Meltem joined Deel early to lead growth and currently leads all of the growth and marketing teams, including paid ads, content, product marketing, community, brand, and more.</em></p>
+</blockquote>
+<h2>5. <strong>“If it’s worth doing, it’s worth doing well.”</strong></h2>
+<blockquote>
+<p>“I’m sure there’s mottos I could say that would be aspirational mottos, but the real one is ‘If it’s worth doing, it’s worth doing well.’ From being in sports to going to school to being in product, in my opinion, if you’re going to do something, do it to the best of your ability, because that’s what you do with your day. You spend so much time working, you may as well be good at it or trying to get good at it. And that’s always how I’ve lived my life.” [<a href="https://youtu.be/4LjddcccYIo?si=ji4L2HbkJT6isg7k&amp;t=4722">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/maggie-crowley-42a97112/">Maggie Crowley</a></em><em> is VP of product at Toast, previously vice president and head of product at Charlie Health, senior director of product management at Drift, and a PM at Tripadvisor.</em></p>
+</blockquote>
+<h2><strong>6. “Slow is smooth, and smooth is fast.”</strong></h2>
+<blockquote>
+<p>“I believe the origins of this one are actually from the Marine Corps for the Scout Snipers, so not trying to promote that particular craft, but the point of it is that—and we did this a lot at Amazon—to really go fast, you actually need to go slow first and to be very clear on what you’re doing and where you want to go. Most people confuse speed with velocity, and the difference between the two is that velocity has both speed and a vector to it, meaning there’s some specific destination. And so I see a lot of people who are going very, very fast but the destination isn’t very clear; they haven’t really thought that out well. Slow is smooth, smooth is fast.” [<a href="https://youtu.be/S9WHQa_AJQo?si=ygGsxR6h4HPzcCiR&amp;t=5387">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/bill-carr/">Bill Carr</a></em><em> is the co-author of</em> <a href="https://www.amazon.com/Working-Backwards-Insights-Stories-Secrets/dp/1250267595">Working Backwards: Insights, Stories, and Secrets from Inside Amazon</a><em>. During his 15 years at Amazon, Bill played a pivotal role in shaping the company’s global digital music and video ventures, including Amazon Music, Prime Video, and Amazon Studios.</em></p>
+<p>Variations of this same idea from other guests:</p>
+<ol>
+<li><strong>Go slow to go fast.</strong> “Sometimes people have a tendency to rush into things, and especially, I think, in startups, but other places too. I think urgency is important, but then sometimes you have too much urgency and you are rushing things, and what happens is that you rushed it and now you need to come back to fix it. I like to think that you should take some time to actually think about what you’re going to do, and then do it. In the end, it’s going to be faster that way than going back and forth and fixing things.” [<a href="https://youtu.be/4muxFVZ4XfM?si=f0dQuT6Ex7qTdwoY&amp;t=5757">Full clip</a>] —<em><strong><a href="https://www.linkedin.com/in/karrisaarinen/">Karri Saarinen</a></strong> is the co-founder and CEO of Linear. Before Linear, Karri was the principal designer and co-creator of design systems at Airbnb and the founding designer at Coinbase.</em></li>
+<li><strong>Slow down.</strong> “My main thing I tell people is ‘Slow down.’ I think what I’ve found has been happening is, we’re so convinced that speed is the way you’re going to find the right answer that I just don’t think we slow down to develop meaningful mental models of the things we’re doing. That’s certainly true in the research projects I work on. It’s consistently true when I talk to people in business and I ask them about their mental model. By ‘mental model,’ I just mean if you’re running a marketplace, what is your model of what people care about? What makes people stay versus leave? What makes matches work versus not work? All those things shape a roadmap in your mind. And I think a lot of roadmapping, a lot of execution, paper writing in academia has all just become far more fast-paced, at the expense of deeper thinking about these kinds of structural features of the thing you’re building. With my students, but also with people I interact with in industry. I think slowing down is actually more of a virtue than it’s given credit for.” [<a href="https://youtu.be/BVzTfsUMaK8?si=H8D4vIFC2jZ-5QJH&amp;t=4643">Full clip</a>] —<em><strong><a href="https://www.linkedin.com/in/rameshjohari/">Ramesh Johari</a></strong> is a professor at Stanford University focusing on data science methods and practice, as well as the design and operation of online markets and platforms. Beyond academia, Ramesh has advised some incredible startups, including Airbnb, Uber, Bumble, and Stitch Fix.</em></li>
+</ol>
+</blockquote>
+<h2>7. “The details are not the details. They make the design.” —Charles Eames</h2>
+<blockquote>
+<p>“You can’t be a product person without having an eye-rolly Charles Eames quote that’s at the center of your existence. I just really absolutely believe that the devil is in the details when you’re a product designer, and be uninterested in nuance at your peril.” [<a href="https://youtu.be/maK0XD9ARoI?si=Pzm5Az2tlACji0qV&amp;t=5802">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/tomconrad/">Tom Conrad</a></em><em> is the CEO of Zero Longevity Science and a Sonos board member. He began his career in engineering at Apple, was the VP of product at Snap, the chief technology officer at Pandora, and an executive at Pets.com and Quibi.</em></p>
+</blockquote>
+<h2><strong>8. “If you’re lucky enough to make it to the top of a mountain, throw down a fucking rope.”</strong></h2>
+<blockquote>
+<p>“I’m somebody who has had, and continues to have, a radical amount of love and support in my life. When I was young, I started with nothing and I got thrown out of school. And I didn’t know until I was 21, because when I was young, learning differences weren’t a thing. I just think that we should never be held back by those views of others. And so we need to be unencumbered.” [<a href="https://youtu.be/mS4B541m9xg?si=9LJKnDRVkWuKlt9S&amp;t=6165">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/christopherlochhead/">Christopher Lochhead</a></em><em> is a 14-time best-selling author, top podcaster, and former 3x public tech company CMO, and has been an advisor to over 50 VC-backed tech startups. He is best known as a “godfather” of category design, and Adobe named his book</em> Play Bigger <em>one of “the five greatest marketing books of all time.”</em></p>
+</blockquote>
+<h2><strong>9. “Tomorrow is today.”</strong></h2>
+<blockquote>
+<p>“I don’t say this out loud, but I’ve had it as a post-it in my jewelry box and I see it regularly. ‘Tomorrow is today.’ And what I mean by that is that so often I will in my head be like, ‘I’ll do that tomorrow. I’ll eat better tomorrow. I’ll think about that vision tomorrow. I’ll communicate better expectations tomorrow.’ And it’s like those joke signs that ‘Free beer tomorrow.’ Because very easily, tomorrow just always moves on. And I needed to remind myself that it’s actually, it is now, today. Tomorrow is now today.” [<a href="https://youtu.be/gfEEcssu304?si=s_mM_7TzpOqZdXp7&amp;t=5247">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/katie-dill-79168b3/">Katie Dill</a></em><em> is the head of design at Stripe. Previously, she was the head of experience design at Airbnb and head of design at Lyft. Katie was named one of</em> Business Insider<em>’s “10 people changing the tech industry” as well as one of</em> Fast Company<em>’s “100 most creative people in business” and received the Girls in Tech “Creator of the Year” award.</em></p>
+</blockquote>
+<h2>10. “Only work on what matters most” and “Stop worrying about things you can’t control.”</h2>
+<blockquote>
+<p>“I have a post-it on my monitor that says, ‘Only work on what matters most.’ It sometimes falls off and I have to write it again. I go into work, someone emails me, and I’m like, ‘Oh god.’ But then I’m like, ‘Only work on what matters most.’</p>
+<p>The second one is ‘Stop worrying about things you can’t control.’ I have these two on post-its. It just reduces the temperature. Life lessons learned. I sent a lot of dumb emails in my past, like, red energy, ‘Oh my god, what are they thinking?’ You wake up in Dublin to a San Francisco email. And you’re like, ‘Oh god. Keyboard!’ And if your monitor says these two things, you just don’t do that. You just take a breath, get a coffee, come back. Does it really matter?” [<a href="https://youtu.be/R-Geamq9xc0?si=pRJy42TZWv8RbRDj&amp;t=4558">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/pauladams/">Paul Adams</a></em><em> is the longtime chief product officer at Intercom, where he leads the product management, product design, data science, and research teams. Before Intercom, Paul was the global head of brand design at Facebook, a senior user researcher at Google, and a product designer at Dyson.</em></p>
+</blockquote>
+<h2><strong>11. “</strong><strong><em>Come alive</em></strong> <strong>over</strong> <strong><em>get ahead</em></strong><strong>.”</strong></h2>
+<blockquote>
+<p>“It’s something I keep coming back to. I’m default skeptical of chasing achievement, and I use this to remind myself that it is about personal energy versus extrinsic outcomes. I’m very convinced from my own life experience that the extrinsic outcomes aren’t going to do a ton for me. Sure, I need to make enough money. But when I’m in extended states of feeling alive and connected to everything I’m doing in my life, that’s it. And I basically repeated this mantra to myself right before rejecting my book deal. It was like, I did not feel good in the conversation with the people. They talked down to me, they told me that I probably wouldn’t succeed, and it was like coming alive over getting ahead. Don’t need your prestige.” [<a href="https://youtu.be/yFckwBtiCUM?si=3kxmcpQDunVMJGDn&amp;t=3550">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/paulmillerd/">Paul Millerd</a></em><em> spent several years working in strategy consulting and on the “default path” before deciding to pursue an alternative approach to work. His book</em> <a href="https://think-boundless.com/the-pathless-path/">The Pathless Path</a> <em>chronicles his journey.</em></p>
+</blockquote>
+<h2>12. “This too shall pass” and “Fake it till you make it.”</h2>
+<blockquote>
+<p>“This is particularly meaningful to me right now because I’m going through a really tough moment because I have long Covid and lost my taste and smell, and it might be long-term. ‘This too shall pass’ is something I say to myself a lot.</p>
+<p>The second one is also not particularly motivational, but I really believe in it, which is ‘Fake it till you make it.’ That’s something I’ve held onto for a long time, and even today. I don’t mean lie. I don’t mean pretend to be something that you’re not. But it’s almost like a way to overcome imposter syndrome and by opening rooms for yourself to be who you want to become so that you enable opportunities to become that.” [<a href="https://youtu.be/sWClFYdbkRA?si=K4LZ9Da6YafZPKhs&amp;t=5320">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/ginafrombrazil/">Gina Gotthilf</a></em><em> is the co-founder and COO of Latitud, a startup platform supporting the next generation of iconic tech startups in Latin America. Previously, Gina led growth and marketing at Duolingo, which she helped grow from 3 million to 200 million users. She was recently named one of the 500 most influential people in all of Latin America by</em> Bloomberg<em>.</em></p>
+</blockquote>
+<h2>13. “It’s not mean. It’s clear.”</h2>
+<blockquote>
+<p>“This is something someone told me on the streets of Manhattan. It’s actually the origin story of <em>Radical Candor</em>. I was walking my dog, almost got hit by a cab, and this man, a perfect stranger, looked at me and he said, ‘I can tell you love that dog.’ That was all he had to do to move up on the care-personally dimension, but he says, ‘You’re going to kill that dog if you don’t teach her to sit.’ And he pointed at the ground this kind of harsh gesture. He said, ‘Sit.’ The dog sat. I had no idea she even knew what that meant. And I kind of looked up at him in amazement and he said, ‘It’s not mean. It’s clear.’ And then the light changed and he walked off, leaving me with words to live by.” [<a href="https://youtu.be/V7tnbx-6Ayc?si=yk5hB0bM9rSjStKA&amp;t=4897">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/kimm4/">Kim Scott</a></em><em> is the author of</em> Radical Candor<em>, currently the #1 most recommended book on this podcast. The book has sold over 1 million copies and has been translated into 23 languages. Before writing, Kim was a CEO coach at Dropbox, Qualtrics, Twitter, and other tech companies.</em></p>
+</blockquote>
+<h2>14. “Show up, and you’re ahead of 80% of the people in the free world.”</h2>
+<blockquote>
+<p>“My father would always tell me: Show up. Show up, and you’re ahead of 80% of the people in the free world. Show up on time, and you’re ahead of 85% of the people in the free world. Show up on time with a plan, and you’re ahead of 90% of the people in the free world. And if somehow you have the guts to put that plan into action, with a smile, then you probably will have a great chance of success. And if you do that over and over again, every aspect of your life, it can lead to successful outcomes. And that’s the mental definition for me every day.” [<a href="https://youtu.be/SXYc5RoU3Lg?si=CpUHJOqMtTRl4ftQ&amp;t=5325">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/cidiodi/">Christian Idiodi</a></em><em> is a partner at Silicon Valley Product Group. After a long product career and founding multiple companies, he now spends his time working closely with product leaders at companies big and small to implement and improve their discipline of product management.</em></p>
+</blockquote>
+<h2>15. “Most things I worry about never happen anyway.” —Tom Petty</h2>
+<blockquote>
+<p>“I don’t always live up to it, but basically, I try to worry less. There’s a great Tom Petty lyric—I can’t remember which song it’s in [‘Crawling Back to You’], but I think it’s on the <em>Wildflowers</em> album—‘Most of the things you worry about never happen anyway.’ And it’s just so true. I find myself worrying about all sorts of things that don’t matter and never happen, and then you’re like, god, I spent three days worrying about that, or I went to this appointment and it was fine. The amount of worry, it’s just all in your head, and it’s all about anticipating the future that hasn’t happened yet. I try to tell myself that. And I try to tell others that in business, I try to tell myself that in life and in business, but also, I tell others that in business, what if people don’t like... I don’t know. You’ll find out. Worry less about it. It probably isn’t going to be a big deal anyway.” [<a href="https://youtu.be/dAnF0tk0di8?si=s50rLQFnxLfIEKeF&amp;t=6254">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/jason-fried/">Jason Fried</a></em><em> is the co-founder and CEO of 37signals, the maker of Basecamp and HEY.</em></p>
+<p>Variations from other guests:</p>
+<ol>
+<li><strong>What’s the worst that can happen?</strong> “To me, when I get scared about something or try to do something, or even interpersonal reactions, where I’m like, ‘God, I have to have this hard conversation with this person,’ I try to tell myself, ‘What’s the worst that can happen?’ Usually when you sit down and start to think about it, it’s not as bad as you anticipate. So for me, that’s always helped me manage my anxiety around difficult situations or taking a leap and trying to get out there. I think in my younger days, I was a little crippled by overthinking and by being too anxious about things and not taking big leaps. So I’ve tried to stick by that and keep asking myself, ‘What’s the worst that can happen?’ and it’s usually not as bad as you think it is.” [<a href="https://youtu.be/9VdixM9KPN4?si=fFl6GS9BKiAyvaQj&amp;t=4445">Full clip</a>] <em>—</em><em><a href="https://www.linkedin.com/in/melissajeanperri/">Melissa Perri</a></em><em> isthe CEO of Produx Labs, the author of the seminal PM book</em> The Build Trap<em>, a former Harvard Business School professor of product management, and the co-author of</em> <a href="https://www.productoperations.com/">Product Operations: How successful companies build better products at scale</a><em>.</em></li>
+<li><strong>Nothing’s a big deal.</strong> “My thing lately is, and maybe this is just an old-person thing, but my thing lately is: nothing’s a big deal. You’ll have stuff that you think is a really big deal, positive or negative, and you’ll be like, wow, if this thing happened, it’d be so great, and then it happens and you’re like, yeah, it’s pretty great, but things are good otherwise. Or it’ll be the opposite, like, oh, if this thing happened, it’d be so bad. Then it happens and you’re like, that wasn’t that bad. And so I don’t know if this is good or bad, but lately I’m in this kind of chill zone where I’m like, nothing’s a big deal, man. Everything’s cool.” [<a href="https://youtu.be/-VqmFI9vY7w?si=sEzOkUGX8oNZq5ES&amp;t=4984">Full clip</a>] <em>—</em><em><a href="https://www.linkedin.com/in/aprildunford/">April Dunford</a></em><em> is a speaker, mentor, podcaster, and the best-selling author of</em> <a href="https://www.amazon.com/Obviously-Awesome-Product-Positioning-Customers/dp/1999023005">Obviously Awesome: How to Nail Product Positioning So Customers Get It, Buy It, Love It</a> <em>and</em> <a href="https://www.aprildunford.com/books">Sales Pitch: How to Craft a Story to Stand Out and Win</a><em>.</em></li>
+</ol>
+</blockquote>
+<h2>16. “Only a fool wishes time away.”</h2>
+<blockquote>
+<p>“Even if you’re having a bad day, even if you’re doing something boring or you’re stressed, that’s still your life and you should enjoy it.” [<a href="https://youtu.be/1gXNOJEWajU?si=8JAMm157QUukE5aA&amp;t=3809">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/mayaprohovnik/">Maya Prohovnik</a></em><em> is Spotify’s head of podcast product. She was employee #1 at Anchor, which was acquired by Spotify in 2019 and now powers more than 80% of all new podcasts created in the world. In 2023, Maya was named one of the “most important people in podcasting” by</em> <a href="https://www.hollywoodreporter.com/business/digital/most-powerful-people-in-podcasting-2023-1235567134/">The Hollywood Reporter</a><em>.</em></p>
+</blockquote>
+<h2><strong>17. “If you try to serve everybody, you serve no one.”</strong></h2>
+<blockquote>
+<p>“It’s about honing in on who you’re building your product for, who your persona is. And then with my children: try to be everyone’s friend, but it may not happen.” [<a href="https://youtu.be/9VdixM9KPN4?si=fFl6GS9BKiAyvaQj&amp;t=4445">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/denisetilles/">Denise Tilles</a></em><em> is the CPO at Grocket, a seasoned product leader, and the co-author of</em> <a href="https://www.productoperations.com/">Product Operations: How successful companies build better products at scale</a><em>.</em></p>
+</blockquote>
+<h2>18. “There’s more knowledge outside my head than inside it.”</h2>
+<blockquote>
+<p>“I’ve taken to saying that there’s more knowledge outside my head than inside it. And this is a plea for curiosity. I have three main things that are my North Star: originality, curiosity, and wisdom. And so this idea about there’s more knowledge outside my head than inside my head is a plea for curiosity. It’s a plea for skepticism. It’s a plea to be humble about what you know, no matter how old you are, about the world around you, and always be listening for more. Even when you know something, let other people speak, because they might add 10% more to the 90% you know. And so being an active listener is very important.” [<a href="https://www.youtube.com/watch?v=T8TQGbJhv6Q&amp;t=4304s">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/ojiudezue/">Oji Udezue</a></em><em> is the chief product officer at Typeform and has held leadership roles at Twitter (head of product for creation and conversation), Calendly (CPO), and Atlassian (head of product for communication tools). He is well known for bringing a product-led-growth mindset to the companies he joins.</em></p>
+</blockquote>
+<h2>19. “It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again, because there is no effort without error and shortcoming; but who does actually strive to do the deeds; who knows great enthusiasms, the great devotions; who spends himself in a worthy cause; who at the best knows in the end the triumph of high achievement, and who at the worst, if he fails, at least fails while daring greatly, so that his place shall never be with those cold and timid souls who neither know victory nor defeat.” —’Citizenship in a Republic,’ Theodore Roosevelt</h2>
+<blockquote>
+<p>“This is the thing that I keep coming back to and the thing that I keep finding the value that I resonate with the most. It’s even what we try to build Reforge around. We’re trying to build Reforge around the people that have been in the arena. They’ve gotten the blood, sweat, and tears to talk about. I just highly respect people who enter that arena and do that hard work, and those are the folks that I’ve learned the most from and want to spend my precious hours building for and spending time with.” [<a href="https://www.youtube.com/watch?t=5791&amp;v=ZG3iNH4vvMA">Full clip</a>]</p>
+<p><em>—</em><em><a href="https://www.linkedin.com/in/bbalfour/">Brian Balfour</a></em><em> is the founder and CEO of Reforge. Prior to Reforge, he was the VP of growth at HubSpot and co-founded three other startups.</em></p>
+</blockquote>
+<h3>💭 Other quotes I find myself repeating</h3>
+<ul>
+<li>“The cave you fear contains the treasure you seek.” —Joseph Campbell</li>
+<li>“I’m no genius. I’m smart in spots—but I stay around those spots.” —Thomas Watson Sr., founder of IBM</li>
+<li>“Be useful.” —Arnold Schwarzenegger</li>
+<li>“I don’t know what I think until I write it down.” —Joan Didion</li>
+<li>“There is nothing to writing. All you do is sit down at a typewriter and bleed.” —Unknown</li>
+<li>“Networking is overrated. Become first and foremost a person of value, and the network will be available whenever you need it.” —Naval Ravikant</li>
+<li>“First do what you <em>need</em> to do, then do what you <em>want</em> to do.” —My grandma</li>
+<li>“Life is maintenance.” —Roland Martinez (a friend)</li>
+</ul>
+<h3>💡 Bonus inspiration</h3>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=IdTMDpizis8">Jocko Willink: “GOOD”</a></li>
+<li><a href="https://www.youtube.com/watch?v=oDzfZOfNki4">Kara Lawson: Handle hard better</a></li>
+<li><a href="https://www.youtube.com/watch?v=lgJ_dxf2Hkg">Rick Rubin interviews ​​Steven Pressfield</a></li>
+<li><a href="https://conversationswithtyler.com/episodes/paul-graham/">Tyler Cowen interviews Paul Graham</a></li>
+<li><a href="https://autotranslucence.com/2018/03/30/becoming-a-magician/">Becoming a magician</a></li>
+<li><a href="https://www.paulgraham.com/greatwork.html">How to do great work by Paul Graham</a></li>
+<li><a href="https://www.youtube.com/watch?v=z7tRr49qZfo">Infinite chocolate bar trick</a> 🤯</li>
+<li><a href="https://www.lennyspodcast.com/strategies-for-becoming-less-distracted-and-improving-focus-nir-eyal-author-of-indistractable-and/">Strategies for becoming less distracted and improving focus with Nir Eyal</a> ←Most recent podcast episode</li>
+</ol>
+<p><em>Have a fulfilling and productive year 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

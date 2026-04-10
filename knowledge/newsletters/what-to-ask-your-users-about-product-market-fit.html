@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What to ask your users about Product-Market Fit — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What to ask your users about Product-Market Fit</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What to ask your users about Product-Market Fit</div>
+    
+    <div class="article-meta">2020-06-02<span>·</span>1,552 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2><strong>Q: I'm struggling to know whether my product has Product-Market Fit. When I talk to my users, do you have any advice on what questions I should ask them to help me know if I’m on the right track?</strong></h2>
+</blockquote>
+<p><img alt="Image from What to ask your users about Product-Market Fit" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/13d140ed-05f7-4fc5-96d7-38628da30ded_480x362.gif" /></p>
+<p>Oh, that fabled product-market fit ✨</p>
+<p>After I published <a href="https://www.lennyrachitsky.com/p/how-to-know-if-youve-got-productmarket">this deep dive on product-market fit</a> a couple of months ago, I began getting this excellent follow-up question. And I’ve been looking forward to tackling it ever since.</p>
+<p>Not being a user researcher, I reached out to my good friend, world-class researcher, and former Airbnb colleague <a href="https://twitter.com/mgallivan?lang=en">Matt Gallivan</a>. Matt has spent over a decade leading research teams at NPR, Facebook, Airbnb, and now at Slack as their Director of Research. He generously agreed to share his wisdom on this topic, which you’ll find below. If you’d like to hear more from Matt, follow him on Twitter at <a href="https://twitter.com/mgallivan?lang=en">@mgallivan</a>.</p>
+<p>Like any good researcher, I'd answer this by saying “it depends.” And it depends on many factors, but in general, I'd offer the following guidance:</p>
+<h3><strong>If you can easily reach 100+ active users, consider a survey</strong> 📋</h3>
+<p>Product-market fit happens only when a set of underlying assumptions end up being true. So try to break down what those assumptions might be for your product, and use questions that measure your progress toward confirming them. Ask questions along the lines of:</p>
+<ol>
+<li><strong>How would you feel if you could no longer use this product: Very Disappointed, Somewhat Disappointed, Not Disappointed?</strong></li>
+</ol>
+<p><em>You may have already done some Googling and stumbled upon this question credited to <a href="https://blog.growthhackers.com/using-product-market-fit-to-drive-sustainable-growth-58e9124ee8db">Sean Ellis</a>, and recently popularized by <a href="https://firstround.com/review/how-superhuman-built-an-engine-to-find-product-market-fit/">Rahul Vohra</a>. Ellis claims 40% of users answering “very disappointed” is the critical threshold for his question. This directionally makes sense to me.</em><br />
+2. <strong>Compared to other ways you do X [where X is some essential function of your product], using this product to do X is generally: Much Better, Somewhat Better, Neither better nor worse, Somewhat Worse, Much Worse?</strong></p>
+<p><em>What you’ll want to see are non-trivial skews in a positive direction towards your product — even if they’re not majorities.</em><br />
+3. <strong>The last time you did X, what product or tool did you use to do it, and why? [Leave this one open ended]</strong></p>
+<p><em>This third question is useful because it's behavioral. It will give you a rough signal of whether or not your product is actually being used at the times you think it should be— something your logs can't see. You’ll want to look for evidence that could suggest people are choosing an alternative to do the job you want your product to do for them. For example, if this question had revealed a plurality of early Airbnb guests saying that they had booked their last vacation on VRBO because they thought it offered more choices for non-urban travel destinations, I’d have told the co-founders that they had a problem on their hands.</em></p>
+<p>Ellis' question is a measure of user affection for your product, the second question is a measure of relative utility, and like I said the third is behavioral. <strong>While product-market fit looks different for every product, it’s hard to imagine a scenario where you’ll attain PMF if people don’t feel some degree of affection for your product, don’t find it useful, and don’t use it 😉</strong></p>
+<p>Despite all the easy ways to build and launch a survey these days, they might not always be feasible, so:</p>
+<h3><strong>If you can't easily survey 100+ active users, talk to 6-12 of them</strong> 🗣</h3>
+<p>Ask questions along the lines of:</p>
+<ol>
+<li><strong>Walk me through the last time you did X [where X is some essential function of your product]. For each key decision you made along the way, tell me a bit about why you made those decisions.</strong></li>
+</ol>
+<p><em>You’ll notice this question doesn’t even refer to your product at all – ask it to understand how people typically go about the key task your product is meant to enable. Then ask the following questions to see how well-suited your product is to replacing or improving that work.</em><br />
+2. <strong>What are the different products you use to do X? What are the best and worst parts of using those products? The last time you did X using this product, why did you use it instead of something else?</strong></p>
+<p><em>Again, where X is some essential function of your product.</em><br />
+3. <strong>Why did you try this product in the first place? What were you hoping it would do for you? How well has it delivered on that hope?</strong></p>
+<p>You’ll want to keep an ear out for two things that may signal product-market fit: <strong>a recognition of explicit, superior value relative to competitors or alternatives, and genuine enthusiasm.</strong> There should be clear, qualitative daylight between the ways that people talk about using your product and the ways they use alternatives, and people should have no trouble articulating detailed specifics of why your product is preferable.</p>
+<p><strong>There should also be an element of excitement.</strong> If your users are telling you that they <em>want</em> to love your product because it has so much potential, then you’re only halfway there. This is where you can rely on your intuition a bit-- it may be tough to define product-market fit, but you’ll know it when you see it. You’ll also know it when you don’t.</p>
+<h3><strong>There are also two questions I'd recommend you</strong><strong><em>not</em></strong><strong>ask</strong> 🙅‍♀️</h3>
+<ol>
+<li><strong>NPS (Net Promoter Score), or "How likely are you to recommend this product to a friend?</strong></li>
+</ol>
+<p><em>While touted as a panacea by what a former Airbnb colleague calls "the NPS Industrial Complex," both the underlying science and the practical utility of this question are debatable at best.</em><br />
+2. <strong>What people want, so that you can go blindly build it</strong></p>
+<p><em>This is why you'll rarely hear user researchers wasting energy debating the tired old tropes about how Henry Ford or Steve Jobs would never listen to research: it's just blatantly, obviously true that people sometimes don't know what they want until they see it. Asking people what they want isn't research.</em></p>
+<p>So, as I said at the outset, there are many questions you can ask...but there's no magic single question that’ll tell you everything you want to know. Using multiple approaches and triangulating between them is your best bet.</p>
+<p><strong>As you collect data, you should be trying to falsify your product's underlying assumptions</strong>: is it true that people are experiencing the problem your product sets out to solve in the first place? What motivated them to try it in the first place? What was the magical way in which they were hoping it might make their life or some task even a little bit better? Understanding people's motivations for using what you've built can sometimes be surprising, but can also lead you down unexpected new paths to achieving a strong product-market fit.</p>
+<p>Happy researching!</p>
+<h2><strong>Inspiration for the week ahead 🧠</strong></h2>
+<ol>
+<li><strong>Understand</strong>: <a href="https://www.youtube.com/watch?v=v4amCfVbA_c&amp;feature=youtu.be">Trevor Noah perfectly articulating why Black Americans are so frustrated</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=v4amCfVbA_c">Watch on YouTube</a></p>
+<ol>
+<li>
+<p><strong>Plan:</strong> <a href="https://twitter.com/QasimRashid/status/1266602023526506498">Killer Mike addressing the protestors: plot, plan, strategize, organize, and mobilize</a></p>
+</li>
+<li>
+<p><strong>Support</strong>: 20 things you can do right now as an ally</p>
+</li>
+</ol>
+<p><img alt="A list of 20 Things you can do as an ally, each is covered in the following threads." src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/28e4aadb-b3d9-4079-88a8-220576af5dd2_2048x1072.jpeg" /></p>
+<ol>
+<li><strong>Read</strong>: <a href="https://medium.com/equality-includes-you/what-white-people-can-do-for-racial-justice-f2d18b0e0234">75 Things White People Can Do for Racial Justice</a></li>
+<li><strong>Donate</strong>: <a href="https://docs.google.com/document/d/1X4-YS3vFn5CLL9QtJSU0xqmTh_h8XilXgOqGAjZISBI/mobilebasic">Cover bail for jailed activists</a> and <a href="https://docs.google.com/document/d/11dLmq-zutyMTSbZy_FSXv3b6X2t3NP7jlzvgrAQWqrE/edit">tech leaders matching donations</a></li>
+<li><strong>Listen</strong>: <a href="https://kottke.org/20/05/listening-to-black-voices-amid-murder-violence-protest-and-pandemic">Listening to Black Voices Amid Murder, Violence, Protest, and Pandemic</a> and <a href="https://www.youtube.com/watch?time_continue=1474&amp;v=cYK9xGALPrU&amp;feature=emb_logo">Martin Luther King, Jr. visits Stanford</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=cYK9xGALPrU">Watch on YouTube</a></p>
+<blockquote>
+<p><strong>Riots do not develop out of thin air.</strong><br />
+Certain conditions continue to exist in our society, which must be condemned as rigorously as we condemn riots.<br />
+<strong>In the final analysis, a riot is the language of the unheard.</strong><br />
+And what is it that America has failed to hear?<br />
+It has failed to hear that the plight of the negro has worsened over the last few years.<br />
+It has failed to hear that the promise of freedom and justice have not been met.<br />
+It has failed to hear that large segments of white society are more concerned with tranquility and the status quo than justice, equality and humanity.<br />
+So, in a real sense, our nation’s summers of riots are caused by our winters of delay.<br />
+And, as long as America postpones justice, we stand in the position of having these recurrences of violence and riots over and over again<br />
+<strong>Social justice and progress are the absolute guarantors of riot prevention.</strong></p>
+</blockquote>
+<p>That’s it for this week!</p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

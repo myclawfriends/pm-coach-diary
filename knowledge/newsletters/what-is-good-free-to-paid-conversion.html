@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is good free-to-paid conversion — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What is good free-to-paid conversion</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What is good free-to-paid conversion</div>
+    
+    <div class="article-meta">2023-08-01<span>·</span>2,898 words</div>
+    <div class="tags-row"><span class="mini-tag">B2B</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">定價</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: What is considered a good free-to-paid conversion rate?</h2>
+</blockquote>
+<p>Getting this benchmarking data is difficult because very few companies publish their conversion rates, and metrics can look wildly different depending on the target customer, product experience, and sales motion. At the same time, improving your free-to-paid conversion rate is one of the single best ways to increase revenue without adding headcount or marketing spend.</p>
+<p><strong>To get you a definitive answer, I partnered with <a href="https://www.linkedin.com/in/kyle-poyar/">Kyle Poyar</a> from <a href="https://openviewpartners.com/">OpenView Ventures</a> and the excellent <a href="https://kylepoyar.substack.com/">Growth Unhinged newsletter</a>, and the wonderful team at <a href="https://www.pendo.io/">Pendo</a>, to run the most in-depth product benchmarking survey ever</strong>. We collected data from 1,000+ products, and from that pulled out a host of fascinating takeaways, including:</p>
+<ol>
+<li><em>Good</em> and <em>great</em> conversion rate by product type</li>
+<li>The most effective ways to increase your free-to-paid conversion</li>
+<li>The differences between freemium vs. trial products</li>
+<li>Pricing and packaging tips</li>
+<li>Much more</li>
+</ol>
+<p><a href="https://openviewpartners.com/2023-product-benchmarks/">You can check out the full report here</a>. The data set focused on B2B SaaS, but we ended up with data for prosumers/micro-SMBs all the way up to large enterprises. We tried to look at conversion from every possible angle, but if we missed something, drop a comment and we’ll update the post with additional learnings.</p>
+<h3>1. What exactly is “free-to-paid conversion”?</h3>
+<p>Your free-to-paid conversion is the percentage of new accounts who end up paying for the product in the first 6 months.</p>
+<p><code>Free-to-paid conversion = [new accounts who begin paying within their first 6 months] / [total new accounts created during the measurement window]</code></p>
+<p>The best practice is to measure free-to-paid conversion on a <em>cohort</em> basis, looking at the percentage of new accounts who begin paying within their first X number of months. Without looking at conversion on a cohort basis, it’s impossible to tell whether you’re getting sequentially better or just pulling forward conversion that would naturally happen over time. Our data assumes a six-month conversion window.</p>
+<p>An account could be made up of a single user or a collection of users. We’ve defined the data at an account level. Of course, the lifetime value of the two audiences might differ significantly. Make sure to monitor conversion rates across different audiences and not only the blended rate.</p>
+<h3>2. What is a <em>good</em> and <em>great</em> free-to-paid conversion rate?</h3>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/387be486-c0c9-4dc3-8d81-3a74ea36036f_4000x2668.png" /></p>
+<p>On average, 3%-5% is a GOOD conversion rate for a freemium self-serve product, and 6%-8% is GREAT. This group includes products like Canva, Trello, and Typeform.</p>
+<p>For a freemium product with a sales-assist motion, 5%-7% is a GOOD conversion and 10%-15% is GREAT. Examples of freemium products with a sales-assist motion include Airtable, GitLab, and HubSpot—any products where sales is generally involved in closing new customers.</p>
+<p>Products that offer a free trial (i.e. you can use all of the features for a set amount of time, like Shopify, Google Workspace, and Intercom) have higher conversion rates on average—GOOD is 8%-12% conversion, and 15%-25% is GREAT.</p>
+<p>My theory for why free trial products are so much higher is that these products are typically attracting a user that’s more ready to buy, which then makes them more innately ripe for sales involvement. Sign-up rates for free-trial products are materially lower than for freemium products (5% vs. 9%, respectively). There’s time pressure in a free trial—since users can access it for only a short period of time—and so people wait to sign up until they’re serious. As a result, it’s common for free-trial products to have sales involved in most or all cases. Nearly half of free-trial companies (44%) have sales reach out directly to more than half of sign-ups, double the rate of freemium SaaS (24%).</p>
+<h3>3. What is a good free-to-paid conversion for my specific type of product?</h3>
+<p>The numbers above are useful, but they don’t tell the full story. Free-to-paid conversion rates vary substantially from company to company and by product type. It’s not uncommon for one freemium business to see free-to-paid conversion rates below 1%, while another is able to get to closer to 20%.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/632dbe1d-afd4-4c62-a040-ec9ee7dd8888_8000x5340.png" /></p>
+<p><strong>Here’s what we saw in the data for freemium products:</strong></p>
+<ol>
+<li>A fifth (20%) of products see a free-to-paid conversion rate below 2.5%</li>
+<li>About a third (33%) see between 2.5% and 5%—and this is the biggest bucket</li>
+<li>Only about 15% see a conversation rate higher than 20% (not pictured).</li>
+</ol>
+<p><strong>For free-trial products:</strong></p>
+<ol>
+<li>Only 7% of free-trial products see a free-to-paid conversion rate below 2.5%</li>
+<li>A quarter (~24%) of products see a conversion rate between 7.5% and 10%—the most common bucket</li>
+<li>14% of products see a free-to-paid conversion rate as high as 20%</li>
+</ol>
+<p><strong>Looking at the data by customer type is also illuminating. A few takeaways:</strong></p>
+<ol>
+<li>If you’re selling to larger customers, plan for lower free-to-paid conversion. Bigger companies tend to have more stakeholders involved in the buying process and more complex requirements. (There’s also the potential for bigger deal sizes, compensating for the lower conversion rates.)</li>
+<li>It’s a truism that developers are a tough crowd to sell to—and the data supports that intuition. The median conversion rate for developer-focused companies was 5%; this was half that of companies that do not sell to developers.</li>
+<li>We investigated conversion rates based on a long list of other factors, too. The data did not indicate statistically significant differences based on the revenue of the company, year-over-year growth rate, or whether the product was a horizontal app or vertical-specific app.</li>
+</ol>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/4b4e3077-3858-47ae-ad92-1a8beb88d16e_8000x5340.png" /></p>
+<h3>4. How do I increase my free-to-paid conversion?</h3>
+<p>Regardless of how your product stacks up, you’re probably thinking the same thing: what should I do to increase conversion? We observed four specific behaviors that can move the needle on free-to-paid conversion.</p>
+<h4>a. Sales outreach</h4>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/6f5d5086-c682-47f1-84c2-072598f26919_8000x5340.png" /></p>
+<p>A main driver of increasing free-to-paid conversion is simple: having sales reach out to free accounts.</p>
+<p>SaaS companies with a free-trial motion are far likelier to layer in sales than their freemium peers. Nearly half of free-trial companies (44%) have sales reach out directly to more than half of free-trial sign-ups. This is double the rate of freemium SaaS (24%). Differences in sales outreach help explain a good amount of the difference in conversion rates between freemium and free-trial products.</p>
+<p>Gone are the days when it was self-service <em>or</em> sales. Today, the new frontier is combining product-led growth (PLG) and sales for efficient growth. I consider this part of a broader trend toward <a href="https://kylepoyar.substack.com/p/plg-and-sales-in-2023">product-led sales</a>. Lenny has great advice on this, including <a href="https://www.lennysnewsletter.com/p/the-ultimate-guide-to-product-led#details">his conversation with Elena Verna</a>, this <a href="https://www.lennysnewsletter.com/p/five-steps-to-starting-your-plg-motion">guide to layering on PLG</a>, and <a href="https://www.lennysnewsletter.com/p/sales-bottom-up">this guide to layering on sales</a>.</p>
+<p>Sales reps can enhance the user’s experience by helping guide them through the buying process rather than forcing them to go it alone. Contract size used to dictate when procurement got involved. Now even free tools may be scrutinized if important data is involved.</p>
+<p>One product-led sales approach I’m digging is Zapier’s. Steeve Vakeeswaran was tasked with building out v1 of Zapier’s sales-assist program. He paid close attention to proving whether sales actually improved on Zapier’s baseline metrics relative to self-service. He learned that sales touchpoints weren’t just helpful for converting upmarket accounts; they even improved retention rates post-purchase, because Zapier was able to gather much more information on who these customers were and what they needed. (<a href="https://kylepoyar.substack.com/p/your-guide-to-sales-assist">Read the Zapier story here</a>.)</p>
+<p>Zapier’s sales team paid close attention to different signals that might qualify a customer for a sales-assisted experience. There were ultimately four signals to product-qualify an account:</p>
+<ul>
+<li><strong>Multi-player use:</strong> Are there multiple active users on a specific domain?</li>
+<li><strong>Usage patterns:</strong> Is the account growing its usage over time?</li>
+<li><strong>Use case:</strong> Does the customer’s use case indicate that they’d benefit from assistance?</li>
+<li><strong>Role:</strong> Does the user’s role align with the company’s ideal customer profile?</li>
+</ul>
+<p>Sales-assist reps then tailor their outreach based on the user’s context in order to add value before pushing for the commercial transaction.</p>
+<h4>b. Product onboarding</h4>
+<p>The data revealed another conversion trend that shouldn’t surprise growth pros: higher product activation coincides with higher free-to-paid conversion. Finding success with the free product opens the door for monetization conversations in the future. (Lenny and Yuriy Timen published a great <a href="https://www.lennysnewsletter.com/p/what-is-a-good-activation-rate">activation guide</a> last year, including <a href="https://www.lennysnewsletter.com/i/77646597/what-are-the-most-common-ways-to-increase-activation">a bunch of advice for improving your activation rate</a>. Also, <a href="https://www.lennysnewsletter.com/p/how-to-determine-your-activation">a guide for determining your activation metric</a>.)</p>
+<p>The first-day experience is the most critical part of the user journey and represents your best shot at moving the needle on activation. I’ll typically find that 40%-60% of new users never return to the product after the first day.</p>
+<p>I collected a number of <a href="https://kylepoyar.substack.com/p/your-guide-to-self-serve-onboarding">product onboarding mishaps</a>, especially for those launching a self-service offering:</p>
+<ul>
+<li>The product is too confusing without sales or success helping out</li>
+<li>There’s too much of a blank slate</li>
+<li>It’s unclear “what’s in it for me” as a user</li>
+<li>There’s no personalization for specific use cases, jobs-to-be-done, or levels of intent</li>
+</ul>
+<p>Miro avoids these missteps and has one of my all-time favorite product onboarding experiences.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/354990c2-0df5-45dc-bd80-fc116ebd7f1d_1386x859.png" /></p>
+<p>Onboarding begins on the homepage, where Miro combines compelling messaging (“take ideas from better to best”) with social proof (“based on 5,149+ reviews”) and product imagery across desktop, mobile, and presentation-ready devices. From there, the company nudges folks to sign up with a work email (“we recommend using your work email—it keeps work and life separate”), which positions Miro as a business-grade product and attracts higher-intent use cases.</p>
+<p>Once a new user lands in the Miro dashboard, there’s no blank slate. The app comes pre-populated with recommended Miro boards, including templates sourced from the Miroverse community. There is no need for excessive in-product tours or pop-ups, as the whole experience is extremely intuitive without it.</p>
+<h4>c. Focus on higher-intent sign-ups</h4>
+<p>What some product-led companies realize is that they actually make it too easy for a user to try their product. They pour resources into website conversion optimization as a way to generate as many new sign-ups as possible. These companies celebrate their acceleration in sign-ups only to realize later that the extra sign-ups never translated into more customers or revenue.</p>
+<p>There are two paths to proceeding if you run into this problem.</p>
+<ol>
+<li>Provide more nurturing, context, and community outside of your product in order to turn low-intent visitors into high-intent users.</li>
+<li>Redesign onboarding to create a path for low-intent users who aren’t yet ready to activate, let alone purchase, your product. Videos and best-practice guides go a long way.</li>
+</ol>
+<p>I recommend that you replace sign-ups as a core marketing KPI with <em>activated sign-ups</em>, which creates a stronger alignment between marketing and product. Then revisit your onboarding flow with the mindset of a low-intent user in order to spot opportunities to add more educational resources at pivotal moments.</p>
+<p>To drive more activated sign-ups, I’m a fan of <a href="https://www.lennysnewsletter.com/p/product-led-marketing">product-led marketing</a>, making it easy for end users to discover your product when they need it through two primary strategies: organic search/SEO and product virality.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/18e87de3-246f-483b-a65a-3a10784e56ba_1600x799.png" /></p>
+<p>Snyk, for example, does a fantastic job of attracting high-intent users through free sidecar products like <a href="https://snyk.io/advisor/">Snyk Advisor</a> and <a href="https://security.snyk.io/">Snyk Vulnerability Database</a>. The Advisor product is an ungated resource to search and compare from more than a million open source packages. The product attracts—and provides tangible value to—security-conscious developers, and provides a compelling call-to-action to sign up for Snyk’s free version. (Former VP of PLG Ben Williams shared an in-depth case study in his <a href="https://www.plg.news/p/a-look-inside-snyks-biggest-growth">Product-Led Geek newsletter</a>.)</p>
+<h4>d. Pricing and packaging</h4>
+<p>Free products need to walk a tightrope between letting users try before they buy and having a compelling reason to pay. Founders and operators regularly debate what the best way to achieve this balance is: freemium or free trial?</p>
+<p>I won’t dwell on the trade-offs between these two approaches. But I will suggest you contemplate a third option, the reverse trial. Popularized by growth leader Elena Verna (<a href="https://amplitude.com/blog/reverse-trial">she has a great run-down here</a>), reverse trials give new users access to a free trial of the premium product, then downgrade users to the fully free version if the user chooses not to upgrade.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/65c0d08d-f822-4bcf-b240-7ad5bdc487ce_8000x6552.png" /></p>
+<p>Reverse trials are a relatively new phenomenon—only 5% of respondents had one. The early data shows that there’s a solid conversion benefit. Reverse-trial businesses convert at twice the rate of classic freemium while maintaining a similar sign-up rate.</p>
+<p>Reverse-trial examples include up-and-coming PLG darlings like <a href="https://krisp.ai/pricing/">Krisp</a> and <a href="https://coefficient.io/pricing">Coefficient</a>. My personal favorite case study is Airtable, the low-code/no-code app builder.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/661df342-763e-4f35-9302-40c69eeb2051_1213x775.png" /></p>
+<p>Airtable lets new users try the Pro plan for free for the first 14 days. This plan offers powerful app-building features such as extensions, granular interface permissions, and up to 50,000 records per base. If the user isn’t ready to buy, they have the space and time to stay on the free plan. There are ongoing opportunities to convert these users when they click on a call-to-action in the product, run into a usage paywall, or encounter a feature gate.</p>
+<p>I profiled <a href="https://kylepoyar.substack.com/p/your-guide-to-reverse-trials">Airtable’s reverse-trial approach</a> with Lauryn Isford, the former Head of Growth (and <a href="https://www.lennyspodcast.com/mastering-onboarding-lauryn-isford-head-of-growth-at-airtable/">Lenny had her on his podcast talking about this as well</a>). From Lauryn’s perspective, there’s a lot to like about a reverse trial—and she thinks they’re becoming more common. “The reverse trial provides space upfront to explore the full potential of the product, but also keeps the door open for you to nurture your relationship with users over a longer time horizon,” she told me.</p>
+<p>Other <a href="https://kylepoyar.substack.com/p/your-guide-to-plg-pricing-201">pricing and packaging tips</a> to drive conversion:</p>
+<ul>
+<li><strong>Don’t ignore the admin experience of PLG pricing and billing.</strong> Admins struggle with billing, budgeting, and feeling like they’re in control of their spend.</li>
+<li><strong>Design pricing around team or higher-value use cases, not individuals.</strong> Ideally, all of your plans should have the option of being used with multiple users in an organization.</li>
+<li><strong>Quantify the value of your features for different audiences.</strong> You can quantify the perceived value of your existing and roadmap features through ongoing willingness-to-pay surveys. <em>(Lenny has a <a href="https://www.lennysnewsletter.com/p/the-art-and-science-of-pricing-madhavan#details">great podcast with Madhavan Ramanujam</a> on this topic.)</em></li>
+</ul>
+<h3><strong>Final words of advice</strong></h3>
+<p>Improving conversion is unlikely to go out of style among product and growth teams. We hope you find this data useful as a way to benchmark your performance and gut-check how much room you have to continue to optimize.</p>
+<p>Remember that conversion is a team effort. It starts with attracting high-intent users, flows through to delivering real value in the product, and ends with personalized assistance from sales. When all of these motions are cranking, you’ll have a powerful monetization engine around your product.</p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://openviewpartners.com/2023-product-benchmarks/">2023 Product Benchmarks Report</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/freemium-trials-free">Freemium vs. trial</a> (Lenny’s Newsletter)</li>
+<li><a href="https://kylepoyar.substack.com/p/plg-and-sales-in-2023">How to combine PLG + sales</a> (Growth Unhinged)</li>
+<li><a href="https://www.appcues.com/blog/free-to-paid-conversion-strategies">9 strategies to convert free trial users into paying customers</a> (Appcues)</li>
+<li><a href="https://www.reforge.com/blog/the-hidden-fremium-advantage">The hidden freemium advantage</a> (Elena Verna)</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from What is good free-to-paid conversion" src="https://substack-post-media.s3.amazonaws.com/public/images/8638d278-ac01-4f28-b2c9-39f1dd6e4724_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and even <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What people are vibe coding (and actually using) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What people are vibe coding (and actually using)</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What people are vibe coding (and actually using)</div>
+    
+    <div class="article-meta">2025-07-08<span>·</span>4,656 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2C</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Everyone’s talking about <a href="https://www.lennysnewsletter.com/i/153296003/vibe-coding">vibe coding</a>, and how important it is to get your hands dirty by using the latest AI tools. But what are people building? And are these products useful, like for real? The answer is a resounding yes.</p>
+<p>I asked on <a href="https://x.com/lennysan/status/1938252382447845524">X</a>, <a href="https://www.linkedin.com/posts/lennyrachitsky_whats-a-producttool-you-vibe-coded-that-activity-7344093906420056064-PG_J?rcm=ACoAAABGvmoB4S920iEQfSFO_P91nw2wPqfPoic">LinkedIn</a>, and my subscriber Slack community: <strong>What’s a product or tool you vibe coded that you actually use regularly in your work or life? And what tool/platform did you use to build it?</strong></p>
+<p>The response was overwhelming: Within 24 hours, I got over 1,000 enthusiastic replies, ranging from a buzzer app that automatically answers apartment deliveries, to a hyper-personalized greeting card generator, to a workplace accomplishments tracker, to a daily newsletter to help you learn a new language, to the perfect playlist curator for your next festival road trip. Your stories opened up my mind to what’s possible, and even inspired me to vibe code a few new tools for myself, including this sweet <a href="https://project-youtube-podcast-title-and-thumbnail-previewer-348.magicpatterns.app">YouTube thumbnail preview tool</a>, <a href="https://tweet-punch-perfect-posts.lovable.app/">a tool to help me craft tweets for my podcast clips</a>, and the beginnings of a <a href="https://v0-lenny-s-book-mentions.vercel.app/">tracker of the most mentioned books by podcast guests</a> (data isn’t real yet).</p>
+<p>To nudge you forward on your own vibe-coding journey, I’ve pulled together over 50 of my favorite examples from everything you shared.</p>
+<p>As you’re reading through this list and wondering what to do, try opening up one of the AI tools (or a few at a time) and <strong>simply describe what you want in plain English</strong>, as if you were talking to a remote engineer. Then, iterate by describing what you want to change about what you see, as if you’re speaking with a remote engineer. You’ll be surprised by how far you’ll get.</p>
+<h4><strong>Some high-level takeaways from the stories you shared:</strong></h4>
+<ul>
+<li><strong>Cursor</strong>, <strong>Claude Code</strong>, <strong>Replit</strong>, and <strong>Lovable</strong> were your favorite vibe-coding tools, followed by v0, Bolt, and ChatGPT. Honorable mentions to Gemini, n8n, Zapier Agent, Warp, and Windsurf.</li>
+<li><strong>Almost no examples are alike.</strong> Everyone is solving their own hyper-specific problem (e.g. group drafting app for your multi-sports fantasy league), or exploring a random idea they (or their kids) suggested (e.g. a cats and sushi browser-based video game). Welcome to the era of n-of-1 personalized software.</li>
+<li><strong>You’re creating a lot of Chrome extensions.</strong> This makes sense—we spend most of our time in the browser.</li>
+<li><strong>Even though you’re solving your own problem, many of the products end up being used by tens/hundreds/thousands of other people.</strong> Excellent sign!</li>
+<li><strong>Women are vibe-coding like crazy.</strong> The male-female ratio in the responses is more balanced than in most tech conversations. Another excellent sign!</li>
+</ul>
+<p>Thank you to all 1,000+ of you who shared your stories 🙏</p>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/76fa567a-807e-450c-b3ed-3cbd5515fded_2912x1940.png" /></p>
+<h2><strong>Health, wellness, and style</strong></h2>
+<h3>Carb counter, by <a href="https://www.linkedin.com/in/morganb/">Morgan Brown</a> using Replit</h3>
+<blockquote>
+<p>“I built CarbScanto help manage my son’s diabetes and blood glucose levels with faster carb counting. I used Replit. Has become a daily go-to.” [<a href="https://carbscan.ai">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/d6282e81-3b18-46ca-918c-27036e3e3264_948x1242.png" /></p>
+<h3>Lash tracker, by <a href="https://x.com/jackiebo/">Jackie Bavaro</a> using Replit</h3>
+<blockquote>
+<p>“Every time I put on new eyelashes, I take a picture and record the styles and method used.” [<a href="https://lash-map-tracker.replit.app/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/65d03d29-dccb-40bb-a1d2-20f0d6b2a1d7_1170x1554.jpeg" /></p>
+<h3>How many layers should I wear today?, by <a href="https://x.com/vijithq/">Vijith Quadros</a> using Lovable</h3>
+<blockquote>
+<p>“I vibe coded this with Lovable and use it myself every single day. It’s grown to 85K users in total in nine months. Weather apps had too much clutter for simple daily clothing decisions.” [<a href="https://howmanylayersidag.se/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/0b593729-f3df-491d-a1d3-ad1f26f6c403_1218x1206.png" /></p>
+<h3>A “stupidly specific” workout app, by <a href="https://x.com/farazKhan404">Faraz Khan</a> using v0 and Claude Code</h3>
+<blockquote>
+<p>“I built a stupidly specific workout app for myself. It’s pretty gross and not for anyone else, but I love it. I was chatting with Claude about switching up my program, and I was about to ask it to format it into a table when I realized, ‘Wait, I’m in Claude and it can make Artifacts.’ Finally I ended up dumping the code into v0 to get it deployed.”</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/59c68d47-3073-42c2-8dac-58c70d8e3649_1206x2622.jpeg" /></p>
+<h3>Personalized meal plans based on what’s in your fridge, by <a href="https://www.linkedin.com/in/nickmarkman/">Nick Markman</a> using Lovable and Cursor</h3>
+<blockquote>
+<p>“I built a web app using Lovable, Supabase, and Cursor where you can upload photos of your fridge/pantry/receipts (or use voice) to detect ingredients you have at home, save to ‘inventory,’ and generate recipes using AI.</p>
+<p>It factors in the user’s set dietary preferences and input of how strict/flexible recipes should be with using what you have in inventory vs. things you need to buy. It also auto-generates a shopping list for ingredients you need to buy for selected recipes.” [<a href="https://mealmuse.ai/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/379572df-f331-438d-a5c4-65f903468223_1232x817.png" /></p>
+<h3>Find out what’s blocking your flow, by <a href="https://x.com/su_dreams">Su</a> using Bolt</h3>
+<blockquote>
+<p>“Flowbound is an app that gives me games/exercises to do when I find myself procrastinating on something (which is often).” [<a href="https://www.flowbound.app/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/eb71a55a-c353-43db-a7fe-10521f5062a9_2744x1572.png" /></p>
+<h3>Pickleball games tracker, by <a href="https://www.linkedin.com/in/jolibois/">Jacob Jolibois</a> using Replit</h3>
+<blockquote>
+<p>“I (and users from all across the U.S.) use Paddles.ai to track and analyze my pickleball matches. Vibe coded and deployed on Replit.” [<a href="https://www.paddles.ai/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/78e1289e-bbf7-410b-82a2-f31d9fa68ec7_2334x1514.png" /></p>
+<h3>Nicotine pouch tracker, by <a href="https://x.com/thatchhh">Thatcher</a>using Cursor</h3>
+<blockquote>
+<p>“I have no coding background and vibe coded this as my first app with Cursor/Xcode + SwiftUI. It helps you taper off high nicotine usage. It’s sticky until you’re ready to quit. Took a month to launch. Recently redesigned from scratch in a couple days.” [<a href="https://apps.apple.com/us/app/nicotine-pouch-tracker-pouched/id6740014859?itscg=30200&amp;itsct=apps_box_link&amp;mttnsubad=6740014859">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/f991d2c3-d9d0-437c-9064-633590516c80_2018x890.png" /></p>
+<h2><strong>Parenting and family</strong></h2>
+<h3>Create stories by dragging emoji into a pot, by <a href="https://x.com/akshanish">Akshan Ish</a> using Replit</h3>
+<blockquote>
+<p>“I built Storypot entirely on Replit for my kid. Other kids and parents also seem to like it. We and 60-odd families use it frequently.” [<a href="https://app.thestorypot.com">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/ed3382a3-6665-4cb6-9fb1-314ecfafedc6_1438x1542.png" /></p>
+<h3>Teach your kids budgeting and savings, by <a href="https://x.com/sanjeevn72">Sanjeev Nair</a> using Claude Code</h3>
+<blockquote>
+<p>“I built a simple app using Claude Code to help my kids figure out expense planning and saving when in college. Great value add considering it’s a tough topic for parents to make teenagers focus/lean toward.” [<a href="https://claude.ai/public/artifacts/f4a86536-5062-4570-a8ef-5a93e6bf671f">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/05d41378-fb22-40b1-a571-18c82cc1d30a_2452x1496.png" /></p>
+<h3>Turn family photos into videos, by <a href="https://www.linkedin.com/in/oren-saban/">Oren Saban</a> using Lovable and Bolt</h3>
+<blockquote>
+<p>“I built Timeless Memories with Lovable, which is pretty insane to think such a complex app can be built with that. And all my friends have used it already.</p>
+<p>I also built a logo animator with Bolt that uses the GSAP library to animate our logo in cool ways, for different onboarding experiences.” [<a href="https://timelessmemories.me/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/d7d22a0c-6d6f-4d7c-bb66-29021065c43e_2724x1648.png" /></p>
+<h3>Baby care tracking, by <a href="https://x.com/hah_vee_AIR">Javier Evelyn</a> using Lovable</h3>
+<blockquote>
+<p>“I’m a new dad, and while waiting for the little one to arrive, I started tinkering around with Lovable. I built My Baby Logger over two weekends. Tracks feedings, sleep, diapers, and meds. It’s been helpful for us.” [<a href="https://mybabylogger.com">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/639f4c9b-bed2-45a6-b9b4-e85212f46163_947x2048.jpeg" /></p>
+<h3>A chore app for kids, by <a href="https://x.com/benogren">Ben Ogren</a> using v0 and Claude Code</h3>
+<blockquote>
+<p>“I built a chores app for my kids. It’s my first iOS app! I started with v0 but quickly moved off it and started using Claude to help me through areas where I got stuck.” [<a href="https://www.chores-ai.com/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/99a5a0c6-5f7e-47fd-a724-381c01d30aee_2532x1384.png" /></p>
+<h3>A bedtime storytelling app, by <a href="https://www.linkedin.com/in/harshitha-p-991776149/">Harshitha P.</a> using Bolt</h3>
+<blockquote>
+<p>“I built this for parents, and now I use it every night. It’s a bedtime storytelling ritual that turns your daily emotions into personalized stories for your child. You reflect, drop a ‘pebble’ or plant a ‘story seed,’ and the app creates a calming, age-appropriate story shaped by what’s on your heart. I built it solo in Bolt + Supabase<strong>,</strong> and what started as a side project became my nightly parenting ritual.” [<a href="https://stories-of-life.vercel.app/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/1a234757-3dcf-42ca-ba49-05ef2da2109c_2394x1564.png" /></p>
+<h3>Personalized greeting card generator, by <a href="https://x.com/bobsheth">Bob Sheth</a> using Cursor, Windsurf, and Claude Code</h3>
+<blockquote>
+<p>“I vibe coded an AI greeting card generator, and send everyone I know these hyper-personalised cards.” [<a href="https://jenicards.com/cards">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Card Main" src="https://substack-post-media.s3.amazonaws.com/public/images/4e8b6997-956b-483b-a66c-0b5f2e54200c_1024x1536.png" /></p>
+<h2><strong>Work productivity</strong></h2>
+<h3>Meeting prep automation, by <a href="https://x.com/mar15sa">Marissa Goldberg</a> using Zapier Agent</h3>
+<blockquote>
+<p>“It checks my calendar each morning, identifies who I’m meeting with, and compiles everything I need to show up prepared.” [<a href="https://ideakitchen.substack.com/p/ai-recipe-create-your-own-meeting">Here’s how to build it</a>]</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/684d2aaf-9d45-4a50-817e-e5276673b17c_1200x734.jpeg" /></p>
+<h3>A standup order randomizer, by <a href="https://www.linkedin.com/in/robbalderstone/">Rob Balderstone</a> using Lovable</h3>
+<blockquote>
+<p>“I use this daily at work.” [<a href="https://standup-buddy.lovable.app/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/decb63ea-31f3-45fa-855a-9a61d0ddbfd8_1318x1032.png" /></p>
+<h3>Chrome extension to share your availability, by <a href="https://www.linkedin.com/in/alionavozna/">Olena Vozna</a> using Replit</h3>
+<blockquote>
+<p>“A Chrome extension that adds my availability to emails in natural, human-style language. It also analyzes suggested times from others, picks the best one, and books the meeting. İt learns my meeting habits to recommend the most suitable slots.</p>
+<p>Then, a Slack app for team scheduling that uses the same core algorithm. It learns everyone’s preferences and finds the best time when I type something like <em>Schedule a 45-minute call with Mary and Jane this week.</em> Or <em>Schedule a focus time for me today. I need 2 hours.</em> Both were built with Replit.”</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/e8c97ef4-9643-4aae-8fdf-406e933e82c5_1176x360.png" /></p>
+<h3>A time tracking app, by <a href="https://x.com/asifkabeer">Asif</a> using Warp.dev</h3>
+<blockquote>
+<p>“I built a time tracking app with Warp.dev. All done in a day.” [<a href="https://time.wisdemic.com/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/195271f4-ec45-4682-b97e-fdce3140d986_889x646.png" /></p>
+<h3>Inbox focus tool, by <a href="https://www.linkedin.com/in/kleinari/">Ari Klein</a> using Gemini</h3>
+<blockquote>
+<p>“I built a Gmail add-on that doesn’t let my inbox hijack my day or steal my attention. I use it every day. It holds my inbound email and delivers it to my inbox on a schedule I set (e.g. 10 a.m. and 3 p.m.) but still lets important emails through right away if they match certain VIP keywords (e.g. verification code), VIP domains (e.g. my-kid’s-school.org), or VIP email addresses (e.g. wife@gmail.com). Built with Gemini.”</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/68d7b391-b68e-409d-bee8-371b17eae1a0_1280x1059.jpeg" /></p>
+<h3>Accomplishments tracker to showcase your wins at work, by <a href="https://www.linkedin.com/in/kevinkandco/">Kevin Kirkpatrick</a> using Lovable</h3>
+<blockquote>
+<p>“Built this for myself because I hate updating my resume, and I think other people hate it too. Built it with Lovable and I use it weekly to track what I’ve accomplished.” [<a href="https://www.goaccomplishit.com/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/274b84bb-9721-47ea-90f9-b3e3cceb2c4b_2032x1584.png" /></p>
+<h2><strong>Personal productivity</strong></h2>
+<h3>Automatically answers your apartment buzzer calls, by <a href="https://www.linkedin.com/in/darrenrulofs/">Darren Rulofs</a> using Bolt and Cursor</h3>
+<blockquote>
+<p>“I built Buzzerbee using Bolt and Cursor. It automatically answers your apartment buzzer calls based on the access rules and schedules you set in the app. I’ve been using it daily, and others have been joining as well. Turns out people don’t like missing deliveries!” [<a href="https://buzzerbee.app/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/ced5b879-9a10-4bbe-b164-c52157ad6f05_2368x1346.png" /></p>
+<h3>Bill splitter, by <a href="https://www.linkedin.com/in/shashikirandevadiga/">Shashikiran Devadiga</a> using Lovable</h3>
+<blockquote>
+<p>“My one-screen, tip-first bill splitter. Whenever friends float dinner plans, I plug in the menu subtotal, head count, pick the state, and nudge the tip slider. In two seconds, I see each person’s final after-tax share—something Splitwise can’t show until the check arrives. It’s become my quick ‘Can I afford this outing?’ filter and saves the awkward math at the table. And I built it using Lovable dev + Unicorn Studio.” [<a href="https://my-bill-split-project.lovable.app">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/555d915a-a3ae-475f-9ef8-3762b811ca94_1592x1228.png" /></p>
+<h3>A personalized restaurant recommendation app for friends, by <a href="https://www.linkedin.com/in/lani-young/">Lani Young</a> using Replit</h3>
+<blockquote>
+<p>“I used Replit to bring to life something I’ve always wanted to build: a restaurant recommendation site for my friends to give them a curated restaurant recommendation based on what they are looking for in a specific meal/experience. It’s a combo of a database, RAG, and natural language chat with an LLM. Right now, it’s only Denver-based, but aiming to fill that gap between Yelp (too much junk/can’t trust the recommendation) and trying to find a new place.” [<a href="https://www.curated.now">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/1dd2495d-41dd-4a88-a6ce-8f3964dc12e9_2440x1496.png" /></p>
+<h2><strong>Personal development</strong></h2>
+<h3>Conversation intelligence, by <a href="https://x.com/peternixey/status/1938537295763636456">Peter Nixey</a> using Claude Code</h3>
+<blockquote>
+<p>“This lets you paste in the transcript from a call and gives you a breakdown of what you did well and what you can improve on. I just used Claude Code. It’s surprisingly powerful.” [<a href="https://claude.ai/public/artifacts/cf207ca7-a35a-42e6-8843-3d5edcccf9f8">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/f2375201-609e-42dd-ba31-7118e00cf57a_2302x1378.png" /></p>
+<h3>Daily newsletter to help you learn a language, by <a href="https://www.linkedin.com/in/dustincoates/">Dustin Coates</a> using v0</h3>
+<blockquote>
+<p>“I created a daily newsletter (with an audience of 1) that emails me every day at lunchtime:</p>
+<ul>
+<li>A story in the language I’m learning, geared toward my beginner level. The story is about something that happened on that day in history, generated by Gemini.</li>
+<li>A list of vocabulary from that day’s story</li>
+<li>A short grammar lesson from that day’s story</li>
+</ul>
+<p>I tried Replit, Bolt, Gemini, and v0, and v0 came out with the best newsletter design. Then I had v0 also create the script for running the email (via Resend) and a script for packaging the code to upload to Lambda.”</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/3554a0a7-df44-4412-9a31-6424f290f877_3000x2078.png" /></p>
+<h3>Talk to an AI about your day, by <a href="https://x.com/alxmthew">Alex Mathew</a> using Replit</h3>
+<blockquote>
+<p>“I built an app that lets you talk to an AI about your day-to-day problems. Used Replit.” [<a href="https://talk.berryplush.com/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/0ea5d188-f881-4dd8-b89a-5f91fa460ff0_1200x767.jpeg" /></p>
+<h2><strong>Music</strong></h2>
+<h3>Curate the perfect playlist for your next festival road trip, by <a href="https://www.linkedin.com/in/steven-newstead-33547414/">Steven Newstead</a> using v0 and Cursor</h3>
+<blockquote>
+<p>“I made a website to help with artist discovery for UK festivals. I use it to quickly generate playlists. I wouldn’t say it’s widely used beyond a handful of people. But it’s quite decent. I used Cursor and backed by Supabase for Spotify authentication. Currently all running on free tier infrastructure.” [<a href="https://www.fyredrill.dev/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/0d2effae-ed91-4377-9d2b-cf5ed6a03827_1980x1670.png" /></p>
+<h3>A music production tool to inspire new ideas, by <a href="https://www.linkedin.com/in/scottkorchinski/">Scott Korchinski</a> using v0 and Cursor</h3>
+<blockquote>
+<p>“I made this music production tool the first week we got the Lenny AI bundle, with 90% v0 and 10% Cursor. I think it took three days from idea to shipping. I use it weekly just to get inspired for new musical ideas. Hotjar shows a handful of users per week, too!” [<a href="https://splintr.dreamgazeraudio.com/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/5d8659fb-2d0f-4a65-b8a2-a494423ee67d_2270x1676.png" /></p>
+<h2><strong>Other/Fun</strong></h2>
+<h3>An RPG game, by <a href="https://www.jeankaddour.com/">Jean Kaddour</a> using Cursor</h3>
+<blockquote>
+<p>“I love RPG games and was looking for an online, AI-based RPG game so I can play without friends around. I then vibe coded Rehearsal—a browser game where you have 10 minutes to convince an AI character. For example, to convince a hostage taker to release hostages, or convince a broke flatmate to pay his share of rent. I used Cursor (Sonnet 3.7) + Next.js. I built a first version in a day. Since then, both my g.f. and I are addicted to it and play daily.” [<a href="https://rehearsal.so/">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/7fa3101a-b327-4d34-9ea0-39d84284d6e1_2492x1684.png" /></p>
+<h3>Immigration document manager, by <a href="https://x.com/sreeenidhi">Shree</a> using v0</h3>
+<blockquote>
+<p>“Immigrants from India and China have a 10- to 20-year journey where you have to file something every couple of years. VisaMonkey keeps all your immigration-related documents in one place so you can find the information you are looking for quickly instead of searching through mountains of documents. It’s also useful to fill out forms.” [<a href="https://visamonkey.com">Check it out</a>]</p>
+</blockquote>
+<p><img alt="Image from What people are vibe coding (and actually using)" src="https://substack-post-media.s3.amazonaws.com/public/images/95a40999-7c78-4d19-8302-26b5964154f9_2602x1690.png" /></p>
+<h3><strong>Have you vibe coded something that you use regularly? Share a link (and what you used to build it) in the comments to inspire others on their journey. 👇</strong></h3>
+<p><a href="https://www.lennysnewsletter.com/p/what-people-are-vibe-coding-and-actually/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h3>Bonus: Even more inspiration</h3>
+<p>So many people shared so many great examples, I couldn’t help but include more of them. Skim this whenever you’re looking for inspiration:</p>
+<ol>
+<li>“My 11-year-old just started her summer vacation and was getting bored, so I made her a Replit account and asked her to build a game. A few hours later, voila! She combined her two favorite things—cats and sushi—to make this game 😀. <a href="https://sushi-cat-chef-c3913136.replit.app/">Enjoy the game</a>.” —<a href="https://www.linkedin.com/in/amitmurumkar/">Amit Murumkar</a></li>
+<li>“I created a tool that alerts me when one of around 360 healthcare payers updates their policies.” —<a href="https://x.com/StevenPWalsh">Steven P. Walsh</a></li>
+<li>“I’m a new mom, and I coded an app that helps me <a href="https://rama-milk-monitor.lovable.app">track how much milk</a> I’ve fed my son (vs. target quantity for his weight). I had been doing math in my head, but this app makes it so easy, and I made it in five minutes on Lovable using just two prompts!” —<a href="https://www.linkedin.com/in/shilpa-rajgopal/">Shilpa Cromer</a></li>
+<li>“A Chrome extension that lets me right-click to open an article behind a paywall.” —<a href="https://www.linkedin.com/in/vhturner/">Vincent Turner</a></li>
+<li>“A Bible study app that uses AI to generate daily bible study guides, declaration, God-said quotes across different themes. I use it daily. Built with Lovable and connected to OpenAI.” —<a href="https://www.linkedin.com/in/princess-edo-osagie/">Princess (Ebiboye Adesuwa) Edo-Osagie</a></li>
+<li>“I built <a href="https://www.trove.dad/">Trove Dad</a> in Cursor while on paternity leave with my newborn. I’m helping new dads like myself preserve more core memories with their kids through a prompted journal of fatherhood that converts into a baby book.” —<a href="https://x.com/JohnStoneBlog">John Stone</a></li>
+<li>“I created a <a href="https://reston-nayeemrahman13.replit.app/signin">voice AI therapy journal</a> for my sessions with my therapist using Replit Agent + the OpenAI Realtime API.” —<a href="https://www.linkedin.com/in/nayeemrahman13/">Nayeem Rahman</a></li>
+<li>“In the past few months, I’ve created some custom Figma plugins to help me with design system work: exporting Figma variables to tokens to work with our frontend component repo, and swapping component styling from one design system to another to migrate legacy Figma files to a newer design system. I’m a designer, and I used Cursor + ChatGPT. The ability to quickly spin up Figma plugins for niche uses is a game changer!” —<a href="https://www.linkedin.com/in/kayt-wilson-4973b350/">Kayt (Campbell) Wilson</a></li>
+<li>“Not a product per se, but I vibe coded our backend systems across Women Defining AI to help us centralize member management—auto sync to Mailchimp and Slack, and help us auto-approve registrations to Luma events using the member list.” —<a href="https://www.linkedin.com/in/helenleekupp/">Helen Lee Kupp</a></li>
+<li>“I built a tool for our agency that reads AI summaries of meetings and creates tasks and puts them on calendars. We love it. Used Lovable/Supabase/Vercel.” —<a href="https://x.com/ACEdge">Alan Edgett</a></li>
+<li>“Made an app for myself called Frens Circle super-quickly with Lovable. Now I find myself using it regularly. Basically let me save my best friends’ birthdays, their favourite artists, and it sends me a reminder if I haven’t messaged them in a week. —<a href="https://x.com/arunphilips">Arun Philips</a></li>
+<li>“I created <a href="https://taupe-cassata-525706.netlify.app/">this game</a> for my 7-year-old, and he’s been enjoying it. There are plenty of games and apps out there for learning English, but I wanted to build something that would be customized for him. Built with Bolt.” —<a href="https://www.linkedin.com/in/daniel-orsher-60008a4/">Daniel Orsher</a></li>
+<li>“I made a handy tool for conferences and networking events. I built initially with v0 and dabbled with Claude Code and Cursor as well.” —<a href="https://x.com/kvlly">Kelly Vaughn</a></li>
+<li>“Helping my father-in-law write his book. Made a scene inventory tool that’s been incredibly useful. Claude Code CLI.” —<a href="https://x.com/jasonacurry">Jason Curry</a></li>
+<li>“I built a workout motivation app in under 15 minutes using Lovable. It pings me every two days to do my strength training, drops mobile notifications every couple of hours till I get it done, integrated YouTube workout video, barbell weight progress log, workout tracker. Completely personalised for me and my current fitness goals 👌” —<a href="https://www.linkedin.com/in/emma-gordon-product/">Emma Gordon</a></li>
+<li>“Built a voice-based workout tracker to log my lifts so I don’t have to type anymore. A few weeks ago, opened it up for others to try, and we’re seeing some small early traction.” —<a href="https://x.com/omarganai">Omar Ganai</a></li>
+<li>“Something to generate Anki flashcards for my son learning German. From PDF file of words to learn to a series of flashcards with pronunciation of each word.” —<a href="https://www.linkedin.com/in/fffej/">Jeff Foster</a></li>
+<li>“I built a time audit tool using Replit to track how and where I spend my time. I also use this to compare if the actual activity list is as per the planned one. Another tool built with Replit to track my energy levels during the day to optimize for when I should schedule certain types of activities for best outcomes.” —<a href="https://www.linkedin.com/in/venkyvchari/">Venkatesh Varadachari</a></li>
+<li>“Dashboard a monitor at work that shows 5-star App Store ratings (ingests webhooks from Appbot), built on Replit. Also have a script that runs in our Slack channels daily and notifies folks who is on-call/when handoffs happen—Claude + Google App Script.” —<a href="https://x.com/callmemabie">Ian Mabie</a></li>
+<li>“Calories tracker, with voice mode into Kcal estimate and suggestion for the rest of the day.” —<a href="https://x.com/gpt4thier">Gpt4thier</a></li>
+<li>“I asked ChatGPT to code me a very simple PDF viewer with a zoom function. That’s my main PDF tool now.” —<a href="https://x.com/Eldenofthering">Gary</a></li>
+<li>“<a href="https://vivekaithal.co/llm-tools/tool/vid2gif.html">A fully local video-to-GIF converter</a>. I was tired of sketchy, buggy websites. Built by Claude Code.” —<a href="https://x.com/nuwandavek">Vivek Aithal</a></li>
+<li>“Built <a href="https://www.decidedforme.com/">a restaurant picker</a> to combat those never-ending ‘What do you wanna eat? Anything, you decide. No, you decide. . .’ situations.” —<a href="https://www.linkedin.com/in/adi-komari/">Adi Komari</a></li>
+<li>“I coded my <a href="https://apps.apple.com/us/app/battery-lens/id6466673198">Mac App ‘Battery Lens’</a> in Swift with Code using ChatGPT and a bit of Claude. I wanted a hands-free indicator of how much battery I had left on my laptop, so on a configurable basis, it will overlay that on the screen without your having to do anything.” —<a href="https://x.com/thomas_quinlan">Thomas J. Quinlan</a></li>
+<li>“Built for fun to <a href="https://barbell.pages.dev">easily track different plate/weight combos for workouts</a>. Using Cursor + Gemini Pro.” —<a href="https://x.com/adocomplete">Ado</a></li>
+<li>“I am making a simple mobile page to act as a handover between me and the nanny for my son. The goal is to pass on information like what medicines to give and when, what food to give, and photos of any moments worth capturing. Not for commercial use. Just for daily use for myself. Used Lovable and Cursor.” —<a href="https://x.com/vipulawl">Vipul Agarwal</a></li>
+<li>“I built a group drafting app for a multi-sports fantasy league that my friend has been running offline for 15 years. We did the MLB draft, fully automated across the pool of GMs (snake draft, not auction). We’ll add the other pro sports leagues soon. NFL drafting is coming up. Using Lovable + Supabase.”</li>
+<li>“I built a sales leaderboard. Tracks top performers, core metrics, and any offer communication. Used Lovable.” —<a href="https://www.linkedin.com/in/siddhant-jain-881942147/">Siddhant Jain</a></li>
+<li>“I have a friend who homeschools, and they vibe code learning games for their kid.” —<a href="https://www.linkedin.com/in/pricejeffreym/">Jeffrey Price</a></li>
+<li>“I built <a href="https://date-dot-tracker.lovable.app/welcome">a personal date tracker app</a> for different types of recurring commitments—like prepaid swim classes (need to track remaining sessions), flexible hair appointments, house cleaning schedules, etc. Used Lovable to build it and honestly use it multiple times a week. I’m still iterating based on my own usage patterns.” —<a href="https://www.linkedin.com/in/archanac42/">Archana C.</a></li>
+</ol>
+<p><strong>Have you vibe coded something that you use regularly? Share a link (and what you used to build it) in the comments to inspire others on their journey. 👇</strong></p>
+<p><a href="https://www.lennysnewsletter.com/p/what-people-are-vibe-coding-and-actually/comments">Leave a comment</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

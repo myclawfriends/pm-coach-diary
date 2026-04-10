@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How GiveDirectly increased donations by over $3 million/year through experimentation — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How GiveDirectly increased donations by over $3 mi…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How GiveDirectly increased donations by over $3 million/year through experimentation</div>
+    
+    <div class="article-meta">2024-12-03<span>·</span>3,474 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Happy Giving Tuesday! Today is the biggest donation day of the year, and, to celebrate, I’m sharing a unique and inspiring guest post by the team at GiveDirectly, a nonprofit that sends cash directly to people in need.</p>
+<p><strong>I’m a huge fan of the work they do, so I’m <a href="https://www.givedirectly.org/lenny/">also kicking off a campaign through GiveDirectly to raise $100,000</a> to bring a rural village in Kenya out of poverty.</strong> All donations made to this campaign today, on December 3rd, 2024, will be <em>doubled</em> thanks to an anonymous donor matching pool (while funds last).</p>
+<p><a href="https://www.givedirectly.org/lenny/">Donate now</a></p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/267860f2-f535-4639-8b33-c5fa717c3d26_1600x900.jpeg" /></p>
+<p>Your donations will help all 157 families in a village in Baringo, one of the poorest regions in Kenya. Each family will receive about $850 via digital transfer to spend and invest how they see fit. People living on about $1 a day know what they need, and they spend donations on things like eating more than once per day, sending kids back to school, starting a small business, seeing a doctor, and “simple” stuff like buying their first mattress. For less than half the cost of the average month’s rent in the Bay Area, you can give an entire family a life-changing opportunity.</p>
+<p><a href="https://www.givedirectly.org/lenny/">Donate now</a></p>
+<p>Here’s the story of Rose and her family:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/42517880-369c-4c4b-8753-99c3f79ff6f7_1600x900.jpeg" /></p>
+<blockquote>
+<p>“With three children, no job, and divorced, I take on any manual work I can find to put food on the table. Some days, I wash clothes for other people, other days I gather firewood for restaurants at the local town center, and sometimes I fish to earn a living. When there’s absolutely nothing, I go to the lake, catch some fish, and prepare it for supper with my kids.</p>
+<p>I see the cash transfers from GiveDirectly as a real turning point for me. I plan to open a small retail shop to sell fast-moving goods, giving me a steady income and, hopefully, putting an end to the income uncertainties. I also plan to buy livestock, which I can raise and eventually sell at a profit.” —<strong>Rose in Kenya</strong></p>
+</blockquote>
+<p><a href="https://www.givedirectly.org/lenny/">Donate now</a></p>
+<p>Here’s the GiveDirectly team on the benefits of a cash-based donation approach—which I love:</p>
+<ol>
+<li>
+<p><em><strong>Cash works.</strong> It’s among the most data-driven ways to help (<a href="https://www.givedirectly.org/research-on-cash-transfers/">more than 500 academic studies</a>—basically A/B tests for charity interventions), and GiveDirectly is building this evidence base by running the <a href="https://www.givedirectly.org/2023-ubi-results/">world’s largest UBI study</a>, among other research.</em></p>
+</li>
+<li>
+<p><em>It’s proven to work in some ways you might expect—e.g. income, psychological well-being, food security, entrepreneurship, education boosts.</em></p>
+</li>
+<li><em>And some you might not—e.g. improvement in gender equity, reduction in domestic violence, reduction in alcohol and drug use.</em></li>
+<li>
+<p><em><strong>It’s tech-enabled.</strong> Donations are sent directly to families in extreme poverty via mobile money technology, making it more scalable than other poverty solutions.</em></p>
+</li>
+<li>
+<p><em>It also lends itself to innovative approaches, e.g. <a href="https://www.givedirectly.org/hurricane-relief-2022/">using AI for targeting</a> to deliver emergency cash faster or even <a href="https://www.givedirectly.org/flood-pilots/">before disasters</a>.</em></p>
+</li>
+<li><em><strong>It’s respectful and anti-paternalistic.</strong> Too often, “experts” have said people in poverty need <a href="https://www.theverge.com/2018/4/16/17233946/olpcs-100-laptop-education-where-is-it-now?_hsenc=p2ANqtz-8xaRn9Gvc8DDjisHc2gr13NE60xo1Xe5aYwrKoXUhAdWD-SRCsNvwXZo0dqNqNhv1_6joF">laptops</a>, <a href="https://www.theguardian.com/commentisfree/2009/nov/24/africa-charity-water-pumps-roundabouts?_hsenc=p2ANqtz-8xaRn9Gvc8DDjisHc2gr13NE60xo1Xe5aYwrKoXUhAdWD-SRCsNvwXZo0dqNqNhv1_6joF">water pumps</a>, or <a href="https://www.vox.com/the-big-idea/2017/3/14/14914996/bill-gates-chickens-cash-africa-poor-development?_hsenc=p2ANqtz-8xaRn9Gvc8DDjisHc2gr13NE60xo1Xe5aYwrKoXUhAdWD-SRCsNvwXZo0dqNqNhv1_6joF">chickens</a>—top-down decisions that haven’t worked. Rather than <a href="https://twitter.com/GiveDirectly/status/1630212646346653696">“teaching a man to fish,”</a> consider that often people know how to fish but cannot afford the boat. They want to sell cassava, say, or go back to school.</em></li>
+<li><em><strong>It’s simple.</strong> Sometimes people who don’t have money just need money!</em></li>
+</ol>
+<p>My goal is to raise $100,000 and bring this village in Baringo out of poverty. Help me make this dream a reality.</p>
+<p><a href="https://www.givedirectly.org/lenny/">Donate now</a></p>
+<p><em>All donations are tax-deductible in the United States. GiveDirectly accepts all major credit and debit cards, PayPal, checks, wires, stocks, cryptocurrencies, and more.</em></p>
+<p>Now, on to today’s post. . .</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/4439d043-afa3-47cc-a73d-987893fb66f1_4000x2000.png" /></p>
+<p>Charities aren’t known for being the most tech-forward. Most nonprofit donation flows look like this:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/fd734d0a-9168-4542-b16a-fc694fc9c4f4_884x1600.png" /></p>
+<p>At <a href="https://www.givedirectly.org/">GiveDirectly</a>, we asked: What would a better online donation experience look like? After only one year of experimenting with this one critical flow, we’ve raised $3 million more in incremental donations <em>per year</em>—meaning that about 3,000 more families in extreme poverty receive a life-changing cash transfer every year going forward.</p>
+<p>In your own product—nonprofit or not—you can apply the same strategy. Here are the experiments that worked for us (and some that didn’t) that you can try to optimize your own funnel:</p>
+<h2><strong>Tiny changes can add up to a big difference</strong></h2>
+<h4><strong>1. 💳 Adding one-click PayPal and mobile wallet checkout options raised an incremental $1.3M per year (a 14% increase in online donations!)</strong></h4>
+<p>Donors often don’t have their payment information handy, so we wanted to reduce the number of steps to complete a donation by adding an express PayPal option, Apple Pay, and Google Pay at the top of the checkout page.</p>
+<p>Not only did this make it easier to pay, but we didn’t have to ask for the donor’s name and email address, since we get their info directly from PayPal or the mobile wallet. We also think these brands help serve as a trust signal to donors; 20% of our online donations are now made through Apple or Google Pay.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/39e91c97-981a-4c86-ac7e-dd967f79fab0_1530x1032.png" /></p>
+<p>We learned that adding more payment options gives donors the flexibility to use their preferred method, too. For example, adding ACH direct debit was helpful for donors giving bigger donations, providing an easier alternative to mailing a check <em>and</em> helping us save on transaction fees (the ACH fee is capped at $5, while credit card fees are about 2%). We estimate this saves <strong>$50,000</strong> per year in fees alone.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/2b72820e-5c4a-433b-9a9f-5063dc47c38a_706x1094.png" /></p>
+<h4><strong>2. 📧 Tweaking the copy asking donors to opt in to emails doubled the subscription rate, driving an incremental $400,000 a year</strong></h4>
+<p>Email is our primary channel for telling donors about our work and asking them to give, so it’s crucial to maximize the number of donors who subscribe. Historically, only 25% of donors opted in to emails during checkout. After we changed the checkbox copy to be up front about how many emails they should expect to get and why they should subscribe, the share of donors who subscribed more than <strong>doubled</strong> to 55%:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/e5c5c850-6b8d-4be3-969b-073cebe6b5fe_1600x660.png" /></p>
+<p>While there’s some selection bias in donors who choose to opt in, those who subscribe retain two to three times as long as donors who don’t. We conservatively estimate that the increase in donor email subscription rate drives <strong>$400,000 a year</strong>.</p>
+<h2><strong>If a test fails initially, try a second version</strong></h2>
+<h4><strong>3. 🗓️ Encouraging monthly donations drove an incremental $500,000 a year</strong></h4>
+<p>We estimate that the average lifetime value of a recurring GiveDirectly donor is <strong>12 times</strong> that of a one-time donor, so we wanted to test ways to prompt more people to start a monthly donation.</p>
+<p>❌ <strong>Didn’t work:</strong> We tried showing a modal asking people to switch to a monthly donation of $X/12 after they started a one-time donation of $X:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/2cd8ace6-5afc-4035-94b3-fc1d03305ee5_1270x800.png" /></p>
+<p>This made people seven times as likely to start a monthly donation, but one-time donation conversion decreased by 10%—likely due to the added friction of the extra step. The increase in monthly gifts wasn’t enough to compensate for the decrease in one-time gifts.</p>
+<p>✅ <strong>Worked:</strong> We tested simply setting the default donation frequency to be monthly instead of one-time:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/dbe72e53-b768-4bb6-a741-6cc11be53b5b_1380x726.png" /></p>
+<p>One-time donations still decreased slightly, but the lifetime value of the increased monthly donations outweighed the one-time donation decrease in this iteration. Smart defaults FTW!</p>
+<h4><strong>4. 💸 Asking donors to cover transaction fees raised an extra $200,000 a year</strong></h4>
+<p>We pay around $400,000 in payment transaction fees per year—that could go to life-changing cash transfers for 400 more families in poverty. We wanted to see if donors would be willing to help cover some of these costs.</p>
+<p>❌ <strong>Didn’t work:</strong> We added a checkbox for donors to cover the payment processing fees for their donation, with the checkbox <strong>checked</strong> by default:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/af3e7619-bf5d-41c2-98ae-0c10db84afdf_702x248.png" /></p>
+<p>Surprisingly, the donation conversion rate for the test group with this new checkbox was 6% lower than the control group without it. Our hypothesis: People were put off by seeing a different amount on the donate button than they had originally intended to give.</p>
+<p>However, 85% of people who completed a donation ended up covering the fees, showing that people were willing to “round up” their donation.</p>
+<p>✅ <strong>Worked:</strong> We changed the checkbox to be <strong>unchecked</strong> by default:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/5eb0776a-f821-4aca-affc-db7826d522cd_696x236.png" /></p>
+<p>The share of donors who covered fees decreased from 85% to 60%, showing the power of defaults—but the conversion decrease disappeared, so we shipped it.</p>
+<p>When it comes to product nudges and defaults, it’s worth testing a few iterations to see if you can find a win. Staying focused on our North Star metric (total dollars raised) also allowed us to recognize when to accept decreases in other submetrics.</p>
+<h2><strong>Homepage design and interactivity matter</strong></h2>
+<h4><strong>5. 🎨 A homepage with a more polished design and embedded donation form raised an additional $700,000 a year (our second biggest lift ever)</strong></h4>
+<p>GiveDirectly’s very small fundraising team only had the resources to maintain a pretty bare-bones website for many years. Even until 2023, it was still simple and—dare we say—boring:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/1177706d-40c4-4059-a7de-db89cf833d22_485x535.png" /></p>
+<p>We knew it was time to upgrade our homepage, and used it as an opportunity to run a three-arm test.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/61acd964-c43c-4a99-a66b-7756ac2a552e_1600x655.png" /></p>
+<p>Our goal was to find out:</p>
+<ol>
+<li>Does a polished homepage with more recipient voices raise more money than a simple homepage?</li>
+<li>Does embedding the donation form raise more money than a simple “donate” button?</li>
+</ol>
+<p><strong>✅ The result:</strong> A website visitor was <strong>35% more likely to donate</strong> (that’s huge!) if they saw the new design with the embedded donation form instead of the old one. Conversion increased from 1.98% to 2.67% (strong for the nonprofit industry, which averages about 1%).</p>
+<p>Of this uplift, <strong>20%</strong> was driven by the embedded donation form, and <strong>15%</strong> was driven by the new design. Because of these results, we’ve made other web pages (like <a href="https://www.givedirectly.org/poverty/">this one about extreme poverty</a>) more robust and are seeing them drive more donations.</p>
+<h2><strong>Lessons from a big bet that failed: matching donors with recipients</strong></h2>
+<p>We also tested a bigger swing to try to increase donations: trying to match donors with the recipient getting the funds. This is a pretty typical model in the nonprofit world, so we had high hopes.</p>
+<p>At some point in your life, a charity has probably asked you to “sponsor a child” in Africa. You could browse a “catalog” of children in need, and even filter by categories like gender and age:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/67289192-f65d-46de-9109-a2032aed54ec_1174x1086.png" /><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/35b82b4d-0ee4-4621-9e5d-cfa04ea376f0_1600x1416.png" /></p>
+<p>This has purportedly been a successful growth model for some charities. But is it actually real? And should we present people as “products” to be selected?</p>
+<p>Evidence has shown that donors can <a href="https://www.nytimes.com/2016/08/03/world/middleeast/worldvision-palestinians-sponsor-a-child.html">feel</a> <a href="https://mothership.sg/2021/02/world-vision-hong-kong-sponsor-a-child/">tricked</a> <a href="https://winnipeg.citynews.ca/2022/07/09/money-charity-miseld-world-vision-canada/">when</a> they realize their money hasn’t in fact gone to the child they’re “sponsoring.” <a href="https://ssir.org/articles/entry/behavioral_economics_and_donor_nudges_impulse_or_deliberation">Browsing bias</a> also means that donors may choose who to give to based on attractiveness or skin color. And in charities like Kiva that use a similar model, the featured borrowers <a href="https://www.cgdev.org/blog/kiva-not-quite-what-it-seems">have usually already been paid</a> by an intermediary<a href="#footnote-1">1</a>. So the sponsorship idea is not even entirely honest.</p>
+<p>But based on the prevalence of this model, it’s clear that donors want to feel more connected to where their money is going. Could GiveDirectly create a version of donor-recipient matching that was truthful and respectful, and also raise more money for people in poverty?</p>
+<h4><strong>How we tried matching donors and recipients—for real</strong></h4>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/02dfd882-379c-43f4-abd1-7398852cc886_1600x930.png" /></p>
+<p>We tested it out: Donors could fund a basic income for $40 a month, get matched with the person receiving funds, and receive quarterly emails with photos and quotes about how they were spending the money.</p>
+<p>How did we try to make our version different from other charities’?</p>
+<ol>
+<li><strong>No choosing recipients:</strong> You were matched with the next person in the queue to receive funds, based on our needs-based eligibility criteria.</li>
+<li><strong>No <a href="https://www.givedirectly.org/poverty-porn/">poverty porn</a>:</strong> We enrolled only adults, got their informed consent to collect photos and quotes, and didn’t edit their stories.</li>
+<li><strong>No middlemen:</strong> GiveDirectly runs our own operations end-to-end, so we knew exactly when cash was delivered and provided real-time updates.</li>
+</ol>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/3289814e-114f-4647-8f57-82b86e0361d5_1600x807.png" /></p>
+<p>However, there were a lot of operational challenges to make this product a reality:</p>
+<p><strong>🤳 Gathering content:</strong> Our teams in the field had to collect stories from recipients every quarter, which involved visiting their villages to gather photos and quotes, translating their stories, and uploading them to our content system. Traveling to remote villages <a href="https://youtu.be/mZKb-UQ5iK8?si=rrNGpdcGDAo0DmPo&amp;t=143">can be difficult</a>, and the team time was costly.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/84a65050-d70a-4216-ae55-da7c4430e862_1200x804.png" /></p>
+<p><strong>👩‍💻 Manual QA:</strong> The Product team had to monitor and troubleshoot any delays in transfers or content collection, make sure photo and quote updates were properly populated, and re-match donors whose recipients relocated. This took more than 20 hours each month.</p>
+<p><strong>🙋 High volume of donor inquiries:</strong> The customer service team had to deal with a lot of inbound emails from donors wondering where their email updates were when there were delays, and manually manage people’s donation changes.</p>
+<p>❌ <strong>Ultimately, this product didn’t improve conversion, and retention benefits were short-lived</strong></p>
+<h4><strong>1. There was no significant impact on conversion to donate</strong></h4>
+<p>Our team ran a two-month A/B homepage test between the donor-recipient matching experience vs. a homepage asking donors to “send <em>someone</em> a monthly basic income.” There was no statistically significant difference in the percent of visitors who donated (p = 0.69).</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/2a39e6dd-23c6-426a-8da1-4996ac5ed589_908x666.png" /></p>
+<h4><strong>2. Any initial increase in retention eventually faded</strong></h4>
+<p>The donor-recipient matching experience provided a short-term retention boost, but eventually donors who gave using this product churned at the same rate as other monthly donors.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/4d6e6435-837d-4517-abce-c53b5e0b5cce_1446x708.png" /></p>
+<p>Ultimately, <strong>we decided to deprecate the product</strong> in late 2023 because the added costs and complexity outweighed any initial retention benefits.</p>
+<h4>✅ <strong>Using the lessons from this experiment, we successfully found a more cost-effective way to connect donors with their impact</strong></h4>
+<p>We’ve since experimented with other ways to show donors the impact of their gift, but with less complexity. For example, could we link donations to a larger unit (e.g. a village, district, or country) rather than an individual recipient?</p>
+<p>We found that matching donors to a specific <strong>village</strong> was still very compelling, and was much easier and less costly. We tested an email telling donors their gift went to a specific village in Rwanda vs. an email telling them their gift went to Rwanda in general:</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/41db50ca-69d1-4b4b-8e3c-9577d775a70d_1400x1068.png" /></p>
+<p>The village email had a <strong>58%</strong> higher click-through rate (huge!) and <strong>more than twice</strong> the rate of positive written responses. And the qualitative feedback was effusive:</p>
+<ul>
+<li>“It is a very tangible token that our donation has been of help to people who really need and deserve it. It is an almost emotional experience to read their story and see their photographs.”</li>
+<li>“I like seeing where my money is going. And living in the U.S., it’s helpful to be reminded of how others are living.”</li>
+<li>“This brought me joy to read. It’s rare that we are able to see any real impact from donations, and I’m glad that I’m a monthly donor. Please keep these coming.”</li>
+</ul>
+<p>We’ve also applied this approach to our village fundraising campaigns with partners, like what you see today at <a href="https://givedirectly.org/Lenny">givedirectly.org/Lenny</a>.</p>
+<p><img alt="Image from How GiveDirectly increased donations by over $3 million/year through" src="https://substack-post-media.s3.amazonaws.com/public/images/c93a4d84-1d72-477d-8873-cb32eaed1152_2316x1750.png" /></p>
+<h2><strong>Our experiment takeaways</strong></h2>
+<p>We’ve collected many lessons about the specific tests and levers, and also learned a lot about what works for our product experimentation strategy overall. These three main lessons might apply to your product too:</p>
+<p><strong>1. Balance small optimizations and big bets:</strong> Running low-effort tests helps balance out the riskiness of a bigger bet, and also helps maintain team morale when experiments don’t go as planned. Getting the low-hanging fruit and basics right can have a bigger payoff than we expect.</p>
+<p><strong>2. Get out of the way:</strong> Visitors to our website are already interested in helping families in need, but people have short attention spans. Removing steps in the funnel and providing an effortless checkout experience before a donor changes their mind is one of the most impactful things we can do.</p>
+<p><strong>3. Test ideas before building anything:</strong> After our lessons from our donor-recipient matching experiment, we tested matching donors to villages, without engineers needing to write a single line of code. This helped validate that the direction would be valuable to donors before we invested significant resources in building anything.</p>
+<p><a href="https://www.givedirectly.org/lenny/">Donate now</a></p>
+<p><em>If you donate today, on Giving Tuesday (12/3/24), all donations to the campaign will be doubled from an anonymous donor match pool.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>Hiring? 👀</h2>
+<p>I’ve got a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), where I work with a few select companies to fill their open roles. If you’re hiring, apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p>
+<p><a href="#footnote-anchor-1">1</a></p>
+<p>Kiva’s co-founder and CEO <a href="https://www.cgdev.org/blog/matt-flannery-kiva-ceo-and-co-founder-replies">responded</a> that pre-disbursal of loans is better because borrowers can get their loans more quickly, and that the model they present to users is simplified for people unfamiliar with microfinance. Kiva ended up making changes to their <a href="https://www.kiva.org/about/how">website</a> in response to the controversy.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Types of business models — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Types of business models</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Types of business models</div>
+    
+    <div class="article-meta">2021-05-11<span>·</span>1,996 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">工程</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m working on a startup idea and it got me thinking—what are the types of business models out there? Are there any creative ways to design our business model?</h2>
+</blockquote>
+<p>When I saw your question, I went looking for a quick answer. I was sure there would be a bunch of blog posts or HBR articles that succinctly summarize all of the ways you can make money as a business. I was wrong. There was nothing out there. So I’ve gone ahead and taken a shot at coming up with an answer. Below, you’ll find:</p>
+<ol>
+<li><strong>The eight types of business models</strong></li>
+<li><strong>A collection of business model innovations</strong></li>
+<li><strong>Inspiration to innovate on your own business model</strong></li>
+</ol>
+<p>Let’s get in there.</p>
+<p><img alt="Image from Types of business models" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0d658aa6-a5b7-45cd-a53e-cb893bef9927_2400x3064.png" /></p>
+<h3>The 8 business models</h3>
+<h4><strong>1. Sell a thing</strong></h4>
+<ul>
+<li><strong>How it works</strong>: Sell someone your physical or digital product</li>
+<li><strong>Examples</strong>: iPhone, lemonade, land, stocks</li>
+<li><strong>Ideal for</strong>: Physical products you manufacture or acquire</li>
+<li><strong>Business strategy:</strong> Make or acquire a thing —&gt; Sell it for more than it cost you</li>
+<li><strong>Optimize</strong>: Unit economics</li>
+</ul>
+<h4>2. Rent a thing</h4>
+<ul>
+<li><strong>How it works:</strong> Allow someone to borrow a product that you continue to own</li>
+<li><strong>Examples</strong>: Apartments, rental cars, carpet cleaners, mortgage</li>
+<li><strong>Ideal for</strong>: Physical products you manufacture or acquire that people don’t want (or can’t afford to) to own</li>
+<li><strong>Business strategy:</strong> Make or acquire a thing —&gt; Rent it out over and over</li>
+<li><strong>Optimize</strong>: Consumption</li>
+</ul>
+<h4><strong>3. Take a cut</strong></h4>
+<ul>
+<li><strong>How it works</strong>: Charge a % for each transaction you facilitate</li>
+<li><strong>Examples</strong>: Stripe, Airbnb, real-estate agents, bookies</li>
+<li><strong>Ideal for</strong>: Platforms and marketplaces</li>
+<li><strong>Business strategy:</strong> Build a valuable platform or marketplace —&gt; Charge a small fee for the convenience of using it each time</li>
+<li><strong>Optimize</strong>: GMV</li>
+</ul>
+<h4><strong>4. Charge a subscription</strong></h4>
+<ul>
+<li><strong>How it works</strong>: Charge a monthly or yearly fee for access to your product or service</li>
+<li><strong>Examples</strong>: Figma, Netflix, AT&amp;T, gyms</li>
+<li><strong>Ideal for</strong>: Products/services that people need regularly</li>
+<li>
+<p><strong>Types of subscription models</strong>:</p>
+</li>
+<li>
+<p>Flat fee (e.g. Superhuman)</p>
+</li>
+<li>Tiered plans (e.g. Notion)</li>
+<li>Per seat (e.g. Figma)</li>
+<li>Per host (e.g. Datadog, New Relic)</li>
+<li>Annual contracts (e.g. Oracle, gyms)</li>
+<li><strong>Business strategy:</strong> Build a valuable product —&gt; Get people to try it —&gt; Convince them to subscribe</li>
+<li><strong>Optimize</strong>: Engagement</li>
+</ul>
+<h4><strong>5. Charge based on usage</strong></h4>
+<ul>
+<li><strong>How it works</strong>: Charge a fee only when people use the product</li>
+<li><strong>Examples</strong>: Twilio, AWS, Metromile, hourly motels</li>
+<li><strong>Ideal for</strong>: Infrastructure products</li>
+<li>
+<p><strong>Types of usage-based models</strong>:</p>
+</li>
+<li>
+<p>One-off cost (e.g. Twilio)</p>
+</li>
+<li>Per second usage cost (e.g. AWS EC2, S3)</li>
+<li>Per mile (e.g. Metromile)</li>
+<li><strong>Business strategy:</strong> Build a valuable product —&gt; Get people to try it out at a small scale —&gt; Get them hooked and scale with them</li>
+<li><strong>Optimize</strong>: Consumption</li>
+</ul>
+<h4><strong>6. Sell a service</strong></h4>
+<ul>
+<li><strong>How it works:</strong> Provide a service leveraging your skills and experience</li>
+<li><strong>Examples</strong>: Plumbers, engineers, health providers, tour guides</li>
+<li><strong>Ideal for</strong>: Hands-on human help</li>
+<li><strong>Business strategy:</strong> Develop a skill —&gt; Charge for leveraging that skill</li>
+<li><strong>Optimize</strong>: Skillset</li>
+</ul>
+<h4><strong>7. Advertising</strong></h4>
+<ul>
+<li><strong>How it works</strong>: Charge for sharing something with your audience based on views, clicks, or actions</li>
+<li><strong>Examples</strong>: Facebook, TV, Billboards, podcasts</li>
+<li><strong>Ideal for</strong>: Products that draw a large and/or sought-after audience</li>
+<li><strong>Business strategy</strong>: Build an audience —&gt; Charge for access to your audience</li>
+<li><strong>Optimize</strong>: Traffic</li>
+</ul>
+<h4><strong>8. Percentage of assets</strong></h4>
+<ul>
+<li><strong>How it works:</strong> Charge a percentage of the assets you are managing or loaning</li>
+<li><strong>Examples</strong>: Wealth advisors, loans, credit card companies</li>
+<li><strong>Ideal for</strong>: Money managers</li>
+<li><strong>Business strategy:</strong> Convince people to let you manage their money —&gt; Make them money, which makes you money</li>
+<li><strong>Optimize</strong>: AUM</li>
+</ul>
+<h2>How to innovate on your business model</h2>
+<h4>Combine two business models</h4>
+<p><strong>Examples:</strong></p>
+<ol>
+<li><strong>Sell a thing + Subscription</strong>: Peloton, Mirror, iPhone + iCloud</li>
+<li><strong>Take rate + Subscription</strong>: Shopify, Amazon Prime, DoorDash DashPass</li>
+<li><strong>Take rate + Advertising</strong>: Instacart, Amazon</li>
+<li><strong>Advertising + Subscription:</strong> NY Times, Cable TV</li>
+<li><strong>Advertising + Sell a thing:</strong> Kindle</li>
+</ol>
+<p><strong>How might you…</strong></p>
+<ol>
+<li>If you’re currently selling a thing, could you add a subscription (e.g. Peleton, Robinhood Gold) or advertising (e.g. Kindle)?</li>
+<li>If you’re currently take rate, could you add a subscription (e.g. Shopify, Amazon Prime) or advertising (e.g. Amazon, Instacart)?</li>
+<li>If you’re currently usage-based, could you add a flat-fee subscription (e.g. Amazon EC2 reserved instances)?</li>
+<li>If you’re currently advertising, could you add a take rate (e.g. affiliate program)?</li>
+</ol>
+<h4>Replace one business model with another</h4>
+<p><strong>Examples:</strong></p>
+<ol>
+<li><strong>Robinhood</strong>: Replaced “usage-based” (charging per trade) with “selling a thing” (selling data generated by users).</li>
+<li><strong>Dollar Shave Club</strong>: Replaced “sell a thing” (i.e. razors once in a while) with “subscription” (i.e. razors delivered monthly).</li>
+<li><strong>Uber</strong>: Replaced “rent a thing” or “buy a thing” (i.e. tax medallions) with “take rate,” allowing drivers to make money driving without any up-front cost.</li>
+<li><strong>Warby Parker:</strong> Optimized “sell a thing” unit economics by going straight to the consumer, cutting out high-margin middlemen, which allowed them to offer cheaper better quality glasses.</li>
+<li><strong>Rolls-Royce airplane engines</strong>: Replaced “sell a thing” with rented their engines to airlines, versus selling up upfront, enabling low-cost airlines like Southwest.</li>
+<li><strong>Alibaba</strong>: An e-commerce business (i.e. “Sell a thing”) that drop-ships products from the manufacturer straight to the buyer’s location, significantly improving their unit economics and allowing them to deliver lower costs.</li>
+<li><strong>Chime</strong>: Moved away from “usage-based” (charging fees on bank penalties) to “take-rate,” taking a portion of the transaction fees that Visa charges merchants when customers use Chime’s debit card.</li>
+</ol>
+<p><strong>How might you…</strong></p>
+<ol>
+<li>If you’re currently selling a thing, could you replace it with a take rate (e.g. Homeaway —&gt; Airbnb), usage-based (e.g. <a href="https://www.petterileppanen.com/2020/03/11/5-business-model-innovations-you-should-know-about/">Xerox</a>), subscription (e.g. Sephora —&gt; Birchbox, Dollar Shave Club, SaaS vs. on-prem enterprise software), or rent it (e.g. <a href="https://www.lead-innovation.com/english-blog/famous-business-model-innovations">Rolls-Royce airplane engines</a>, <a href="https://www.strategyzer.com/blog/lessons-from-hilti-on-what-it-takes-to-shift-from-a-product-to-a-service-business-model">Hilti</a>)?</li>
+<li>If you’re currently selling a thing, could you significantly cut back one step of the value chain to make your product significantly less expensive (e.g. Warby Parker)?</li>
+<li>If you’re currently renting a thing, could you replace it with a subscription (e.g. Blockbuster —&gt; Netflix)?</li>
+<li>If you’re currently doing a take rate or usage-based, could you replace it with selling a thing (e.g. TD Ameritrade —&gt; Robinhood)?</li>
+<li>If you’re currently renting a thing, could you replace it with a take rate (e.g. taxi —&gt; Uber)?</li>
+<li>If you’re currently flat-fee subscription, could you replace it with usage-based (e.g. Metromile)?</li>
+</ol>
+<h3>Bonus: The eight most popular creator economy business models</h3>
+<p>The list above describes the eight ways for <em>businesses</em> to make money, but just for fun, below are the eight most common ways creators (ake solo entrepreneurs) can make money:</p>
+<ol>
+<li><strong>Subscriptions</strong> (e.g. Patreon, Substack, OnlyFans)</li>
+<li><strong>Tips</strong> (e.g. Twitch, Clubhouse, Twitter Tip Jar, Buy Me a Coffee)</li>
+<li><strong>Advertising</strong> (e.g. YouTube/IG/TikTok, <a href="https://www.notboring.co/">Packy</a>)</li>
+<li><strong>Revenue share (e.g.</strong> affiliate deals, investing in startups<strong>)</strong></li>
+<li><strong>Selling goods</strong> (e.g. NFTs, merch)</li>
+<li><strong>Selling access</strong> (e.g. VIP meetup, private DMs)</li>
+<li><strong>Selling access to events or courses</strong> (e.g. <a href="https://maven.com/">Maven</a>)</li>
+<li><strong>Job board</strong> (e.g. <a href="https://lennysnewsletter.com/jobs">my job board</a>)</li>
+</ol>
+<p>If you’ve come across other examples of business model innovations, I’d love to hear them! Please leave a comment 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/types-of-business-models/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://businessmodelnavigator.com/">Business Model Navigator</a></li>
+<li><a href="https://www.viima.com/blog/business-model-innovation">Business Model Innovation – The What, Why, and How</a></li>
+<li><a href="https://www.ycombinator.com/library/1y-key-metrics">YC Key Metrics</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<h4>Product Management</h4>
+<ol>
+<li><strong>Wrapbook</strong>: <a href="https://pallet.xyz/job/dea57461-eb0d-4edb-9097-91885482ce19">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>Overtime</strong>: <a href="https://pallet.xyz/job/4296af21-ada7-47c8-bc19-9041724f3098">Product Manager</a> (NYC)</li>
+<li><strong>Duolingo</strong>: <a href="https://pallet.xyz/job/16daa6a1-ff27-4097-89cb-41f7a1b33aa6">Principal Product Manager</a> (NY/Seattle)</li>
+<li><strong>Companion Labs</strong>: <a href="https://pallet.xyz/job/f1e8cbf6-7338-48ae-ba6f-2507b3427e0e">Head of / Senior Product Manager</a> (SF)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/400edfd5-43fb-45d1-a679-772cb7442b6e">Group Product Manager, Growth &amp; Subscription</a> (SF/Remote)</li>
+<li><strong>Curology</strong>: <a href="https://pallet.xyz/job/f589c9bf-48c9-43df-8a3e-c418f92b715b">Group Product Manager, Medical &amp; Pharmacy Ops</a> (SF/Remote)</li>
+<li><strong>Grand Rounds</strong>: <a href="https://pallet.xyz/job/8f22029f-7685-443c-b595-588326096967">Senior Product Manager</a> (SF/Remote)</li>
+<li><strong>ClassDojo:</strong><a href="https://pallet.xyz/job/a207cd17-0dd5-45a3-9068-5cabd6b30193">0 to 1 Product Manager</a> (SF/Remote)</li>
+<li><strong>AbstractOps:</strong><a href="https://pallet.xyz/job/e5b97f68-c279-4830-bfda-749d54ec22bd">Head of Product</a> (Remote)</li>
+<li><strong>Dialogue:</strong><a href="https://pallet.xyz/job/bd8a4d54-5b37-4de0-af2f-84ad640faa6e">Vice-President, Product Management</a> (Remote)</li>
+<li><strong>Amazon Music:</strong><a href="https://pallet.xyz/job/650a0b97-3d81-46ae-8986-d72b4f3639f7">Principal Product Manager - Tech, Podcasts</a> (SF)</li>
+<li><strong>Intercom:</strong><a href="https://pallet.xyz/job/fd328108-c412-40cd-91f3-0e3a324df4ad">Senior Product Manager - Self-serve Growth</a> (London/Dublin/Remote)</li>
+<li><strong>Chime:</strong><a href="https://pallet.xyz/job/e0c51de6-26f9-4b5c-a758-4d6b6ae4899f">Senior Product Manager, Growth</a> (SF)</li>
+<li><strong>Miro</strong>: <a href="https://pallet.xyz/job/8c95a561-53c7-495c-af75-5f1ceac1d782">Senior Product Manager (Workshops Core)</a> (Amsterdam)</li>
+<li><strong>NexHealth:</strong><a href="https://pallet.xyz/job/2d8e2cad-f0dd-4a21-88fd-6003e8c7c00c">First Product Manager</a> (SF)</li>
+<li><strong>Elementl:</strong><a href="https://pallet.xyz/job/7422cd00-62dc-4ccf-b538-98482a78aec8">Product Manager</a> (SF/Remote)</li>
+<li><strong>Clockwise:</strong><a href="https://pallet.xyz/job/c3bac4ce-f356-49b5-918b-110ec159c769">Product Manager</a> (SF/Remote)</li>
+<li><strong>UserLeap:</strong><a href="https://pallet.xyz/job/e923f27c-b7b8-4edf-aaa5-3bc5be3570e8">Product Manager</a> (SF)</li>
+</ol>
+<h4>Growth and marketing</h4>
+<ol>
+<li><strong>Brex</strong>: <a href="https://pallet.xyz/job/1811f9d7-21c7-4cd0-8b81-050242749825">Growth Marketing Manager, Search</a> (Remove)</li>
+<li><strong>OpenPhone</strong>: <a href="https://pallet.xyz/job/102a757f-cbea-4113-9588-cf1fc98a8d7a">Head of Marketing</a> (Remote)</li>
+<li><strong>neo.tax:</strong><a href="https://pallet.xyz/job/2fd84c85-b209-47d0-9213-671e0342cff3">Head of Growth</a> (Mountain View/Remote)</li>
+<li><strong>Reforge:</strong><a href="https://pallet.xyz/job/c3f09744-d3d4-4817-8817-e04c778aff38">Lifecycle Marketer</a> (Remote)</li>
+<li><strong>Coda:</strong><a href="https://pallet.xyz/job/bba22fae-9ec5-47a2-b6dd-157f498b1fba">Growth Associate Program</a> (SF)</li>
+<li><strong>Ojo:</strong><a href="https://pallet.xyz/job/4fb7dc9e-52ca-4b94-8dce-1d72e643cc86">Head of Marketing</a> (Remote)</li>
+<li><strong>Labelbox</strong>: <a href="https://pallet.xyz/job/c6947128-80d8-49ab-a679-728f0aaf3430">Director of Growth and Demand Generation</a> (SF/Remote)</li>
+<li><strong>Livepeer:</strong><a href="https://pallet.xyz/job/3f5394b4-3104-4670-9572-c045b065119a">Go To Market Lead</a> (Remote)</li>
+</ol>
+<h4>Engineering</h4>
+<ol>
+<li><strong>Playbook</strong>: <a href="https://pallet.xyz/job/94f60a15-f165-4f10-81f1-1e56e2cebfc2">Head of Engineering</a> (Remote)</li>
+<li><strong>Karat</strong>: <a href="https://pallet.xyz/job/1b718459-42d4-489b-b725-8139c93b4898">Senior Software Engineer</a> (LA/Remote)</li>
+<li><strong>Cable</strong>: <a href="https://pallet.xyz/job/8f3f617d-07ba-412f-87f5-6a8ad1d0fe35">Backend Engineer</a> (Remote)</li>
+<li><strong>Discord:</strong><a href="https://pallet.xyz/job/71eeec4f-6dea-4645-95b7-44b1ea38507b">Engineering Manager</a> (SF)</li>
+<li><strong>G2i:</strong><a href="https://pallet.xyz/job/7a1c36d5-eb4f-43e5-b93f-c83f951a1ef9">Senior React, React Native, or Node Developer</a> (Remote)</li>
+<li><strong>Novi Connect:</strong><a href="https://pallet.xyz/job/1691057a-21ac-4450-b3d6-e2189a5cebc9">Senior Software Engineer</a> (Remote)</li>
+<li><strong>Endgame:</strong><a href="https://pallet.xyz/job/2f6285e1-d9d4-427f-9a62-3ec0e895ab7b">Principal Frontend Engineer</a> (Remote)</li>
+<li><strong>Eppo:</strong><a href="https://pallet.xyz/job/2cd3039f-b44d-4079-83e0-e303debf2f00">Backend / Infrastructure Engineer</a> (SF/Remote)</li>
+<li><strong>Causal:</strong><a href="https://pallet.xyz/job/6daf039f-a20e-4aa0-a7b0-54a8c19963b1">Full-stack Engineer</a> (Remote)</li>
+<li><strong>Flux.ai:</strong><a href="https://pallet.xyz/job/af3f67a4-e209-4b98-8a26-101c7805b207">Fullstack Software Engineer</a> (Remote)</li>
+<li><strong>Coinbase:</strong><a href="https://pallet.xyz/job/6ac840de-6951-42f8-a55a-051c56a3f303">University Grad, Software Engineer</a> (Remote)</li>
+</ol>
+<h4>Design</h4>
+<ol>
+<li><strong>Cardless</strong>: <a href="https://pallet.xyz/job/4befe144-b63d-4a5c-9626-11a533a8fdd3">Product Designer</a> (SF)</li>
+<li><strong>Cameo:</strong><a href="https://pallet.xyz/job/d095ea77-d995-4895-b764-59b4297a1292">Senior Product Designer</a> (Remote)</li>
+<li><strong>Tango:</strong><a href="https://pallet.xyz/job/2a6c39e6-2dea-4e92-86c9-d147bb07d783">Product Design Lead</a> (LA/Remote)</li>
+<li><strong>Scratchpad:</strong><a href="https://pallet.xyz/job/b068e1e5-8ae3-4886-b542-fa3443f1ff9b">Senior Product Designer</a> (Remote)</li>
+<li><strong>Rewatch:</strong><a href="https://pallet.xyz/job/68207a68-6f8b-4099-8107-197922e2d8cf">Senior Product Designer</a> (Remote)</li>
+<li><strong>Orbit:</strong><a href="https://pallet.xyz/job/9b1f634f-6900-4322-9b6f-2ff38e477b63">Product Designer</a> (Paris/SF/Remote)</li>
+<li><strong>Imperfect Foods:</strong><a href="https://pallet.xyz/job/b9cab5f0-9bcb-4caf-a0bc-2443e4768b60">Senior Product Designer</a> (Remote)</li>
+<li><strong>Karat</strong>: <a href="https://pallet.xyz/job/29a7b24a-2ba0-489e-8222-d5d2b0b68e43">First Designer</a> (LA/Remote)</li>
+</ol>
+<h4>Other</h4>
+<ol>
+<li><strong>Free Agency</strong>: <a href="https://pallet.xyz/job/3445e94f-d760-4b3b-9c47-393a6f4702e8">Community manager</a> (NYC)</li>
+<li><strong>Maven</strong>: <a href="https://pallet.xyz/job/9dc74ed0-b098-4313-8be3-050bf057c4bd">Instructor Sales &amp; Partnerships Lead</a> (Remote)</li>
+<li><strong>Maven</strong>: <a href="https://pallet.xyz/job/b333db7b-c2f2-4f87-b82e-a8970ba14193">White-Glove Course Lead</a> (Remote)</li>
+<li><strong>Maven</strong>: <a href="https://pallet.xyz/job/24216c2e-e429-456c-add2-0ac0662e04b7">Course Strategy and Operations Lead</a> (Remote)</li>
+</ol>
+<p><em>To browse 200+ open roles, or to add your roles, <a href="https://lennysnewsletter.com/jobs">visit Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li>
+<p><strong>Watch:</strong> <a href="https://vimeo.com/497879805">Graduations</a> (via <a href="https://theviewer.is/">The Viewer</a>)</p>
+</li>
+<li>
+<p><strong>Listen</strong>: <a href="https://podcasts.apple.com/us/podcast/the-social-lives-of-trees/id214089682?i=1000520178432">The Social Lives Of Trees</a> on Fresh Air</p>
+</li>
+<li><strong>Read</strong>: <a href="https://www.notboring.co/p/the-great-online-game">The Great Online Game</a> by Packy</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

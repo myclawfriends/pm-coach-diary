@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The most important marketplace metrics to track — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The most important marketplace metrics to track</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The most important marketplace metrics to track</div>
+    
+    <div class="article-meta">2022-03-29<span>·</span>2,480 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m building a marketplace and am wondering, what KPIs should I focus on and track?</h2>
+</blockquote>
+<p>As you probably know, marketplaces hold a special place in my heart. I spent many years optimizing both sides of the Airbnb marketplace, and later spent hundreds of hours researching <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace?s=w">a series on kickstarting and scaling a marketplace</a>. Based on this work, along with conversations with a dozen marketplace founders, and the insights many of you shared in <a href="https://twitter.com/lennysan/status/1499129349923958785">this Twitter thread</a>, <strong>below are my recommendations for the four most important metrics to track and optimize in any burgeoning marketplace</strong>:</p>
+<ol>
+<li><strong>Fill rate:</strong> Percentage of intentful sessions that end up converting</li>
+<li><strong>Bookings growth:</strong> Number of completed transactions per week/month</li>
+<li><strong>Supply growth:</strong> New active supply per week/month</li>
+<li><strong>GMV growth:</strong> Dollars going through your system per week/month</li>
+</ol>
+<p>Note, these are in addition to the metrics every founder should be watching, no matter the business model, such as retention, user growth, payback period, etc. For completeness, I cover these and a host of other valuable marketplace metrics, at the bottom of the post.</p>
+<p><em>A big thank-you to <a href="https://lsvp.com/team/alex-taussig/">Alex Taussig</a> (Lightspeed), <a href="https://www.linkedin.com/in/aniasmith/">Ania Smith</a> (TaskRabbit), <a href="https://versionone.vc/about-us/">Angela Tran</a> (Version One), <a href="https://www.linkedin.com/in/dan-hock/">Dan Hockenmaier</a> (Faire), <a href="https://www.linkedin.com/in/emmahongguo/">Emma Guo</a> (Offsyte), <a href="https://www.linkedin.com/in/grantlafontaine/">Grant LaFontaine</a> (Whatnot), <a href="https://www.linkedin.com/in/kevinhuangtan/">Kevin Tan</a> (Snackpass), <a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a> (Peerspace), <a href="https://greylock.com/team/mike-duboe/">Mike Duboe</a> (Greylock), and <a href="https://www.canvas.vc/team-member/mike-ghaffary">Mike Ghaffary</a> (Canvas) for contributing to this post.</em></p>
+<p><em>Also, I have dedicated posts on metrics for <a href="https://www.lennysnewsletter.com/p/the-most-important-consumer-metrics?s=w">consumer businesses</a> and <a href="https://www.lennysnewsletter.com/p/the-most-important-bottom-up-saas-69d?s=w">PLG SaaS businesses</a>.</em></p>
+<p>Let’s get into it.</p>
+<p><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/218a00e3-049a-4882-93e9-732f27a83ed5_4096x2048.png" /></p>
+<h4>1. Fill rate: Percentage of intentful sessions that end up converting</h4>
+<p>This metric is the ultimate measure of marketplace health, because it’s the essence of what a marketplace is—a place people can consistently come to find what they want. It also bakes in important input metrics like supply quality, availability, and booking conversion, since in order for you to convert a purchaser, you need to have (1) the right supply, (2) that’s available and interested at the right time, and (3) a funnel that converts people.</p>
+<p>As an example, this would track the percentage of Airbnb guests who searched with dates and ended up booking a home, the percentage of DoorDash customers who searched for a cuisine and ended up ordering food, and the percentage of Uber ride requests that led to a ride.</p>
+<p><a href="https://sarahtavel.medium.com/the-hierarchy-of-marketplaces-introduction-and-level-1-983995aa218e">Sarah Tavel</a> calls this “happy GMV”:</p>
+<p><a href="https://future.a16z.com/marketplace-metrics/">a16z</a> calls this “match rate”:</p>
+<blockquote>
+<h4>“It’s important to measure your successful ‘match rate’—the rate at which buyers can find sellers, and vice versa. How to define this metric depends on the unique business.”</h4>
+</blockquote>
+<p>Many people call this metric “liquidity”—an ambiguous term I’ll cover at the end of this post. To <a href="https://lsvp.com/team/alex-taussig/">Alex Taussig</a>, one of the smartest people I know on marketplaces, this metric is primarily how he evaluates every new marketplace startup:</p>
+<blockquote>
+<h4>"The prime directive of a marketplace is to generate liquidity where none existed before. The founding insight for most great marketplace businesses is principally a ‘liquidity hack.’ Uber hacked liquidity by paying drivers to circle key neighborhoods even with no passengers. Airbnb hacked liquidity by paying for professional pictures of homes to give guests a better sense of quality. Faire hacked liquidity by guaranteeing items would sell and offering net 60 terms to retailers. thredUP hacked liquidity by processing merchandise on the seller’s behalf. The list goes on.</h4>
+<h4>So when I evaluate early-stage marketplace business, my analysis focuses on the liquidity hack and how effective it is for both new and repeating users. When it comes to metrics, I often examine the probability that an initiated transaction will be successful and watch it change in cohort time. Every company has a slightly different way of accounting for this liquidity metric, so the best analysis usually references your own benchmarks and watches how liquidity improves as new initiatives take effect. When I see that founders have unlocked novel liquidity and can consistently drive the metrics ahead of the initial benchmark, I get quite excited.”</h4>
+</blockquote>
+<p>To operationalize this metric, you’ll need to identify what point along the user journey signals that the user is “intentful.” At Airbnb, this was a guest searching with specific dates. At Lyft/Uber, I suspect it’s somebody entering a destination, or even just opening up the app. At Etsy, it’s likely searching for a specific keyword.</p>
+<p>Benchmarking what is good here is difficult, because it can range from under 5% for an e-commerce marketplace to over 80% when you narrow in on bottom-of-the-funnel conversion. The most important thing here isn’t hitting a specific number, but a laser focus on optimizing it.</p>
+<blockquote>
+<h4>“At TaskRabbit, we’re currently most focused on fill rate (or invoice rate, as we call it) as our north-star marketplace performance metric. This gives us a good view of the efficiency across our funnel ecosystem from the signal of the intent to successful completion. We also break it down across multiple decision points in the funnel to help us see opportunities for improvement and understand what is working well.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/aniasmith/">Ania Smith</a>, CEO of TaskRabbit</h4>
+</blockquote>
+<h4>2. Bookings: Number of completed transactions per week or month</h4>
+<p>If fill rate is the ultimate measure of marketplace health, <em>bookings</em> is the best way to track marketplace growth. Unlike GMV (which is also incredibly important, as you’ll see below), bookings removes confounding variables like average order values, pricing changes, and outlier purchases. It directly tells you whether your marketplace usage is growing or shrinking.</p>
+<blockquote>
+<h4>“You can tell a lot about the marketplace health by digging deep into bookings growth; for example, bookings growth by first-time users (user acquisition), repeat bookings growth (user retention), bookings growth within an organization (network effect).”</h4>
+<h4>—<a href="https://www.linkedin.com/in/emmahongguo/">Emma Guo</a>, CEO of <a href="https://www.offsyte.co/">Offsyte</a></h4>
+</blockquote>
+<p>At Airbnb, this was was our <a href="https://future.a16z.com/north-star-metrics/">north-star metric</a>, as it continues to be for the majority of marketplaces in one form or another:</p>
+<ul>
+<li><strong>Uber and Lyft:</strong> Rides</li>
+<li><strong>Airbnb:</strong> Nights booked</li>
+<li><strong>Cameo:</strong> Orders</li>
+<li><strong>Hipcamp:</strong> Nights outside</li>
+<li><strong>eBay</strong>: Items sold</li>
+<li><strong>Peerspace:</strong> Bookings</li>
+<li><strong>Offsyte:</strong> Events booked</li>
+</ul>
+<h4>3. Supply growth: <strong>New active supply per week or month</strong></h4>
+<p><a href="https://www.lennysnewsletter.com/p/how-to-know-if-youre-supply-or-demand?s=w">My research</a> showed that 80% of marketplaces start out supply-constrained, and about half stay that way. Thus, supply growth is likely to be a major priority for your marketplace.</p>
+<p>My advice is to track not just raw new supply but “activated supply”—supply that has reached some milestone that tells you it’s valuable. For example, a Lyft driver with at least one completed ride, a Patreon creator with over $x in earnings, or an Airbnb home with at least one booking. This additional constraint protects you from creating the wrong incentives (e.g. teams driving tons of useless supply).</p>
+<p>Another way to track supply growth is to look at it from the perspective of the user. If you’re Uber, you want to track average car wait times when someone opens up the app. If you’re Thumbtack, you want to track the average number of search results when a user looks for a pro. Some marketplaces make this approach their north-star metric for their supply teams.</p>
+<p><a href="https://www.linkedin.com/in/bendett/">Matt Bendett</a>, the co-founder of <a href="https://peerspace.com/">Peerspace</a>, found an additional aspect of this metric that makes a great input metric for supply quality:</p>
+<blockquote>
+<h4>“In addition to activated supply, you also want to look at ‘time to activation’ to ensure you can gain and keep supply engaged early on. Proving the value of your platform to your suppliers when their interest is highest will create a virtuous cycle that benefits overall marketplace health.”</h4>
+</blockquote>
+<h4>4. GMV growth: Dollars going through your system per week or month</h4>
+<p>Lastly, marketplaces (almost always) make money by taking a cut of transactions. Thus, tracking GMV (gross merchandise value) is going to be the best way to track overall business and revenue growth:</p>
+<blockquote>
+<h4>“GMV is the total sales dollar volume of merchandise transacting through the marketplace in a specific period. It’s the real top line, what the consumer side of the marketplace is spending. It is a useful measure of the size of the marketplace and can be useful as a ‘current run rate’ measure based on annualizing the most recent month or quarter.”</h4>
+<h4>—<a href="https://future.a16z.com/marketplace-metrics/">a16z (Jeff Jordan, Li Jin, D’Arcy Coolican, Andrew Chen)</a></h4>
+</blockquote>
+<p>GMV growth is the second-most-common north-star metric (behind bookings), prioritized by companies such as Snackpass, Whatnot, Shopify, and, in part, Cameo.</p>
+<p>A common way to calculate GMV, if your tooling doesn’t automatically calculate it for you, is by multiplying the number of transactions in your marketplace with your average order value (AOV).</p>
+<h4>Additional metrics that everyone should be tracking:</h4>
+<p>Whether you’re building a marketplace, a SaaS platform, a DTC business, or most any type of online business, you should also be tracking these five foundational metrics:</p>
+<ol>
+<li><strong>Cohort-based retention:</strong> Percentage of users who come back x months later</li>
+<li><strong>Net revenue retention:</strong> How much you grow revenue per customer over time</li>
+<li><strong>New user growth:</strong> Number of new users per day/week/month</li>
+<li><strong>CAC/LTV, payback period, or contribution margin:</strong> Cost to acquire a new user vs. money you make from each new user</li>
+<li><strong>Unit economics (optional):</strong> How much profit you make per order</li>
+</ol>
+<h4>Other marketplace-specific metrics to consider tracking:</h4>
+<p>For completeness, though the four marketplace KPIs above are the <em>most</em> essential for every marketplace, I’d also track and work to optimize 3-5 metrics from the list below that most support your current growth strategy:</p>
+<ol>
+<li><strong>Average order value:</strong> Average dollars spent per transaction</li>
+<li><strong>Share of wallet:</strong> The percentage of spend in this category that goes to you</li>
+<li><strong>Supply success:</strong> The average and/or median number of transactions per seller</li>
+<li><strong>Demand conversion:</strong> Visit → Search → “Add to cart” → Book</li>
+<li><strong>Supply conversion:</strong> Visit → Learn more → Begin signing up → Go live → Activated</li>
+<li><strong>Time to fill:</strong> How long it takes to fill a customer request (e.g. Uber request)</li>
+<li><strong>Supply retention:</strong> The percentage of supply that sticks around x months later</li>
+<li><strong>Frequency of transactions</strong>: How often customers use your product per week/month</li>
+<li><strong>Results per search:</strong> Number of viable options customers see when searching</li>
+<li><strong>Take rate:</strong> How much you able to take from each transaction, on average</li>
+</ol>
+<h3>What is “liquidity”?</h3>
+<p>As a final note, the word liquidity gets thrown around a lot in marketplace talk. And it is clearly an important attribute of marketplace health, e.g.:</p>
+<blockquote>
+<h4>“Figuring out how to generate liquidity is the single most important thing for a marketplace. If you don’t have this, you’re not going to build a marketplace people will use. Clearly defining what this means is incredibly helpful in figuring out how to make it happen.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/grantlafontaine/">Grant LaFontaine</a>, CEO of <a href="https://whatnot.com/">Whatnot</a></h4>
+</blockquote>
+<p>But as Grant points out, defining what liquidity actually means is essential. I find people have such different definitions:</p>
+<p><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3b0d0615-9d64-4273-a70e-5af69e954ca4_1192x710.png" /><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/da46121f-2875-49c9-b78e-d144614fe279_1188x662.png" /><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/03f2b851-3a9a-4afe-b653-3b5460969a5b_1188x490.png" /><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/95520e5c-c987-40a6-bac0-881f92a3b18e_1188x1188.png" /><img alt="Image from The most important marketplace metrics to track" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c3e5e281-d0f0-4ca9-be63-7fedb122d8c0_1176x454.png" /></p>
+<p>Funny, right?</p>
+<p>Since there’s so much confusion around this term, I prefer to avoid using it altogether when we’re describing operational metrics, and instead get specific about what I mean (e.g. fill rate, supply quantity, supply success, etc.). If you do use it, explain what you actually mean. Don’t assume anyone knows what you’re talking about when you say “liquidity.”</p>
+<blockquote>
+<h4>“Everyone throws around the term ‘liquidity’ with different definitions. For me, it comes down to ‘How reliable is the marketplace for a potential buyer?’ i.e. How often can they find what they are looking for?</h4>
+<h4>The specific metric you use to define this is dependent on the type of marketplace, but would often be something like search-to-fill rate.”</h4>
+<h4>—<a href="https://www.linkedin.com/in/dan-hock/">Dan Hockenmaier</a>, Head of Strategy and Analytics at Faire</h4>
+</blockquote>
+<p>If you have any additional thoughts on this topic, I’d love to hear it 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/the-most-important-marketplace-metrics/comments">Leave a comment</a></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://future.a16z.com/marketplace-metrics/">13 Metrics for Marketplace Companies</a> by a16z</li>
+<li><a href="https://docs.google.com/spreadsheets/d/1K5E1Nzjq4KEvGVv6EysGswTuQm5u21Sa2ugSZewrZqE/edit#gid=1569059121">Marketplace KPI Spreadsheet</a> by Version One Ventures</li>
+<li><a href="https://www.canvas.vc/blog/the-marketplace-checklist-16-questions">The Marketplace Checklist: 16 Questions</a> by Mike Ghaffary</li>
+<li><a href="https://future.a16z.com/north-star-metrics/">Choosing Your North Star Metric</a> by me</li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace?s=w">How to Kickstart and Scale a Marketplace Business</a> by me</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Clipboard Health:</strong> <a href="https://www.lennysjobs.com/jobs/299a6ac5-8435-4596-8262-b29c15c7613f">Engineering Manager</a> (Remote-Global)</li>
+<li><strong>Brilliant.org:</strong> <a href="https://www.lennysjobs.com/jobs/a9f29cee-d7b7-42ce-b1dc-05d6d29ecec7">Senior Product Manager</a>, Growth (SF, Remote-US)</li>
+<li><strong>Fractal Software:</strong> <a href="https://www.lennysjobs.com/jobs/bbb7f335-4841-48fc-aff8-702a83f26f35">CEO/Founder</a> (NYC, SF)</li>
+<li><strong>Perfect Venue:</strong> <a href="https://www.lennysjobs.com/jobs/461940f7-6f12-42af-a0d7-8fca71b2c693">Founding Team Full Stack Engineer</a> (Remote-US)</li>
+<li><strong>Snackpass:</strong> <a href="https://lennys-jobs.pallet.com/jobs/3e5c5552-cb71-4b23-9773-95f21ab14dfc">Senior Product Manager</a> (NYC, LA, SF)</li>
+<li><strong>Silo Finance:</strong> <a href="https://lennys-jobs.pallet.com/jobs/dceac63a-d817-47e7-a4a5-5f653f298bdd">Technical Product Manager</a> (Remote)</li>
+<li><strong>Donut:</strong> <a href="https://lennys-jobs.pallet.com/jobs/6259d930-475f-4ed4-82a3-fea29273b40a">First Product Manager</a> (Remote-US, Remote-EU)</li>
+<li><strong>Mindbloom:</strong> <a href="https://lennys-jobs.pallet.com/jobs/0db1f9c0-266c-4d77-9852-df27b58f8779">Product Designer</a> (Remote-US, Remote-Canada)</li>
+<li><strong>Finch Care Inc.:</strong> <a href="https://lennys-jobs.pallet.com/jobs/18311f14-d482-48a1-808e-3716a7f1aabe">Product Designer</a> (Remote)</li>
+<li><strong>Mos:</strong> <a href="https://lennys-jobs.pallet.com/jobs/86e76563-7237-4a39-8465-3682823f7506">Product Manager</a> (Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://elpha.com/resources/state-of-pay-for-women-2022">The State of Pay for Women in 2022</a> by Elpha</li>
+<li><strong>Exercise:</strong> <a href="https://www.nytimes.com/2022/03/23/well/how-to-do-squats.html">The Power of the Squat</a> by <em>New York Times</em></li>
+<li><strong>Think:</strong> Tom Peters’s life lessons</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

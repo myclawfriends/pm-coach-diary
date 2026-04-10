@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside ChatGPT: The fastest-growing product in history | Nick Turley (Head of ChatGPT at OpenAI) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Inside ChatGPT: The fastest-growing product in his…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Inside ChatGPT: The fastest-growing product in history | Nick Turley (Head of ChatGPT at OpenAI)</div>
+    
+    <div class="article-meta">2025-08-09<span>·</span>19,233 words<span>·</span>Nick Turley</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">策略</span> <span class="mini-tag">工程</span> <span class="mini-tag">Newsletter</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=ixY2PvQJ0To" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+You were a product leader at Dropbox, then Instacart. Now, you're the PM of the most consequential product in history.</p>
+<p><strong>Nick Turley</strong> (00:00:05):<br />
+I didn't know what I would do here because it was a research lab. My first task was I fix the blinds, or something like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:11):<br />
+When someone offers you a rocket ship, don't ask which seat.</p>
+<p><strong>Nick Turley</strong> (00:00:13):<br />
+We set out to build a super assistant. It was supposed to be a hackathon code base.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:16):<br />
+What was it called before?</p>
+<p><strong>Nick Turley</strong> (00:00:17):<br />
+It was going to be Chat with GPT-3.5 because we really didn't think it was going to be a successful product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:21):<br />
+And then Sam Altman is just like, "Hey, let me tweet about it."</p>
+<p><strong>Nick Turley</strong> (00:00:23):<br />
+This is a pattern with AI, you won't know what to polish until after you ship. My dream is that we ship daily.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:28):<br />
+By the time people hear this, they're going to have their hands on GPT-5.</p>
+<p><strong>Nick Turley</strong> (00:00:31):<br />
+About 10% of the world population uses every week. With scale comes responsibility. It just feels a little bit more alive, a bit more human. This model has taste.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:38):<br />
+Kevin Weil, your CPO, said to ask you about this principle of, "Is it maximally accelerated?"</p>
+<p><strong>Nick Turley</strong> (00:00:43):<br />
+I just really want to jump to the punchline, "Why can't we do this now?" I always felt like part of my role here is to just set the pace and the resting heartbeat.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:49):<br />
+Everyone is always wondering, "Is Chat the future of all of this stuff?"</p>
+<p><strong>Nick Turley</strong> (00:00:52):<br />
+Chat was the simplest way to ship at that time. I'm baffled by how much it took off, even more baffled by how many people have copied.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:58):<br />
+ChatGPT is now driving more traffic to my newsletter than Twitter.</p>
+<p><strong>Nick Turley</strong> (00:01:02):<br />
+That is the type of capability that has been incredibly retentive. I've been really excited about what we've been doing in search.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:06):<br />
+Can you give us a peek into where this goes long-term?</p>
+<p><strong>Nick Turley</strong> (00:01:09):<br />
+ChatGPT feels a little bit like MS-DOS. We haven't built Windows yet, and it will be obvious once we do.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:15):<br />
+Today, my guest is Nick Turley. Nick is Head of ChatGPT at OpenAI. He joined the company three years ago, when it was still primarily a research lab. He helped come up with the idea of ChatGPT and took it from 0 to over 700 million weekly active users, billions in revenue, and arguably the most successful and impactful consumer software product in human history. Nick is incredible. He's been very much under the radar. This is the first major podcast interview that he has ever done, and you are in for a treat. We talk about all the things, including the just launched GPT-5.</p>
+<p><strong>Christina Cacioppo</strong> (00:03:31):<br />
+Great to be here. Big fan of the podcast and the newsletter.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:34):<br />
+Vanta is a longtime sponsor of the show, but for some of our newer listeners, what does Vanta do and who is it for?</p>
+<p><strong>Christina Cacioppo</strong> (00:03:41):<br />
+Sure. So we started Vanta in 2018, focused on founders, helping them start to build out their security programs and get credit for all of that hard security work with compliance certifications, like SOC 2 or ISO 27001. Today, we currently help over 9,000 companies, including some startup household names, like Atlassian, Ramp, and LangChain, start and scale their security programs, and ultimately build trust by automating compliance, centralizing GRC, and accelerating security reviews.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:12):<br />
+That is awesome. I know from experience that these things take a lot of time and a lot of resources, and nobody wants to spend time doing this.</p>
+<p><strong>Christina Cacioppo</strong> (00:04:20):<br />
+That is very much our experience, but before the company, and some extent, during it, but the idea is, with automation, with AI, with software, we are helping customers build trust with prospects and customers in an efficient way. And our joke, we started this compliance company so you don't have to.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:36):<br />
+We appreciate you for doing that, and you have a special discount for listeners. They can get $1,000 off Vanta at vanta.com/lenny, that's vanta.com/lenny for $1,000 off Vanta. Thanks for that, Christina.</p>
+<p><strong>Christina Cacioppo</strong> (00:04:50):<br />
+Thank you!</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:55):<br />
+Nick, thank you so much for joining me, and welcome to the podcast.</p>
+<p><strong>Nick Turley</strong> (00:04:59):<br />
+Thanks for having me, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:00):<br />
+I already had a billion questions I wanted to ask you, and then you guys decided to launch GPT-5 the week that we're recording this. So, now, I have at least 2 billion questions for you. I hope you have a lot of time. First of all, just congrats on the launch. It's coming tomorrow, the day after recording this. Just congrats. How are you feeling? I imagine this is an ungodly amount of work and stress. How are you doing?</p>
+<p><strong>Nick Turley</strong> (00:05:22):<br />
+It's a busy week, but we've been working on this for a while, so it also feels really good to get it out.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:27):<br />
+So, by the time people hear this, they're going to have their hands on GPT-5, the newest ChatGPT. What's the simplest way to just understand what this is, what it unlocks, what people can do with it? Give us the pitch.</p>
+<p><strong>Nick Turley</strong> (00:05:39):<br />
+I'm so excited about GPT-5. I think for most people, it's going to feel like a real step change. If you're the average ChatGPT user, and we have 700 million of them this week, you've probably been on GPT-4o for a while. You probably don't even think about the model that powers the product. And GPT-5, it just feels categorically different. I'll talk about a lot of the specifics, but at the end of the day, the vibes are good, at least we feel that way. We hope that users feel the same. And increasingly, that is the thing that I think most people notice, right? They don't look at the academic benchmarks. They don't look at evaluations. They try the model and see what it feels like. And just on that dimension alone, I'm so excited. I've been using it for a while, but it is also the smartest, most useful, and fastest frontier model that we've ever launched.</p>
+<p><strong>Nick Turley</strong> (00:06:33):<br />
+On pure SMARTs, one way to look at that is academic benchmarks on many of the standard ones, whether or not it's math, or reasoning, or just raw intelligence. This model is state of the art. I'm especially excited about its performance on coding, whether or not that's SWE-bench, which is a common benchmark, or actually front-end coding is really, really good as well, and that's an area where I feel like there's the true step change improvement in GPT-5. But really, no matter how you measure the SMARTs, it's quite remarkable, and I think people are going to feel the upgrade, especially if they weren't using o3 already.</p>
+<p><strong>Nick Turley</strong> (00:07:13):<br />
+And the second thing beyond SMARTs is it's just really useful. Coding is one axis of utility, whether or not you have coding questions or you're vibe coding an app, but it's also a really good writer. I write for a living, internally, externally. I just wrote a big blog post that we published Monday, and this thing is such an incredible editor. And compared to some of the older models, it's got taste, which I think is really exciting. And to me, that's something that is truly useful in my day-to-day. And there's a bunch of other areas, like it's state of the art on health, which is useful when you need it, but again, the thing you can't really express in use cases or data is the vibe of the model. And it just feels a little bit more alive, a bit more human in a way that is hard to articulate until you try it. So, feel good about that.</p>
+<p><strong>Nick Turley</strong> (00:08:06):<br />
+And yeah, as mentioned, it's faster. It thinks, too, just like o3 did, but you don't have to manually tell it to do that. It'll just dynamically decide to think when it needs to. And when it doesn't need to think, it just responds instantly, and that ends up feeling quite a bit faster than using o3 did. And then maybe the thing that's most exciting is that we're making it available for free, and that's one of those things that I feel like we can uniquely do at OpenAI. Because many companies, I think, if they have a subscription model like us, they would gate it behind their paid plan. And for us, if we can scale it, we will, and that just feels awesome. We did that with 4o as well. So, everyone is going to be able to try GPT-5 tomorrow, hopefully.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:46):<br />
+How long does something like this take? I don't know if there's a simple answer to this, but just how long have you guys been working on GPT-5?</p>
+<p><strong>Nick Turley</strong> (00:08:51):<br />
+We've been working on it for a while. You can view GPT-5 as a culmination of a bunch of different efforts. We had a reasoning tech, we had a more classic post-screening methodologies, and therefore, it's really hard to put a beginning on it, but it really is the end point of a bunch of different techniques that we began for a while.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:14):<br />
+Can you give us a peek into the vision for where ChatGPT is going, GPT in general is going? If you look at on the surface, it's been the same idea with a much smarter brain for a long time. I'm curious where this goes long-term.</p>
+<p><strong>Nick Turley</strong> (00:09:28):<br />
+So, to maybe back up a bit, now, you think of ChatGPT as, "Is this going to be ubiquitous product?" Again, about 10% of the world population uses every week.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:37):<br />
+Holy shit.</p>
+<p><strong>Nick Turley</strong> (00:09:39):<br />
+I think we have 5 million business customers now. It's an established category in its own right. But really, when we started, we set out to build a super assistant, that's how we talked about it at the time. In fact, the code base that we use is called SA Server. It was supposed to be a hackathon code base, but things always turn out a little bit differently. So, yeah, in some ways, that is still the vision. The reason I don't talk about it more than I do is because I think assistant is a bit limiting in terms of the mental model we're trying to create. You think of this very personified human thing, maybe utilitarian, maybe a... And frankly, having an assistant is not particularly relatable to most people, unless they're in Silicon Valley and they're a manager, or something like that. So it's imperfect.</p>
+<p><strong>Nick Turley</strong> (00:10:24):<br />
+But really, what we envision is this entity that can help you with any task, whether or not that's at home, or at work, or at school, really any context, and it's an entity that knows what you're trying to achieve. So, unlike ChatGPT today, you don't have to describe your problem in menu to detail because it already stands your overarching goals and has context on your life, et cetera. So, that's one thing that we're really excited about. The inverse of giving it more inputs on your life is giving it more action space. So, we're really excited to allow it to do, over time, what a smart, empathetic human with a computer could do for you. And I think the limit of the types of problems that you can solve for people, once you give it access to tools like that, is very, very different than what you might be able to do in a chatbot today. So, that's more outputs.</p>
+<p><strong>Nick Turley</strong> (00:11:19):<br />
+And I often think, "Okay, I'm a general intelligence. What happened if I became Lenny's intern, or something?" And I wouldn't be particularly effective despite having both of those attributes that I just mentioned, and it's because I think this idea of building a relationship with this technology is also incredibly important. So, that's maybe the third piece that I'm excited about is building a product that can truly get to know you over time. And you saw us launch some of those things with improved memory earlier this year, and that's just the beginning of what we're hoping to do so that it really feels like this is your AI. So, I don't know if supersystem is still the right exact analogy, but I think people just think of it as their AI. And I think we can put one in everyone's pocket and help them solve real problems, whether or not that's becoming healthy, whether or not that's starting a business, whether or not that's just having a second opinion on anything. There's so many different problems that you can help with people in their daily life, and that's what motivates me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:16):<br />
+So an interesting between the lines that I'm reading here is the vision is for it to be an assistant for people not to replace people. It feels like a really important piece of the puzzle. Maybe just talk about that.</p>
+<p><strong>Nick Turley</strong> (00:12:29):<br />
+AI is really scary to people, and I understand there's decades of movies on AI that have a certain mental model baked in. And even if you just look at the technology today, everyone, I think, has this moment where the AI does something that was really deeply personal to them and you're thought, "Hey, AI can never do that." For me, it was weird music theory things where I was like, "Wow, this thing actually understands music better than I do," and that's something I'm passionate about. And so it's naturally scary. And I think the thing that's been really important to us for a long time is to build something that feels like it's helpful to you, but you're in the driver's seat, and that's even more important as the stuff becomes agentic, the feeling of being in control, and that can be small things.</p>
+<p><strong>Nick Turley</strong> (00:13:15):<br />
+We built this way of watching what the AI is doing when it's in agent mode. And it's not that you actually are going to watch it the whole time, but it gives you a mental model and makes you feel in control in the same way that, when you're in a Waymo, you get that screen, for those of you who've tried Waymo. You can see the other cars. It's not like you're going to actually watch, but it gives you the sense that you know how this thing works and what's happening, or we always check with you to confirm things. It's a little bit annoying, but it puts you in the driver's seat, which is important. And for that reason, we always view technology and the technology that we build as something that amplifies what you're capable of, rather than replacing it, and that becomes important as the deck gets more powerful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:53):<br />
+Okay. So you mentioned the beginnings of ChatGPT. I was reading in a different interview. So you joined OpenAI. ChatGPT was just this internal experimental project that was basically a way to test GPT-3.5, and then Sam Altman is just like, "Hey, let me tweet about it, maybe see if people find this interesting," yada yada, yada. It's the most successful consumer product in history, I think both in growth rate in users and revenue, and just absurd. Can you give us a glimpse into that early period before it became something everyone is obsessed with?</p>
+<p><strong>Nick Turley</strong> (00:14:24):<br />
+Yeah. So we had decided that we wanted to do something consumer-facing, I think, right around the time that GPT-4 finished training, and it was actually mainly for a couple of reasons. We already had a product out there, which was our developer product. That's actually what I came in to help with initially, and that has been amazing for the mission. In fact, it's grown up. And now, it's the OpenAI platform with, I don't know, 4 million developers, I think. But at that time, it was early stage, and we were running into some constraints with it because there was two problems. One, you couldn't iterate very quickly because, every time you would change the model, you'd break everyone's app. So, it was really hard to try things.</p>
+<p><strong>Nick Turley</strong> (00:15:03):<br />
+And then the other thing was that it was really hard to learn because the feedback we would get was the feedback from the end user to the developer to us. So it was very disintermediated, and we were excited to make fast progress towards AGI and it just felt like we needed a more direct relationship with consumers. So we were trying to figure out where to start. And in classic OpenAI fashion, especially back then, we put together a hackathon of enthusiasts of just hacking on GPT-4 to see what awesome stuff we could create and maybe ship to users, and everyone's idea was some flavor of a super assistant. They were more specific ideas, like we had a meeting bot that would call into meetings, and the vision was maybe it would help you run the meeting over time. We had a coding tool, which full circle now, probably ahead of its time. And the challenge was that we tested those things, but every time we tested these more bespoke ideas, people wanted to use it for all this other stuff because it's just a very, very generically powerful technology.</p>
+<p><strong>Nick Turley</strong> (00:16:04):<br />
+So, after a couple of months of prototyping, we took that same crew of volunteers, and it was truly a volunteer group, right? We had someone from the supercomputing team who had built an iOS app before. We had someone on the research team who had written some backend code in their life. They were all part of this initial ChatGPT team, and we decided to ship something open-ended because we just wanted a real use case distribution. And this is a pattern with AI, I think, where you really have to ship to understand what is even possible and what people want, rather than being able to reason about that a priori. So, ChatGPT came together at the end because we just wanted the learnings as soon as we could, and we shipped it right before the holiday thinking we would come back and get the data and then wind it down. And obviously, that part turned out super differently because people really liked the product as is.</p>
+<p><strong>Nick Turley</strong> (00:16:56):<br />
+So I remember going through the motions of like, "Oh, man, dashboard is broken. Oh, wait, people are liking it. I'm sure it's just going viral and stuff is going to die down," to like, "Oh, wow, people are retaining, but I don't understand why." And then eventually, we fell into product development mode, but it was a little bit by accident.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:14):<br />
+Wow. I did not know that ChatGPT emerged out of a hackathon project. Definitely the most successful hackathon project.</p>
+<p><strong>Nick Turley</strong> (00:17:21):<br />
+I like to tell this story when we do our hackathons because I really do want people to feel like they can ship their idea, and it's certainly been true in the past, and we'll continue to make it true.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:32):<br />
+If you don't want to share these things, but I wonder who that team was.</p>
+<p><strong>Nick Turley</strong> (00:17:34):<br />
+The team is largely still around. Some of the researchers working on GPT-5, actually, were always part of the ChatGPT team. Engineers are still around. Designers are still around. I'm still here, I guess. So, yeah, you've got the team still running things, but obviously, we've grown up tremendously, and we've had to because with scale comes responsibility. And we're going to hit a billion users soon and you have to begin acting in a way that is appropriate to that scale.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:06):<br />
+Okay. So let me spend a little time there. So, I don't know if this is 100% true, but I believe it is that ChatGPT is the fastest growing, most successful consumer product in history. Also, the most impactful on people's lives. It feels like it's just part of the ether of society now. It's just my wife talks to it. Every question I have, I go to it, voice mode. My wife is just like, "Let me check with ChatGPT." It's just such a part of our life now, and I think it's still early. So many people don't even know what the hell is going on. Just as someone leading this, do you ever just take a moment to reflect and think about just like, "Holy shit"?</p>
+<p><strong>Nick Turley</strong> (00:18:45):<br />
+I have to. It's quite humbling to get to run a product like that, and I have to pinch myself very frequently, and I also have to sometimes sit back and just think, which is really hard when things are moving so quickly. I love setting a fast pace at the company, but in order to do that with confidence, I need at least one day every week that I'm entirely unplugged and I'm just thinking about what to do and process the week, et cetera.</p>
+<p><strong>Nick Turley</strong> (00:19:14):<br />
+And the other thing is I've never ever worked on a product that is so empirical in its nature where, if you don't stop, and watch, and listen to what people are doing, you're going to miss so much, both on the utility and on the risks, actually. Because normally, by the time you ship a product, you know what it's going to do. You don't know if people are going to like it, that's always empirical, but you know what it can do. And with AI, because I think so much of it is emergent, you actually really need to stop and listen after you launch something and then iterate on the things people are trying to do and on the things that aren't quite working yet. So, for that reason alone, I think it's very important to take a break and just watch what's going on.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:03):<br />
+Okay. So you take a day off every week... not off. Okay, that's not the right way to put it. You take a day of thinking time, deep work.</p>
+<p><strong>Nick Turley</strong> (00:20:12):<br />
+I need it. Yeah, yeah, yeah. And I need to hard unplug on a Saturday, or something like that. Obviously-</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:16):<br />
+On a Saturday [inaudible 00:20:16].</p>
+<p><strong>Nick Turley</strong> (00:20:16):<br />
+But it's just not possible otherwise. This has been a giant marathon for three years now. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:25):<br />
+Like a sprint marathon.</p>
+<p><strong>Nick Turley</strong> (00:20:26):<br />
+Sprint marathon, that's right, or interval training, or something. I don't know how to exactly describe the OpenAI launch cadence, but you've got to set yourself up in a way that is sustainable. Even if this wasn't AI and it didn't have the interesting attributes that I just mentioned, I think you would need to do that. But especially with AI, it's important to go watch.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:45):<br />
+So, along those lines, I talked to a bunch of people that work with you, that work at OpenAI. Joanne specifically said that urgency and pace are a big part of how you operate, that that's just something you find really important, to create urgency within the team constantly, even when you are the fastest growing product in history, growing like crazy. Talk about just your philosophy on the importance of pace and urgency on teams.</p>
+<p><strong>Nick Turley</strong> (00:21:08):<br />
+Well, it's nice of her to say that. Two things, with ChatGPT, when we decided to do it, we had been prototyping for so long and I was just like, "In 10 days, we're going to ship this thing," and we did. So, that was maybe a moment in time thing where I just really wanted to make sure that we go learn something. Ever since then, I spent so much time thinking about why ChatGPT became successful in the first place, and I think there was some element of just doing things where there was many other companies that had technology in the LLM space that just never got shipped. And I just felt like, of all the things we could optimize for, learning as fast as possible is incredibly important. So I just started rallying people around that, and that took different forms.</p>
+<p><strong>Nick Turley</strong> (00:21:55):<br />
+For a while, when we were of that size, I just ran this daily release sync and had everyone who was required to make a decision in it, and we would just talk about what to do and to pivot from yesterday, et cetera. Obviously, at some point, that doesn't scale, but I always felt like part of my role here, obviously, was to think about the direction of the product, but also to just set the pace and the resting heartbeat for our teams. And again, this is important anywhere, but it's especially important when the only way to find out what people like and what's valuable is to bring it into the external world. So, for that reason, I think it's become a superpower of OpenAI, and I'm glad that Joanne thinks that I had some part in that, but it really has taken a village.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:38):<br />
+I love this phrase, "the resting heart rate of your team". That's such a perfect metaphor of just the pace of being equivalent to your resting heart rate.</p>
+<p><strong>Nick Turley</strong> (00:22:46):<br />
+I actually learned that at Instacart, when I showed up there, because we were in the pandemic and it was all hands on deck. For a while, there was this... I think there was a company-wide stand-up because we disbanded all teams. We were just trying to keep the site up. And for me, I had been used to taking my sweet time and just thinking really hard about things, and that's important, but I really learned to hustle over there, and I think that's come in handy at OpenAI.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:12):<br />
+Okay. So, along these same lines, I asked Kevin Weil, your CPO, what to ask you, and he said to ask you about this principle of, "Is it maximally accelerated?" Talk about that.</p>
+<p><strong>Nick Turley</strong> (00:23:22):<br />
+That's funny, we have a Slack emoji, apparently, for this now because I used to say that. Now, I try to paraphrase. Sometimes, I just really want to jump to the punchline of like, "Okay, why can't we do this now?" or, "Why can't we do it tomorrow?" And I think that it's a good way to cut through a huge number of blockers with the team and just instill... especially if you come from a larger company. At some point, we started hiring people from larger tech companies. I think they're used to, "Let's check in on this in a week," or, "Let's circle back next quarter to see if we can go on the plan." And I just, as a-</p>
+<p><strong>Nick Turley</strong> (00:24:00):<br />
+... on the plan and I just kind of as a thought exercise, always like people asking, "Okay, if this was the most important thing and you wanted to truly maximally accelerate it, what would you do?" That doesn't mean that you go do that, but it's really a good forcing function for understanding what's critical path versus what can happen later. And I've just always felt like execution is incredibly important. These ideas, they're everywhere. Everyone's talking about a personal AI, you might've seen news on that and I really think that execution is one of the most important things in the space and this is a tool. So, it's funny that that became a meme. It's like a little pink Slack emoji that people just put on whatever they're trying to force the question.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:45):<br />
+I was going to ask, what theme [inaudible 00:24:47]. So, it's a little pink, is there something in there like-</p>
+<p><strong>Nick Turley</strong> (00:24:48):<br />
+It's a Comic Sans emoji that says, is this maximally accelerated?</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:53):<br />
+Okay. And so, the kind of the culture there is when someone is working on something, the push is, is this maximally accelerated? Is there a way we can do this faster? Is there anything we can unblock?</p>
+<p><strong>Nick Turley</strong> (00:25:02):<br />
+Yeah. And we use that sparingly, right? Because it needs to be appropriate to the context. There's some things where you don't want to accelerate as quickly as possible because you kind of want process. And we're very, very deliberate on that where your process is a tool. And one of the areas where we have an immense amount of process is safety. Because A, the stakes are already really high, especially with these models, GPT-5 which is a frontier in so many different ways. But B, if you believe in the exponential, which I do and most people who work on this stuff do, you have to play practice for a time where you really, really need the process for sure, sure, sure. And that's why I think it's been really important to separate out the product development velocity, which has to be super high from, for things like frontier models, there actually needs to be a rigorous process where you red team, you work on the system card, you get external input, and then you put things out with confidence that it's gone through the right safeguards.</p>
+<p><strong>Nick Turley</strong> (00:26:02):<br />
+So, again, it's a nuanced concept, but I found it very, very useful when we needed and for everything product development, you're a dead on arrival, so it's important to get stuff out.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:11):<br />
+We got to open source those memes so that other teams can build on this approach.</p>
+<p><strong>Nick Turley</strong> (00:26:16):<br />
+Absolutely.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:17):<br />
+So, interestingly with ChatGPT, and it's not a surprise, but not only is it the fastest-growing, most successful consumer product ever, retention is also incredibly high. People have shared these stats that one month retention is something like 90%, six month retention is something like 80%. First of all, are these numbers accurate? What can you share there?</p>
+<p><strong>Nick Turley</strong> (00:26:39):<br />
+I'm obviously limited on what exactly I can share, but it is true that our retention numbers are really exciting and that is actually the thing we look at. We don't care at all how much time you spend in the product. In fact, our incentive is just to solve your problem and if you really like the product, you'll subscribe, but there's no incentive to keep you in the product for long. But we are obviously really, really happy if over the long run, three month period, et cetera, you're still using this thing. And for me, this was always the elephant in the room early on. It's like, "Hey, this may be a really cool product, but is this really the type of thing that you come back to?" And it's been incredible to not just see strong retention numbers, but just see an improvement in retention over time even as our cohorts become less of an early adopter and more the average person, so.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:29):<br />
+Yeah. So, that note is something that I don't think people truly understand how rare this is when a product... The cohort of users comes, tries it out and then retention over time goes down and then it comes back up, people come back to it a few months later and use it more. It's called a smiling curve, a smile curve, and that's extremely rare.</p>
+<p><strong>Nick Turley</strong> (00:27:48):<br />
+Yeah, yeah. Yeah. There's some smiling going on that's just on the team and I feel like have technology, some of it is not the product. I think people are actually just getting used to this technology in a really interesting way, where I find, and this is why the product needs to evolve too, that this idea of delegating to an AI, it's not natural to most people. It's not like you're going through life and figuring out what can I delegate? Certain sphere of Silicon Valley does that because they're in a self-optimization mode and they're trying to delegate everything they can. But I think for most people in the world it's actually quite unnatural. And you really have to learn, "Okay, what are my goals actually and what could another intelligence help me with?"</p>
+<p><strong>Nick Turley</strong> (00:28:26):<br />
+And I think that just takes time and people do figure it out once they've had enough time with the product. But then of course there's been tons of things that we've done in the product too, whether or not it's making the core models better, whether or not it's new capabilities like search and personalization and all that kind of stuff, or just standard growth work too, which we're starting to do. That stuff matters too, of course.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:49):<br />
+So, you might be answering this question already, but let me just ask it directly. People may look at this and be like, "Okay, they're building this kind of layer on top of this God-like intelligence. Of course it will grow incredibly fast and retention will be incredible. What do you guys actually doing that sits on top of the model that makes it grow so fast and retain so much?" Is there something that has worked incredibly well that has moved metrics significantly that you can share?</p>
+<p><strong>Nick Turley</strong> (00:29:18):<br />
+One thing we've learned, I'll answer that question in a minute, but one thing we've learned with ChatGPT is that there really is no distinction between the model and the product. The model is the product and therefore you need to iterate on it like a product. And by that I mean obviously you typically start by shipping something very open-ended, at least if you're OpenAI [inaudible 00:29:38] that's kind of a playbook. But then you really have to look at what are people trying to do? Okay, they're trying to write, they're trying to code, they're trying to get advice, they're trying to get recommendations and you need to systematically improve on those use cases. And that is pretty similar to product development work. Obviously the methodology is a bit different, but discovery is the same. You got to talk to people, you got to do data science and you got to try stuff and get feedback.</p>
+<p><strong>Nick Turley</strong> (00:30:04):<br />
+So, that's one chunk of work that we've been very consciously doing is improving the model on the use cases people care about. And there's also such thing as vibes because I'm sure you know and that's one of the things that I'm excited about in GPT-5 is that the vibes are really good. So, that too is, we have a model behavior team and they really focus on what is the personality of this model and how does it speak and talk. So, there's that kind of work. I would say that's maybe a third of the retention improvements that we see or so just roughly. And then I think another third is what I would call product research capabilities. They're research driven for sure. They have a research component, but they're really new product features or capabilities. And search is one example of that where if you remember in the olden days, maybe 20 months ago or something, you would talk to ChatGPT and it'd be like, "As of my knowledge cut off..." Or, "I can't answer that because that happened to recently," or something like that.</p>
+<p><strong>Nick Turley</strong> (00:31:00):<br />
+And that is the type of capability that has been incredibly retentive and for good reason. It just allows you to do more with the product personalization, like this idea of advanced memory where it can really get to know you over time is another example of a capability like that. I think that's another good chunk. And then the third stuff is the stuff you would do in any product and those things exist too. Not having to log in was a huge hit because it removed a ton of the friction. I think we had this intuition from the beginning, but we never got to it because we didn't have enough GPU or other constraint to really go do that. So, there's the traditional product work too. So, I often think about it as roughly a third, a third, a third, but really we're still learning and we're planning to evolve the product a ton, which is why I'm sure there's going to be new levers.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:52):<br />
+You mentioned something that I want to come back to real quick. You said that it was something like 10 days from Hackathon to Sam tweeting about ChatGPT being live?</p>
+<p><strong>Nick Turley</strong> (00:32:01):<br />
+The Hackathon happened much earlier and we were prototyping for a long time, but at some point we basically ran out of patience on trying to build something more bespoke. And again, that was mostly because people always wanted to do all this other stuff whenever we tested it. So, it was 10 days from when we decided we were going to ship to when we shipped. And the research we'd been testing for a long time, it was kind of an evolution of what we'd called instruction following, which was the idea that instead of just completing the sentence, these models could actually follow you instructions. So, if you said summarize this, it would actually do so. And the research had evolved from that into a chat format where we could do it multi-turn. So, that research took way longer than 10 days and that kind of baking in the background, but the productization of this thing was very, very fast and lots of things didn't make it in.</p>
+<p><strong>Nick Turley</strong> (00:32:50):<br />
+I remember we didn't have history, which of course was the first user feedback we got. The model had a bunch of shortcomings and it was so cool to be able to iterate on the model. The thing I just talked about, treating the model as a product was not a thing before ChatGPT because we would ship in more hardware where there'd be a release GPT-3 and then we would start working on GPT-4 and these weird giant big spend R&amp;D projects that would take a really long time and the spec was whatever the spec was and then you'd have to wait another year. And ChatGPT really broke that down because we were able to make iterative improvements to it just like software. And really, my dream is that it would be amazing if we could just ship daily or even hourly like in software land because you could just fix stuff, et cetera. But there's of course all kinds of challenges in how you do that while keeping the personality intact while not regressing other capabilities. So, it's an open field to get there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:42):<br />
+That's such a good example of is it maximally accelerated? Okay, we're going to ship ChatGPT 10 days.</p>
+<p><strong>Nick Turley</strong> (00:33:48):<br />
+[inaudible 00:33:48]-</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:48):<br />
+Holy moly. We've been talking about ChatGPT. Clearly it's kind of a chat interface. Everyone's always wondering is chat the future of all of this stuff? Interestingly, Kevin Weil made this really profound point that has always stuck with me when he was on the podcast that chat is actually a genius interface for building on a super intelligence because it's how we interact with humans of all variety of intelligence. It scales from someone at the lower end to a super smart person. And so, it's really valuable as a way to scale this spectrum. Maybe just talk about that and is chat the long-term interface for ChatGPT, I guess it's called ChatGPT.</p>
+<p><strong>Nick Turley</strong> (00:34:27):<br />
+I feel like we should either drop the chat or drop the GPT at some point because it is a mouthful. We're stuck with the name, but no matter what we do, the product will evolve. I think that I agree that there's something profound about natural language. It just really is the most natural form of communicating to humans and therefore it feels important that you should be communicating with your software in natural language. I think that's different from chat though. I think chat was the simplest way to ship at the time. I'm baffled by how much it took off as a concept. Even more baffled by how many people have copied the paradigm rather than trying out a different way of interacting with AI. I'm still hoping that will happen. So, I think natural language is here to stay, but this idea that it has to be a turn-by-turn chat interaction I think is really limiting.</p>
+<p><strong>Nick Turley</strong> (00:35:24):<br />
+And this is one of the reasons I don't love the super system analogy, even though we used to always use it is because if you think that way, then you kind of feel like you're talking to a person and GPT-5 it's amazing at making great front-end applications. So, I don't see a reason why you wouldn't have AIs that can render their own UI in some way. And you obviously want to make that predictable and feel good. But it feels limiting to me to think of the end-all-be-all interface as a chatbot. It actually kind of feels dystopian almost where I don't want to use all my software through the proxy of some interface. I love being in Figma, I love being in Google Docs. Those are all great products to me and they're not chatbots.</p>
+<p><strong>Nick Turley</strong> (00:36:07):<br />
+So, yes on natural language, but no on chat is where I would describe my point of view. And I'm just hoping in general that we see more consumer innovation on how people interact with AI because there's so many possibilities and you just got to try stuff. That's why chat stuck is we just did it and people liked it. So, I'm hoping that we see more there and we'll try to do our part.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:31):<br />
+So, you mentioned that you kind of got stuck with this name ChatGPT. Maybe this is part of the answer, but I'm curious just are there any accidental decisions you guys made early on that have stuck and have essentially become history changing?</p>
+<p><strong>Nick Turley</strong> (00:36:45):<br />
+There's so many and it is funny, because you have no time to think about them and then they end up being super consequential. The day was one, we went from chat with GPT-3.5 to ChatGPT the night before, slightly better but still really bad.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:58):<br />
+What was it called before?</p>
+<p><strong>Nick Turley</strong> (00:36:59):<br />
+It was going to be Chat with GPT-3.5 because we really didn't think it was going to be successful product. We were trying to actually be as nerdy as we could about it because that's really what it was. It was a research demo, not a product. So, we didn't think that was bad. But I think that in the original release, making it free was a big deal. I don't think we appreciate that because the GPT-3.5 model was in our API for at least six months prior to that. I think anyone could have built something like this. It might not have been quite as good on the modeling side, but I think it would've taken off. So, making it free and putting a nice UI on it, very consequential in the way that you take for granted now. And this is why I think that A, distribution and the interface are continuously important even in 2025.</p>
+<p><strong>Nick Turley</strong> (00:37:48):<br />
+The paid business, which now it's a giant business both in the consumer space and in the enterprise space. The birth of that was just to turn away demand originally. It was not like we brainstormed, "Oh, what is the best monetization model for AI?" It was really what monetization model or what mechanism would allow us to turn away people who are less serious than the people who are really trying to use it? And subscriptions just happened to have that property and it grew into a large business. I think shipping really funky capabilities before they were polished is another thing where that feels like a tactical decision, but it became a playbook because we would learn so much. Remember when we shipped Code Interpreter, we learned so much after we shipped it. Now it's known as I think data analysis in ChatGPT or something like that just because we actually got real world use cases back that we could then optimize. So, I think there's been a lot of decisions over time that proved pretty consequential, but we made them very, very quickly as we have to, so.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:53):<br />
+The $20 a month feels like an important part of this. Feels like everybody's just doing that now and-</p>
+<p><strong>Nick Turley</strong> (00:38:57):<br />
+On that one actually, I remember I had this kind of panic attack because we really needed to launch subscriptions because at the time we were taking the product down every time. It was, I don't know if you remember, we had this fail whale, there's a little [inaudible 00:39:09] generated poem on it. So, they were like, "We had to get this out." And I remember calling up someone I greatly respect who's incredible at pricing and I was like, "What should I do?" And we talked a bunch and I just ran out of time to incorporate most of that feedback. So, what I did do is ship a Google Form to Discord with, I think the four questions you're supposed to ask on how to price something-</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:32):<br />
+[inaudible 00:39:32]?</p>
+<p><strong>Nick Turley</strong> (00:39:33):<br />
+Yeah, exactly. It literally had those four questions and I remember distinctly A, you [inaudible 00:39:38] a price back and that's kind of how we got to $20. But B, the next morning, there was a press article on you won't believe the four genius questions the ChatGPT team asked to price their... It was like if only you knew. So, there's something about building in this extreme public where people interpret so much more intentionality into what you're doing than might've actually existed at the time. But we got with the $20. We're debating something slightly higher at the time. I often wonder what would've happened because so many other companies ended up copying the $20 price point. So, I'm like, "Did we erase a bunch of market cap by pressing it this way?" But ultimately I don't care because the more accessible we can make this stuff, the better. And I think this is the price point that in Western countries has been reasonable to a lot of people in terms of the value that they get back.</p>
+<p>And most importantly, we were able to push things down to the free tier semi-regularly and we always do that when we can [inaudible 00:40:35], but-</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:35):<br />
+So, the survey, just to give the official name, the Van Westendorp survey is how you guys ended up pricing ChatGPT?</p>
+<p><strong>Nick Turley</strong> (00:40:42):<br />
+It was the top Google result. This was before ChatGPT has real-time information. Otherwise, it could have maybe price itself, but it was Discord plus Google Form plus a blog post on that methodology that got us there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:54):<br />
+That is incredible. What a fun story. This is the survey that Rahul Vohra at Superhuman popularized in his first- round article-</p>
+<p><strong>Nick Turley</strong> (00:41:00):<br />
+Yeah. Yeah, yeah, that's right. That's right. Definitely don't bring me on here as a pricing expert, I think you have got better people for that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:08):<br />
+Whether it was right or wrong, it is now the fastest-growing, insane revenue generating business in the world. So, I wouldn't feel too bad.</p>
+<p><strong>Nick Turley</strong> (00:41:16):<br />
+No, it worked out. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:17):<br />
+It worked out. And by the way, I'm on the $200 a month tier, so there's clearly a room-</p>
+<p><strong>Nick Turley</strong> (00:41:22):<br />
+Thank you. Thank you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:25):<br />
+... [inaudible 00:41:25]-</p>
+<p><strong>Nick Turley</strong> (00:41:25):<br />
+The story of that one is interesting too because originally the purpose of the Plus plan was to be able to ship first uptime and then be able to ship capabilities that we couldn't scale to everyone. And at some point it got so many people in the Plus tier that had just lost that property. So, the main reason we came up with the $200 tier is just we had so much incredible research that's actually really, really powerful. Like o3 Pro or tomorrow GPT-5 Pro and just having a vehicle of shipping that to people who really, really care is exciting even though it kind of violates the standard way a SaaS page should look, it's a little jarring to see the 10X jump. So, thank you for being a subscriber on that and thank you everyone else who's watching you subscribed to any tier, it's great.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:10):<br />
+I'm just going to throw a fishing line into this pond of are there any other stories like this? You shared this incredible story of Chat with GPT-3.5 being the original name, how you came up with pricing. Is there anything else?</p>
+<p><strong>Nick Turley</strong> (00:42:22):<br />
+Enterprise is interesting one too because we've seen so much incredible adoption in the Enterprise and it's sort of objectively crazy to try to take on building a developer business and a consumer business and an enterprise business and all at once. But the story there is in like month one or two, it was very clear that most of the usage was work usage, actually much more than today where you've got so many consumers on the product and it's kind of sort of transcended into pop culture. But at the time it was writing, coding, analysis, that kind of stuff. And we were pretty quickly in organically in 90% of Fortune 500 companies in a way that I had seen maybe at Dropbox back when that was my two jobs ago where we had a similar story. And since then there's been more PLG companies. But the real reason we did Enterprise, remember we were debating should we do enterprise or should we launch an iOS app because that's how small the team was.</p>
+<p>The reason we did is we were starting to get banned in companies because they all felt rightfully or wrongfully that the privacy and deployment story, et cetera wasn't there. So, I was just like, "Man, we have to do something. We're going to miss out on a generational opportunity to build a work product." And we've literally defined AGI as outperforming most humans at economically valuable work or I'd probably [inaudible 00:43:45] that, but I think that's the way we put it. And so, I feel like we had to be present there and it was a fairly quick decision at the time, but it's grown into an immense business. We just hit 5 million business subscribers up from 3 million, I think a month or two ago. So, it is kind of the spinoff that it's taking a life of its own that I'm really, really excited about for [inaudible 00:44:11]-</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:11):<br />
+That is a lot to be handling the platform essentially the API, the consumer product, the fastest-growing, most successful product in history and also the B2B side, which is clearly a massive business. Do you have any kind of heuristics for how to make these trade-offs do all this at once and stay sane and be successful?</p>
+<p><strong>Nick Turley</strong> (00:44:30):<br />
+That's a good question. And first off, I don't run the developer stuff anymore. We found someone way more competent to do that and he's amazing. So, I still look after the various forms of chat, but luckily you don't have to make that trade-off OpenAI does. And I can get into that too, but it keeps me a little bit more sane. I will say that you kind of have to practice in two different ways when you're building on this AI stuff. One is sort of working backwards from the model capabilities and that is much more art than science, where I think you really need to look at what tech do we have available and what is the most awesome way to productize it? And if you applied to some sort of PM framework to that, I think you would do something horrible wrong. Because if you have tech that's, for example, GPT-5 is really, really good at front-end coding now, I think that means you've got to reprioritize it.</p>
+<p><strong>Nick Turley</strong> (00:45:27):<br />
+You got to actually bring that capability to life. Maybe that's making ChatGPT better at vibe coding and rendering applications. Maybe that's more like leveraging the taste of the model to make the UI more expressive. There's a number of things we could do, but you kind of have to replan and reprioritize and that is more important than any particular audience segmentation. It's really just looking at what is the magic thing we have and how do you make it shine. Voice is a similar thing. It wasn't like our customers need voice, they're begging for it or something like that. It was like, "Wow, we figured out a way how to make these things anything in, anything out." What is a creative awesome way to productize that and then we can see what people do. So, I think that's one chunk of it. But then the other chunk of it really is more like classic product management where you need to listen to customers and then when your customers are really different, that can be confusing because ChatGPT is a very general purpose product.</p>
+<p><strong>Nick Turley</strong> (00:46:23):<br />
+We see when you look at end users, there's actually an immense amount of overlap in terms of what they want. Primitives like projects or history search or sharing and collaboration, all those kinds of things. They are actually very, very present. Whether or not you're talking to people at work or you're talking to people at home, at school, there's slightly different mechanics sometimes, but they're largely similar investments that I think we can get a lot of mileage out of. And then there's Enterprise-specific work that we just have to do. You've got to do HIPAA, you got to do SOC 2, you've got to do all those things if you want to be a serious player. And those are just non-negotiable. So, it's complex as you correctly identified, but it's kind of the curse of working on a very open-ended and powerful technology.</p>
+<p><strong>Nick Turley</strong> (00:47:11):<br />
+One analogy that someone at OpenAI who I really respect, he's like, "We're kind of like Disney, where Disney has this one kind of creative IP, which is their content, and they have cruises and they have theme parks and they have comics and they have all these different things." And I think we have amazing models, but there's all these different ways that you can productize them and we kind of just have to maximize the impact in all these different ways.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:38):<br />
+As you were talking, I was thinking about how usually horizontal platforms that are just so general and can do so much take a long time to take off because people don't know what to do with them. They're not amazing at anything. And this is an amazing counter example where it took off immediately and everyone figured it out and then over time they figured it out more and more.</p>
+<p><strong>Nick Turley</strong> (00:47:54):<br />
+But I think the reason why is because it just went live. Talk about another consequential decision actually. We were debating waitlist, no waitlist because we-</p>
+<p><strong>Nick Turley</strong> (00:48:00):<br />
+Actually we were debating waitlist/no waitlist because we really knew we couldn't scale the engineering systems. And the fact that there was no waitlist, which no open AI release had worked like that before, ended up being consequential because you were able to watch what everyone else was doing live. So I think when you launch these things all at once for everyone, there really is a special moment where you can see what other people are doing and learn from that.</p>
+<p><strong>Nick Turley</strong> (00:48:25):<br />
+And a lot of that is actually out of product. There's these crazy TikTok posts that go viral and they have like 2, 000 use cases in the comments. And I go through those in detail because it's not like I knew about those use cases either. They're very, very emergent and I just go through the comments and process because there's so much to learn. And for that reason, I think we get to skip the empty box problem a little bit because so much learning is happening out of product as people are watching each other either in IRL or online.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:55):<br />
+That is so interesting because you think about Airtable, you think about Notion, all these companies, they took years to just build and craft and think and go deep on what it could be.</p>
+<p><strong>Nick Turley</strong> (00:49:04):<br />
+It's like they compare Airtable, which they had to do templates, they had to do all these kind of things of taking the horizontal product and making it use case driven. They compare it to the Instant Pot, which there's recipes being shared everywhere online. There's this whole ecosystem around it. I think we were really lucky with ChatGPT that that happened where there's just users sharing use cases with other users everywhere. And therefore I think we got very lucky by jumping ahead on that journey.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:40):<br />
+And it feels like a quarter there is Sam had big following and everyone would pay attention to something you launch. So that's a really interesting new strategy for launching horizontal product. With a huge distribution channel, just launch it and see what comes up.</p>
+<p><strong>Nick Turley</strong> (00:49:51):<br />
+Yeah. And of course I'm actually really excited to take some of that into the product. I think we shouldn't rest on the fact that there's so much out product discovery happening. I actually think for the average consumer, it would be amazing if the product did a little bit more work on really exposing to you what is possible.</p>
+<p><strong>Nick Turley</strong> (00:50:07):<br />
+I still feel like ChatGPT feels a little bit like MS-DOS, like we haven't built Windows yet. And it'll be obvious once we do, but there's something that feels a little bit like... Imagine MS-DOS had gone viral and you were just trying to hack little conversation starters onto it. That might've missed sort of the big picture in terms of how to really communicate affordances and value to people. And so I think there's actually a ton more product work to do in addition to just seeing use cases spread.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:33):<br />
+Are you able to share just what you think that might look like? This Windows version of ChatGPT?</p>
+<p><strong>Nick Turley</strong> (00:50:37):<br />
+I'll let you know when we figure it out. We're hiring. I think there's so many interesting product problems here.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:42):<br />
+Okay, got it. By the way, I also love that TikTok was like your feedback channel.</p>
+<p><strong>Nick Turley</strong> (00:50:49):<br />
+Those common threads, they're just so wild. And also the love that people have for it, the excitement with which you're sharing their product, I feel like it's special that people are so excited to share what they're doing with your product. And I don't take that for granted either.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:06):<br />
+<strong>Nick Turley</strong> (00:52:22):<br />
+Before I built the product team, I actually built the data science team because I was getting frustrated. I was talking to as many users as I could. And my calendar the weeks after ChatGPT, it was just 15 minute user interview the whole week through. It was usually I stopped doing interviews when I can predict what the next person's going to say. That's how I know I've talked to enough users, but it just wasn't happening. I just kept getting new stuff.</p>
+<p><strong>Nick Turley</strong> (00:52:46):<br />
+So data is one way out where I think we have conversation classifiers that without us having to look at the conversations, allow us to figure out what are people talking about, what use cases are taking off, et cetera. And I think that's very, very helpful. The quality of the stuff is important for empathy. Even though you're never going to get a rap on all the use cases people have, I still spend a huge amount of my time doing that. And then yeah, things like those TikToks, collections of threads, I think they're really, really useful. It's just fun to watch people talk to each other about the various use cases that they have.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:22):<br />
+Is there kind of a new margin use case that you're excited about or is there a really unusual use of ChatGPT that you think about that'd be fun to share?</p>
+<p><strong>Nick Turley</strong> (00:53:30):<br />
+I mentioned this earlier, but I had always conceptualized ChatGPT as a worky product, whether or not you're at home or you at work. I feel like getting help with your taxes is very similar to the types of things you do at work where planning a trip is actually very similar to planning an event for work. So I always felt like, "Okay, this thing is going to kind of be a productivity tool."</p>
+<p><strong>Nick Turley</strong> (00:53:51):<br />
+And I think something has happened, I realized, a few months where that has begun to change and I really do think the fact that you have consumers turning to this thing for day-to-day advice, helping them have better relationships... People talk about how this thing saved their marriage is really exciting to me because they use it to process their own emotions, get feedback on their communication style. They just have a buddy to talk to about really difficult things. And that comes with a ton of responsibility and work that we have to do to make those things like life advice great, but it also is really, really important to me because you can't run away from those use cases. You have to run towards them and make them awesome. And that's part of what we're trying to do. So that emergent behavior is really, really cool.</p>
+<p><strong>Nick Turley</strong> (00:54:41):<br />
+And more broadly, I'm so excited about education. I'm so excited about health. I think it would really be a waste if we didn't take the opportunity of using ChatGPT to really, really help people. And I think we've just begun to scratch the surface on that. So there's many aspirational use cases that I want to make happen.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:05):<br />
+Along those lines, an interesting use case I've recently had, I feel like it's going to be really helpful for couples that are disagreeing about something when they need a third opinion. I just had this recently where my wife's like, "You can't heat a whole thing that you're going to only eat part of in the microwave and then put it back in the fridge." It's like, "What's the problem? I'll heat it up, I'll put it back in the fridge." And she's like, "No, that's really dangerous." I'm like, "Let's ask ChatGPT." And that fact that she so trusts ChatGPT now and relies on it throughout the day, it's such a valuable third independent party that we can go to.</p>
+<p><strong>Nick Turley</strong> (00:55:35):<br />
+Yeah, yeah, totally. And a lot of those micro-interactions talk about interesting product work, right? Those are micro-interactions that are important. Did it definitively weigh in or did it help you guys think through that disagreement and solve it on your own? I think those details actually matter a lot and it's where we're spending a bunch of time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:54):<br />
+Along those lines, there was this whole launch of the very sycophantic version of ChatGPT where it was just, " You are the best person in the world. Everything you tell me is amazingly correct." Are you able to tell us just what happened there?</p>
+<p><strong>Nick Turley</strong> (00:56:08):<br />
+Yeah, we have all kinds of collateral online because we really felt like we should over-communicate on how we discovered it, what we did about it, et cetera. So I encourage people to check that out. We have a whole retro on that model release.</p>
+<p><strong>Nick Turley</strong> (00:56:24):<br />
+But basically what happened is that we pushed out an update that made the model more likely to tell you things that sound good in the moment, "You're totally right. You should break up with your boyfriend" or something like that. That's just really dangerous. We took it more seriously than you even might expect because again, at current technology levels, you can kind of laugh about it. Maybe it's like, "Ha-ha. This thing's always complimenting me. I thought it was just me. I saw all those comments online." But it actually is really important to make sure that these models are optimized for the right things.</p>
+<p><strong>Nick Turley</strong> (00:57:01):<br />
+And we have an immense, I think, luxury to have a mission that affords us to really help people, a business model that does not incentivize maximizing engagement or time spent in the product, right? So it's really important to us that you feel like this product is helping you with your goals, whether not that's your current goals or even your long-term goals.</p>
+<p><strong>Nick Turley</strong> (00:57:25):<br />
+And oftentimes being extremely complimentary with the user isn't actually in service of that. So we instilled new measurement techniques. Whenever we put these models in contact with reality and we learn about a problem, we actually go back and make sure we have good metrics for this stuff. So we measure sick efficiency now with every release to make sure we don't regress and actually improve on that metric. GPT-5 is an improvement, which is really exciting for me, but we have more work from there.</p>
+<p><strong>Nick Turley</strong> (00:57:54):<br />
+And more broadly, it caused us to articulate our point of view. I actually spent a bunch of time on a blog post that we just published on Monday on what we're optimizing ChatGPT for. And it really is to help you thrive and achieve your goals, not to keep you in the product. And so there was a bunch of good outcomes from that incident. It's a good example of how contact for reality is not just important for the use cases, but also for learning what to avoid because you would've never discovered this issue purely in a lab unless you actually heard from physicians.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:26):<br />
+I am excited to read that blog post then. I was going to ask you this. Just like how you-</p>
+<p><strong>Nick Turley</strong> (00:58:29):<br />
+Yeah, have your feedback on it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:31):<br />
+Yeah. I guess is there anything more there of just how you... Because this tension is so difficult, helping people feel supported, but not just letting them believe everything they want to believe. Is there anything more you can share there? Just trying to find that middle ground.</p>
+<p><strong>Nick Turley</strong> (00:58:43):<br />
+Incentives are important. There is a famous saying, "Show me the incentive and I'll show you the outcome."</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:48):<br />
+Charlie Munger maybe?</p>
+<p><strong>Nick Turley</strong> (00:58:49):<br />
+Yeah, I think that's where it came from, right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:50):<br />
+Yeah.</p>
+<p><strong>Nick Turley</strong> (00:58:52):<br />
+Yeah, I think that's very, very important. So I would take a good look at our mission, our business model, the type of product we're trying to build. And I really think that ChatGPT is a very special product because I think in vast majority of cases, it makes you leave it feeling better or not worse and feeling like you're achieving something you're trying to do. So I think that those incentives really matter because it helps you reason about, "Okay, when there isn't behavior in the wild, that's not good. Was that a bug or was that by design? And with [inaudible 00:59:29] I can very much say that to us that's a bug.</p>
+<p><strong>Nick Turley</strong> (00:59:31):<br />
+And then on the forward-looking work, there's so many kind of challenging scenarios to get right. And you could easily run away from these use cases. Like you and your wife going to this thing for input on a relationship, a question or a dispute, you could very easily run away if you were totally risk avoidant and say, " Sorry, I can't help you with that." I think that's what most tech companies do when they hit a certain scale, they run away from these use cases. And I think it's a lost opportunity to help people.</p>
+<p><strong>Nick Turley</strong> (01:00:08):<br />
+So we want to run towards these use cases by making the model behavior really, really great. That can mean connecting you with external resources when you're struggling. That can mean not directly answering your question, but instead of giving you a helpful framework in the case of like, "Should I break up with my boyfriend?" ChatGPT should probably not answer that question for you, but it should help you think through that question in the way that a thoughtful companion would. So I think it's really important to do the work because I think the upside is immense.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:37):<br />
+That is a really profound point you're making there, that if most companies, if their users want to ask them something risky like getting medical advice or, "Should I break up with my partner?" or, "what should I do with this big problem I have?"</p>
+<p><strong>Nick Turley</strong> (01:00:51):<br />
+I feel like we would have immense regret if you had a model that was state-of-the-art on health bench, which is, GPT-5 is a state of the art on a bunch of these medical benchmarks, and you didn't use that to help people, you just disabled that use case because you wanted to avoid all possible downside. I think the duty is to make it awesome and to do the work, talk to experts, figure out how good it really is, where it breaks down, communicate that. And I think this technology is too important and has too much potential positive impact on people to run away from these high stakes excuses.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:27):<br />
+And fast-forward to today, it's saving lives regularly. It's probably saving relationships regularly. Such a consequential decision, which I imagine was made early on.</p>
+<p><strong>Nick Turley</strong> (01:01:36):<br />
+Yeah. We're just at the beginning of watching how this stuff can transform people. It's incredibly democratizing. If you compare, you roll out of this with the roll out of the personal computer, computers were so scarce when they first came out. And this stuff is ubiquitous in a way where you have access to a second opinion on medical stuff, you have access to a relationship buddy, you have access to a personal tutor on literally any topic that makes you curious. It's really, really special that we get to do that. Unique point in history.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:15):<br />
+Let me zoom out a bit and talk about OpenAI and just product in general. So you've worked at traditional, let's say traditional product companies, Dropbox, Instacart. Now you're at OpenAI. What's maybe the most counterintuitive lesson you've learned by building products from your time at OpenAI?</p>
+<p><strong>Nick Turley</strong> (01:02:33):<br />
+Each time I always tried to pick the maximally different job whenever I made a job change. So after Dropbox, I was craving a real world product because it was just so different than working on SaaS, et cetera. And after Instacart, I was craving on working on something that intellectually was interesting and had this kind of invoked the nerd in me. And so I've always looked for things that are really different.</p>
+<p><strong>Nick Turley</strong> (01:02:59):<br />
+And then once I showed up at these places, I tried to understand what makes that place successful, what is truly the thing that they cracked and how we can lean in that into that even more.</p>
+<p><strong>Nick Turley</strong> (01:03:11):<br />
+I think I spent a lot of time thinking about this with OpenAI, especially after ChatGPT. Before that it was kind of a moot point because we didn't really have much revenue or products or anything like that. There's a few things that come to mind that have driven many decisions. One is the empiricism. We talked about that a bit. The fact that you can only find out by shipping, which is why maximally lean into that. And that's a huge part of why we ship so much.</p>
+<p><strong>Nick Turley</strong> (01:03:46):<br />
+One of them is that amazing ideas come from anywhere. The thing about running a research lab is you really don't tell people what to research. That's not what you do. And we inherited that culture even as we become a research and product company. So just letting people do things who have amazing ideas rather than being the gatekeeper or prioritizer of everything or something like that has been proven immensely valuable to us. And that's where much of the innovation comes from, is empowered smart people on any function really. So that was a good inheritance from what I think made OpenAI successful and makes us successful.</p>
+<p>The interdisciplinariness of really making sure that you put research and engineering and design and product together rather than treating them as silos. I think that's the thing that has made us successful and that you see come through in every product we ship. Like if we're shipping a feature and it doesn't get 2X better as the model gets 2X smarter, it's probably not a feature we should be shipping. Not always true. SOC 2 doesn't get better with [inaudible 01:04:48] models, but I think for many of the core capabilities, that's a good litmus test.</p>
+<p><strong>Nick Turley</strong> (01:04:52):<br />
+So I've always found you really have to lean into why is this place successful and then maximally accelerate that, so to speak, because it's what allows you to turn something that feels like an accident into something that is a repeatable label.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:07):<br />
+So you talked about this kind of collaboration between researchers and product people. And you've been at the beginning of ChatGPT from day one to today, from zero to 700 million weekly active users. Not just registered users, weekly active users. How have you approached building out that team over time?</p>
+<p><strong>Nick Turley</strong> (01:05:24):<br />
+One of the other inheritances of being in a research lab is that you take recruiting really seriously. That's something that AI labs know every person matters. But many tech companies that go through hyper growth and they kind of lose their identity, they lose their talent bars, they just have chaos. So we've always had this tendency to run relatively lean.</p>
+<p><strong>Nick Turley</strong> (01:05:51):<br />
+So it is a small team that is running ChatGPT. I take co inspiration from WhatsApp where it was a very small team running a very global-scale product. And then more importantly, you have to treat hiring a little bit more like executive recruiting and less like just pure pipeline recruiting where you really need to understand what is the gap you're trying to fill on each team, what is the specific skill set and how do you fill it.</p>
+<p><strong>Nick Turley</strong> (01:06:17):<br />
+To give you an example, I'm a product person at heart, but sometimes a team doesn't need a product person because there's already someone doing that role. In many cases, we have a really talented engineering leader who has amazing product sense, or we have a researcher who has product ideas. And in my mind they can play that role. And maybe we have something else missing instead. Maybe we need a little bit more front-end or something like that.</p>
+<p><strong>Nick Turley</strong> (01:06:41):<br />
+In other cases, maybe what you're missing is incredible data scientists. So I really like to go through every single team and figure out what is the skill sets that that team needs and how do you put it together from principles rather than just assuming, "Hey, we're going to do a bunch of pipeline recruiting for all these different roles" and then people will find a team later. So I think that's always felt really important to me. And it's the way that you keep your team really small, yet super high throughput.</p>
+<p>It also allows you to hire people who I think Keith Rabois calls us like barrels, I think. [inaudible 01:07:15] barrel's an ammunition where he thinks... I think this comes from him, but the idea being that sort of the throughput of your org depends on how many barrels you have, which is people who can make stuff happen. And then you can add ammunition around them, which is people helping those people. I think that's been really true for our recruiting too where we try to maximize the number of empowered people who can ship because that's how you have a small team and still get the ton done.</p>
+<p><strong>Nick Turley</strong> (01:07:43):<br />
+So there's a couple of things, and I spent a lot of time on vibes too with each team because I think one of the things that is challenging when you try to do research and product together is that the cultures are different. People have different backgrounds. And I think to make that go super well, you need to spend time team building and making sure that people have a huge amount of trust for each other's skill sets, feel like they can think across their boundaries. I really believe that product is everyone's job, for example. And for that reason, the recruiting doesn't stop when the people are on the door. It actually starts because you have to start making the teams awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:24):<br />
+Is there something you do with team building that would be fun to share? Just like something you do to create [inaudible 01:08:28]?</p>
+<p><strong>Nick Turley</strong> (01:08:28):<br />
+I just love whiteboarding with teams. I just love getting into a generative mindset. It breaks down everything. So that's the thing that I try. It's not particularly creative, but I found it to be a universal tool where the minute you can get people to stop thinking about what's my job versus the other person's job and more like we're all in a room trying to crack something together, that is incredible.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:50):<br />
+You mentioned this idea of first principles. This came up actually when I talk to a lot of people about you, is this something you're really big on. A lot of people talk about first principles, most people are like, " I don't really understand," or they think they're amazing at thinking from first principles. Is there something you can share of just what it actually looks like to think from first principles as maybe an example that comes to mind where you really went to first principles and came up with something unexpected?</p>
+<p><strong>Nick Turley</strong> (01:09:15):<br />
+Yeah, this is not something I'd ever say about myself. It's nice that someone else would say it, but it's a mysterious thing. Yeah, I think you just really got to get to ground truth on what you're really trying to solve. For example, as I mentioned with the recruiting thing, I'm not dogmatic that you have to have a product manager and an engineering manager and a designer or whatever. We're just trying to make an awesome team that can ship. So in that case, first principles means just really understanding what we actually need and what we're missing rather than applying a previously learned process or behavior. So I think that's a good example.</p>
+<p><strong>Nick Turley</strong> (01:09:54):<br />
+Another good example of I think being first principles in this environment is, does this feature need to be polished? We get a lot of crap for the model chooser, and I own it. I've tried to say that to everyone who will listen. For those who don't know model chooser, it's this giant drop down in the product that is literally the anti-pattern of any good product traditionally.</p>
+<p><strong>Nick Turley</strong> (01:10:16):<br />
+But if you are actually recent from scratch, is it better to wait until you got a polished product or to ship out something raw even if it makes less sense and start learning and getting into people's hands? I think a company with a lot of process or a lot of just learned behaviors will make one call, which is, we have a quality bar when we ship, and that's what we do. If your first principle is about it, I think you're like, "You know what? We should ship. It's embarrassing, but that's strictly less bad than not getting the feedback you wanted."</p>
+<p><strong>Nick Turley</strong> (01:10:51):<br />
+So I think just approaching each scenario from scratch is so important in this space because there is no analogy for what we're building. You can't copy an existing thing. There is no, "Are we an Instagram or are we a Google or a productivity tool or something like that?" I don't know. But you can learn from everywhere, but you have to do it from scratch. And I think that's why that trait tends to make someone effective at OpenAI, and it's something we test for in our interviews too.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:23):<br />
+So this theme keeps coming up, and I think it's just important to highlight something that you keep coming back to, which is this trade-off of speed and polish and how in this space, speed is more important, not just to stay ahead, but to learn what the hell people actually want to do with this thing. Is there anything more that you think people just may be missing about why they need to move so fast in the space of AI?</p>
+<p><strong>Nick Turley</strong> (01:11:46):<br />
+Yeah. I mean, the boring answer would be, oh, it's competitive and everyone's in AI and they're trying to compete each other. I think that's maybe true, but that's not the reason that I believe this. The reason really is that you're going to be polishing the wrong things in the space. You absolutely should polish-</p>
+<p><strong>Nick Turley</strong> (01:12:00):<br />
+You're going to be polishing the wrong things in this space. You absolutely should polish things like the model output, et cetera, but you won't know what to polish until after you ship. And I think that is uniquely true in an environment where the properties of your product are emergent and not knowable in advance. And I think that many people get that wrong because they think the best product people tend to be craftspeople and they have a traditional definition of craft. I also think it would be easy to use all what I just said as an excuse not to eventually build a great product. So I often tell my teams that shipping is just one point on the journey towards awesomeness, and you should pick that point intentionally where it doesn't have to be the end of your iteration at all. It can be the beginning, but you better follow through.</p>
+<p><strong>Nick Turley</strong> (01:12:50):<br />
+So we've been doing a bunch of work, especially over the last quarter of really cleaning up the UI of ChatGPT. I'm really excited to do the same for the sort of the response layouts and formats next. Simply because once you know what people are doing, there's no excuse to not polish your product. It's just really, in a world where you don't know yet, you might get very distracted.</p>
+<p><strong>Nick Turley</strong> (01:13:09):<br />
+So it's situational. Again, you kind of have to be first principles about it. But I do think using velocity, especially early on, as</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

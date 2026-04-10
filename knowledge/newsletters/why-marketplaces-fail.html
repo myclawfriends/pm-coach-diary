@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why marketplaces fail — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Why marketplaces fail</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Why marketplaces fail</div>
+    
+    <div class="article-meta">2021-04-13<span>·</span>3,679 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">領導</span> <span class="mini-tag">定價</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m building a marketplace and wondering what is most likely to kill my business. What should I be watching out for?</h2>
+</blockquote>
+<p>Marketplace businesses are HARD. You could argue they are 2x as hard as a non-marketplace because you have to find Product/Market TWICE, for your supply AND for your demand. If you’re the founder of a marketplace business, you probably feel that’s closer to 200x as hard 🥴</p>
+<p>At the same time, there’s nothing magical about marketplaces. They work for the same reasons any startup works—delivering something people want. And they fail mostly for the same reasons—not delivering something people want, profitably, before they run out of money.</p>
+<p>In a <a href="https://www.lennysnewsletter.com/p/evaluating-a-marketplace-business">past post</a>, I shared my framework for evaluating marketplace ideas, but in this post, I’m going zero in on your specific question: <strong>why do marketplaces fail?</strong></p>
+<p>Though marketplaces, like any startup, fail for a combination of reasons, there does generally seem to be <em>one fatal issue</em> that kills a marketplace. Below, I’ll share the five most common reasons marketplaces fail, along with tons of examples of marketplaces that experienced that issue most acutely.</p>
+<p><img alt="Image from Why marketplaces fail" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0205a3ca-8644-49ff-9de3-302b0feea6c4_2048x1024.png" /></p>
+<p>Note: While this post shares the downfall of many marketplaces, I want to express my utmost respect for anyone who ever attempts to build a marketplace startup—or any startup. The startup journey is unbelievably hard, and my goal with this post is to help you avoid unnecessary pain. Marketplace founders: I salute you.</p>
+<p><img alt="Image from Why marketplaces fail" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/65fb83b1-0312-4497-af0b-37da224a232b_356x200.gif" /></p>
+<h1>Why marketplaces fail</h1>
+<h3>Reason 1. Lack of demand-side PMF: Not enough <strong>customers badly need what you’re selling</strong></h3>
+<p>This is by far the most common reason startups fail, marketplace or not. No matter how clever your marketplace model, you’re in trouble if there isn’t a big hungry market looking for what you’re selling.</p>
+<p>Broadly, when going up against a non-marketplace alternative, you have three ways to win on the demand side:</p>
+<ol>
+<li><strong>Deliver a much cheaper product</strong>, thanks to your inventory-less model and economies of scale (e.g. Doordash, Instacart, Amazon, ThredUp)</li>
+<li><strong>Deliver a much better product,</strong> thanks to exclusive new supply that you create (e.g. Airbnb, Cameo, Rover, Hipcamp, Outschool, SpotHero)</li>
+<li><strong>Deliver a much better experience,</strong> thanks to aggregating previously disaggregated supply, which makes it much easier to trust and transact(e.g. GOAT, Lyft/Uber, Faire, Thumbtack, OfferUp)</li>
+</ol>
+<p>Let’s look at a few examples of marketplaces that couldn’t get there.</p>
+<h4>Sharingear: Rent musical instrument from other people</h4>
+<p><img alt="Image from Why marketplaces fail" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a3ed8bc8-1700-4471-ae91-dd65bc8ec332_1436x738.png" /></p>
+<blockquote>
+<p>Every musician I was in dialogue with, all said “what a great idea” or “this is exactly what we need” but at the end of the day, <strong>no one really did need such a service</strong>, because every musician is struggling for survival and no one has ever any money, as even the established artists are saving every hard earned penny. (<a href="https://medium.com/@mirceagabrieleftemie/the-highs-and-lows-of-entrepreneurship-5e786cac9d59">source</a>)</p>
+</blockquote>
+<h4>Neighborrow: Rent tools and appliances from your neighbors</h4>
+<p><img alt="neigh*borrow (@neighborrow) | Twitter" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/07e9c9f8-0196-4e63-926a-7b690bdcd949_400x400.jpeg" /></p>
+<blockquote>
+<p>The problem was people liked the idea of our idea, not our solution. Journalists flocked to write about us, but they never signed up for the service. Gatekeepers of Internet contests and startup events wanted us there, but didn’t use it. Even the users who wrote us emails saying how we were awesome (I got emails like that every week) didn’t make an effort to lead their communities to neighborrow. <strong>We were great in theory but not in practice.</strong> (<a href="https://pando.com/2013/03/16/what-can-be-learned-when-sharing-leads-to-failing/">source</a>)</p>
+</blockquote>
+<h4>Kitchensurfing: A professional chef in your kitchen</h4>
+<p><img alt="Kitchensurfing — Emilia Naberezny" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c07c390e-942e-4eae-b478-8e7aff67f3b9_1000x710.gif" /></p>
+<blockquote>
+<p>“The startup had originally allowed customers to book chefs days in advance for at-home dinner parties, but last year moved to an on-demand model. <strong>Neither version of the service, though, produced enough demand</strong> to be sustainable for a venture-backed business.” (<a href="https://www.bizjournals.com/newyork/news/2016/04/18/on-demand-chef-service-kitchensurfing-shuts-down.html#:~:text=Kitchensurfing%2C%20a%20venture%2Dcapital%20backed,after%20four%20years%20in%20business.&amp;text=%E2%80%9CWe%20are%20unfortunately%20ending%20service,operations%20after%20April%2015%2C%202016.">source</a>)</p>
+</blockquote>
+<p><strong>Additional examples</strong>: <a href="https://techcrunch.com/2014/08/29/6000-words-about-a-pink-mustache/">Zimride</a>, <a href="https://hackernoon.com/the-success-and-failure-of-design-inc-99c07a93c8eb">Design Inc</a>, <a href="https://medium.com/swlh/why-mapudo-failed-5f3519f1b277">Mapudo</a> (B2B), <a href="https://entrackr.com/2018/11/wholesale-marketplace-wydr-shutdown/">Wydr</a> (B2B)</p>
+<h3>Reason 2. <strong>Lack of supply-side PMF: Not enough of your potential supply gets meaningful value from your marketplace</strong></h3>
+<p>What <em>most</em> differentiates marketplaces from non-marketplaces is the fact that you don’t own the supply. Your supply is independent, and technically also your customer. In order to attract and keep your supply, you have two options:</p>
+<ol>
+<li><strong>Create new revenue opportunities for people</strong> (e.g. Airbnb, Outschool, Cameo)</li>
+<li><strong>Add incremental revenue to existing businesses</strong> (e.g. Doordash, Thumbtack, Snackpass)</li>
+</ol>
+<p>Let’s look at a few examples of marketplaces that couldn’t get there.</p>
+<h4><strong>Prim</strong>: Laundry on demand</h4>
+<p><img alt="Prim: Anatomy of a folded startup | Laundry delivery, Start up, Laundry  pick up" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/456d0773-31f4-4cd0-a47d-a9665b80ccfe_620x348.jpeg" /></p>
+<blockquote>
+<p>While laundromats were initially receptive to working with Wu and Cao, what the two didn’t count on was the partnership eventually going sour. <strong>Laundromat owners eventually saw Prim as siphoning possible incremental revenues from their own in-house delivery services</strong>, especially once Prim began offering same-day delivery. During Prim’s short lifespan, it churned through at least three laundromats. (<a href="https://fortune.com/2014/01/22/prim-anatomy-of-a-folded-startup/">source</a>)</p>
+</blockquote>
+<h4>Exec: Errands on demand</h4>
+<p><img alt="Instant Errand Assistants : exec" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/24a3541f-2306-4262-b381-ca5a94c88336_600x336.jpeg" /></p>
+<blockquote>
+<p>Turnover of errand runners was very high. <strong>Most competent people are not looking for part-time work.</strong> The exception to this are people looking for supplemental income, but those people have full-time jobs which conflicted with our high demand periods: mid-morning of the workweek, Monday — Friday. Hiring new errand runners was expensive, and it was difficult to get them to stick around when we couldn’t guarantee work. (<a href="https://justinkan.com/what-i-learned-about-online-to-offline-dd38ab40f3eb">source</a>)</p>
+</blockquote>
+<h4>HelloParking: Parking on demand</h4>
+<p><img alt="11 Uber for X Startups that Failed - are you making the same Mistakes? -  JungleWorks" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2bcc45b0-a555-41bb-a65e-51ebe3ba90aa_338x139.png" /></p>
+<blockquote>
+<p><strong>There are more folks hunting for parking spaces than exist parking space owners who are willing to share</strong>. This is the problem we weren’t able to solve, and a problem that still exists today for folks taking their own stab at the driveway sharing business. (<a href="https://medium.com/10-thousand-ways-to-fail/helloparking-a-look-back-and-a-new-perspective-3b334ebcd06">source</a>)</p>
+</blockquote>
+<p><strong>Additional examples</strong>: <a href="https://medium.com/shipitwise/goodbye-for-now-shipitwise-is-shutting-down-ae5a4bdf1550">ShipItWise</a></p>
+<h3>Reason 3. Lack of liquidity: You’re unable to reliably match supply and demand</h3>
+<p>The most fundamental job of a marketplace is to efficiently match supply with demand. If you can’t do this reliably (i.e. fill-rate) or quickly (i.e. time-to-match), you’ll fail. Below are examples of marketplaces that weren’t able to get enough liquid to build a viable marketplace.</p>
+<h4>Threadflip: P2P women's apparel</h4>
+<p><img alt="RIP Threadflip | TechCrunch" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2f62c4b5-8fc9-41b1-838f-bc188a2552ce_730x409.png" /></p>
+<blockquote>
+<p>At Threadflip we focused on the mid-tier of design (Michael Kors for example was our most popular brand). While liquidity with anything Michael Kors was high, the number of unique items we had listed was low. <strong>We had a supply imbalance and our search-to-fill was poor</strong>. (<a href="https://twitter.com/ai/status/1349786585999441920">source</a>)</p>
+</blockquote>
+<h4>Prefer: Book services via referrals from friends</h4>
+<p><img alt="Image from Why marketplaces fail" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3d30a6d7-47ca-4b31-8ef5-55318e82d0d8_1600x999.png" /></p>
+<blockquote>
+<p>Traditional marketplace building starts with liquidity. Can you gather enough “supply” and “demand” to ensure that buyers and sellers are able to find each other and be satisfied with little effort? For this reason, most marketplaces start with a narrow (vertical) focus on specific services, whether it be massage therapists, drivers, or babysitters. If you can build enough supply while also pacing the demand — all while keeping the cost of acquiring both sides in check with some form of viral loop — you can achieve the elusive “flywheel” that has unleashed some of the greatest marketplaces of our time. But for a referral marketplace like Prefer that would require Soloists to bring their own clients onto the platform (and for clients to keep coming back for new services), the team knew that we needed to take a horizontal approach instead. After all, why would massage therapists introduce a network of other massage therapists to their own clients? So we needed to accommodate many forms of Soloists from day one. As the saying goes, “when you try to do something for everyone, you don’t get it right for any one. (<a href="https://medium.com/positiveslope/prefer-postmortem-6-lessons-learned-from-building-an-independent-pro-network-17f398da002">source</a>)</p>
+</blockquote>
+<h4>Zaarly: Reverse Craiglist</h4>
+<p><img alt="Zaarly Reviews - 4 Reviews of Zaarly.com | Sitejabber" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/94802b8d-1f41-4558-8026-894ff987c0aa_1031x449.jpeg" /></p>
+<blockquote>
+<p>Certainty, Trust, &amp; Quality. These three things are the pillars that I have come to believe are needed to make any marketplace work. We did a pretty solid job out of the gate with trust and quality, but a pure 'request model' lacks sorely when it comes to Certainty. The analogy I use is that, in a vacuum of brand trust (which a startup doesn't have) or guaranteed supply (which we didn't have early on), a pure request model is <strong>akin to going fishing in a black water pond. You don't know what kind of fish are there, you don't know IF there are fish there, and you certainly don't know what kind of bait to use</strong>. So, why fish there? There are a handful of ways to deal with that... you can guarantee supply for certain things, you can suggest things that you know you have good supply for (giving the illusion of certainty), or you can show off the supply that you have (which is what we chose to do). (<a href="https://www.quora.com/Zaarly-company-1/Why-did-Zaarly-pivot">source</a>)</p>
+</blockquote>
+<p><strong>Additional examples</strong>: <a href="https://betakit.com/varagesale-fails-to-monetize-in-time-acquired-by-verticalscope/">Varagesale</a>, <a href="https://techcrunch.com/2020/08/31/offerup-and-letgo-combine-marketplaces-post-acquisition/">LetGo</a></p>
+<h3>Reason 4. Bad <strong>unit economics</strong>: You’re unable to make a profit delivering a competitive price to customers while retaining supply</h3>
+<p>Rooted in the challenge of offering better/cheaper products to customers is both (1) making sure your supply earns enough to make it worth their while, and (2) at the same time extracting enough value to build a profitable business. As Justin Khan learned when building Exec (after Justin.TV), “unit economics matter a lot more [for marketplaces] than in pure software businesses.”</p>
+<p>Let’s look at a few examples of companies who couldn’t find a path to making the economics of their marketplace work before running out of money.</p>
+<h4>Shyp: Shipping on demand</h4>
+<p><img alt="Shyp will save you a trip to the post office - Coordinate° - Marketing and  Public Relations" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8cddb5ad-2b1c-4777-8038-da9a7703335c_800x460.jpeg" /></p>
+<blockquote>
+<p>For all that was going right, there were underlying problems with Shyp’s operating model. <strong>A flat fee for pickup and packaging proved a challenge given the wide variance in size of packages</strong> that people were sending. In response, the company introduced fees for packaging and shipping that could vary based upon the size of the item being packaged. And while probably prudent for the company, it likely diminished the value of the service in the eyes of customers. (<a href="https://www.forbes.com/sites/maryjuetten/2019/01/24/failed-startups-shyp/?sh=f82881a72b93">source</a>)</p>
+</blockquote>
+<h4>Luxe: Valet parking anywhere in the city</h4>
+<p><img alt="Valets On Demand: Can Luxe Solve Our Parking Mess?" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ee18d6f0-85ea-4c68-bc87-153e606e53dc_960x506.jpeg" /></p>
+<blockquote>
+<p>By ferrying cars from popular areas to underused parking lots, Luxe’s founders argued that they had discovered a loose thread in the city’s parking knot. It wasn’t simply more convenient — at $5 an hour, with a maximum of $15 for the day — Luxe was also significantly cheaper than just about any other way to park.<br />
+<strong>Things have since changed, and not for the better. Luxe is less reliable, and prices have gone way up. Where I park in San Francisco, Luxe now often charges close to $30 a day, a rate that exceeds those of local lots</strong>, especially when you include the app’s suggested tips for valets. (<a href="https://www.nytimes.com/2016/03/24/technology/the-uber-model-it-turns-out-doesnt-translate.html">source</a>)</p>
+</blockquote>
+<h4>Cherry: The carwash that comes to you for $29</h4>
+<p><img alt="Photo of Cherry - San Francisco, CA, United States" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1da00190-50d2-42c2-be50-3b9f0681c55d_1000x666.jpeg" /></p>
+<blockquote>
+<p>To maximize revenue in the Bay Area, where they started, Cherry would have had to either begin to upsell other car-related services to be delivered at the time of a car wash and/or to maximize the number of bookings made through its service.</p>
+<p>Venture-scale businesses need to have tremendous leverage in their revenue models. [This] requires the organization of excess labor supply, training that labor, and supplying it with materials and/or information in order to carry out the mission. Each step between point-of-sale and point-of-completion <strong>puts more and more pressure on the model and most likely compresses any margin</strong>. (<a href="https://techcrunch.com/2013/01/13/iterations-lessons-we-can-draw-from-cherry/">source</a>)</p>
+</blockquote>
+<h4>Homejoy: Home cleaning on demand</h4>
+<p><img alt="As independent contractors, Homejoy's cleaners couldn't be trained -- which led to spotty service quality and poor customer retention. (Courtesy Homejoy)" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/cd74cc30-361f-48de-ad24-cf898540405d_960x640.jpeg" /></p>
+<blockquote>
+<p>A cleaning company charges north of $85 for a 2.5-hour house cleaning, but to rope in as many new customers as possible, it <a href="https://plus.google.com/+Dealgrove/posts/622oDsFrL32">offers the service</a> for a promotional price of $19. Guess what happens when the introductory deal is used up? <strong>You don't need an MBA to solve this riddle</strong>. The customer never books again -- and that's the problem that plagued Homejoy, the cleaning services marketplace startup that was, for a while, a Silicon Valley darling before it said Friday it was shutting down. (<a href="https://www.forbes.com/sites/ellenhuet/2015/07/23/what-really-killed-homejoy-it-couldnt-hold-onto-its-customers/?sh=ede08fb18741">source</a>)</p>
+</blockquote>
+<p><strong>Additional examples</strong>: <a href="https://techcrunch.com/2019/11/25/omni-shuts-down/">Omni</a>, <a href="https://techcrunch.com/2016/04/28/on-demand-private-chef-startup-kitchit-shuts-down/">Kitchit</a>, <a href="https://fortune.com/2014/01/22/prim-anatomy-of-a-folded-startup/">Prim</a>, <a href="https://www.latimes.com/business/la-fi-washio-startup-20160830-snap-story.html">Washio</a>, <a href="https://justinkan.com/what-i-learned-about-online-to-offline-dd38ab40f3eb">Exec</a>, <a href="https://www.businessinsider.com/moveloot-shuts-down-2016-6">Move Loot</a>, <a href="https://www.failory.com/cemetery/99dresses#:~:text=99dresses%20was%20established%20by%20the,of%20the%20app%20in%202014.">99 Dresses</a>, <a href="https://www.forbes.com/sites/forbestreptalks/2016/05/24/how-dinner-lab-blew-through-10-million-on-a-failed-restaurant-startup/?sh=21a3906dc64a">Dinner Lab</a>, <a href="https://www.cnet.com/news/commerce-one-melting-down/">Commerce One</a> (B2B)</p>
+<h3>5. Scaling too fast: <strong>You scale quickly without maintaining a consistently great experience</strong></h3>
+<p>Scaling too fast can kill any startup’s ability to deliver a great experience, but marketplaces feel this challenge most acutely because they don’t have total control over their supply. Initially, these challenges can be easy to overcome, but as you scale and bring on lots of new supply, it becomes incredibly challenging.</p>
+<p>Below are examples of startups who most struggled maintaining a consistently high-quality experience as they scaled, and failed as a result.</p>
+<h4>Handy: Home cleaning on demand</h4>
+<p><img alt="Handy - Home Services on Demand - YouTube" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/21b2b5a5-bde4-40f1-b191-d95e4a94c781_1280x720.jpeg" /></p>
+<blockquote>
+<p>Successful onboarding plummeted more than 40 percent. <strong>Handy had to cancel thousands of bookings as demand outstripped the supply of available pros</strong>. Customer complaints skyrocketed. It was a grim replay of an episode from a year earlier when the company had moved all of its customers onto recurring-service plans without providing easy ways to opt out--while simultaneously shutting down its telephone complaint line. For Hanrahan and Dua, this debacle was just one more stumble on the long, unfamiliar, and painful path from growth to profitability. (<a href="https://www.inc.com/magazine/201611/jeff-bercovici/from-pivot-to-profit.html">source</a>)</p>
+</blockquote>
+<h4>Fab: Flash sales</h4>
+<p><img alt="Flash Sales Site Fab.com Raises $8 Million to Be a Step Up From Etsy -  Tricia Duryee - Commerce - AllThingsD" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f36e3de4-bdee-4926-8ca4-f734cffcf1f7_722x469.png" /></p>
+<blockquote>
+<p>“When you look at Fab's decision to go to Europe, we were still nascent in the US," said one former Fab employee. "We had our ducks in a row, but not everything figured out. We couldn't afford to send anyone from the US there because we were trying to keep our heads above water here. Two years later would have been a more natural place to make those investments in [Europe].” <strong>The expansion caused Fab to lose its competitive edge.</strong> (<a href="https://www.businessinsider.com/how-billion-dollar-startup-fab-died-2015-2">source</a>)</p>
+</blockquote>
+<h4>Laurel &amp; Wolf: Online interior design</h4>
+<p><img alt="The bizarre unraveling of Laurel &amp; Wolf" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b7c03180-480c-4f4f-b204-6f8b8789c485_800x535.png" /></p>
+<blockquote>
+<p>Even though Laurel &amp; Wolf generally maintained a positive, marketable image, beginning the summer of 2018, the company’s reviews on sites like Yelp were populated with an influx of mainly one-star rants. <strong>Most of the reviewers complained that furniture and other items that they had ordered through the platform either arrived broken or were never delivered</strong>. Some clients also complained of having received substandard services and never receiving refunds that they claimed for. As a result of the poor publicity, a majority of Laurel &amp; Wolf’s designers left the platform. (<a href="https://businessofhome.com/articles/the-unraveling-of-laurel-wolf">source</a>)</p>
+</blockquote>
+<p><strong>Additional examples</strong>: <a href="https://www.businessinsider.com/lessons-from-groupons-business-model-2013-3">Groupon</a>, <a href="https://www.businessinsider.com/how-billion-dollar-startup-fab-died-2015-2">Fad</a>, <a href="https://www.eu-startups.com/2019/07/imitation-simply-wasnt-enough-a-wimdu-post-mortem/#:~:text=The%20merger%20came%20with%20speculation,and%20failed%20to%20secure%20more.&amp;text=Wimdu's%20official%20statement%20said%20it,employees%20in%20Berlin%20and%20Lisbon.">Wimdu</a>, <a href="https://en.wikipedia.org/wiki/OLX#History">OLX</a>, <a href="https://www.businessinsider.com/this-is-why-etsy-is-failing-2015-6">Etsy</a> (which they recovered from)</p>
+<h3>Other reasons your marketplace may fail</h3>
+<p>For completeness, a few other (but less common) causes of marketplace failure to watch out for:</p>
+<ol>
+<li><strong>Disintermediation</strong>: Your supply and demand don’t have a great reason to stay on-platform (e.g. <a href="https://pando.com/2013/09/08/after-difficult-fundraise-yc-alum-tutorspree-shuts-down/">Tutorspree</a>)</li>
+<li><strong>Multi-tenanting</strong>: Too much of your supply is present on other competing marketplaces, making your marketplace less valuable to demand.</li>
+<li><strong>Lack of fragmentation on both sides</strong>: Do both sides actually need you to help them find each other? Particularly common in B2B marketplaces, where there are fewer players.</li>
+<li><strong>Too small a market</strong>: There just aren’t enough people or businesses in the world who need what you’re selling, which leads to your growth plateauing.</li>
+<li><strong>Bad execution</strong>: Focusing on the wrong side of the marketplace for too long, not finding a scalable way to grow supply and demand, blowing through cash, etc. (e.g. <a href="https://www.forbes.com/sites/maryjuetten/2019/01/15/failed-startups-beepi/?sh=463c18b62e57">Beepi</a>)</li>
+</ol>
+<h2>Bonus: How marketplaces win</h2>
+<p>How marketplaces beat non-marketplace alternatives:</p>
+<h4>Demand</h4>
+<ol>
+<li><strong>Deliver a much cheaper product</strong>, thanks to your inventory-less model and economies of scale (e.g. Doordash, Instacart, Amazon, ThredUp)</li>
+<li><strong>Deliver a much better product,</strong> thanks to exclusive new supply that you create (e.g. Airbnb, Cameo, Rover, Hipcamp, Outschool, SpotHero)</li>
+<li><strong>Deliver a much better experience,</strong> thanks to aggregating previously disaggregated supply, which makes it much easier to trust and transact(e.g. GOAT, Lyft/Uber, Faire, Thumbtack, OfferUp)</li>
+</ol>
+<h4>Supply</h4>
+<ol>
+<li><strong>Create new revenue opportunities</strong> for people (e.g. Airbnb, Outschool, Cameo)</li>
+<li><strong>Add incremental revenue</strong> to existing businesses (e.g. Doordash, Thumbtack, Snackpass)</li>
+</ol>
+<h2>📚 Further study</h2>
+<ul>
+<li><a href="https://www.lennysnewsletter.com/p/evaluating-a-marketplace-business">Evaluating a marketplace idea</a></li>
+<li><a href="https://a16z.com/2020/02/20/marketplace-engagement/">Four Paths to Marketplace Success</a> by D'Arcy Coolican</li>
+<li><a href="https://a16z.com/2021/03/31/marketplace-supply-strategy/">Marketplace Supply Strategy: Comprehensive, Exclusive, or Curated</a> by Casey Winters and Anne Lewandowski</li>
+<li><a href="https://a16z.com/marketplace-100/">The a16z Marketplace 100</a></li>
+<li><a href="https://twitter.com/lennysan/status/1381651907375112198">A tweet thread with more failed marketplaces</a></li>
+</ul>
+<p>Have a productive and fulfilling week 🙏</p>
+<p><em>Thank you to <a href="https://www.linkedin.com/in/mikeghaffary">Mike Ghaffary</a> and <a href="https://www.linkedin.com/in/mikeduboe">Mike Duboe</a> for offering valuable feedback on this post.</em></p>
+<h2><strong>🔥 Job opening of the week:</strong><a href="https://www.dover.com/open-roles/growth-product-engineer">Growth Product Engineer at Dover</a></h2>
+<blockquote>
+<p><em>Dover is looking for our first Growth Product Engineer to design and build out our free product suite used by thousands of founders and hiring managers.</em></p>
+<p><a href="https://www.dover.com/open-roles/growth-product-engineer">Learn more</a></p>
+</blockquote>
+<p><strong>Additional opportunities:</strong></p>
+<ol>
+<li><strong>Product</strong>: <a href="https://work.abstractops.com/3003f61f65d44cfdbebfdd01677f1adb">AbstractOps</a>, <a href="https://decent.breezy.hr/p/a976bf37026c-product-lead">Decent</a>, <a href="https://boards.greenhouse.io/goldcast/jobs/4009779004">Goldcast</a>, <a href="https://jobs.ashbyhq.com/Rocketplace/11bc424f-e80f-4bab-aa96-517c01a6d511">Rocketplace</a>, <a href="https://docs.google.com/document/d/1VUHSTVfk2HyVfzcryXBGcpgUHrVGCddy1tGvMjGEHao/edit">Twine</a>, <a href="https://boards.greenhouse.io/wrapbook/jobs/4217915003?gh_jid=4217915003">Wrapbook</a></li>
+<li><strong>Growth</strong>: <a href="https://www.notion.so/Growth-Marketing-Manager-3fbc68b7dcc2411c857a2753bd4e70f7">Offsyte</a>, <a href="https://boards.greenhouse.io/spacex/jobs/5032353002?gh_jid=5032353002&amp;gh_src=seekorswimcom">SpaceX Starlink</a></li>
+<li><strong>Design</strong>: <a href="https://jobs.ashbyhq.com/ashby/145ff46b-1441-4773-bcd3-c8c90baa598a">Ashby</a>, <a href="https://jobs.lever.co/berbix/ba8af3cd-d797-492b-9849-13b37df0f6b2">Berbix</a>, <a href="https://www.notion.so/Eppo-Founding-Designer-57b62fbe7832400396ee7dbfd9889c0e">Eppo</a>, <a href="https://angel.co/company/instrumentl/jobs/1175906-lead-product-designer-remote">Instrumentl</a>, <a href="https://jobs.lever.co/office-hours/13d73541-b5b7-405a-9ad8-1d3f0edf9c92">Office Hours</a>, <a href="https://www.notion.so/Designer-San-Francisco-CA-327a70b082714933aef3c58ef63b54ab">Primer</a>, <a href="https://www.notion.so/A-Product-Designer-baa24543701f472bb291d4429812064a">Runway</a>, <a href="https://www.notion.so/Designer-Watershed-7cb7bf8bd750432399d36e83e4e32391">Watershed</a></li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a>, <a href="https://www.notion.so/Front-end-Developer-929e1933b9b4432a851043adbb7bff04">Practice</a></li>
+<li><strong>Backend engineer</strong>: <a href="https://www.notion.so/Driveway-Senior-Engineer-758d5ce4ce764f9ea920c5728ee136f3">Driveway</a>, <a href="https://www.notion.so/Eppo-Founding-Data-Engineer-45533e4fc79c4c4d97b8302c051243bc">Eppo</a>, <a href="https://www.notion.so/Senior-Software-Engineer-Backend-6d954206f00b446289f18bf51960ca34">Pogo</a>, <a href="https://reclaim.ai/job-site-reliability-engineer/">Reclaim</a>, <a href="https://transformdata.io/careers/">Transform</a></li>
+<li><strong>Fullstack engineer</strong>: <a href="https://get.mem.ai/careers#product-engineer">Mem</a>, <a href="https://www.notion.so/A-Product-first-Full-stack-Engineer-5e056689b68048aeb1ccfea6ac73eb9e">Runway</a>, <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpass</a>, <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/senior-full-stack-developer_paris_SORAR_Y1eay7e">Sorare</a>, <a href="https://jobs.lever.co/stytch/00c92a1b-36c2-46f6-8af1-885a6bbd6bd4">Stytch</a></li>
+<li><strong>Mobile engineer</strong>: <a href="https://www.notion.so/nocapnotion/Software-Engineer-iOS-058677353900453ca6b60c62445ac3a0">Nocap</a>, <a href="https://www.notion.so/Senior-Software-Engineer-iOS-San-Francisco-CA-87f0fd3ee3dc4c3f8d0419c07fcdd434">Primer</a>, <a href="https://jobs.lever.co/stytch/d3bf3860-4aaa-4a23-8e28-dad20957be44">Stytch</a></li>
+<li><strong>Game economy designer</strong>: <a href="https://www.welcometothejungle.com/fr/companies/sorare/jobs/game-economy-designer_paris_SORAR_kYW8MjK">Sorare</a></li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch</strong>: Monkey MindPong by Neuralink</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=rsCul1sp4hQ">Watch on YouTube</a><br />
+2. <strong>Feel</strong>: Sometimes you just need a hug</p>
+<ol>
+<li><strong>Read</strong>: <a href="https://avc.com/2021/03/return-hybrid-remote/">Return/Hybrid/Remote</a> by Fred Wilson</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

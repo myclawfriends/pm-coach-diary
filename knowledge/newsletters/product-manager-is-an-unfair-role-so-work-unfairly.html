@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product manager is an unfair role. So work unfairly. — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Product manager is an unfair role. So work unfairl…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Product manager is an unfair role. So work unfairly.</div>
+    
+    <div class="article-meta">2024-11-12<span>·</span>4,240 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">組織</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>I believe the future of product management looks like <a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a>. He’s an individual contributor (IC) PM who leverages AI tools and a suite of productivity systems to get more done with fewer resources (and management layers). Throughout his more than 10-year career, Tal has actively chosen to stay an IC and, over that time, has honed a set of productivity practices that give him tremendous leverage and impact—beyond what many traditionally believe ICs can achieve<strong>.</strong>In other words, he’s become a “super-IC.”Below, Tal shares seven of the unique productivity tactics that have gotten him to where he is today—and might help you become a super-IC too.</p>
+<p><em>Tal was an early PM at Patreon, Riverside, Wix, and AppsFlyer. For more from Tal, check out his <a href="https://talraviv.co/">63 free video tutorials</a> on using AI agents at work, his other popular guest post on <a href="https://www.lennysnewsletter.com/p/build-your-personal-ai-copilot">building your AI thinking partner</a>, and his <a href="https://www.lennysnewsletter.com/p/the-super-ic-pm-tal-raviv">episode on Lenny’s Podcast</a>. You can also book Tal for an <a href="https://talraviv.co/build-sprints">AI build sprint</a> with your team.</em></p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/e6321b91-d622-4e28-9439-0a582a297684_4000x2000.png" /></p>
+<p>Product management is unfair. We’re expected to be on both a <a href="https://www.paulgraham.com/makersschedule.html">maker</a> <em><a href="https://www.paulgraham.com/makersschedule.html">and</a></em> <a href="https://www.paulgraham.com/makersschedule.html">a manager’s schedule</a>. Nothing is planned around “PM capacity.” We can’t hire or fire but are expected to make things happen (and fast). We are the cushion for organizational dysfunction. Any PM reading this could add a dozen more reasons.</p>
+<p>And this is in the best-case scenario—assuming you’re on an empowered product team with a clear strategy, inside a business that’s growing.</p>
+<p>Unfortunately, it’s only going to get harder from here. In the past few years, we’ve seen the “<a href="https://www.lennysnewsletter.com/i/150339479/theres-a-surprising-dip-in-salary-at-a-manager-level">great flattening</a>” of tech: rising expectations of fewer ICs to own larger swaths of the product and manage multiple teams while staying hands-on. Rapid advances in AI are only accelerating expectations of what one PM can handle.</p>
+<p>“Fairness” isn’t coming.</p>
+<p>The good news is that great PMs are making it work.In this newer, flatter tech industry, PMs who thrive will be the ones who build their own systems, methodologies, and tools to make the job work for <em>them</em>, not the other way around. They’ll start working “unfairly” today to lead successful teams without sacrificing their own well-being.</p>
+<p>Some of these strategies and boundaries may seem selfish or weird. Remember: keeping you healthy, engaged, and committed to the job is essential for the success of your entire team—and the product and company too.</p>
+<h2>1. Get out of tasks before they even reach your to-do list (or anyone else’s)</h2>
+<p><strong>😑 Unfair:</strong> I’m staying late because even though my meetings are done, I have a bajillion tiny tasks that are both urgent and important as a result of all those meetings.</p>
+<p><strong>🤠 Work unfairly:</strong> Instead of adding action items from meetings to a to-do list, do the action items <em>live in the meeting</em>.</p>
+<p>With everyone watching.</p>
+<p>While screensharing.</p>
+<p>Let’s use “sending out a meeting summary” as an example action item from a meeting. Instead of spending valuable time after the meeting reviewing notes and drafting a summary, do the work in the meeting itself. In the screenshot below, I am screensharing my Slack, open to the channel of this initiative so everyone in the meeting can see. And I’m drafting the bullet points of my summary and action items.</p>
+<p>When the meeting has come to an end, I ask everyone to take a look at the screen and make sure that I got it right. Once we have a consensus, I hit “enter” on the spot and stop the screen share.</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/b236a231-bebb-4288-bd5b-481990a2d454_1600x963.jpeg" /></p>
+<p>Sounds selfish to do this in front of everyone, right? Turns out colleagues and stakeholders appreciate it. From their point of view, you’re taking the lead, bringing clarity, getting it done immediately, and aligning with them—all before hitting enter.</p>
+<p>Extend this approach to other meeting action items:</p>
+<ul>
+<li>Write that Jira (i.e. screenshare and say, “Let’s make sure I got it right”)</li>
+<li>Ping a colleague for input (i.e. screenshare and say, “I’ll try to quickly get a response while we’re still in the meeting”)</li>
+<li>Schedule the next meeting (i.e. screenshare the “find a time” screen that can be moved: “Let’s make sure we get this on the calendar and move anything we need to”)</li>
+</ul>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/319f0780-d5ec-4abe-83f5-4c0557868e3c_603x251.png" /></p>
+<h2>2. Cheat your way out of meetings with “59-second Looms”</h2>
+<p><strong>😑 Unfair:</strong> People throw 30-minute meetings on your calendar whenever a decision, communication, or collaboration gets too complex for Slack.</p>
+<p><strong>🤠 Work unfairly:</strong> Half of those meetings can be <a href="https://www.lennysnewsletter.com/p/time-management-techniques-that-actually">pivoted</a> into an asynchronous communication. The other half can be fast-forwarded by setting up attendees to enter the meeting with context and prepared thoughts.</p>
+<p><strong>Use a Loom (or a Slack video clip)</strong> when the reason for a meeting is to communicate a nuanced, high-bandwidth concept.</p>
+<p>Treat your audience like, well, an audience; be intentional about converting them to view and click. Remember that receiving a Loom can initially feel like a burden.</p>
+<ul>
+<li>Aim for under a minute (make it feel lightweight)</li>
+<li>Film two takes (or more) to get your message clear and succinct</li>
+<li>In your message, pitch the brevity and time ROI for everyone:</li>
+</ul>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/ab02f1e7-3c0a-4a3b-8c2e-51d29a79e26f_1600x900.png" /></p>
+<p>Most PMs still don’t do Looms outside of major announcements or bug reports. I get it. Treat this as a core PM communication skill. Whoever gets over the awkwardness will have a huge productivity advantage.</p>
+<h2>3. Hide, ignore, and automate Slack</h2>
+<p><strong>😑 Unfair:</strong> In my experience, PMs get tagged on Slack far more than any other role in a startup. (OK, maybe we tie with engineering team leads.)</p>
+<p>To anyone outside the product team, we <em>are</em> design, engineering, QA, data, knowledge team, and often marketing. And in the chaos of a fast-growing company, it’s hard to follow which PM owns what. It’s easier to reach out to “that PM you know” than keep track of who owns that feature now—so we also wear the hat of “phone operator.”</p>
+<p><strong>🤠 Work unfairly:</strong> Implement Slack rituals and norms to create boundaries and make sure you don’t spend your entire day playing digital Whac-A-Mole.</p>
+<ol>
+<li>Don’t go into Slack for the first half of your day (or pick the best window for <em>your</em> time zone, cadence, and teammates). This has been my ironclad rule since 2016, at three hypergrowth companies, while PMing multiple teams at once. And it has never once gotten in the way of supporting my team or achieving my goals.</li>
+<li>When you do go into Slack, put it to work for you: configure Slack sections to compartmentalize and help you prioritize where to look first, and collapse everything that isn’t urgent.</li>
+</ol>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/03d6984f-1c77-4638-9827-ae0f741eebd7_548x354.png" /></p>
+<p>Once I’ve taken care of the critical channels where I am a bottleneck, the pressure goes down, and I can calmly and intentionally scan the rest.<br />
+3. Hide read channels (<a href="https://slack.com/help/articles/212596808-Adjust-your-sidebar-preferences#choose-which-conversations-to-show">how to do this</a>). This feature makes Slack feel smaller and a lot more manageable, which makes a big difference when you’re getting a million pings a day. I’m always surprised how few people turn on this setting compared with the number of people who complain about “too many Slack channels.”</p>
+<p>If I use sections and combine it with hiding read channels, my Slack looks like this in the middle of the day:</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/ae2a1ed1-f781-4bc0-ad3a-81ec7fb52a89_559x872.jpeg" /></p>
+<ol>
+<li>Let Slack reminders be your robot executive assistant. I love how <a href="https://www.lennysnewsletter.com/p/time-management-techniques-that-actually">Lenny put it</a>: “One of the most important habits of highly effective PMs is creating an aura of ‘I got this,’ and the best way to build that aura is to never drop the ball.” A sizable fraction of threads you start will get ghosted, and no one will care that the other person dropped the ball. Use Slack reminders to give folks a “friendly bump.” You’ll appear to be the most “on it” person in the company, and you’ll actually be doing your job well—busy team members rely on PMs to keep them on schedule and aligned.</li>
+</ol>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/2012c22e-377c-4b0d-a1ac-d3a1cec6c515_842x212.png" /></p>
+<h2>4. Cultivate a team that operates without you</h2>
+<p><strong>😑 Unfair:</strong> Because the PM’s responsibility is to close any gaps on the team, it’s easy for someone to throw up their hands and say, “That’s product’s job” or “I’m waiting on product.” And it’s never a good look for a PM to directly disagree with that.</p>
+<p><strong>🤠 Work unfairly:</strong> Create a self-reliant team by empowering your teammates as experts in their disciplines, encouraging them to think like PMs and keep initiatives moving when you’re not in the room.</p>
+<p>As PM, you might be the orchestra conductor, but your teammates are the star musicians. I have no problem telling new teams I lead that:</p>
+<ol>
+<li>Incredible products have been built without a PM</li>
+<li>The most impactful, money-printing initiatives my teams have ever shipped were never my ideas</li>
+</ol>
+<p>When people ask you for decisions, use the opportunity to remind them that they are the expert and ask what context they need from you to make their recommendation.</p>
+<p>Did somebody on your team just do something that’s technically your job (e.g. QA doing data analysis, support agent proposing a feature, designer going right to a stakeholder, data analyst identifying a problem to solve, engineer directly interacting with a customer)? <em>Shower them with positivity.</em> Make it clear how much you welcome that proactivity.</p>
+<p><a href="https://maven.com/p/f2b97e/how-to-scale-yourself-as-a-product-leader">In the words of</a> Max Eulenstein, co-head of product at Instagram: “Turn everyone into a mini-PM. That’s the way that you maximize leverage from your entire team. Don’t view your cross-functional peers as stepping on your toes as a PM.”</p>
+<p>For example, if a UX writer identifies an impending design conflict <em>and</em> corrals multiple product teams to reconcile it, make sure they know how much you appreciate their leadership.</p>
+<p>Or when a data analyst comes back with experiment results <em>and</em> several ideas for follow-up A/B tests, make sure they know you’re seriously considering those ideas—and hungry to hear more.</p>
+<p>Use these “micro-interactions” to shape a culture where <em>product isn’t a role; it’s a team</em>. This even hinges on the words we choose, like in this story I shared with Lenny:</p>
+<p><a href="https://www.youtube.com/watch?v=wFhurV1l6Jk">Watch on YouTube</a></p>
+<p>Since so much happens in Slack, it’s a huge lever for promoting team autonomy. As much as it makes you feel special and needed, remember: <strong>DMs are the devil.</strong> Anytime somebody sends you a direct message (and it’s not confidential), your reflex should be to ask them to repost the same message in a public channel. Not only are public channels more transparent, collaborative, drive faster resolutions, and easier to find later—it also serves as a cultural example for others to do the same.</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/43131f11-4d90-4a85-b73a-274c03ea2407_1600x362.png" /></p>
+<p>Yes, this can be uncomfortable. But imagine this: it’s been hours of back-to-back meetings, the sun has already set, and you exhaustedly pull up Slack. Would you prefer to see:</p>
+<p>(a) A bunch of direct messages collecting dust, where you are the bottleneck (and probably weren’t the right person anyway)</p>
+<p>or</p>
+<p>(b) A bunch of vibrant threads in public channels where teammates and stakeholders have already jumped in, added context, raised tradeoffs, and distilled the precise decisions they need from you (if any)?</p>
+<p>Putting our own productivity aside, the team in (b) is at least half a day ahead of the team in (a).</p>
+<h2>5. Get a head start on discovery with product scrapbooking</h2>
+<p><strong>😑 Unfair:</strong> Every founder and product leader wants their product managers to do discovery and strategic planning, gathering clear-cut customer evidence for every recommendation. That said, they don’t want it to take any time.</p>
+<p><strong>🤠 Work unfairly:</strong> Save insights, ideas, and evidence way in advance by “product scrapbooking.”</p>
+<p>Company roadmaps might be linear, but customer insights from outside the building are (rightfully) a jungle. So I keep a <strong>Notion database</strong> of feedback screenshots, charts, support tickets, links to Gong calls, Slack threads, you name it. These are all organized by swim lanes (e.g. monetization, onboarding, internal tooling, virality, technical debt. . . ). Every time something comes up in the regular flow of work, I “scrapbook” it for future planning.</p>
+<p>I keep the notes lightweight, I collect clues from all over, and I don’t invest a lot of time in organizing the document, because I don’t know if an idea will ever get prioritized. I mainly make sure to give each “scrap” a good title so that future me can find it easily.</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/b8bb9f94-f33e-45b2-bbe1-2f8d3ad49568_551x990.png" /></p>
+<p>If someone suggests a solution and it reminds me of something I’ve already been tracking, I can share real-world context on the spot. If this idea becomes a prioritized initiative, I already have the juiciest bits of a kickoff presentation.</p>
+<p>Over time, product scrapbooking pays dividends. When kicking off a new initiative, onboarding new PMs to opportunities, or getting research off to a running start—I save so much time when I start with a broad set of customer clues (instead of a blank document).</p>
+<p>If I scrapbook consistently, I’ll have a head start on quarterly planning too. Say leadership hands me a theme: I head to my initiatives database, filter by swim lane, and quickly get in the mental context from raw customer signals. This helps me think way more clearly and strategically in very little time.</p>
+<p>Bonus: Your stakeholders quickly pick up on the fact that you’re that PM who’s truly listening, which makes them excited to send more insights your way.</p>
+<h2>6. Let AI write for you (but don’t let it read for you)</h2>
+<p><strong>😑 Unfair:</strong> Product managers need to do a ton of writing, from PRDs to detailed updates to go-to-market plans and Jira tickets. PMs are also expected to spend a huge portion of their days in meetings. Just great.</p>
+<p><strong>🤠 Work unfairly:</strong> Use speech-to-text features and focused prompts to harness AI for writing documents, without watering down your product insights and intuition.</p>
+<p>The first time I discovered this strategy was when my team moved to a strict scrum model, and I had dozens of Jira tickets I needed to write in a short time. Oleksii, my eng lead, saw me sweating. He showed me how GPT-4o could write them for me—as long as I provided roughly the same amount of context that we provided the engineers in a kickoff.</p>
+<p>Using ChatGPT in this way, not only did I write those tickets in a fraction of the time; it was a lot easier for me to share product context, let AI do the heavy lifting, and lightly edit the results.</p>
+<p>PMs have a ton of context and spend all day sharing it, if not always in written form. Luckily, LLMs do their best work when provided with a ton of context. The more context you can provide to AI now, the less hallucination and editing you’ll deal with later.</p>
+<p>“That sounds like a lot of typing into ChatGPT,” you might say. Well, PMs are great at talking. Speech-to-text dictation has dramatically improved in recent years with the advent of context-based models such as OpenAI’s <strong>Whisper model</strong>.</p>
+<p>You can invoke Whisper anywhere you’re typing, with lightweight tools like <a href="https://betterdictation.com/">BetterDictation</a> or <a href="https://superwhisper.com/">Superwhisper</a> (or ChatGPT’s native desktop and mobile apps). Mac OS and Windows free, built-in dictation have improved dramatically as well. Not only will you write more in less time (or wrist strain), you’ll be able to transfer context to LLMs in the same natural way you do to your teammates. Plus, your writing will likely sound better in your natural speaking flow.</p>
+<p><em>I recently did a live, hands-on demonstration of how I use these prompts. <a href="https://maven.com/p/74ac37/how-experienced-product-managers-use-chat-gpt">Watch the recording here</a>.</em></p>
+<h4>1. Write a PRD by stealing this prompt (4o and up):</h4>
+<p><code>You are an expert product manager and I need your help to articulate my thoughts into a PRD. I’m going to give you the template and then I’m going to later tell you all the context that I have in my head, and you’re going to help me structure the document. Do you understand?</code></p>
+<p><em>[hit enter]</em></p>
+<p><code># Objective</code></p>
+<p><code># Target customer</code></p>
+<p><code># How this connects to company strategy</code></p>
+<p><code># What we believe</code></p>
+<p><code># Solution constraints and principles</code></p>
+<p><code># [other sections from your preferred template]</code></p>
+<p><em>[hit enter]</em></p>
+<p><em>[dictate your thoughts on the above sections using speech-to-text]</em></p>
+<h4>2. Write user stories by adapting this prompt to your team (4o and up):</h4>
+<p><code>You are an expert product manager and product owner. I will describe functionality to you, and you will provide a user story following the user story template that follows, paying close attention to line breaks. Do you understand and are you ready?</code></p>
+<p><code>User Story Template [pick your favorite]:</code></p>
+<p><code># Story</code></p>
+<p><code>As a &lt;type of user&gt;,</code></p>
+<p><code>I want to &lt;perform some task&gt;,</code></p>
+<p><code>so that I can &lt;achieve some goal&gt;.</code></p>
+<p><code># Objectives</code></p>
+<p><code>&lt;text&gt;</code></p>
+<p><code># Acceptance criteria</code></p>
+<p><code>1. Given &lt;some context&gt;,</code></p>
+<p><code>When &lt;some action is carried out&gt;,</code></p>
+<p><code>Then &lt;a set of observable outcomes should occur&gt;</code></p>
+<p><code>2. …</code></p>
+<p><code># Tech notes</code></p>
+<p><code>(leave empty)</code></p>
+<p><code># Grooming Q&amp;A</code></p>
+<p><code>(leave empty)</code></p>
+<p><em>[hit enter]</em></p>
+<p><code>[Look at the Figma prototype in another window for convenience, and describe out loud one user story at a time using Whisper speech-to-text, then hit enter]</code></p>
+<h4>3. Let AI write a blog post (or any document) using your own original wording (GPT o1):</h4>
+<p><code>Please help me take my dictated notes and organize them into a well-structured blog post [optional: adding/changing headings where necessary]. Retain as much of the ideas in my notes as possible so they’re all included in the final product. Maintain the authentic tone and phrasing I would use—do not make it sound like it was written by an AI or ChatGPT. Preserve any quotations or citations of others as exact quotes. Otherwise, please make this as well-organized, cohesive, amazing, and readable as possible.</code></p>
+<p><code>---</code></p>
+<p><code>[Optional section] Use these headings:</code></p>
+<p><code># first heading</code></p>
+<p>`# second heading</p>
+<h1>etc.`</h1>
+<p><code>---</code></p>
+<p><code>Here are the notes:</code></p>
+<p><code>[open an outline and/or verbalize your thoughts out loud using Whisper speech-to-text]</code></p>
+<p>But don’t go too far with AI just yet. I would avoid letting AI get between you and the raw data. It’s very tempting to let an LLM summarize Slack threads or support tickets or user research transcripts. But our competitive advantage as product managers is staying in the weeds when it comes to absorbing customer insights and building product intuition.</p>
+<h2>7. PM your own brain’s freshness</h2>
+<p><strong>😑 Unfair:</strong> As a PM, there’s never a good time to take an unplugged break. Not for 10 minutes, not for a day off, and not for a vacation trip.</p>
+<p><strong>🤠 Work unfairly:</strong> Disconnect from work with the same discipline and commitment you bring to your job.</p>
+<p>While it’s important to sprinkle short breaks throughout the day to keep attention high, actively plan long, complete disconnects that allow your brain to bring a different perspective.</p>
+<p>I’ll reach a higher peak of creativity and fresher perspective on Monday morning when I fully disconnect on the weekend after working a little harder for five days straight:</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/569a39d6-f051-4fe6-8bed-66c06f93d41c_1234x395.png" /></p>
+<p>I’ll feel more refreshed in the morning if I work a little later and then fully log off for the night:</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/a8548431-71d6-4cde-9293-f0eeabcb8450_702x659.png" /></p>
+<p>While it’s great to take a bunch of one-day vacations, I get a different level of clarity when I step away for at least a week of contiguous, unplugged PTO. You get the principle.</p>
+<p><em>Disclaimer: This isn’t a universal prescription. Aside from the fact that it isn’t always a choice (e.g. kids, caretaking, time zones), it’s also not always right to optimize for peak creative freshness (you might prefer availability, supporting your team, product launches, etc.). That said, this is a pattern you can apply when you need it.</em></p>
+<p>We might work hard, but when you take a break, well, <strong>rest hard too</strong>.</p>
+<p>Here’s how I improve the <em>quality</em> of my resting time:</p>
+<ol>
+<li>
+<p><strong>Uninstall the Slack mobile app.</strong> That way, I can’t accidentally get sucked back in once I leave the office. Out of the past decade since Slack became commonplace, 99.9% of that time I’ve been without the app on my phone. (I was inspired by working with <a href="https://x.com/EricaJoy">Erica Baker</a>, who joined Patreon after leading the infrastructure engineering team at Slack itself. If she could do <em>that</em> role, and at <em>that</em> company, without the mobile app, I had no excuse.)</p>
+</li>
+<li>
+<p><strong>Change your display name to the form “</strong><code>Tal Raviv OOO until Nov 15</code><strong>.”</strong> If you’re gone for a day or more, I’ve found this reduces the number of DMs and tags I get while I’m gone. It’s more effective than a status, because as people type your name, they immediately see that you’re out—and when you’re back online. Most people will think twice, weighing if it’s worth sending the message while you’re on vacation, or qualifying how urgent it is. (It also gives me peace of mind knowing that I’ve set an expectation and no one is wondering why I’m not getting back to them.)</p>
+</li>
+<li>
+<p><strong>Choose physical transitions.</strong> Sitting in the same chair staring at the same monitor, doomscrolling social media instead of your email inbox, isn’t very refreshing. Instead do a yoga stretch, play guitar, or walk to a café or convenience store. (I ride my skateboard around the office, but please don’t try that at home.)</p>
+</li>
+</ol>
+<p>“People don’t get a chance to psychologically detach from work. When you can’t psychologically detach from work, it’s a lot harder to psychologically reattach to work the next morning.” —<a href="https://open.spotify.com/episode/4QJB8UrYUHvNSyfucr0xmo?si=p2ZAzYGfTNSFScM7pLvXgA">Gloria Mark</a>, U.C. Irvine professor and author of “Attention Span”</p>
+<p>Speaking of Slack, their San Francisco office was known for the mural “Work hard and go home,” reminding employees that the best way to sustain their energy is to separate the parts of their day.</p>
+<p><img alt="Image from Product manager is an unfair role. So work unfairly" src="https://substack-post-media.s3.amazonaws.com/public/images/cd387d87-4152-4b36-9eb3-641b275119b9_1600x1200.png" /></p>
+<h2>In closing</h2>
+<p>Product management might be an unfair job, but PMs who go beyond making it work—and thrive in the face of unfairness—have always been disproportionately valuable to innovative, fast-growing companies. Great PMs aren’t only leading product development; they’re the ones who redefine work norms. PM versatility in the face of uncertainty is why our role is <a href="https://www.lennysnewsletter.com/p/why-pms-are-best-positioned-to-thrive">best positioned to thrive in an AI world</a>.</p>
+<p>Said another way: Even if you implement all of the above strategies, the real value is in the “hacks” you discover yourself. What in your own team’s workday can you revisit and question?</p>
+<p>And if we take a step back, I believe many of us would realize that we chose this role (and so many others aim for it) precisely <em>because</em> it’s “unfair.” The job of product manager demands immense responsibility and radical adaptability, and it rewards those skills as well. The “unfairness” of the job may actually be a feature.</p>
+<p><em>Thanks, Tal! For more from Tal, he teaches one of the fastest-growing courses on Maven, <a href="https://maven.com/tal-raviv/product-manager-productivity-system?promoCode=LENNYSLIST">Build Your Personal PM Productivity System</a>, which includes 40 in-depth lessons and 23 projects across 8 modules and 6 live sessions. The course is live, cohort-based, and hands-on, with small-group learning and accountability, and direct WhatsApp and email access to Tal for help unblocking as you implement your productivity system. To get a taste of the course, check out his free 30-minute lightning lesson, “<a href="https://maven.com/p/508884/build-your-personal-pm-ai-copilot">Build Your Personal PM AI Copilot</a>,” scheduled for November 22.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>Hiring? 👀</h2>
+<p>I’ve got a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), where I work with a few select companies to fill their open roles. If you’re hiring, apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is a good payback period? — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What is a good payback period?</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What is a good payback period?</div>
+    
+    <div class="article-meta">2021-12-14<span>·</span>2,841 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2B</span> <span class="mini-tag">定價</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2><strong>Q: What is a good payback period?</strong></h2>
+</blockquote>
+<p>To answer this question, like I did with our <a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">look at retention</a>, I brought out the big guns. I polled the smartest growth people I could get hold of and asked them what payback periods they expect when investing in, or advising, startups. Everything that you find below is based on the collective wisdom of these superstars: <a href="https://twitter.com/akgrenier">Adam Grenier</a>, <a href="https://twitter.com/andrewchen">Andrew Chen</a>, <a href="https://twitter.com/ibringtraffic">Andy Johns</a>, <a href="https://twitter.com/btrenchard">Bill Trenchard</a>, <a href="https://twitter.com/bmrothenberg">Brian Rothenberg</a>, <a href="https://twitter.com/onecaseman">Casey Winters</a>, <a href="https://twitter.com/chenliw">ChenLi Wang</a>, <a href="https://twitter.com/danhockenmaier">Dan Hockenmaier</a>, <a href="https://twitter.com/dariusmc">Darius Contractor</a>, <a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a>, <a href="https://www.linkedin.com/in/jamiequint/">Jamie Quint</a>, <a href="https://twitter.com/joshbuckley">Josh Buckley</a>, <a href="https://twitter.com/mduboe">Mike Duboe</a>, <a href="https://twitter.com/npilosof?lang=en">Naomi Ionita</a>, <a href="https://www.notion.so/sriramkri/Sriram-Krishnan-5a434396fb9d43bfaebce6aa5c1f5e01">Sriram Krishnan</a>, and <a href="https://www.linkedin.com/in/yuriytimen/">Yuriy Timen</a> 🔥</p>
+<h3>What is a good payback period?</h3>
+<p>Broadly, the consensus is:</p>
+<ul>
+<li><strong>For B2C businesses</strong>, a payback period ofless than 1 month is GREAT, 6 months is GOOD, and 12 months is OK. And the exceptional cases can pay back their acquisition costs on the first transaction.</li>
+<li><strong>For B2B businesses selling to SMBs</strong>,less than 6 months is GREAT, 12 months is GOOD, and 18 months is OK. And similarly, the exceptional cases get their customers to prepay their contract and recoup all acquisition costs up-front.</li>
+<li><strong>For B2B businesses selling to enterprises</strong>,less than 12 months is GREAT, 18 months is GOOD, and 24 months is OK. The exceptional cases can pay back their acquisition costs within 6 months.</li>
+</ul>
+<p>Here’s a handy chart summarizing the findings:</p>
+<p><img alt="Image from What is a good payback period?" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dfc1164f-1ea6-41e1-963a-4b00d5b7f879_3836x2568.png" /></p>
+<h3>What exactly is payback period?</h3>
+<p>The payback period is the amount of time that it takes to earn back the cost of acquiring a new customer. For example, if it costs you $100 to acquire a new customer (e.g. running FB ads) and you make $25 per month from that customer, your payback period is four months.</p>
+<h3>How do you calculate payback period?</h3>
+<p>To calculate your payback period, simply divide your CAC by your gross profit:</p>
+<p><img alt="Image from What is a good payback period?" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ef1ce21a-eee7-45d5-a95f-47e29d926265_2968x680.png" /></p>
+<p>The biggest mistake founders make when calculating their payback period is looking at revenue, without subtracting the cost of good sold (i.e. margin):</p>
+<blockquote>
+<p><strong>“If a startup acquires a customer for $100, and that customer generates $10/mo in revenue, with 80% gross margins (or $8 of monthly gross profit), the payback period on a gross profit basis is $100/$8 = 12.5 months. Not 10 months, if you were just looking at revenue. As my former CFO used to say, ‘Revenue doesn’t pay our salaries—gross profit does.’ You have to take out the cost of goods sold, and many people do not.”</strong></p>
+<p><strong>—Brian Rothenberg</strong></p>
+</blockquote>
+<p>Also:</p>
+<blockquote>
+<p><strong>“Including brand search in your paid campaigns bucket will lower your payback period, and I’d consider that cheating.”</strong></p>
+<p><strong>—Elena Verna</strong></p>
+</blockquote>
+<h3>Why is tracking payback period important?</h3>
+<p>The shorter your payback period, the more quickly you can reinvest your cash into growth, and the faster you’ll grow. If, for example, you spend $100,000 on growth and get paid back in three months, while your competitor takes six months, you’ll be able to spend twice as much money on growth without having to raise one additional dollar.</p>
+<p>Increasingly, startups are focusing on payback periods over LTV/CAC ratios because accurately calculating LTV for an early-stage company is highly suspect. This is the same reason you don’t want long payback periods for early-stage companies:</p>
+<blockquote>
+<p><strong>“The way I think about it is the more data you have about your customers over time, the better you can predict actual lifetime value. An early-stage startup has very little data, so if it has a long payback period, it’s not guaranteed there will be a timeline that pays off at all due to all the assumptions. A late-stage company has over a decade of cohorts it can compare new customers to, to predict what they will look like in six months, one year, two years, etc.”</strong></p>
+<p><strong>—Casey Winters</strong></p>
+</blockquote>
+<h3>Are higher payback periods OK?</h3>
+<p>Yes! There are a handful of cases where having a higher payback period is actually a good thing.</p>
+<h4>1. When you can confidently predict your LTV</h4>
+<blockquote>
+<p><strong>“It is important to remember that what really matters is the ultimate LTV of the customer. If your product is incredibly sticky (i.e. more than 5-year LTV) or shows high growth in account (through additional usage fees/upsell/cross-sell), an 18-month payback period may be really good.”</strong></p>
+<p><strong>—Bill Trenchard</strong></p>
+<p><strong>“Generally it’s the case with larger companies to have payback periods of 18 to 24 months. These are companies with large balance sheets, that can float it, in more competitive categories. They generally have a lot of data on their LTV curve and how it performs over time.”</strong></p>
+<p><strong>—Josh Buckley</strong></p>
+</blockquote>
+<h4>2. When you’re a mature business and can think longer-term</h4>
+<blockquote>
+<p><strong>“In some cases, with mature enterprise SaaS businesses that have predictable LTVs and renewal data, as well as multi-year contracts, I’ve seen payback periods stretch as far as 24 months.”</strong></p>
+<p><strong>—Yuriy Timen</strong></p>
+<p><strong>“At different stages of maturity (5+ years, 10+ years), you can probably shift the OK, Good, Great designations from the summary above up one level because you have more confidence in the lifetime value and therefore the payback. Usually you have more cash as well. In those cases, let’s say a consumer business that is 10 years in and getting payback in one month, it should really be trying to grow more aggressively by extending its payback period, probably leaving a lot of profitable growth on the table by staying at one month.”</strong></p>
+<p><strong>—Casey Winters</strong></p>
+</blockquote>
+<h4>3. When you’re optimizing for growth</h4>
+<blockquote>
+<p><strong>“I’ve seen payback periods as high as 5 to 7 years. There are good reasons a company might tolerate that, such as much-needed fuel into a growth loop, it’s an investment into key target market segment, or it’s just early inefficiency that will take some time to optimize. Not every channel comes out of the gate with good payback period, after all.”</strong></p>
+<p><strong>—Elena Verna</strong></p>
+<p><strong>“The payback period you choose to target is highly contingent on the stage of the business and how quickly you are trying to grow. Lower payback periods are not objectively optimal, because they may mean you’re leaving growth on the table.”</strong></p>
+<p><strong>—Dan Hockenmaier</strong></p>
+<p><strong>“So much of it depends on how one is maximizing revenue vs. profit. The same company could be 8 months if it was profit-focused or 24 months if revenue-focused, and feel good about each.”</strong></p>
+<p><strong>—Darius Contractor</strong></p>
+</blockquote>
+<h4>4. When your sales team is scaling quickly</h4>
+<blockquote>
+<p><strong>“If your product is sold through a sales team and you are growing that team rapidly, typically your payback period will look worse than it actually is because you will have many sales reps ramping/learning to sell the product in a given quarter. This can add a significant additional cost in CAC without the associated benefit. For this reason, it’s important to look at the number based on reps who are 'fully ramped' or productive, excluding the cost of those who are ramping (and sales from them, of course).”</strong></p>
+<p><strong>—Bill Trenchard</strong></p>
+</blockquote>
+<h4>5. When you deeply understand your growth engine and market</h4>
+<blockquote>
+<p><strong>“It’s natural for mobile games' for example to see their payback periods get longer over time, because the ad network algorithms are very effective at finding their ‘core’ players, and over time you’ll saturate that base and have to spend less efficiently to find newer customers. For example, in MMO strategy mobile games, they have a deep understanding of their multiyear LTV, which tends to follow a fairly linear curve. The problem is the CPIs in that category have gotten so expensive, and it’s all about acquiring whale users who spend $1K-$10K++, so it’s common for companies in those categories to now spend with a payback of 12-24 months.”</strong></p>
+<p><strong>—Josh Buckley</strong></p>
+</blockquote>
+<h3>Should you look at blended payback, or payback by channel?</h3>
+<p>It depends on your primary growth engine. If the vast majority of your growth is organic, then looking at blended payback is fine:</p>
+<blockquote>
+<p><strong>“Great payback = 0, because it's all organic! After all, the magic of a product like Tinder is that it has a ton of organic. Thus they don’t spend as much on marketing.”</strong></p>
+<p><strong>—Andrew Chen</strong></p>
+</blockquote>
+<p>Otherwise, when the majority of your growth comes through paid spend, you should look at payback by channel:</p>
+<blockquote>
+<p><strong>“It’s important for teams to report payback on paid CAC, and not blended. Teams will eventually want granularity into customer quality by acquisition channel, but as a starting point, it’s important to understand how customer value and retention differ for paid vs. organic cohorts and make decisions accordingly.”</strong></p>
+<p><strong>—Mike Duboe</strong></p>
+</blockquote>
+<p>Partly because blended payback is often not useful:</p>
+<blockquote>
+<p><strong>“With rare exceptions, most businesses over time either stay organic-only or come to rely heavily on paid marketing for growth. So a blended payback is somewhat of a useless metric—it doesn't matter if you’re organic-only, and it converges to the paid marketing payback otherwise.”</strong></p>
+<p><strong>—ChenLi Wang</strong></p>
+</blockquote>
+<p>Partly because it’ll hide important information:</p>
+<blockquote>
+<p><strong>“If paid is the majority of your growth, then your paid-only payback and your blended payback will look nearly identical. But if paid is a minority of your growth, then the inefficiency of paid may be disguised by the (free) organic growth.”</strong></p>
+<p><strong>—Elena Verna</strong></p>
+</blockquote>
+<h3>How do I reduce my payback period?</h3>
+<p>Going back to our formula, you have three variables to play with:</p>
+<ol>
+<li>Reducing CAC</li>
+<li>Increasing price</li>
+<li>Increasing margin</li>
+</ol>
+<p>Easier said than done. Luckily, our experts shared a couple of tactical tips:</p>
+<h4>1. Encourage annual plans</h4>
+<blockquote>
+<p><strong>“Businesses with a high proportion of annual plans will have a shorter payback period because you collect the cash up front! This is a key lever for businesses to pull, especially D2C companies that go after affluent consumers, or really any B2B product. You're effectively getting a ‘loan’ from your current customers to buy more future customers. The typical path is making annual plan = 10x monthly, but I’ve seen as low as 6x just to have the positive cash cycle to grow. One of the highest-ROI ‘optimization’ hacks for mid-stage companies is running in-app promos, emails, etc. to get people from monthly to annual plans.”</strong></p>
+<p><strong>—ChenLi Wang</strong></p>
+</blockquote>
+<h4>2. Adopt PLG tactics</h4>
+<blockquote>
+<p><strong>“I am seeing a growing number of enterprise SaaS companies, often in the 18-to-24 month payback range, taking a page from the PLG playbook by exploring self-serve motions to increase their sales efficiency. Another, often underutilized, method of decreasing payback period is driving expansion/increasing pricing. With a usage-based pricing model, SaaS businesses can build in a natural escalator to increase LTV and reduce payback towards the goal marker of &lt;12 months.”</strong></p>
+<p><strong>—Naomi Ionita</strong></p>
+</blockquote>
+<p>As you play with your payback period, pay close attention to your <em>incremental</em> payback:</p>
+<blockquote>
+<p><strong>“As you expand payback periods, it’s important to measure the payback on the</strong> <strong><em>incremental</em></strong> <strong>customers you’re acquiring. For example, if you extend your payback period from 6 to 12 months but get very few incremental customers in the process, it implies that your payback periods on those incremental customers is well beyond 12 months, and it might not be the right investment to make.”</strong></p>
+<p><strong>—Dan Hockenmaier</strong></p>
+</blockquote>
+<h3>Finally, let your business model be your guide</h3>
+<p>I’ll leave you with Adam Grenier’s sage and personalized advice for determining your initial payback period:</p>
+<blockquote>
+<p>“I tend to start with a baseline of wanting to see payback within 6-12 months. That’s usually something that you can predict with relatively decent confidence and, if you’re growing quickly, allows you to account for that the fact the makeup of your customer, product, and even pricing may change a lot within a year. This is a baseline to figure out the right answer for your company but be able to start moving fast while you come up with a more thoughtful answer:</p>
+<ul>
+<li><strong>Low loyalty + low frequency (e.g. airfares):</strong> Most people buy plane tickets 1-2 times a year. Their loyalty is super-low. So to confidently get a one-year payback, you probably need to do that in the first transaction. So the ideal target payback period may be 1 to 7 days.</li>
+<li><strong>Low loyalty + high frequency (e.g. games):</strong> This is normally ad-supported, full of microtransactions, and whale-driven. So often, the target here is to get as many people as humanly possible as fast as possible. In this strategy, usually, you need payback in 1-3 months, since people don’t stick around for most games past that time frame.</li>
+<li><strong>Mid-loyalty + mid-frequency + higher purchases (e.g. gig services like rides, food, groceries, etc.):</strong> You can usually expand out a bit longer because people tend to jump back and forth, and over time find a pretty steady cadence. So here, 6-12 months is usually where I’ve seen it land.</li>
+<li><strong>Mid-low cost + high-frequency (e.g. streaming services):</strong> Most people subscribe monthly and use it weekly, at relatively low cost, and change costs aren’t high. So you likely want a 3-to-6-month payback period.</li>
+<li><strong>Higher cost + high frequency + painful to change</strong> <strong>(e.g. phone/internet service providers):</strong> These tend to have higher monthly costs, the change cost is pretty annoying and can include penalties if you switch, and you'’re using the service on a daily basis. So this might warrant a 1-to-2-year payback because once in, the likelihood of changing goes down, and winning the market may be worth it. I think a lot of ‘creator’ services will fall in this category, i.e. getting a creator on your platform might be worth the marketplace value of securing them at a cost that may not pay back for a full year or two.</li>
+<li><strong>Mid-high cost + yearly subs (e.g. Noom, Peloton):</strong> They can likely optimize and run off of an immediate payback period. Then you’re just making decisions around how you want to account for churn and renewal to potentially shift up or down.”</li>
+</ul>
+<p>—Adam Grenier</p>
+</blockquote>
+<p>If you have any other advice on tracking, improving, or operationalizing payback period, I’d love to hear it 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/payback-period/comments">Leave a comment</a></p>
+<p><em>A huge thank-you to <a href="https://twitter.com/akgrenier">Adam Grenier</a>, <a href="https://twitter.com/andrewchen">Andrew Chen</a>, <a href="https://twitter.com/ibringtraffic">Andy Johns</a>, <a href="https://twitter.com/btrenchard">Bill Trenchard</a>, <a href="https://twitter.com/bmrothenberg">Brian Rothenberg</a>, <a href="https://twitter.com/onecaseman">Casey Winters</a>, <a href="https://twitter.com/chenliw">ChenLi Wang</a>, <a href="https://twitter.com/danhockenmaier">Dan Hockenmaier</a>, <a href="https://twitter.com/dariusmc">Darius Contractor</a>, <a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a>, <a href="https://www.linkedin.com/in/jamiequint/">Jamie Quint</a>, <a href="https://twitter.com/joshbuckley">Josh Buckley</a>, <a href="https://twitter.com/mduboe">Mike Duboe</a>, <a href="https://twitter.com/npilosof?lang=en">Naomi Ionita</a>, <a href="https://www.notion.so/sriramkri/Sriram-Krishnan-5a434396fb9d43bfaebce6aa5c1f5e01">Sriram Krishnan</a>, and <a href="https://www.linkedin.com/in/yuriytimen/">Yuriy Timen</a> 🙏</em></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://tomtunguz.com/payback_period_cash/">The Importance of Payback Period for SaaS Startups</a> by Tomasz Tunguz</li>
+<li><a href="https://tomtunguz.com/payback_period_2020/">What is a Best in Class Payback Period for a Software Company in 2020?</a> by Tomasz Tunguz</li>
+<li><a href="https://www.profitwell.com/recur/all/calculate-and-reduce-payback-period">CAC Payback Period: How to Calculate and Reduce SaaS Payback Period</a> by Patrick Campbell</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Mynd:</strong> <a href="https://www.lennysjobs.com/jobs/5acd93b4-3e73-45f6-894f-a701509a81ea">Product Manager, Buying Services</a> (Remote-US)</li>
+<li><strong>OpenPhone:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/a4e59b3d-06a3-4f89-a340-b8bd5f8aee97">Senior Product Manager</a> (Remote-US)</li>
+<li><strong>TaxBit:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/4a453e47-d6c8-4241-becc-763fe8097d97">Product Lead</a> (Seattle)</li>
+<li><strong>Orbiit:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/be8a2c08-274c-4ebf-b20e-79439dc7b70e">Director of Product Management</a> (NYC)</li>
+<li><strong>Relish Works:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e6008616-d0ba-4765-ab3a-8eec826cd044">Associate Product Manager</a> (Remote-US)</li>
+<li><strong>OnFrontiers:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/c5c630a8-eef4-4ee2-b5c0-f454921f70ff">UI/UX Designer</a> (Remote-US)</li>
+<li><strong>OnFrontiers:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/08ad9dfd-0a57-4679-8e59-5fb49545eedf">Product Manager</a> (Remote-US)</li>
+<li><strong>Panther:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e5d8025a-078b-48f5-b083-67978ff06b89">Product Manager (Core)</a> (Remote-Global)</li>
+<li><strong>The.com:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/e3ea6743-db26-4796-bdfd-3a6885b7b3c3">Software Engineer</a> (SF)</li>
+<li><strong>Relive:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/7a4300f0-d46e-43a4-a8db-dfec28c4e511">Product Manager</a> (Remote-EU)</li>
+<li><strong>GetSetUp:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/522f84e1-0499-4ddd-975a-f996f648fa0a">Product Lead, Discovery</a> (Remote-Global)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Read:</strong> <a href="https://noahpinion.substack.com/p/techno-optimism-for-2022">Techno-optimism for 2022</a> by Noah Smith</li>
+<li><strong>Read:</strong> <a href="https://www.linkedin.com/pulse/amp-up-frank-slootman/">Amp It Up!</a> by Frank Slootman</li>
+<li><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/acquired/id1050462261?i=1000544283775">7 Powers with Hamilton Helmer, on Acquired</a></li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

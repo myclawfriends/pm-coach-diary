@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Counterintuitive advice for building AI products — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Counterintuitive advice for building AI products</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Counterintuitive advice for building AI products</div>
+    
+    <div class="article-meta">2024-07-02<span>·</span>3,501 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">創業</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>You’re either building AI into your product now or you will be soon. And you’re probably already swimming in advice on the subject. But most of the advice out there is full of big, lofty ideas and light on tactics rooted in actual experience that you can implement today. So I teamed up with frequent collaborator <a href="https://www.linkedin.com/in/kyle-poyar/">Kyle Poyar</a> to interview more than 20 successful builders and founders—people who have learned about building AI products the hard way—to share their biggest surprises and counterintuitive lessons. Many of these insights surprised me and got me thinking in a different way. I hope they will for you too.</p>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/f9f3fede-958e-4db1-959e-87180174e353_4000x2000.png" /></p>
+<p>Let me guess: You have a high-priority project on your roadmap right now to add (more) AI features to your product.</p>
+<p>You’re in good company. A recent <a href="https://docsend.com/view/pi629vaxy57u9qvb">survey</a> by Emergence Capital found that 60% of companies have already integrated generative AI into their products, and another 24% have it on their roadmap. AI is quickly eating the world.</p>
+<p>Unfortunately, many of these efforts will end in failure. Most early AI apps have a  <a href="https://twitter.com/omooretweets/status/1770470084601114837">“tourist”</a> problem: they get a lot of traction quickly but have <a href="https://www.bvp.com/atlas/seven-product-strategies-to-prevent-churn-for-b2b-ai-app-leaders">shockingly low retention and engagement</a>. And according to that Emergence survey, <a href="https://docsend.com/view/pi629vaxy57u9qvb">two in five</a> gen AI products still haven’t made a single dollar despite companies spending millions (or even <a href="https://www.nytimes.com/2024/04/24/technology/meta-profit-stock-ai.html">billions</a>) to build and support them. The goal of this post is to help you avoid wasting your precious time and resources by pointing your team in the wrong direction.</p>
+<p>I polled more than 20 of the sharpest AI product builders asking them for the most counterintuitive and surprising things they’ve learned about building AI into their products. These leaders have built many of today’s most loved and successful AI products, including products at Adobe, GitHub, Intercom, Perplexity, Canva, Runway, HeyGen, and Superhuman. Here’s what I learned:</p>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/a18d9636-1132-4b94-bba9-91968a13e0e1_6958x7088.png" /></p>
+<h3><strong>1. You first need to learn to think differently</strong></h3>
+<blockquote>
+<p><em>“It takes time to think AI-native. The first-pass product is often a bolt-on or simple chat experience. </em><em>The high-value experience is a deeper rethink</em><em> once you have played with the technology, understood what it really provides more deeply, and then integrated it into a key part of your product experience.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/eladgil/">Elad Gil</a>, technology entrepreneur and investor</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=xcvIGJ3_H_k">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“</em><em>It’s actually easier and safer for startups to work on hard problems, problems that cannot quite be solved with today’s foundation models.</em><em> We’re excited about riding the capability curve of improving models, instead of fighting that progress.”</em></p>
+<p>—<a href="https://twitter.com/saranormous">Sarah Guo</a>, startup investor and founder at Conviction</p>
+<p><em>“Over the past 10 years, for most companies (with the exception of some hard-infra projects), it is assumed that what you want to build can be fairly easily built. You start by deeply understanding the customer problem and opportunity, design what you believe to be a great solution, and build it. </em><em>AI is different.</em>**</p>
+<p><em>With AI, it is wholly unclear if something is possible to build. And when it is built, it is wholly unclear if it is any good, even if it appears to be good. Often the best place to start projects is by asking, </em><em>‘What is technologically possible?’ and prototyping.</em><em> This is a big mindset shift for anyone who has built software for the past decade and followed standard best practice.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/pauladams/">Paul Adams</a>, chief product officer at Intercom</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=4fJ3rYVlfYE">Watch on YouTube</a></p>
+<h3><strong>2. Though it still comes down to who can solve real problems for people best</strong></h3>
+<blockquote>
+<p><em>“</em><em>Demo value isn’t user value.</em><em> Building a cool AI demo doesn’t mean we have a product that customers love and is useful.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/buffxz/">Joshua Xu</a>, co-founder and CEO at HeyGen</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=SEE875kutbk">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“I spend a lot of time thinking about adoption curve segmentation—identifying who adopts a new product quickly and who does not, and what distinguishes these groups. Historically, I’d focus on understanding the value a new product provides to people with different functional needs. </em><em>AI changes this dynamic because the most meaningful segmentation often depends on attitudes toward the technology itself: AI embracers versus AI skeptics.</em>**</p>
+<p><em>Many have discussed the AI ‘phantom PMF’ phenomenon, where novelty-driven acquisition leads to a steep churn cliff, but the reverse is also true. I frequently speak with customers who reject AI products that meet their needs simply because they don’t trust or want to embrace AI. With the right messaging and onboarding, these skeptics can become superusers! But they behave very differently from AI embracers. I sketched this out in the chart below.</em></p>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/65afde2c-12b4-480e-a0dd-99080ecd7c4b_1600x955.png" /></p>
+<p><em>As a result, I’ve had to rethink our user testing approach from the ground up. When testing AI products, I focus on the following:</em></p>
+<ol>
+<li><em>Longitudinal validation: Are we testing for a long enough period to understand how engagement changes once the novelty wears off?</em></li>
+<li><em>High-touch testing: Are we staying close enough to users to understand how their attitudes, which drive engagement patterns, change daily? We’re experimenting with user Slack groups instead of traditional surveys and one-on-one qualitative interviews.</em></li>
+<li><em>Attitudinal segmentation: Are we including both AI embracers and AI skeptics in our early testing groups? Crucially, are we segmenting them carefully to avoid averaging out their engagement and creating <a href="https://theaccidentalmarketer.com/blog/why-your-b2b-company-should-focus-on-needs-based-segmentation/">‘tepid tea’</a>—a product that satisfies no one?”</em></li>
+</ol>
+<p>—<a href="https://www.linkedin.com/in/hilarygridley/">Hilary Gridley</a>, head of core app product at WHOOP</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=zIaNjKYImFA">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“Building fantastic product experiences hasn’t gotten easier with AI. Sci-fi capabilities of the models are inspiring, but that’s not what makes AI products great. Good old-fashioned product engineering does. </em><em>This means homing in on real user pain points, iterating closely with customers, and holding a high bar for a delightful user experience.</em><em>”</em></p>
+<p>—<a href="https://www.linkedin.com/in/colgrove/">Caitlin Colgrove</a>, co-founder and chief technology officer at Hex</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=Gvq7M0Cd9HQ">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“Most people think about AI-assisted services in terms of the model quality, but model quality is just a tiny piece of the total product. It turns out that post-processing filters, contractual guarantees, data privacy, feedback loops, observable human impact, etc. are all far more important. </em><em>In other words, building AI products looks a lot like building products.</em><em>”</em></p>
+<p>—<a href="https://www.linkedin.com/in/ryanjsalva/">Ryan J. Salva</a>, vice president of product at GitHub</p>
+</blockquote>
+<h3><strong>3. Paired with the right product design and UX to teach people how to use it</strong></h3>
+<blockquote>
+<p><em>“The promise of AI (LLMs in particular) is to create anything for you with just a few words. But as we have seen over the past decade with Canva, when you give people the power to do anything, it can be pretty daunting and they don’t know where to start. So—just as with the very first version of our design tool—giving people the right starting points and confidence to utilize AI is a crucial part of delivering a great AI product.</em></p>
+<p><em>The evolution of our Magic Media feature is a great example of this. Text-to-image is a magical piece of technology when you know what image you want and how to describe it. But most people don’t have the right vocabulary to properly explain what they’re looking for; or even worse, they don’t know what they’re looking for!</em></p>
+<p><em>Our iterations on Magic Media have lessened that fear-inducing empty prompt box and introduced more visual options to guide you to a great image, as well as help to get people prompting in the right way. We’re also focusing on what happens after that generation—how you tweak and adjust what an AI has given to be exactly what you want.</em></p>
+<p><em><strong>All of this underscored to us that AI tools require a combination of intuitive product design and broader, ongoing education to support these behavior shifts.</strong> You can't ‘flip the switch’ with AI—society is in the midst of change at a cultural level, but well-built products can support this shift.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/themaninblue/?originalSubdomain=au">Cameron Adams</a>, co-founder and chief product officer at Canva</p>
+<p><em>“Experimenting to find the right UI/UX for an AI feature can have an equally big impact on conversion metrics as research updates to the AI model itself. The right UX doesn’t just make new model capabilities more discoverable—it actually improves the conversion for users who use that capability, even if they were already using the capability anyway in the original UI.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/joelkwartler/">Joel Kwartler</a>, head of product at Runway</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=nByslCkykj8">Watch on YouTube</a></p>
+<h3><strong>4. And the (proprietary) data you have access to (and a license for) is becoming increasingly important</strong></h3>
+<blockquote>
+<p><em>“The data and the interfaces may become more important than the models themselves, which are becoming increasingly commoditized, available via open source, and pushed to the edge (we’ll be running many models locally on devices within a few years). The AI products I am most excited about leverage a proprietary or uniquely structured set of data—for which they have a license to use rather than scrape it—and a superior interface that transforms an antiquated workflow.</em></p>
+<p><em>What are the implications of this? </em><em>Companies that have or really understand data in a deep vertical will have an advantage.</em><em> </em><em>And designers will be more important than ever before</em><em>, imagining entirely new ways to transform the interfaces of our everyday work and life with the superpowers of AI.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/scottbelsky/">Scott Belsky</a>, chief strategy officer and executive vice president (EVP) of design and emerging products at Adobe; founder of Behance</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=vpiALnqE-VQ">Watch on YouTube</a></p>
+<h3><strong>5. Be intentional about your initial wedge workflow</strong></h3>
+<blockquote>
+<p><em>“</em><em>Start with a core workflow that feels like a chore where the promise-to-payoff is high if you get it right.</em><em> You want to select a place where the upfront user effort (like taking the leap to try it out or customizing it) yields a big reward (like substantial time savings) and invites repeat use.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/paigecostello/">Paige Costello</a>, head of AI at Asana</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/7421589a-0cf8-4995-9a38-67f174653e9e_1036x820.png" /></p>
+<h3><strong>6. Just calling your product “AI” could give you a boost</strong></h3>
+<blockquote>
+<p><em>“We talk so much in software about how users don’t care about how something is built; they care about the job software does for them. </em><em>But we’ve found that branding AI-powered products as ‘AI-powered’ (as cringe as that can be) does more than increase initial engagement—it also helps users understand what the feature is capable of and how they should interact with it.</em><em> We sell a chatbot product and typically encourage our customers to brand their chatbot as AI-powered in some way. When they do this, more users use it, and they also use it better.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/james-evans-7086b3126/">James Evans</a>, co-founder and CEO at CommandBar</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/6238a90d-59ab-4495-8f59-813d6aabbaf6_1600x923.jpeg" /></p>
+<blockquote>
+<p><em><strong>“ ‘AI mandates’ at larger companies create a window for startups to gain customers faster than they could pre-AI</strong>,simply because the board and CEO of larger companies are pushing for something in AI to happen in their org.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/eladgil/">Elad Gil</a>, technology entrepreneur and investor</p>
+</blockquote>
+<h3><strong>7. And even small AI-driven improvements can go a long way</strong></h3>
+<blockquote>
+<p><em>“</em><em>The smallest (and almost invisible) features are usually the fan favorites.</em><em> Things like pre-filling names, tiny bits of UI magic, simple data transformations often have a bigger impact and more customer adoption than the Big AI Features™ like chatbots or complex agents. You don’t need a big idea to ship useful AI features into your app.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/clairevo/">Claire Vo</a>, chief product officer at LaunchDarkly and founder at ChatPRD</p>
+<p><em>“</em><em>Look less at ‘what cool new things could AI do’ but more at ‘what’s the thing our users do 100 times a day that AI could make better.’</em><em> An example for us is writing a summary for an incident. It turns out that users vastly, vastly prefer automatically generated summaries to writing these themselves; 75% of incident summaries are now AI-generated.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/stephenwhitworth/">Stephen Whitworth</a>, co-founder and CEO at Incident.io</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=NHUhC5vHDZk">Watch on YouTube</a></p>
+<h3><strong>8. Anticipate the AI won’t be perfect, so give users options, and keep fine-tuning the prompts</strong></h3>
+<blockquote>
+<p><em>“People need and want a lot of customization to make AI products work for their use case. They are willing to put in a lot of effort curating prompts, experimenting with models, and building on APIs that were never even imaginable a year ago.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/hjohnny/">Johnny Ho</a>, co-founder and chief strategy officer at Perplexity</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/1b54cc52-858e-4063-b90f-af426cc2f22f_1600x1036.png" /></p>
+<blockquote>
+<p><em>“It may seem obvious, but traditional software is deterministic—it either does a thing or doesn’t. Services built using LLMs, on the other hand, are probabilistic. They may occasionally produce a helpful response, and other times not. </em><em>The trick is achieving consistency in the model responses so that users can generally expect a good result.</em>**</p>
+<p><em>GitHub Copilot has an acceptance rate of 35%. That is to say, developers commit 35% of Copilot suggestions into their code editor. A ‘good enough’ acceptance rate will differ based on the use case and customer cohort. The best way to find out what’s right for you is to ask your customers, ‘Is this making your job easier?’ ”</em></p>
+<p>—<a href="https://www.linkedin.com/in/ryanjsalva/">Ryan J. Salva</a>, vice president of product at GitHub</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/4b5cb073-5fcf-4bf3-9034-5b7ed4905f40_1600x714.gif" /></p>
+<blockquote>
+<p><em>“A significant amount of AI innovation is in the prompt. Time and time again, I’ve seen teams reach this aha moment of realizing </em><em>they don’t necessarily need to build new features, but they need to spend time on making their prompts better</em><em>—prompts to improve quality, improve the results, or prompts which solve a problem for a customer in a unique way. A meaningful prompt can solve meaningful problems for customers.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/sherifmansour/?originalSubdomain=au">Sherif Mansour</a>, distinguished product manager at Atlassian</p>
+</blockquote>
+<h3><strong>9. Also anticipate the base model constantly improving</strong></h3>
+<blockquote>
+<p><em>“<a href="https://aws.amazon.com/what-is/retrieval-augmented-generation/">RAG</a> works surprisingly well if you give it the right context and ask the model to include links to the sources. If built the right way, AI-infused products automatically get better on their own when the underlying model improves. For example, Limitless will get better overnight when we move from GPT-4 to GPT-5. So build products in a way that leverages the strengths of the underlying foundation models and doesn’t compete with those strengths. Assume the models will keep getting stronger.</em></p>
+<p>—<a href="https://www.linkedin.com/in/dsiroker/">Dan Siroker</a>, co-founder and CEO at Limitless</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=lt_WnR_GZqs">Watch on YouTube</a></p>
+<h3><strong>10. Watch out for scalability bottlenecks</strong></h3>
+<blockquote>
+<p><em>“Initially an AI model might perform well with a limited set of tasks or data. </em><em>However, not planning for the scalability of both the AI system and its infrastructure can lead to performance bottlenecks as user demands increase</em><em>.This oversight can result in slow response times, decreased accuracy, and an inability to integrate new data or features efficiently. Scalability planning from the outset is crucial to support growth and changing requirements.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/chris-lu11/">Chris Lu</a>, co-founder at Copy.ai</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/3ceddcd3-c661-47ce-87e4-3c953ce39d1d_960x727.gif" /></p>
+<blockquote>
+<p><em>“It’s easy to build too much ‘scaffolding’ logic on top of base models in the pursuit of optimizing quality. Fine-tuning and few-shot example training the models directly have been far more effective at improving quality for us. Beyond those, the product needs to be designed to use the raw model output as directly as possible to maximize quality, not to mention support a wide range of inputs and work reliably.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/hliriani/">Henri Liriani</a>, co-founder and chief product officer of Tome</p>
+</blockquote>
+<p><img alt="Image from Counterintuitive advice for building AI products" src="https://substack-post-media.s3.amazonaws.com/public/images/22fa3c07-168c-4e91-a74c-883b69aee0a2_800x450.gif" /></p>
+<h3><strong>11. Keep an eye out for time spent in-app going down</strong></h3>
+<blockquote>
+<p><em>“While the previous generation of AI/ML breakthroughs like recommendation or ranking systems were finding the best product-market fit with products that took time away from people (social media, etc.), this new wave of generative AI seems to find the best PMF with products that increase productivity and give time back to people. </em><em>So don’t be surprised if the best AI features reduce metrics like time spent in-app.</em><em>”</em></p>
+<p>—<a href="https://www.linkedin.com/in/gamisra1/">Gaurav Misra</a>, co-founder and CEO at Captions</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=X9yNocxacHs">Watch on YouTube</a></p>
+<h3><strong>12. Oftentimes, speed alone will help you win</strong></h3>
+<blockquote>
+<p><em>“</em><em>The thing we’ve learned: speed wins.</em><em> Take, for example, Instant Reply or Auto Summarize. Gmail and Outlook have similar features, but you have to generate the replies and summaries on demand—and then wait for them to finish generating. In Superhuman, we pre-compute them so they are always instantaneous. That simple difference is a massive lever on the user experience.”</em></p>
+<p>—<a href="https://www.linkedin.com/in/rahulvohra/">Rahul Vohra</a>, founder and CEO at Superhuman</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=OiNWdByBU98">Watch on YouTube</a></p>
+<h2><strong>Closing thoughts</strong></h2>
+<p>Embracing AI opportunities calls for a new approach to building products. The companies that succeed will bring different mindsets and frameworks to unlock 10x outcomes.</p>
+<p>While the tech gets the attention, the winners will still be the products that solve real problems for people the best and provide the best design and UX to train people how to use it. Be intentional about your initial wedge, and look for a workflow with a big reward and potential for repeat use.</p>
+<p>The last mile of building AI products can make all the difference. How long do people have to wait for the AI to generate? How consistently helpful are the outputs? Can people customize the prompt for their use case?</p>
+<p>And remember that we’re still in the early days of AI. Models will make step-function improvements. People will get more familiar with the technology. Keep up with changing expectations to build winning AI products that last. Your first-pass product may be a miss, but keep going and don’t shy away from hard problems.</p>
+<p><strong>—</strong></p>
+<p><em>A huge thank-you to <a href="https://www.linkedin.com/in/colgrove/">Caitlin Colgrove</a>, <a href="https://www.linkedin.com/in/themaninblue/">Cameron Adams</a>, <a href="https://www.linkedin.com/in/chris-lu11/">Chris Lu</a>, <a href="https://www.linkedin.com/in/clairevo/">Claire Vo</a>, <a href="https://www.linkedin.com/in/dsiroker/">Dan Siroker</a>, <a href="https://www.linkedin.com/in/eladgil/">Elad Gil</a>, <a href="https://www.linkedin.com/in/gamisra1/">Gaurav Misra</a>, <a href="https://www.linkedin.com/in/hliriani/">Henri Liriani</a>, <a href="https://www.linkedin.com/in/hilarygridley/">Hilary Gridley</a>, <a href="https://www.linkedin.com/in/james-evans-7086b3126/">James Evans</a>, <a href="https://www.linkedin.com/in/joelkwartler/">Joel Kwartler</a>, <a href="https://www.linkedin.com/in/hjohnny/">Johnny Ho</a>, <a href="https://www.linkedin.com/in/buffxz/">Joshua Xu</a>, <a href="https://www.linkedin.com/in/paigecostello/">Paige Costello</a>, <a href="https://www.linkedin.com/in/pauladams/">Paul Adams</a>, <a href="https://www.linkedin.com/in/rahulvohra/">Rahul Vohra</a>, <a href="https://www.linkedin.com/in/ryanjsalva/">Ryan J. Salva</a>, <a href="https://twitter.com/saranormous">Sarah Guo</a>, <a href="https://www.linkedin.com/in/scottbelsky/">Scott Belsky</a>, <a href="https://www.linkedin.com/in/sherifmansour/?originalSubdomain=au">Sherif Mansour</a>, and <a href="https://www.linkedin.com/in/stephenwhitworth/">Stephen Whitworth</a> for contributing their insights.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

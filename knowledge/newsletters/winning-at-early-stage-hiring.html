@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Winning at early-stage hiring — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Winning at early-stage hiring</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Winning at early-stage hiring</div>
+    
+    <div class="article-meta">2021-07-06<span>·</span>2,313 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m the founder of a small startup and I’m having a really hard time hiring. What have you seen work best for startups within your network?</h2>
+</blockquote>
+<p>I’ve angel-invested in almost a hundred companies over the past five years, and in reading their investor updates, I’ve consistently seen a divide between startups that are hiring world-class people month after month and those that struggle for many months to fill a single role. Don’t get me wrong, hiring great people is always hard no matter how skilled you are. It’s arguably the hardest part of building a startup. But some founders have a distinct ability to build a gravity around their startup that repeatedly pulls in top-notch talent.</p>
+<p>To answer your question, I reached out to a half-dozen of these early-stage founders and asked them what contributes <em>most</em> to their hiring success. Five consistent themes emerged:</p>
+<p><img alt="Image from Winning at early-stage hiring" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/78d74b98-dac2-4f66-b822-2170a48a8bee_2048x1024.png" /></p>
+<p>Let’s dig in.</p>
+<p><em>Thank you, Brandon Hill (<a href="https://vori.com/">Vori</a>), Julianna Lamb and Reed McGinley-Stempel (<a href="https://stytch.com/">Stytch</a>), Kevin Tan (<a href="https://www.snackpass.co/">Snackpass</a>), Nick Handel (<a href="https://transform.io/">Transform</a>), Sam Corcos (<a href="https://www.levelshealth.com/">Levels</a>), Siqi Chen (<a href="https://runway.com/">Runway</a>), and Alex Bilmes (<a href="https://endgame.io/">Endgame</a>) for sharing your insights. Note that I’m a small angel investor in these companies, which is how I know they are so great at hiring. To those of you I didn’t prod, it doesn’t mean that I don’t think you are great at hiring 💛</em></p>
+<h3><strong>1. Captivating</strong> vision</h3>
+<p>Without a doubt what I heard most from founders was that the central reason they are able to attract and close the best talent is the effectiveness of their mission or vision.</p>
+<blockquote>
+<p>“<strong>Articulating a crystal clear and ambitious vision</strong> makes it easy for candidates to visualize what they are building towards for the next five years.” —Kevin Tan, <a href="https://www.snackpass.co/">Snackpass</a></p>
+<p>“<strong>The size of our vision</strong> (and our ability to demonstrate it through a product demo) has clearly been one of the biggest reasons we’ve been able to hire such incredible people.” —Siqi Chen, <a href="https://runway.com/">Runway</a></p>
+<p>“<strong>We spend a lot of time articulating our long-term vision.</strong>The right people will be compelled by the scope, complexity, and long-term societal impact.” —Brandon Hill, <a href="https://vori.com/">Vori</a></p>
+</blockquote>
+<p>I heard this most emphatically from founders who had a previous startup without a compelling mission—who are now working on something more meaningful—and how much easier hiring has gotten for them. And this makes sense—the most talented people have the most options and will choose to spend their time on work that fulfills them most.</p>
+<p>Your mission can be as ambitious as solving climate change or as seemingly mundane as creating transparency in company financials: whatever works to get your ideal candidates truly excited about the work they’ll be doing.</p>
+<p><strong>Takeaway:</strong> Spend time refining your vision and mission such that it makes candidates feel like their work would be truly meaningful. Get feedback on your current mission/vision from a few people who will be brutally honest with you.</p>
+<h3><strong>2.</strong> A++ early team</h3>
+<p>The second most consistent theme that came out of my conversations with founders was that the companies that had the easiest time hiring also had an A++ early team.</p>
+<blockquote>
+<p>“<strong>The best talent wants to work with the best talent.</strong> Find great people from the beginning. Never lower your recruiting bar to hire someone because they can fill a short-term need. It will be very tempting to bring someone on if they are in front of you and ready to go, but it will have longer-term negative consequences if they are not the right person.” —Nick Handel, <a href="https://transform.io/">Transform</a></p>
+<p>“<strong>Great people want to work with great people.</strong> People talk about <em>raising the bar</em>, but what’s interesting is that there’s a snowball effect—raising the bar happens organically and actually becomes easier if you’re hiring exceptional people. Your team will demand it, and because of the quality of the team you already have, it becomes easier to convince other exceptional people to join.” —Siqi Chen, <a href="https://runway.com/">Runway</a></p>
+<p>“<strong>Hiring definitely compounds</strong>. I hear often from candidates that they’re really impressed with our early team.” —Julianna Lamb, <a href="https://stytch.com/">Stytch</a></p>
+</blockquote>
+<p>These hires can’t just <em>good</em>—they need to be <em>great.</em> Hires who are world-class in their field and/or who instantly impress potential candidates. This works for so many reasons:</p>
+<ol>
+<li>Social proof: If great people are joining, it must be great.</li>
+<li>Referral network: Great people know other great people.</li>
+<li>Flywheel: A++ people join to work with other A++ people, and so on.</li>
+</ol>
+<p><strong>Takeaway:</strong> Set the bar for your first few hires <em>even</em> higher.</p>
+<h3><strong>3.</strong> Putting in the work</h3>
+<p>Whenever I see an inflection in a startup’s ability to hire, it almost always comes after a founder realizes that they need to spend a lot more time on hiring. And then they do.</p>
+<blockquote>
+<p>“<strong>Be prepared to commit ~100 hours for each hire you make.</strong> Interview a lot of people. Ask your network for introductions. Reach out to people on LinkedIn. Get creative on how you source candidates. Write excellent <a href="https://levels.link/eng">job descriptions</a>. There are no shortcuts.” —Sam Corcos, <a href="https://www.levelshealth.com/">Levels</a></p>
+<p>“<strong>Sell at every stage of the process</strong>, including the cold outreach email and the first phone call, where it’s critical to get them excited. We also treat every other interview as an opportunity to get them excited about the team, product, and vision.” —Julianna Lamb, <a href="https://stytch.com/">Stytch</a></p>
+<p>“<strong>Hiring is strategy.</strong> Come up with a plan and then do what is necessary to execute. This includes defining roles well before needing to hire them, getting feedback, collecting leads, speaking informally with folks in the space to learn, and then narrowing your focus and hiring the person. If you are desperate to fill a role, you will feel more pressure to lower your bar more or mis-hire.” —Nick Handel, <a href="https://transform.co/">Transform</a></p>
+</blockquote>
+<p>Like in all parts of life, effort leads to results. And guess what, spending more time on hiring is something every founder can do. No special skills required.</p>
+<p>Remember also that hiring is a long-term game. As <a href="https://www.linkedin.com/in/samcorcos">Sam</a> from Levels put it, “Our best hires are people that weren’t looking at the time I first spoke with them, but we slowly won their interest over the course of ~6 months. The best people are never actively looking for a job.”</p>
+<p><strong>Takeaway:</strong> If you’re struggling, spend a lot more time on hiring.</p>
+<h3><strong>4. Founder’s network</strong></h3>
+<p>The founder’s professional network also proves to be a huge asset for early-stage hiring (though this advantage fades pretty quickly).</p>
+<blockquote>
+<p>“<strong>Our first hire came from my first company</strong>, our third hire from our investors, the next hire from my co-founder’s last company, and the next few came from referrals and inbound candidates.” —Siqi Chen, <a href="https://runway.com/">Runway</a></p>
+<p>“<strong>Use your investor network to help close.</strong> Ask investors, advisors, and angels you trust to get on a call to help close the candidate.” —Kevin Tan, <a href="https://www.snackpass.co/">Snackpass</a></p>
+<p>“<strong>A lot of it is network early on.</strong>” —Alex Bilmes, <a href="https://endgame.io/">Endgame</a></p>
+</blockquote>
+<p>With a large network, not only do you have a pool of warm leads to tap into, you also have insight into who’s most incredible; for potential candidates it’s also less risky joining a company where they know the founder or an early team member. Every part of the hiring process becomes easier.</p>
+<p>You can often bootstrap a professional network by bringing on connected investors (e.g. a16z, Sequoia, Benchmark) or by joining an existing startup community (e.g. YC, OnDeck). Or bringing on people with an extensive network of their own.</p>
+<p><strong>Takeaway:</strong> Build your professional network if you plan on starting a company someday.</p>
+<h3>5. Pitching prowess</h3>
+<p>Finally, there are the actual pitching skills.</p>
+<blockquote>
+<p>“<strong>You know you’re pitching candidates well enough when they offer to invest</strong> even if they aren’t ready to move on from their current roles.” —Siqi Chen, <a href="https://runway.com/">Runway</a></p>
+<p>“<strong>In recruiting, I’d say pitching skills &gt; sales skills.</strong> A successful recruiting process feels much more like the way we interact with investors when fundraising (painting the vision of the future, etc.) than how we talk to prospects.” —Reed McGinley-Stempel, <a href="https://stytch.com/">Stytch</a></p>
+<p>“<strong>At the offer stage, we present a custom offer deck</strong> and walk through it with all founders and the candidate present. The detail makes them feel welcomed and loved.” —Brandon Hill, <a href="https://vori.com/">Vori</a></p>
+</blockquote>
+<p>This is fairly obvious—the better you can pitch the opportunity, the better you’ll do. But what stood out to me was how much effort these founders put into the closing process. Many found a way to make the experience memorable and delightful, including Brandon’s example above of delivering a custom deck for each candidate. Here’s another tactic I love, from Julianna:</p>
+<blockquote>
+<p>“We see the actual offer stage as a big place you can stand out. We do a Zoom to surprise the candidate with everyone from their interview panel to share why they’re excited about the candidate potentially joining.” —Julianna Lamb, <a href="https://stytch.com/">Stytch</a></p>
+</blockquote>
+<p>There’s also a strong correlation between founders who are great at pitching candidates, selling to customers, and raising money.</p>
+<p><strong>Takeaway:</strong> If you’re a founder, you better get good at pitching.</p>
+<p>—</p>
+<p>The five themes above came through the strongest when talking to these founders but there was also some ad-hoc tactical advice that I loved…</p>
+<h4>Bonus hiring advice:</h4>
+<ol>
+<li>“<strong>Define values and ways of working first:</strong> The team determines the culture. If you can’t clearly articulate how you want to work and what values you want to protect, you will not find people who can build that culture. People want to understand what they’re getting into, and setting these intentionally allows recruits to find an environment they will thrive in and want to protect.” —Nick Handel, <a href="https://transform.co/">Transform</a></li>
+<li>“<strong>Use any unfair advantages in your network.</strong> Snackpass is very close to college campuses, so we had exclusive ‘deal flow’ that other companies didn’t. We would directly recruit from our Snackpass users, which also had the benefit that they understood and loved the product.” —Kevin Tan, <a href="https://www.snackpass.co/">Snackpass</a></li>
+<li>“<strong>We treat closing a candidate almost exactly the same as closing an investor.</strong> In fact, we’ve found the best candidates will do even more diligence than the average investor. Arguably, candidates are investing something even more valuable than capital: their time. Our pitch and demo for our Series A is pretty much exactly the pitch and demo we do for candidates.” —Siqi Chen, <a href="https://runway.com/">Runway</a></li>
+<li>“<strong>Make specific asks.</strong> When you tap your network, know what you’re asking for. Most people make vague requests for introductions, like ‘Please send us more engineers,’ but you’re much more likely to get positive results if you make specific asks. What’s the specific persona you’re looking for? How many people?” —Sam Corcos, <a href="https://www.levelshealth.com/">Levels</a></li>
+<li>“<strong>We create a custom economic outcomes Notion doc</strong> that does three things: (1) outlines the structure of the market and how we value the opportunity, (2) a Gradient of Potential Outcomes portion that walks through various end-state scenarios, from impending death to IPOing as the Alibaba of the West, (3) comparing their current TC (we estimate based on Glassdoor) to their Vori package. Very important here: We are also candid about the risks and low likelihood of any success in startups generally, and the challenges we will face. This candor actually has the effect of building trust and makes the candidate believe in us more!” —Brandon Hill, <a href="https://vori.com/">Vori</a></li>
+</ol>
+<p>If you have additional hiring advice, I’d love to hear it 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/early-stage-hiring/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Cord:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/67d8080e-c51b-4574-ade8-cab0693984a5">Head of Product</a> (London)</li>
+<li><strong>Rally:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/55e10d59-13ea-461a-bdaa-fe8ad989b41b">Founding Product Manager</a> (Remote—Global)</li>
+<li><strong>Crusoe Energy Systems:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/4bd3b894-fa7b-4f31-9022-04ca611ceaeb">Senior Product Manager</a> (SF, Denver)</li>
+<li><strong>Squarespace:</strong><a href="https://pallet.xyz/job/84d30ce6-d293-4de6-a1bc-b9b7f0656440?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager/Product Manager</a> (NYC)</li>
+<li><strong>Piñata Farms:</strong><a href="https://pallet.xyz/job/9f90d5d9-288a-477d-b14b-8b4a9c589a87?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (LA)</li>
+<li><strong>Properly:</strong><a href="https://pallet.xyz/job/beefb83d-8775-4052-96e6-72d8f62ca3ef?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Toronto, Remote—US)</li>
+<li><strong>Clearco</strong>: <a href="https://pallet.xyz/job/82497ce0-6faa-4aa7-a321-86d525a23cd7?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager - Capital Partnerships</a> (Remote—US)</li>
+<li><strong>Frame.io:</strong><a href="https://pallet.xyz/job/4846ad99-c62d-4b4f-979a-a558342d6a68?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Sr. Product Manager</a> (Remote—Global)</li>
+<li><strong>SnapStream Media</strong>: <a href="https://pallet.xyz/job/8bec1419-8512-4c77-b7a9-3351dfea8afe?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager</a> (Remote—Global)</li>
+<li><strong>Gitpod</strong>: <a href="https://pallet.xyz/job/85a37e65-b9b3-4a93-acf6-e6a6d1f28fa4?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager</a> (Remote—Global)</li>
+<li><strong>Shift</strong>: <a href="https://pallet.xyz/job/2907defd-bb4b-4972-86d5-024eda23dcd6?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Remote—US)</li>
+<li><strong>Pragli:</strong><a href="https://pallet.xyz/job/75075700-7078-4664-a498-df280d166a9e?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Designer #1</a> (Remote—US)</li>
+</ol>
+<p><em>Browse many more open roles (or add your own) at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

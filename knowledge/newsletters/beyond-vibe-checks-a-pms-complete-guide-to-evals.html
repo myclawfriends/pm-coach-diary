@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beyond vibe checks: A PM’s complete guide to evals — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Beyond vibe checks: A PM’s complete guide to evals</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Beyond vibe checks: A PM’s complete guide to evals</div>
+    
+    <div class="article-meta">2025-04-08<span>·</span>3,558 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">工程</span> <span class="mini-tag">領導</span> <span class="mini-tag">組織</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>I’m going to keep this intro short because this post is so damn good, and so damn timely.</p>
+<p>Writing evals is quickly becoming a core skill for anyone building AI products (which will soon be everyone). Yet there’s very little specific advice on how to get good at it. Below you’ll find everything you need to understand wtf evals are, why they are so important, and how to master this emerging skill.</p>
+<p>Aman Khan runs a popular <a href="https://www.deeplearning.ai/short-courses/evaluating-ai-agents/">course on evals developed with Andrew Ng</a>, is Director of Product at Arize AI (a leading AI company), and has been a product leader at Spotify, Cruise, Zipline, and Apple. He was also a <a href="https://www.youtube.com/watch?v=E_rNotqs--I">past podcast guest</a> and is launching his first <a href="https://maven.com/aman-khan/thriving-as-an-ai-pm">Maven course on AI product management</a> this spring. If you’re looking to get more hands-on, definitely check out Aman’s upcoming free 30-minute lightning lesson on April 18th: <a href="https://maven.com/p/e55ece/mastering-evals-as-an-ai-product-manager">Mastering Evals as an AI Product Manager</a>. You can find Aman on <a href="https://x.com/_amankhan">X</a>, <a href="https://www.linkedin.com/in/amanberkeley/">LinkedIn</a>, and <a href="https://aiproductplaybook.com/">Substack</a>.</p>
+<p>Now, on to the post. . .</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/d984d483-4383-4b24-83cd-5dea71e48d05_2912x1925.jpeg" /></p>
+<p>After years of building AI products, I’ve noticed something surprising: every PM building with generative AI obsesses over crafting better prompts and using the latest LLM, yet almost no one masters the hidden lever behind every exceptional AI product: evaluations. Evals are the only way you can break down each step in the system and measure <em>specifically</em> what impact an individual change might have on a product, giving you the data and confidence to take the right next step. Prompts may make headlines, but evals quietly decide whether your product thrives or dies. In fact, I’d argue that the ability to write great evals isn’t just important—it’s rapidly becoming the defining skill for AI PMs in 2025 and beyond.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/f097be41-cdc9-42be-bf6f-7221b653b871_2913x4511.jpeg" /></p>
+<p>If you’re not actively building this muscle, you’re likely missing your biggest opportunity for impact-building AI products.</p>
+<p>Let me show you why.</p>
+<h2>Why evals matter</h2>
+<p>Let’s imagine you’re building a trip-planning AI agent for a travel-booking website. The idea: your users type in natural language requests like “<em>I want a relaxing weekend getaway near San Francisco for under $1,000</em>,” and the agent goes off to research the best flights, hotels, and local experiences tailored to their preferences.</p>
+<p>To build this agent, you’d typically start by selecting an LLM (e.g. GPT-4o, Claude, or Gemini) and then design prompts (specific instructions) that guide the LLM to interpret user requests and respond appropriately. Your first impulse might be to feed user questions into the LLM directly to get out responses one by one, as with a simple chatbot, before adding capabilities to turn it into a true “agent.” When you extend your LLM-plus-prompt by giving it access to external tools—like flight APIs, hotel databases, or mapping services—you allow it to execute tasks, retrieve information, and respond dynamically to user requests. At that point, your simple LLM-plus-prompt evolves into an AI agent, capable of handling complex, multi-step interactions with your users. For internal testing, you might experiment with common scenarios and manually verify that the outputs make sense.</p>
+<p>Everything seems great—until you launch. Suddenly, frustrated customers flood support because the agent booked them flights to San Diego instead of San Francisco. Yikes. How did this happen? And more importantly, how could you have caught and prevented this error earlier?</p>
+<p>This is where evals come in.</p>
+<h2>What exactly are evals?</h2>
+<p>Evals are how you measure the quality and effectiveness of your AI system. They act like regression tests or benchmarks, clearly defining what “good” actually looks like for your AI product beyond the kind of simple latency or pass/fail checks you’d usually use for software.</p>
+<p>Evaluating AI systems is less like traditional software testing and more like giving someone a driving test:</p>
+<ul>
+<li><strong>Awareness:</strong> Can it correctly interpret signals and react appropriately to changing conditions?</li>
+<li><strong>Decision-making:</strong> Does it reliably make the correct choices, even in unpredictable situations?</li>
+<li><strong>Safety:</strong> Can it consistently follow directions and arrive safely at the intended destination, without going off the rails?</li>
+</ul>
+<p>Just as you’d never let someone drive without passing their test, you shouldn’t let an AI product launch without passing thoughtful, intentional evals.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/72e84e39-b50f-48ab-9e4f-1669abe5094e_2913x1771.jpeg" /></p>
+<p>Evals are analogous to unit testing in some ways, with important differences. Traditional software unit testing is like checking if a train stays on its tracks: straightforward, deterministic, clear pass/fail scenarios. Evals for LLM-based systems, on the other hand, can feel more like driving a car through a busy city. The environment is variable, and the system is non-deterministic. Unlike in traditional software testing, when you give the same prompt to an LLM multiple times, you might see slightly different responses—just like how drivers can behave differently in city traffic. With evals, you’re often dealing with more qualitative or open-ended metrics—like the relevance or coherence of the output—that might not fit neatly into a strict pass/fail testing model.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/2ca5e38a-c452-4017-a9be-002ce885a3bc_2913x2166.jpeg" /></p>
+<h2><strong>Getting started</strong></h2>
+<h4>Different eval approaches</h4>
+<ol>
+<li>
+<p><strong>Human evals:</strong> These are human feedback loops you can design into your product (i.e. showing a thumbs-up/thumbs-down or a comment box next to an LLM response, for your user to provide feedback). You can also have human labelers (i.e. subject-matter experts) provide their labels and feedback, and use this for aligning the application with human preferences via prompt optimization or fine-tuning a model (aka <a href="https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback">reinforcement learning from human feedback</a>, or RLHF).</p>
+</li>
+<li>
+<p><strong>Pro:</strong> Directly tied to the end user.</p>
+</li>
+<li><strong>Cons:</strong> Very sparse (most people don’t hit that thumbs-up/thumbs-down), not a strong signal (what does a thumbs-up or -down mean?), and costly (if you want to hire human labelers).</li>
+<li>
+<p><strong>Code-based evals:</strong> Utilizing checks on API calls or code generation (i.e. was the generated code “valid” and can it run?).</p>
+</li>
+<li>
+<p><strong>Pros:</strong> Cheap and fast to write this eval. Some examples include simple checks (i.e. is this text string present in the paragraph), to more complex logic/system checks. This approach is often cheaper and faster to write on a first pass, as AI coding agents improve (and code logic is often faster to execute), compared to LLM-as-judge, which still requires LLM inference and calibration.</p>
+</li>
+<li><strong>Cons:</strong> Not a strong signal for subjective or open-ended tasks.</li>
+<li>
+<p><strong>LLM-based evals:</strong> This technique utilizes an external LLM system (i.e. a “judge” LLM), with a prompt like the one above, to grade the output of the agent system. LLM-based evals allow you to generate classification labels in an automated way that resembles human-labeled data—without needing to have users or subject-matter experts label all of your data.</p>
+</li>
+<li>
+<p><strong>Pro:</strong> Highly scalable (it’s like a human labeling your data but much cheaper) and uses natural language, so PMs can write prompts directly. You can get the LLM to generate explanations for its judgments, making them more reliable and explainable for debugging. While individual judgments may be subjective, they become empirically useful over large datasets—if a human can grade something, so can an LLM. Production systems often use techniques like confidence scores or panels of LLM judges to increase reliability.</p>
+</li>
+<li><strong>Con:</strong> Requires initial setup of the LLM-as-judge system with some labeled examples to validate performance. Results are probabilistic rather than deterministic, so you need sufficient volume to trust the signal.</li>
+</ol>
+<p>Importantly, LLM-based evals are natural language prompts themselves. That means that just as building intuition for your AI agent or LLM-based system requires prompting, evaluating that same system also requires you to describe what you want to catch.</p>
+<p>Let’s take the example from earlier: a trip-planning agent. In that system, there are a lot of things that can go wrong, and you can choose the right eval approach for each step in the system.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/0226b638-2757-485f-9ded-8a8114c7b1a6_2913x3146.jpeg" /></p>
+<h3>Standard eval criteria</h3>
+<p>As a user, you want evals that are (1) specific, (2) battle-tested, and (3) test for specific areas of success. A few examples of common areas evals might look at are:</p>
+<ol>
+<li>
+<p><strong><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/hallucinations">Hallucination</a>:</strong> Is the agent accurately using the provided context, or is it making things up?</p>
+</li>
+<li>
+<p>Useful for: When you are providing documents (e.g. PDFs) for the agent to perform reasoning on top of</p>
+</li>
+<li>
+<p><strong><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/toxicity">Toxicity/tone</a>:</strong> Is the agent outputting harmful or undesirable language?</p>
+</li>
+<li>
+<p>Useful for: End-user applications, to determine if users may be trying to exploit the system or the LLM is responding inappropriately</p>
+</li>
+<li>
+<p><strong><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/q-and-a-on-retrieved-data">Overall correctness</a>:</strong> How well is the system performing at its primary goal?</p>
+</li>
+<li>
+<p>Useful for: End-to-end effectiveness; for example, question-answering accuracy—how often is the agent actually correct at answering a question provided by a user?</p>
+</li>
+</ol>
+<p>Other common areas for eval would be:</p>
+<ul>
+<li><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/code-generation-eval">Code generation</a></li>
+<li><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/summarization-eval">Summarization quality</a></li>
+<li><a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals/retrieval-rag-relevance">Retrieval relevance</a></li>
+</ul>
+<p>Phoenix (open source) maintains a repository of off-the-shelf evaluators <a href="https://docs.arize.com/phoenix/evaluation/how-to-evals/running-pre-tested-evals">here</a>.* Ragas (open source) also maintains a repository of RAG-specific evaluators <a href="https://docs.ragas.io/en/latest/concepts/metrics/available_metrics/">here</a>.</p>
+<p><em>*Full disclosure: I’m a contributor to Phoenix, which is open source (there are other tools out there too for evals, like Ragas). I’d recommend people get started with something free/open source, which won’t hold their data hostage, to run evals! Many of the tools in the space are closed source. You never have to talk to Arize/our team to use Phoenix for evals.</em></p>
+<h3>The eval formula</h3>
+<p>Each great LLM eval contains four distinct parts:</p>
+<ul>
+<li><strong>Part 1:</strong> <strong>Setting the role.</strong> You need to provide the judge-LLM a role (e.g. “you are examining written text”) so that the system is primed for the task.</li>
+<li><strong>Part 2: Providing the context.</strong> This is the data you will actually be sending to the LLM to grade. This will come from your application (i.e. the message chain, or the message generated from the agent LLM).</li>
+<li><strong>Part 3: Providing the goal.</strong> Clearly articulating what you want your judge-LLM to measure isn’t just a step in the process; it’s the difference between a mediocre AI and one that consistently delights users. Building these writing skills requires practice and attention. You need to clearly define what success and failure look like to the judge-LLM, translating nuanced user expectations into precise criteria your LLM judge can follow. What do you want the judge-LLM to measure? How would you articulate what a “good” or “bad” outcome is?</li>
+<li><strong>Part 4: Defining the terminology and label.</strong> Toxicity, for example, can mean different things in different contexts. You want to be specific here so the judge-LLM is “grounded” in the terminology you care about.</li>
+</ul>
+<p>Here’s a concrete example. Below is an example eval for toxicity/tone for your trip planner agent.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/9cda3b44-8466-4878-b18d-197fc702688b_2913x1703.jpeg" /></p>
+<h3>The workflow for writing effective evals</h3>
+<p>Evals aren’t just a one-time check. Gathering data to evaluate, writing evals, analyzing the results, and integrating feedback from evals is an iterative workflow from initial development through continuous improvement after launch. Let’s use the trip planning agent example from earlier to illustrate the process for building an eval from scratch.</p>
+<h4><strong>Phase 1: Collection</strong></h4>
+<p>Let’s say you’ve launched your trip planning agent and are getting feedback from users. Here’s how you can use that feedback to build out a dataset for evaluation:</p>
+<ol>
+<li>
+<p><strong>Gather real user interactions:</strong> <a href="https://hamel.dev/blog/posts/field-guide/index.html#measure-alignment-between-automated-evals-and-human-judgment">Capture real examples</a> of how users engage with your app. You can do this via direct feedback, analytics, or manual inspection of interactions within your application.</p>
+</li>
+<li>
+<p>For example: Capture human feedback (thumbs-up/down) from your users interacting with the agent. Try to build out a dataset representative of real-world examples that have human feedback.</p>
+</li>
+<li>
+<p>If you don’t collect feedback from your application, you can also take a sample of data and have subject-matter experts (or even PMs!) label the data.</p>
+</li>
+<li>
+<p><strong>Document edge cases:</strong> Identify the unusual or unexpected ways users interact with your AI, as well as any atypical responses from the agent.</p>
+</li>
+<li>
+<p>As you inspect specific examples, you might want a dataset that is balanced across topics. For example:</p>
+</li>
+<li>
+<p>Help booking a hotel</p>
+<ul>
+<li>Help booking a flight</li>
+<li>Asking for support</li>
+<li>Asking for trip planning advice</li>
+</ul>
+</li>
+<li>
+<p><strong>Build a representative dataset:</strong> Collect these interactions into a structured dataset, ideally annotated with “ground truth” (human labels) for accuracy. I’d recommend having between 10 and 100 examples with human labels to start with, as a rule of thumb, to use as ground truth for evaluation. Start simple—spreadsheets are great initially—but eventually consider open source tools like <a href="https://phoenix.arize.com/">Phoenix</a> for logging and managing data efficiently. I’m biased—I helped build Phoenix, but only because I was struggling with this myself. My recommendation would be to use a tool that is open source and easy to use for logging your LLM application data and prompts when getting started.</p>
+</li>
+</ol>
+<h4><strong>Phase 2: First-pass evaluation</strong></h4>
+<p>Now that you have a dataset consisting of real-world examples, you can start writing an eval to measure a specific metric, and test the eval against the dataset.</p>
+<p>For example: You might be trying to see if your agent ever answers in a tone that reads as unfriendly to the end user. Even if a user of your platform gives negative feedback, you may want your agent to respond in a friendly tone.</p>
+<ol>
+<li>
+<p><strong>Write initial eval prompts:</strong> Clearly specify the scenarios you’re testing for, following the four-part formula above.</p>
+</li>
+<li>
+<p>For example, the initial eval might look something like:</p>
+</li>
+<li>
+<p><strong>Setting the role:</strong> “You are a judge, evaluating written text.”</p>
+<ul>
+<li><strong>Providing the context:</strong> “Here is the text : {text}” → In this case, {text} is a variable, where you will be providing the “LLM agent answer” in the <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-templates-and-variables">variable of the prompt</a>.</li>
+<li><strong>Providing the goal:</strong> “Determine whether the LLM agent response was friendly.”</li>
+<li><strong>Defining the terminology and label:</strong> “‘Friendly’ would be defined as using an exclamation point in response and generally being helpful. The response should never have a negative tone.”</li>
+</ul>
+</li>
+<li>
+<p><strong>Run evals against your dataset:</strong> You will run the eval by sending the eval prompt plus LLM agent answer variable to an LLM, and get back a label for each row in your dataset.</p>
+</li>
+<li>
+<p>Aim for at least 90% accuracy compared with your human-labeled ground truth.</p>
+</li>
+<li>
+<p><strong>Identify patterns in failures:</strong> Where does the eval fall short? Iterate on your prompt.</p>
+</li>
+<li>
+<p>In the example below: The eval disagrees with the human label in the last example. Our prompt above requires an exclamation point for an LLM agent response to be considered friendly. Maybe that requirement is too strict?</p>
+</li>
+</ol>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/6c0f6186-adc4-41f8-b367-cc184a2bd9eb_2913x1830.jpeg" /></p>
+<h4><strong>Phase 3: Iteration loop</strong></h4>
+<ol>
+<li>
+<p><strong>Refine eval prompts:</strong> Continuously adjust your prompts based on results until performance meets your standards.</p>
+</li>
+<li>
+<p>Tip: You can add a few examples to your prompt of “good” and “bad” evals to ground the LLM response, as a form of “<a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting">few-shot prompting</a>.”</p>
+</li>
+<li><strong>Expand your dataset:</strong> Regularly add new examples and edge cases to test whether your eval prompts can generalize effectively.</li>
+<li><strong>Iterate on your agent prompt:</strong> Evals help you test your product when you make changes to the underlying AI system—in some ways, they are the final boss when A/B testing prompts for your AI system. For example, when you make a change to an agent (e.g. changing the model from GPT-4o to Claude 3.7 Sonnet), you can rerun the dataset of questions you collected <em>through your updated agent</em> and evaluate the new output (i.e. Claude 3.7) with your eval agent. The goal would be to improve on your initial agent (GPT-4o) eval scores, giving you a benchmark you can use for continual improvement.</li>
+</ol>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/fa97cceb-0e2a-478e-b4c3-1f4f49c1e85d_2913x2538.jpeg" /></p>
+<h4><strong>Phase 4: Production monitoring</strong></h4>
+<ol>
+<li>
+<p><strong>Continuous evaluation:</strong> Set up evals to run automatically on live user interactions.</p>
+</li>
+<li>
+<p>For example: You can continuously run the “friendly” eval on all your incoming requests and agent responses, to get a score over time. This can help you answer questions such as “Are your users getting more frustrated over time?” or “Are the changes we are making to our system impacting how friendly our LLM is?”</p>
+</li>
+<li><strong>Compare eval results to actual user outcomes:</strong> Look for discrepancies between eval results and real-world performance (i.e. human-labeled ground truth). Use these insights to enhance your eval framework and improve accuracy over time.</li>
+<li><strong>Build actionable eval dashboards:</strong> Evals can help communicate AI metrics to stakeholders across your team, and they can even be tied to business outcomes. They can serve as proxy leading metrics for changes you make to your system.</li>
+</ol>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/8ed7a15e-79ee-492e-a17e-7c1e8092a4d7_1232x720.gif" /></p>
+<h4><strong>Common mistakes I’ve seen teams make when adopting evals:</strong></h4>
+<ol>
+<li>Making evals too complex too quickly can create “noisy” signals (and cause the team to lose trust in the approach). Focus on specific outputs rather than complex evaluations—you can always add sophistication later.</li>
+<li>Not testing for edge cases. Provide one or two specific examples of “good” and “bad” evals as part of your prompt—few-shot prompting—for increased eval performance. This helps ground the judge-LLM in what is considered good or bad.</li>
+<li>Forgetting to validate eval results against real user feedback. Remember that you’re not just testing code, you’re validating if your AI can truly solve user problems.</li>
+</ol>
+<p>Writing good evals forces you into the shoes of your user—they are how you catch “bad” scenarios and know what to improve on.</p>
+<h2><strong>What’s next?</strong></h2>
+<p>Now that you understand the fundamentals, here’s exactly how to start with evals in your own product:</p>
+<ol>
+<li><strong>Pick one critical feature</strong> of your AI product to evaluate. A common starting point is “hallucination detection” for a chatbot or agent that relies on documents or context you provide it with to answer questions. Try to tackle evaluating a well-defined component in your system before evaluating deeply internal logic.</li>
+<li><strong>Write a simple eval</strong> checking whether the LLM output correctly references provided content or if it invents (hallucinates) information.</li>
+<li><strong>Run your eval</strong> on 5 to 10 representative examples from real interactions that you have collected or created.</li>
+<li><strong>Review the results and iterate</strong>, refining the eval prompt until accuracy improves.</li>
+</ol>
+<p>For a detailed example of how to build a hallucination eval, check out our guide <a href="https://arize.com/llm-evaluation">here</a>, as well as our hands-on course <a href="https://www.deeplearning.ai/short-courses/evaluating-ai-agents/">on Evaluating AI Agents</a>.</p>
+<h2><strong>Looking ahead</strong></h2>
+<p>As AI products become more complex, the ability to write good evals will become increasingly crucial. Evals are not just about catching bugs; they help ensure that your AI system consistently delivers value and delights your users! Evals are a critical step in going from prototype to production with generative AI.</p>
+<p><img alt="Image from Beyond vibe checks: A PM’s complete guide to evals" src="https://substack-post-media.s3.amazonaws.com/public/images/f6668c69-2f8d-433d-90f0-475630a8884a_2913x2110.jpeg" /></p>
+<p>I would love to hear from you: How are you currently evaluating your AI products? What challenges have you faced? Leave a comment👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/beyond-vibe-checks-a-pms-complete/comments">Leave a comment</a></p>
+<h3><strong>📚 Further study</strong></h3>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=IxkvVZua28k&amp;t=1s">A conversation with OpenAI’s CPO Kevin Weil, Anthropic’s CPO Mike Krieger, and Sarah Guo</a></li>
+<li>Peter Yang + Aman: <a href="https://www.youtube.com/watch?v=u8lEDw7pOkE">The AI Skill That Will Define Your PM Career in 2025 | Aman Khan (Arize)</a></li>
+<li><a href="https://deeplearning.ai">DeepLearning.ai course on evals</a> with Andrew Ng</li>
+<li>Prompt optimization guide: <a href="https://arize.com/course/prompt-optimization/">https://arize.com/course/prompt-optimization/</a></li>
+<li>Arize eval hub (free!): <a href="https://arize.com/llm-evaluation">https://arize.com/llm-evaluation</a></li>
+<li>Peter Yang + Scott White: <a href="https://www.youtube.com/watch?v=ynWgKSF0TZY">Exclusive: Inside the Best AI Model for Coding and Writing | Scott White (Anthropic)</a></li>
+</ol>
+<p><em>Thank you, Aman!</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

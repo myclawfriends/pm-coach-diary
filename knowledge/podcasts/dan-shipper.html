@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The AI-native startup: 5 products, 7-figure revenue, 100% AI-written code | Dan Shipper (co-founder/CEO of Every) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">The AI-native startup: 5 products, 7-figure revenu…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">The AI-native startup: 5 products, 7-figure revenue, 100% AI-written code | Dan Shipper (co-founder/CEO of Every)</div>
+    
+    <div class="article-meta">2025-07-17<span>·</span>19,236 words<span>·</span>Dan Shipper</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=crMrVozp_h8" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+The business you're building, the team you're building, the way you're operating is the very bleeding edge of how companies are trying to operate in this AI era.</p>
+<p><strong>Dan Shipper</strong> (00:00:07):<br />
+We have a head of AI operations. She's just constantly building prompts and building workflows that I and everyone else on the team are just automating as much as possible.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:16):<br />
+What are some things that you believe about AI that most people don't?</p>
+<p><strong>Dan Shipper</strong> (00:00:20):<br />
+I hate the headlines that are like, "Entry-level jobs are taken away by AI." Whenever I see a kid with ChatGPT, I'm like, "Holy shit, they're going to go so much faster than any other person that I've worked with." We have this guy, he made a year's worth of progress in two months because every time I sat down with him and told him, "Okay, here's how you tell a story, here's how you think about a headline," he recorded all of it, put it into a prompt, and he never made the same mistake twice.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:40):<br />
+There's this sense we're getting to a place where you don't have to write any code, you have a product team not writing code at all.</p>
+<p><strong>Dan Shipper</strong> (00:00:46):<br />
+No one is manually coding anymore. Organizations like ours, people who are playing at the edge, we're doing things that, in three years, everybody else is going to be doing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:55):<br />
+Today, my guest is Dan Shipper. Dan is the co-founder and CEO of Every, which is a company that is at the very bleeding edge of what is possible with AI. Their team of just 15 employees has built and shipped four different products. They publish a daily newsletter, and they have a consulting arm that helps companies adopt the latest AI best practices. On their product team, their engineers don't handwrite a single line of code and instead use an arsenal of agents who help them craft requirements and build their products.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:22):<br />
+Their editorial arm uses AI to publish better work faster, and they even have a person whose entire job is to help every employee at the company become more efficient using the latest AI workflows. In our conversation, Dan shares a bunch of tactics that they use internally to increase the leverage of their own employees, his personal AI tool stack, the one predictor that he's found for whether a company will successfully find huge productivity gains through AI, how he's building his company in a really unique way, a bunch of predictions for where AI is going, and so much more.</p>
+<p><strong>Dan Shipper</strong> (00:04:11):<br />
+Thank you for having me. I've obviously been a huge fan for a long time and so it's an honor to be here.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:16):<br />
+It's my honor, Dan. I feel like this is a podcast that was meant to be. I'm so happy we're finally doing this. There's so damn much that I want to talk about; there's so damn much we can talk about. I thought it'd be fun to start with just some hot takes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:29):<br />
+And the reason I want to start here is I feel like you spend more time thinking about AI, building with AI, using AI, evaluating AI than anyone else I know nearly. And so I really respect your insights and your perspectives on where things are going. So let me just ask you this question and see where this goes. What are some things that you believe about AI using AI tools that most people don't believe?</p>
+<p><strong>Dan Shipper</strong> (00:04:55):<br />
+I'm going to go with my hottest take, and this is the take that I have the least evidence for. So let's just start with that. I have other more well-reasoned takes to give you, but this is my hottest one, which is I think that AI may be one of the biggest force for reshoring American jobs. And so I think everyone is worried about it unemploying people. And for sure, it will change the skills needed to do the jobs that you're doing, but I think it may actually reshore a lot of jobs, and it'll do that in two ways.</p>
+<p><strong>Dan Shipper</strong> (00:05:27):<br />
+One is, there are a lot of expensive services that rich people and big companies are paid for right now, so in-house counsel or call center or whatever. And what cheap intelligence does is it makes those kinds of things affordable for small companies and individuals. So it stimulates demand. The other thing that it does is it allows people who are in those jobs to serve more people cheaply. It may not get rid of customer service, for example, but it may allow 10 people in the Midwest, who would normally be working at a call center, to serve hundreds of thousands or millions of people. Maybe that's too much, but a lot more people than they would ordinarily if they were the ones on the phone all the time.</p>
+<p><strong>Dan Shipper</strong> (00:06:22):<br />
+And so it becomes much more cost-effective for American companies to hire people in the US. And I think the people in the US are going to be better, in a lot of cases, at using these AI tools to do work. So I think it may actually make it more effective to have those jobs in the US run by people sitting in the US who are using it to get work done. And also, the model companies are here too. So there's a lot of American stuff happening, and you can decide whether or not you think that's a good thing, but I think it's quite lost in the conversation over whether AI will get rid of jobs.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:58):<br />
+I like optimistic takes about AI, so this is great. And to your point, TBD if this is good for other countries, but good for the US. What else? What else you got? What other hot takes?</p>
+<p><strong>Dan Shipper</strong> (00:07:10):<br />
+Okay. Another big hot take, and this is less contrarian and more just, I think, people are truly sleeping on it. I think people are truly sleeping on how good Claude Code is for non-coders. And I'll extend this to not just Claude Code, but Google just came out with the Gemini CLI command-line interface. So things like that. And I'll tell you for people who are listening that don't know what Claude Code is. Claude Code is just the command-line interface. It's those black terminals that programmers use. It's a command-line interface that you can boot up. It has access to your file system, it knows how to use any kind of terminal command and it knows how to browse the web, all that kind of stuff.</p>
+<p><strong>Dan Shipper</strong> (00:07:47):<br />
+You can give it something to do and it will go off and it'll run for 20 or 30 minutes and complete a task autonomously, agentically. Especially with Claude Opus 4 that just came out, it's this gigantic leap forward in AI's ability to work by itself. And Claude Code can even spawn multiple sub-agents that do a bunch of tasks in parallel and it's incredibly useful for programmers. Everybody inside of Every is using it all day, every day. Everyone's agent-pilled. They've got 15 agents doing all this kind of stuff. It's crazy.</p>
+<p><strong>Dan Shipper</strong> (00:08:18):<br />
+But non-programmers don't use it because it's intimidating to use the terminal. But for example, you can download all your meeting notes and put it in a folder and just be like, "Okay, I want you to read every single one of my meeting notes and tell me..." Something that I do, for example, is, "Tell me all the time that I subtly avoided conflict."</p>
+<p><strong>Dan Shipper</strong> (00:08:38):<br />
+And it writes a little to-do list for itself. It can have a little notebook, it can go and read each little thing and then write into its notebook, go down its to-do list and give you a summarized answer over multiple turns. So it's not just stuffing everything into context, which is what you'd be doing with ChatGPT chat or a regular Claude chat. It's actually processing every single file that you give it. And so I think it's incredibly powerful for any kind of task that involves processing a lot of text.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:06):<br />
+So as a simple way to think about this, you basically have an agent on your local computer that can read your local files and do your bidding.</p>
+<p><strong>Dan Shipper</strong> (00:09:14):<br />
+Yes, exactly. And it can do that for long amounts of time without going off the rails.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:21):<br />
+Interesting. And so there's a small hurdle that non-technical people have to overcome, which is using their terminal and giving commands, but once they get it running, it's just you talk to it in English and ask it to do stuff.</p>
+<p><strong>Dan Shipper</strong> (00:09:32):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:33):<br />
+So the hot take here is just Claude Code, which most people think is for engineers, is the most underrated tool for non-technical people.</p>
+<p><strong>Dan Shipper</strong> (00:09:42):<br />
+Yeah, exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:43):<br />
+What are some other ways you imagine people seeing this? This meeting note example is really cool and I could see people using this. What else have you seen or thinking about?</p>
+<p><strong>Dan Shipper</strong> (00:09:52):<br />
+Something that I've done a lot, so I'm a writer for a lot of my job. And I know you're going to ask me about books I love, so I'm going to give you a sneak peek, which is I love War and Peace. I just read it for the third time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:03):<br />
+Wow, that's a long book.</p>
+<p><strong>Dan Shipper</strong> (00:10:06):<br />
+It's so long, but it's so good. I think Tolstoy is a brilliant writer. And one thing that I wanted to do is I was like, "I want to inflect some of my writing with some of Tolstoy's style." And the way I did that is I think he's incredible at these little subtle sentences where he shows you what a character is thinking and feeling just by how they behave, how they move their face or the mismatch between the intonation in their voice and the expression in their eyes, all that kind of stuff. He's just an incredible student of human behavior and psychology.</p>
+<p><strong>Dan Shipper</strong> (00:10:36):<br />
+And so I just downloaded War and Peace to my computer, which you can do because it's public domain. And then I had Claude read the first three chapters of War and Peace and pull out all of those descriptions, and then make a guide for itself for how to do character descriptions like Tolstoy. And you could totally do this with a regular Opus command, but you couldn't put all of War and Peace into it. It would take a lot more hand holding to get it to do this. And it just did this by itself without my really intervening.</p>
+<p><strong>Dan Shipper</strong> (00:11:05):<br />
+I had it download a Russian version of War and Peace and the English version, and then start comparing different scenes that I love to tell me about things that I might've missed in the translations, so that you can get as deep and weird and nerdy for whatever subfield you care about as you want to. Same thing for if you've got tons of customer interviews or tons of customer data you want to go through, it's incredibly powerful for going and figuring stuff out from big data sets like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:30):<br />
+You actually inspired me to use... This is not what you're describing, but it's also something that's very cool. This is going to sound so nerdy. I'm reading Anna Karenina right now.</p>
+<p><strong>Dan Shipper</strong> (00:11:40):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:41):<br />
+Also Tolstoy. And this is recommended by a previous podcast guest. And so I was like, "All right, I got to read this." Also very long. I'm on my Kindle, I'm just like, "All right, 13% in, I've been reading for months."</p>
+<p><strong>Dan Shipper</strong> (00:11:52):<br />
+Hot take, I think War and Peace is better than Anna Karenina, especially for a tech person. But they're both good.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:57):<br />
+Okay, there we go. There's my year. I saw you tweet this use case that I love that I've been using, which is just while I'm reading, having ChatGPT voice sitting around and then just asking it questions. Because you don't actually have to feed it the book, it knows the whole book. And Anthropic just shared this. I don't know if they shared or someone found this in their legal briefings that they actually bought tons of books and scanned them themselves, is how they did fair use.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:23):<br />
+And so it has all this context. So just sitting there and asking it, "What the heck is this thing in Russian society?" is super fun. Okay, so this is awesome. So the tip here is just coming back to your hot take. The tip is you basically can have an agent using local files and doing all kinds of cool stuff on your computer versus having to upload it into projects or into your prompts and things like that. Super cool. So the bet here is that people are going to discover this and start using this just day to day.</p>
+<p><strong>Dan Shipper</strong> (00:12:53):<br />
+I think they absolutely will. And I also think probably the model companies are going to start making this more accessible. I think one of the things that will just come from Claude Code and other things like it into everything else you use, whether it's on the web or wherever, is all of the original AI apps were pasting a chat box into an existing UI. So you've got Copilot, it's got the auto-complete in the IDE. You've got Cursor, it's got a little sidebar with a little chat. And the difference with Claude Code is you never look at the code. It's not meant for coding, it's not meant for coding by hand.</p>
+<p><strong>Dan Shipper</strong> (00:13:34):<br />
+It's meant for you to say, "I want you to get something done," and it goes and does it. And I think we're just getting to a point where for pretty much all the usual applications, AI is going to be good enough that we can get rid of the interfaces more or less where you're digging into all the things that it's actually doing and you're interleaved with its execution and you're more just like, "I'm delegating, it's going to go do it."</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:58):<br />
+Yeah. I had Cursor's CEO, Michael Truell, on the podcast, and this is his big vision is, "What comes after code?"</p>
+<p><strong>Dan Shipper</strong> (00:14:05):<br />
+English.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:06):<br />
+Exactly. Exactly. I also just had the founder of Base44 on the podcast who built this company, sold for 80 million bucks to Wix. And he shared that he's been around for six months, the company. For the last three months, he hasn't touched a single line of front-end code, all Cursor and other tools he's using. So this is happening.</p>
+<p><strong>Dan Shipper</strong> (00:14:27):<br />
+Same thing for people inside of Every, no one is manually coding anymore.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:32):<br />
+Okay. Definitely need to talk about that. Before we do, any other hot takes that you want to throw out there?</p>
+<p><strong>Dan Shipper</strong> (00:14:38):<br />
+I have one other hot take, which is I have a definition for AGI. And so AGI is famously hard to define. What does it mean for it to be artificial general intelligence? The Turing test was one, but we'd pretty much blown past the Turing test in a lot of ways. So we have no good one. And so what I have noticed is that you can tell how much better AI is getting by how long a leash you can give it to do work.</p>
+<p><strong>Dan Shipper</strong> (00:15:09):<br />
+So with Copilot, you can tab complete and that was the beginning. With ChatGPT, you ask it a question and it returns a response and that's maybe slightly better than a tab complete. And then now with Claude Opus 4 and Gemini and all that kind of stuff, also with deep research, it can go off and work for 20 or 30 minutes. So that leash is getting longer where you have to intervene.</p>
+<p><strong>Dan Shipper</strong> (00:15:34):<br />
+And I was thinking about this and it reminded me of Winnicott, who was a child psychologist. He wrote this book called Playing &amp; Reality. And his conceptualization for what it means to become an adult, what it means to go from being an infant to a child to an adult is when you're first born, you're effectively fused with usually your mother, your caregiver. There's no difference between you and her or you and whoever your caregiver is.</p>
+<p><strong>Dan Shipper</strong> (00:16:02):<br />
+And growing up is this process of being gradually let down in certain moments where you can handle being let down. So you learn that there's a separation between you and your caregiver. So for infants, it's instead of being fused at the hip for every hour of every day, you get left alone. Maybe you get left alone to cry it out. Who knows if that's the right thing to do with infants? A lot of consternation there. But that's teaching you that there's a separation between you and your mom or you and your dad. There's not going to always be someone to pick you up.</p>
+<p><strong>Dan Shipper</strong> (00:16:38):<br />
+And raising a child is about knowing when they're ready to be let down a little bit and have to stand up on their own. So I think there's that same leash with human development. You get longer and longer periods of time where you can be on your own. So we're still in the 20 to 30 minutes is maybe... I don't know, you probably can't leave a toddler alone for 20 or 30 minutes, but it's a little bit older than a toddler.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:02):<br />
+Maybe 20, 30 seconds.</p>
+<p><strong>Dan Shipper</strong> (00:17:06):<br />
+With a toddler, you can be in the same room but not interacting with them every single second for 20 minutes sometimes. So it's around there. I think we have that similar leash with AGI. And so I think a good definition of AGI is when does it become economically profitable for people to run agents indefinitely? So it just never turns off. It's a Claude Code that's always running, it's always doing something, you just never turn it off, and you don't need to because you know that it's worthwhile to keep it on.</p>
+<p><strong>Dan Shipper</strong> (00:17:41):<br />
+It's never waiting for you to be like, "Okay, next thing." It'll always respond to you when you're like, "Okay, next thing." But it's off just essentially living its life like a teenager and that is profitable for you. You'd rather have it do that than just wait for you to tell it what to do next.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:56):<br />
+Interesting.</p>
+<p><strong>Dan Shipper</strong> (00:17:56):<br />
+I think that's a good definition of AGI.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:58):<br />
+The profitable piece is also just the cost of running that thing and having it.</p>
+<p><strong>Dan Shipper</strong> (00:18:02):<br />
+It's partly the cost and partly the value. And obviously, you can game this a little bit and be like, "Cool, I'm just going to tell Claude to run in a loop forever." But I'm talking about more than that, more widespread adoption of agents that work all the time. And I like the profitable thing, because if it costs a little bit of money and the bar is profitability, it has to actually be doing something useful for you to keep it on.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:29):<br />
+It's interesting how the metaphor of a senior employee and autonomy and essentially the more autonomous they are, the less instruction you have to give, the less reviews you have to do, is also just directly correlated with how senior they are.</p>
+<p><strong>Dan Shipper</strong> (00:18:44):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:45):<br />
+Okay, great. Anything else along these lines?</p>
+<p><strong>Dan Shipper</strong> (00:18:48):<br />
+I have plenty of them. I hate the headlines that are like, "It's going to replace jobs," or "It's going to unemploy two thirds of the workforce." I don't think that's true. I hate headlines that are like, "You don't use your brain when you use ChatGPT," or another good headline is, "Doctors alone, doctors plus AI, or just AI, which one is better? AI is better, therefore, doctors are going to be outmoded."</p>
+<p><strong>Dan Shipper</strong> (00:19:18):<br />
+All that stuff is, I think, pretty dumb. So for the doctors plus AI example, I think it's important to recognize that using AI is a skill. And so if you study doctors in a vacuum that don't really have a lot of experience with AI, you could probably create a situation such that it's better to just use an AI. And sometimes it is going to be better. But there's so many contexts that doctors need to make decisions and do things that it's really hard to take one study and make any conclusion about that.</p>
+<p><strong>Dan Shipper</strong> (00:19:52):<br />
+And it's especially hard when you're dealing with a technology that's developing so rapidly that doctors can't really be expected to be experts at it yet. But I would guess in five or 10 years, that will be totally and completely different. For the student example or the "AI turns your brain off" example, I think it's really important to understand that in the history of technology, it has always been the case that you give up certain skills in order to get other ones. For example, Plato is famously very skeptical of writing because he thought it would harm your memory. And it did. We don't remember things quite as well as they did back in the day because they had to remember long epic poems to entertain each other.</p>
+<p><strong>Dan Shipper</strong> (00:20:37):<br />
+But I think writing is a worthwhile trade for having a slightly worse memory. And I think something similar is going on with AI where you may be slightly less engaged in certain tasks, but if you use it right, you're going to be way more engaged in other tasks where you have much more power. And so you can construct a study that says brain connectivity goes down when you use AI in the same way that you could construct a study that says people's memory are worse when they have writing skills. But I don't think anyone would want to go back to a world where no one was literate.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:10):<br />
+That is super interesting. There's all these studies that are showing the benefits of AI to students with these studies in Nigeria and just how fast people progress. So I think it's really important, this context you're sharing that you will lose some things, but the hope is the gain is much higher, and so far it seems like it will be.</p>
+<p><strong>Dan Shipper</strong> (00:21:27):<br />
+Yeah. I think people always, especially at the beginning of a tech hype cycle or a revolution paradigm shift, it's always easy to underestimate how quickly things are going to change. And the example I always use is, I live in Brooklyn and the tailor down the street from me doesn't accept credit cards. Credit cards have been around for a long time, so it takes a long time for technology like this to be adopted even in the best case.</p>
+<p><strong>Dan Shipper</strong> (00:21:55):<br />
+And I think it's really easy to underestimate how complex specific contexts are that humans know how to deal with. And just because you can get a really good score on a test... It's incredible. I love AI, it's so incredible, but it doesn't actually give you an intuition for how difficult it is to actually be replacing specific parts of work or activities that you would do. I think a really good thing to give you maybe a little bit of an intuition for it is I built this thing over a weekend a month ago that was, "0.3, can it predict what I'm going to say in a meeting?"</p>
+<p><strong>Dan Shipper</strong> (00:22:45):<br />
+That's a benchmark. It's the CEO benchmark. And the reason I did that is because the gold standard for OpenAI for testing how powerful a model is, is they test it on their internal code base. So they say, "How good is the new model at predicting what comes next in our internal code base?" Because that's not anywhere out on the internet. So it's a really good benchmark for that. And so I was like, "Well, my meeting transcripts aren't anywhere on the internet. A lot of what I say is on the internet and there's some overlap, but it'd be interesting."</p>
+<p><strong>Dan Shipper</strong> (00:23:19):<br />
+And so I ran a bunch of the frontier models on this, on just my Granola transcripts, and they're pretty bad. They are pretty bad, and it's not because they're not smart. There's this real push now. Tobi from Spotify coined this term called "context engineering," which is getting the context to the model, the right context at the right time, is at least half the performance.</p>
+<p><strong>Dan Shipper</strong> (00:23:43):<br />
+And I think that's 100% true. It's something that I've been writing about for three years. At the time, I called it knowledge orchestration. I think context engineering is probably a better term. But it's totally true, and that's a very, very hard problem to solve. It's not just a one- shot problem where it's gigantic context window and we're done. It's going...</p>
+<p><strong>Dan Shipper</strong> (00:24:00):<br />
+... that problem, where it's like gigantic context window and we're done. I think it's going to get better over time, but the minute it gets good at predicting what I'm going to say next in a meeting, I'm just going to use it as a tool, and that's going to change the entire dynamic of what I say next in a meeting. So it's not as easy as it seems.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:18):<br />
+Interesting. I imagine you can build a GPT from that. And then, instead of having a meeting with Dan now, just talk to this thing, and he'll make decisions.</p>
+<p><strong>Dan Shipper</strong> (00:24:26):<br />
+Yes, definitely. And I mean we do this a little bit. It's not the same as being able to predict exactly what I'm going to say in a meeting. But I think if you're a CEO, or founder, or manager, it's really stunning how much of your job is just repeating yourself. And that is one of the best things about this AI, particularly AI revolution, is that you don't have to repeat yourself.</p>
+<p><strong>Dan Shipper</strong> (00:24:48):<br />
+And so we had it last quarter. I tend to set one or two quarterly goals. And one of my big goals for us last quarter was don't repeat yourself. So I don't want ever say the same thing in a meeting twice, if I can help it. So for us, at Every, one of the big parts of Every is we have a daily newsletter. And I'm spending a lot of time giving feedback on headlines, or giving feedback on, "How do you write an intro," or "Is this idea any good," that kind of stuff.</p>
+<p><strong>Dan Shipper</strong> (00:25:15):<br />
+And we've started to codify all of that into prompts that basically... It's not the same as mimicking me. It can't exactly say exactly what I'm going to say in a meeting, but it pushes my taste out to the edge so that writers who are not able to talk to me, by the time I see it, they've already talked to some simulation of a simulation of me. And that's incredibly powerful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:41):<br />
+Let's follow this thread. This is exactly where I want it to go. I feel like the business you're building, the team you're building, the way you're operating is the very bleeding edge of how companies will operate and are trying to operate in this AI era. You guys are trying to be super AI-first. And it's super aligned with just so much of your writing. There's just so much reason to study what you guys are doing. So-</p>
+<p><strong>Dan Shipper</strong> (00:26:04):<br />
+Well, thank you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:05):<br />
+Yes. And this is benefiting all of us, so thank you. So first of all, just tell people what the heck Every is, and then share a few insights into just how you operate. It's funny that you laugh at [inaudible 00:26:20] whatever you say.</p>
+<p><strong>Dan Shipper</strong> (00:26:20):<br />
+Everyone asks that because it's a very weird shape of a company. You can actually see other companies that have this shape from earlier eras, but it's less common. It doesn't make as much sense.</p>
+<p><strong>Dan Shipper</strong> (00:26:33):<br />
+And I think it's newly enabled by AI, and we can talk about why. But the way that I typically talk about Every is we do ideas and apps at the edge of AI. So the core of the business is we have a daily newsletter. We've been doing it for about five years. We have about 100,000 subscribers. All of the people from the top AI labs read us. Anyone who's basically interested in or working in AI at the frontier and wants to know what's on reads us.</p>
+<p><strong>Dan Shipper</strong> (00:27:00):<br />
+We do a lot of... For example, whenever OpenAI or Anthropic drop a new model, we get our hands on it early, and then we get to play with it and write about it, which it's my ideal job. I love it. It's the best.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:14):<br />
+It sounds like it.</p>
+<p><strong>Dan Shipper</strong> (00:27:14):<br />
+I don't if I can curse on this podcast, but-</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:15):<br />
+You can.</p>
+<p><strong>Dan Shipper</strong> (00:27:15):<br />
+... it's the fucking best.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:18):<br />
+Perfect. Excellent use. And you call those "vibe checks", is that the-</p>
+<p><strong>Dan Shipper</strong> (00:27:22):<br />
+Yeah, we call them vibe checks-</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:22):<br />
+Vibe checks, love those.</p>
+<p><strong>Dan Shipper</strong> (00:27:24):<br />
+... which I think is really important because... And this gets to the next part, the apps part of what we do. I think it's really important to do vibe checks and to call them vibe checks because they're about how does it feel to use this thing and how does it feel to use it for work for things that you would normally use it for in your job or in your life. Because I think that captures something that standard benchmarks just don't capture and really can't. And the best people to tell... to write a vibe check are people that are actually at the edge using it for stuff.</p>
+<p><strong>Dan Shipper</strong> (00:27:57):<br />
+And so what we've found over time is we have... We love, we think the best writing and content about technology is from people that are actually using it and building with it. And so we've always had this sort of function, where we're always building little experiments in addition to our writing, and that helps us write great stuff. And that has turned into a suite of apps that we run internally. And the people who are building those apps are also writers, and they're contributing to things like vibe checks.</p>
+<p><strong>Dan Shipper</strong> (00:28:27):<br />
+So you get a really inside look into how is this stuff being built from people who are actually using it every day. And the suite of apps that we have, one's called Cora. We just launched Cora publicly on the day that we're recording this, which is really awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:39):<br />
+Congratulations.</p>
+<p><strong>Dan Shipper</strong> (00:28:40):<br />
+Thank you. You can think of it like a chief of staff, an AI chief of staff for your email. It helps you manage your email with AI. It's very cool. We can go into more of it later. We have another one called Sparkle, which is an AI file cleaner. We have another one called Spiral that does content automation with AI. We originally incubated Lex, which is an AI document writer, which we spun out into its own company, and my Every co-founder runs that.</p>
+<p><strong>Dan Shipper</strong> (00:29:05):<br />
+And basically we bundle everything together. So you pay one price, and you get access to all of the software that we make, and we're constantly putting new stuff in the bundle. And I can tell you more about what kinds of things do we like to incubate and how do we like to incubate it because I think there's some really interesting, special things in there.</p>
+<p><strong>Dan Shipper</strong> (00:29:21):<br />
+But I've been blabbering for a while, so I'll stop there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:23):<br />
+There's also a consulting firm, which I want to talk about, but let's hold off on that.</p>
+<p><strong>Dan Shipper</strong> (00:29:25):<br />
+Yeah, we have consulting.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:26):<br />
+Yeah.</p>
+<p><strong>Dan Shipper</strong> (00:29:27):<br />
+We also do that, and that's the third leg of the stool in the business. It doesn't fit quite as nicely into my ideas in app streaming, but we spend a lot of time with big companies, where we teach them basically how to be AI-first. We train all the people on how to use AI. And it's very cool, it's really fun, and a very important part of what we do.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:47):<br />
+That feels like a billion-dollar business right there. I want to come back to it.</p>
+<p><strong>Dan Shipper</strong> (00:29:50):<br />
+[inaudible 00:29:50].</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:51):<br />
+Because everybody wants to learn this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:53):<br />
+Okay, so share a few ways that you guys operate. You mentioned that your team doesn't write any code. What are just some ways that allow you to operate this efficiently? I know your team's really small. You have a daily newsletter, you have three, four products, you have a consulting arm. How big is the team at Every?</p>
+<p><strong>Dan Shipper</strong> (00:30:10):<br />
+We have 15 people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:11):<br />
+15 people? Okay.</p>
+<p><strong>Dan Shipper</strong> (00:30:12):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:12):<br />
+So just give us insight into some of the ways you operate that are at the bleeding edge.</p>
+<p><strong>Dan Shipper</strong> (00:30:16):<br />
+Okay, so a couple of things. One, and I think everyone should do this, is we have a head of AI operations. I sit with her once a week. And every time I'm doing something repetitively, we put it in a to-do list. And she's just constantly building prompts, and building workflows, and stuff like that so that I and everyone else on the team are just automating as much as possible. And I think that has been a big unlock because it's really hard to...</p>
+<p>If you're working in a job all day, you're fighting fires, and you're like, "Okay, am I going to do this in the way that I know how or am I going to do it in the new way that might not work?" I don't want to spend a bunch of time [inaudible 00:30:54] you're building some no-code automation. I don't want to do that. And having an AI operations lead lets you basically identify those things and have them solved without people who are doing the work actually having to take time to do it, which I think makes it much more likely it happens.</p>
+<p><strong>Dan Shipper</strong> (00:31:10):<br />
+There's always a trick with that, where it's like you have to make sure it gets used. So it's basically you're developing little applications internally, but if you're good at making applications people use, it's great. Highly recommend having an AI operations lead.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:23):<br />
+I imagine you saw the [inaudible 00:31:25] Quora tweeted about this, wanting to hire exactly this sort of person.</p>
+<p><strong>Dan Shipper</strong> (00:31:29):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:29):<br />
+So clearly this is a trend.</p>
+<p><strong>Dan Shipper</strong> (00:31:31):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:31):<br />
+So the idea is your point that this needs to be somebody who's outside of the day-to-day work of the company, and is specifically focused on helping the team be more efficient with AI?</p>
+<p><strong>Dan Shipper</strong> (00:31:43):<br />
+Yeah. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:44):<br />
+And then is this person mostly just you automating you, or can they help other people? Are they helpful-</p>
+<p><strong>Dan Shipper</strong> (00:31:49):<br />
+No, she helps everyone, basically.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:49):<br />
+Everyone? Okay.</p>
+<p><strong>Dan Shipper</strong> (00:31:51):<br />
+Where we're starting right now is with the editorial operation. So there's so much stuff in the editorial operation, where I or our editor in chief, Kate... Kate, is constantly doing little, small copy edits to make sure everything is in Every style, and it takes hours a day. And so now Opus is at a point where you can give it a style guide and a prompt, and it will go through anything you're writing, and copy edit it, which is amazing.</p>
+<p><strong>Dan Shipper</strong> (00:32:24):<br />
+The trick is it's not just building that. You also have to get Kate to be like, "Did you put this through the prompt yet," anytime someone gives her something. So there's a little bit of behavioral update too that has to happen, which I think is a really interesting organizational challenge.</p>
+<p><strong>Dan Shipper</strong> (00:32:38):<br />
+And I think for us it's a little easier because everybody inside the org is very AI-first and just wants to go do it. We don't have anyone really who's like, "I don't know. I don't really want to do this." And that's a whole different challenge, which I think a lot of organizations face, but there's always a problem of getting people to use it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:55):<br />
+That is super cool. What is her background, this AI operations person?</p>
+<p><strong>Dan Shipper</strong> (00:32:59):<br />
+Her name is Katie Parrott. She actually does a lot of ghostwriting for us. So she also, when people inside of Every who are builders... Often they just write themselves, but sometimes they want help, and she'll help them write about whatever they're working on. So that's how she started with us. She still does that, but she also spends a lot of time doing the AI operation stuff.</p>
+<p><strong>Dan Shipper</strong> (00:33:20):<br />
+And then before that, she worked at Animalz, which is a content marketing agency, one of the top content marketing agencies. And they're very process oriented. And I think the reason Katie is so good is because she's incredibly good at that kind of process stuff or thinking about that, but she's also a great writer and she's also just incredibly excited about AI. She just wants to tinker and wants to use it. And that was the thing that got me to be like, "Okay, you should just come and do that. Instead of just ghostwriting, we should add this to your plate." And it's been really fantastic.</p>
+<p><strong>Dan Shipper</strong> (00:33:58):<br />
+At minimum, you really just want someone who's just like, "I want to tinker. I want to build stuff." There's also people who have a little bit more of that process orientation. I think that is important. And to the extent they understand the craft of the thing that they're trying to build for, that also helps a lot.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:14):<br />
+This is an amazing tip. I feel like everyone's going to start hiring these people.</p>
+<p><strong>Dan Shipper</strong> (00:34:17):<br />
+I think so. There's a couple other people who talk about this. I heard Rachel Woods, who's another... She thinks a lot of AI stuff. She's talking about it. I think it's becoming a thing, and I think it's really important, and it just bleeds out into every other part of the org.</p>
+<p><strong>Dan Shipper</strong> (00:34:33):<br />
+So we're doing this inside of the editorial org, but there's a lot of copy that goes out on Cora. And by the way, Cora is spelled C-O-R-A, so it's different from Q-U-O-R-A, slightly confusing. There's a lot of copy that goes out on Cora, or Spiral, or Sparkle that we want to have that same Every quality bar for. And so we have engineers sending Kate, like, "Here's the Figma file. Can you go and do copy edits?" And that sucks for everybody. And Kate is one person, and it's just really hard to do that.</p>
+<p><strong>Dan Shipper</strong> (00:35:04):<br />
+So one thing that we did, Nityesh, who's one of the engineers on Cora, built a Claude Code command that just uses that prompt, and checks through the entire code base for all the copy edits, and then creates a pull request on GitHub, and then sends the pull request to Kate. So she's just looking at the pull request, and being like, "Does this make sense?"</p>
+<p><strong>Dan Shipper</strong> (00:35:26):<br />
+And so you can translate that prompt into, for example, a format that engineers can use. And suddenly your engineering team is writing marketing copy in the style you want. I think that's so cool.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:36):<br />
+That is extremely cool. I'm going to take us on a little tangent. You keep mentioning-</p>
+<p><strong>Dan Shipper</strong> (00:35:42):<br />
+[inaudible 00:35:42].</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:42):<br />
+... Claude, and I'm curious just what is in the stack of tools that you find yourself using, your team ends up using. It seems like Claude is a core part of it.</p>
+<p><strong>Dan Shipper</strong> (00:35:51):<br />
+I do love Claude. I would say I'm generally... My first thing that I open is o3. I'm a ChatGPT boy. And I think o3 is super high quality. I think it's great for writing, it's great for coding, it's great for all that stuff. And what it has that really makes a difference still from Claude is it has memory. And I just love that. I've spent so much time yelling at ChatGPT about, "I need my writing to be punchy and concise." And it just knows that now.</p>
+<p><strong>Dan Shipper</strong> (00:36:20):<br />
+So I think when I ask it to write something for me, it's actually better than yours. Or maybe not yours, but your average ChatGPT user. And I also find I use it a lot for self-reflection and personal growth type stuff. So it knows me. So when I send it a meeting transcript, and I'm like, "How did I do?" It's like, "Well, you did that thing that you normally do, but you're way better on this other thing." And I like that. I think that's really great. So day-to-day, o3, that's my go-to.</p>
+<p><strong>Dan Shipper</strong> (00:36:49):<br />
+I think Claude Opus is... First of all, Claude Code, everyone inside Every, that's basically what we use. If you're building something, you're using Claude Code. It's crazy. It's so good.</p>
+<p><strong>Dan Shipper</strong> (00:37:01):<br />
+Gemini just came out with something, so I'm very excited to try that because I think that's the model that we use most for the apps that we build, inside the apps. It's incredibly powerful and it's incredibly cheap, which is great. So I want to try the CLI tool that they came out with.</p>
+<p><strong>Dan Shipper</strong> (00:37:17):<br />
+We also use Codex a bit, which is OpenAI's coding tool. And that's for, like, "I want a one-off, self-contained... I want to pick off this little feature."</p>
+<p><strong>Dan Shipper</strong> (00:37:27):<br />
+What else do I use? Going back to Claude, Claude Opus 4 can do something that no other model, except one other model that I can't talk about... can do something that no-</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:39):<br />
+[inaudible 00:37:39].</p>
+<p><strong>Dan Shipper</strong> (00:37:39):<br />
+... other model can do.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:40):<br />
+Okay, we won't go there. We don't want to get you in trouble. Okay, go on.</p>
+<p><strong>Dan Shipper</strong> (00:37:44):<br />
+But yeah, no other model can do this. Which is earlier versions of Claude, and I think generally versions of other models, when you ask them, "Is this piece of writing any good," Claude, for example, would always give it a B+. And then if you did another turn of the same conversation, you're like, "I updated this," it would always go to A-. And then if you give it another turn, it would go to A.</p>
+<p><strong>Dan Shipper</strong> (00:38:07):<br />
+So it doesn't have the same kind of gut. It's thinking about what you probably want hear too much. And there's various methods that you can use to prompt engineer around this, like give it a template or whatever. And they sort of worked, but it just still doesn't have that thing where it's like, "Can it tell if writing is interesting or any good? Does it have that gut sense?" And Opus 4 has it. It's really wild. And I think that's super important because it opens up all these use cases where you might want to use a language model as a judge. So for us, for example, we're working on a new version of our product Spiral, which does content automation. You've used that in the past. And we're doing essentially Claude Code, but for content style product, where you say, "I want it to write a tweet," you give it all the documents, it has a bunch of memories, it creates a to-do list for itself, and then it goes and writes.</p>
+<p><strong>Dan Shipper</strong> (00:39:04):<br />
+And one of the things that is so interesting is now, because it can judge things, part of its to-do list is, "Okay, I wrote three tweets. I'm going to judge whether I think these are any good," and then it can improve before it comes back to you.</p>
+<p><strong>Dan Shipper</strong> (00:39:21):<br />
+And that's just a huge, huge unlock, that we were struggling for three months to build this crazy system to try to get it to judge writing. And then Opus 4, just one-shotted it, and we're like, "Great, this product works. Let's start chipping it." So yeah, I love it for that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:37):<br />
+Are there any other AI tools that you just use regularly? You mentioned Granola, even outside of the bottles. So what are some that you think maybe people are sleeping on?</p>
+<p><strong>Dan Shipper</strong> (00:39:46):<br />
+I use Granola. So I used to use Super Whisper and Whisper flow, which I think are fantastic. We have an internal version of that called Monologue that will be shipping in a month or so that I use now, but you can think of them as roughly equivalent. And I think generally speech to text interfaces are the future, and more people should be using them, and more people should be building them as affordances. We use Notion all the time, and I specifically use their meeting recording. I think that's mostly the stack.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:17):<br />
+Okay. That was really helpful and super interesting.</p>
+<p><strong>Dan Shipper</strong> (00:41:33):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:33):<br />
+Okay. What else? What else do you do that you think other companies should be doing or will eventually start doing?</p>
+<p><strong>Dan Shipper</strong> (00:41:39):<br />
+So the Cora team, which is Kieran and Nityesh, basically-</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:43):<br />
+[inaudible 00:41:43] that's the team, two people?</p>
+<p><strong>Dan Shipper</strong> (00:41:44):<br />
+That's the team, yeah. Well, with Cora, it's Kieran, Nityesh, and 15 Claude Code instances, so it's more powerful than you think.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:53):<br />
+I love that. This is just, again, a glimpse into the future.</p>
+<p><strong>Dan Shipper</strong> (00:41:58):<br />
+One of the things that we do that I think is really cool, and they basically invented this, I had nothing to do with this, is they invented the idea of compounding engineering. So basically, for every unit of work, you should make the next unit of work easier to do.</p>
+<p><strong>Dan Shipper</strong> (00:42:16):<br />
+So an example is, in a Claude Code world, where you're not coding a lot, you end up spending a lot of time essentially typing PRDs. Like, "Here's a document with exactly the stuff that I need to do," right? And so you could just be like, "Okay, cool. That's my job now. I'm going to just write PRDs." And so each successive PRD, it's the same amount of work.</p>
+<p><strong>Dan Shipper</strong> (00:42:45):<br />
+Or you could spend a little bit of time being like... There's a sort of platonic ideal of a PRD. And what I'm going to do is write a prompt that can take my rambling thoughts and then turn that into a PRD. And so you spend a little bit of work to make all of the next PRDs that you're doing easier to write because you're writing less of them.</p>
+<p><strong>Dan Shipper</strong> (00:43:08):<br />
+And so finding those little speed-ups, where every time you're building something, you're making it easier to do that same thing next time, I think gets you a lot more leverage in your engineering team.</p>
+<p><strong>Dan Shipper</strong> (00:43:20):<br />
+And so, yeah, we have Kieran and Nityesh. And Cora, it just became public. It was in private beta. It had 2,500 active users. And there's millions of emails going through it. And that's one of the products that we do as a 15-person company. It's kind of crazy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:37):<br />
+It is crazy. How do you do the speed-up thing? Is it prompts that they continue to refine [inaudible 00:43:44]?</p>
+<p><strong>Dan Shipper</strong> (00:43:44):<br />
+A lot of it is prompts, and automations, and stuff like that. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:47):<br />
+Got it. For automations, what's the tool? What's the tool you use for automating automations?</p>
+<p><strong>Dan Shipper</strong> (00:43:52):<br />
+What they're using a lot of is Claude Code. So you can do slash commands in Claude Code, which are repeated prompts that you're doing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:01):<br />
+Got it. Okay. So basically they're building a library of prompts that make the process, of, "Here's what I want to build," to a good solid PRD that you can feed into Claude Code more correct and more efficient?</p>
+<p><strong>Dan Shipper</strong> (00:44:13):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:14):<br />
+Super interesting. And they just keep a file or they put this into a project? Is that how they store this stuff?</p>
+<p><strong>Dan Shipper</strong> (00:44:14):<br />
+It's a GitHub. It's a GitHub GitHub-</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:22):<br />
+[inaudible 00:44:22].</p>
+<p><strong>Dan Shipper</strong> (00:44:22):<br />
+... where they can share it with each other.</p>
+<p><strong>Dan Shipper</strong> (00:44:24):<br />
+Another thing that they do, which I think is very cool, is they use a bunch of Claudes at once, but then they're also using three other agents. There's an agent called Friday that they love.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:36):<br />
+That's an AI Asian product called Friday?</p>
+<p><strong>Dan Shipper</strong> (00:44:38):<br />
+Yeah, yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:38):<br />
+Hadn't heard of that. Okay, interesting.</p>
+<p><strong>Dan Shipper</strong> (00:44:40):<br />
+There's another one called Charlie that they really love. And in particular, I think the thing they like about Charlie... We have a whole video about this, which I can send to you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:47):<br />
+Yeah, I'll point to it.</p>
+<p><strong>Dan Shipper</strong> (00:44:48):<br />
+They did an S-tier through F-tier of AI agents, which I think is so funny. And one of the things I really like about Charlie is that it lives in GitHub, so when you get a pull request, you can just be like, at Charlie, "Can you check this out?" And that seems to work really well to have different agents that have maybe slightly different perspectives. It's like different people that have different perspectives and have different taste.</p>
+<p><strong>Dan Shipper</strong> (00:45:15):<br />
+Kieran, he's one of those serious Rails-files, who they just love Rails, and they love the way that Rails feels, and so I think he has a real sensitivity to... Okay, this agent, ChatGPT for example, it feels very terse, and minimal, and professional, and it has a particular kind of style that maybe he likes. Versus, I don't know, Claude is a slightly different style. And I think all of that is so interesting that these things have personalities, and that that changes what you might want to use it for or why you might want to use three of them at once.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:49):<br />
+That is so fascinating. It makes me think about Peter Deng's conversation again, where he talks about his hiring strategy and one of his key lessons. And he ended up hiring the current head of product for ChatGPT, the current head of marketing at ChatGPT, the current head of engineering because he hires these incredible people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:07):<br />
+And his philosophy is to hire a team of Avengers, where everyone is strong at certain things, and together they're the perfect team, versus everyone... versus the best at everything. And it's interesting that you can almost do that with different product, different agents from different companies.</p>
+<p><strong>Dan Shipper</strong> (00:46:22):<br />
+You definitely can.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:23):<br />
+And it makes me feel like there's a bigger market than people think potentially, where people will want different companies, agents, not just all Devins or not all Codexes.</p>
+<p><strong>Dan Shipper</strong> (00:46:30):<br />
+I think there really is. It's definitely not one agent to rule them all at all.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:35):<br />
+So interesting.</p>
+<p><strong>Dan Shipper</strong> (00:46:36):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:36):<br />
+Oh, my God. The two people on the Cora team, what's their background? Are they both engineers or what are they?</p>
+<p><strong>Dan Shipper</strong> (00:46:42):<br />
+They're both engineers.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:43):<br />
+Okay.</p>
+<p><strong>Dan Shipper</strong> (00:46:44):<br />
+Kieran's got this crazy background, where... They both have really interesting backgrounds. Kieran's got this crazy background, where he was previously VP Eng at a startup, so was effectively the CTO of a startup, or maybe two startups, and was one of the founders. But before that, he was a composer, a professional composer. And before that, he was a baker. So we did a team retreat in France last year, and he taught us all how to make croissants. My croissant was horrible. His was beautiful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:14):<br />
+Seems [inaudible 00:47:16].</p>
+<p><strong>Dan Shipper</strong> (00:47:16):<br />
+And generally, I think that kind of multidimensional type of talent is the kind of person that I love having at Every. Because we're all generalists. We all want to use AI for all these weird, awesome, creative things. And someone who has that background is going to have a good taste for not only agents, but, "What should the landing page look like," or whatever. Which I think is increasingly important, where you're trying to scale a team of generalists of 15 people to five products. So that's Kieran's background.</p>
+<p><strong>Dan Shipper</strong> (00:47:43):<br />
+Natasha's background is... I'm jealous because he only started learning to code when ChatGPT came out. He had wanted to learn to code forever, and he's only known how to code in an AI era. And I keep telling him, "Dude, I learned to program in middle school from books." I had to go to Barnes &amp; Noble and buy a book. And there was nothing... I couldn't Google any-</p>
+<p><strong>Dan Shipper</strong> (00:48:00):<br />
+I had to go to Barnes and Noble and buy a book and there was nothing... I couldn't Google anything about why this function wasn't working.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:08):<br />
+No Stack Overflow even back then.</p>
+<p><strong>Dan Shipper</strong> (00:48:10):<br />
+Yeah, yeah. There wasn't that overflow. There was weird BB net forums and stuff that I was like 12 and I probably shouldn't have been on there or whatever. So he has gone so much faster than any other engineer, I think in a pre AI era. And I see the same thing in the rest of the company. I think there's this huge question about what happens when kids... Entry level jobs are taken away by AI. And my take is like that's worth thinking about and it's possible that that might be a problem at some point. But my take is whenever I see a kid with ChatGPT, I'm like, holy shit, they're going to grow so much faster than any other person that I've worked with. We have this guy Alex Duffy who works with us, he writes for Context Window and he just launched, we taught AIs how to play diplomacy with each other, which is really cool.</p>
+<p><strong>Dan Shipper</strong> (00:49:08):<br />
+And he did that whole thing and I think he's really, really, really talented. And when he came to us, I guess almost a year ago now, it was one of those classic cases which I've seen over and over at every... Which is, you have great ideas, but you're not a good writer yet and it's really hard for me to do anything with you until you're good enough at it. So I have to give you small little things until you get better and blah, blah, blah, whatever. And what I noticed with him is he was just making a year. He made a year's worth of progress in two months because every time I sat down with him and told him, okay, here's how you tell a story. Here's how you think about a headline. He recorded all of it, put it into a prompt, and he never made the same mistake twice.</p>
+<p><strong>Dan Shipper</strong> (00:49:49):<br />
+And I think he's so much accelerated from where he would have been because of this stuff, and I see that in lots of other parts of the work. So Natasha is another good example. And so I think generally people are going to figure out that some 20-year-old with ChatGPT subscription is super powerful if you just mentor them. And I think that's great.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:11):<br />
+Man, there's so many threads I could follow here. There's all this fear of entry level people will never... The roles are disappearing for entry level people and so how will we ever have senior people if these people can't learn to do things as an entry level person? And what you're saying is ChatGPT and these tools help you accelerate really quickly so you don't really need to be at the bottom rung for a long time.</p>
+<p><strong>Dan Shipper</strong> (00:50:33):<br />
+Yeah. You're effectively learning how to be one level above the entry level from the beginning and this is sort of my whole allocation economy thesis where when you look at skills are going to be valuable in the AI era, one big group of skills are the skills of managers. Today, they're human managers, tomorrow everyone's a model manager. Right now, AI is not... Right now, management skills are not broadly distributed, because it's very expensive, another expensive thing that... So 8% of the workforce is managers. It's now going to be much cheaper to manage, so more people are going to have to do it. And so that's the thing that kids, 20-year-olds, whatever, I see is now are going to start to have to learn in addition to, it's not like you can just say, okay, go do it and then come back. You have to be able to go into the work that's being done and help make it better. But they're learning both at the same time. They're learning how to manage and how to do the actual work so that they're good at it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:36):<br />
+And the managing here is managing agents. Right?</p>
+<p><strong>Dan Shipper</strong> (00:51:41):<br />
+Yeah. You're managing AI.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:43):<br />
+And so coming back to your point about how this core team, and I guess you said everyone doesn't write code, zero code written, now it's just managing agents that are writing code for you.</p>
+<p><strong>Dan Shipper</strong> (00:51:54):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:55):<br />
+Okay. I've never heard of a company at this stage, so this is extremely cool. So the workflow is they give it, here's what I want. I refine it using this cool prompts library that they build on and agents build code, write the code. Then basically the time is spent reviewing code and then reviewing the output. What does it look like? What does it feel like? And then continuing to refine, wow. So you guys are at where Michael from Cursor said we will be. So I chatted with him a few months ago. He said in a year, this is where he thinks the thing will be. We're not looking at code anymore. You guys are already there. Although you were looking at code. Okay, you're still looking at code.</p>
+<p><strong>Dan Shipper</strong> (00:52:33):<br />
+They definitely are looking at code. So you're doing a code review before you do anything. And I do think Danny, who runs Spiral, which is the cloud code for content tool I was talking about that we're building, he spent a couple of days digging into the internals of some third party library that we were interested in just because it's helpful to know, it's helpful to understand those things, but then he's not actually writing any code. Once he understands it, he's just off telling cloud code what to do. And I think that's really important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:08):<br />
+This is an insane milestone we're hitting here. There's this sense we're getting to a place where you don't need to really understand code, you don't have to write any code. We'll get there and you guys are there. I think this is so easy to overlook how wild this is. You have a product team not writing code at all.</p>
+<p><strong>Dan Shipper</strong> (00:53:26):<br />
+It is really wild. I think it's really wild in particular, just having a small group of people that have... Everyone has all these different skills. Everyone's a generalist, everyone's AI forward. So what you can do in an environment like that with just still a small team is crazy. And you're kind of inventing all these new principles for how do we work together, how do we do engineering, all that kind of stuff. And I think that's what makes the writing... That's why I like doing that is because the writing that we do from that I think is really good because we can talk about it from a sort of position of experience, but I do want to say something else which is we're not at a point yet where the people that work at every could do what they do if they didn't know how to code.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:08):<br />
+Yeah, this is what I was going to ask.</p>
+<p><strong>Dan Shipper</strong> (00:54:10):<br />
+Which is a different bar, and I think for a long time it's going to be valuable to know how to code for a long time, but this is a progression that is not a new progression. So for example, when I was in middle school learning to code, the new hot thing was scripting languages, which is Python and JavaScript. But if you were a real programmer, you would understand the language underlying Python and JavaScript, which is written in C. and scripting language weren't totally real. And in order to really do anything interesting, you had to be able to learn both parts of the stack. Same thing for C programmers, when I guess in the seventies C was invented, it was like you got to be able to write assembly.</p>
+<p><strong>Dan Shipper</strong> (00:54:59):<br />
+And English is just a layer on top of scripting languages. So I think all of those things were right in the sense that there's... Especially during transitions, there's a lot of reasons why it's important to be able to go down a layer in the stack and it gets less and less frequent over time, but that still takes a long time. And there's some times when even if you're a JavaScript or a Python programmer, it's useful to know how that stuff works, how it's written, and see how it's implemented. Today it's much less important than it used to be, but that took 10 or 20 years. And I think that the same thing is going to be true for programming. Having that skill is super important and will accelerate you significantly. It will sort of start to get less important over time, but we're not close to that yet.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:44):<br />
+Okay. That's a really important point. I'm glad you went there. So do you have a sense of how far we might be from you hiring someone to build another product that isn't an engineer?</p>
+<p><strong>Dan Shipper</strong> (00:55:54):<br />
+Like a real SaaS product?</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:57):<br />
+So hey, we have this idea we want to bring someone on to actually lead it.</p>
+<p><strong>Dan Shipper</strong> (00:56:00):<br />
+Very far. Not within sight, but there's a lot of things that could be products that are a level down from that I think that you could do almost now. So an example, we were talking about DIA, the new AI browser from the browser company. DIA has these things called skills, which are effectively little AI apps that you can run in the browser. You can prompt them and they run on the web page and do work for you. A non-technical person can build that, same thing for custom GPTs from ChatGPT. A non-technical person can definitely build that. So I think while I will definitely maintain that we're not anywhere close to anybody being able to build a conventional SaaS app with zero programming knowledge, aside from just a demo, there are going to be other forms of software.</p>
+<p><strong>Dan Shipper</strong> (00:56:55):<br />
+One of my things is like software is becoming content. There's going to be other forms of software that don't look like the software today, but you can run, start and run as a business, as a non-technical person even if you don't know how to code. And that'll happen very soon. I mean, it's already kind of happening. It doesn't look like the thing that you're asking about. It's sort of like the difference between a Hollywood movie and a YouTube video.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:17):<br />
+I think that's really reassuring to a lot of people. Basically what you're seeing is AI just supercharges people who have a skill and allows them to do a lot more.</p>
+<p><strong>Dan Shipper</strong> (00:57:25):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:26):<br />
+Okay. Is there any other way that you guys operate that is really interesting that might be worth sharing that helps you operate really quickly, helps you do more with less?</p>
+<p><strong>Dan Shipper</strong> (00:57:38):<br />
+I mean, I would love to talk about how we think about building products, what products to build, what do we end up building? Because I think that there's something sort of special about it that probably there's a playbook that is useful for people. So when I think about... This is only sort of snapped into focus recently. So a lot of this was just doing it intuitively without really a thought for it. But when I think about the kind of things that we have ended up incubating, it's basically goes back to something I said at the beginning, which is there are these things that were historically really expensive that only rich people or big companies could buy. So a chief of staff for your email, I think a therapist or a lawyer is another interesting example. Someone to organize your closet or organize your computer is another example. Someone to go straight for you, that are becoming orders of magnitude cheaper so that everyone can use them even if you're at a small startup.</p>
+<p><strong>Dan Shipper</strong> (00:58:39):<br />
+And so basically when you're running, we are sort of this AI first company. You're running into all these little things where you're like, I wish I had a ghost writer right now, but ghost writers are really expensive. Or I wish I had a lawyer but it would cost me like $25,000. Lawyers are really expensive and there's a lot more demand for those services than can be fulfilled because they're so expensive. And what AI does is it allows you to be like, oh, I could just use cloud for that. I can use ChatGPT for that. And so you're able to use the demand that you have that we can afford a lawyer. We have ghost writers, but there's a lot more that we can't do because we can't afford it. So we still have our lawyer and we still have our ghost writers, but we just do a lot more of that stuff.</p>
+<p><strong>Dan Shipper</strong> (00:59:27):<br />
+And so we notice that. We start to then use ChatGPT and cloud first, these general purpose tools to try it and see is this useful? Does this actually work? All that kind of stuff. And then if it does, we will unbundle it into its own separate thing that becomes an app. And I think what's really special about this time is the entire game board has been totally reset in terms of things you can build. Where five years ago it was like you're going to build another Notes app. We've been building notes app for forever, another B2B SAS app. It's all the same stuff in slightly different packaging. And now it's totally new territory. No one knows what's going on. Everyone's inventing it as it happens. All these new workflows are being created in a very similar way to, I don't know, for example, when spreadsheets were first a thing on computers, we were figuring out all these new workflows on spreadsheets.</p>
+<p><strong>Dan Shipper</strong> (01:00:24):<br />
+They got unbundled in the B2B SAS, same thing for ChatGPT and Claude. And what's really cool is you can be like, cool, I'm using using ChatGPT for this. It's really useful for me. And you might be one of the first people to really notice that. And then because everybody that works at Every is AI first and came to us because they reads Every, they read Every, so we all have the same vibe and we're all kind of doing similar stuff. They become our first users. So we measure the success of the product by is it a banger inside of Every, monologue the app that I was talking to you about, everyone just started using it and we're like, okay, we've got something here.</p>
+<p><strong>Dan Shipper</strong> (01:01:05):<br />
+And what's really interesting then is if everyone inside of Every uses it and people read Every, they have a similar vibe to us too, so they become the next set of users. And that's a really, I think, interesting pipeline for building applications or building apps. It's a totally new greenfield so that all the stuff you're thinking about, it's probably new, which is really cool. And over time, what I think is organizations like ours, people who are playing at the edge, we're doing things that in three years everybody else is going to be doing. So it may be kind of niche for now, but it will be a big deal in three years when everyone else has the same needs that we do.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:45):<br />
+That is really cool. What I'm hearing is GPT wrappers are a good idea and are worth building.</p>
+<p><strong>Dan Shipper</strong> (01:01:50):<br />
+100% thank you. GPT wrappers are amazing and they've been much maligned for absolutely no reason and people don't understand how absolutely valuable they are.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:03):<br />
+I think there's also just you guys raised a sip seed round. This is a good time to maybe talk about that. Just these products don't have to become some mega-billion dollar hits. You kind of have this portfolio of companies, you have the content business. So I think there's a really interesting approach to how big these need to get to be successful. Maybe just talk about that.</p>
+<p><strong>Dan Shipper</strong> (01:02:25):<br />
+Yeah. I really want Every to be an institution that teaches people how to live a better, more human life with technology, particularly with AI. And both teaches them how to do it with writing and the content we make and then builds tools for them to do that. But I think fundamental to building an institution is, at least for me, the way I would like to do it is I want internally it to feel like this creative playground where we have the opportunity to take risk and do stuff and do weird stuff that just doesn't make any sense. We can't justify anyone, but we just feel like it would be fun. And so I think I'm always playing with that dynamic tension between institution serious, we want this to be lasting and important and it should just be fun. Let's play around. And I think having that tension is really valuable.</p>
+<p><strong>Dan Shipper</strong> (01:03:16):<br />
+And so I've always been sort of hesitant to raise a lot of money because I think it locks you into having to be that serious thing that's totally going for it. And there's lots of companies that figure out that balance. But just for me personally as a founder, I'm like, I want to keep the optionality alive and I want to keep the kind of playful feeling alive. And I think part of that comes from I know I have the control to do what I want more or less. There's probably also some deeper psychological things going on there, which I'm happy to talk about if you want to get into it. But I think there's also just... That's what I want. And so when we started Every, we raised a very small 700K pre-seed round, and this was at the height of the creator economy.</p>
+<p><strong>Dan Shipper</strong> (01:03:59):<br />
+So we both started our newsletters. He and I started our newsletters around the same time. It was the hypest, craziest thing. People were throwing money around. It was wild. But we raised 700K because it was like, I want to raise enough for us to be able to experiment, have a little cash cushion, but not so much that it locks us into anything. And we sent an email to all of our investors being like, and you're one of our investors, so you've probably got this email.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:22):<br />
+Tiny investor. But I'm in there, I'm in there.</p>
+<p><strong>Dan Shipper</strong> (01:04:26):<br />
+We sent an email to everyone being like, this is probably not a venture business, so you should not expect us to raise again. And we even raised on this slightly modified safe that gave everyone the option to convert to equity in three years, even if we didn't raise more money. So we did it in a way that allowed us the option to get really big and do the traditional thing and also the option to do it the way we want to do it. Maybe it's not a huge business, but we love it. That's great. And we did the same thing for this recent round where we raised up to 2 million from Reid Hoffman and starting line VC. And we did it as what I've been calling a sip seed round, which is basically they've committed $2 million, but we can pull it down whenever we want and we just do it on a safe at a set cap.</p>
+<p><strong>Dan Shipper</strong> (01:05:12):<br />
+And for me, that's really helpful because it allows me psychologically to take a lot more risk. If we go to zero on the bank account, I can get more money. Great. I don't have to think about it. But what's also really helpful is I'm not, and the rest of the team is not staring at a gigantic number in the bank account being like, cool, we can burn this. Let's burn it. And also for our investors, I think Reid very much wants us to succeed, but I don't think he cares what size of business this is. I think he's more philosophically aligned with the thing that we're trying to do. And if it becomes a huge business, he's psyched for it. And I think that kind of alignment is what I was looking for. I think there's this core creative spirit to the thing that I want to maintain and I really care about having a big impact.</p>
+<p><strong>Dan Shipper</strong> (01:06:03):<br />
+But I think there's a lot of ways to have an impact. And one of them is building a $10 billion business. I think another way is really changing how people see the world, see themselves in the world. And I think that's what stories do. And you don't necessarily... Sometimes you do that by building a gigantic company, but you don't necessarily always have to do that. A lot of the stories that we care about most are from people who maybe they weren't rich at all. And so I really like creating this place where we can make a really good business. And I care a lot about that. But also the core of the soul of it is about changing how people see themselves in the world.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:40):<br />
+I love that you've kind of innovated a new middle ground way of fundraising, not bootstrap and not just regular VC. It's a seed. And I love that this two... If I raised 50 million, it'd be like, okay, I get it. Let's not put 50 million in our bank account, but you do have 2 million. It's too much for us. We don't want to see that in our account.</p>
+<p><strong>Dan Shipper</strong> (01:07:01):<br />
+That's another thing. And we'll see how this ages. I might be back here in two years crying the blues because we didn't raise enough money or whatever. Who knows? But that's the other thing is I do think we can get so much further with very small amounts of money. Like Cora, I think all in to build Cora, we've spent maybe 300K, Maybe. That's crazy because-</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:24):<br />
+And that includes salaries?</p>
+<p><strong>Dan Shipper</strong> (01:07:27):<br />
+Includes salaries. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:27):<br />
+Wow.</p>
+<p><strong>Dan Shipper</strong> (01:07:28):<br />
+This product was not even technically possible even if you had billions of dollars three years ago. Not possible because you can't do email summarizing and automatic responses and all that kind of stuff without GPT. So not only was it totally impossible, but now we can get with two engineers, we can get the amount done that would've taken a team of 20 people. And I think that means that we need less money. And I don't think that VC has really caught up to that yet. And I think there are other companies that are doing... There's a term called seed strapping, so there are other companies that are starting to wake up to this too. And I'm curious about how it changes the VC model. For sure for us, we have a specific incubation model, which is a bit different from a VC model. And I think there's some differentiation in the stuff that we can do with founders, which is kind of cool. But yeah, I'm just trying to figure out a shape that works for me and that's different from other people and we'll see how this goes.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:41):<br />
+We'll revisit in a couple years. Seems like it's going great from the outside. I'm going to ask about a couple other things before we wrap up. One is around this consulting arm that you have. I think it's really interesting because like I said, I feel like this could be a billion-dollar business. I feel like every company right now is trying to figure out what the hell's everyone else figured out that we're not doing. I've had so many emails from chief product officers at companies being like, can you introduce me to some chief product officers that have done cool things with AI that we should learn from? So many people and I would just introduce them to each other and it's cool because you guys are basically solving that problem for a lot of companies.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:18):<br />
+So one is just maybe share a bit about what that side of the business for folks. And then two, I feel like I imagine you've seen companies that have done this really well, have adopted AI, things have worked really well, they found really good productivity gains, and then you found companies that don't. What do you find is the difference between those two?</p>
+<p><strong>Dan Shipper</strong> (01:09:35):<br />
+I love this question and I have a very specific opinion about this. So one, yeah, the consulting arm, basically we spend all of our time playing around with new models, writing about them and building stuff with them. And we have a big audience. So naturally we've gotten companies over time being like, can you just come and teach us how to do this? And so we started to do that. This is pretty nascent. It's probably been over the last six to nine months, but it's a pretty big business now. It'll probably double this year. Last year we did about a million. Maybe it'll be more this year. We'll see. It depends on a couple... We have a couple of big contracts out, so it might be way more than that.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:13):<br />
+A billion. I predict a billion dollars in a few years.</p>
+<p><strong>Dan Shipper</strong> (01:10:17):<br />
+But yeah, basically people are like, can you come help us learn how to do this? So what we do is we spend some time going and researching your organization. So we go in and try to understand what are all the different teams doing, what are the repetitive tasks, some of the stuff we were talking about earlier. And then what we will do is first we present a little report, tells you here's everything that we found. Here's not only that, but you have a chatbot where you can chat with all the interviews that we did and you can pull out your own insights. We have a whole dashboard where it shows you, here are the teams that are really into this, here are the teams that are not. Here's how much leverage you might be able to get on different teams based on the interviews and based on the AI analysis.</p>
+<p><strong>Dan Shipper</strong> (01:10:57):<br />
+It's pretty cool. And that's an app that I coded over a weekend with Devin a year ago. And then Alex runs part of the consulting has helped upgrade it. Then what we do is we have a training curriculum. So we go in and train each team and we customize it based on the interviews that we do. Because one of the interesting things about AI is it's such a general purpose technology, and I think people who work inside companies, 10% of them are like, I'm super curious about this. 10% are like, I will never touch this. And 80% are like, if you tell me how to do it for my job, I'll do it.</p>
+<p><strong>Dan Shipper</strong> (01:11:31):<br />
+And so we customize the training to be like, here are the exact prompts you're going to use and here's the exact situations you're going to use them. And that really, I think helps drive the adoption. We spend four weeks with each team, an hour a week, that kind of thing. It seems to be really cool. And then we'll often also after this, go and build automations and do some of the AI operations stuff we were talking about earlier. Companies really like it. I think we work with a lot of big hedge funds and PE firms and big companies, all that kind of stuff. To your-</p>
+<p><strong>Dan Shipper</strong> (01:12:00):<br />
+Companies, all that kind of stuff. To your second question, which is, "What separates the good companies from the bad, or the companies that end up adopting this?," I think the number one predictor is, "Does the CEO use ChatGPT?," or insert your own chatbot. If the CEO is in it all the time, being like, "This is the coolest thing," everybody else is going to start doing it. If the CEO is like, "I don't know, this is for someone else," no one else is going to be able to lead that charge, and they're either going to have ... Either they're going to be negative on it, and so definitely no one's going to do it, or they're going to have way unrealistic expectations because they have no intuition for what's possible, and they're just going to get really disappointed.</p>
+<p><strong>Dan Shipper</strong> (01:12:47):<br />
+But the CEOs that are using it all the time are able to both drive the excitement and set reasonable expectations for what can be achieved, and so those things end up working really well, and the people that do this really well ... So, for example, we work with a hedge fund called Walleye, which I had the founder on my podcast, AI and I, a few weeks ago, their gigantic $10 billion hedge fund. One of the things that they do, which I think they're basically the model for how to do this, first thing you did, which a lot of CEOs are doing is send the, "We're an AI-first company" email. Everyone's got the memo.</p>
+<p><strong>Dan Shipper</strong> (01:13:20):<br />
+You just got to really do it, and one of the things he said in his memo, which I love, is, "I wrote this email with ChatGPT, and you should too." So you got to like ...</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:30):<br />
+In the memo.</p>
+<p><strong>Dan Shipper</strong> (01:13:30):<br />
+Yeah. You got to lead from the front in that way. And then, what he does in, I think what a lot of other really cool companies do is they're doing weekly meetings where people share prompts and share use cases. They do a weekly email to their entire company, being like, "Okay, here are our usage stats for ChatGPT. Here are the people that came up with a new prompt and contributed to it."</p>
+<p><strong>Dan Shipper</strong> (01:14:00):<br />
+Create this sort of awareness and momentum, because going back to the point I made earlier, about 10% of people are early adopters, those are the people inside of a company that you need to find and highlight because they're going to just go spend all this time figuring out what works, and then all you have to do is translate what they learn into the rest of the organization. And so if you create forums for them to be rewarded, you're goi</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Seven Years at Airbnb Taught Me About Building a Business — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What Seven Years at Airbnb Taught Me About Buildin…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What Seven Years at Airbnb Taught Me About Building a Business</div>
+    
+    <div class="article-meta">2019-06-14<span>·</span>3,035 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">組織</span> <span class="mini-tag">成長</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><a href="https://substackcdn.com/image/fetch/$s_!yFro!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F9433a380-7255-4054-acb7-afae7b3d1165_3103x1813.png"><img alt="Image from What Seven Years at Airbnb Taught Me About Building a Business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9433a380-7255-4054-acb7-afae7b3d1165_3103x1813.png" /></a></p>
+<h6>Tips for new employees, painted on the walls during a hackathon. Mural: <a href="https://andrealikes.to/">Andrea Nguyen</a>, <a href="https://www.jeanyngo.com/">Jeany Ngo</a>, <a href="https://www.katiechen.design/">Katie Chen</a></h6>
+<p>In 2012, shortly after Airbnb <a href="https://techcrunch.com/2012/12/13/airbnb-acquires-localmind/">acquired</a> our startup, I overheard co-founder Joe Gebbia giving guidance to a designer tasked with redesigning the homepage. He said, “Build something the internet has never seen before.” I vividly remember thinking, <em>What does that even mean? And is this the bar for everything around here?</em> Looking back, I’ve come to recognize that this mindset has been one of the key ingredients in Airbnb’s historic growth.</p>
+<p>I first joined Airbnb as an engineer, then became one of the first members of the budding PM team. Back then, there were a couple dozen engineers, a few designers, and two very cute dogs. Over the next seven years, as the company scaled to thousands of global employees, countless cute dogs, and over $30 billion in value, I took on a lot of interesting problems and worked with many incredible people. Since leaving a few weeks ago, I’ve been jotting down my biggest lessons from these experiences. I’ve <a href="https://twitter.com/kylemeyer/status/566366186389004288?s=21">realized</a> I should share these lessons with anyone else working to build a company. I can’t promise they will all apply to your situation, but they have been core to Airbnb’s success.</p>
+<h1>Create strong culture, values, and rituals</h1>
+<p>It’s increasingly common for people to choose companies that connect with their personal values, both as consumers and employees. From day one, Airbnb has been a company obsessed with strong culture, clear values, and quirky rituals. Over the years, I’ve witnessed how effective this has been in creating a competitive advantage, allowing the company to hire <a href="https://www.cnbc.com/2018/03/06/greg-greeley-former-amazon-prime-vp-moves-to-airbnb-homes.html">the</a> <a href="https://hbr.org/2017/04/i-joined-airbnb-at-52-and-heres-what-i-learned-about-age-wisdom-and-the-tech-industry">best</a> <a href="https://press.airbnb.com/fred-reid-joins-airbnb-as-global-head-of-transportation/">talent</a>, move quickly when <a href="https://www.nytimes.com/2017/02/05/technology/airbnb-super-bowl-ad-trump-travel-ban.html">opportunities</a> arise, and push through <a href="https://techcrunch.com/2011/08/01/airbnb-offers-unconditional-apology-and-50000-insurance-guarantee/">adversity</a>. Most importantly, it has made it easy for leaders to stay true to the long-term mission and for the team to hold them accountable.</p>
+<p>How did Airbnb create a strong culture? Three key ingredients:</p>
+<ul>
+<li><strong>Founders obsessed with culture.</strong> <a href="https://medium.com/@bchesky/dont-fuck-up-the-culture-597cde9ee9d4">See Exhibit A</a> and <a href="https://www.youtube.com/watch?v=RfWgVWGEuGE">Exhibit B</a>. This is fundamental, especially as you scale. It influences who your first few hires are (who co-create the culture) and the values you model (knowingly or unknowingly).</li>
+<li><strong>A strong sense of self.</strong> Airbnb did this through a codified set of core values created by a small task force about three years in. Airbnb uses these core values when measuring success (are we achieving our mission?),hiring (a core values interview group vets all candidates), evaluating performance (it’s baked into the peer-review process), and looking at large deals. Everyone at the company can recount the values verbatim.</li>
+<li><strong>Rituals.</strong> Cookie time Tuesdays. New hire tea time. Hosted bar. Human tunnels. Fun facts. Silly but regular rituals create space for employees to strengthen bonds and bring joy to the workplace. Don’t overthink your rituals; experiment and see what sticks.</li>
+</ul>
+<p><a href="https://substackcdn.com/image/fetch/$s_!ucqX!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F982a7559-8de6-44e9-9866-39a3e62bddee_1599x2133.jpeg"><img alt="Image from What Seven Years at Airbnb Taught Me About Building a Business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/982a7559-8de6-44e9-9866-39a3e62bddee_1599x2133.jpeg" /></a></p>
+<p>Here’s an <a href="https://www.youtube.com/watch?v=RfWgVWGEuGE">excellent video</a> to help you get started in building your own culture and values.</p>
+<p><strong>Main takeaway:</strong> Be obsessed with your company (and team) culture.</p>
+<h1><strong>Nail the problem statement</strong></h1>
+<p>Crafting and aligning on a problem statement is the single most important step in solving any problem. I’ve consistently seen simple projects with vague problem statements go in circles for weeks and months, while complex projects with strong problem statements sail smoothly.</p>
+<p>A few key tools that I’ve found helpful:</p>
+<ul>
+<li>This <a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">one-pager template</a> is something I’ve refined over the years to crystallize the problem and opportunity for my team and stakeholders.</li>
+<li>The situation-complication-resolution <a href="https://speakingsherpa.com/how-to-tell-a-business-story-using-the-mckinsey-situation-complication-resolution-scr-framework/">framework</a> is extremely helpful in communicating the story to a wider audience.</li>
+<li>The jobs-to-be-done <a href="https://jtbd.info/2-what-is-jobs-to-be-done-jtbd-796b82081cca">framework</a> helps ensure you’re addressing real customer needs.</li>
+</ul>
+<p><strong>Main takeaway:</strong> Obsess over crystallizing the problem you are trying to solve and align your entire team behind it.</p>
+<h1>Set wildly ambitious goals</h1>
+<p>At the end of each year, we were often shocked at how close we came to hitting our wildly ambitious, seemingly impossible goals. And when I say wildly ambitious, I’m making an understatement — Brian, Airbnb’s CEO, is (in)famous for doubling our proposed goals, and often pushing us to 10 times the goal. This ambitious approach has pushed teams to think bigger and rise to the occasion.</p>
+<p>Five key ingredients to doing this well:</p>
+<ul>
+<li><strong>Set uncomfortable goals.</strong> Our approach was to pick a goal that made us uncomfortable, while also clearly understanding why hitting it would be incredible for the business. Two questions we asked were 1) What would need to be true for us to hit this goal? and 2) What could we accomplish without barriers (budget, people, dependencies, etc.)?</li>
+<li><strong>Make sure someone is directly accountable.</strong> Hitting this goal needs to be an individual person’s job. If a number doesn’t have a person’s name next to it, it’s not going to happen.</li>
+<li><strong>Think long-term.</strong> We generally looked ahead five to 10 years in order determine that year’s goal, both in terms of growth and our mission. Though we didn’t always nail it, we’ve increasingly put a lot of thought into the impact our work has on the many stakeholders we serve, which was recently crystallized by Brian in an <a href="https://press.airbnb.com/brian-cheskys-open-letter-to-the-airbnb-community-about-building-a-21st-century-company/">open letter</a>.</li>
+<li><strong>Give a cross-functional team ownership of how to achieve the goal.</strong>Your number-one job as a leader is to assemble the right team, point team members in the right direction, and stay vigilant in unblocking them.</li>
+<li><strong>Celebrate success, don’t punish failure.</strong> Follow through on the original intent of the goal — it was meant to push you, not kill you. If you don’t hit the goal but get close, congratulate the team and move on to the next goal.</li>
+</ul>
+<p><strong>Main takeaway:</strong> When setting goals, think bigger.</p>
+<h1>Start with the ideal and work backward</h1>
+<p>A variation of Amazon’s <a href="https://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management">working backward methodology</a> that I’ve seen work exceptionally well at Airbnb starts with envisioning the perfect user experience. A classic example was a project code-named Snow White.Inspired by the approach Disney took in developing the original <em>Snow White</em> film, the founders began looking at Airbnb not as just a website or a service, but as a story with a beginning, middle, and end.</p>
+<p><em>Snow White</em> was one of the first films to use the technique of storyboards, and thus the team developed a set of storyboards of the ideal guest and host experience, identifying key emotional moments along that journey. These storyboards quickly became a key tool in identifying our biggest gaps and opportunities, and informed the early company strategy. You can read more <a href="https://techcrunch.com/2012/07/18/airbnb-brian-chesky-snow-white/">here</a> and <a href="https://www.fastcompany.com/3002813/how-snow-white-helped-airbnbs-mobile-mission">here</a>, and watch this <a href="https://www.youtube.com/watch?v=nT7Irq8YuSo">great video</a> of the team discussing the process.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!rLlG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F8a00a863-041a-4056-ad0c-77549bd837ed_2400x1024.jpeg"><img alt="Image from What Seven Years at Airbnb Taught Me About Building a Business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8a00a863-041a-4056-ad0c-77549bd837ed_2400x1024.jpeg" /></a></p>
+<p>A more recent example was when we wanted to make it easier for guests to book a home on Airbnb. The process at that point had many steps, including a waiting period while the host reviewed the request. Instead of spending months or years micro-optimizing individual parts of the funnel, we stepped back and explored what the ideal booking experience would look like.</p>
+<p>In this case, it was unquestionably a guest being able to instantly book any home without having to wait. Initially, it seemed impossible to convince every host to allow guests to book without approval. (Only about 5% of bookings were instant at that time.) Nonetheless, it became clear that this was where our business needed to go long-term, so we put all of our team’s resources behind this bet. Over the course of a couple of years, we transformed the marketplace to where the vast majority of bookings are now instant.</p>
+<p>A few key ingredients to this process:</p>
+<ul>
+<li><strong>Write or draw out what the ideal experience looks like, feels like.</strong> In our case, before diving into any short-term optimizing, we sketched out the ideal booking flow on paper and wrote a sample blog post to describe what we’d announce if this were to become real.</li>
+<li><strong>Create a framework.</strong>To make the problem more tractable, break it down into manageable chunks. In the case of instant book, the biggest gap was giving our hosts more control over who could book their home instantly. We broke that gap into two types of problems: “can” problems (am I able to use it?) and “want” problems (do I want to use it?), then worked through them in priority order.</li>
+<li><strong>When it feels uncomfortable, get more data.</strong>A change this significant is often scary for your colleagues or users. Before you give up, look at actual data. Validate your assumptions through a quick experiment, user research, or historical data. As one data point, many people internally and externally assumed a trip booked instantly would lead to a lower-quality experience (less communication, more transactional), hurting long-term growth. A quick data dive showed otherwise, and that, along with a few other key data points, cleared the path for internal buy-in.</li>
+</ul>
+<p><strong>Main takeaway:</strong> Look for opportunities to make a step-function change by imagining the ideal state and working backward from that.</p>
+<h1>Think of your org design as a product</h1>
+<p>As you move up the ranks of leadership at a product org, you quickly learn the most important product to get right is how you organize your people. How you structure your org can be a force multiplier or a hindrance to achieving your mission.</p>
+<p>There are a number of key ingredients to successful org design:</p>
+<ul>
+<li><strong>Optimize for dedicated cross-functional teams with a clear mandate.</strong> In my experience, this is the single most impactful thing leaders can do when setting up a team. You want self-contained teams that can move autonomously toward an agreed-upon goal. Any missing resource (designer, DS, budget), additional cross-team dependency, or conflicting surface area cuts the team’s impact immensely. (This is often invisible until later.) Minimize the number of times a team will need to meet with or wait for another team. Well-functioning teams feel like a black box that outputs regular updates and amazing work.</li>
+<li><strong>Get the goals right.</strong> A lot has been said about goals (for example, <a href="https://www.mindtools.com/pages/article/smart-goals.htm">SMART goals</a> and <a href="https://www.ted.com/talks/john_doerr_why_the_secret_to_success_is_setting_the_right_goals?language=en">OKRs</a>), but I think teams still underestimate the power of getting goals right. Setting the right goal can be the difference between incredible progress and unending churn. Goals should 1) be limited in number — ideally just one or two, 2) have quick feedback loops that allow you to see impact immediately, 3) be directly connected to top-line business growth, 4) be easily understood, and 5) be uncomfortable.</li>
+<li><strong>Be aware that there is no perfect org design.</strong> At Airbnb, I went through almost a dozen reorgs. I’ve never seen a single org plan that addressed every issue and made everyone happy. Make sure you’re addressing the biggest pain points, future-proofing it as much as you can, and then move forward. The plan will have flaws, like overlapping product ownership, two teams with the same key metric, or a team owning far too much. Note the flaws and put systems in place to work around them. Set expectations that the org will change again in the future.</li>
+</ul>
+<p><a href="https://substackcdn.com/image/fetch/$s_!WMJB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fc47b2390-f57a-4ecb-a110-68ebf1c869aa_1600x1200.jpeg"><img alt="Image from What Seven Years at Airbnb Taught Me About Building a Business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c47b2390-f57a-4ecb-a110-68ebf1c869aa_1600x1200.jpeg" /></a></p>
+<h6>“Use Your Voice”, by <a href="https://shantellmartin.art/">Shantell Martin</a>, drawn free-hand over the course of a day at Airbnb HQ</h6>
+<p><strong>Main takeaway:</strong> Build autonomous units with well-defined goals and get out of the way.</p>
+<h1>Maintain a high bar for everything</h1>
+<p>Coming from the startup world, I was accustomed to moving quickly, settling for good enough, and thinking short-term. There was always too much to do and too little time. Who knew if the company would even be around in a year? An early manager at Airbnb instilled in me the power of keeping a high bar for my work. Looking back, this one change has profoundly impacted my career.</p>
+<p>How to keep the bar high for yourself and the team around you:</p>
+<ul>
+<li><strong>Emails.</strong> Force yourself to look at your email at least once before sending it. There’s always something you can cut or clarify. <a href="https://hbr.org/2016/11/how-to-write-email-with-military-precision">Here’s</a> a style I love, courtesy of the military.</li>
+<li><strong>Shared docs.</strong> Always ask for feedback from at least one person before sharing a doc widely. Focus on clean and consistent formatting. Close out comments before sharing with execs. Make it easy to scan. Keep pushing yourself to learn to write better.</li>
+<li><strong>Meetings.</strong> Include the primary goal of the meeting in your invite, ideally along with an agenda. If you attend a meeting that doesn’t feel productive, call it out. Invite as few people as possible. Leave with clear action items. Follow up over email with the action items and owners.</li>
+<li><strong>Presentations.</strong> Are you sure you need to do a presentation versus an email? Make sure your audience knows the goal of the presentation — are you looking for a decision or general feedback, or purely sharing information? It’s not as obvious as you think. Get feedback on your presentation; fresh eyes always catch the glaring issues. And keep it short — no one has ever wished that presentation went longer.</li>
+<li><strong>Hiring.</strong> The people you bring in determine the company you become. My advice is to only hire people you feel “hell yes” about. If it’s a maybe, it’s a no. More on this advice <a href="https://sivers.org/hellyeah">here</a>.</li>
+</ul>
+<p><strong>Main takeaway:</strong> Ask yourself and your team these questions often: How could we go just a bit bolder? What would it take to make this slightly better?How do we make this meeting a little more productive? How do I make this doc or email a bit crisper? Could I set the bar a little higher?</p>
+<h1>Keep your teams focused</h1>
+<p>When I took over the supply growth team at Airbnb, I found a small team spread across a long funnel. They were seeing wins, but were unable to build real momentum. I’d seen the same thing when I took over a team responsible for improving trip quality. In both cases, reducing the problem space and providing a more focused mandate resulted in gains in impact and morale. Aim for teams to have a focused problem to rally around and obsess about.</p>
+<p>In the case of supply growth, our solution was to first divide the team into focused units (a team driving referrals, a team owning top-of-funnel organic growth, a team owning performance marketing, etc.), and then grow each team with resources appropriate to that problem space. In the case of trip quality, we dedicated a quarter at a time to a specific aspect of quality (host response rate, guest review rate, etc.). Once we found large opportunity, we doubled down in the subsequent quarter.</p>
+<p>If you apply this lesson to your product, allowing users to focus on the task at hand is one of the most powerful tools in increasing the number of successful user experiences. Some of the biggest guest conversion gains I saw at Airbnb came from simple tweaks that gave users fewer things to think about — things like opening listings in new tabs (avoids getting lost while exploring), extending session length (you don’t need to log in as often), and removing links within the payments flow (avoids distractions). We saw the same thing on the host side, from always having a “recommended” tag when presenting a set of options, to defaulting settings based on host persona, to adding inline tips so users don’t bounce. Don’t underestimate the power of focus.</p>
+<p><strong>Main takeaway:</strong> Focus. Focus. Focus.</p>
+<p>Thinking back to what Joe suggested to that one designer many years ago, Airbnb truly has built something the internet has never seen before. It’s been an incredible experience watching the company grow and evolve through the years. I feel grateful for the opportunity to have been a part of that ride for so long and to have worked with the brilliant, kind, and driven people who walk the halls of Airbnb every day.</p>
+<h3>Takeaways</h3>
+<ul>
+<li>Be obsessed with your company (and team) culture.</li>
+<li>Crystallize the problem you want to solve and align your team behind it.</li>
+<li>When setting goals, think bigger.</li>
+<li>Make step-function change by imagining the ideal and working backward.</li>
+<li>Build autonomous units with well-defined goals and get out of the way.</li>
+<li>Ask: Can I be bolder, better, more productive? Can I set the bar higher?</li>
+<li>Focus. Focus. Focus.</li>
+</ul>
+<p><a href="https://substackcdn.com/image/fetch/$s_!eqk2!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fbaa9ad88-399e-4704-a0fc-4b6a9759d413_1600x1200.jpeg"><img alt="Image from What Seven Years at Airbnb Taught Me About Building a Business" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/baa9ad88-399e-4704-a0fc-4b6a9759d413_1600x1200.jpeg" /></a></p>
+<p><em>A big thank you to Vanessa, Ann, Brett, and Yelena for reviewing early drafts of this post.</em></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

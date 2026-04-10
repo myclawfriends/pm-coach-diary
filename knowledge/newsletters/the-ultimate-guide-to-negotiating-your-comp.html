@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The ultimate guide to negotiating your comp — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">The ultimate guide to negotiating your comp</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">The ultimate guide to negotiating your comp</div>
+    
+    <div class="article-meta">2025-05-06<span>·</span>6,414 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">職涯</span> <span class="mini-tag">組織</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>I’m excited to share the most practical and specific guide to negotiating comp that I’ve ever seen. This approach is targeted at leaders (e.g., senior ICs and managers), but no matter your role, anyone can benefit from this incredibly pragmatic, direct, and practical collection of tactics and advice.</p>
+<p>A bunch of my trusted friends have been raving about <a href="https://www.thinkwarwick.com/">Jacob Warwick</a>, a full-time negotiation coach for executives. Over the last 10+ years, he’s guided more than 3,500 senior leaders through high-stakes comp negotiations. This post is a synthesis of everything he’s learned over the past 15 years. You won’t find anything like this elsewhere.</p>
+<p>For more from Jacob, check out his <a href="https://www.producthunt.com/posts/free-linkedin-profile-review">free LinkedIn profile analysis tool</a>, which just went live on Product Hunt today, his <a href="https://www.interviewreports.com">interview preparation report</a> service, and his individual consulting services at <a href="https://www.thinkwarwick.com">ThinkWarwick Global</a>. You can also find him on <a href="https://www.linkedin.com/in/jacobwarwick/">LinkedIn</a> and <a href="https://x.com/jacobwarwick">X</a>.</p>
+<p><em>P.S. If you prefer, you can listen to this post in podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a></em></p>
+<p><img alt="Image from The ultimate guide to negotiating your comp" src="https://substack-post-media.s3.amazonaws.com/public/images/9b0b742f-6619-487f-8fe1-b12104d3513f_2912x1923.jpeg" /></p>
+<p>Two equally qualified product leaders walk into the same negotiation. One leaves with a standard package—market-rate base salary, typical equity, standard benefits. The other walks away with double the compensation, accelerated vesting schedules, and a signing bonus that covers their mortgage for a year.</p>
+<p>The difference isn’t skill, experience, or even negotiation tactics. It’s a fundamental shift in approach. As a product leader, you already understand that successful products solve important problems for people, create emotional connection with their users, and meet real market needs. Exceptional negotiation works the same way.</p>
+<p>While most candidates ask, “What can you offer me?,” top earners demonstrate “Here’s how I’ll solve your most pressing challenges and create new possibilities for your business.”</p>
+<p>Demonstrating unmistakable value for the company you’re interviewing with, and building relationships with the people who matter, will create opportunities others never see and transform your compensation trajectory.</p>
+<p>This shift isn’t semantic—it fundamentally transforms how decision-makers perceive your value. When you make them feel confident, inspired, and excited about the future you’ll build together, compensation becomes a natural reflection of that value, not a negotiation point.</p>
+<p>Recently, I guided a Senior PM whose offer started with an advertised range of $185K-$285K. After our targeted interview and negotiation strategy, they walked away with a staggering $1.1M annual package—nearly four times the upper limit. This isn’t an isolated success. I’ve helped hundreds of leaders dramatically increase their compensation by refusing to accept published salary ranges as the final word.</p>
+<p>I’ll show you exactly how they do it.</p>
+<h2><strong>Your negotiation playbook</strong></h2>
+<p>Every successful negotiation starts with leverage. Whether you’re planning six months ahead or sitting in discussions right now, here’s the process I’ve developed through trial and error with clients over 15 years.</p>
+<p><img alt="Image from The ultimate guide to negotiating your comp" src="https://substack-post-media.s3.amazonaws.com/public/images/41507665-96a6-4da8-ba3e-f1dcdc8a4b4c_2912x1552.jpeg" /></p>
+<p><strong>G: Gather intelligence.</strong> Go beyond the obvious. Dig into the company’s real challenges, understand who truly makes decisions (hint: it’s not always on the org chart), and know their market better than they do.</p>
+<p><strong>A: Align with their needs.</strong> Stop selling your resume. Start demonstrating how you’ll solve their specific problems for the company/team. When you position yourself as the solution to their challenges—not just another candidate—the power dynamic shifts immediately.</p>
+<p><strong>I: Influence key stakeholders.</strong> Create champions throughout the organization, not just with the hiring manager. Show each stakeholder how you’ll make their world better, and they’ll fight for your compensation later.</p>
+<p><strong>N: Navigate complexity.</strong> Master the delicate dance of pushing for what you’re worth without creating tension. Know exactly when to advance discussions and when to build relationships. Timing is everything.</p>
+<p><strong>S: Secure your value.</strong> Get agreements right, start delivering value before day one, and build the foundation for your long-term success.</p>
+<p>Let’s break down exactly how to execute each step with real examples from leaders I’ve worked with who have used this approach to dramatically increase their compensation.</p>
+<h2><strong>G: Gather intelligence that others miss</strong></h2>
+<p>The most valuable information won’t show up in press releases or job descriptions. To build real leverage, spend time on three key intelligence domains:</p>
+<h3><strong>1. Organization dynamics</strong></h3>
+<p>Forget the org chart—real power flows through history, unspoken alliances, and relationships.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Identify who gets consulted before decisions are made (often not who you’d expect)</li>
+<li>Learn which past failures still haunt leadership thinking</li>
+<li>Discover which rising stars have the CEO’s ear</li>
+<li>Uncover the true drivers that aren’t discussed openly</li>
+</ul>
+<p><strong>Real-world impact:</strong> I watched a brilliant SVP candidate lose an $800K opportunity by making one critical mistake. They treated the Chief of Staff meeting as a formality while focusing all their energy on impressing the CEO. They never realized this “assistant” whispered in the CEO’s ear about every executive hire. Meanwhile, the candidate who got the job built genuine rapport with both, understanding the real power dynamic at play.</p>
+<p><strong>How to execute this:</strong> Before any interview, ask your network, “Who really influences decisions at this company?” and “Whose opinion does the leadership team value most?” The answers might surprise you.</p>
+<p>During the interview, ask questions such as:</p>
+<ul>
+<li>How are decisions typically made in this organization?</li>
+<li>Who are the key people I will collaborate with?</li>
+<li>What’s the history behind this position? Is it new or am I replacing someone?</li>
+<li>How can I best show up for you? And how can I best show up for [name other team member(s)]?</li>
+</ul>
+<h3><strong>2. Decision-maker psychology</strong></h3>
+<p><img alt="Image from The ultimate guide to negotiating your comp" src="https://substack-post-media.s3.amazonaws.com/public/images/2371f48b-8273-4ac3-a41f-b87b29a15ffd_1456x888.jpeg" /></p>
+<p>Decisions are made by people. Understand what drives them.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Research what motivates each key player both professionally and personally</li>
+<li>Identify formative experiences that shaped their leadership philosophy</li>
+<li>Discover what problems truly keep them awake at night</li>
+<li>Learn how they measure success beyond the obvious metrics</li>
+</ul>
+<p><strong>Real-world impact:</strong> My product-executive client secured a $1.8M package after we discovered that their future CEO consistently bet on leaders who had overcome significant failures. While other candidates showcased perfect track records, we strategically shared growth from setbacks—creating an immediate connection that moved beyond their credentials.</p>
+<p><strong>Script that worked:</strong> When speaking with the CEO, my client shared, “That product launch failure taught me three lessons about market timing that completely transformed my approach. I’m curious—what experiences have most shaped your philosophy toward product leadership?” This led to an engaging brainstorming session with the CEO about product vision.</p>
+<p>Consider the following starting questions:</p>
+<ul>
+<li>What tough lessons has the company learned that changed how you do things now?</li>
+<li>Why did you decide to hire for this role right now vs. waiting?</li>
+<li>Can you tell me about a time when things didn’t go as planned and how the team handled it?</li>
+</ul>
+<h3><strong>3. Strategic pain points</strong></h3>
+<p>In order to speak directly to how you can add real value to the company, figure out which divisions are missing targets, which roles have been open too long, and what shifts are being debated behind closed doors—and how you would solve those problems.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Track where the company is headed, not just where it’s been</li>
+<li>Identify problems they’ll face six months from now</li>
+<li>Understand which initiatives have underdelivered and why</li>
+<li>Use your experience to form an opinion about what must be done</li>
+</ul>
+<p><strong>Real-world example:</strong> A client targeting a VP of Product Design role used this approach perfectly. Instead of relying on her impressive portfolio alone, she dug deep into the company’s challenges through industry contacts.</p>
+<p>She discovered that while they consistently delivered on their roadmap, their products weren’t creating customer enthusiasm. Rather than focusing on her credentials in interviews, she “sold the vacation”—painting a vivid picture of their organization after her design transformation.</p>
+<p>She detailed exactly how she would restructure product development, rebuild customer experience, and deliver measurable outcomes. The leadership team bought into the future she helped them envision. While other candidates matched the job description, she addressed their unspoken needs and secured a $1.2M package—double the stated range that topped out at $600K.</p>
+<h3><strong>Gathering self-assessment</strong></h3>
+<p>Before your next opportunity, assess your intelligence-gathering with these questions:</p>
+<ul>
+<li><strong>Organizational network analysis:</strong> Can you name at least three influential people not on the leadership team? If not, your research is still surface-level.</li>
+<li><strong>Decision-maker insight:</strong> For each key stakeholder, can you identify their professional background, leadership philosophy, and one challenge they’re currently facing? <a href="https://www.execsandthecity.com/the-elite-executives-guide-to-interview-preparation/">If gaps exist, deepen your research</a>.</li>
+<li><strong>Information-source diversity:</strong> Review your research sources. If they’re limited to the company website, press releases, and LinkedIn, you’re missing crucial intelligence. Expand to industry forums, customer reviews, and first-degree connections.</li>
+<li><strong>Strategic pain-point clarity:</strong> Can you articulate the company’s three biggest challenges in their own language? If not, you haven’t yet uncovered what truly matters to them.</li>
+<li><strong>Competitive-position knowledge:</strong> Do you understand how they measure success against competitors? Can you name which metrics they’re winning on and which they’re trailing? If not, your market context remains incomplete.</li>
+</ul>
+<p>The difference between adequate preparation and strategic intelligence often comes down to this: Are you gathering facts anyone could find, or are you uncovering insights that create a genuine competitive advantage?</p>
+<h2><strong>A: Align with advocates</strong></h2>
+<p>Now that you know the importance of collecting information, it’s time to use that intel to align with key people at the company, rather than impressing them. This isn’t semantics—it completely transforms the power dynamic.</p>
+<p>Instead of proving yourself worthy, you’re evaluating mutual fit and demonstrating understanding.</p>
+<p>I recently helped a product leader transform a Senior Director role with a range of $143K-$285K into a $1.1M package by shifting one fundamental approach. Instead of selling his credentials, we engaged the leadership team in discussions about how investing in strong product leadership would position their company as an industry innovator.</p>
+<p>By focusing on their aspiration to be visionary, we changed how they perceived the role’s value, leading them to quadruple their initial compensation range.</p>
+<p>Consider these contrasting approaches:</p>
+<p><strong>Weak:</strong> “I have 15 years of experience leading product teams and consistently exceeding targets. . .”</p>
+<p><strong>Strong:</strong> “Your challenges with product-market fit remind me of a similar situation at [Company]. We discovered that the root cause wasn’t our process but our customer development approach. I’m curious, how aligned are your product and research teams on an ideal customer profile?”</p>
+<p>The weak response positions you as an applicant listing credentials. The strong response establishes you as a peer exploring solutions together.</p>
+<p>This transformation happens through three critical elements.</p>
+<h3><strong>1. Storytelling</strong></h3>
+<p>Forget polished success stories and rehearsed scripts. Focus on raw, relevant experiences that create immediate connection.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Connect your past challenges directly to their current problems</li>
+<li>Share the messy middle of your experiences, not just outcomes</li>
+<li>Focus on lessons learned that directly apply to their situation</li>
+<li>Use stories as bridges to solutions, not as evidence of your greatness</li>
+</ul>
+<p><strong>Real-world impact:</strong> The aforementioned product executive client landed their new role by sharing a story about a failed product launch—not to showcase resilience but to demonstrate how that experience shaped their approach to due diligence, which mapped directly to their prospective employer’s current challenges.</p>
+<p>The company recently went through a few failures of its own, and my client knew the CEO was motivated to avoid another mistake. They framed their experience learning from past missteps to ensure alignment with the CEO’s own goals.</p>
+<p><strong>Script that worked:</strong> When building alignment with the CEO, my client used the following frame: “That failed launch taught me to question three assumptions we never validated. Looking at your current roadmap, I’m concerned you might be facing similar blind spots with your enterprise expansion. Have you tested the assumption that enterprise users need all these features?”</p>
+<p>Don’t be afraid to ask challenging questions to assess how well aligned you are with leadership. For example:</p>
+<ul>
+<li>What’s a problem your team is stuck on right now that keeps coming back?</li>
+<li>If you could solve one thing that’s broken in the company, what would it be?</li>
+<li>What’s something you wish candidates would understand about this role that most don’t get?</li>
+</ul>
+<h3><strong>2. Child-like curiosity</strong></h3>
+<p><img alt="Image from The ultimate guide to negotiating your comp" src="https://substack-post-media.s3.amazonaws.com/public/images/3e91a67c-7e5c-463a-811a-36d2d16d0169_1456x888.jpeg" /></p>
+<p>Big, bold questions that others may tiptoe around can demonstrate both competence and humility.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Ask questions that reveal your strategic thinking</li>
+<li>Challenge assumptions respectfully</li>
+<li>Inquire about root causes rather than symptoms</li>
+<li>Demonstrate you’ve done your homework through the specificity of your questions</li>
+</ul>
+<p><strong>Real-world impact:</strong> A veteran product leader with 20 years of experience spanning well-known startups and Fortune 500 tech approached an interview differently. Though a VP by title, she applied for a Director role but thoroughly researched the company’s products, analyzed growth patterns, tracked leadership changes, and connected with former employees before meeting the CEO. Rather than simply trying to impress, she entered with a genuine evaluation mindset—was she the right fit for this company’s challenges? This balanced approach gave her the confidence to ask tough, insightful questions that ultimately led to the role being upleveled from Director to VP, with compensation doubling from $600K to $1.2M.</p>
+<p>She flipped the power dynamic by asking the CEO questions no other candidate dared:</p>
+<p>“How much of the team’s failure to grow do you take ownership of, what are you doing to remedy that, and how can I best show up for you to ensure it never happens again?”</p>
+<p>That conversation led to a leadership role created specifically for her at double her initial target.</p>
+<p><strong>Follow-up technique:</strong> After asking a bold question, resist the urge to fill silence. Let them process and respond. The quality of their answers will tell you volumes about their self-awareness and leadership style.</p>
+<h3>3. “<strong>Sell the vacation”</strong></h3>
+<p>Engage in real-time thinking about the company or team’s future challenges to demonstrate that you already understand how the company could succeed.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Paint a vivid picture of what success looks like after you join</li>
+<li>Get specific about the changes you’d implement in the first 30, 90, and 180 days</li>
+<li>Connect your vision to metrics they already care about</li>
+<li>Make them feel the relief of having their problems solved</li>
+</ul>
+<p><strong>Real-world impact:</strong> One product leader transformed a panel interview by sketching how the company’s product organization would function six months after his arrival—complete with restructured processes and improved metrics they’d achieve together.</p>
+<p>He didn’t just answer questions; he invited the leadership team to mentally experience working with him. Instead of saying, “I could help,” he painted the picture of a new reality that would exist when they solved current challenges together.</p>
+<p><strong>Technique in action:</strong> Here’s how he sold the vacation: “Based on what you’ve shared about your roadmap challenges, here’s how we would restructure your process in the first quarter. We’d start by implementing a two-track system that separates innovation from maintenance, then create a weighted scoring model that aligns with your business objectives. By month three, we’d see a 30% reduction in scope creep and a clearer connection between product work and revenue growth.”</p>
+<h3><strong>Alignment self-assessment</strong></h3>
+<p>Before your next conversation, review these warning signs that you’re still in “applicant mode”:</p>
+<ul>
+<li><strong>Talk-to-listen ratio:</strong> Record your next mock interview. Are you speaking more than 60% of the time? Scale back and ask more questions.</li>
+<li><strong>Past vs. future focus:</strong> Review your prepared examples. For every achievement you share, add a specific connection to their current challenges.</li>
+<li><strong>Authenticity test:</strong> Ask a trusted colleague, “Do my interview responses sound like me at my best, or like a polished candidate?” If it’s the latter, rewrite them in your natural voice.</li>
+<li><strong>Connection signals:</strong> After your next interview, note whether the conversation stayed formal or evolved into collaborative problem-solving. If it remained formal, you likely stayed in “impress mode.”</li>
+<li><strong>Power position check:</strong> Did you find yourself waiting for their approval or were you evaluating them as much as they evaluated you? Equal evaluation indicates partnership.</li>
+</ul>
+<p>The difference between a standard interview and a transformative opportunity often comes down to this: Are you trying to impress because you don’t think you belong in the room—or are you creating alignment because you know you belong there?</p>
+<h2><strong>I: Influence momentum by adding value</strong></h2>
+<p>Successful negotiation requires more than convincing just the hiring manager—you need to understand how power flows through organizations and build champions across functions and levels.</p>
+<p>Remember that <strong>influence isn’t about manipulation but about creating real value in every interaction</strong>.</p>
+<p>Here’s how to master three critical elements of influence: story selection, relationship building, and value demonstration.</p>
+<h3><strong>1. Story selection</strong></h3>
+<p>Your stories must resonate with everyone involved. Tailor them to each person’s priorities while demonstrating both functional expertise and broad business understanding.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Customize your examples for each stakeholder’s role and priorities</li>
+<li>Reference other people in the room to create connections</li>
+<li>Bridge functional expertise with business impact</li>
+<li>Make technical concepts accessible to non-technical stakeholders</li>
+</ul>
+<p><strong>Real-world impact:</strong> When discussing a product-market fit challenge in a panel interview, one client used this approach:</p>
+<p>“As product leaders, we often try to solve problems with feature development—and I’m glad Kara is on the call today because she’ll immediately recognize this.”</p>
+<p>This simple acknowledgment transformed the dynamic from a one-to-many interview into a collaborative discussion where each person felt seen and valued.</p>
+<p><strong>Technique in action:</strong> Before any group interview, map each attendee’s role, likely priorities, and how your experience connects to their world. Prepare at least one tailored story or question for each person.</p>
+<p><strong>Pro tip:</strong> People often <a href="https://www.execsandthecity.com/leaders-share-selectively-linkedin/">view your LinkedIn profile before interviews</a>. Keep it simple and focused instead of sharing too much. This helps you control your story during interviews and tailor what you share based on who you’re talking to. Your profile should work for you, not box you in.</p>
+<h3><strong>2. Relationship building</strong></h3>
+<p>Every interaction is an opportunity to build support and rapport.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Identify potential blockers early and transform them into advocates</li>
+<li>Ask for input rather than trying to impress</li>
+<li>Follow up individually with key stakeholders after group meetings</li>
+<li>Create connection through shared professional challenges</li>
+</ul>
+<p><strong>Real-world impact:</strong> One client turned a potential blocker into her strongest champion by understanding his concerns about the product roadmap and incorporating his insights into her strategy. She didn’t just listen—she made him part of the solution by asking, “As we solve this together, what will we tackle next?”</p>
+<p>That relationship proved crucial later when compensation discussions hit a snag. This once-skeptical stakeholder advocated for her value, helping secure a 40% increase over the initial offer.</p>
+<p><strong>Relationship-building script:</strong> “I appreciated your perspective on [specific point they raised]. It’s made me think differently about [aspects of the role]. Could I get your input on how you’d approach [related challenge]? Your experience with [their background] would be incredibly valuable.”</p>
+<h3><strong>3. Value demonstration</strong></h3>
+<p>Instead of telling people how great you are or asking for what’s next, show them how you’ll improve their work.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Deliver small pieces of value before you’re hired</li>
+<li>Share relevant insights that connect to their current challenges</li>
+<li>Follow up with thoughtful analysis rather than generic thank-you notes</li>
+<li>Create momentum through continuous engagement</li>
+</ul>
+<p><strong>Real-world impact:</strong> After an initial interview, one product leader I worked with noticed a UX issue on the company’s website. Instead of just mentioning it, he created a quick prototype showing an alternative approach and shared it in his follow-up email. This unexpected value demonstration led to an accelerated hiring process and a 30% higher offer than initially discussed.</p>
+<p><strong>Follow-up template that works:</strong> “Thank you for our conversation about [specific challenge they mentioned]. I’ve been thinking about your approach to [topic], and I wanted to share an insight from my experience with [relevant situation]. [Brief valuable insight.] I’m already preparing a few ideas for our next chat. I’ll keep you informed as I speak with others on the team. Are you open to debriefing next Thursday after 2 p.m. PT?”</p>
+<h3><strong>Influence self-assessment</strong></h3>
+<p>Before your next interview process, evaluate your influence strategy with these questions:</p>
+<ul>
+<li><strong>Stakeholder mapping:</strong> Have you identified every decision-maker and influencer in the process? Can you name what each cares about most professionally?</li>
+<li><strong>Value creation audit:</strong> Review your last three follow-up communications. Did each one provide specific value or insights relevant to their business, or were they generic updates?</li>
+<li><strong>Champion development:</strong> In your current process, have you converted at least one person from neutral to advocate? If not, who has the potential to become your internal champion?</li>
+<li><strong>Cross-functional appeal:</strong> Can your examples and stories resonate with people in Product, Engineering, Marketing, Sales, and Executive leadership? If they’re too functionally specific, broaden your narratives.</li>
+<li><strong>Momentum check:</strong> Does each interaction build upon the previous one, or are you starting fresh each time? If conversations feel disconnected, create clearer continuity between touchpoints.</li>
+</ul>
+<p>The difference between landing a role and creating a groundswell of support comes down to this: Are you trying to get through the interview process, or are you building momentum by providing value that makes you the obvious choice?</p>
+<h2><strong>N: Navigate complexity</strong></h2>
+<p>Negotiation is not a single conversation about compensation but rather an intricate interplay of influence, timing, and strategic pressure. You’ll always encounter complexity in negotiations. Better to anticipate it than be surprised.</p>
+<p>I’ve watched talented product leaders destroy multimillion dollar deals by rushing to close, compromising too quickly, missing signals, and avoiding uncomfortable conversations.</p>
+<p>Here’s how to master three critical elements of navigating complexity simultaneously.</p>
+<h3>1. <strong>Manage the power dynamic</strong></h3>
+<p>Success is about creating mutual value while steadily building leverage.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Signal excitement while creating space for discussion</li>
+<li>Use questions instead of demands</li>
+<li>Focus on mutual value, not just your compensation</li>
+<li>Keep conversations positive even when pushing for more</li>
+</ul>
+<p><strong>Real-world impact:</strong> A product executive client received what seemed like a strong offer. Instead of accepting immediately, we responded:</p>
+<p>“I’m excited about the opportunity and ready to get started. I’d like to understand more about how you see the role evolving as we grow—and how we might make this deal better for both of us. I’m available for coffee early next week. Work for you?”</p>
+<p>This response maintained momentum and signaled interest while creating space for value creation. We ultimately secured a package 35% above the initial offer.</p>
+<p><strong>Power-dynamic starter phrases:</strong></p>
+<ol>
+<li><strong>For showing enthusiasm while creating space:</strong>“I’m genuinely excited about this opportunity and can see myself making an impact. I’d love to discuss a few details to make sure we’re aligned on expectations.”</li>
+<li><strong>For turning demands into questions:</strong>“What’s the chance that we could explore a slightly different structure for the compensation package?”</li>
+<li><strong>For focusing on mutual value:</strong>“I’m thinking about how I can deliver the most value in this role. Would it make sense to discuss how the compensation structure could align with those key objectives?”</li>
+<li><strong>For keeping negotiations positive:</strong>“I appreciate the strong offer. I’m wondering if we could find a way to bridge the gap between this and what would make it a complete win for both of us.”</li>
+<li><strong>For creating space without losing momentum:</strong>“This looks promising, and I’m eager to move forward. Could we set up a quick call to discuss a few adjustments that might work better for everyone involved?”</li>
+</ol>
+<p><strong>Why this works:</strong> These phrases transform potential confrontation into collaborative problem-solving. They maintain enthusiasm while creating the psychological space needed for negotiation. By framing requests as questions that explore mutual benefit, you shift the conversation from adversarial to partnership-focused, often resulting in significantly improved offers without damaging relationships.</p>
+<h3>2. <strong>Practice strategic patience</strong></h3>
+<p>Rushed negotiations almost always leave money on the table. <strong>Haste equals risk.</strong></p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Resist the urge to accept the first good offer</li>
+<li>Create a competitive dynamic without being manipulative</li>
+<li>Be transparent about your timeline when appropriate</li>
+<li>Never let artificial deadlines force decisions</li>
+</ul>
+<p><strong>Real-world impact:</strong> A product executive was negotiating with three companies simultaneously. Instead of jumping at the first solid offer, he said:</p>
+<p>“I want to be transparent—I have a few opportunities I’m considering right now. I’m most excited about our discussions and want to ensure we find the right fit for both. Let’s align on a timeline that works for everyone.”</p>
+<p>This approach kept all options alive while building trust through transparency.</p>
+<p>The result? A final package with a multi-seven-figure signing bonus to convince my client to choose them over the competition.</p>
+<p><strong>Timeline management script:</strong> “I’m making a significant career decision and want to be thoughtful. I have a few conversations in progress, but I’m particularly excited about this opportunity. I expect to be ready to make a decision by [specific date]. Does that timeline work with your hiring process?”</p>
+<h3><strong>3. Master stakeholder management</strong></h3>
+<p>Negotiations involve multiple stakeholders with different priorities and powers. While HR must follow company guidelines, hiring managers can often bend rules for candidates they truly want. Your job is to identify and negotiate with whoever has the real decision-making authority.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Map each stakeholder’s priorities and concerns</li>
+<li>Tailor your communication to each person’s perspective</li>
+<li>Keep everyone appropriately informed without overplaying your hand</li>
+<li>Build support across the organization, not just with the decision-maker</li>
+</ul>
+<p><strong>Real-world impact:</strong> One product leader negotiating a CPO role at a software company masterfully managed five stakeholders: the CEO, COO, board chair, HR head, and external recruiter.</p>
+<p>Rather than viewing this as a simple two-party negotiation, she recognized each stakeholder had different priorities:</p>
+<ul>
+<li>CEO cared about product vision and strategic alignment</li>
+<li>COO focused on team integration and operational fit</li>
+<li>Board chair prioritized growth metrics and ROI</li>
+<li>HR head needed to maintain compensation precedents</li>
+<li>Recruiter wanted to close quickly for their fee</li>
+</ul>
+<p>We navigated this complex situation by:</p>
+<ul>
+<li>Having targeted conversations with each stakeholder about their specific concerns</li>
+<li>Sharing relevant updates with each party without revealing confidential details from other conversations</li>
+<li>Demonstrating market value through competing interest without appearing solely money-motivated</li>
+<li>Building genuine relationships focused on future collaboration, not just negotiations</li>
+<li>Maintaining a patient, strategic approach even when pressured to decide quickly</li>
+</ul>
+<p>This approach resulted in a package exceeding the company’s initial band by 40% and included severance provisions that insulated her risk in joining.</p>
+<p><strong>Stakeholder management technique:</strong> Create a simple matrix listing each stakeholder, what they care about most, what objections they might raise, and how your value proposition addresses their specific concerns. Reference this before every conversation to stay strategic.</p>
+<h3><strong>Navigation self-assessment</strong></h3>
+<p>Before your next negotiation, evaluate your strategy with these questions:</p>
+<ul>
+<li><strong>Patience quotient:</strong> In your last negotiation, how many days passed between receiving the offer and accepting it? If less than three to five business days, you likely moved too quickly.</li>
+<li><strong>Leverage inventory:</strong> Can you name at least three specific forms of leverage you currently hold? If not, you need to build more before advancing discussions.</li>
+<li><strong>Stakeholder map:</strong> Have you identified all decision-makers in your current process and what each cares about most? Missing stakeholders means missing opportunities to build support.</li>
+<li><strong>Power position:</strong> In your recent interactions, did you find yourself apologizing, over-explaining, or accepting constraints too quickly? These are signs of negotiating from weakness rather than partnership.</li>
+<li><strong>Timeline control:</strong> Who’s driving the pace of your current process—you or them? If you’re not actively managing the timeline, you’re likely missing opportunities to build leverage.</li>
+</ul>
+<p>The difference between good and extraordinary outcomes often comes down to whether you’re improvising or planning multiple moves ahead.</p>
+<p>Here’s a short video I made specifically for this post, sharing six negotiation techniques that transform high-pressure conversations into successful outcomes:</p>
+<p><a href="https://www.youtube.com/watch?v=o76AQ57L2eA">Watch on YouTube</a></p>
+<h2><strong>S: Secure your success</strong></h2>
+<p>The secure stage isn’t just about getting the offer—it’s about setting yourself up for continued success.</p>
+<p>Product leaders on average have a shorter tenure (2.6 years) than typical vesting schedules (4 years). While not always preventable, I suspect you aim to stick around long enough to maximize your compensation—and with successful products to show for it. I’ve watched too many candidates fumble at the finish line because they focus so intently on immediate gains that they compromise future wealth opportunities.</p>
+<p>Here’s how to master three critical elements that ensure long-term success.</p>
+<h3><strong>1. Agreement engineering</strong></h3>
+<p>This goes beyond basic offer acceptance. It’s about creating clear alignment that prevents future friction.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Involve an employment attorney to review all agreements</li>
+<li>Question vague terms and get specific definitions</li>
+<li>Document verbal promises in writing</li>
+<li>Address potential issues before signing, not after</li>
+</ul>
+<p><strong>Real-world impact:</strong> Imagine winning the startup lottery only to lose everything on a technicality. It happens more often than you’d think. One client shared a painful story with me about how he lost millions because he rushed through final terms. The error? He didn’t get proper documentation for early stock payouts. This mistake cost him over $20 million.</p>
+<p>Taking time and getting legal support could have prevented this. While slowing down feels uncomfortable in the moment, it’s not as uncomfortable as losing eight figures in payout.</p>
+<p><strong>Clarification script:</strong> “I’m excited about finalizing our agreement. I noticed the term ‘significant equity’ in our discussions. To ensure we’re aligned, could you help me understand the specific percentage or number of shares that represents? I want to make sure we’re both clear on expectations.”</p>
+<h3>2. <strong>Value acceleration</strong></h3>
+<p>Start delivering before day one to create leverage for future negotiations and set yourself up for immediate impact.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Share relevant industry insights during final discussions</li>
+<li>Connect key stakeholders to valuable resources</li>
+<li>Identify immediate impact opportunities</li>
+<li>Set up informal conversations with future team members</li>
+</ul>
+<p><strong>Real-world impact:</strong> A recent product head demonstrated this by:</p>
+<ul>
+<li>Sending the CEO a competitive analysis they’d created in their spare time</li>
+<li>Introducing their future marketing leader to a valuable industry contact</li>
+<li>Suggesting three quick wins they could implement in their first month</li>
+<li>Meeting informally with key team members to build rapport before starting</li>
+</ul>
+<p>Their value was evident before officially beginning. And the employer couldn’t imagine hiring anyone else.</p>
+<p><strong>Value acceleration tactic:</strong> Even before accepting a new position, send your new boss, “I've been thinking about our conversation regarding [specific challenge]. Here are three resources that might be helpful as we prepare to tackle this together, and I’d love to set up a brief call next week to discuss initial ideas before my official start.”</p>
+<h3><strong>3. Term definition</strong></h3>
+<p>Never assume shared understanding of corporate language—it’s a minefield of misaligned expectations.</p>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Question every vague or ambiguous term</li>
+<li>Get written clarification on all key expectations</li>
+<li>Define metrics for success explicitly</li>
+<li>Document verbal agreements promptly</li>
+</ul>
+<p><strong>Real-world impact:</strong> One client delayed their start date by three weeks to document performance metrics, reporting structure, and future compensation triggers; 30% of their compensation was aligned to getting it right.</p>
+<p>That patience paid off with a $1.2M acceleration in equity vesting when the company was acquired two years later. Because they had clearly defined what constituted “successful integration” after acquisition, there was no ambiguity about whether they’d met the requirements.</p>
+<p>Misunderstanding happens constantly with terms like:</p>
+<ul>
+<li>“Significant equity”</li>
+<li>“Performance-based bonus”</li>
+<li>“Growth opportunity”</li>
+<li>“Strategic leadership role”</li>
+<li>“Competitive package”</li>
+</ul>
+<p>Each party interprets these through their own lens of experience.</p>
+<p><strong>Definition technique:</strong> For any vague term, respond with “I want to make sure I’m delivering exactly what you expect. When you say [vague term], what specifically would success look like in six months? What metrics would indicate I’ve achieved that?”</p>
+<p><strong>Examples from the field:</strong></p>
+<ul>
+<li>A client recently discovered that “fully remote” actually meant “remote until our new office opens next year.”</li>
+<li>Another found that when one CEO said, “I want you to be a change agent,” they actually meant “Please don’t fire my friends.”</li>
+</ul>
+<h3><strong>Secure success self-assessment</strong></h3>
+<p>Before finalizing your next opportunity, evaluate your secure strategy with these questions:</p>
+<ul>
+<li><strong>Agreement review:</strong> Have you had an employment attorney review your offer? If not, you’re gambling with your financial future.</li>
+<li><strong>Ambiguity audit:</strong> Circle every vague term in your offer letter or contract. Have you secured written clarification for each one? If not, these are potential land mines.</li>
+<li><strong>Value initiation:</strong> Have you demonstrated value between acceptance and start date? If not, you’re missing a crucial opportunity to strengthen your position.</li>
+<li><strong>Success metrics:</strong> Can you clearly articulate how your performance will be measured in this role? If not, you’re setting yourself up for misaligned expectations.</li>
+<li><strong>Relationship foundation:</strong> Have you begun building connections with key team members before your start date? If not, you’re delaying your ability to create impact quickly.</li>
+</ul>
+<p>The difference between securing an offer and securing success often comes down to this: Are you focusing solely on getting the job, or are you meticulously engineering the foundation for long-term achievement?</p>
+<h2><strong>Bring the entire negotiation playbook together</strong></h2>
+<p><img alt="Image from The ultimate guide to negotiating your comp" src="https://substack-post-media.s3.amazonaws.com/public/images/b27a4152-2c55-4027-a9a8-25c3f56dae37_1456x892.jpeg" /></p>
+<p>To illustrate how these principles work together in real life, let me share the story of “Carol,” a client whose strategic patience transformed her career.</p>
+<p>When Carol first approached me, she was a Senior Director at a Fortune 500 company facing significant leadership changes. A new CEO had arrived, creating waves of uncertainty throughout the organization. Work had become increasingly difficult, and Carol was contemplating quitting altogether.</p>
+<p>Her direct boss, a Vice President, was being considered for promotion to a more senior executive role. But having guided many leaders through similar transitions, I recognized something Carol couldn’t yet see: when new CEOs arrive, they typically bring their own leadership team. Her boss’s promotion was far from guaranteed.</p>
+<p>I also suspected something else—her boss, being savvy, likely had backup opportunities lined up. This insight became the foundation of our GAINS approach.</p>
+<p>Instead of helping Carol craft a hasty exit strategy that would leave equity and opportunities on the table, we developed a strategic plan with no predetermined timeline. We simply didn’t know how long it would take for our strategy to unfold—it ultimately stretched to 16 months.</p>
+<p>We began with the <strong>Gather</strong> phase, mapping the political landscape within the company during this transition. Rather than focusing only on her immediate situation, Carol invested time understanding the new CEO’s priorities and how her boss fit into that vision. She gathered intelligence about which executives were likely to stay and which might depart.</p>
+<p>The most critical insight came from our observation of her boss’s behavior—subtle indicators that suggested contingency planning was already underway.</p>
+<p>For the <strong>Align</strong> phase, Carol shifted her approach dramatically. Instead of focusing on her own frustrations or career path, she positioned herself as the ideal successor to her boss. She began demonstrating not just competence in her current role but readiness for the next level.</p>
+<p>During a pivotal conversation with her boss, Carol shared her observations about the organizational changes and offered specific ways she could support her boss’s objectives. She wasn’t just seeking a promotion; she was creating value as the perfect number two who could ensure continuity regardless of what happened next.</p>
+<p>Through the <strong>Influence</strong> phase, Carol methodically built relationships across departments. She created champions in Finance, Technology, Operations, and HR by anticipating how her department could remove friction for their teams. One leader later remarked, <em>“Carol was the only leader thinking about how these changes affected everyone else, not just her own team.”</em></p>
+<p>When her boss began interviewing at another major company, as we suspected, Carol demonstrated what true strategic <strong>Navigation</strong> looks like. Instead of panicking about her own future or trying to protect her position, she offered genuine support.</p>
+<p><em>“I support whatever decision you make, even if you go somewhere else,”</em> she told her boss. <em>“I’ll always want to work with you.”</em> This wasn’t just relationship maintenance; it was strategic positioning that created multiple paths forward.</p>
+<p>When the predicted scenario unfolded—her boss not receiving the internal promotion and deciding to move to another company—Carol had two valuable opportunities: potentially stepping into her boss’s vacated role at her current company, or following her boss to the new organization in an elevated position.</p>
+<p>In the <strong>Secure</strong> phase, Carol masterfully managed both conversations. Rather than immediately jumping at either opportunity, she thoughtfully engaged with both companies, creating a transparent but strategic timeline that respected both organizations while maximizing her options.</p>
+<p>The deliberate approach created a controlled competitive dynamic. The new company recognized they weren’t just hiring Carol’s technical skills but also the continuity and institutional knowledge she brought from working with her former boss.</p>
+<p>The result was remarkable: an $800,000 cash signing bonus and a $500,000 initial equity grant to convince her to join the new company with her former boss. The package represented more than twice her previous compensation and a first-year win of $1,400,000.</p>
+<p>But the financial outcome, while impressive, wasn’t the most valuable aspect of Carol’s journey. She entered her new role with clear expectations, strong relationships, and a foundation for long-term success.</p>
+<p>What makes Carol’s story so powerful isn’t just the compensation increase, but how she transformed potential career disaster into extraordinary opportunity through strategic patience. While others might have reacted impulsively to organizational turmoil, Carol’s 16-month approach to building leverage, creating options, and advancing relationships exemplifies how the GAINS framework works best.</p>
+<h2>Bottom line</h2>
+<p>GAINS isn’t a collection of negotiation tricks—it’s a step-by-step framework for creating advantages through consistent and intentional action.</p>
+<p>The strongest product and growth leaders don’t just negotiate better—they create conditions where traditional negotiation isn’t necessary.</p>
+<p>Their value is so clear, their relationships so strong, and their options so abundant that compelling opportunities naturally flow their way.</p>
+<p>Negotiation isn't magic. It’s methodical.</p>
+<p>It’s about showing up differently every single day:</p>
+<ul>
+<li><strong>Gather</strong> intelligence before you need it.</li>
+<li><strong>Align</strong> through every interaction.</li>
+<li><strong>Influence</strong> across the team.</li>
+<li><strong>Navigate</strong> complexity with patience.</li>
+<li><strong>Secure</strong> outcomes that compound over time.</li>
+</ul>
+<p>The question isn’t whether you can negotiate better—it’s whether you’re willing to work to create genuine negotiation power.</p>
+<p>To continue mastering the art of negotiation, I share strategic influence frameworks in <a href="https://www.execsandthecity.com">my weekly newsletter</a>, offer a complimentary <a href="https://www.producthunt.com/posts/free-linkedin-profile-review">LinkedIn profile analysis</a>, and provide <a href="https://www.interviewreports.com">comprehensive interview preparation reports</a> that transform ordinary conversations into significant outcomes.</p>
+<p>Stay fearless, friends.</p>
+<p><em>Thanks, Jacob!</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

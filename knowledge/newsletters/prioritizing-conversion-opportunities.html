@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prioritizing conversion opportunities — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Prioritizing conversion opportunities</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Prioritizing conversion opportunities</div>
+    
+    <div class="article-meta">2020-05-26<span>·</span>1,389 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a>, and welcome to a<strong>🔒 subscriber-only weekly edition 🔒</strong>of my newsletter. Each week I tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office. Send me your questions and in return, I’ll humbly offer actionable real-talk advice<strong>.</strong></p>
+<p><strong>🚨 Exclusively for paid-subscribers</strong>: In the coming weeks I’m going to opening up a private online community, exclusively for paid subscribers. If you’d like to check it out, get on the waitlist here (already 100+ strong):</p>
+<p>Join the online community</p>
+<h2><strong>Q: I loved your <a href="https://www.lennyrachitsky.com/p/this-week-21-strategy-and-tactics">post about optimizing conversion</a>, but how do you decide what percentage of resources to allocate to each conversion lever (focus, motivation, friction)? And which lever tends to be most impactful?</strong></h2>
+<p><a href="https://substackcdn.com/image/fetch/$s_!bKi7!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F02b8548b-fd22-4962-87b1-176b3a934688_500x359.gif"><img alt="Image from Prioritizing conversion opportunities" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/02b8548b-fd22-4962-87b1-176b3a934688_500x359.gif" /></a></p>
+<p>Oh, the joys and sorrows of prioritization.</p>
+<p>Though there’s never going to be a one-size-fits-all answer — it depends on how mature your product is, who you users are, and what’s already been optimized — there are some rules of thumb that have served me well.</p>
+<p>Below, you’ll find my suggestions, PLUS as a big bonus, I’ve asked three super-smart growth friends (<a href="https://lexroman.com">Lex Roman</a>, <a href="https://www.growthengblog.com">Jeff Chang</a>, and <a href="https://www.linkedin.com/in/isaacsilverman/">Isaac Silverman</a>) to share their perspectives.</p>
+<p>One thing you’ll notice is that although there are many ways to look at it, in the end it always comes down to your best guess at ROI — the ratio of (1) effort to launch, and (2) expected impact. And all of this is meant to help inform that latter question, the expected impact.</p>
+<p>As a refresher from <a href="https://www.lennyrachitsky.com/p/this-week-21-strategy-and-tactics">the post you referenced</a>, when approaching optimizing a funnel, I suggest focusing on three primary levers:</p>
+<ol>
+<li><strong>Maintaining user focus</strong> as they move through your flow 🧐</li>
+<li><strong>Maintaining user motivation</strong> to keep moving through your flow 🤗</li>
+<li><strong>Reducing user friction</strong>so that they can easily move through your flow 😄</li>
+</ol>
+<p>Now, let’s look at how to decide which levers to prioritize.</p>
+<h3>My personal rules of thumb for prioritizing conversion levers:</h3>
+<ol>
+<li><strong>I’ve found the most upside when optimizing Motivation (</strong>e.g. reminding the user why they should finish),followed by <strong>Focus (</strong>e.g. reducing distractions)<strong>,</strong> followed by <strong>Friction (</strong>e.g. making it easier)<strong>.</strong> So I’d ideate in that order. <a href="https://www.lennyrachitsky.com/p/this-week-21-strategy-and-tactics">See the previous post</a> for examples of projects within each of these buckets.</li>
+<li><strong>In practice though, you’ll naturally end up spending most of your time reducing friction</strong>, because there are fewer opportunities in the <strong>Motivate</strong> lever (e.g. usually just changing copy) and <strong>Focus</strong> lever (e.g. usually removing links).</li>
+<li><strong>Always start wide</strong> ー ideate across each of these levers, test a few ideas within each, and see where you find the most opportunity in your particular situation. Then double-down.</li>
+<li><strong>Look at what's worked in the past</strong>, and keep digging until you run out of high ROI opportunities. This is boring, but also the most fruitful.</li>
+<li><strong>Make sure to include a mix of high-risk-big-changes and low-risk-small-changes.</strong> The small stuff usually helps you make consistent forward progress, while creating cover for the big changes (which occasionally lead to a step-function improvement).</li>
+</ol>
+<p>I’ve found these heuristics to be broadly true no matter the company, stage, or market, but again it depends heavily on how much has already been done to optimize your product. If a previous team has spent a lot of time reducing friction, try focusing on increasing <strong>Motivation</strong> or <strong>Focus.</strong></p>
+<p>Now, as promised, here’s much more advice from three very smart growth minds who generously offered to chip in on your question:</p>
+<h4><a href="https://www.growthengblog.com/">Jeff Chang</a> — Growth Engineer @ Pinterest</h4>
+<blockquote>
+<p>I split conversion levers into intent (motivation) and ease (focus, friction), since focus and friction are usually related. You will have to work on both, but the one to work on first depends on each flow and type of user. Every flow has different current intent and ease levels.</p>
+<ol>
+<li><strong>If intent is already high</strong> (ex. somebody types your home page URL directly into their browser bar), there is less opportunity in increasing intent. Perhaps consider working on ease instead. This is why you see home pages of 5+ year old products be very bare and simple. The user likely already knows what the product is, so focus on ease.</li>
+<li><strong>If intent is low</strong> (ex. somebody searches a generic term and lands on your page, not knowing what your product is), opportunities like educating the user to increase intent are bigger</li>
+</ol>
+<p><a href="https://www.growthengblog.com/blog/2018/10/1/the-intentease-framework-for-conversion-optimization">Read more about my intent / ease framework for conversions</a></p>
+</blockquote>
+<h4><a href="https://lexroman.com">Lex Roman</a> — Growth Designer</h4>
+<blockquote>
+<p>If I'm working across a big section of a product (i.e. not just one screen), I find it helpful to walk through the impact step by step.</p>
+<p><strong>I've started creating an "Impact Calculators" to help me think through where to focus</strong>. <a href="https://docs.google.com/spreadsheets/d/1g1kQn9p247GFzBfKOzm2Dci76EFpxjLrfe3MQrnllYQ/edit#gid=0">Here's an example</a> but you can include anything you find helpful, like Lenny's motivation/focus/friction framework or Jeff Chang's intent/ease framework. It's about structuring your thinking.</p>
+<p>Often, you'll identify something that you could easily move but it won't mean much towards your central goal. You can pair this calculator with customer and data inputs to figure out where you'll get the most back for your efforts.</p>
+</blockquote>
+<h4><a href="https://www.linkedin.com/in/isaacsilverman/">Isaac Silverman</a> — Former Head of Uber Rider Growth</h4>
+<blockquote>
+<p>Here’s an approach I’d recommend:</p>
+<ol>
+<li>
+<p><strong>Audit your funnel to identify potential reasons for drop-off</strong></p>
+</li>
+<li>
+<p>Research your audience. Make sure you have a basic understanding of what people want and why they’re using the experience. Consider talking to marketing teams to see which messaging tends to be most effective to help understand motivations.</p>
+</li>
+<li>Go through your own flow. Put yourself in the shoes of your major customer groups. Where do you find yourself getting stuck, confused about what to do next, or distracted? Does the messaging speak to core motivations? Use different devices and browsers to try to break the experience in as many ways as possible.</li>
+<li>Study others. Consider watching non tech-savvy friends or older relatives try to get through the experience. Where do they get stuck or confused?</li>
+<li>Look at the data. Look at your funnel step by step and compare across user groups (device, browser, demographic, channel, etc.). Are there any sharp, unexpected, or inconsistent drop-offs? What conditions decrease or increase conversion (page load speed, # of results, etc.)?</li>
+<li><strong>Convert your hypotheses</strong> into concrete ideas</li>
+<li>
+<p><strong>Prioritize &amp; execute based on ROI</strong></p>
+</li>
+<li>
+<p>Estimate out impact, probability of success, and cost (often in terms of engineering days).</p>
+</li>
+<li>Generally try to do the highest <em>expected impact / cost</em> items first.</li>
+<li>
+<p><strong>Create a strong feedback loop</strong></p>
+</li>
+<li>
+<p>Run lightweight tests to reduce risk for costly items.</p>
+</li>
+<li>Go deep where you find heat. Every project you ship is an opportunity to learn about what works or doesn’t.</li>
+<li>Re-evaluate ROI after you get feedback. If you see standout results around a particular hypothesis, double down with additional related feature work. If you see diminishing returns, consider changing focus.</li>
+</ol>
+</blockquote>
+<p>Thanks, friends!</p>
+<h2><strong>Inspiration for the week ahead 🧠</strong></h2>
+<ol>
+<li><strong>Read</strong>: <a href="https://www.nytimes.com/2020/05/13/climate/coronavirus-coal-electricity-renewables.html">In a First, Renewable Energy Is Poised to Eclipse Coal in U.S.</a></li>
+<li><strong>Build</strong>: <a href="https://www.goodnewsnetwork.org/ikea-releases-6-blanket-fort-instructions/">IKEA Released Instructions on How to Build the 6 Best Blanket Forts For Your Home Quarantine</a></li>
+</ol>
+<p><a href="https://substackcdn.com/image/fetch/$s_!ePqk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Ff71af0e7-b76b-483b-b87f-2c6fbc49aaf0_800x800.jpeg"><img alt="Image from Prioritizing conversion opportunities" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f71af0e7-b76b-483b-b87f-2c6fbc49aaf0_800x800.jpeg" /></a><br />
+3. <strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=yKf9aUIxdb4&amp;feature=youtu.be">The Miracle Sudoku</a> — If you never thought a game of Sudoku could make you tear up, you’re wrong</p>
+<p><a href="https://www.youtube.com/watch?v=yKf9aUIxdb4">Watch on YouTube</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, and subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p>
+<h4></h4></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

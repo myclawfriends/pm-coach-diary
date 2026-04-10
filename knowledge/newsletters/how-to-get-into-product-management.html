@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get into product management — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get into product management</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get into product management</div>
+    
+    <div class="article-meta">2019-06-14<span>·</span>3,881 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><img alt="Image from How to get into product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ca1f772a-0fac-45d7-a303-ca0d4db7edf4_2400x1600.jpeg" /></p>
+<p>The role of product manager (PM) is the most fascinating role within tech teams right now. PMs are closest to the center of the action, have a disproportionate amount of influence over key decisions, and often go on to start their own companies. It’s no surprise then that product management has begun to show up on lists of the <a href="https://www.glassdoor.com/blog/best-jobs-in-america-2018/">best</a>, <a href="https://www.usnews.com/education/best-graduate-schools/top-business-schools/articles/hot-jobs-for-mba-graduates">hottest</a>, and <a href="https://blog.linkedin.com/2019/january/10/linkedins-most-promising-jobs-of-2019">most promising</a> careers in the U.S. (and not just in tech).</p>
+<p>Seven years ago, after <a href="https://medium.com/s/please-advise/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">joining</a> Airbnb, I decided to take the leap myself and transitioned from engineering into product (becoming one of the first few PMs at Airbnb). Since then, I’ve helped a number of folks inside and outside Airbnb transition into product from other functions, including from Operations, Data Science, and Finance. <strong>This post is a summary of everything I’ve learned and recommend when asked for advice on making this transition.</strong>I’ll cover how to make sure the PM role is right for you, advice on landing your first PM role, and the skills you’ll need in order to excel.</p>
+<h1>Start with Why: Make sure PM is right for you</h1>
+<p>Though I never planned to become a PM, I now couldn’t imagine having any other role within an org. It’s often a thankless, nerve-racking, and all-consuming. But, when it works, you feel like you were born to do it. Before you take the plunge yourself, take an honest assessment of what drives you — is this role actually right for you?</p>
+<h4>Become a product manager if you are fulfilled by:</h4>
+<ol>
+<li>Solving people’s problems (both your users’ and your team’s) 🙇‍♂️</li>
+<li>Driving business growth 📈</li>
+<li>Working closely with a variety of people 👨‍🎤</li>
+<li>Developing a strategy 🤔</li>
+<li>Getting shit done ✅</li>
+<li>Leading a team (through influence, not authority) 🤝</li>
+<li>Communicating often and broadly 🗣</li>
+<li>Making decisions 👍</li>
+<li>Creating amazing experiences for people 👌</li>
+<li>Being organized, detail oriented, and prepared 😎</li>
+</ol>
+<h4>Do not become a product manager if you are primarily fulfilled by:</h4>
+<ol>
+<li>Appreciation 🥳</li>
+<li>Having your way 😑</li>
+<li>Being left alone 🚨</li>
+<li>Always being right 🤓</li>
+<li>Designing or building things yourself 👩‍🎨</li>
+<li>Everyone liking you 🥴</li>
+<li>Flow states 🧘‍♂️</li>
+<li>Avoiding meetings 🤐</li>
+<li>Avoiding email ✉️</li>
+<li>Avoiding people 🤨</li>
+</ol>
+<p>You don’t need to connect with every item in this list, but if the gist feels right, keep reading.</p>
+<h1>Plan the How: The four most common paths into PM</h1>
+<p>Based on my experience, and the many experiences <a href="https://twitter.com/lennysan/status/1123576007405993986">shared</a> with me, here are how most people get their first shot at product management:</p>
+<ol>
+<li><strong>Internal transition at a large company</strong> — Generally the easiest and quickest route, but requires three things aligning — an internal transfer process of some kind, having a chance to demonstrate the skills outlined below, and most importantly an internal PM champion for your transition (generally your new manager). If two of three exist, find a way to make the third happen. Otherwise, pursue one of the other paths. More advice on how to execute this move <a href="https://blog.hubspot.com/service/become-product-manager">here</a> and <a href="https://www.quora.com/How-can-I-break-into-product-management-without-prior-experience-I-have-a-background-in-software-development-5+-years-and-an-MBA-from-a-Top-30-business-school-I%E2%80%99ve-been-turned-down-away-to-lack-of-experience-How-can-I-strengthen-my-candidature/answer/Ian-McAllister">here</a>.</li>
+</ol>
+<p><img alt="Image from How to get into product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/615415d8-0559-43a4-9cbb-7d4a94c54802_1028x1152.png" /><br />
+2. <strong>Finding a junior PM role at a large company</strong> — Likely the most common route, but is limited to companies with <a href="https://medium.com/pminsider/product-management-digest-apm-3c2631683139">APM</a> or <a href="https://www.linkedin.com/jobs/product-management-intern-jobs/">internship</a> programs. This is an increasingly common route for MBA graduates (though an MBA <a href="https://www.quora.com/Does-a-product-manager-need-an-MBA-Isnt-it-true-that-a-technical-guy-with-a-creative-bent-will-have-an-upper-hand-on-technical-software-products-than-a-management-guy-Isn%E2%80%99t-product-management-about-managing-the-product-not-people">is not necessary</a> to become a PM). If you don’t have an MBA, look into programs such as <a href="https://www.productschool.com/">Product School</a> and <a href="https://generalassemb.ly/education/product-management">General Assembly</a>, and join communities like <a href="https://productmanagerhq.com/join-the-community/%29">PMHQ</a>. Otherwise, look for ways to practice the below skills in your current job. The key to this route is clearly demonstrating that you are smart, driven, and have raw strengths in a handful of the skills described below. More advice on how to land this <a href="https://hackernoon.com/forget-the-mba-heres-the-fastest-way-to-become-a-product-manager-b3a230a7c055">here</a>, <a href="https://productcharles.com/how-to-get-into-product-management/">here</a>, and <a href="https://www.quora.com/How-do-you-get-into-a-product-management-role-with-no-prior-experience-as-a-PM">here</a>.</p>
+<p><img alt="Image from How to get into product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c1106afd-c40f-4151-8bcf-34b1b8921597_1032x1100.png" /><br />
+3. <strong>Joining a startup with a burning need</strong> — The key to this route is having connections with startup founders, showing a lot of hustle, and delivering success when you are given the chance. Look for jobs at startups (<a href="https://news.ycombinator.com/jobs">HN</a>/<a href="https://angel.co/jobs">AngelList</a>), find a way to meet founders, and focus on developing the skills I lay out below. Having a very strong <a href="https://fs.blog/2015/03/carol-dweck-mindset/">growth mindset</a> is key since you’ll have to learn how to do this job on the fly. In this path you can either start as a founding PM, or transition into it after doing the job for a while. The latter is how <a href="https://www.linkedin.com/in/joebot">Airbnb’s original head of product</a> got into product management.</p>
+<p><img alt="Image from How to get into product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/22e78a72-ac7a-4a1d-9e5d-52f26841b25b_1056x1036.png" /><br />
+4. <strong>Starting your own company</strong>—This is by far the most work-intensive path, and rarely planned, but hey, it works. This is how I personally got into product management. CEOs often become PMs after an acquisition since the job is very similar. Alternatively, founders can take on the PM role at their own company as the company grows. I wouldn’t actually recommend prioritizing this route to becoming a PM, but it’s something to keep in mind when starting a company.</p>
+<p><img alt="Image from How to get into product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/6c6a2df2-a943-4a8b-96e8-a7a016b325bf_1046x998.png" /></p>
+<p>Though this career transition often seems mysterious and random, it should give you comfort that every product manager working today has gone through this transition in one form or another. If you are still skeptical that you can make this happen, here are stories from PMs that came from <a href="https://medium.com/pminsider/my-path-to-product-management-ed322881be53">engineering</a>, <a href="https://uxdesign.cc/how-i-transitioned-from-ux-to-product-management-14775167f249">design</a>, <a href="https://medium.com/@treycausey/why-good-data-scientists-make-good-product-managers-and-why-theyll-be-a-little-uncomfortable-155bb9687f3">data science</a>, <a href="https://medium.com/@randomateo/what-it-s-like-to-switch-from-user-research-product-management-fc78649be16b">user research</a>, <a href="https://medium.com/@womeninproduct/ask-wip-how-do-you-transition-from-a-program-manager-role-into-a-product-manager-f2684ad13e17">program manager</a>, <a href="https://medium.com/career-relaunch/transitioning-from-consulting-to-product-management-shit-is-hard-efdd87f992ae">consulting</a>, <a href="https://product.voxmedia.com/2017/6/8/15762566/shifting-gears-from-sales-to-product-management">sales</a>, <a href="https://hackernoon.com/from-marketing-to-product-management-3de21282c7ce">marketing</a>, and <a href="https://blog.usejournal.com/how-to-get-into-product-management-esp-for-the-mba-folks-4374bab31be8">business school</a>.</p>
+<h1>Develop the What: The seven core skills to build</h1>
+<p>The role of product management <a href="https://www.mckinsey.com/industries/high-tech/our-insights/product-managers-for-the-digital-world">varies</a> by company and by team, but in my experience the following seven skills (in order of importance) are the most crucial to build early in your PM career. Along with a short overview of each skill, I’ve included a set of concrete suggestions for how to develop that skill, as well as links to my all-time favorite writing on each topic from industry experts. Don’t worry about being incredible at all of these — instead double down on your strengths and fill in the gaps.</p>
+<h4>1. Taking any problem and being able to develop a strategy to resolve it 🤔</h4>
+<p>The job of a product manager is to marshal the resources of their team to drive business value. Your team will be given problems (e.g. grow adoption of a product, reduce churn of a service, increase conversion of a flow), and your responsibility will be to guide your team to make it less of a problem. A strategy, paired with a clear vision, is essentially your route from problem to solution.</p>
+<blockquote>
+<p>A good strategy is a set of actions that is credible, coherent, and focused on overcoming the biggest hurdle(s) in achieving a particular objective.</p>
+<p>— <a href="https://goodbadstrategy.com/">Richard Rumelt</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your strategic thinking:</strong></p>
+<ul>
+<li>Ask the best PMs you know to talk you through the vision and strategy they developed for a recent product initiative (they’ll be excited to share, trust me)</li>
+<li>Take a problem your current company (or friend) is having and come up with a <a href="https://www.producttalk.org/2016/08/opportunity-solution-tree/">framework</a> that breaks the problem into solvable chunks</li>
+<li>Learn about <a href="https://boz.com/articles/strategy-tactics.html">the difference between vision, mission and strategy</a></li>
+<li>Read <a href="https://hackernoon.com/wtf-is-a-strategy-bcaa3fda9a31">WTF is Strategy?</a> by <a href="https://medium.com/@vincelawco">Vince Law</a></li>
+<li>Read <a href="https://sloanreview.mit.edu/article/how-to-become-a-strategic-leader/">How to Become a Strategic Leader</a> by <a href="https://medium.com/@joulee">Julie Zhuo</a></li>
+<li>Read <a href="https://blackboxofpm.com/applying-leverage-as-a-product-manager-ffad4a99db24">Applying Leverage as a Product Manager</a> by <a href="https://medium.com/@brandonmchu">Brandon Chu</a></li>
+<li>Read <a href="https://uxdesign.cc/how-to-solve-problems-6bf14222e424">A Three-Step Framework For Solving Problems</a> by me 🙃</li>
+<li>Read about and practice <a href="https://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management">Amazon’s working backwards strategy</a></li>
+<li>Buy and read <a href="https://www.amazon.com/dp/B004J4WKEC/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Good Strategy, Bad Strategy</a> by <a href="https://www.anderson.ucla.edu/faculty-and-research/strategy/faculty/rumelt">Richard Rumelt</a></li>
+</ul>
+<h4>2. Executing, getting shit done ✅</h4>
+<p>A PM that is good at nothing else but execution is valuable to a team, while a team with a PM that can’t execute is better off without that PM. Tactically this includes things like building a roadmap that everyone on your team is aligned behind, setting and hitting deadlines, and ruthlessly unblocking blockers. For new PMs, my advice is to begin practicing this skill immediately.</p>
+<blockquote>
+<p>Executing well is like captaining a tight, smooth-sailing ship. You need to make sure that everyone knows what they need to do and then does it, that the crew hums together in unison, [and] that you estimated the journey well enough to have packed ample supplies.</p>
+<p>— <a href="https://twitter.com/joulee">Julie Zhuo</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your execution skills:</strong></p>
+<ul>
+<li>You’ll only learn how to execute by doing. Find a friendly PM and ask to take on the “<a href="https://medium.com/paymo/product-manager-vs-project-manager-b4ac603d872a">project management</a>” duties for one of their projects (pro tip: don’t ever call a <em>product</em>manager a <em>project</em> manager 😳).</li>
+<li>Pay attention to people around you that are good at shipping — how do they run meetings, how do they address issues as they arise, what systems do they use to keep their team aligned?</li>
+<li>Learn about OKRs and goal setting by reading <a href="https://www.amazon.com/dp/B078FZ9SYB/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Measure What Matters</a> by <a href="https://medium.com/u/9ee9b0ebeddf">John Doerr</a></li>
+<li>As <a href="https://medium.com/u/bb06de487a5b">Sachin Rekhi</a> <a href="https://www.sachinrekhi.com/how-am-i-going-to-move-my-product-forward-today">suggests</a>, regularly ask yourself “how am I going to move my product forward today?”</li>
+<li>Read <a href="https://medium.com/the-year-of-the-looking-glass/building-products-91aa93bea4bb">Building Products</a> by <a href="https://medium.com/@joulee">Julie Zhuo</a></li>
+<li>Read <a href="https://medium.com/@joshelman/a-product-managers-job-63c09a43d0ec">A Product Manager’s Job</a> by <a href="https://medium.com/@joshelman">Josh Elman</a></li>
+<li>Read about <a href="https://www.inc.com/justin-bariso/sheryl-sandberg-just-gave-some-brilliant-career-ad.html">Sheryl Sandberg’s Career Advice</a></li>
+</ul>
+<h4>3. <strong>Communication</strong> 🗣</h4>
+<p>Engineers code, designers produce designs, and product managers …communicate. Everything you do as a product manager is done through writing, speaking, and meetings. As <a href="https://en.wikipedia.org/wiki/Andrew_Bosworth">Boz</a> puts it, “<a href="https://boz.com/articles/communication-is-the-job.html">communication</a><em><a href="https://boz.com/articles/communication-is-the-job.html">is</a></em><a href="https://boz.com/articles/communication-is-the-job.html">the job</a>.” You can never be <em>too</em> good at this, and it’s very difficult to over-communicate.</p>
+<blockquote>
+<p>The burden of communicating among teams, in between departments, and being the go-to get-it-done-guy/gal for CEOs and managers — it all tends to fall heavily on the Product Manager’s shoulders. Product Managers are the linchpins of their organizations. The fillers of “the white space” — the processes and tasks that need to happen, but for which no one is specifically responsible.</p>
+<p>— <a href="https://twitter.com/NikkiElizDemere">Nichole Elizabeth DeMeré</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your communication skill (borrowed from my <a href="https://medium.com/s/please-advise/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">previous</a> post):</strong></p>
+<ul>
+<li><strong>Emails</strong>: Force yourself to look at your email at least once before sending it. There’s always something you can cut or clarify. <a href="https://hbr.org/2016/11/how-to-write-email-with-military-precision">Here’s an email strategy</a> I love, courtesy of the military. Also, know that it’s very difficult to over-communicate.</li>
+<li><strong>Docs</strong>: Always ask for feedback from at least one person before sharing a doc widely. Focus on clean and consistent formatting. Close out comments before sharing with execs. Make it easy to scan. Keep pushing yourself to learn to write better.</li>
+<li><strong>Meetings</strong>: Include the primary goal of the meeting in your invite, ideally along with an agenda. If you attend a meeting that doesn’t feel productive, point it out. Invite as few people as possible. Leave with clear action items. Follow up over email with the action items and owners. Read <a href="https://medium.com/speroventures/how-to-run-a-quarterly-product-strategy-meeting-a-board-meeting-for-product-3a14c4d53d1b">How to Run a Quarterly Product Strategy Meeting</a> by <a href="https://medium.com/u/370100ca0fe1">Gibson Biddle</a>.</li>
+<li><strong>Presentations</strong>: Are you sure you need to do a presentation versus an email? Make sure your audience knows the goal of the presentation — are you looking for a decision or general feedback, or purely sharing information? It’s not as obvious as you think. Get feedback on your presentation; fresh eyes always catch the glaring issues. And keep it short — no one ever wished that presentation went longer.</li>
+<li><strong>Storytelling</strong>: This is a meta-skill that will make you better at all of the above. <a href="https://speakingsherpa.com/how-to-tell-a-business-story-using-the-mckinsey-situation-complication-resolution-scr-framework/">This</a> framework is an excellent tool for laying out your pitch, and a few more helpful guides can be found <a href="https://hbr.org/2014/03/the-irresistible-power-of-storytelling-as-a-strategic-business-tool">here</a> and <a href="https://www.fastcompany.com/40480193/5-ways-charity-water-uses-storytelling-to-inspire-more-giving">here</a>.</li>
+</ul>
+<h4>4. Leadership through influence 🤝</h4>
+<p>Generally, PMs have all of the responsibility without any actual authority. It’s a tough and rather unusual gig. But when it works however, it’s extremely fulfilling. In order to succeed you need to be able to build trust with your teammates, make decisions but also give everyone a voice, and keep morale up no matter what’s going on. The best PMs quickly become the de-facto leaders of the team, not because of any actual authority, but because they help everyone on the team do the best work of their lives.</p>
+<blockquote>
+<p>[A great product manager] is both trusting and trustworthy. She knows the difference between trust and blind faith, and invests in building a working environment where people have each others’ backs. She sets an example with her own behavior and works from the assumption that people have good intentions. She listens and always strives to understand others’ context, point of view and perspective.</p>
+<p>— <a href="https://hackernoon.com/what-makes-a-great-product-manager-3c1d03b90356">Lawrence Ripsher</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your product leadership skills:</strong></p>
+<ul>
+<li>Watch PMs around you closely — how do they get things done when they don’t actually manage anyone on the team?</li>
+<li>Find a small project that you can lead, ideally working closely with a PM mentor</li>
+<li>Foster culture within whatever team you are on. Establishing fun rituals and customs, plan outings, and create a lasting identity for your team.</li>
+<li>Read <a href="https://www.sachinrekhi.com/the-most-underrated-product-management-skill-influence-without-authority">The Most Underrated Product Management Skill: Influence Without Authority</a> by <a href="https://medium.com/@sachinrekhi">Sachin Rekhi</a></li>
+<li>Read <a href="https://medium.com/@noah_weiss/10-traits-of-great-pms-a7776cd3d9cd">10 Traits of Great PMs</a> by <a href="https://medium.com/@noah_weiss">Noah Weiss</a></li>
+<li>Read <a href="https://hackernoon.com/what-makes-a-great-product-manager-3c1d03b90356">What Makes a Great Product Manager</a> by <a href="https://medium.com/@ripsher">Lawrence Ripsher</a></li>
+<li>Read <a href="https://www.quora.com/What-distinguishes-the-Top-1-of-product-managers-from-the-Top-10/answer/Ian-McAllister?srid=3wR&amp;st=ns">What distinguishes the Top 1% of product managers from the Top 10%?</a> by <a href="https://medium.com/@ianmcall">Ian McAllister</a></li>
+<li>Read <a href="https://hackernoon.com/product-management-skills-no-one-talks-about-5d50debfb815">Product Management skills NO ONE talks about</a> by <a href="https://medium.com/@Taruna2309">Taruna Manchanda</a></li>
+<li>Read <a href="https://medium.com/@ev/the-job-of-leadership-757e4bc3e539">The Job of Leadership</a> by <a href="https://medium.com/@ev">Ev Williams</a></li>
+</ul>
+<h4>5. Making decisions, informed by data 👍</h4>
+<p>Teams generally look to the PM to help them reach decisions. Expect to be making dozens of decisions on behalf of the team daily. Your best friend in making decisions is a clear set of <a href="https://medium.com/the-mission/this-principle-from-amazon-s-team-will-change-your-life-e8e02220007b">principles</a> you aligned on previously, and hard data (both quantitative and qualitative). The less opinions you have to rely on, and the more facts you have at your disposal, the easier your life gets.</p>
+<blockquote>
+<p>The decisions PMs make are the ones that unblock their team so they can continue to build. They don’t need to make every decision, but they are responsible for ensuring a decision gets made — whether by them, their team, or their stakeholders. Product managers are the hedge against indecision.</p>
+<p>— <a href="https://blackboxofpm.com/making-good-decisions-as-a-product-manager-c66ddacc9e2b">Brandon Chu</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your decision-making skills:</strong></p>
+<ul>
+<li>Study how successful companies make decisions through experimentation (<a href="https://medium.com/airbnb-engineering/experiments-at-airbnb-e2db3abf39e7">Airbnb</a>, <a href="https://eng.uber.com/xp/">Uber</a>, <a href="https://medium.com/netflix-techblog/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix</a>, <a href="https://medium.com/@Pinterest_Engineering/building-pinterests-a-b-testing-platform-ab4934ace9f4">Pinterest</a>), and find a way to launch an experiment or two where you work today</li>
+<li>Watch successful leaders around you make decisions — how quickly are they making decisions, what do they ask about before making a decision, how do they communicate their reasoning?</li>
+<li>Always have a perspective on a decision (your own POV), but also be ready to change your mind given new information</li>
+<li>Read about <a href="https://www.inc.com/jeff-haden/amazon-founder-jeff-bezos-this-is-how-successful-people-make-such-smart-decisions.html">Type-1 and Type-2 decisions</a></li>
+<li>Read <a href="https://blackboxofpm.com/making-good-decisions-as-a-product-manager-c66ddacc9e2b">Making Good Decisions as a Product Manager</a> by <a href="https://medium.com/@brandonmchu">Brandon Chu</a></li>
+<li>Read <a href="https://www.sachinrekhi.com/the-art-of-decision-making-as-a-product-manager">The Art of Decision Making as a Product Manager</a> by <a href="https://medium.com/@sachinrekhi">Sachin Rekhi</a></li>
+<li>Read <a href="https://medium.com/the-year-of-the-looking-glass/the-agony-and-ecstasy-of-building-with-data-56215764d67c">The Agony and Ecstasy of Building with Data</a> by <a href="https://medium.com/@joulee">Julie Zhuo</a></li>
+<li>Read <a href="https://thinkgrowth.org/your-job-is-not-to-make-every-possible-customer-happy-f59a59595af">Your Job is Not to Make Every Possible Customer Happy</a> by <a href="https://medium.com/@sgblank">Steve Blank</a></li>
+<li>Read <a href="https://www.intercom.com/blog/product-strategy-means-saying-no/">Product strategy means saying no</a> by <a href="https://medium.com/@destraynor">Des Traynor</a></li>
+</ul>
+<h4>6. Building great products, and having taste 👌</h4>
+<p>At the end of the day you are building a product for other people, and so you’ll want to build some experience doing this. All of the other skills above play into this, but there are a few unique skills to develop here, including building an instinct for what makes a product great, how to find the balance between art and science, and how to best work with other disciplines.</p>
+<blockquote>
+<p>Product intuition is a skill: it is the observation of human behavior, trained by data, and applied to software.</p>
+<p>— <a href="https://twitter.com/merci?lang=en">Merci Victoria Grace</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your product sense:</strong></p>
+<ul>
+<li>Find a way to build a product yourself or with friends, and get it out into the world. Find a small problem and try to solve it for someone (or yourself). There’s absolutely no better way to learn than to do it yourself.</li>
+<li>Learn to notice what makes you like and not like a product. Consider keeping notes about what makes products good and bad.</li>
+<li>Learn about <a href="https://www.ideou.com/pages/design-thinking">design thinking</a></li>
+<li>Read <a href="https://medium.com/the-year-of-the-looking-glass/building-products-91aa93bea4bb">Building Products</a> by <a href="https://medium.com/@joulee">Julie Zhuo</a></li>
+<li>Read <a href="https://medium.com/the-year-of-the-looking-glass/how-to-work-with-designers-6c975dede146">How to Work with Designers</a> and <a href="https://medium.com/the-year-of-the-looking-glass/how-to-work-with-engineers-a3163ff1eced">Engineers</a> by <a href="https://medium.com/@joulee">Julie Zhuo</a></li>
+<li>Read <a href="https://medium.com/@merci/training-your-product-intuition-276a7f8965b6">Training your product intuition</a> by <a href="https://medium.com/@merci">Merci Victoria Grace</a></li>
+<li>Read <a href="https://medium.com/evergreen-business-weekly/how-to-master-the-discipline-of-product-management-not-the-job-of-product-manager-28d2c493d445">How to Master The Discipline of Product Management</a> by <a href="https://medium.com/@ericjorgenson">Eric Jorgenson</a></li>
+<li>Read <a href="https://blog.usejournal.com/top-11-frameworks-every-product-manager-should-know-aad46dd37b62">Top 11 Frameworks Every Product Manager Should Know</a> by <a href="https://medium.com/@abhishekshah">Abhishek Shah</a></li>
+</ul>
+<h4>7. Always being prepared 😎</h4>
+<p>In my opinion, one of the most underrated yet most valuable traits for a PM to have is what I call the <em>“I got this”</em> aura. Everyone should feel that if you take something on it will get done, and done <em>exceptionally</em> well. The key to building this aura is to become increasingly detail oriented, to be more prepared than anyone else, and to have a higher bar than those around you. I personally started off being very bad at this, and saw a lot of growth in my career once I prioritized these skills.</p>
+<blockquote>
+<p>[Great PMs] say what they’ll do, and then do what they say. Their follow-through is impeccable, and they don’t let details slip. When they join a team, quality and pace seems to dramatically improve overnight.</p>
+<p>— <a href="https://twitter.com/noah_weiss?lang=en">Noah Weiss</a></p>
+</blockquote>
+<p><strong>Some recommendations for developing your “I got this” aura:</strong></p>
+<ul>
+<li><em>Never</em> come to a meeting without spending at least a few minutes preparing and collecting your thoughts</li>
+<li>Keep a high bar for everything you do — re-read the recommendations in item #3 above (Communication)</li>
+<li>Build your “spidey sense.” Look ahead and around corners. What could go wrong and how can you prepare? Plan for contingencies. Read <a href="https://www.amazon.com/dp/B002G54Y04/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">The Score Takes Care of Itself</a> by Bill Walsh for a world-class lesson on this.</li>
+<li>Find people around you that are very well organized and learn from them. What are they concretely doing to stay on top fo things? Ask them.</li>
+<li>Read <a href="https://firstround.com/review/Top-Hacks-from-a-PM-Behind-Two-of-Techs-Hottest-Products/">Top Hacks from a PM Behind Two of Tech’s Hottest Products</a> by <a href="https://medium.com/@firstround">First Round</a></li>
+<li>Read <a href="https://medium.com/@johnpcutler/time-management-tips-for-product-managers-925e4ac5efa9">Time Management: Tips for Product Managers</a> by <a href="https://medium.com/@johnpcutler">John Cutler</a></li>
+</ul>
+<h4><strong>Bonus</strong>: Skills you’ll need to build over time to continue to excel</h4>
+<ul>
+<li>Vision — Determine your team’s north star, articulate it clearly, and get your team and stakeholders to buy into it</li>
+<li>Business sense — Understand what drives the business, and help your team and company build the right things in the right order</li>
+<li>An obsession with impact — Connect everything you are doing to the impact it will have on your business and your customers</li>
+<li>A growth mindset — See yourself, and those around you, as ever-evolving and capable of improving</li>
+</ul>
+<h3>Where to go from here</h3>
+<p>The road to becoming a PM can often be long and unpredictable — the most interesting things in life often are. Zooming out, you can boil down the job of a PM into four words: “Figure out what’s next.” So, what comes next for your journey into product management? My advice is to start developing and demonstrating the skills I outlined above. Read, process, and put your learnings into action however you can (creativity is part of being a PM). Your job is to be as prepared as possible when an opportunity arises. As you do this, push forward on one or two of the paths I suggested. This may take a year or two or three. If you’re not getting anywhere, try another route. Meet PMs, listen to their feedback, and act. If you truly believe this is the right role for you, find a way.</p>
+<p>If I missed anything, if you disagree with anything, or if you have any questions — don’t hesitate to <strong><a href="https://twitter.com/lennysan">tweet me</a></strong>. 🥳</p>
+<p>Sincerely,</p>
+<p><a href="https://twitter.com/lennysan">Lenny</a></p>
+<p><em>Big thank you to <a href="https://twitter.com/yelenart?lang=en">Yelena</a>, <a href="https://twitter.com/byosko">Ben</a>, <a href="https://twitter.com/isabeltewes">Isabel</a>, <a href="https://twitter.com/Godfrey_Okeke">Godfrey</a>, <a href="https://www.linkedin.com/in/galen-mcandrew-41995b95/">Galen</a>, and <a href="https://www.linkedin.com/in/craig-minoff-b582804/">Craig</a> for reviewing drafts of this post. 🙏</em></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

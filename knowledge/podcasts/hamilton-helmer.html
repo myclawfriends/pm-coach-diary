@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business strategy with Hamilton Helmer (author of 7 Powers) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Business strategy with Hamilton Helmer (author of …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Business strategy with Hamilton Helmer (author of 7 Powers)</div>
+    
+    <div class="article-meta">2024-05-05<span>·</span>9,690 words<span>·</span>Hamilton Helmer</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">B2B</span> <span class="mini-tag">領導</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=hKq1_KPSqy0" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Hamilton Helmer</strong> (00:00:00):<br />
+Warren Buffett famously said, in business.</p>
+<p><strong>Audio</strong> (00:00:02):<br />
+I look for economic castles protected by unbreachable moats.</p>
+<p><strong>Hamilton Helmer</strong> (00:00:04):<br />
+Power requires a benefit and a barrier, so he's taking care of the benefit part by saying a castle, you have to have a pretty good understanding of why it's a castle and not a shack.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:15):<br />
+So in a lot of decks it's like, "Oh, we have the most amazing team. We move the fastest." You mention how rarely is that actually a power?</p>
+<p><strong>Hamilton Helmer</strong> (00:00:20):<br />
+You're on a treadmill and if you stop running on that treadmill, you get creamed, but it's not power. The things that drive operational excellence can be mimicked.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:30):<br />
+Let's actually talk about achieving these powers.</p>
+<p><strong>Hamilton Helmer</strong> (00:00:32):<br />
+There's a thing called power progression. There are times when certain types of power are available. The path to power is where the rubber meets the road.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:44):<br />
+Today my guest is Hamilton Helmer. Hamilton is a legend in the world of strategy. He's the author of 7 Powers, which outlines a framework for identifying and developing sustainable competitive advantage. It is widely considered to be the best book on strategy and people like Patrick Carlson, Peter Thiel, Reed Hastings, Daniel Eck, and so many more leaders credit the book and Hamilton's teachings for helping them build durable lasting companies. In our conversation, Hamilton shares what sources of power startups can start developing early, which types of power companies often think they have but they don't, how power relates to strategy and moats, when to start thinking about power as a startup and also what individual product managers and non-leaders can do about these insights about power. Also, how Hamilton sees AI impacting various entry and the sources of power. He also gives a preview of his new book that he's working on currently and so much more.</p>
+<p><strong>Hamilton Helmer</strong> (00:04:12):<br />
+Hi Lenny, a pleasure to be here.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:14):<br />
+It's even more my pleasure. I want to start by talking about when power becomes important. When do you recommend founders start thinking about power in terms of pre-product market fit, post-product market fit? Is it worth spending time thinking about power early? Obviously it's good to think about a little bit, but how much and how seriously should founders be thinking about it before they found something that people actually want?</p>
+<p><strong>Hamilton Helmer</strong> (00:04:38):<br />
+One of the things that has really surprised me in the last five years has been that my understanding of the answer to that question has changed. And before I thought it was you do product market fit and then you do strategy, and if you try and put strategy before product market fit, it is not much you can do with it. That's wrong. Actually, I mentioned before one of the great pleasures for me in my work is being able to talk to company founders and one of the things that has surprised me is that conversations with them, even at an early stage about strategic matters have a richness and relevance to me that was unexpected.</p>
+<p><strong>Hamilton Helmer</strong> (00:05:41):<br />
+And founders are practical people. I mean it's very hard to do what they're doing and they have to be extremely focused and choose what's worthwhile spending time on. And so in observing their reactions and that dialogue, I could see that there was something going on that was meaningful to them. And this second book we're working on, we'll tease out why that's so more, but the answer to your question is when should you thinking about this? The answer is always. And that's an odd answer. And so even before you have product-market fit, it's worth thinking about strategy. Now it's not strategy in the sense of this fully articulated strategic planning, we're going to do this, these are going to be the competitors, this is how we're going to answer them. This is how we'll price. Not like that at all. At the earlier stage, you can imagine wildly more degrees of freedom and the questions are of the business propositions that you're thinking of in trying to get to product-market fit, what are the underlying characteristics that might tilt them towards the availability of power or not?</p>
+<p><strong>Hamilton Helmer</strong> (00:07:10):<br />
+And those actually are meaningful conversations and certainly by no means certain. You're tilting probabilities, you're not creating a determinative things. And then later on, once you've already have product-market fit, then you have to understand your source of power to understand what competitive position is because then you have to establish that. And then later on in a more stable phase when you're in a stability phase of business, you have to know what your source of power is if you have one, because you have to know how to defend it. And then also it is also the foundational knowledge that you need for if there's another step. Because another thing that's quite surprising about iconic businesses is they often have a second act or a third act or fourth act. I mean think of AWS or Intel going into CPUs or Apple going into iPhones, all not the origin of business. And that's actually common, not unusual, and that's starting the process all over again.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:24):<br />
+Awesome. You mentioned this word strategy. I want to set a little foundation here. How does strategy relate to power when people are thinking about these two concepts? And then do you have just a nice definition of what strategy is? Everyone's always just like, "What the heck do you mean when you're talking about the strategy?"</p>
+<p><strong>Hamilton Helmer</strong> (00:08:41):<br />
+As I said, I'm a concept person and so when you develop concepts, you have to be very highly constrained by their usefulness. I'm a great fan of the great mathematician, John von Neumann, and he had a view which really irritated a lot of mathematicians, which is that if mathematics wasn't guided by what was useful, it would become, I think the word he used was aesthetic to aesthetic. And so any concept developments like that, it needs to be guided by usefulness. And so in dealing with strategy, the question is what domain of things do you want to include in that conversation? Because the term is ubiquitous in business. I mean do a Google search sometime. I've done one recently on Google Scholar for the word strategy and you'll get a million, I'm not exaggerating, a million hits. And so strategy for some people might mean everything that gets to the pile, it gets to the top of a pile in terms of what you have to do that year.</p>
+<p>Everything is... And that's a perfectly legitimate definition, but what I have found is that there is a very important narrowing that makes it much more useful. So that's coming back to what I was saying [inaudible 00:10:17] makes it much more useful to the business. So my view is that you want to focus, it's very useful for a business to focus on the fundamental determinants of business value and that's an arbitrary choice. It could be something else, but I can tell you from decades of business experience that that narrowing is very useful. And then so once you make that... Once you reach that understanding, it tells you some important things. So if you understand what drives business value, I mean if you do the math of it right, it's NPV of cash flow, right? Expected cash flow. And what that tells you is that strategy is a long time concept. You're looking far out in the future.</p>
+<p><strong>Hamilton Helmer</strong> (00:11:10):<br />
+So think of Pearl Harbor, Pearl Harbor for the Japanese was this enormous tactical success. They just destroyed the US ability, naval ability in the Pacific Ocean and the worst possible strategic move because it completely solved Franklin Delano Roosevelt's problem of how he could get the US citizens on board to attacking Hitler. The strategy of it was US's industrial might would eventually win the war and population. And the difference there is time constant, tactical short, strategy long. And so if you focus on value that narrows what you think about and allows you to get rather concise and offer up advice to founders about what they need to pay attention to.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:09):<br />
+So then how specifically is power informing strategies? Like the way you think about it, focus on your power and that will inform your strategy?</p>
+<p><strong>Hamilton Helmer</strong> (00:12:17):<br />
+Earlier I talked about these economic structures that provide durability of return in terms of refuge from withering arbitrage of everybody who wants to eat your lunch. And so that's what power is. So you have to understand what is an economics? You're asking me questions that get pretty deep into theory or I hope you don't, this is too conceptual. But you have to say, you have to understand how competition takes place and say what is it that creates some kind of refuge? And what it is is there's something in what you do that gives you either a cost or price advantage over others. So let's say you're lower cost and that's the benefit. And the barrier side is that there's something that is durable about that that makes it over time that you can't, the competitors can't take away from you. So benefit and a barrier, we call it the to be or not to be test. And if you have that, you can think of that immediately translating into a value because that will give you good margins out into the foreseeable future, which is what you're after.</p>
+<p><strong>Hamilton Helmer</strong> (00:13:44):<br />
+I don't know if that's... We're getting into the weeds here, but that's what it's about. And so power is those structures. Let me give you a quick example. So one I use in the book. So Netflix with scale economies, they have more subscribers. The cost of their content is a very large fixed cost, about 50% of their cost structure every year. They can take that fixed cost and spread it over more subscribers so their cost per subscriber is less versus somebody with fewer subscribers. So if they face the same prices for subscriptions as their competitors, they will be more profitable. And that's a scale economy and that's an example of a type of power and a common one I'd say. But these things are hard to achieve, right? Because there's the holy grail.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:47):<br />
+So let's actually talk about achieving these powers. Essentially the argument here is your power informs everything you do because this is the thing that'll allow you to stay durable and competitive and last. There's seven powers. We're not going to talk about all of them. If you want to go understand each of them, go read the book.</p>
+<p><strong>Hamilton Helmer</strong> (00:15:07):<br />
+Yeah. Let's not. That conversation always goes too long.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:08):<br />
+Yeah, exactly. So what I'm wondering is, okay, so say you're looking at this list of seven powers and you're a specific type of startup, do you have a heuristic that tells you here's most likely the power and set of subsets that will most likely be an option for you? Like B2B SaaS companies, is there a smaller subset? Probably one of these has to be one of your options versus B2C.</p>
+<p><strong>Hamilton Helmer</strong> (00:15:32):<br />
+That's a great question Lenny, because I think the path to power is where the rubber meets the road and it's very complicated and nuanced. But I'll give you a few thoughts along it and frankly our next book, the Second Invention, that's what it's about. It's about power, the entire book.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:56):<br />
+<strong>[Inaudible 00</strong>:<br />
+15:56] I'll try to read it.</p>
+<p><strong>Hamilton Helmer</strong> (00:15:58):<br />
+So in a book there's a thing called power progression, which says there are... It tells over the cycle of a business, there are times when certain types of power are available and the converse of that is times when they're not available. And so there's some that only are really available in when you reach a stability phase of a business pretty far out there.</p>
+<p><strong>Hamilton Helmer</strong> (00:16:25):<br />
+And so if you're starting a company, take those off the table. So those two are branding and process power. So often I find that there's a confusion about this because brand recognition for a startup may be incredibly important, but you can get brand recognition by buying an ad in the Super Bowl. That's not power, that you paid for it. So take branding and process power and process power is really operational excellence on steroids and usually is imitable, so it's usually not.</p>
+<p><strong>Hamilton Helmer</strong> (00:17:05):<br />
+So take those off the table and then a resource type of power, which is you have something that is of value that if you transferred it to somebody else it would be of value to them, but you own the rights. So the barrier is law for example, or lack of knowledge from others. And there are classes of businesses that are like that. So prescription pharmaceuticals, if you are the first person to come up with Viagra, that's worth a lot of money. If you took that license and gave it to somebody else, it'd be worth a lot of money to them. But that's a different class and it's usually not the types of things that I'm dealing with and it's obvious to everybody. So the key challenge there is can you invent a pharmaceutical that's effective for a large market. So you can take those three off the table and that then leaves counter positioning, scale economies, switching costs and network economies.</p>
+<p><strong>Hamilton Helmer</strong> (00:18:13):<br />
+And the important thing to keep in mind there is that they're sequenced. So almost every startup that you want to deal with starts with counter positioning because remember what product market fit is primarily is a substitution. You are coming up with a way to satisfy a more or less existing need in a novel way that creates more value. Now sometimes you tap into entirely new needs, but it's not so often. I mean Amazon was up against brick and mortar stores, Google was up against Yahoo and so on, and so you're usually substituting and that substitution, so your competition at that point is functional competition.</p>
+<p><strong>Hamilton Helmer</strong> (00:19:19):<br />
+And if you don't have counter positioning at that point you're pretty high risk from an incumbent who already has the capabilities necessary to do that. They just have to extend their product or do this or that, but counter positioning is the refuge from that. And then you go into the other three types of power scale economies, switching costs and network economies, and those depend on your scale relative to competitors. This is pretty cursory, but that's what I'd say. I'll focus on those four and I would recommend that you think pretty hard about whether you think you have counter positioning to start.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:08):<br />
+Awesome. I actually want to double down on that thread, but just to summarize, I have the list here. Basically you're saying if you're an early stage startup, the four to really that are actually potential powers for you at least early on, counter positioning, which your point is you could just start with that. That's essentially positioning and business model design, which happens at the beginning and then you can start to think about network economy, scale economy, switching costs as powers.</p>
+<p><strong>Hamilton Helmer</strong> (00:20:33):<br />
+Right. And you've done the right thing by not having me go through and define each of those. But your listeners will need to go back to my book and see what those things are to get... We're going through the shorthand as we should, but all of what we've said won't be completely obvious to them.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:54):<br />
+Yeah, I think a simple Google search I find just gives you a very simple definition of these.</p>
+<p><strong>Hamilton Helmer</strong> (00:20:58):<br />
+Yeah, that's right. There's some people who have done some really good summaries of this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:02):<br />
+Or ChatGPT, even better in a lot of cases.</p>
+<p><strong>Hamilton Helmer</strong> (00:21:05):<br />
+ChatGPT if they get it right sometimes I find they hallucinate.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:12):<br />
+Hallucinate an eighth power. You mentioned how some companies think they have a certain power or it's common to think you have a certain power. If you look at every startup deck, there's always like, "Here's our moat, here's the way we're going to have barriers to entry." I'm guessing in almost every case they're delusional about the power that they actually have and the power they think they'll have. Do you also find that to be true that often founders are wrong about how much barrier they've actually created and is there a power you often find most wrong and mistaken?</p>
+<p><strong>Hamilton Helmer</strong> (00:21:43):<br />
+Yeah, so I agree with your observation, but I don't want to be unkind. So I mean there are two things to keep in mind here in terms of making people feel better about that incorrect slide in the deck. One is that founders have to be optimistic. I think it's an important quality that they maybe understate the risk a little bit, but they're so committed to I'm going to do this thing that they go through that and that may give them an advantage over a large corporation trying to do the same thing. The other is that despite the name 7 Powers, which makes it sound like, oh, you can sort this out. Actually understanding whether or not there is a type of power in place is hard. I mean I did it with my colleagues here at Strategy Capital and we're looking at a well-known company, it might take us weeks to answer that question for a single company.</p>
+<p><strong>Hamilton Helmer</strong> (00:22:47):<br />
+And it comes down to the hard part is industry economics is what really are the economic relationships and it's very hard. So with those caveats that... Give them some courtesy, I'll say some of the obvious ones are I mentioned before, people sometimes think they have branding power, but another one that I think I've heard you mention is people often think that they get scale economies through data. And I'd say that that's possible, but it's rare. And the reason it's rare is not because there aren't scale economies in data, but rather that the range of scale that the existing competitors have are often large enough to be able to put them in shouting distance of each so that the differences in their cost per unit is not that great.</p>
+<p><strong>Hamilton Helmer</strong> (00:23:50):<br />
+The curve flattens in other words, which is typical of any, because the most common scale economy is you've got a big fixed cost and you prorate that. And as you get more and more scale, the percentage cost advantage of a fixed cost advantage like that goes down and that often. So that's a pretty frequent one that we see. We laugh whenever we hear somebody say they have a flywheel, which gives you the idea of network economies. There are often flywheels, the ones that really are material, are rare. The key thing here is materiality, not whether the flywheel exists, but whether the effect is strong enough to really tilt returns.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:39):<br />
+I was actually going to ask about that one because in software and social consumer products, network effects is always the pitch. Once we get big enough, we create this huge barrier. You mentioned just now you often find that's not actually true. It's rarely something that'll become a barrier. Is there anything else you find with network? And I know your power is called network economies, not network effect. I guess just to be clear, are these the same thing in your mind with different words?</p>
+<p><strong>Hamilton Helmer</strong> (00:25:02):<br />
+Yeah, kind of. I mean I have called it a type of power. So for me it's only those things which clear the significance barrier, hurdle rather that they're a large material. And so there are lots of things that I would say have network effects but not network economies.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:26):<br />
+Oh, interesting. Wait, can you speak to that? So there is a difference between these terms, network economies?</p>
+<p><strong>Hamilton Helmer</strong> (00:25:30):<br />
+Yeah. So for me the difference is materiality is that whether the value benefit is large enough to engender a price delta significant enough to give you materially different margins into the future.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:50):<br />
+Basically, does that network effect have an actual impact on your business and your ability to price?</p>
+<p><strong>Hamilton Helmer</strong> (00:25:55):<br />
+Yeah, it's not an impact, it's a material impact. So it could have... If it's a penny to your bottom line, that's one thing if it's a billion dollars or something else.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:06):<br />
+Wow, that's actually really interesting. Is there an example of a company that comes to mind, they had network effects but not network economies as a power?</p>
+<p><strong>Hamilton Helmer</strong> (00:26:12):<br />
+I think you could turn almost anywhere and get some modest network effects and any platform business would probably likely have some modest network effects. You asked me earlier and you sent me about Uber and Lyft, I'd say that they probably have network effects involved but not network economies.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:40):<br />
+Wow, that's interesting. And the reason you're saying they don't have network economies is because they're still so competitive they still have to spend so much money to stay ahead and so the network is not-</p>
+<p><strong>Hamilton Helmer</strong> (00:26:51):<br />
+Yeah. Right. The advantage that they get, it's not material. Right.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:59):<br />
+Wow, that's so interesting. Along those lines, it's so interesting to see Uber and Lyft these days. In theory they both had some sort of strong network effect. I was just looking, so Lyft is 5% the market cap of Uber. Is there a lesson from just what it is that allowed Uber to just win and kind of run away with the market essentially?</p>
+<p><strong>Hamilton Helmer</strong> (00:27:25):<br />
+I'm not entirely sure, I'll take a guess, but take it as a unformed guess. I haven't really studied it carefully. I think that over time there, if I had to guess, I'd say they're probably modest scale economies in the business. And over time Uber has just very successfully played a war of attrition. And that's both been in how they run their... They made one initial misstep, which is they misdefined their business. They said it was international transportation and it's not. That business is extremely geographically specific.</p>
+<p><strong>Hamilton Helmer</strong> (00:28:14):<br />
+If you have a great position in the Bay Area, it doesn't help you in London. And so their forays into China and everything really didn't make, but they pulled back on that, focused down on understanding their source of power, which was a geographically specific scale economy. And then they've done interesting things like Uber Eats where they've tried to utilize the platform that they have to get other opportunities for the one side of their platform, the drivers. And so if I had to guess, I'd say it was a well-played war of attrition with modest scale economies.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:02):<br />
+And is that attrition coming from a source of power or is that just like a broader, more strict?</p>
+<p><strong>Hamilton Helmer</strong> (00:29:06):<br />
+Yeah, it only works because there are modest scale economies. If there weren't any then if they did all this stuff, they'd still have a global and see.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:16):<br />
+Got it. Let me go in a slightly different direction. We've talked about power, we've talked about strategy. There's also, there's this word moat that comes up a lot. Everyone's always trying to build a moat. In your mind, is a moat equivalent to a power? Is there a difference when people talk about these two?</p>
+<p><strong>Hamilton Helmer</strong> (00:29:30):<br />
+Power requires a benefit and a barrier, you have to have something that you do that gives you a better outcome than your competitors, lower cost or higher price, and then something that makes it impossible for somebody else to mimic that. So moat is the second. So it's not synonymous with power because you can have a moat around a very undesirable piece of property and wouldn't get you far. But I think it is pretty synonymous with barrier. I think Warren Buffett, Charlie Munger, I admire enormously. I think I get credit for popularizing those concepts and I think the way they think about it is good. I'd say that 7 Powers is probably more systematic and comprehensive in saying that. I don't think. This is wonderful. I don't know if you've read any of the Microsoft antitrust literature that came out of their-</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:42):<br />
+No.</p>
+<p><strong>Hamilton Helmer</strong> (00:30:42):<br />
+...lawsuit, but there was a communication between Bill Gates and Warren Buffett where Warren Buffett was saying why he couldn't invest in Microsoft. He just didn't understand it. And so that meant the idea of network economies and what the moat was there he didn't understand. But I think the concept of a moat is a good one. The idea that you have something that gives you a refuge from competing forces.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:14):<br />
+In terms of Warren Buffett, I found the quote about moats. Warren Buffett famously said, "In business, I look for economic castles protected by unreachable moats."</p>
+<p><strong>Hamilton Helmer</strong> (00:31:22):<br />
+Right. And so he's taking care of the benefit part by saying a castle.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:27):<br />
+Right. He's got it covered.</p>
+<p><strong>Hamilton Helmer</strong> (00:31:29):<br />
+But one of the tricks to understanding power is you have to have a pretty good understanding of why it's a castle and not a shack. So I'll give you a Netflix example. So a company I admire a lot, and I think if some of the things that they had to do to develop their business were so important for their business that don't guarantee a castle. So for example, UI development, it's been an enormous amount of resources on trying to get just the very best UI, I mean a zillion AB tests, all kinds of things. Their recommendation engine, everybody's knows the story about how that went, their interface with the content world and all this. So those things are important. They're things they have to spend a lot of time and resources on, but they can largely be mimicked.</p>
+<p><strong>Hamilton Helmer</strong> (00:32:31):<br />
+So when Netflix in an earlier phase was fighting Blockbuster, when Blockbuster finally threw in the towel, said, "Well, we done. Well, better do a mail or a DVD business." If you look at the Blockbuster site, their UI site, you couldn't tell it different from Netflix. They just copied it. And so all that thoughtfulness about which things you put first and how you structure it and all that to make this suitable was mimicable. So that's an understanding of looking at the properties you have and trying to figure out if they're a castle or a shack.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:06):<br />
+<strong>Hamilton Helmer</strong> (00:34:41):<br />
+I'd say they're a few and it's a little bit different. I'm not a great fan of the strategically driven organization because that idea, because it fuzzes over how this knowledge is useful at different stages in the business. And so for somebody in that position, say a product manager in an existing successful business. So it is important in terms of just understanding their business to know what their source of power is because they... And that can inform them about what it is that they're working for. And also they may see things since they're down in the weeds, they may see things that are important to that that they need to bring to other people's attention. Because they're the ones that really have the knowledge of what the heck's going on. There's another aspect I mentioned before, this idea of transforming, of starting up entirely new things. And usually... I wouldn't say, usually I say it's not uncommon for ideas about that to bubble up from down below.</p>
+<p><strong>Hamilton Helmer</strong> (00:36:03):<br />
+And so that's another source. So let's separate a business into three phases, origination, takeoff, and stability. So the answers I've given are more in the stability phase. In the takeoff phase, let's say you've launched a product, you've gotten customer traction, now you're in a phase where there's just very rapid growth, probably other entrants like you, what are you facing? What you're facing is remember that underneath all of this is a change in technology. That's what made the product market fit possible in the first place. But that doesn't just stop. That if you're in a technology wave, often there are all kinds of offshoots both for you and the compliments to your business and everything else going on at the same time.</p>
+<p><strong>Hamilton Helmer</strong> (00:36:59):<br />
+And to win at that stability phase, which is really a market share win, you have to be aware of those and understand, okay, we have to incorporate this new feature. Or maybe now things have gotten to the point where this new market segment is, our product is attractive before it wasn't. This is meat and potato stuff for somebody at that level and it may well be the decisive element in terms of whether you win that market share battle with the other contenders. And so you have a very, very important role at that point. And so I'd say the first thing to do with your question is to make sure you think about the different phases of this and then ask what those responsibilities are.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:51):<br />
+What about for people that are just trying to get better at being strategic, thinking strategically something every product leader is always encouraged to do, become a better strategic thinker, build as muscle of strategy, what do you often advise to people just get better at the stuff? Obviously read your book.</p>
+<p><strong>Hamilton Helmer</strong> (00:38:09):<br />
+Read the book, and then have conversations with your colleagues about the topic because as you internalize what that means and how, have conversations with them about do we really have this kind of power? What's going on here? What's important? What isn't. Those conversations tend to allow you to get a better grip on things. I mean in the case of Netflix, Reed actually had me come in and train the top a hundred people in Netflix and strategy. We actually ran classes in the company, but that's unusual I'd say. And I didn't have the book yet. And so I think the book gets people pretty far down that path already.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:55):<br />
+And you don't do that anymore, I imagine if someone wanted to do that today, not an option.</p>
+<p><strong>Hamilton Helmer</strong> (00:38:59):<br />
+I sadly don't have the time. I mean I do often do fireside chats at company meetings and that kind of thing, but not a full-blown course and I'm not teaching at Stanford anymore either. And so I don't. I enjoyed that immensely wonderful people to work with. But sadly I don't have the time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:23):<br />
+You're about to get a lot of requests for fireside chats. I hope you're ready. You mentioned AI at some point in our chat. I'm curious how you think AI is going to change your 7 Powers framework. Do you think defensibility goes down in general? Will certain forms of power become more important or harder to achieve? How do you think about AI?</p>
+<p><strong>Hamilton Helmer</strong> (00:39:44):<br />
+Yeah, it's a great question. I mean we're all in this phase of wondering exactly how generative AI is going to play out. My own view, currently I don't see any change in seven powers from it in terms of an eighth power or something. But the issues that it brings up, like scale economies, I mean think of scale economies. If you have a fixed cost of trying to develop a model of a billion dollars or something or network effects, will AI models develop so that they learn in a way that for one user's interaction helps another user's interaction? That would be a powerful network economy. Or if it learns, if you think of if it learns about you and becomes a better psychiatrist or something, then that's a switching cost. So all these things are relevant to which business models will work and I find that useful.</p>
+<p><strong>Hamilton Helmer</strong> (00:40:51):<br />
+But I think in general, the way I think about it is it's a standard form of potentially very powerful technology that is being introduced into the business world and just asking how that plays out. I currently tend to think of that there's three types of plays. There's the company that's the technology play itself. So if you think of microprocessors, it would be Intel. There's the companies that wouldn't exist without the technology. So for semiconductors it would be Microsoft. And then there are the companies that utilize the technology, but it had existed before and after. So for semiconductors it would be automobiles. They used a ton of chips, but there were still cars before, after.</p>
+<p><strong>Hamilton Helmer</strong> (00:41:48):<br />
+And so I'm of the view, I'm very much uncertain at this point that generative AI, its biggest impact will be that tertiary class. It will be used in a lot of things that existed before and exist after, but are made better by it like semiconductors and automobiles. And so it reminds me, if you think of really big technology shifts like this, it reminds me of electricity. When electricity came, you could completely reconfigure a factory floor. You no longer had to have... You could have the power source essentially at the operating unit of an operator. But that took a lot of redesign, incorporation, investment, learning, complements, all kinds of stuff. I tend to think this will be more like that. There will be some pure cases. People will want to have them write their term paper with ChatGPT or something. But if you think of businesses, it's hard for me to think of a single functional area in a business that with redesign couldn't benefit. So accounting, HR, R&amp;D all have uses of this but requires incorporation, which is always troublesome.</p>
+<p><strong>Hamilton Helmer</strong> (00:43:30):<br />
+And so that's my view. But there certainly will be businesses that couldn't exist without it. And there's some that are coming up and some of those are in fact the businesses that empower the tertiary need, they're the ones that bring in. But if you go back, this will date me, but if you go back into business history, back in, I guess it was the 90s, there was this thing called business process re-engineering, the idea that you could take a computer sensibility into business processes, redesign them and get these monstrous cost savings. And it was a gigantic consulting opportunity for people. Whole companies got developed based on that and it feels more like that to me, but it's very interesting. I could be wrong, but it feels different than crypto. It feels like there's more of a real ultimate use case. I mean, if it really is true what they say that a 50% improvement in programming efficacy is not uncommon, just that proposition alone is worth an awful lot of money if you think how many programmers are in the world.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:56):<br />
+No question. You mentioned eighth power. I just want to check, is there an emerging eighth power you wish you maybe would've included or maybe added in the future that's like, "Oh, maybe this is on the edge," or it's like, "Nope, we got these seven?"</p>
+<p><strong>Hamilton Helmer</strong> (00:45:15):<br />
+It's a great question. I'm always looking for it because if you find it it probably means it's so obscure there, it'll also be a great investment opportunity. We're looking all the time, but so far, no. So far I'm pretty satisfied that seven is an exhaustive set, but never say never. That's an empirical seven, not a theoretical seven.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:37):<br />
+If we start seeing you making incredible returns, you've clearly found an eighth power [inaudible 00:45:41]-</p>
+<p><strong>Hamilton Helmer</strong> (00:45:41):<br />
+That's right.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:43):<br />
+I want to close one thread on a power that you mentioned that is often a pitfall, which is around process power and basically execution. A lot of people think so in a lot of decks it's like, oh, we have the most amazing team, we move the fastest, we're earliest. You mentioned how rarely is that actually a power actually being able to execute and create a process that is an actual barrier? Can you just talk a bit more about that to help people understand okay, it's probably not our power?</p>
+<p><strong>Hamilton Helmer</strong> (00:46:09):<br />
+One of the great thinkers in strategy was this Harvard professor Michael Porter, and he in probably 40 years ago, made the very controversial statement that operational excellence is not strategy. He got a lot of people of the Harvard Business School faculty really mad at him because that's what their careers were about and it sounded like he was dissing them. But the point he was making was when you get to this end state, if you already have power that things that drive operational excellence can be mimicked because you can hire a consulting firm who has best practices, knowledges that come in and get you up to snuff. You can hire people from your competitors who know how to do it better. And that's true, but it's also true in this takeoff phase in a business that we talked about before, when you're trying to attain competitive position, operational excellence is everything.</p>
+<p><strong>Hamilton Helmer</strong> (00:47:14):<br />
+And so if you think of strategy, not statically endpoints like Professor Porter was, but if you look at dynamically how you get there, operational excellence is essential for a strategy. So think of those things I mentioned before about Netflix, about their UI and recommendation engine and so on, or international rollout, all those things. They were in a battle to get more subscribers than other people and those were critical for that. But in themselves, they're critical in attaining competitive position, but in themselves, they're not sources of power typically, unless there's some very tight considerations here or very demanding considerations for the... Unless if they have to be material, but they also have to be opaque or some way people can't easily imitate them. Either they don't understand what's going on or they might be opaque. So for example, think of TSMC. So when they put up the latest fab and get that operational, are there a lot of steps in doing that?</p>
+<p><strong>Hamilton Helmer</strong> (00:48:43):<br />
+They know how to do with their staff is trained to do it, but it's not documented necessarily and you can't imitate it. Then maybe they have it. I don't know if they have process power or not, but it takes that level of complexity. In my book, I use the example of Toyota and a car manufacturing is complex enough that you can have this opacity in terms of material steps, but it's not common. So if you're in a stability phase of business, you're stuck with this funny thing, which is most of your day is on those issues and it should be because if you don't do it, a competitor can and they can end up better than you. And so you're on a treadmill and that's the way business is. That's fine. And if you stop running that treadmill, you get creamed. So you got to do it, it's most of your day, but it's not power. And there are those rare cases where it's so material and so inimitable that it can be power, but they're rare.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:02):<br />
+I like the heuristic that if you haven't written it down or you can't describe it, that might be a sign that maybe process power is a power of yours.</p>
+<p><strong>Hamilton Helmer</strong> (00:50:13):<br />
+Yeah. And there isn't a consulting firm that offers to bring you up to speed on that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:20):<br />
+They'll make you more like Amazon as a service. Kind of along these same lines, you talk about how the only things that create value in a company are power, market size and operational excellence. And I think hearing that will blow a lot of people's minds because they think there's so many things that contribute to the value of a company and you whittle it down to these three things. What can you say about that insight?</p>
+<p><strong>Hamilton Helmer</strong> (00:50:47):<br />
+So I'd say they're right and I'm right. They're right because there are this incredible... I mean business is really hard and there are just a multitude of things you have to pay attention for. I'm right because all those things fall into those three categories. So it's an exhaustive set and it simply comes out of the math. So we're both right I'd say.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:16):<br />
+Final question, the intent of a lot of your work is to empower founders. I'm curious if you've noticed any broad economic trends or shifts that you think will make life easier or harder for founders in the coming years?</p>
+<p><strong>Hamilton Helmer</strong> (00:51:32):<br />
+Personally, I am very, very concerned about the debt trajectory of the United States and of many countries around the world, but I'll pick on the United States, but it's a trend going on everywhere. We're on a trajectory for this extremely high indebtedness. And so if you think about the last 30 years, right? There's been a crisis about once every 10 years. So there's the dot-com bust, there's the financial crisis, there was COVID. Nothing makes me think that the frequency will be a lot less. I don't know what, who knows? These are all uncertain events. But imagine if we got to one of those and we had no dry powder and dry powder for us is the ability to heavily deficit spend take on debt. And fortunately our government did that in both the financial crisis and in COVID. And because that people had jobs. My own view about the financial crisis is that if we hadn't done that, plus having Ben Bernanke as the head of the Fed, we would've gone into another great depression.</p>
+<p><strong>Hamilton Helmer</strong> (00:52:52):<br />
+It was that ugly. So this current debt trajectory, you don't know how long it will take exactly when, but eventually that will mean we will not have dry powder. People will not respect the credit worthiness of this country. So that worries me a lot. And it utterly will affect the idea of company founding because if you get into a crisis like that, the capital markets lock up and it gets very difficult to do anything. And to really stretch my credibility here, I'll opine on just how hard a problem this is to solve. The reason this is so difficult for this country to solve and other countries is that it is right at the crux of the delicate dance between capitalism and democracy. So if you think about the problem, of course that's driving all this is entitlements. There's discretionary spending, certain recovery programs and stuff, but those can go away. The underlying trend that people just can't get their arms around is entitlements. And anybody who looks at the numbers can see that. Every economist knows that. But that's not an easy fix.</p>
+<p><strong>Hamilton Helmer</strong> (00:54:18):<br />
+And the reason it's not an easy fix is there are two opposing views of what's going on, and there's no way to resolve those two views. One is that capitalism is rapacious and results in more and more inequality and the government has to do something about it. And the other is that the government is on a path that is creeping socialism that will undermine our freedom and economic sufficiency. And the poster child for the rapacious capitalism. One is, I don't know if you've seen the recent analysis of inequality in the United States just came out, much more robust analysis. And it said that basically inequality in the last 60 years of the United States is unchanged, but that's post-transfer, post-tax inequality, which basically says the amount of taxing and transferring going on was about right. So it says that the amount we're spending is about right from that perspective, that it compensates for the other inequities and we should be spending that much so we should tax more.</p>
+<p><strong>Hamilton Helmer</strong> (00:55:30):<br />
+And the poster child for the other point of view of the dangers of government is the steadily increasing without interruption percentage of the economy that is government. And to levels that 75 years ago, people would've thought absolutely impossible. So there are these two views about what's going on. One is that we're compensating for the normal inequities of capitalism, and the other is that we're headed down a path to socialism and ruin. And that leads to a deadlock, which is you don't tax anymore and you don't cut spending and that leaves deficits. So anyway, a long, long rant, sorry but that trend is extremely politically difficult to deal with and extremely threatening and that concerns me immensely.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:32):<br />
+Not to leave listeners with a very sad state of affairs.</p>
+<p><strong>Hamilton Helmer</strong> (00:56:36):<br />
+Yeah, sorry.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:37):<br />
+No, no. I think this is important. I think it's important people think about this and know these things. Is there anything that gives you hope? Is there anything that gets you excited about either for founders or anyone in general, just to leave folks with maybe on a happy?</p>
+<p><strong>Hamilton Helmer</strong> (00:56:50):<br />
+Yeah, I mean, I am an optimist really in a way, and I do. There's a famous Austrian and eventually American economist named Joseph Schumpeter who wrote this wonderful book Theory of Economic Development way back when over a hundred years ago, where he took the unusual view of saying that the vitality of an economy depended on entrepreneurs. And I ascribe to that. I think that creativity and action are the ways society and people advance. And I think the US's and a free society has huge advantages in that. And I think that I feel very lucky to be in a place I'm in Silicon Valley, but to be in a place in a country where that is vital and active and I think that's ground zero for me. And so I think you see that alive and well, I think. And there are people that are very Enthusiastic about that as I am.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:12):<br />
+Beautiful way to close out our chat. Is there anything else you want to share before we get to our very exciting lightning round? Is there anything you want to leave listeners with or any last tidbit of advice?</p>
+<p><strong>Hamilton Helmer</strong> (00:58:22):<br />
+I alluded to it before, but just that remember, action is the first principle of business. You do stuff and my book is very oriented towards that. The idea was not to tell you what to do, but to give you guideposts while you're on that journey. People that are enthused about it, I encourage you to do stuff. That's where it all starts and I can think about it and maybe help a little bit, but it's mostly doing stuff.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:59):<br />
+I love that point so much. It was something I was going to touch on but I didn't get to is just there's so many people that just sit around and theorize about a strategy of their business, especially in their early stage. Here's our grand master plan, here's an amazing strategy or just read about startup ideas and don't actually try it. I love this final note of just try it. Just do it. Don't just sit there and-</p>
+<p><strong>Hamilton Helmer</strong> (00:59:18):<br />
+Yeah, yeah, just do it. And life is full of surprises. You'll end up in a place you didn't expect.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:24):<br />
+Amazing. Speaking of ending up in a place you didn't expect, it's time for our very exciting lightning round. Are you ready?</p>
+<p><strong>Hamilton Helmer</strong> (00:59:32):<br />
+Oh, sure. I'll do my best here. I'm not very good on lightning.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:37):<br />
+First question, what are two or three books that you've recommended most to other people?</p>
+<p><strong>Hamilton Helmer</strong> (00:59:42):<br />
+One book that is extremely wonky, and I can only take it in very small doses, but is magnificent, is one called The Road to Reality by Roger Penrose, who's this brilliant mathematician. And it will be very daunting for anybody unless you're a deep math person, but his brilliance in erudition just shines through in this thing. And it's an amazing book. I would say there's another book, boy, I wish I could remember the name. Maybe you can get the name of the author called Gene by this geneticist. And I think he's a Harvard Medical School professor that's about the history of genetics and he is an absolutely luminous writer. I mean, it puts me to shame. I'm embarrassed when I read it because I think how pedestrian my writing is and incredibly knowledgeable about the history of genetics and I think that's such an important topic. So those are two that I would recommend highly, fairly wonky, but I like them both.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:56):<br />
+I love them. The author, I just looked him up. Siddhartha Mukherjee.</p>
+<p><strong>Hamilton Helmer</strong> (01:01:01):<br />
+Yes. Just amazing. You read it and you go, "How did he think of that phrasing?" I mean, it's just, he's amazing.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:10):<br />
+Do you have a favorite recent movie or TV show you really enjoyed?</p>
+<p><strong>Hamilton Helmer</strong> (01:01:14):<br />
+I'm a huge movie fan and have been all my life, and I'm particularly keen on animated films. But the movie that I've recently seen that I liked particularly it was American Fiction. I thought that was... It didn't make any of the easy choices in a movie and as a result was just incredibly interesting and thoughtful I thought.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:39):<br />
+Do you have a favorite product you recently discovered that you really love?</p>
+<p><strong>Hamilton Helmer</strong> (01:01:43):<br />
+In my office, just this last week, we actually put a Persian rug in our entry room, and this is what's called a Farahan Sarouk rug and it's 150 years old. And it had an effect in me that I didn't expect, which is it is a work of great beauty. And it was before, it was all hand-done before machines. You get all this wonderful variation of the actual icons in the rug and the different dye colors. And I find that every morning when I walk in, I go, "That's really beautiful," and it's uplifting and it shows you the importance of, or the value of the quality of art. I mean, just blows my mind actually. So that's probably not the usual product discussion that you get.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:50):<br />
+No, I love that answer. Recently we've had some really unique choices. One is a very nice Mercedes and a Rivian and a minivan recently. We've got a lot of very nice things.</p>
+<p><strong>Hamilton Helmer</strong> (01:03:00):<br />
+Oh, that's great. I'm a car guy too, so I didn't answer on the car question.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:05):<br />
+Oh man, I love that. We have Rory Sutherland coming on the podcast soon. He is one of the leaders of Ogilvy and he has a whole thing about how buying a home is the best value of art to buy art if you live in a home that makes you feel inspired and is beautiful.</p>
+<p><strong>Hamilton Helmer</strong> (01:03:20):<br />
+Yeah, I'm a big believer in that. I mean, I think that your place and how you connect to it has an important grounding effect. And then before I talked earlier about creativity and I think surrounding yourself in an environment that stimulates that is really important. And so I couldn't agree with him more.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:51):<br />
+Two more questions. Do you have a favorite life motto that you often think about, come back to share with friends or family?</p>
+<p><strong>Hamilton Helmer</strong> (01:03:58):<br />
+One is what Clint Eastwood's advice to actors, which is don't just do something, stand there. And so there are a lot of things that are long-termish with low signal to noise. And you can often just do a lot of stuff that you think makes a difference, but it really doesn't. And so that's one. The other one which is somewhat more profound I think was one that I had a famous Sri Lankan journalist was a mentor of mine and very dear friend, and he had a favorite expression that I adhere to all the time, which is everything is always about something else.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:49):<br />
+Wow. Deep.</p>
+<p><strong>Hamilton Helmer</strong> (01:04:53):<br />
+And that's so true if you're dealing with this power stuff when if you really dig down, everything is always about something else.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:58):<br />
+Speaking of power, final question. People that have a lot of power are leaders in the world. I'm curious, do you have a favorite historical leader?</p>
+<p><strong>Hamilton Helmer</strong> (01:05:07):<br />
+So yeah. I have some that I admire a great deal. I'm a tremendous fan of Winston Churchill's. Most really great people are quirky and he qualified. There are things you could say about him that you might not have liked that so much, but he was a genius and had great fortitude, human sense. He understood things long before other people. I've give him high marks. Some of the great artists I admire enormously. I'm reading a book right now on the last 20 years of Michelangelo, which wonderful book actually, and which is a very interesting period because in his first 70 years he finished up all that, he wasn't going to do sculpture anymore. He just finished The Last Judgment, which was the wall of the Sistine Chapel.</p>
+<p><strong>Hamilton Helmer</strong> (01:06:08):<br />
+And I think the last major fresco he did. And a lot of his friends at that time, he was exiled from Florence and living in Rome and he had this Roman community and a lot of his close friends that had recently died or had difficulties. So he's at this inflection point in his life at 70, which in those days was very old, and yet he went on to do some of the most remarkable architecture in the history of the world. And so you've got to admire that. I mean, just doing that, which is that rare second act. But I think for world leaders, Winston Churchill is very high. I'm a fan of Teddy Roosevelt, I must say too, in this country.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:00):<br />
+I love that. Hamilton, you are wonderful. I feel like we have helped a lot of people up-level their ability to think about strategy and moats and power. Thank you so much for being here. Two final questions. Where can folks find more online if they want to dig in further, and how can listeners be useful to you?</p>
+<p><strong>Hamilton Helmer</strong> (01:07:15):<br />
+Yeah, so as I say, I'm an idea person and I'm about trying to empower company founders, and so only thing I can say is read the book, spread the ideas, start your own company. Those are the things that would make me happy.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:37):<br />
+Amazing. Hamilton, Thank you so much for being here.</p>
+<p><strong>Hamilton Helmer</strong> (01:07:40):<br />
+Great. My pleasure, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:42):<br />
+Bye everyone. Thank you so much for listening. If you found this valuable, you can subscribe to the show on Apple Podcasts, Spotify, or your favorite podcast app. Also, please consider giving us a rating or leaving a review as that really helps other listeners find the podcast. You can find all past episodes or learn more about the show at Lenny'sPodcasts.com. See you in the next episode.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prioritizing at startups — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Prioritizing at startups</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Prioritizing at startups</div>
+    
+    <div class="article-meta">2022-01-04<span>·</span>2,423 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2B</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I find most of the prioritization frameworks are for larger companies with an established set of features. Apart from user feedback, research, and my gut, I’d love to understand if there is a framework you’ve seen work at early-stage companies trying to hit product-market fit. For context, I’m a first-time founder building in the B2B space.</h2>
+</blockquote>
+<p>You’re absolutely right. Most of the prioritizing advice out there is not actually useful for early-stage pre-PMF companies. Including <a href="https://www.lennysnewsletter.com/p/prioritizing">my earlier post on prioritization</a>. That’s troubling, because bad prioritization is an excellent way to kill your startup.</p>
+<p>A startup is like a newly lit fire: exciting but fragile. Make a few wrong moves, and it ceases to be.</p>
+<p><img alt="Image from Prioritizing at startups" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e3b0fcca-1f87-4018-b391-1e047e7dd75c_480x254.gif" /></p>
+<p>Prioritizing at a large company is different. You’ve got momentum and fuel, and prioritizing is more about accelerating something that’s already working vs. creating something new. As a result, you have a lot more room for error.</p>
+<p><img alt="Image from Prioritizing at startups" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dcb6593b-3db0-4e6e-b86c-a1932fa733d7_480x270.gif" /></p>
+<p>While I was at Airbnb, I’m pretty sure the majority of our experiments had zero (or negative) impact. But we continued to grow because we had strong PMF, a word-of-mouth flywheel, and a growing market, and we found enough big wins to make up for many mistakes. You have none of these advantages at an early-stage startup.</p>
+<p>Let’s take a closer look at prioritizing at a pre-PMF startup—specifically a B2B startup. Below, I’ll share:</p>
+<ol>
+<li>Common prioritizing pitfalls</li>
+<li>A guide to prioritizing</li>
+<li>How to come up with ideas</li>
+<li>Further study</li>
+</ol>
+<p><em>To inform my thinking, I asked some of my favorite early-stage founders (building rocket-ship businesses) how they prioritized early-on. You’ll find their insights below. A big thank-you to <a href="https://www.linkedin.com/in/benjaminencz/">Benjamin Encz</a> (CEO of <a href="https://ashbyhq.com/">Ashby</a>), <a href="https://www.linkedin.com/in/ccacioppo/">Christina Cacioppo</a> (CEO of <a href="https://www.vanta.com/">Vanta</a>), <a href="https://www.linkedin.com/in/juliannaelamb">Julianna Lamb</a> (CTO of <a href="https://stytch.com/">Stytch</a>), <a href="https://www.linkedin.com/in/may-habib/">May Habib</a> (CEO of <a href="https://writer.com/">Writer</a>), <a href="https://www.linkedin.com/in/rujulz/">Rujul Zaparde</a> (CEO of <a href="https://ziphq.com/">Zip</a>), and <a href="https://www.linkedin.com/in/dangtommy/">Tommy Dang</a> (CEO of <a href="https://mage.ai/">Mage</a>).</em></p>
+<p>Let’s do this.</p>
+<h3><strong>Most common prioritizing pitfalls at early-stage startups:</strong></h3>
+<ol>
+<li><strong>Solving nice-to-have problems:</strong> Too many founders spend their time building “<a href="https://www.forbes.com/sites/georgedeeb/2014/07/24/is-your-startup-building-a-vitamin-or-a-painkiller/?sh=16c5eb223826">vitamins</a>”—products that solve small problems and make life just a bit easier. In B2B, you’re unlikely to build a big business if you aren’t solving significant pain. Salesforce, Datadog, Stripe, Workday, Gusto—they all solved big problems for people. These products aren’t just nice-to-have. You basically can’t do your job well without them. How do you know if you’re solving a big enough pain point? Keep reading.</li>
+<li><strong>Trying to be data-driven:</strong> As an early-stage startup, especially in B2B, you simply don’t have enough data. <a href="https://www.optimizely.com/sample-size-calculator/?conversion=3&amp;effect=20&amp;significance=95">Use this calculator</a> to see for yourself how many data points you need. For example, if you want to increase conversion by 10% and it’s currently at 20%, you’ll need over 5,000 users to experience that change.</li>
+<li><strong>Too much theory, not enough building:</strong> I’ve seen a lot of founders (particularly ex-PMs) with incredibly detailed strategy docs and really nice decks who don’t ship often enough, and thus end up building something no one really needed. If you’re holding back because you aren’t sure which direction to go, just ship something.</li>
+<li><strong>Doing everything your users ask:</strong> Don’t rely on what your users tell you to build. They will (unknowingly) deceive you. Instead, focus on their <em>pain points</em>. Then think deeply about the best way to make that pain go away. Sometimes the solution will be exactly what a user suggested. Oftentimes you’ll discover a solution that’s simpler, smarter, and useful to many other users.</li>
+</ol>
+<blockquote>
+<h4>“We have a philosophy when it comes to building product that we shouldn’t just build either what competitors are doing or take at face value what customers are asking for. Rather, we dig deeper to understand the problem they’re trying to solve and what the optimal solution could be. Maybe someone thinks that x is a solution to problem y—but if you just build x without understanding problem y, you often shortchange yourself. There’s actually a more elegant or better solution to problem y that you’ll only find if you understand the root issue first. Sometimes we even find that the product already supports what someone is trying to do. This helps us build more universally applicable products vs. one-off solutions.”</h4>
+<h4>—Julianna Lamb, CTO of <a href="https://stytch.com/">Stytch</a></h4>
+</blockquote>
+<h3>How to prioritize at a pre-PMF startup</h3>
+<p>Broadly, your single goal as an early-stage pre-PMF startup should be to <strong>make 10 customers</strong> <strong><em>very</em></strong> <strong>happy</strong>. Everything you prioritize should be in service of this goal.</p>
+<p><strong>Why 10?</strong> If you can make 10 customers very happy, you can probably make 100 customers very happy. From there, you can continue to add value, reduce friction, build your growth engine, etc. On the flip side, if you cannot make 10 customers very happy, it’s unlikely you have a business.</p>
+<p><strong>Why</strong> <strong><em>very</em></strong> <strong>happy?</strong> Because there are endless products fighting for your customers’ attention. The bar for people continuing to come back to (and pay for) your product is much higher than you think. When you’ve solved a real problem, people will beg you to take their money.</p>
+<p><img alt="Image from Prioritizing at startups" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/05f35ad0-ed7b-4381-be50-5c4cef14dc8c_356x200.gif" /></p>
+<p><strong>What does very happy look like? “</strong>Very happy”is just another way to describe product-market fit. Here’s what PMF <a href="https://www.lennysnewsletter.com/p/how-to-know-if-youve-got-productmarket">looks like</a> and <a href="https://www.lennysnewsletter.com/p/what-it-feels-like-when-youve-found">feels like</a>. Once you have data, look at your <a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">cohort retention numbers</a>.</p>
+<h4><strong>How do you make 10 customers very happy?</strong></h4>
+<p><strong>SUSS it out:</strong> Segment, Understand, Solve, and Stay focused.</p>
+<ol>
+<li><strong>Segment:</strong> Narrowly and concretely define who you’re building for. <a href="https://docs.google.com/presentation/d/1YoaOOX6a2SR7exE4roSg1AxYOxFykCEUS6roYyUtydU/edit#slide=id.ga11148e336_7_28">Here’s a template</a>, and <a href="https://www.field-guide.unusual.vc/field-guide-enterprise/sales-intro-to-icp">here’s a guide</a>. As an example, here’s <a href="https://www.vanta.com/">Vanta</a>’s actual first segment:</li>
+</ol>
+<p><img alt="Image from Prioritizing at startups" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0d827181-082a-470b-adf7-23b8b07b8d03_1134x416.png" /></p>
+<ol>
+<li><strong>Understand:</strong> Talk to many (ideally 100+) people from this segment. Identify a major pain point that you can solve. <a href="https://www.lennysnewsletter.com/p/interviewing-users-for-product-market">Here’s some guidance on interviewing</a>. If you go after something that isn’t a major pain point for people, your product will struggle.</li>
+</ol>
+<blockquote>
+<h4>“We had a folder where we put all of our power-user video calls. When we were coming up with how to articulate the core value proposition (which became ‘AI writing assistant for teams’), I would re-listen to them over and over, hand-write out the exact clutch quotes, and try to connect the dots between different types of users who were really happy with our product. It helped me really internalize why people found the early product so useful, and we, very critically, could relay that back to engineering and to the market to acquire more users.”</h4>
+<h4>—May Habib, CEO of <a href="https://writer.com/">Writer</a></h4>
+</blockquote>
+<ol>
+<li><strong>Solve:</strong> Put all of your energy into building a product that significantly reduces this very specific pain point. Come up with ideas, test them out, and continue to iterate until your customer can’t live without your product. The bigger the pain, and the better you solve it, the bigger your business.</li>
+<li><strong>Stay focused:</strong> Resist solving adjacent problems, or problems for other segments. Continue to come back to your primary segment and the primary problem you’re solving for them. Unless, of course, you discover that the segment or problem isn’t big enough and intentionally pivot to a different segment or problem.</li>
+</ol>
+<blockquote>
+<h4>“We’d revisit our customer pitch and investor pitch (in a simple Google Doc) on a weekly basis and modify it as our understanding of the problem/solution evolved. We then wrote out what we believed to be the core problems Zip solves, logged every single request that any prospect or customer had, and then mapped each one to the list of problems to decide whether we should build or skip.”</h4>
+<h4>—Rujul Zaparde, CEO of <a href="https://ziphq.com/">Zip</a></h4>
+</blockquote>
+<h4><strong>What should I actually prioritize when working to solve these pain points?</strong></h4>
+<p>You’ll never find a magical prioritization framework that tells you exactly what to build. Instead, embrace the messy. <strong>Prioritize work that will bring you closer to</strong> <strong><em>10</em></strong> <strong>very happy users,</strong> across these three buckets:</p>
+<ol>
+<li>
+<p><strong>Increase the value of your product (~80% of your time):</strong> Put most of your resources into reducing your users’ pain, saving them time, and helping them do better work. Look for:</p>
+</li>
+<li>
+<p><strong>Blockers:</strong> What’s keeping your users from quickly accomplishing the task they want to accomplish?</p>
+</li>
+<li><strong>Retentive features:</strong> What features would keep the largest number of people using your product longer? Retention is the ultimate sign of happiness. When people churn, use the opportunity to identify what’s missing. What one feature would directly lead to the <em>most</em> customers sticking around?</li>
+<li><strong>Acquisition features</strong>: Similarly, what one feature would directly lead to the most <em>new</em> customers? Specifically, what’s getting in the way of the most potential customers (1) being able to use your product and (2) wanting to use your product?</li>
+<li><strong>Differentiators:</strong> Double down on what makes your product different from alternatives. You often win not by being better but by being different.</li>
+</ol>
+<blockquote>
+<h4>“We generally prioritize any serious ‘blockers’ with existing features over new feature development. Beyond that, we take a portfolio approach of allocating a certain percentage of the team to building new features (i.e. making the product stickier), over optimizing existing features.”</h4>
+<h4>—Benjamin Encz, CEO of <a href="https://ashbyhq.com/">Ashby</a></h4>
+</blockquote>
+<ol>
+<li><strong>Improve onboarding (~10% of your time):</strong> Though most of your time should be spent increasing the value of your product, there’s also value in making it easier for new users to experience that value. If a great product exists and no one is able to use it, does it even exist? 🤷‍♂️</li>
+<li><strong>Create delight (~10% of your time):</strong> Your users are human—part rational, part emotional. Delighting your users with humor, design, personality, surprises, or even simply quick turnaround on issues. These can go a long way.</li>
+</ol>
+<blockquote>
+<h4>“When it was just us two founders, I spent much of my time fixing bugs that early users wrote in about. Those got fixed as quickly as I could fix them (though I also introduced some 😬). As soon as the team was four engineers, we had a rotating ‘support on call’ role, where three engineers were working through the roadmap and one was just fixing bugs/issues that came in from support tickets. That was really helpful in the early days, as it (1) ensured we were prioritizing small user delight-ish things and (2) showed early users that we were responsive and cared, which I think/hope encouraged them to send more feedback.”</h4>
+<h4>—Christina Cacioppo, CEO of <a href="https://www.vanta.com/">Vanta</a></h4>
+</blockquote>
+<h3><strong>Where do I get ideas for what to build?</strong></h3>
+<p>You’re at a huge advantage if you’re building a product that you yourself need or wish you had. If that’s the case, then your best initial ideas will come from you and your founding team. Pay attention to these ideas.</p>
+<blockquote>
+<h4>“We’d prioritize the features we wish we had when using existing ML tools. That was our base roadmap—build features that could’ve made our jobs easier back then. Until we got our product in the hands of real paying customers, we kept building things we needed as users of our own product.”</h4>
+<h4>—Tommy Dang, CEO of <a href="https://mage.ai/">Mage</a></h4>
+</blockquote>
+<p>Outside of that, the best ideas will come from conversations with your early users (and potential users). When talking to them, look for:</p>
+<ol>
+<li>Significant pain points</li>
+<li>Ideas that get them visibly excited, especially if that happens with multiple people</li>
+<li>Features that would get them to switch from a competitor</li>
+<li>Table stakes—features that would keep them from being able to use your product even if they wanted to</li>
+<li>Potential solutions you could test quickly without a lot of code</li>
+<li>Products that they’d pay you for right now if those existed</li>
+<li>Early adopters to try out your early product—people who love trying new products</li>
+</ol>
+<p><a href="https://www.lennysnewsletter.com/p/where-great-product-roadmap-ideas">Check out this post</a> for more ideas.</p>
+<p>To close: remember, you are building something that has never existed before. It’s hard. There is no magical framework that will tell you what to build. And even if you prioritize perfectly, there’s no guarantee you’ll build something people will want, or a business that will last. But prioritizing smartly, and laser-focusing on making 10 (and later, many more) customers <em>very</em> happy, will give you a fighting chance at building a roaring business. Good luck!</p>
+<p><img alt="Image from Prioritizing at startups" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5e9299cb-37ed-46fc-ac89-fbcbdc4eb769_370x200.gif" /></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://www.ycombinator.com/library/8p-how-to-prioritize-features">How to prioritize features</a> by Emmett Shear, co-founder of Twitch</li>
+<li><a href="https://www.ycombinator.com/library/4N-how-to-balance-focus-on-one-customer-at-a-time-versus-new-features-for-many">How to balance focus on one customer at a time versus new features for many</a> by Kevin Hale, partner at YC</li>
+<li><a href="https://www.ycombinator.com/library/67-user-you-don-t-want">Users you don’t want</a> by Michael Seibel</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Casual:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/c03a7db8-67f0-4b79-a82b-e4bf8ef624d1">Product Designer</a>(Remote-EU)</li>
+<li><strong>Mynd:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/5acd93b4-3e73-45f6-894f-a701509a81ea">Product Manager, Buying Services</a> (Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=DxREm3s1scA">Elon Musk on SpaceX, Mars, Tesla Autopilot, Self-Driving, Robotics, and AI</a> by Lex Fridman</li>
+<li><strong>Listen:</strong> <a href="https://www.thetwentyminutevc.com/andy-johns/">Top Growth Lessons from Andy Johns</a> by Harry Stebbings</li>
+<li><strong>Start:</strong> Doing the thing.</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

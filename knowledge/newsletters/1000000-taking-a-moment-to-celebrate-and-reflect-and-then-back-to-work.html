@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1,000,000 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">1,000,000</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">1,000,000</div>
+    
+    <div class="article-meta">2025-03-04<span>·</span>3,286 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">B2C</span> <span class="mini-tag">Podcast</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to a</em><em>✨ free-edition ✨</em><em>of my weekly newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career. Annual subscribers now get a free year of </em><em><a href="https://www.lennysnewsletter.com/p/announcing-the-greatest-product-bundle">Perplexity Pro, Notion Plus, Superhuman, Linear, and Granola</a>.</em><em> For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://maven.com/lenny">Courses</a> | <a href="https://www.lennysjobs.com/">Hiring</a> | <a href="https://lennyswag.com/">Swag</a>.</em>**</p>
+<p>This newsletter just hit a big milestone: one <em>million</em> subscribers. This is both exciting and absurd. No part of me imagined it would reach these heights.</p>
+<p><img alt="Image from 1,000,000" src="https://substack-post-media.s3.amazonaws.com/public/images/b02b7f87-00d9-48cf-bdbc-e10f3e8f58af_480x264.gif" /></p>
+<p>What started as an “<a href="https://www.lennysnewsletter.com/p/advice-on-growth-product-and-leadership">experiment</a>” just over five years ago is now the world’s largest product newsletter, podcast, and community. I’m feeling very proud.</p>
+<p>Milestones like these are a great opportunity to pause and reflect, so I put out a call on <a href="https://x.com/lennysan/status/1892279027626365015">X</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_im-fast-approaching-1-million-newsletter-activity-7298050236277563392-7zei?rcm=ACoAAABGvmoB4S920iEQfSFO_P91nw2wPqfPoic">LinkedIn</a> and asked y’all what burning questions you had for me. Below is my first-ever mailbag edition. If you have any additional questions, post them in the comments, and I’ll do my best to answer them.</p>
+<p><a href="https://www.lennysnewsletter.com/p/1000000/comments">Leave a comment</a></p>
+<p>If you’re wondering what might change now that we’ve hit this milestone, the answer is: nothing. You can expect a high-quality, high-value newsletter in your inbox every week, like always. That being said, I’m cooking up some exciting new stuff (a bigger and better <a href="https://www.lennysnewsletter.com/p/announcing-the-greatest-product-bundle">bundle</a>, a new podcast, and a few other surprises). But mostly, it’s back to work.</p>
+<p>Let me also say this: From the bottom of my heart, thank you. Thank you for subscribing to this newsletter, for sharing it with your friends and colleagues, and for making this work possible. Your support means the world to me.</p>
+<p>An added thank-you to Jean-Francois Monfette, Rashi Kakkar, David Anderson, Jonah Wolfraim, Patrick Morgan, Mike P. Lewis, Siddhant, Sherry Jiang, David Lobo, Daria Aleksandrova, Anxo, Ender, and Axaia for the questions below, and to everyone else who submitted questions 🙏</p>
+<p>On to the mailbag. . .</p>
+<p><img alt="Image from 1,000,000" src="https://substack-post-media.s3.amazonaws.com/public/images/df80d241-d9c0-40ce-8766-d85d3a0a948a_2913x1530.jpeg" /></p>
+<h3><strong>What! So many product managers?</strong></h3>
+<p>I know, right?</p>
+<p>Seriously, though, there are apparently <a href="https://www.linkedin.com/search/results/people/?keywords=product+manager&amp;origin=FACETED_SEARCH&amp;sid=xzE&amp;titleFreeText=product+manager">over a million product managers</a> globally. But more importantly, my audience is much wider now. Roughly half are PMs, but over a quarter are founders, and the rest (and the segment growing fastest) are a mix of adjacent functions: engineers, designers, growth/marketing, data, UXR, etc.</p>
+<p>The newsletter (and podcast) are growing fastest among non-PMs because, with the rise of AI engineers, <a href="https://www.lennysnewsletter.com/p/why-pms-are-best-positioned-to-thrive">as I’ve written</a>, the skills that matter more and more are PM skills:</p>
+<ul>
+<li>figuring out what to build</li>
+<li>prioritizing the highest-ROI opportunities among endless ideas</li>
+<li>getting buy-in</li>
+<li>clearly and succinctly articulating requirements</li>
+<li>having the taste and experience to know if what you’ve built is good</li>
+<li>driving adoption, growth, and retention</li>
+</ul>
+<p>That’s exactly the kind of stuff I write about.</p>
+<p>While I initially positioned the newsletter around product management so it was easy for me and others to explain what it was about, I’ve always intentionally kept the focus much wider (“A weekly advice column about building product, driving growth, and accelerating your career”) because I knew I’d be incredibly bored just writing about product management week after week.</p>
+<h3>Do you have employees helping you with the newsletter? Why or why not, and how many?</h3>
+<p>I have no full-time employees (that’s been a goal of mine), but I do have an all-star team of freelancers and contractors. I look for stuff I can delegate, and for people who can help me level up the quality of my work.</p>
+<p>Here’s what the team looks like today:</p>
+<ol>
+<li><strong>Newsletter:</strong> I do all of my own writing and editing (10 to 30 hours per post), but I’ve also got an amazing editor (who gives me content and structure feedback), copy editor (who edits for grammar, typos, and clarity), and designer. For the first couple of years it was just me, but now I can’t live without this crew.</li>
+<li><strong>Podcast:</strong> I work with two boutique agencies that help me with basically everything outside of finding guests and recording the episode. They handle audio and video editing; titles, thumbnails, and descriptions; coordinating with guests and sponsors; social clips and episode trailers; publishing each episode, and more. I did most of this myself to start, and I still review everything (refining titles and thumbnails, tightening episodes, simplifying top takeaways). I’m also experimenting with a researcher to help me get background on the fancier guests. Btw, check out <a href="https://www.lennysnewsletter.com/p/my-podcast-tech-stack-workflows-and">this post on my podcast stack</a>.</li>
+<li><strong>Community:</strong> I’ve got a (new!) community lead and a small team of contractors and volunteers who help me run the 20,000+-member Slack community. The community that’s formed around the newsletter and podcast is the thing I’m proudest of, of all the things I’ve done. It’s very special.</li>
+<li><strong>Other:</strong> I also have an EA and an engineer who help across all of the areas above.</li>
+</ol>
+<p>I suspect the team won’t grow too far beyond this.</p>
+<h3>What was the moment you realized, “OMG, this is actually working, and I can do it full-time”?</h3>
+<p>There was a moment nine months in, after publishing something every single week, when I realized that it was still fun for me, people were finding it valuable, and I still had dozens of ideas for things I wanted to write about—after 36 posts. I realized then that maybe this could be a real thing. And that’s also the moment I decided to add the paid plan. (Because adding a paid plan means you need to commit to writing for at least another year, since people are buying annual plans.) After adding the paid plan, people started to pay for it.</p>
+<p>I found my Ikigai.</p>
+<p><img alt="Image from 1,000,000" src="https://substack-post-media.s3.amazonaws.com/public/images/ef483c6f-5451-4f72-b825-08e460e33de8_1414x1524.png" /></p>
+<h3>In the beginning, did you feel like you were preaching in the desert?</h3>
+<p>The reason I started writing was to crystallize my own thinking and to not forget what I’d learned. After leaving Airbnb, I was planning to start another company, and I asked myself, “What did I actually learn over the course of my time at Airbnb?” I wasn’t totally sure. I started putting together a bullet-point list of some lessons. I realized those might be useful to other people, so I turned that into <a href="https://marker.medium.com/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">this Medium post</a> (a cliché, I know). The post did really well, and that motivated me to keep writing.</p>
+<p>I wrote a few more things on <a href="https://medium.com/@lennysan">Medium</a> and got good enough feedback from people I respected to motivate me to keep going. So I kept going.</p>
+<p>After a handful of posts, I moved over to Substack (because I got advice that collecting people’s email addresses was useful no matter whether I started a company or kept up this writing thing), and that led to adding the paid plan, and now we’re here.</p>
+<p>As I write out the answer to this question, I see that the key was getting enough positive signals in the early days (while the idea was an “<a href="https://www.forbes.com/sites/andyboynton/2014/03/17/pixar-chief-protect-your-ugly-babies-your-unsightly-ideas/">ugly baby</a>”) to motivate me to keep going. So there’s a tip: Find the folks who can give you the motivation to keep going.</p>
+<h3>What did the growth curve look like in the early days? How did you sustain momentum when you were under 5K?</h3>
+<p>Here you go:</p>
+<p><img alt="Image from 1,000,000" src="https://substack-post-media.s3.amazonaws.com/public/images/b87bb799-d3e6-4fb5-904a-defb7ebaece2_2913x1530.jpeg" /></p>
+<p>Three things that most helped me grow in the beginning:</p>
+<ol>
+<li>Two guest posts in other newsletters to kick things off (in July): <a href="https://review.firstround.com/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager/">The First Round Review</a> and <a href="https://andrewchen.com/grow-marketplace-supply/">Andrew Chen’s blog</a></li>
+<li>A popular series of posts that led to a large spike (in late November): <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">How to kickstart and scale a marketplace business</a></li>
+<li>Otherwise, simply publishing something valuable every single week, week after week, for 9+ months</li>
+</ol>
+<h3>Have you thought about your off-ramp plans? Someday you may not feel like writing or podcasting. Will you build a team? Shut down? I am always curious about solopreneurs’ long-term plans.</h3>
+<p>This is a very astute question. I have no idea how this story ends.</p>
+<p>I can obviously just stop if I want to, but then everything I’ve built falls apart. I don’t want that. I’m also not aware of anyone who has done what I’m doing and found a clean off-ramp.</p>
+<p>This is a real problem and an open question. But I’m very lucky to be able to do this for a living, so I’m not complaining. I’m also experimenting with ideas that may reveal an answer about the long-term plan:</p>
+<ol>
+<li>Leaning into guest posts (which also end up being <a href="https://www.lennysnewsletter.com/archive?sort=top">my most popular posts</a>)</li>
+<li>Incubating new podcasts (with new hosts)</li>
+<li>Finding ways to delegate more of the work (mixed results so far)</li>
+<li>Giving myself more ways to take time off (e.g. <a href="https://www.lennysnewsletter.com/p/pto-policy">PTO policy</a>)</li>
+</ol>
+<p>If you have ideas here, I’m all ears👂</p>
+<h3>What were the key inflection points in your journey to 1M subscribers? What growth strategies have worked best for you in growing your newsletter, YouTube, and podcast audiences? What growth tactics didn’t work?</h3>
+<p>I’ve experimented with all the growth levers—paid ads, SEO, referrals, BD—and none of them have done a damn thing.</p>
+<p>The only way this newsletter has grown, with two exceptions, is good old-fashioned word of mouth. That’s actually one of the best parts of an email newsletter—it’s very easy to forward and share.</p>
+<p>Outside of that, two things did make a dent:</p>
+<ol>
+<li><a href="https://on.substack.com/p/recommendations">Substack’s recommendation feature</a>. If you look at the chart at the top of this post, the hockey-stick moment was the day they launched that feature. Today, over 5,000 other newsletters recommend my newsletter. Without it, if you extrapolate from the trajectory beforehand, I’d maybe be at 500,000 subscribers. It’s important to note, though, that the Recommendations feature only works if other writers find your stuff worth recommending. Which is essentially word of mouth. So it still comes back to WOM.</li>
+<li><a href="https://www.lennysnewsletter.com/p/announcing-the-greatest-product-bundle">The Greatest Bundle Ever</a>. This didn’t accelerate my free subscriber growth, but it did do a lot of good for my paid subscriber growth. However, this sort of approach works only if you already have a large following. So it wouldn’t work for folks just getting started. And to get here . . . WOM.</li>
+</ol>
+<p>How do you drive word of mouth? In the words of Arnold Schwarzenegger: <a href="https://beusefulbook.com/">Be useful</a>. As I shared in my post when reaching <a href="https://www.lennysnewsletter.com/p/500000">500,000 subscribers</a>:</p>
+<blockquote>
+<p>There’s no trick to making something like this grow. Growth comes from publishing something valuable, that people want to share with their friends and colleagues, over and over and over.</p>
+</blockquote>
+<p><a href="https://www.lennysnewsletter.com/i/136342278/quality-consistency-all-that-matters">Here’s some tactical advice</a> on how to actually do this.</p>
+<h3>What would you have done differently? Put another way, are there opportunities you missed? Things you wish you’d started or stopped sooner?</h3>
+<p>I honestly can’t think of anything too meaningful. I did do a Maven course at one point that I stopped doing. It went great and people liked it, but it didn’t bring me enough joy (something I try to look for in the things I take on). So I stopped. That ended up creating space to try a podcast, which proved to be much better aligned with my goals.</p>
+<p>Outside of that, I joke that maybe I should have thought harder about the name of this newsletter, instead of going with the default name suggestion the Substack onboarding flow gave me.</p>
+<h3>How do you think about balancing writing what you know will do well vs. writing what you feel is important to you to express?</h3>
+<p>Initially, my heuristic was 80% writing about what I’m energized/curious/excited to write about and 20% writing about what people want me to write about. These days, it’s actually 100% what I’m curious about. I now never publish anything only because I know it’ll do well.</p>
+<p>This is actually a very important lesson I’ve learned: In this line of work, individual (viral) posts come and go, but it’s all about how long you can stick with it. One viral post: easy. One post every week for five years: much less easy. You need to prioritize stamina over anything else. In other words, <a href="https://www.amazon.com/Finite-Infinite-Games-James-Carse/dp/1476731713">play “infinite games</a>.”</p>
+<h3>How do you allocate your time between newsletter and podcast? Which one gives you more pleasure and which one more revenue? If contradictory, how do you reconcile that?</h3>
+<p>I bet this answer will surprise a lot of people.</p>
+<p>The podcast takes less work <em>and</em> generates more revenue than the newsletter.</p>
+<p>However, the newsletter is the main reason the podcast even had a chance at breaking through. Very few podcasts have the luxury of a massive newsletter promoting their podcast.</p>
+<p>To be more concrete, each podcast episode takes me 3 to 5 hours, including prep time, recording time, and reviewing draft edits, titles, thumbnails, etc. Each newsletter post takes me 10 to 30 hours. People always ask me how I’m able to put out so much content, but if you add this together (one newsletter post plus one to two podcast episodes a week), that’s basically a 40-hour job. Very doable.</p>
+<h3>Who was your favorite guest on the podcast, and why was it <a href="https://www.youtube.com/watch?v=nTr21kgCFF4">Nan</a>?</h3>
+<p>Haha, that actually <em>is</em> one of my favorites and has been the most mentioned over the past month when I run into folks. A few others to check out that you may have missed:</p>
+<ol>
+<li><a href="https://youtu.be/tq6vdDJQXvs?si=-FqZvVQ4cvBbC7sY">Tobi Lütke</a></li>
+<li><a href="https://youtu.be/2XgU6T4DalY?si=77-CVhVGgkstVLRw">Elizabeth Stone</a></li>
+<li><a href="https://youtu.be/egdYKLBswgk?si=aO-RS9ibQpstLotk">Drew Houston</a></li>
+<li><a href="https://youtu.be/bhnfZhJWCWY?si=RJxCWlrwtqTWTXY3">Nikita Bier</a></li>
+<li><a href="https://youtu.be/IHwS2By9UKM?si=SFU_5bhBJyysIu_f">Elena Verna</a></li>
+<li><a href="https://youtu.be/m7LvNTbaqSI?si=4pGkqaFNk8enQiS4">Dalton Caldwell</a></li>
+<li><a href="https://youtu.be/uDq6_CPaRjM?si=DhbJyzU-TdHUHrej">Mihika Kapoor</a></li>
+<li><a href="https://youtu.be/969dwgu98qc?si=O5Vlsyz2aN1tkneY">Jen Abel</a></li>
+<li><a href="https://youtu.be/yc1Uwhfxacs?si=LIXF6SABF3yh2LYU">Todd Jackson</a></li>
+<li><a href="https://youtu.be/gfEEcssu304?si=7273FsNWR1ZahKkO">Katie Dill</a></li>
+<li><a href="https://youtu.be/qbZQjprTnrU?si=YG2XMnqb_Y4Nz12L">Jeff Weinstein</a></li>
+</ol>
+<h3>How do you keep your content fresh and engaging when scaling to such heights?</h3>
+<p>Guest posts. A few years ago, I realized that there’s no world where I have 52 lessons a year for the rest of time. The solution is to use this platform to help the best product and growth minds in the world share their best lessons. The trick is that most people aren’t necessarily great at writing. To make this work, I spend 10+ hours with each guest author editing, refining, and tightening their post. We go through 5 or 6 iterations before we get to something that hits the bar I set for this newsletter. And it’s working. Most of my most popular posts are now guest posts, and most of the guest posts are far better than my posts. It takes a lot of work, but it pays off.</p>
+<h3>What do you think modern product management is going to look like in the age of AI?</h3>
+<p>As I was answering this question, Marty Cagan published a post about the same topic, and I 100% agree with his take. <a href="https://www.svpg.com/a-vision-for-product-teams/">Go read it</a>. The gist, to answer your question, is that I expect product teams will shrink by 25% to 50% (mostly, fewer engineers); PMs will have even <em>more</em> influence and leverage, and oversee more scope, but they’ll spend more time in discovery and GTM, and less time designing and building.</p>
+<p>It’s actually a really good time to be a PM. Companies will continue to need product people who can help them figure out what to build, work with AI and humans to build it, make sure it’s great and correct, and then drive adoption. But the bar will continue to rise.</p>
+<p>If you want to stay on top of what’s going on, check out these posts:</p>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/a-guide-to-ai-prototyping-for-product">A guide to AI prototyping for product managers</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Product manager is an unfair role. So work unfairly.</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-become-a-supermanager-with">How to become a supermanager with AI</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/five-proven-prompt-engineering-techniques">Five proven prompt engineering techniques (and a few more-advanced tactics)</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-use-chatgpt-in-your-pm-work">How to use ChatGPT in your PM work</a> (and <a href="https://www.lennysnewsletter.com/p/how-to-use-perplexity-in-your-pm">Perplexity</a>)</li>
+</ol>
+<h3>Any dream podcast guests you haven’t yet had on the show?</h3>
+<p>Yes. Here’s my current list:</p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Gwynne_Shotwell">Gwynne Shotwell</a></li>
+<li><a href="https://x.com/levelsio">Levelsio</a></li>
+<li><a href="https://x.com/miramurati">Mira Murati</a></li>
+<li><a href="https://www.linkedin.com/in/jenhsunhuang/">Jensen Huang</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Jony_Ive">Jony Ive</a></li>
+<li><a href="https://karpathy.ai/">Andrej Karpathy</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sheryl_Sandberg">Sheryl Sandberg</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tony_Fadell">Tony Fadell</a></li>
+<li><a href="https://www.paulgraham.com/">Paul Graham</a></li>
+<li>Elon 😬</li>
+</ol>
+<p>Anyone else you’d love to see come on the podcast? Leave a comment and let me know 🙏</p>
+<h3>What three pieces of advice would you give yourself to reach this point even faster?</h3>
+<p>Why try to reach this point faster? What’s the rush? Play infinite games. Enjoy the ride. You’ll do great.</p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><a href="https://www.halo.science/">Halo Science</a> is hiring for a Head of Product. In this role, you’ll:</p>
+<ul>
+<li>Be hands-on executing, while also helping craft strategy for the future of Halo’s product</li>
+<li>Work cross-functionally across GTM, design, and engineering—with exposure to the entirety of the business’s moving parts</li>
+<li>Report directly to their CEO</li>
+</ul>
+<p><strong>Why I think the company and role are interesting:</strong></p>
+<ul>
+<li>I’m an investor! I’m a big fan of what they’re doing.</li>
+<li>They are well funded but also very early. This is an opportunity to not only lead product for a company that is disrupting the science R&amp;D space but also help build the exact team you want.</li>
+</ul>
+<p>If you’d like to get your profile sent directly to their team, just fill out <a href="https://airtable.com/appTNAXC72V74HqPS/pagCczxszIZPdd00t/form">this quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p><em>If you’d like to get your role featured here, <a href="https://airtable.com/apphKJD0wLIHfPcZu/pag09IdQYrMpolMa5/form">apply here</a>. If you’re interested in working with my white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), apply to work with us <a href="https://www.lennysjobs.com/">here</a>.</em></p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

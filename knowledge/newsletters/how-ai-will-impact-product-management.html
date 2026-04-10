@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How AI will impact product management — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How AI will impact product management</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How AI will impact product management</div>
+    
+    <div class="article-meta">2024-04-09<span>·</span>3,134 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Check out my </em><em><a href="https://www.lennysjobs.com/">PM recruiting service</a></em><em> (helping you hire Sr. PMs and VPs), </em><em><a href="https://www.lennybot.com/">Lennybot</a></em><em> (an AI chatbot trained on my newsletter posts, podcast interviews, and more), and my </em><em><a href="https://lennyswag.com/">swag store</a></em>**<em>(great gifts for your favorite PM, or yourself!).</em></p>
+<blockquote>
+<h2>Q: I’d love to see a list of core skills for PMs and to what extent they’ll be replaced/impacted/influenced by AI.</h2>
+</blockquote>
+<p>I’ve been thinking about this question a lot. AI is coming for many jobs, but it’s different when it comes for yours. Is the PM job one of the first to be replaced or one of the last? What skills will be most, and least, valuable in this fast-approaching future?</p>
+<p>As I often do when thinking about a question, I ran a poll on <a href="https://twitter.com/lennysan/status/1760091303382266154">Twitter</a> and <a href="https://www.linkedin.com/posts/lennyrachitsky_activity-7166159716623056896-YKyP/">LinkedIn</a> asking which core skills of product management folks think are most likely to be impacted/replaced by AI. Here are the results:</p>
+<p><img alt="Image from How AI will impact product management" src="https://substack-post-media.s3.amazonaws.com/public/images/56bda212-312a-45e4-a9e5-8875fe5a6fb0_1832x984.png" /></p>
+<p>Here’s the thing: I believe the truth is the complete opposite.</p>
+<p>Some may think that because AI is good at helping them write and accomplish small tasks today, soon it’ll take over most of the low-level communication, collaboration, and execution work we do.</p>
+<p>Instead, I believe that AI will have the most profound impact on the high-level (and historically most valued) skills of product management: developing a strategy, crafting a vision, identifying new opportunities, and setting goals. Furthermore, soft skills like product sense, communication, creativity, and being the glue that enables a team to operate at their very best will become even more important (and a differentiator among companies).</p>
+<p>Think about it—what is AI best at? Taking gigabytes of data, analyzing it, and giving succinct and (increasingly) insightful answers. That sounds a lot like a tool that would be incredibly good at identifying a clever strategy.</p>
+<p>If this sounds unlikely, remember <a href="https://www.wired.com/2016/03/two-moves-alphago-lee-sedol-redefined-future/">move 37</a> in the match between AlphaGo and Lee Sedol (one of the world’s top Go players). AI saw something no human had ever seen in playing the game for over 4,000 years.</p>
+<blockquote>
+<p><em>“With the 37th move in the match’s second game, AlphaGo landed a surprise on the right-hand side of the 19-by-19 board that flummoxed even the world’s best Go players, including Lee Sedol. ‘That’s a very strange move,’ said one commentator, himself a nine dan Go player, the highest rank there is. ‘I thought it was a mistake,’ said the other. […]</em></p>
+<p><em>Indeed, the move turned the course of the game. AlphaGo went on to win Game Two, and at the post-game press conference, Lee Sedol was in shock. </em><em>‘Yesterday, I was surprised,’ he said through an interpreter, referring to his loss in Game One. ‘But today I am speechless.’</em><em>”</em></p>
+</blockquote>
+<p>Another example—when Sam Altman, CEO of OpenAI, was asked four years ago how OpenAI would make money, here was his answer:</p>
+<p><a href="https://www.youtube.com/watch?v=TzcJlKg2Rc0">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“We have made a soft promise to investors that once we’ve built this generally intelligent system, we will ask it to figure out a way to generate an investment return.”</em></p>
+</blockquote>
+<p>Similarly, here’s Jensen Huang, CEO of Nvidia, telling people that soon no one is going to have to learn how to program, because AI will program for us:</p>
+<p><a href="https://www.youtube.com/watch?v=6Lcy2N3YcIs">Watch on YouTube</a></p>
+<blockquote>
+<p><em>“Everybody who sits on a stage like this would tell you it is vital that your children learn computer science. That everybody should learn how to program. In fact, it’s almost exactly the opposite. </em><em>It is our job to create computing technology such that nobody has to program. That the programming language is human. Everybody in the world is now a programmer. This is the miracle of artificial intelligence.”</em>**</p>
+</blockquote>
+<p>These are arguably the smartest people in the world when it comes to AI, and they are saying that historically high-level skills like engineering and business (and game) strategy are going to be solved by AI. It’s actually already happening in engineering (check out <a href="https://twitter.com/cognition_labs/status/1767548763134964000">Devin</a> and <a href="https://twitter.com/natfriedman/status/1758143612561568047">Magic</a>).</p>
+<p>On the other side, what are <em>people</em> best at? People stuff! Aligning opinionated stakeholders, unblocking blockers, pushing teams to work harder, creating amazing experiences, getting buy-in on big ideas, understanding and acting on nuance, etc. I’m not saying AI won’t be better than humans at this stuff one day (check out <a href="https://x.com/hume_ai/status/1773017055974789176">Hume</a> 🤯), or at least very helpful. I’m saying that these soft skills are where AI won’t take over for a long while, and thus they are the skills you should be cultivating more than ever.</p>
+<p>I once <a href="https://www.lennysnewsletter.com/i/44031543/the-job-of-a-product-manager">defined</a> the job of a product manager as to “<strong>deliver business impact by marshaling the resources of your team to identify and solve the most impactful customer problems.</strong>” Essentially, to be the conductor/quarterback/glue of the team who pulls all the disparate pieces together to create great products and drive the business forward. I believe this will only increasingly become the case now that AI is one of your resources, and this element of the role will become ever more important.</p>
+<p>Here are the besties making that case on the most recent All-In episode (2-minute clip):</p>
+<p><a href="https://www.youtube.com/watch?v=z3Zzlgo-xZM">Watch on YouTube</a></p>
+<p>To show you what I mean, I’ve created a semi-comprehensive list of the day-to-day work that a PM does and ranked how much I believe AI will disrupt that work on a scale of 1 to 5 🤖s (the more 🤖, the more AI will take it over). I’ve also included tools that can help with these jobs today that you may want to check out.</p>
+<p><strong>Disclaimers:</strong></p>
+<ol>
+<li>This assumes a world before super-intelligent AGI. Once we get there, all bets are off 😵‍💫</li>
+<li>I’m not arguing that you should stop improving the skills that AI will be great at. I’m saying you should double down on strengthening your soft skills (e.g. communication, collaboration, product sense, influence) and learn how to work with AI on creating more leverage in your hard skills (strategy, vision, data, setting goals).</li>
+<li>This post is just the beginning of a discussion. I’d love to hear what I’m missing or where I’m getting it wrong. Please tell me! Leave a comment with your thoughts once you’ve read the post 👇</li>
+</ol>
+<p><a href="https://www.lennysnewsletter.com/p/how-ai-will-impact-product-management/comments">Leave a comment</a></p>
+<p>As a framework to have this discussion, I think of the PM role as consisting of <a href="https://www.lennysnewsletter.com/p/what-is-product-management">three jobs, each of which contains a number of tasks and skills</a>:</p>
+<p><img alt="Image from How AI will impact product management" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f20f2147-5cc4-453e-ac6a-8c274d5931ff_2400x1350.png" /></p>
+<h2><strong>1. Shape the product 🤖🤖🤖</strong></h2>
+<p>This part of the job is where you determine/influence what your team builds, and it is where product management is the most different from project manager, or product owner. It’s also where you bring the most value to the org. Here’s the day-to-day product-shaping work of a PM, and how I believe AI will impact it:</p>
+<h4><strong>1. 🤖🤖🤖🤖</strong> Developing a product strategy and vision: Significantly impacted</h4>
+<ul>
+<li><strong>The job:</strong> Analyzing your market, data, customers’ needs, and insights about the future to craft a winning product strategy and vision.</li>
+<li><strong>AI’s impact:</strong> This is where AI will eventually be strongest—taking a ton of data and developing a super-intelligent plan. The PM’s role here will shift to becoming very good at knowing what data to feed it and asking the right questions. And to be clear, I’m not saying you should quit building your strategic-thinking muscle—I’m just saying that AI will give you huge leverage here eventually.</li>
+<li><strong>Tools to explore:</strong> <a href="https://chat.openai.com/">ChatGPT</a>, <a href="https://claude.ai/">Claude</a>, <a href="https://gemini.google.com/app">Gemini</a>, <a href="https://www.perplexity.ai/">Perplexity</a>, and <a href="https://www.lennysnewsletter.com/i/111708404/strengthen-your-argument">here are examples</a> of how people are already using ChatGPT to strengthen their thinking</li>
+</ul>
+<h4>2. <strong>🤖🤖🤖🤖</strong> Setting goals: Significantly impacted</h4>
+<ul>
+<li><strong>The job:</strong> Picking KPIs, setting goals, drafting OKR docs, and creating dashboards to track these metrics.</li>
+<li><strong>AI’s impact:</strong> AI tooling will become increasingly smart at suggesting goals you should be optimizing for, based on your strategy, business requirements, and constraints. PMs will become editors of super-intelligent suggestions.</li>
+<li><strong>Tools to explore:</strong> <a href="https://chat.openai.com/">ChatGPT</a>, <a href="https://claude.ai/">Claude</a>, <a href="https://gemini.google.com/app">Gemini</a>, <a href="https://www.perplexity.ai/">Perplexity</a></li>
+</ul>
+<h4>3. <strong>🤖🤖🤖</strong> Creating specs: Considerably facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Crafting PRDs/1-pagers for engineers and designers to implement new products/features.</li>
+<li><strong>AI’s impact:</strong> <a href="https://x.com/clairevo/status/1775716873830797377?s=20">This is already happening</a> with tools like <a href="https://www.chatprd.ai/">ChatPRD</a>. Describe what you want in human language, get an 80% complete draft, refine it, and then ship.</li>
+<li><strong>Tools to explore:</strong> <a href="https://www.chatprd.ai/">ChatPRD</a>, <a href="https://writemyprd.com/">WriteMyPRD</a>, <a href="https://uizard.io/">Uizard</a>, and <a href="https://makereal.tldraw.com/">tldraw</a> (to create mocks and prototypes)</li>
+</ul>
+<h4><strong>4. 🤖🤖🤖 Discovery:</strong> Considerably facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Talking to customers, analyzing data, and getting input from sales and CX conversations to uncover insights about customer pain points and opportunities and inform what to build.</li>
+<li><strong>AI’s impact:</strong> Tools will make it significantly easier to find the signal in the noise. However, customers will still want to talk to real people to share their honest challenges, ideas, and experiences. Skills like empathy, communication, and creativity will become increasingly important for connecting with customers.</li>
+<li><strong>Tools to explore:</strong> <a href="https://dovetail.com/">Dovetail</a>, <a href="https://sprig.com/">Sprig</a>, <a href="https://www.kraftful.com/">Kraftful</a>, <a href="https://www.notably.ai/">Notably</a>, <a href="https://www.askviable.com/">Viable</a>, <a href="https://maze.co/ai/">Maze</a>, and <a href="https://www.lennysnewsletter.com/i/111708404/collect-and-summarize-user-feedback-and-usage-data">a bunch of examples from readers</a></li>
+</ul>
+<h4>5. <strong>🤖🤖</strong> <strong>Building a roadmap</strong>: Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Ideate, refine, prioritize, and get buy-in on a 3-to-6-month roadmap.</li>
+<li><strong>AI’s impact:</strong> AI tools will give you a strong first draft (taking in your strategy, user research, and goals) and help you prioritize ideas, but you’ll still spend time with your team brainstorming, reviewing data and user research, discussing tradeoffs, and refining your roadmap. The roadmap determines what your team does, so it’s hard to imagine significantly offloading this to AI for quite a while.</li>
+<li><strong>Tools to explore:</strong> <a href="https://www.productroadmap.ai/">Productroadmap.ai</a></li>
+</ul>
+<h4><strong>6. 🤖🤖 Giving product/design feedback:</strong> Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Provide feedback on designs, prototypes, and the final product before it goes live.</li>
+<li><strong>AI’s impact:</strong> This is where we’ll need (and want) human input for a long while—if for nothing else than to keep the user experience simple, cohesive, and delightful. This is also where companies will have the most opportunity to compete, once everyone’s got AI tools at their disposal. That being said, I can definitely imagine AI tools will get good at pointing out UX challenges and suggesting best practices.</li>
+</ul>
+<h2><strong>2. Ship the product 🤖🤖</strong></h2>
+<p>This part of the job is where PMs help their team, and org, ship high-quality products on time and free of surprises.</p>
+<h4>1. <strong>🤖🤖🤖🤖</strong> Quality assurance: Significantly impacted</h4>
+<ul>
+<li><strong>The job:</strong> Battle-test products before they launch, to catch bugs, UX issues, and confusing copy.</li>
+<li><strong>AI’s impact:</strong> Tooling will likely become incredibly good at catching unexpected behaviors. Feed it your PRD/1-pagers, and AI will tell you where it got stuck. This is already happening with tools like the ones below.</li>
+<li><strong>Tools to explore:</strong> <a href="https://www.rainforestqa.com/?gad_source=1">Rainforest</a>, <a href="https://katalon.com/">Katalon</a>, <a href="https://www.codium.ai/">Codium</a>, <a href="https://www.sapient.ai/">Sapient</a>, <a href="https://www.diffblue.com/">Diffblue</a></li>
+</ul>
+<h4>2. <strong>🤖🤖</strong> Fighting for budget/resources: Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Make a case for budget and people, and convince leaders to give them to you.</li>
+<li><strong>AI’s impact:</strong> If an org overall is running in an increasingly automated way, this part will become more AI-driven. But you’ll continue to use all your human negotiating skills to get resources for your team.</li>
+</ul>
+<h4>3. <strong>🤖🤖</strong> Unblocking blockers: Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Identify blockers, delays, and unexpected challenges your team runs into, and solve them.</li>
+<li><strong>AI’s impact:</strong> Tools will make it easier to identify issues, but engineers and designers will want to discuss and solve problems with people (i.e. not feel like they are being treated like robots). This work involves a lot of soft skills and, often, a soft touch.</li>
+</ul>
+<h4>4. <strong>🤖🤖 GTM:</strong> Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Training sales, marketing, CX, etc. ahead of launch, crafting copy, and figuring out positioning.</li>
+<li><strong>AI’s impact:</strong> This will get easier with some AI assistance, but will likely still require humans talking with other humans to make sure everyone has what they need to make the launch a success.</li>
+<li><strong>Tools to explore:</strong> <a href="https://www.copy.ai/">Copy.ai</a>, <a href="https://www.jasper.ai/free-trial?adgroupid=124949426633&amp;gad_source=1">Jasper</a></li>
+</ul>
+<h4>5. <strong>🤖</strong> Adjusting resources/priorities when things come up: Somewhat facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Dealing with unexpected vacation/sick time, scope creep, technical challenges, stakeholder requests, etc.</li>
+<li><strong>AI’s impact:</strong> This is core glue work that PMs are currently best at, and will continue to provide value around.</li>
+</ul>
+<h2><strong>3. Sync the people 🤖🤖</strong></h2>
+<p>Finally, a big chunk of a PM’s day-to-day work is keeping stakeholders aligned—around a vision, strategy, goal, roadmap, and timelines. This involves a lot of soft skills—communication, collaboration, influence, empathy—and thus it’s an area PMs will continue to own for quite a while.</p>
+<h4><strong>1. 🤖🤖🤖</strong> Running meetings: Considerably facilitated</h4>
+<ul>
+<li><strong>The job</strong>: Running effective standups, product reviews, kickoffs, 1:1s, etc.</li>
+<li><strong>AI’s impact:</strong> AI will assist in many ways (e.g. clarifying agendas, helping the meeting run efficiently, taking smart notes, sending along action items), but people will want to meet with people, and for better or worse we’ll all still be spending a lot of time in (more efficient) meetings.</li>
+<li><strong>Tools to explore:</strong> <a href="https://gamma.app/https://tome.app/">Gamma</a>, <a href="https://tome.app/">Tome</a>, <a href="https://fireflies.ai/">Fireflies</a>, <a href="https://otter.ai/">Otter</a>, <a href="https://rewatch.com/">Rewatch</a>, <a href="https://www.airgram.io/">Airgram</a>, <a href="https://www.avoma.com/">Avoma</a></li>
+</ul>
+<h4><strong>2. 🤖🤖 Communicating important information up and down the ladder:</strong> Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Share information, changes, surprises, and important news with team members, execs, managers, stakeholders, and customers. Avoid surprises and waste.</li>
+<li><strong>AI’s impact:</strong> This is core glue work. AI will help in many ways, but I expect this is where people will continue to bring a lot of value.</li>
+</ul>
+<h4><strong>3. 🤖🤖</strong> Aligning stakeholders: Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Getting buy-in from sales, marketing, CX, etc. for your product roadmap, timelines, and vision, and then again before your final product goes live.</li>
+<li><strong>AI’s impact:</strong> Humans will need to drive this work for quite a while. This generally involves a lot of soft-skills work, like making everyone feel heard, adjusting priorities based on feedback, dealing with disagreements, and communicating changes in priorities—while also pushing for what you believe is right. Though I do suspect that tools like <a href="https://x.com/hume_ai/status/1773017055974789176">Hume</a> will help us with influencing people.</li>
+<li><strong>Tools to explore:</strong> <a href="https://gamma.app/https://tome.app/">Gamma</a>, <a href="https://tome.app/">Tome</a>, <a href="https://x.com/hume_ai/status/1773017055974789176">Hume</a></li>
+</ul>
+<h4><strong>4. 🤖</strong> Aligning your team: Facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Getting your team’s buy-in on the vision, strategy, roadmap, goals, and timelines.</li>
+<li><strong>AI’s impact:</strong> Lots of squishy people stuff, so I expect AI will not impact this job much for a while.</li>
+<li><strong>Tools to explore:</strong> <a href="https://gamma.app/https://tome.app/">Gamma</a>, <a href="https://tome.app/">Tome</a>, <a href="https://x.com/hume_ai/status/1773017055974789176">Hume</a></li>
+</ul>
+<h4><strong>5. 🤖 Maintaining team morale:</strong> Somewhat facilitated</h4>
+<ul>
+<li><strong>The job:</strong> Building team culture, bringing the energy, catching morale issues and addressing them, maintaining team momentum, and generally being the energy center of the team.</li>
+<li><strong>AI’s impact:</strong> Maybe AI will make it easier to identify teammates who need special attention, but otherwise this is where we will need humans for a long time.</li>
+</ul>
+<h3>Takeaways</h3>
+<p>To summarize my current thinking on the future of the product management role and AI:</p>
+<ol>
+<li>The PM role isn’t going away, and I believe it will become even more important.</li>
+<li>Soft skills—like influence, communication, product sense, creativity, and empathy—will become ever more valuable to the role of product management. Lean into building these skills.</li>
+<li>Some of the most high-value skills—like strategy, vision, discovery, data fluency (and even engineering)—will be significantly impacted by AI. As a result, you’ll want to learn how to work with AI tools (e.g. asking great questions) to build leverage in these areas.</li>
+<li>Broadly, PMs will continue to be the “glue” or “conductor” who ties everything together, helping your company’s most important assets (both people and AI) drive the most possible impact in the shortest amount of time.</li>
+</ol>
+<p>Here’s a handy summary of this post</p>
+<p><img alt="Image from How AI will impact product management" src="https://substack-post-media.s3.amazonaws.com/public/images/4787c26c-955b-4b20-8880-984081b34aa8_2318x4738.png" /></p>
+<p>I’ll leave you with <a href="https://twitter.com/tobi/status/1777433576457285881">this</a>:</p>
+<p><img alt="Image from How AI will impact product management" src="https://substack-post-media.s3.amazonaws.com/public/images/0b8920df-67fc-4566-b198-cd9eecad5acf_1832x1498.png" /></p>
+<p>This is just my thinking. I’m so curious to hear what you think. Leave a comment and let me know!</p>
+<p><a href="https://www.lennysnewsletter.com/p/how-ai-will-impact-product-management/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-use-chatgpt-in-your-pm-work">How to use ChatGPT in your PM work</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/you-should-be-playing-with-gpts-at">You should be playing with GPTs at work</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLuMcoKK9mKgHtW_o9h5sGO2vXrffKHwJL">How Do You Use ChatGPT?</a> by Dan Shipper</li>
+<li><a href="https://tomtunguz.com/art-of-pm-in-ai/">The Art of Product Management in the Fog of AI</a></li>
+<li>If you’re worried AI will be taking <em>your</em> job soon, <a href="https://twitter.com/levie/status/1776673128573284523">read this excellent thread by Aaron Levie</a>.</li>
+</ol>
+<p><em>Thank you, <a href="https://www.linkedin.com/in/dan-hock/overlay/about-this-profile/">Dan Hockenmaier</a> and <a href="https://twitter.com/danshipper">Dan Shipper</a>, for pushing my thinking on this topic.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured open role: Product Manager of Collaboration @ Notion</strong></h2>
+<p>We recently partnered with Notion to help them scale their PM team. <a href="https://boards.greenhouse.io/notion/jobs/5926606003">One role that’s particularly interesting to me</a> is an opportunity to own the asynchronous collaboration experience within Notion. If you’d like to get referred directly for this role, follow this button:</p>
+<p><a href="https://lennys-jobs.pallet.com/onboard/v3/0153c44c-b8c4-44b6-ba42-78fbcf220033/get-referred">Apply to Notion</a></p>
+<p><em>If you’re hiring and want to work with us, <a href="https://airtable.com/apprGaxWWPYU0068E/shr2WFo5UqJjA5dQ8">apply here</a>. Our team will reach out if we think it’s a good fit. Note, we primarily work with fast-growing U.S.-based startups.</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

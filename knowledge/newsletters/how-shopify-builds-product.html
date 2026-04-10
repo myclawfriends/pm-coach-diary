@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Shopify builds product — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Shopify builds product</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Shopify builds product</div>
+    
+    <div class="article-meta">2023-07-25<span>·</span>4,586 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">組織</span> <span class="mini-tag">工程</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Shopify has always done things a bit differently. They’ve been remote-friendly long before Covid, recently <a href="https://www.fastcompany.com/90888605/shopify-exec-this-is-what-happened-when-we-canceled-all-meetings">canceled all of their recurring meetings</a> (and now even <a href="https://qz.com/if-you-want-fewer-meetings-measure-them-in-cash-1850632407">show how much each meeting is costing attendees</a>!), and famously are on a mission to “<a href="https://qz.com/1954108/shopify-is-arming-the-rebels-against-amazon">arm the rebels</a>.”</p>
+<p>The business has been an unprecedented success story, too. Shopify now powers over 10% of all U.S. e-commerce, hosts a large swath of the world’s biggest e-commerce businesses, including Supreme, Glossier, Mattel, Vuori, Gymshark, and Allbirds, has processed over half a trillion dollars of GMV, and generates nearly $6B (!) of revenue per year. Shopify is also 17 years old, with almost 10,000 employees, but continues to execute like a startup and launch innovative products like <a href="https://twitter.com/tobi/status/1679114154756669441">Sidekick</a> (an AI business partner), <a href="https://twitter.com/kalenjordan/status/1682102256022192128?s=20">immersive product description pages</a>, and the world’s highest-converting checkout platform, <a href="https://news.shopify.com/shop-pay-ccs">Shop Pay</a>.</p>
+<p>To learn from Shopify’s experience scaling and optimizing their product org, I sat down with <a href="https://www.linkedin.com/in/glcoates/">Glen Coates</a>, VP of Product, responsible for the core Shopify product—the largest product team within the company.</p>
+<p><strong>Here’s what stood out to me most about Shopify’s approach to product:</strong></p>
+<ol>
+<li>Their CEO Tobi’s yearly themes, and how they inform every team’s planning</li>
+<li>Their aversion to OKRs</li>
+<li>Their homegrown task tracking system, called GSD—Get Shit Done</li>
+<li>Their shift away from a GM structure, and their move from 10 business units down to two</li>
+<li>Teams being structured around jobs to be done</li>
+<li>Their AAA framework for handling stakeholders—Aiming, Assembling, and Achieving</li>
+<li>Their recursive internal mantra that ends with “The third priority is never to reverse priorities one and two”</li>
+</ol>
+<p>Glen is also going to be announcing a swath of product updates to the Shopify platform tomorrow morning as part of the <a href="https://www.shopify.com/editions">Shopify Editions Summer ’23 launch</a>. For more from Glen, follow him on <a href="https://www.linkedin.com/in/glcoates/">LinkedIn</a> and <a href="https://twitter.com/glencoates?lang=en">Twitter</a>. For more stories of how the best product teams operate, don’t miss my interviews with <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>, <a href="https://www.lennysnewsletter.com/p/how-miro-builds-product">Miro</a>, <a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">Ramp</a>, <a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">Notion</a>, and <a href="https://www.lennysnewsletter.com/p/how-snowflake-builds-product">Snowflake</a>.</p>
+<h1>How Shopify builds product</h1>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/586ee879-d8a7-48e0-b926-e49cd1f2378b_1066x1600.jpeg" /></p>
+<h3>1. How far out do you plan in detail, and how has that evolved over the years?</h3>
+<p>Until very recently, Shopify had an annual planning process where we’d present plans to the CEO and Finance in August or September. We’d write these long docs, but unsurprisingly, they’d usually get torn up by about March. So planning became this charade of <em>we’re going to do this insane planning thing, but we know it’s all just going to go sideways in three months</em>. We all know how crazy it’s been out there; things are changing so fast all the time. People who think they can see a year out are mostly kidding themselves.</p>
+<p>Instead now, once a year, <a href="https://twitter.com/tobi">Tobi</a> [Shopify’s founder and CEO] sets themes for the year. This year there were six that reflect top-level priorities. They’re always written from the point of view of the merchant. We try to imagine a Shopify merchant writing an email to a friend where they say, “Here’s why I love Shopify, and here’s why I’m going to keep using it for my business.”</p>
+<p>One of the themes that Tobi added this year was “Shopify keeps me on the cutting edge.” Which is an amorphous thing, “the cutting edge”—what does that mean? Is it developer tooling? Is it AI? Is it evolving regulations like <a href="https://developer.apple.com/documentation/apptrackingtransparency">ATT</a>? Is it how I optimize my checkout for conversion? It could be any of that, which is the idea. We want merchants to focus on their business. We want them to think, “Hey, I’m just a guy trying to sell candles. Do I really want to have to learn everything about checkout conversion optimization? Do I really want to have to read white papers coming out of OpenAI, or can I trust that Shopify’s got me and I can just focus on my candles?” This year, especially with AI, that theme was such a focusing lens for us. We have to be on the bleeding edge so merchants don’t have to be.</p>
+<p>Once we have Tobi’s themes, one level lower within each top-level team (e.g. Core), we think about the ways we could measure our impact against those themes. We come up with what would end up being called an objective or something that smells a bit like an OKR (though we would never say that here).</p>
+<p>That turns into a rough six-month roadmap. This aligns with our twice-yearly releases, <a href="https://www.shopify.com/ca/editions/all">Shopify Editions</a>, which are our big releases with hundreds of improvements, features, and products.</p>
+<p><img alt="Image" src="https://substack-post-media.s3.amazonaws.com/public/images/978d495a-c371-4e97-8901-37030c9de1d1_982x852.jpeg" /></p>
+<p>We want to have very high confidence in what’s going to be shipping in the next Edition, and some idea of what will go in the one after that, but we don’t try to think too much further than that. Then every six weeks, teams come together and do their sprint-level detailed planning of what they are doing right now.</p>
+<p>So that’s kind of the lay of the land in terms of planning. Themes once a year, which gets translated into a six-month plan, and then there are four six-week cycles inside each half.</p>
+<p>But again, things are changing so much right now. The world economy just went upside down last year, and that changed things. The world of AI appeared earlier this year, and that changed things. So I think we’ve learned the hard way that the world doesn’t seem to be slowing down, and being able to react and not being married to the plan is actually the most important thing.</p>
+<h3><strong>2. You said you never use the word “OKR,” but let me ask you anyway—have you used OKRs in some form, and how has that changed over the years?</strong></h3>
+<p>I’m not aware of us ever using OKRs formally at Shopify, but people end up using things that smell like them all the time. If I had to say why there is an aversion to them, I think it’s really two things. One, it’s part of the culture—there’s a bit of an affinity for chaos and change that doesn’t embrace structured systems. In a sense, that’s just who Tobi is. Tobi is very truth-seeking in the sense of whatever the truth is, he just wants to go there, and systems and structures that stop him going to the truth are bad in and of themselves.</p>
+<p>If you look at companies like Google, Facebook—things that are very aggregatory, very funnelly, very at-scale consumer products—they’re often very metrics-oriented. A team owns a number, and the goal is to do whatever they have to do to make that number go up. I think Tobi just does not agree with that philosophy of product development and thinks that you end up with a lot of micro-optimizations of local maxima that may say you drove that number up, but the product just doesn’t feel good anymore. The product doesn’t fit well together, and it feels like one part is pushing me in one direction and the other part in another. You can’t really explain why that is until you find out that there were two teams inside the company who had different metrics they were optimizing for. That’s when you realize why the product is so weird and incohesive.</p>
+<p>On the other hand, there are some parts of Shopify where we do care a lot about metrics. A good example would be the Checkout team, who cares a lot about checkout conversion rate because there’s a one-to-one relationship between that and the money that our merchants make. We’re extremely focused on metrics when it comes to performance.</p>
+<p>We care a lot about the speed and quality of the product itself, but we’re not the kind of company that would deem something a failure or not approve something to go ahead just because you can’t put a metric on it. As an example, right now we’re working to significantly change the look and feel of the Shopify Admin [the seller dashboard] for no reason other than it’ll look better and we think it’s the right thing to do. There’s zero metrics attached to it. The only thing that matters is that we come out the other side, look at it, and think: <em>That’s rad. I’m psyched. Merchants are psyched.</em> That’s it.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/7e7776f4-5947-44a4-ba22-fcd68db0bf16_1600x900.png" /></p>
+<h3><strong>3. How do product/design review meetings work?</strong></h3>
+<p>Shopify has an internal system called GSD, which is a bit like Jira or a task management app, except it’s not really a task management app. It’s a project stakeholder reviewing tool. It stands for “Get Shit Done.” Every project that any team does goes in GSD, which has five phases of review:</p>
+<ol>
+<li>Proposal</li>
+<li>Prototype</li>
+<li>Build</li>
+<li>Release</li>
+<li>Results</li>
+</ol>
+<p>Here’s what this looks like in an actual screenshot of GSD:</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/9547ef9b-2db8-495e-bc95-2a839ba7fb55_1118x184.png" /></p>
+<p>We have a system called OK1 and OK2, and for any particular team there’s a front line of reviewers. On OK1s, it’s usually the directors from product, UX, engineering, and sometimes data who all have to sign off. And then it comes up to the senior leadership team (SLT), which we call OK2, which includes, again, product, UX, engineering, and data, who all have to sign off on it as well.</p>
+<p>It’s actually been really good practice for the PM team, because most of these reviews come with a short video from the PM explaining what the product or project is. I think it’s great practice for PMs to have to say, very concisely, “What is this thing? Why is it valuable? How does it work?” So they get a lot of practice storytelling in tight videos.</p>
+<p>Usually we do these reviews async and we trade comments. Sometimes, though, we set a meeting to talk synchronously when we know the topic will be super-controversial or it’s a big deal. We also have an office-hours rotation where if you need to get in for a 30-minute review for quick feedback on not very much notice, there’s a lever to pull.</p>
+<p>In terms of who makes the calls in product reviews, I generally think of it like this: product makes the call on <em>should we do this at all</em>, Engineering and UX essentially has the veto power on <em>how</em> we do it, and then at the end of the day, the PM has to put their body on the line for <em>is this ready to ship</em>. If they say yes and the thing’s garbage, then the PM has to wear it. That’s generally how that works.</p>
+<h3><strong>4. Are product and design part of the same org? And who do PMs ultimately report to? Has this changed over the years?</strong></h3>
+<p>Tobi is the head of R&amp;D (and also CEO) at Shopify, and there are two people who report to him, who all the PMs report to. One of them is me and the other is <a href="https://www.linkedin.com/in/kasranejatian/?originalSubdomain=ca">Kaz</a>. About half the PMs report to each of us.</p>
+<p>In my org, product, UX, marketing, ops, and partnerships all report up into me, and engineering and data have their own functional orgs separately. Under me, the reporting lines go functional. So the head of UX reports to me, and all of UX reports to her. I have a head of product marketing, and all of product marketing reports to her.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/e05b4b6b-dbf3-4343-ba71-f654233198b8_1600x1074.png" /></p>
+<p>In 2018 we had a GM structure, with about 10 GMs at Shopify, each of whom had all the functions for their business unit reporting to them. Then, about two and a half years ago, Tobi reorged the company from 10 divisions to two.</p>
+<p>The two divisions are:</p>
+<ol>
+<li><strong>Core:</strong> What I run product for, which is what’s in the box when you buy Shopify—all the included features, the online store, checkout, and Admin.</li>
+<li><strong>Merchant services:</strong> Think of it as the optional add-ons for Shopify, the point of sale, the payment processing, and the shipping labels. This also includes <strong>Shop</strong>—the buyer-facing brand, the wallet, the package tracker, the shopping.</li>
+</ol>
+<p>There were many reasons for our move away from the GM structure, but one of the biggest reasons was because as the company grew and our product became wider, with lots of capabilities, the advantage we have versus your competitors is the breadth of the feature set—the one-stop-shopness of your product. That value really starts to fall apart if the parts of the product don’t work well together and don’t seem like they were crafted from a single vision.</p>
+<p>This is the challenge that all big tech companies need to overcome. Can you tell how our org structure works by looking at the product? Can you see where the breaks are in the product or not? The best companies figure out how to make sure you can’t see the org chart through the product.</p>
+<p>This org structure that we’re in right now, it has downsides to it (e.g. very large teams that require a lot of centralized coordination), but the big upside is that the org chart and the actual product are very close to the same thing (e.g. we are respecting <a href="https://en.wikipedia.org/wiki/Conway%27s_law">Conway’s law</a>). This helps us deliver on what our merchants want: products that work well together and are all aimed in a single, consistent direction.</p>
+<h3><strong>5. Do you structure your teams around products, user types, user journey, outcomes, or something in between? Has this changed over the years?</strong></h3>
+<p>We’re structured essentially around jobs to be done. Within Core, we have 11 teams, and they are oriented around the main merchant jobs to be done. There are some that are obviously semi-standalone bits of the product, like the online store and the checkout. Once you get into the back end, we have a team called Merchandising, and the job to be done there is all about how to set up and sell products. There’s a team called Engage, which mainly focuses on marketing and customer engagement. There’s a team called Build, which manages the developer platform. There’s a team that manages the app ecosystem and all the dynamics around that.</p>
+<p>Part of the reason we focus teams around jobs to be done is to honor a promise Shopify tries to make and keep to its merchants. We never want merchants to bump into the ceiling that says, <em>I love this product, but it’s not scaling to meet my needs. Now I have to go do the really painful thing of moving my entire business onto some other platform.</em></p>
+<p>We want teams to think about the whole spectrum. Everyone from my mom, if she wants to get started selling pottery tomorrow, all the way up to big brands like Supreme. We don’t want there to be any rough edges on that curve. As a merchant’s business gets bigger, we don’t want there to be a weird moment where Shopify flips into enterprise mode, where suddenly everything’s different. We want that to be a smooth curve all the way up, and we just need every team to care about that, so there is no “Enterprise Team” or “Small Business Team”; each team needs to think about “hello world through to IPO” for their features.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a79c9d4d-bfa3-4531-95f9-889f58033e93_1600x900.png" /></p>
+<p>In terms of jobs to be done, we don’t use the hardcore, capital JTBD framework or anything like that. There are gray areas around the edges of some of these things. There’s also a very big variance in the maturity between different jobs to be done within the company. Shopify is a world leader in checkout, for example. I think the next company to us in the world, in the landscape of checkouts on the internet, isn’t even close. We’re world leaders by a big margin. But then you take our Engage team, which builds the marketing tools and customer segmentation—that’s really like a challenger, an upstart, versus a Salesforce Marketing Cloud or things that are much more steeped in those categories.</p>
+<h3><strong>6. What’s in your product team’s tool stack?</strong></h3>
+<p>It’s super-basic. GSD is the big thing. Google Docs. GitHub for actual task tracking at the team level of sprints and tickets and stuff like that. Descript for sending videos around. We try to keep it pretty simple.</p>
+<p>We don’t use Jira. I think we’ve hemmed and hawed about that for many years. When I got to Shopify, it was a bit of a Wild West tooling thing, where every team got to pick their own tooling. Everyone had to use GSD for registering that we are working on this project, but the day-to-day management of the tickets was all over the place.</p>
+<p>When I got here, some people were using Jira, some people were using GitHub Issues, some people were using Asana. It was just chaos. I ran a 50-person startup when we were acquired by Shopify called <a href="https://www.linkedin.com/company/handshake-corp/about/">Handshake</a>, and Handshake was way more disciplined about tooling than Shopify was at that point. The first question I asked was, “Where’s the big Jira instance?” and people were like, “Oh, there isn’t one. People just do whatever they want.”And I was like, <em>What are you actually talking about? How the hell does this place even work? What is wrong with this place?</em> Eventually we cleaned it up, but it’s been a bit of a journey to streamline our tooling.</p>
+<h3><strong>7. How many PMs are there at Shopify?</strong></h3>
+<p>We have a few hundred, half of whom report into Core.</p>
+<h3><strong>8. What percentage of ideas come from the top down and what percentage come bottom-up, roughly?</strong></h3>
+<p>I would say if we drew the line at Director of where top-down starts, about three-quarters of the roadmap comes from the top down. The other quarter is teams saying, “We want to improve this thing about our area. It’s not some huge roadmap, but we just think this could be better.” There is a steady stream of that stuff. So it’s probably two-thirds or three-quarters top-down, mostly big rocks, and about a quarter bottom-up, polishing and small features.</p>
+<p>I think most companies think of hierarchy and jobs basically as this sort of single line of leadership downward, based on how senior you are. But a few years ago we introduced something called the AAA framework, which is basically three parts:</p>
+<ol>
+<li><strong>Aiming:</strong> strategy and direction of what we are building</li>
+<li><strong>Assembling:</strong> operational stuff to bring the right people together and keep them on track</li>
+<li><strong>Achieving:</strong> the day-to-day work of getting shit done (GSD) like design, code, etc.</li>
+</ol>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a7bbd378-4e42-4fe3-b827-474992cc56fc_744x824.png" /></p>
+<p>I was honestly very skeptical of it, but I’ve found them to be very useful. I’m glad to have been proven wrong. It’s been useful to identify people who are actually passionate about one more than the other. You don’t want to take on a leadership job and suddenly be responsible for aiming when you’re really passionate about assembly, or the other way around. It’s helped us put people in the right roles and not just have one dimension of leadership that everyone has to conform to.</p>
+<p>On projects, it’s really good to be able to know who’s the aimer, responsible for the strategy. It may not be the most senior person in the room; it may be the staff designer or the staff engineer. It’s sometimes good to know that the team’s manager actually isn’t the aimer, which is by design. Then there’s usually dedicated product ops and program management people who are responsible for the assembly. And of course the achievers, who actually do the work.</p>
+<h3><strong>9. You build one of the most beloved and successful products out there. What would you say is unique or central to your approach that leads to such a great and successful product?</strong></h3>
+<p>It’s a little bit of a cliché, but I would say the fact that Shopify is still founder-led is a big deal. I don’t think anyone can or will ever care as much about Shopify the product and its merchants as much as Tobi does. I think everyone really believes and feels that. Tobi’s also really good at pushing out the values of being merchant-obsessed. This is also one of the things that I learned when I got to Shopify that was one of those nice luxuries. Shopify has been and still is such a successful company that Tobi was able to both establish and live by a set of very merchant-focused values for a very long time. That, just by osmosis, seeped into everyone’s brain. There’s such an insane culture here of doing the right thing for merchants, even at the expense of revenue or other users like buyers or developers. You can have that culture if you have a successful business where you can live that and the business still succeeds. That’s a cultural thing that runs through everything.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/e4b04981-3945-4d15-9abc-14892fe23685_1200x1600.jpeg" /></p>
+<p>The other thing we have is a super-high quality bar. We’re constantly asking, “Is this good enough? Are we proud of this?” Honestly, the main motto inside of Shopify is this kind of mantra. It goes:</p>
+<ol>
+<li>The number-one priority is to make the best product in the world for our merchants.</li>
+<li>Our second priority is to make some money so we can do more of number one.</li>
+<li>The third priority is never to reverse priorities one and two.</li>
+</ol>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/48976cc0-ddf8-4e8c-863f-572a515b29f9_720x405.png" /></p>
+<p>There’s a militant hard line about quality that has been really cool for me. I came from a startup, where you’re just constantly forced to cut corners and do shit that you don’t like to make the next round or to close the next deal. One of the things that I started feeling last year was that I just insist that Shopify is a great product at the level of something that Steve Jobs would have been willing to put his name on. I’m not here to do the version that’s kind of, sort of okay, or thinking that whatever makes money is good enough. This could very likely be the most widely distributed software product I ever work on in my career.</p>
+<p>I often think of it as, is this iconic in the way that Apple products are iconic? Is it iconic in the way that Porsche is iconic? Is it iconic in the way that Rolex is iconic? I think that being at a company that values that and has the capacity to do that has actually been one of the most inspiring things for me. In the past couple of years, because Shopify is a market leader, in some ways I think we’re kind of on top. But then I turn and I look at the products and I see all these little things where I’m like, <em>That’s fucked-up. That could be better. Why are we doing that?</em> I believe that this could actually just be one of the truly great products and we can do it. We’ve got the resources. We should actually just go do that.</p>
+<h3><strong>10. I imagine much of your success has been thanks to hiring well and keeping a very high bar. In your product hires, what do you most look for (that maybe others don’t), and, broadly, what does your interview process look like?</strong></h3>
+<p>I have a really simple interview process. Not to give too much of the game away, but I only ask four questions. The first question is “Tell me about a product that you were responsible for that went well, and tell me the story of that thing.” The second question is “Tell me about a product that you’re responsible for that didn’t go well, and tell me the story of that thing.” And then I do the same two questions for a product manager who worked for you.</p>
+<p>I’m looking to understand how a person thinks about what good or bad looks like. How did they react when things went wrong? How insightful is their analysis of what they would do differently, especially in the product that went well or the PM who went well; how much reflection is there on what could have been done better? Even in the things that went well, is this person tortured by that thing that they didn’t do well even in that product that was ridiculously successful?</p>
+<p>Honestly, I’m looking for sheer horsepower and grit. I don’t care that much about people who are super-frameworky, people who are super-processy. I just want people who are tenacious builders who are really smart and have done the work to be reflective about what they would actually do differently.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/8d7dca6d-2d27-48a0-9aac-0a2c78baa537_1600x1200.png" /></p>
+<p><em>Thank you, Glen! For more from Glen, check him out on <a href="https://www.linkedin.com/in/glcoates/">LinkedIn</a> and <a href="https://twitter.com/glencoates?lang=en">Twitter</a>, and don’t miss the <a href="https://www.shopify.com/editions">Shopify Editions Summer ’23 launch</a>, which Glen will be hosting.</em></p>
+<p><em>For more stories of how the best product teams operate, don’t miss my interviews with <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>, <a href="https://www.lennysnewsletter.com/p/how-miro-builds-product">Miro</a>, <a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">Ramp</a>, <a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">Notion</a>, and <a href="https://www.lennysnewsletter.com/p/how-snowflake-builds-product">Snowflake</a>. Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How Shopify builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/8638d278-ac01-4f28-b2c9-39f1dd6e4724_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

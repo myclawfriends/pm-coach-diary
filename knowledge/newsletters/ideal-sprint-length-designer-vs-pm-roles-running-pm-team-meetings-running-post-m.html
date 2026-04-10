@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ideal sprint length, designer vs. PM roles, running PM team meetings, running post-mortems, best product/executive coaches, and much more — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Ideal sprint length, designer vs. PM roles, runnin…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Ideal sprint length, designer vs. PM roles, running PM team meetings, running post-mortems, best product/executive coaches, and much more</div>
+    
+    <div class="article-meta">2020-12-11<span>·</span>4,537 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">工程</span> <span class="mini-tag">組織</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello and welcome to this week’s edition of ✨</em><em>Community Wisdom</em><em> ✨ — a weekly email highlighting the most helpful advice from our subscriber Slack community. As always, a b​i​g thank you to <a href="https://www.linkedin.com/in/kiyanibamba?originalSubdomain=ca">Kiyani</a> for pulling this email together.</em></p>
+<h4>💥 Top threads this week</h4>
+<ol>
+<li>Ideal sprint lengths</li>
+<li>Where a PM’s job ends and the product designer’s begins</li>
+<li>Running a PM team meeting</li>
+<li>Running a leadership team meetings</li>
+<li>Running a post-mortem</li>
+<li>Great product/executive coaches</li>
+</ol>
+<h4>🤓 Top reads and listens</h4>
+<ol>
+<li>Setting up a sales team</li>
+<li>Lessons for early-stage founders</li>
+<li>Stripe: Platform of Platforms</li>
+<li>On product discovery</li>
+<li>Takeaways from <em>Are Your Lights On</em>?</li>
+</ol>
+<p>Let’s dive in!</p>
+<h1>💥 Top threads this week</h1>
+<h3>1. Ideal sprint lengths</h3>
+<blockquote>
+<p><strong>Q: Hi all. I'm curious, what cadence do you use for sprints in a startup of 2-3 people? Does 2 weeks make sense or do you go for a shorter cycle?</strong></p>
+<p><strong>– Soumya Santhanakrishnan</strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: It depends! I’ve worked with 1 and 2-week iterations, though never at a 2-3 person scale, so take this with a grain of salt.</p>
+<p>The big question is: What does a sprint mean to you?</p>
+<p>Is this just for planning? Agile ceremonies? Are you releasing based on sprints?</p>
+<p>My gut says that this ultimately won’t matter at your scale, since with a smaller team the overhead introduced by running shorter iterations is more or less negligible.</p>
+<p>But ignoring your specific situation, I hear “one-week sprints” and think “more meetings to stay aligned”, and more meetings are usually bandaids rather than a proper solution.</p>
+<p>My short answer is: I’d stick to two weeks because there are better ways to stay on track that doesn’t introduce more overhead.</p>
+<p><strong><a href="https://twitter.com/aadilmaan">Aadil Maan</a></strong>: @Wayne Vernon literally read my mind. Love this stance. Moneyball.</p>
+<p>I would go further and suggest that at this scale, perhaps you shouldn't worry about sprints at all. Just focus on continuously shipping features out when you feel like you have something. It sounds wrong but Teams don't realize that 2wk sprints aren't just 2wks of coding, there is a lot of planning and administrative work that needs to happen to get those sprints to sing.</p>
+<p>At Google, I saw teams ship/sprints daily, 2wks, 6wk, quarter. Android is sometimes multiple quarters to a year.</p>
+<p><strong>Soumya Santhanakrishnan</strong>: That's super helpful, thank you! I'm leaning towards not even thinking in terms of sprints. At <a href="https://www.souffle.club">www.souffle.club</a> we’re building a fun Q&amp;A space for the most insightful takes on tech topics. So we end up launching questions every 3 days. Given that timeline, my co-founder and I have been talking about how we should just have a priority for a day and ship ASAP. and if it takes &gt;=3 days then flag and talk about it.</p>
+<p><strong><a href="https://productsolving.com">Tyler Wince</a></strong>: FWIW, we ditched Scrum in our 20 person engineering team (3-4 engineers per product team) and just do Kanban now. Everyone is more aligned, attends fewer meetings, and we have more flexibility than we ever did doing Scrum.</p>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: We're also in the process of ditching formal 2-week sprints and moving to Kanban. Also about 20 engineers so keeping up regular rituals of prioritizing, grooming, standups and retros. Also very interested in trying 6-week sprints, mainly as a tool for more clearly involving engineering in discovery and design.</p>
+<p>I rarely find 2-week sprints the right cadence.</p>
+<p><strong><a href="https://twitter.com/aadilmaan">Aadil Maan</a></strong>: This thread is magical because engineering teams often equate being agile to 2wk sprints and hearing many of you are ditching it.</p>
+<p>So, I actively participated in switching the Google Dart team from quarter shipping to 6wk shipping. There is something goldilocks about 6wks. The first 2wks can give engineers a green field to really dig deep and get dirty with the details, draw plans and then mad dash 4wks to the finish line. I advocate a modified sprint of 8wks. 6wks of engineering with 2wks of testing and converging the work done in the 6wks.</p>
+<p>My experience has taught me that Any feature work more than 4wks in estimate needs more grooming.</p>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: @Aadil Maan I'd love to hear more about 6-week sprints - fell in love with that unicorn after reading <a href="https://basecamp.com/shapeup">Shape Up: Stop Running in Circles and Ship Work that Matters</a> and am still hoping to experience it in the wild.</p>
+<p><strong><a href="https://twitter.com/aadilmaan">Aadil Maan</a></strong>: I have lived with 6wks and it’s the magical number. iOS and macOS are developed over 4 back to back sprints 8wks in size. 6wks of development with 2wks of convergence during which no feature work happens, it’s all testing and fixing the work we did in the 6wks. Dart moved away from quarter because it’s easy to drift while 6wks is enough to stay focused and do complex work.</p>
+<p>I would love to chat more if you want and I really want to hear about your experience with 6wks. Basecamp, although it gets crap sometimes for their work stances, have some really awesome nuggets. I have read every book they have shipped and each is a fascinating read.</p>
+<p><strong>Scott Stenback</strong>: For those of you using Kanban, I was inspired by <a href="https://www.oreilly.com/library/view/lean-from-the/9781941222935/">Lean from the Trenches</a> a few years ago and created the version below for one of my teams.</p>
+<p>The On Deck column was populated with cards from the four columns directly to the left.  From there it was the standard left to right flow until Done.</p>
+<p>We bent Jira to get it usable for remote but in reality, it was always meant to be on a wall with post-it notes and painter’s tape.</p>
+<p><img alt="Image from Ideal sprint length, designer vs. PM roles, running PM team meetings, running" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8c0153d7-1f06-4c64-9fe1-c63621636619_716x94.png" /></p>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: Amazing conversation! I’m really happy to see more people moving away from what’s “normal” and to what works best for <em>their</em> situation.</p>
+<p>Agile is a collection of tools in your toolbox, not a single hammer. Pick and choose the pieces you need to maximize the likelihood of success for your org, product, and team.</p>
+<p><strong>Zachary Cohn</strong>: At 2-3 people, I’d ditch more formal agile and use either an agile ban or a full-on kanban approach. This tends to work well for maximum throughput, which as a 2-3 person team should be your goal. (throughput being defined loosely - engineering, product validation, user research, etc).</p>
+<p>Things move too fast at that stage to wait until the end of the sprint to change direction.</p>
+<h3>2. Where a PM’s job ends and the product designer’s begins</h3>
+<blockquote>
+<p><strong>Q:  On your teams, where does a product manager’s job ‘end’ and where does the product designer ‘begin’?</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a></strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: I'm no longer allowed to use Figma.</p>
+<p>More seriously, we work side by side, we're both heavily focused on discovering and designing just different focus areas. My observation is that if Product isn't butting heads with Product Design (and product marketing and even engineering) then something's not right. And in this case, the butting heads when you're in a group and see a piece of litter on the ground, and you all bend down to pick it up and bump heads...the leaning in kind.</p>
+<p><strong><a href="https://twitter.com/jfedor">Jeff</a></strong>: I like to think of it as co-design. Product brings the context of the problem we're solving and why it matters. Together with Design and Eng, a range of solutions are explored. Eng provides options that are feasible (based on whatever constraints), Design owns the experience of that solution.</p>
+<p>For me, Product owns customer discovery and I think it's powerful for Design to own product discovery. But wherever we can, we (Design, Eng, &amp; Product) all ride shotgun on those sessions. Conversations and iterations get us to the solution.</p>
+<p>But like @Josh I'm not in Figma to do anything other than comment.</p>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: Varies quite a bit with the experience, skillset, and interests of the product designer. As well as with the product and the type of design work it demands. And with the scale of your org.</p>
+<p>On bigger products or products that are more technical (e.g. less hands-on design to be done), I’ve found senior product designers are often happy to spill over into user and market research, which is fine by me.</p>
+<p>But like everybody else – I never touch design!</p>
+<p><strong><a href="https://twitter.com/archismandas">Archisman Das</a></strong>: Jeff has articulated it really well. I think the job doesn't end, but the roles that PM and Design/Engineering play reverses depending upon the stage you are in. During the Customer Discovery, Design and Engineering play the role of the checker and it is the PM's responsibility to prove that it is the most important problem/opportunity that the team should pursue now. Once that's done, in Product Discovery stage Design and Engineering comes up with the solution and the PM evaluates if it is the best way to deliver value to their customers.</p>
+<p>Now, this is an ideal scenario and the reality varies based upon the maturity and strength of the team members.</p>
+<p><strong>Zachary Cohn</strong>: I'm actively hiring a product designer right now with the express goal of kicking me out of Adobe XD. I think at one point in an informational interview I said “Please stop me.”</p>
+<h3>3. Running a PM team meeting</h3>
+<blockquote>
+<p><strong>Q: I'd love to learn more about how other teams run PM meetings. We run a weekly PM meeting to increase transparency of efforts and information.</strong></p>
+<p><strong>Currently our format is this:</strong></p>
+<ul>
+<li><strong>General announcements - General updates: Company direction, new company-level decisions, etc.</strong></li>
+<li><strong>Follow ups from last MTG</strong></li>
+<li><strong>Recent / Upcoming launches - Celebrate launches + raise awareness for implications to other parts of product</strong></li>
+<li><strong>New efforts / Updates to existing efforts - New efforts or direction for visibility to other PMs. No need to list every single project - just ones beneficial for other PMs.</strong></li>
+<li><strong>Helpful reads / info - Slack threads that provide context and info, or good reads for PMs</strong></li>
+<li><strong>Other random things</strong></li>
+<li><strong>Todos</strong></li>
+</ul>
+<p><strong>I'd love to hear about other agenda items that have been beneficial in increasing the output of PMs ;- ) Thanks!</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/takehiro-tank-mori-a3083487/">Tank</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/alexdou/">Alex Dou</a></strong>: I have a manager friend who has instituted “BB Time” (BB in honor of Brené Brown). The purpose of this time is to be vulnerable and let down the mien/mask of “everything is going smoothly”.</p>
+<p>Our PM team has a section carved out for “what feels hard [harder than it should be]?” The purpose of this section is to discuss sticking points up and down the stack: troubleshooting comms with Team X; doing a teardown of a PRD that has raised unexpected questions and gotten “stuck”; trying on versions of a Vision/Strategy.</p>
+<p>I think the correct cadence is ~1/week, and even though these might come up in 1:1s (which hopefully you are doing weekly!) I think it’s worth having this crosstalk with other PMs.</p>
+<p><strong><a href="https://www.linkedin.com/in/takehiro-tank-mori-a3083487/">Tank</a></strong>: Nice, thanks @Alex! How long are the meetings btw? I'm also curious to hear what the outcomes of those discussions are -- does it result in senior PMs mentoring more junior PMs or has it been more of a flat discussion?</p>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: @Alex that's a great model. One (similar) thing I did was start by opening it up for anyone to speak. It gave me a chance to model open listening and we could all practice responding without judgment. It built great trust. @Michael Kellar - keep me honest - what worked well and what should we have done better.</p>
+<p><strong><a href="https://www.linkedin.com/in/amitjklein/">Amit</a></strong>: Are you talking about a cross-functional PM meeting (many PMs?) or a weekly product team meeting led by PM (with eng/design/etc...)?</p>
+<p><strong><a href="https://www.linkedin.com/in/takehiro-tank-mori-a3083487/">Tank</a></strong>: A cross-functional PM meeting with many PMs.</p>
+<p><strong><a href="https://www.linkedin.com/in/amitjklein/">Amit</a></strong>: For business as usual meetings (no major changes upcoming). One way we've done this in the past is a monthly meeting where we:</p>
+<ul>
+<li>Review of top-level company goals and how we are doing against them</li>
+<li>Each PM goes around and shows their key KPI(s), experiments run/lessons learned/upcoming launches (5 min each)</li>
+<li>One PM is the guest speaker and presents a challenge they are facing or a key decision they need to make for feedback and we deep dive.</li>
+</ul>
+<p>We had separate product review meetings (each PM had one weekly) with product leadership that was approval focused (and any PM could attend most usually did to listen in).</p>
+<p><strong><a href="https://linkedin.com/in/michael-kellar">Michael Kellar</a></strong>: I think these are awesome opportunities both for cross-functional sharing, as you referenced, but also team building/trust. As @Josh said, one of the best things he accomplished for us, was building a team that really trusted one another, we had that mystical psychological safety and it was huge.</p>
+<p>The biggest thing I took away was that making sure you take the time to encourage everyone in the room to participate (or sometimes just wait/let them come to the team), meant we all had a voice, and knew we had each other’s best interests in mind.</p>
+<p><strong><a href="https://www.linkedin.com/in/takehiro-tank-mori-a3083487/">Tank</a></strong>: Nice, that's a great point actually. Our team hasn't really talked too much about establishing psychological safety, but I definitely feel that that is important for a product team.</p>
+<p>(I think it's often a challenge since a lot of times product managers are siloed in their own domain).</p>
+<p><strong><a href="https://app.slack.com/team/U01GA3RA69F">Jonah</a></strong>: PMing requires strong writing. We've allocated part of our weekly meeting to review a team member's product brief and provide immediate feedback. It has very quickly elevated everyone's clarity in their writing. A secondary benefit has been streamlining our team communications.</p>
+<p><strong><a href="https://www.linkedin.com/in/alexdou/">Alex Dou</a></strong>: @Tank meetings were short. This “what’s hard” line item was budgeted with maybe ~5-10 minutes, with an option (as always) to spin off into a separate thread to avoid ballooning this meeting</p>
+<p>I can also speak to some of the outcomes I perceived:</p>
+<ul>
+<li>Blockers are identified early and loudly - this was during our PM staff meetings, so it was a kind of <a href="https://en.wikipedia.org/wiki/Chatham_House_Rule#:~:text=Since%20its%20most%20recent%20refinement,other%20participant%2C%20may%20be%20revealed.">Chatham House Rules</a> space where we could share hardships without worrying about negative reactions. As you might imagine, this helped us decrease wasted cycles, come up with better answers/approaches earlier, etc</li>
+<li>Stronger team self-worth/self-esteem - I oftentimes feel pressure to “know everything” (as an aside, one of the things I think is hard about PM is an implicit pressure/assumption to always “be the guy/gal” nb. this is a specific manifestation of the <a href="https://en.wikipedia.org/wiki/Spotlight_effect">Spotlight Effect</a>). However, when you only see yourself struggling against something—as we all do in our lives—and everybody else dutifully “knowing everything”, you start to think that you’re the problem. This really helps fight against that</li>
+<li>Increased <em>espirit de corps</em> - this is closest to what you were talking about. It was a good opportunity for spontaneous brainstorming and mentorship (not just Srs mentoring Jrs, but also folks with <a href="https://www.ravi-mehta.com/product-manager-roles/">differently spikey radar charts</a> mentoring others).</li>
+</ul>
+<p>And @Josh, I love that. I think this is one of those tricky things where it has to be modeled by the team lead, otherwise, it’s <em>just</em> on this side of “too weird”. But it really helps Team Leads/Heads of/VPs by fostering that psychological safety that other folks have mentioned already. In the Rands manifesto, this is also an underutilized source of <a href="https://randsinrepose.com/archives/the-signal-network/">Critically Fresh information</a></p>
+<p>@Michael Kellar, something you mentioned really piqued my side hobby interest in group psychology and its overlap with meeting facilitation. Do you remember the first time Josh brought this practice to the table? Do you remember your reaction?</p>
+<p><strong><a href="https://www.linkedin.com/in/takehiro-tank-mori-a3083487/">Tank</a></strong>: These are all great resources, thanks @Alex Dou!</p>
+<p>Do you remember the first time Josh brought this practice to the table? Do you remember your reaction?</p>
+<p><strong><a href="https://linkedin.com/in/michael-kellar">Michael Kellar</a></strong>: I do not recall the first time, but I’d also say it was a practice that changed as the team grew. In the beginning we were very small, just a few people, so I think it was almost an entirely informal meeting, and then as we got bigger, it became a more intentional practice that we appreciated and made sure to maintain.</p>
+<h3>4. Running a leadership team meeting</h3>
+<blockquote>
+<p><strong>Q: We are looking to run better Leadership Team meetings. Right now it feels more like a read-out/progress report rather than a strategic touchpoint. I am looking to get inspiration/advice:</strong></p>
+<ul>
+<li><strong>What do you believe the purpose of a Leadership meeting is?</strong></li>
+<li><strong>How often do you have them? And how long are they?</strong></li>
+<li><strong>What is the agenda? How much is communicating plans vs. discussion on bigger problems? Is the meeting used to keep people accountable or do you have other avenues for that?</strong></li>
+<li><strong>How do you set the agenda?</strong></li>
+<li><strong>Who is represented?</strong></li>
+<li><strong>Do you communicate minutes/decisions with the rest of the organization?</strong></li>
+</ul>
+<p><strong>– <a href="https://www.linkedin.com/in/benkaye/">Ben Kaye</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/aishwaryab">Aishwarya</a></strong>: We went through a bit of this in late 2019. As a leadership team, you want to typically have 2 “types” of meetings:</p>
+<ul>
+<li><strong>Tactical</strong>: Mainly for quick decisions/progress on key events that have been decided, icebergs that may have been spotted. These are typically weekly.</li>
+<li><strong>Strategic</strong>: These are again broken into 2 types based on how you run the business. In our case, we have a Monthly Strategic which focuses on pillars that are 1-2 quarter focussed. The other kind is more for Yearly planning activities - what does success look like for next year, what are priorities, headcount management, budget planning etc.</li>
+</ul>
+<p>Once this was established, some of the questions you ask above - e.g. communicating plans vs discussions/debates fall into their own cadence. E.g. is it a pricing/packaging decision that will affect GTM motions - that’s more suited for a monthly, is it an a/b test on onboarding that. just launched - thats a quick tactical update.</p>
+<p><strong>Brian Clare</strong>: We follow the entrepreneurial operating system from the book Traction by Gino Wickman. Works well. Keeps tasks aligned and people accountable. Aligns to quarterly and annual goals (or rocks as they call it)</p>
+<p><strong>Soumya Santhanakrishnan</strong>: We did a thing where we took all the progress report stuff out. It's sent on slack every week in a document format and people can ask questions/comment in the doc. The time with leaders in a room is precious, so there'd be one person who's running the meeting who'd decide on 1-2 topics for us to discuss and unblock. Found it to be much more powerful.</p>
+<p><strong>Rohit Gupta</strong>: <a href="https://flows.co/">Flows.co</a> helps you run well-managed meetings and stick to agendas and is currently on LTD -<a href="https://pitchground.com/products/flows">Flows - Reinvent Your Meetings details</a></p>
+<p><strong><a href="https://zainabghadiyali.substack.com/">Zainab Ghadiyali</a></strong>: The number one goal for a leadership meeting is alignment. Everyone in that group needs to be in lockstep - it is very easy to get misaligned very quickly.</p>
+<ul>
+<li>Have them as often as needed to make decisions and align on strategy</li>
+<li>Always keep an agenda of the top 1-3 things you need to make decisions. Have more than 3? Schedule another meeting</li>
+<li>Everyone in the team gets to bring in a topic for decision</li>
+<li>Every function</li>
+<li>Yes! But filtered version. The company doesn’t have all the context so just sharing notes without context can be confusing for your employees</li>
+</ul>
+<h3>5. Running a post-mortem</h3>
+<blockquote>
+<p><strong>Q: Can anyone recommend any articles or just advice in general on how to run a really great post-launch post-mortem for a product?</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/aorshan/">Adam</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a></strong>: Great question!</p>
+<p>The best sessions I’ve seen have given people ample time to think - that means either ask them a few days before to fill things out in a spreadsheet or silent time during the retro to do just that - I’ve seen both, probably depends on the magnitude of what you’re looking back on (a sprint vs. a major launch)</p>
+<p>The other principles I’ve seen important have been psychological safety and withholding blame, and creating an atmosphere where talking about a mistake or failure is not seen as political or personal (a good measure is how defensive people get or open they are to talk about something).</p>
+<p>This is hard. Would love to see what others have to say!</p>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: As @Tal Raviv suggested, I’d try to offload some of the thinking and brainstorming as homework.</p>
+<p>I’ve had luck with doing a pre-meeting survey, distilling the responses down to 3 key themes, and then focusing the discussion on only those themes.</p>
+<p>Trying to cover everything gets out of hand fast and you’ll end up talking about so much that it will be impossible to make any meaningful change.</p>
+<p><strong><a href="https://linkedin.com/in/walterbudzian">Walter Budzian</a></strong>: I’ll piggyback on what Tal is saying about creating a blameless culture. A great piece to read on this is “The Blame Bias” chapter from a book called Primed to Perform.</p>
+<p>To have a high-performing culture where people can do their best work it’s important to examine the root cause of failure in a <em>system</em> not failures in people. It’s not easy - we have a bias to hate the players instead of the game.</p>
+<p>The authors illustrate this in a variety of social experiments. A big piece of the puzzle is that a leader's preconceived notions are going to impact outcomes. If, as a leader, you come to the table assuming you have a team that is making mistakes, the team actually performs worse. Conversely, when you have expectations that you have a high performing team with positive intent and you look to the systemic cause of issues, teams perform better.</p>
+<p>So, in running those post-mortems, come to the table with high expectations of a team trying to do their best work and collaborate to look at what systems/processes can be improved.</p>
+<p>Much more detail in that book, which is my number one recommended read for anyone in management or leadership positions.</p>
+<p><strong>Rachel Horowitz</strong>: Agree on all of the above! The other thing that I've found helpful is to circulate a doc with the key dates and events and milestones beforehand so everyone is on the same page about the who and what and can focus on the how and why without getting derailed where different people had different recollections of the facts</p>
+<p><strong><a href="https://www.linkedin.com/in/nishipatel/">Nishi Patel</a></strong>: Agree as well on all of the above. We’ve created retro playbooks in the past to help drive the concept of it being blameless and to help foster a psychologically safe environment. I don’t have the playbook on hand, but here’s one that we based it off of: <a href="https://www.atlassian.com/team-playbook/plays/retrospective">How to Run an Agile Retrospective Meeting with Examples</a>. We also used <a href="https://stickies.io/">stickies.io</a> for remote retros and it worked great.</p>
+<p><strong><a href="https://www.linkedin.com/in/aorshan/">Adam</a></strong>: Thanks so much, everyone! A few of you mentioned circulating materials beforehand. Are there any particular questions or jump-off points you’ve found to be particularly effective when included in the pre-meeting email?</p>
+<p><strong><a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a></strong>: One tiny tactical thing that helps me is to say the quote “A bad system will beat a good person every time” (attributed to Edward Deming) and emphasize we’re here to fix the system.</p>
+<h3>6. Great product/executive coaches</h3>
+<blockquote>
+<p><strong>Q: Has anyone here worked with a great product/executive coach that they’d recommend to work with a VP of Product at a startup?</strong></p>
+<p><strong>– Anonymous</strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/ajwaxman">Adam Waxman</a></strong>: I’ve had a great experience with Donna Lichaw: <a href="https://www.donnalichaw.com/">Donna Lichaw — Leadership and Executive Coaching</a></p>
+<p><strong>Jacob Sussman</strong>: I have a call with <a href="https://www.leahfeuer.com/">Leah Feuer</a> next week - she previously worked as a head of product / product advisor before focusing on coaching.</p>
+<p><strong>Julia Lipton</strong>: As promised, <a href="https://airtable.com/shrJgawZtGQBv7Xb1/tblKZKSYaUcbbY7UP">here's the list</a>. Feedback welcome! For context, this list is shared with VCs, founders, and friends. Feel free to share it publicly! Also "feature requests" welcome!</p>
+<p>You can also <a href="https://airtable.com/shr1HSVTdFDonR75g">nominate a coach</a>. It should take less than 1 min. The fields are optional, the only info I really need are their skills, your vouch, and your email. The rest I can pull.</p>
+<h1>🤓 Top reads and listens</h1>
+<h3>1. Setting up a sales team</h3>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: Another great one from David Sacks: <strong><a href="https://sacks.substack.com/p/simple-math-to-set-up-a-sales-team">Simple Math to Set Up a Sales Team</a></strong>.</p>
+<h3>2. Lessons for early-stage founders</h3>
+<p><strong><a href="https://www.linkedin.com/in/talsraviv/">Tal Raviv</a></strong>: Founder of Segment on simple lessons - I feel these apply to product teams just as much as a startup <a href="https://calv.info/early-stage-lessons">Lessons for early stage founders</a></p>
+<h3>3. Stripe: Platform of Platforms</h3>
+<p><strong><a href="https://twitter.com/YaakovCohney">Yaakov Cohney</a></strong>: Every Stripe product announcement is incredible on its own, but today's Stripe Capital launch is one that I am sure will lead to many more 'How Can I Invest in Stripe" requests. Anyway, the associated Stratechery is like the perfect wine pairing and one of the best ones I have ever read: <a href="https://stratechery.com/2020/stripe-platform-of-platforms/">Stripe: Platform of Platforms – Stratechery by Ben Thompson</a>.</p>
+<h3>4. On product discovery</h3>
+<p><strong><a href="https://twitter.com/jfedor">Jeff</a></strong>: Simple approach to how and why product discovery is a critical Product Org skillset <a href="https://sophiahoefling.medium.com/a-4-step-guide-for-day-to-day-product-discovery-3dc7e0b9cfb">A 4-step guide for day-to-day product discovery</a></p>
+<h3>5. Takeaways from <em>Are Your Lights On</em>?</h3>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: Wrote a <a href="https://twitter.com/wplusv/status/1334270158412673026?s=21">Twitter thread</a> with my takeaways from <em>Are Your Lights On?,</em> inspired by @Shreyas Doshi. Until I saw @Lenny Rachitsky’s and @Shreyas Doshi’s threads, I had never appreciated the potential of Twitter as a publishing platform.</p>
+<p>I’m mostly sharing so I can say: <strong>Wow, this is harder than it looks!</strong></p>
+<p>If you <em>haven’t</em> tried writing a Twitter thread, I highly recommend you give it a shot. It might seem silly at first but the inherent constraints of the medium force you to edit, optimize, and proofread every word (or character!). It’s a great way to not only challenge your writing skills, but to organize your thoughts.</p>
+<p>Tiago Forte’s <a href="https://fortelabs.co/blog/progressive-summarization-a-practical-technique-for-designing-discoverable-notes/">progressive summarization</a> technique is a great tool for capturing, filtering, and writing about what you read.</p>
+<p>That’s it for this week 👋</p>
+<p><em>If there’s anyone in your life who would benefit from this newsletter or community, consider giving them a​ ​g​i​f​t subscription</em>💞</p>
+<p>Sincerely,</p>
+<p>Kiyani and Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

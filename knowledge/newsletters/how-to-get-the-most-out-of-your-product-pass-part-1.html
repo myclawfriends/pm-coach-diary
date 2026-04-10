@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get the most out of your product pass, part 1 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get the most out of your product pass, part…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get the most out of your product pass, part 1</div>
+    
+    <div class="article-meta">2025-09-23<span>·</span>2,321 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span> <span class="mini-tag">Podcast</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">工程</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Courses</a></em>**</p>
+<p><img alt="Image from How to get the most out of your product pass, part 1" src="https://substack-post-media.s3.amazonaws.com/public/images/911fe309-9d9c-4be2-a2fb-c5cd855686b6_1456x970.png" /></p>
+<p>After <a href="https://www.lennysnewsletter.com/p/productpass">introducing the product pass</a> a couple of months ago, the most common question I get—other than “Wait, is this for real??”—is how I and others use these tools. So I’ve put together a short 2-part series about how I use each tool, what I love about it, and what it can help you with.</p>
+<p>This week I’ll cover <a href="https://replit.com/">Replit</a>, <a href="https://go.warp.dev/lenny">Warp</a>, <a href="https://linear.app/">Linear</a>, <a href="https://wisprflow.ai/">Wispr Flow</a>, <a href="https://gamma.app/partners/lenny">Gamma</a>, <a href="https://magicpatterns.link/lpp1">Magic Patterns</a>, <a href="https://descript.com/lenny">Descript</a>, and <a href="https://mobbin.com/lenny">Mobbin</a>. Next month I’ll cover <a href="https://lovable.dev/lenny">Lovable</a>, <a href="https://bolt.new/">Bolt</a>, <a href="https://n8n.io/">n8n</a>, <a href="https://www.granola.ai/">Granola</a>, <a href="https://superhuman.com/">Superhuman</a>, <a href="https://www.raycast.com/">Raycast</a>, <a href="https://www.perplexity.ai/pro">Perplexity</a>, and <a href="https://www.chatprd.ai/lenny">ChatPRD</a>.</p>
+<p>My goal here isn’t to sell you the products (<a href="https://www.lennysnewsletter.com/p/productpass">you already get them for free</a>!) but to help you get the most possible value out of your paid subscription.</p>
+<p>If you already use any of these products heavily and have a pro tip to offer, please share in the comments!</p>
+<p><a href="https://www.lennysnewsletter.com/p/how-to-get-the-most-out-of-your-product/comments">Leave a comment</a></p>
+<h1>1. <strong><a href="https://replit.com/">Replit</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>A leading vibe-coding platform that takes a plain English description of what you want to create and builds a production-ready app. It includes a native database, user authentication, security scan, and hosting. It also supports most programming languages. They launched <a href="https://replit.com/agent3">Agent 3</a>, which can run for more than 200 minutes autonomously, building, testing, and fixing your app on the fly.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>It’s a powerful full-stack vibe-coding platform that lets you build highly complex web and mobile apps. Unlike other vibe-coding platforms, you can single-shot fairly sophisticated applications. It includes a fully featured (web-based) IDE and automatically tests the apps it builds using its internal browser (i.e. checking buttons, forms, APIs) and then auto-fixes the issues it finds.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>The entire (surprisingly sophisticated) <a href="https://lennysproductpass.com/">product pass workflow</a> is hosted on Replit.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://x.com/daniel_mac8/status/1966260595143094534">Coming up with startup ideas</a></li>
+<li><a href="https://x.com/omarsar0/status/1966949907149058551">Vibe-coding automations</a></li>
+<li><a href="https://x.com/anthropiast/status/1966109218479714593">Building a social networking platform (in 193 minutes)</a></li>
+<li><a href="https://x.com/jasonlk/status/1967408276825575753">Building a fully featured website for Saastr</a></li>
+<li><a href="https://x.com/niconley/status/1966505076849074618">Taking on Upwork projects</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://replit.com/">website</a> and their <a href="https://replit.com/usecases/product-managers">PM-specific use cases</a>.</p>
+<h1>2. <strong><a href="https://go.warp.dev/lenny">Warp</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>An agentic development environment that’s essentially a drop-in replacement for your Mac/Windows/Linux terminal. It was originally built for engineers but is increasingly used by PMs, designers, data scientists, and even recruiting teams.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>It’s truly a magical experience, and unlike anything else I’ve used. It makes you feel like a superhero. Anytime I run into a problem working in my Mac terminal, AI solves it for me. How did we ever work with computers without something like this?</p>
+<h4><strong>What I use it for</strong></h4>
+<p>I’ve used it to download YouTube videos to convert them to MP3s (for my son’s <a href="https://us.yotoplay.com/">Yoto</a>), analyze all of my locally-saved podcast transcripts to find the most-mentioned books, and install gnarly packages with a bunch of weird dependencies. I just tell it what I want to do, and it figures it out. Here’s me asking Warp to download the Linear YouTube video below:</p>
+<p><img alt="Image from How to get the most out of your product pass, part 1" src="https://substack-post-media.s3.amazonaws.com/public/images/6760b117-cc4f-4c98-88ae-82f19e328340_2008x614.png" /></p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://youtu.be/cmHheGcDWTQ">Building a Strava clone</a></li>
+<li><a href="https://x.com/aaronwhite/status/1958281839333794057?s=46">Converting MRI imaging files to jpegs</a></li>
+<li><a href="https://x.com/some_user123/status/1950443062016041377">Dad teaching kids how to build websites</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Visit their <a href="https://go.warp.dev/lenny">website</a> or check out their many tutorials at <a href="https://warp.dev/university">warp.dev/university</a>.</p>
+<h1><strong>3. <a href="https://linear.app/">Linear</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>A beautifully designed tool for tracking your team’s tasks, organizing projects, and building your roadmap. It even has deep agent integrations, so you can delegate your tickets to an agent to take a first pass at a task. The future is now.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>In my mind, there’s no question that every startup and modern product team should be using Linear. And at this point, most are.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>OK, so I don’t actually use Linear, because it’s just me. But if I had a team, I wouldn’t even consider another tool.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://linear.app/now/how-we-think-about-customer-experience-at-linear">Linear using Linear to manage their own customer feedback</a></li>
+<li><a href="https://linear.app/integrations/chatprd">Claire at ChatPRD building an agent in Linear</a></li>
+<li><a href="https://linear.app/now/commure-dashboards">Commure building dashboards to monitor their team’s progress</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://linear.app/">website</a> and this <a href="https://www.youtube.com/playlist?list=PLP9v0Y4zla9vG7k8e279bSz5hUl0oXlMH">library</a> of how-to videos, and here’s <a href="https://www.youtube.com/watch?v=nTr21kgCFF4">my podcast conversation with Nan Yu</a> (their head of product).</p>
+<h1><strong>4. <a href="https://wisprflow.ai/">Wispr Flow</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>Magical voice-dictation that actually works the way you’ve always expected this to work. Press the function key on your laptop, talk, and it instantly (and accurately) transcribes everything you’ve said. Works across Mac, iPhone, and Windows, and with every vibe-coding tool and IDE.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>It’s so fast, and it’s wildly accurate. It understands the context of the conversation, filters out filler words, and learns your unique acronyms, terms, and phrases. If you’ve tried the native mic transcription on your phone, this is a whole different ballgame.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>I’ve always preferred typing over talking, so I’ve never gotten into transcription apps, but Wispr Flow changed how I work. Since it’s so good, I’ve found myself using it constantly, especially on my <a href="https://apps.apple.com/us/app/wispr-flow-ai-voice-keyboard/id6497229487">phone</a>. For example, my wife is a big texter, and instead of having to type out long messages all day, I press a button, say it, and send it.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://x.com/MatthewGattozzi/status/1967952481419403609">Talking to chatbots</a></li>
+<li><a href="https://x.com/tankots/status/1891138380404060298">Vibe coding</a></li>
+<li><a href="https://www.linkedin.com/posts/reidhoffman_i-am-voicepilled-a-major-step-forward-in-activity-7373713536096780289-lUb7/?rcm=ACoAAAQVbqEB-UADeCu9ymhPGPUQCNHXfB6TcEU">Getting “voicepilled”</a></li>
+<li><a href="https://x.com/RutaB_/status/1956099269544567236">Doctors transcribing their notes</a></li>
+<li><a href="https://x.com/rywiggs/status/1937991165217017879">Slow typers using it to speed up their workflows</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://wisprflow.ai/">website</a>.</p>
+<h1><strong>5. <a href="https://gamma.app/partners/lenny">Gamma</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>An AI-powered document creation tool that generates polished presentations, landing pages, and documents from a simple prompt. Describe what you want, upload the raw data, and get back a compelling deck/doc/website. And just last week, <a href="https://x.com/thisisgrantlee/status/1967943621782413388">they launched Gamma 3.0</a>, which adds a bunch of really cool new powers.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>If Cursor is making engineers faster, Gamma is doing the same for PMs. Creating decks and docs is one of the most time-consuming and annoying parts of most builders’ jobs. I also just love <a href="https://www.nytimes.com/2025/02/20/technology/ai-silicon-valley-start-ups.html">the story of Gamma</a>—small team, little funding, profitable, and AI-native from day one.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>Most recently, I’ve been experimenting with using Gamma to create shareable summaries of my podcast episodes. Here’s <a href="https://gamma.app/docs/Mastering-Answer-Engine-Optimization-n4gxgak9z9tpzhc">Ethan Smith’s episode on AEO</a>, <a href="https://gamma.app/docs/10-Hard-Truths-That-Built-Billion-Dollar-Companies-onh55jsg26xrzp5">Ben Horowitz’s episode on leadership</a>, <a href="https://ai-revolutions-hidden-bo-3k6n3li.gamma.site/">Brendan Foody’s story of Mercor</a>, and <a href="https://the-rise-of-ai-evals-q62i0s7.gamma.site/">a peek at an upcoming episode on evals</a>. I copied and pasted the transcripts, clicked a few buttons, and . . . magic.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://www.linkedin.com/posts/yonathan-cohen_gamma-30-just-dropped-i-built-a-29-reply-activity-7373718410439942144-sKqM/">Generating custom decks for each sales outreach</a></li>
+<li><a href="https://www.linkedin.com/posts/charlie-hills_how-to-make-a-landing-page-in-5-minutes-activity-7321473049843621888-BTLe/">Creating landing pages</a></li>
+<li><a href="https://x.com/riyazmd774/status/1967978262015160802">Turning meeting notes into a deck and follow-up email</a> (<a href="https://zapier.com/templates/details/meeting-notes-to-presentations-granola-gamma">here’s how to do this with Zapier</a>)</li>
+<li><a href="https://suchita-kaundin-bsb2sbo.gamma.site/">Creating a unique resume</a></li>
+<li><a href="https://x.com/clairevo/status/1968002491724988923">Turning PRDs into decks</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out <a href="https://gamma.app/partners/lenny">their website</a>.</p>
+<h1><strong>6. <a href="https://magicpatterns.link/lpp1">Magic Patterns</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>Magic Patterns is an AI prototyping tool built specifically for PMs and designers. It’s not trying to get you to build production-ready apps or launch startups. It’s designed instead to be the best tool in the world at prototyping your ideas using your existing products’ styles, getting feedback from customers, and then helping you build a real product in your regular development environment.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>I’ve been playing with all of the popular prototyping tools, and I find that Magic Patterns most often produces the highest-quality, most useful, and most correct results. It’s especially great at quick iterations and ideation because it only produces frontend code, so you don’t have to worry about random database/infra architecture limitations. I encourage you to do your own side-by-side comparison to see for yourself. I also love that it’s not trying to be everything to everyone—it’s designed specifically to solve pain points for product teams at large companies, with features like <a href="https://magicpatterns.link/llp1co">using your own component library</a>.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>I’ve used it to create <a href="https://project-youtube-podcast-title-and-thumbnail-previewer-348.magicpatterns.app">this thumbnail preview tool</a>, and other internal tools I’m tinkering with that I’m not ready to show the world 👀</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://magicpatterns.link/llp1x">Copy-and-pasting PRDs, creating a Magic Patterns prototype, and then</a> sharing with engineering</li>
+<li><a href="https://magicpatterns.link/lpp1lu">Creating personalized customer demos</a></li>
+<li><a href="https://magicpatterns.link/llp1jh">Skipping Figma entirely</a> when prototyping</li>
+<li><a href="https://www.magicpatterns.com/catalog?dub_id=0vANFES1HwRsFVsd">More examples here</a> and <a href="https://www.magicpatterns.com/docs/documentation/ai-prototyping-course/introduction">tutorial videos here</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://magicpatterns.link/lpp1">website</a>, and build something!</p>
+<h1><strong>7. <a href="https://descript.com/lenny">Descript</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>An AI-powered editor that gives everyone (including product managers!) the power to create and edit professional videos. Use it to make launch videos, design walk-throughs, for LinkedIn posts, etc. You edit videos like you edit Google Docs (wild!), and it now includes an agentic video editor, called Underlord, that makes it even easier to make tricky changes (<a href="https://www.linkedin.com/posts/fatemeh-alavizadeh_ever-wonder-how-ai-actually-thinks-about-activity-7350929550232444928-fc6s?rcm=ACoAAABAwBcBhqY8pjVXMxROG-p1CJMLG1fMBWUa">see example</a>).</p>
+<h4><strong>Why I love it</strong></h4>
+<p>I have zero video editing skills and I’m constantly making and editing video and audio. I wouldn’t be able to do this without Descript. It’s been my tool of choice for over five years now, and I’ve never thought about using anything else.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>I use Descript basically every day. I use it to record my podcast ads and intros to each episode, and my production team uses it exclusively to take my raw podcast recordings and turn them into the videos you see on <a href="https://www.youtube.com/@LennysPodcast">YouTube</a>.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=8rXZkt6YkZw">Creating YouTube shorts</a></li>
+<li><a href="https://youtube.com/shorts/phEBSCJP8xw?feature=shared">Adding big juicy text to videos</a></li>
+<li><a href="https://www.youtube.com/shorts/RtC7_wQ1Arg">Creating rough cuts with AI</a></li>
+<li><a href="https://www.linkedin.com/posts/burkhauser_guys-now-on-descript-you-can-instantly-create-activity-7320888554761453568-Eex_?rcm=ACoAAABAwBcBhqY8pjVXMxROG-p1CJMLG1fMBWU">Creating avatar-based demos</a></li>
+<li><a href="https://www.youtube.com/watch?v=SvBGR5cSeNw">Creating ads</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://descript.com/lenny">website</a>.</p>
+<h1><strong>8. <a href="https://mobbin.com/lenny">Mobbin</a></strong></h1>
+<h4><strong>What it is</strong></h4>
+<p>The world’s largest mobile and web design reference library. Use it to unblock your design thinking, benchmark your product flows against best-in-class apps, and stay up to date on the latest UX trends.</p>
+<h4><strong>Why I love it</strong></h4>
+<p>I wish this existed when I was a full-time PM. I would have saved my team and myself hundreds of hours of screenshotting competitors’ flows looking for inspiration and a lay of the land.</p>
+<h4><strong>What I use it for</strong></h4>
+<p>I point people to it when they are looking for ideas for optimizing a flow in their product.</p>
+<h4><strong>How other people are using it</strong></h4>
+<ol>
+<li><a href="https://www.instagram.com/reel/C3px5ESAwxA/">Getting design inspiration</a></li>
+<li><a href="https://youtu.be/E4idM0hC_AY?si=tJA95mUdzSmya0Wa&amp;t=1537">Copy-and-pasting best-in-class flows into your Figma</a></li>
+<li><a href="https://youtu.be/T64X2GUoDwc?si=8f98NKkKPygr9QHS&amp;t=360">Designing a viral app</a></li>
+<li><a href="https://youtu.be/8mMH6Pq8qnE?si=xCt-KLIZsOhxrV-v&amp;t=533">Elevating your design taste</a></li>
+<li><a href="https://x.com/rexan_wong/status/1967789508717650388">Studying the best</a></li>
+</ol>
+<h4><strong>Learn more</strong></h4>
+<p>Check out their <a href="https://mobbin.com/lenny">website</a>.</p>
+<p>—</p>
+<p>Part 2 is coming next month. <a href="https://www.lennysnewsletter.com/subscribe">Subscribe</a> if you haven’t yet to get access to all of these tools!</p>
+<p>Have a fulfilling and productive week 🙏</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

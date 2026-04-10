@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>An inside look at X’s Community Notes | Keith Coleman (VP of Product) and Jay Baxter (ML Lead) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">An inside look at X’s Community Notes | Keith Cole…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">An inside look at X’s Community Notes | Keith Coleman (VP of Product) and Jay Baxter (ML Lead)</div>
+    
+    <div class="article-meta">2025-02-27<span>·</span>19,907 words<span>·</span>Keith Coleman &amp; Jay Baxter</div>
+    <div class="tags-row"><span class="mini-tag">B2C</span> <span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">領導</span> <span class="mini-tag">Podcast</span> <span class="mini-tag">Newsletter</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=8dgyqYHLcCI" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+The work that you guys do has had such a tremendous impact on the way the world works. I want to start with just giving people a brief understanding of what is Community Notes.</p>
+<p><strong>Keith Coleman</strong> (00:00:09):<br />
+Someone on X can see a post. If they think it's misleading, they can propose a note that they think other people might find informative. Other people can then rate that note.</p>
+<p><strong>Jay Baxter</strong> (00:00:18):<br />
+We actually look for agreement from people who have disagreed in the past. And what we see is when people actually have that sort of surprising agreement, that's what makes the notes so neutral and accurate and well- written, really, overall.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:31):<br />
+There's many people that are very polarized. How do you deal with people that are super anti-vax, super Jan 6?</p>
+<p><strong>Keith Coleman</strong> (00:00:36):<br />
+One philosophical thing that's important is that we want all of humanity to participate and sometimes people are surprised by that. We have all of humanity. We then have the data to understand what notes will be helpful to actual humanity. Every post is eligible for notes. We shouldn't exempt Elon. We shouldn't exempt government figures. We should be like everyone... Even advertisers can get notes.</p>
+<p><strong>Jay Baxter</strong> (00:00:58):<br />
+There have been external studies run by people totally independent of us who have found that if you take a post with or without a Community Note, that actually people's agreement with the core claims in the post does change if they see it with a note versus without.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:13):<br />
+Is there anything else along the lines of just working for Elon within an org Elon runs that might surprise people?</p>
+<p><strong>Keith Coleman</strong> (00:01:18):<br />
+If I were to start a company in that company, it would be even leaner than I would've made it before. I've been amazed with just how much the team is able to accomplish with a small group and I think because of a small group-</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:33):<br />
+Today, my guests are Keith Coleman, Product Lead for Community Notes, and Jay Baxter, Founding ML Engineer and Researcher for Community Notes. This conversation may be my newest favorite podcast episode so far. Community Notes is one of the most impactful and clever and, also, underappreciated products in the world right now.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:52):<br />
+If you ever use X/Twitter and you see a note underneath a tweet correcting the misinformation in that tweet, that is Community Notes. I've never heard a deep dive into the story behind the product and the team that built it and I'm excited to bring you just that. We get into the surprising origin story of the product, how the algorithm actually works, how the algorithm emerged out of an internal contest within Twitter, the principles behind Community Notes, and why staying true to them has been so key to its success. Also, how it survived four different leaders, including Elon and Jack, and why it's now a big part of the solution to solving misinformation on the internet. Including recently being adopted by Meta as their main fact-checking tool. This is an incredibly special episode and I'm so excited to bring it to you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:36):<br />
+If you enjoy this podcast, don't forget to subscribe and follow it in your favorite podcasting app or YouTube. Also, if you become a subscriber of my newsletter, you now get a year free of Notion and Superhuman and Granola and Linear and Perplexity Pro. Check that out at lennysnewsletter.com.</p>
+<p><strong>Keith Coleman</strong> (00:05:23):<br />
+It's great to be here. [inaudible 00:05:25].</p>
+<p><strong>Jay Baxter</strong> (00:05:25):<br />
+Thanks for having us on.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:26):<br />
+It's so my pleasure. I'm so thrilled to be having this conversation. The work that you guys do has had such a tremendous impact on the way the world works. So many product teams are always talking about driving impact and want to drive impact. You guys have actually built things that have changed the world in meaningful ways and continue to do that. And I've never really heard the backstory of how Community Notes came to be and how it works and all these things, so I'm really appreciative of you guys making time to chat.</p>
+<p><strong>Keith Coleman</strong> (00:05:52):<br />
+Yeah. First, thanks for saying that. That's why we built this thing is to help people and it's great to hear it. It's great to see people enjoying it and finding it useful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:02):<br />
+I want to start with just giving people a brief understanding of what is Community Notes. I think a lot of people kind of heard about it, kind of maybe see it on X. As they scroll through, they see these notes but they're like, "I don't actually know what this is." So can you just briefly describe what is Community Notes?</p>
+<p><strong>Keith Coleman</strong> (00:06:18):<br />
+Community Notes is a way for the people, like the public, to add context to posts that might be misleading. The basic way it works is that someone on X can see a post. If they think it's misleading, they can propose a note that they think other people might find informative. Other people can then rate that note. And if the note is found helpful by people who normally disagree with each other, indicating that it's probably accurate, it's probably really neutrally-worded, it's probably informative, then it will show to everyone on X. The goal is just to get people more information about what they're seeing so they can make better decisions in their lives.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:57):<br />
+Amazing, and I think hearing this, it's absurd that this works. I think when people originally heard this idea like, "No way this is going to work." And so, just to dive a little bit deeper, can you give us a deeper understanding of how it actually works? Because I think it's the algorithm that you guys designed that is so clever that allowed this to work. So talk a little bit about that algorithm.</p>
+<p><strong>Jay Baxter</strong> (00:07:22):<br />
+Yeah. So I think a key misunderstanding a lot of people have if they haven't really dived into details, they just think that maybe someone can write a note and it appears immediately or we're just taking a majority rules vote of who thinks the note's good. I think both of those approaches would probably lead to biased or inaccurate notes. I think the key thing, really, that we do is we actually look for agreement from people who have disagreed in the past.</p>
+<p><strong>Jay Baxter</strong> (00:07:48):<br />
+And what we see is when people actually have that sort of surprising agreement, that's what makes the notes so neutral and accurate and well-written, really, overall. It's just that people who are very polarized, overall, often can't find agreement when things aren't accurate, right? I think it also provides some good anti-manipulation properties. I think people are often... If you said... I think back in 2020 before we started building anything here, whether this could work at all, I think a room of ML engineers would say, "Oh, you have to keep it closed source. People are going to be manipulating this all the time. You have to use ground truth labels from fact checkers. There's no way that you could bootstrap the system without external labels." But it turns out that you can do that with this kind of bridging-based agreement algorithm is what we call it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:41):<br />
+Okay. So just to summarize and make it super clear. It's basically people... Someone writes a note. This information is fault... What's a good example, just as we talk about this, like a classic example?</p>
+<p><strong>Keith Coleman</strong> (00:08:50):<br />
+A really classic example is an AI generated image or an out of context image like, "Look what's happening here." But it's actually from five years ago in a different country and a different topic or something-</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:00):<br />
+Oh, man. I've seen this so many times where it's like, "Look what's happening in San Francisco," and I'm like, "No, this is a whole different city and that's not-"</p>
+<p><strong>Keith Coleman</strong> (00:09:06):<br />
+Totally. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:08):<br />
+Yeah. Okay. So someone posts this AI image. Someone writes a note, "This is actually five years ago in a different city," and this algorithm helps understand if this note is true and it's just regular people doing this.</p>
+<p><strong>Jay Baxter</strong> (00:09:23):<br />
+Yep. Regular people who have signed up to be Community Notes contributors. So there are a few checks, like you do have to have a verified phone number for instance. But yeah, at the end of the day, these are regular people. Not necessarily professional fact checkers or anything like that.</p>
+<p><strong>Keith Coleman</strong> (00:09:40):<br />
+And yeah, that was really important to us too. There was a question at the beginning, to the point Jay was making of like, "Did anyone think this was going to work?" Obviously, it was a crazy idea. We didn't know if regular people were going to be able to do this task and certainly people had concerns about whether they would do it effectively.</p>
+<p><strong>Keith Coleman</strong> (00:09:58):<br />
+Initially, some people inside the company were suggesting like, "Hey, why don't you have journalists or some select group be the first participants?" But very specifically we were like, "No. We're trying to move away from the idea of curated editorial decisions being made around this. This is supposed to be open to everyone." So we very intentionally try to allow all humans in. People are randomly selected and that's important to it feeling fair, feeling open, feeling trustable.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:27):<br />
+Yeah. And again, it's just like this sounds like the holy grail of understanding what is true and it actually works. And works so well that Meta recently, as you all know, decided to adopt this exact system for them instead of having tens of thousands of fact checkers reviewing things.</p>
+<p><strong>Jay Baxter</strong> (00:10:46):<br />
+One distinction that I would make, which maybe can come off as nitpicky but I think is important, is Community Notes adds additional context. It's not fact-checking necessarily, right? So there are cases where the post could be true. But maybe, it's just misleading because there there's no context or there's missing context. We cover those cases and I think that's an important distinction. We just have the philosophy that users should be able to make up their own minds, right? Like, "Here's extra context, take it or leave it," right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:18):<br />
+Yeah. What I think about, you shared this with me, this example of a picture with a cat and somebody's Community Note was just, "That's a dog." Or is it the other way around or that's a-</p>
+<p><strong>Jay Baxter</strong> (00:11:31):<br />
+Yeah. "A Palestinian boy shares his bread with a dog," was the post and it's a picture of this cat. So obviously, this particular note is not super necessary because it just says, "That's a cat," and links to a Wikipedia for cat. It's a good example that the system is... This is not something a professional fact-checker or whatever or you think would need fact-checking. But it's proof that the system is really run by the users at the end of the day and adds some comic relief, I guess. And the note is correct.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:06):<br />
+Okay. It's important.</p>
+<p><strong>Jay Baxter</strong> (00:12:08):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:08):<br />
+When does a post get triggered to even be considered for Community Note? Is there a threshold or is it just you can write a Community Note on anything and people decide what they would vote on? How does that work?</p>
+<p><strong>Keith Coleman</strong> (00:12:19):<br />
+So every post is eligible for notes and that was, again, another really important principle. It's like, "We shouldn't exempt Elon. We shouldn't exempt government figures. We should..." Everyone, even advertisers, can get notes. So any posts on the platform can get a note. And if you look in practice, you'll see notes appearing on world leaders, on Elon, on ads, on media organizations, and on, obviously, just regular people using social media. But yeah, the idea is really that it's an even playing field. For a note to be proposed, the person proposing it has to have earned the ability to write notes. So there is that aspect where you have to earn in to be able to do this. And the way you earn that ability is through your ratings by demonstrating the ability to help identify notes that are found helpful to a broad range of people. So basically, if you have an ability to see and know, recognize what's helpful with a lot of people, then you have the ability to start proposing notes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:20):<br />
+I actually signed up to be on... What do you call these people? Note take-</p>
+<p><strong>Jay Baxter</strong> (00:13:24):<br />
+Contributors.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:25):<br />
+Okay. Contributors. Yeah. So I've been rating. I haven't achieved-</p>
+<p><strong>Keith Coleman</strong> (00:13:29):<br />
+Nice.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:29):<br />
+I can't write notes yet.</p>
+<p><strong>Keith Coleman</strong> (00:13:30):<br />
+Yeah. It's not super easy. It takes some effort.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:33):<br />
+Are there stats you can share about the scale of Community Notes at this point, especially things that might surprise people?</p>
+<p><strong>Keith Coleman</strong> (00:13:39):<br />
+Yeah. I mean, the service is growing rapidly, so there are hundreds of notes per day. And to put that into context, I saw some stats recently from someone at UC Berkeley saying there was something like 10 traditional fact checks a day. So in contrast, there's hundreds of notes a day that are getting shown. They span a huge range of topics from, obviously, politics, news, out to entertainment, sports, gaming. Just whatever is going on that day.</p>
+<p><strong>Keith Coleman</strong> (00:14:07):<br />
+In addition to there being hundreds of these individual notes, they can also be matched to multiple posts. So if someone writes a note on an image or a video, like let's say it's AI generated or something like that, that note will automatically be matched to all posts that contain the same image. So you can have a single note matching to thousands of posts. And over let's say the last year, 2024, we had something like 95,000 notes that were seen about 30 billion times. That's more than double the prior year. Prior year was something like 37K notes seen 14 billion times. So that rate is increasing dramatically when you think about 30 billion views, that's a lot of information that is getting out there that might not have been out there otherwise, which is pretty cool. And part of the reason it is expanding like that is the contributor base is expanding. There's something like 950,000 contributors around the world. That's nearing a million people making this happen which is amazing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:13):<br />
+Wow. And I'm one of those, right? I count as a contributor?</p>
+<p><strong>Keith Coleman</strong> (00:15:15):<br />
+Yeah. Yep. No. If you're signed up as a contributor, you count.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:16):<br />
+Okay. Cool.</p>
+<p><strong>Jay Baxter</strong> (00:15:18):<br />
+Then, there's more people on the waitlist too. So there's plenty of headroom for more growth. Regarding the matching on media and URLs, I think that's a huge way to get extra coverage. Also, I do think we've been very careful to make sure that those matches are precise. Because I think one thing that people love about Community Notes compared to other types of fact checking is that, actually, the notes are custom written for the particular claim you're seeing, right? So often, a fact check warning would just say something like, "Get the facts here." And then, there's a link to some generic page about voting information, which is so not helpful to have the information behind a click. So pulling the context up so that you have zero clicks that you need to make and keeping it specific is so important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:11):<br />
+One feature I love that I imagine you guys thought deeply about is if I liked the post in the past, I get notified later if a community note shows up, so that I'm not remembering this false information.</p>
+<p><strong>Keith Coleman</strong> (00:16:22):<br />
+Yeah. I mean, we try to make notes as fast as we can, so we want them to appear instantly if possible. But inevitably, there's going to be a time gap between when a post goes live and when people figure out what's going on and when they get the note out there. And so, we send those notifications to try to close that gap. And yeah, we get a lot of love for that. We see people take screenshots and share them. They're excited about it. And it's also a pretty cool example of something you can do on the internet, in the social media world that was difficult in a print or standard news world where you would see maybe a correction the next day in a corner of a paper that was hard to read. Here, you're getting a ping about it if you've engaged with a post and note shows up.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:05):<br />
+One user feedback point is I'd love the push to just tell me, "Here's what you got wrong." Because I find that I actually have to go into it and read it and I feel like the push could just be like, "Here's more context to this thing." You're like-</p>
+<p><strong>Jay Baxter</strong> (00:17:20):<br />
+Agreed.</p>
+<p><strong>Keith Coleman</strong> (00:17:20):<br />
+We'll go take a look at that-</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:21):<br />
+There we go. Live user feedback.</p>
+<p><strong>Keith Coleman</strong> (00:17:24):<br />
+Nice.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:25):<br />
+Okay. I want to get into the origin story of this whole thing. But two more questions, because we're on this thread. One is what's the the threshold for a note to show up on a note? Is that information you can share, just how does that work?</p>
+<p><strong>Jay Baxter</strong> (00:17:35):<br />
+So just because of the details of the way the algorithm works, it uses this machine learning algorithm called Matrix factorization where we fit it with Gradient Descent and whatnot. The threshold is it's 0.4 on this made up scale-</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:52):<br />
+0.4. Great.</p>
+<p><strong>Jay Baxter</strong> (00:17:53):<br />
+Yeah. I mean, in practice, what it means is basically a majority of people... If there is a polarized divide relevant to the notes. Obviously, some notes are not about politics or something polarizing. But if there is, then a sizable majority of people on both sides would generally need to find the note helpful. And then, there are other rules that come into play beyond that main one. So even if it's above that threshold, it might get filtered out if... There's a separate algorithm that's looking at agreement between people's incorrect tags. So like maybe people found the note helpful but incorrect, right? It happens. And in those cases, it doesn't matter if it's above the helpfulness threshold.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:39):<br />
+This is probably the wrong way to think about it, but is it 40% of people that normally disagree, agree-</p>
+<p><strong>Jay Baxter</strong> (00:18:45):<br />
+No.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:45):<br />
+Okay. It's-</p>
+<p><strong>Jay Baxter</strong> (00:18:45):<br />
+It means nothing like that. It's just like on some arbitrary scale-</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:48):<br />
+Okay.</p>
+<p><strong>Jay Baxter</strong> (00:18:48):<br />
+Yeah.</p>
+<p><strong>Keith Coleman</strong> (00:18:49):<br />
+Yeah. If we change random other things about the algorithm, that number would also have to change to an equally seemingly arbitrary number. We arrived at some numbers like that by gauging user feedback. So we could share a lot of notes with people, get feedback on which ones are helpful, and just a line emerged about indicating where things go from questionable to pretty clearly helpful.</p>
+<p><strong>Jay Baxter</strong> (00:19:13):<br />
+Yeah. And it is set right now, by the way, to be really conservative, I think. We just are pretty particular about quality and we really want note quality to be really high. I think Keith and I both believe that we live or die based on the quality of the notes at the end of the day. So we'd rather not show a note that maybe good, but we didn't have enough signal on than the other way around.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:41):<br />
+That makes so much sense. I've never seen a Community Note that is wrong and breaking that promise is a big deal. So I completely get why you guys are super conservative there. Okay. Two more questions [inaudible 00:19:53] because I'm just curious. These weren't on my list of questions to ask, but I feel like people wonder this. How many notes are written versus end up showing up and triggering on a-</p>
+<p><strong>Keith Coleman</strong> (00:20:02):<br />
+We probably show about 8% of notes that get proposed. It's been between, let's say, 7% and 10% or 11%, something like that over time. The number can vary a little bit. And as Jay said, there are undoubtedly... And you can see it, there's clearly more good notes than we show, but the goal is to hold a really high bar. We want to show a note when it's going to be helpful, when it's not going to appear biased and undermine trust in the system. We want these to be neutral, informative, helpful. And as Jay was saying, we view the worst possible mistake as showing a bad note because that's going to undermine trust and the trust is why people like the product.</p>
+<p><strong>Keith Coleman</strong> (00:20:47):<br />
+So yeah, the bar is there. And like I said, there's clearly some in that remaining, let's call it 90%, that are good. And then, there's a lot that are just not that great and there's some that are bad. And if you write one of these ones that are bad which bad being defined as people who normally disagree find the note not helpful, so it's like the inverse of the ones we show. If you write one that people normally disagree, find not helpful, you actually will ultimately lose your ability to write and have to earn it back. That other 90% is a mix. Sometimes people look at the number, they're like, "Oh, why don't you show more?" It's like, "Well, you probably actually don't really want us showing most of those." The gold here is that the system is able to filter out the good ones.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:31):<br />
+That makes sense. Okay. One other question is there's many people that are very polarized, like very disagreeable with a lot of things. How do they filter into this algorithm? How do you deal with people that are super anti-vax, super Jan 6, like all these very extreme potential views?</p>
+<p><strong>Jay Baxter</strong> (00:21:47):<br />
+If people really are so polarized that there isn't agreement among people that typically disagree, it's possible that this is one of those notes that might be correct, but it wouldn't be helpful to show as context. Maybe it's about a claim that people have really entrenched opinions about and they've read hundreds of things about it already.</p>
+<p><strong>Jay Baxter</strong> (00:22:15):<br />
+Probably this is just not going to improve people's understanding. It's just not going to be a helpful user experience. So it might not be the worst thing in those cases to not show the note. People, a few years ago, were pretty pessimistic that maybe fact-checking never changes people's understandings about what's true. Actually, there have been external studies run by people totally independent of us who have found that if you take a community note or posts with or without a community note... That actually, people's agreement with the core claims in the post does change if they see it with the note versus without. So we are having an impact on this thing that people previously thought was maybe not so easy to do.</p>
+<p><strong>Jay Baxter</strong> (00:22:59):<br />
+And so, it's nice to focus on the cases where there is the bridging agreement. I would also say there is this reputation component to the algorithm as well. So if you consistently rate notes in a way that is counter to the bridging-based consensus, then we will stop counting your ratings. So if you're the kind of person who constantly rates bad notes as helpful, we do filter you out. So there's a difference between those types of people versus the good but polarized ones.</p>
+<p><strong>Keith Coleman</strong> (00:23:30):<br />
+Yeah. I think one philosophical thing that's important is that we want all of humanity to participate. And sometimes, people are surprised by that. They'll be like, "Oh, aren't there people who shouldn't be doing this?", or like, "Their thinking is so extreme or something, maybe they shouldn't participate." But our view is it's actually we want to have all of humanity here. Because if we have all of humanity, we then have the data to understand what notes will be helpful to actual humanity. We can better model that better or better understand and better show those notes.</p>
+<p><strong>Keith Coleman</strong> (00:24:03):<br />
+So it's advantageous to have people who have all sorts of points of views and we don't expect that every note will be loved by every single person. That's an impossible bar. But we do intend to show the notes that 80% of people are going to read and say, "Wow. I'm glad I knew that." And so, in that sense, it doesn't matter how maybe extreme someone views a person's views as. It's still great to have them in the program. So no matter what your views are, please sign up and participate. It helps identify what's really helpful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:39):<br />
+Cool. And we'll link to people if they want to actually sign up, so they know how to do this. Something we didn't actually specify, these are all volunteers. No one's getting paid to be doing these notes and voting, right?</p>
+<p><strong>Keith Coleman</strong> (00:24:49):<br />
+Yeah. It's totally based on intrinsic motivation and we think that's a great reason to be doing it. When you talk to the most active contributors, a lot of them, they want to have better information out in the world and that's a great motivation. So yeah, that's why they... If you think about, like for these people, the impact they can have is nuts. So when we first launched US-wide, this was like in 2022, a note appeared on a White House tweet and the White House deleted the tweet and reissued an updated statement.</p>
+<p><strong>Keith Coleman</strong> (00:25:25):<br />
+Imagine being the person who wrote that. You probably have 12 followers. Your posts probably get a couple likes. And here, you just put a note on the White House and they changed their public talking points based on what you did. That is an incredible amount of impact. So you could see why people are motivated to do it when they care about what's going on in the world. You don't have to be a big, well-known person to shape the discourse and information flow in a way that's helpful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:59):<br />
+It's insane. There's so much to love about this. One is just the meritocracy of this whole operation of just anybody that is true and correct can participate and have impact. Also, it just shows you how much information we get that is just wrong. We had no idea how often we see things that are wrong and now we do.</p>
+<p><strong>Keith Coleman</strong> (00:26:18):<br />
+Working on this product has made me realize just how many things I used to trust by default, that now I look at more skeptically.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:26):<br />
+Definitely mean these days. Okay. Before we get to the origin story, is there anything else along those lines you guys think might be really important to share, that are really interesting?</p>
+<p><strong>Jay Baxter</strong> (00:26:36):<br />
+Sure. I guess one other thing is that although we don't actually use the fact that a post was noted in the core ranking algorithm, which we think is a nice property. There is a really big impact just organically, meaning not from the algorithm but just from user behavior, where people will like and re-share or quote posts way less when-</p>
+<p><strong>Jay Baxter</strong> (00:27:00):<br />
+Quote. Posts way less when notes are applied. I don't know, for people out there who typically run A-B tests on big platforms, you may already be familiar with this, but 1% is typically an awesome effect size for any algorithm change. We saw more like 30 to 40% engagement rate drops for likes and reposts in A-B tests we were ran when showing a post with or without a note, which is just crazy big. That's just an A-B test on the engagement rate, so that's not the network effect. If you capture the overall network effect of how post spread less by that person's repost, basically if you look top line with a difference in differences approach, multiple different external research groups have both found consistently that there's a 50 or 60% drop in total reposts, which is just nuts after a note is applied. It's having a really big impact on spread actually, too.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:05):<br />
+That's so great to hear. It's what I would want to see and it's incredible impact. Basically, an AI image of something false would just go crazy on Twitter, and did before Community Notes came out, and now what you're saying is just adding that context, not actually... Like you're saying, the algorithm doesn't demote it. If there's something incorrect, it's just people are like, "Okay, this is false, why would I want to retweet this?" That makes sense.</p>
+<p><strong>Keith Coleman</strong> (00:28:28):<br />
+Correct.</p>
+<p><strong>Jay Baxter</strong> (00:28:29):<br />
+Right.</p>
+<p><strong>Keith Coleman</strong> (00:28:29):<br />
+Yeah, the notes just totally take the wind out these stories. The thing will be going viral, note appears, resharing drops 50 to 60%, and that's it. At 50 to 60% per generation, the virality quickly goes to zero.</p>
+<p><strong>Jay Baxter</strong> (00:28:45):<br />
+By the way, I have very mixed feelings about this next one, but authors become 80% more likely to decrease, sorry, to delete their post after they get noted, which okay, that's great, because less misinfo out there, but I'm pan about, because those are usually the best notes. If the note was so just good that you had no other option but to delete your post, those notes don't get seen by other people, right? Because-</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:13):<br />
+That's hard.</p>
+<p><strong>Jay Baxter</strong> (00:29:14):<br />
+There's an argument, by the way, that seeing... Just because you might see the same misleading claim elsewhere off X, or somewhere else on X, it might be good to actually show... Better to have seen the post with the note than not see it at all.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:28):<br />
+Yeah.</p>
+<p><strong>Jay Baxter</strong> (00:29:29):<br />
+Unsure about that claim.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:31):<br />
+That is so interesting.</p>
+<p><strong>Jay Baxter</strong> (00:29:32):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:33):<br />
+Yeah, I'd be so sad if I was that community note writer and just... Man, it's so good. They just can't even keep the post up. Okay. Coming back from today's world, where this small amount of code is changing the way people understand the world and what they believe, and making the White House rescind their announcements, zooming back to the beginning of how this whole project started, what I heard just briefly is, Keith, you were just tired of managing PMs, you wanted to just work on something yourself, you wanted to work on something impactful away from corporate BS, and you basically just started looking for something that was impactful, important, and you found this. Talk about just how it all came to be at the beginnings of the story.</p>
+<p><strong>Keith Coleman</strong> (00:30:19):<br />
+Yeah. I mean, for me, the beginnings actually go back to why I joined, it was then, Twitter in 2016. I had a startup and we'd had some acquisition offers, and one of them was from this company, Twitter. It was 2016, it was the middle of the election between Donald Trump and Hillary Clinton, and there were something like three televised debates, but every day, there was a debate happening on Twitter, and it was very clear, this is where people are talking about these things that matter, where information is being shared, where ideas are being formed. As a user, it was obvious that I could get good information there, but it was also obvious that there was questionable information floating around. I remember just looking, as an outsider, thinking like, "Wow, this is a really hard problem and it also seems really important," so we ended up going to Twitter and the company was in a turnaround at that point.</p>
+<p><strong>Keith Coleman</strong> (00:31:21):<br />
+My first three years was just helping to get the company growing again, working on everything that was the consumer product, getting user growth going back and people wanting to work there again, et cetera, but a few years in, I was reflecting on what we had done. I think we had done a lot of good work getting momentum going, and people in the us and in the industry had tried things to deal with misleading information, but nothing was really working. It was obvious nothing was working. Nothing could handle the scale of the problem, nothing could handle the speed, and a lot of people just didn't trust the existing approaches. The existing approaches were either fact-checkers or internal trust and safety teams making decisions about what was or was not misleading. A lot of people just didn't want or trust that to be the way this was decided, which is very reasonable.</p>
+<p><strong>Keith Coleman</strong> (00:32:19):<br />
+I'm looking at that, I was still managing a large PM team. That's a whole story in itself. That job required a lot of energy in, and I didn't feel like I always saw the output that I wanted to see from it. I didn't see the change in the product I wanted to see and I was contemplating, "Should I go start a company? Should I do something else?" And I kept coming back to this problem. I'm like, "Man, how is the world going to deal with this information quality issue of what we get on social media?" Wherever get it. I'm at this company where you can make a difference on this problem, why not go and try some crazy ideas and see if one of them might work? I had a kid, I came back from paternity leave, I went to my boss, Kayvon. I was like, "Hey, Kayvon. How about I just stop doing my job and I go work on this instead? 'This' being trying some crazy ideas to see if we can deal with misleading info."</p>
+<p><strong>Keith Coleman</strong> (00:33:24):<br />
+He was stoked, so I went off and started working on that. It started with just reading any research I could on the problem and existing solutions. What was or was not working, what were the issues, and then into prototyping. Then it ultimately led to us building and piloting this idea that became Community Notes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:46):<br />
+Amazing. I have so many questions and we're going to keep going through the story, but when you joined Twitter, what was the... It was called Twitter. At this point, I'm going to try to call it X now, which I know is important to your boss. What era of Twitter was it at that point? It was Kayvon joined and who was the CEO? Because there's been many.</p>
+<p><strong>Keith Coleman</strong> (00:34:05):<br />
+Okay, yeah. I came in December 2016, so Jack had relatively recently come back as CEO to turn the company around, and just to give you a sense of the state of the company, something like a third of employees were leaving every year. Just imagine a third of your team gone every year. The stock was in the toilet, the product was not really growing, so Jack was working on a turnaround and Kayvon was there already. Kayvon was running Periscope with a bunch of video stuff, and that group continued to... Jack was there up through the start of the Community Notes, then Birdwatch Project, and... Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:50):<br />
+Okay, and it was called Birdwatch. I don't think we've used that term yet, but that's an important point. It was called Birdwatch initially.</p>
+<p><strong>Keith Coleman</strong> (00:34:55):<br />
+Yeah. It was originally called Birdwatch when we started the project, but obviously, somewhat famously the name changed along the way.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:05):<br />
+Yeah, maybe let's just tell that story real quick, and I know we're zooming it forward, but just... I have this Twitter thread that I saw between Jack and Elon when they're debating what to call it, and Elon's like, "Birdwatch sounds creepy, I want to change it". Is there anything there you can share?</p>
+<p><strong>Keith Coleman</strong> (00:35:19):<br />
+Yeah, the story there... The story, that's funny. Elon came in, acquired the company, and we had just launched the product relatively recently in the US. It had been in pilot for a year, but we had just made it available US-wide, and I guess he'd been seeing the notes. Soon after the exhibition, he DM'd me and he was like, "Hey, this Community Notes thing is awesome," and I was like, "I'm glad you like it, let's talk," so we talked the next day and he kept referring to it as "This Community Notes thing." I was like, "It's interesting you keep calling it that, because that's actually the very first thing that I called it." The very first figma mockup I made depicting this thing was called "Community Notes." I don't know why, it just felt really natural, so that's the first prototype we had tested.</p>
+<p><strong>Keith Coleman</strong> (00:36:14):<br />
+Later, the project changed the same to Birdwatch, but Elon was like, "Hey, let's just call it that." The next day, we just changed the name. It's always notable for the team when you change the name, but really, the team was excited about it. I think it is a much more understandable name. Jack has made fun of it, calling it "The ultimate Facebook name," or something like that.</p>
+<p><strong>Jay Baxter</strong> (00:36:41):<br />
+The most boring Facebook name [inaudible 00:36:44].</p>
+<p><strong>Keith Coleman</strong> (00:36:44):<br />
+Boring name, which is funny, because they're now launching Community Notes. I think it is a very understandable, intuitive name, and I think it has served the product really well. There's a reason it was the name in the very first mockup.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:57):<br />
+Yeah, I think descriptive names just makes sense. This connection with Elon, and I want to talk later about just how you've dealt with so many strong personalities over and kept this alive throughout so many changes, but before we get to that, you did something that I think a lot of product leaders, angel leaders, just people that have managed people dream of give up all this power, in air quotes, and career trajectory and influence and just, "Forget all that. I'm going to go back to just building something awesome, small team." Is there any advice there that you could share from that experience that you think might be helpful for other leaders to share or to hear to help them maybe do that same jump? Because that's really difficult in practice. Easy to talk about, hard to do.</p>
+<p><strong>Keith Coleman</strong> (00:37:42):<br />
+Yeah, I think it is a difficult jump. I've done it a bunch of times in my career and I've always been very happy with it, where I started with a small team, that it grew into something bigger, and then I was like, "We're dealing with a lot of big production stuff, team's really big. I want to go back to doing something like crazy and new with a small team again." I've done that sawtooth leap a bunch of times, but it can be hard, because certainly, the natural... The classic career path is, I don't know, rewards or running a large organization or being a manager, or things like that, but I think, at the end of the day, you got to work on stuff you love, you got to be having fun, and I think people want to be having impact.</p>
+<p><strong>Keith Coleman</strong> (00:38:29):<br />
+I think there's one myth that can get in people's ways. The idea that the more people you manage or the larger your scope is, the more impact you have. I definitely do not think that is true. I mean, look at Community Notes for example. If I had stayed running a large consumer PM team, what would I have produced? 16 more pages of OKRs? I don't know, a bunch of documents? I think building Community Notes has had way bigger impact on the world. It's become the industry standard for how to deal with this now, which is super cool. People love it, it's the first thing that is plausibly dealing with the internet-scale issue of information quality. I think it's unquestionably a bigger impact than I would've had if I were just doing whatever, doing some standard management track thing like I was doing before. I think that's true of so many other small companies and startups. Someone screenshotted I think it's Blake Scholl's LinkedIn the other day. He went from director of coupons or something to building the first supersonic-</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:37):<br />
+Yeah, from Groupon.</p>
+<p><strong>Keith Coleman</strong> (00:39:41):<br />
+Those stories are everywhere when you look, so I definitely have found that, for me, I love building hands-on, I love trying crazy new ideas. I love the zero-to-one experience. It's fun to scale things up too, and it can be fun to operate at scale, but this team is a good example of one that operates at a very large scale, but that is still very small.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:03):<br />
+Yeah, I think the way you guys operate is what more and more companies are trying to do, remove middle management layers, create small teams that just execute and build impact, just like Ics. Whenever I say IC, I have a comment on YouTube, where like, "What is IC?" I'm just going to explain, individual contributor, non-manager is when I say the word IC. Let me follow this thread, and when I asked people about how you set up the team to operate effectively and protect it initially, there's this term, "Thermal," that came up a lot. It was like a thermal team, if that's how you describe it.</p>
+<p><strong>Keith Coleman</strong> (00:40:37):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:38):<br />
+What is thermal?</p>
+<p><strong>Keith Coleman</strong> (00:40:39):<br />
+Yeah, so anyone who's worked in a larger company probably knows that things can get bureaucratic or bogged-down, decision-making can be slow. There's these large planning cycles, people can try to take someone from one team, move them to another at random arbitrary times that can disrupt a project, all sorts of things like that. Our company, this is a number of years ago when we started this project, we had a lot of founders in the company. Kayvon is an example of founder who is helping to run the company, and he had this idea, "Hey, why don't we create this program, call it Thermal, where we could have teams that were somewhat isolated from that." They could run through their own process, they would have one clear owner. The team would be entirely dedicated to that project and we would just repeatedly make funding decisions as to whether to continue the effort.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:31):<br />
+Why was it called Thermal, by the way? What was the idea there?</p>
+<p><strong>Keith Coleman</strong> (00:41:35):<br />
+I think it was an old bird analogy of thermals lifting the bird on their wings. Twitter 1.0 obviously had a lot of bird analogies, bless its heart, so that was one of them. I loved the idea, as someone who liked the startup environment, so when we were starting this project, I was like, "Hey, Kayvon. Why don't we make this the first Thermal project?" And he was like, "Yeah, let's do it," so we started with that way of operating and it gave us, from day one, a lot of freedom and autonomy that I think was really important to make the product work.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:15):<br />
+Just be very specific about it. What makes it a Thermal project? How do you set that up? This is asking from perspective, if a company wants to build their own something like this, what does that look like?</p>
+<p><strong>Keith Coleman</strong> (00:42:24):<br />
+Yeah, I think there's a bunch of key attributes. One key attribute is there's one clear driver of the project, who's effectively a founder. I guess maybe you could have two or something, but really clear, there's driver of the project and also there's one clear decision-maker that they go to.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:43):<br />
+Outside of the team?</p>
+<p><strong>Keith Coleman</strong> (00:42:44):<br />
+Outside of the team. That was true back when we started and it is true now. If we need something or have a question about something, I talk to Elon. It was like that from the beginning, it's like that now, and I think that's a big reason we're able to make decisions effectively, quickly, in a simple way.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:02):<br />
+It probably has to be someone very senior, not [inaudible 00:43:05] manager.</p>
+<p><strong>Keith Coleman</strong> (00:43:06):<br />
+Someone senior who can make the decisions you need made, whatever they are. I think that's really important, that clear decision-making structure. Another was 100% focus, so everyone on the project is expected to be totally focused on it. A lot of companies, it can be easy to have people's attention spread across a bunch of things, and it makes it hard to get stuff done. You'll talk to whoever that person is, you'll ask them for help on something, and they'll be like, "Yeah, I'll help you. I got to finish this thing, and it'll take me a week or two and then I'll get to it." A week or two delay totally changes the momentum of a project. When we were 100% focused, we talk in the morning, it's like, "Hey, Jay. Why don't we try this thing in the algorithm?" He's like, "Yeah." Then that afternoon or the next day, we're looking at results.</p>
+<p><strong>Keith Coleman</strong> (00:43:59):<br />
+Because of that total focus, the rate of iteration goes way up. Then beyond that, there was also just the ability to use whatever our own decision-making process was. We didn't need to write OKRs or... For others standard practices. Obviously, we had to make sure we were responsibly building the product and everything, but we didn't need to use the standard practices. I think that's another great example, OKRs, I understand why they can be helpful, but they can also be not necessarily the right cadence at which to set goals. I think it's really unclear that quarterly or annual goals are actually the right pace. We would set the goal for the next milestone that mattered, and we would work on that. We reached that milestone, we would have an idea of what was coming after, and then when we hit that, we'd set the next milestone. Whether that was two weeks, a month, three months, whatever it was. We set our own pace and goals at that pace, and that just I think is a lot more natural for the development of something.</p>
+<p><strong>Jay Baxter</strong> (00:45:06):<br />
+The whole OKR determination and planning process took longer than it would take us to pick a goal and then execute on it and finish it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:15):<br />
+How big was the team early on that you set up? How many engineers?</p>
+<p><strong>Keith Coleman</strong> (00:45:19):<br />
+It started with just me and then, when we decided to build the thing, we figured we needed about five. We wanted it to be as small as we possibly could. It was clear we needed someone on ML doing scoring, it was clear we needed someone to do some client engineering work, someone to do backend engineering work. There may have been one or two other. We needed a designer and a researcher to help us understand the customer base and make sure we were building the thing in a way that was actually going to resonate with people. I think it was backend, frontend, ML, design research. That was the original team, from what I remember.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:01):<br />
+Amazing. Basically, one of each function. A question I have for Jay, actually, is there's all this talk of small teams and moving fast, but sometimes you just need more engineers to build the thing. Is there anything you've learned about just how to keep a team small while moving as fast as you are, and not need or need to hire more engineers?</p>
+<p><strong>Jay Baxter</strong> (00:46:22):<br />
+I think, in the beginning when we were iterating on what should even the requirements be, it was definitely good to just have one ML engineer, but I think, at some point, we got clear on what the goals of the algorithm should really be and we tried... I think, at the very beginning, it wasn't clear that we needed to build this bridging-based algorithm. The actual first algorithm that I put into production was very focused on anti-manipulation. It was this page rank variant, but it didn't solve the problem of bias, basically. If there are more users on one side, a page rank type graph algorithm can actually amplify those biases. I think, after building that prototype and getting data from that, it was clear that the bridging-based algorithm was going to be the way that we needed to solve it, and at that point, basically I set up a bake-off. Kind of a Kaggle competition or something. That was the key time where it was really important to pull in other engineers.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:34):<br />
+That is such a cool story. I want to follow that thread. Before we do that, you just mentioned you guys yell "Thermal." What does that mean? Is that YOLO, like a version of... Okay.</p>
+<p><strong>Keith Coleman</strong> (00:47:43):<br />
+We're just going to ship, because we're thermal project.</p>
+<p><strong>Jay Baxter</strong> (00:47:46):<br />
+Ship it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:47):<br />
+Okay. Marketers, I know that you love [inaudible 00:47:52], so let me get right to the point. Wix Studio gives you everything you need to cater to any client at any scale, all in one place. Here's how your workflow could look. Scale content with dynamic pages and reusable assets effortlessly, fast-track projects with built-in marketing integrations like Meta, CAPI, Zapier, Google Ads, and more. A-B test landing pages in days, not weeks, with intuitive design tools, connected tracking, and analytics tools, like Google Analytics and Semrush. Encapture key business events without the hassle of manual setup, manage all your client's social media and communications from a unified dashboard, then create, schedule, and post content across all their channels. If you're working on content-rich sites, Wix Studio's No-Code CMS lets you build and manage without touching the design. When you're ready for more, Wix Studio grows with you. Add your own code, create custom integrations with Wix-made APIs, or leverage robust native business solutions. Drive real client growth with Wix Studio. Go to Wixstudio.com.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:52):<br />
+Okay, so coming back to this algorithm, this is actually really interesting, because I've never heard any of this. I was going to ask just what inspired this actual algorithm, and you basically did an internal competition amongst ML engineers to see who had the most successful algorithm. Netflix-contest style, Kaggle style.</p>
+<p><strong>Jay Baxter</strong> (00:49:09):<br />
+Yeah, yeah. This particular idea of finding content that is liked by people on opposite sides of a polarized divider who typically disagree, this was not an idea out of thin air. I think Keith had found some of Chris Bale's work, he had made this list of accounts that were often liked by people who were on both sides politically. There is other projects, like polls out there that look for agreement among people who typically disagree, but I think that it wasn't obvious that our project definitely needed to use that from the very beginning. When you implement it and compare it against these other type... PageRank seems, obviously, it's designed to be manipulation-resistant. Naturally, if you just have a voting ring of people who all vote themselves up, then PageRank can filter that out very well, but that just wasn't the main attack vector, I guess.</p>
+<p><strong>Jay Baxter</strong> (00:50:15):<br />
+We had to get some real data from the pilot to realize that, "Okay, the real thing going on here is people are polarized," so it was only once we got that, the real data from the pilot, that I think it was clear that the bridging-based algorithm was the direction we really needed to go.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:34):<br />
+I want to come back to the way you operate the team. I hear that you run the whole team off a single Google Doc that's like a four-year-old doc that you just keep adding goals to, bullet points. Is that true?</p>
+<p><strong>Keith Coleman</strong> (00:50:47):<br />
+There is a very long-running doc that has had to be chopped and purged, because it was breaking Google Docs in Chrome at various points in time. It's like a note-taking doc. It's really where we coordinate what we're doing. The team meets on a daily basis, we spend whatever amount of time we need to get on the same page about what we're building. We might talk about anything from what's most important right now to, "What should we work on next?" To, "What are we trying to launch right now, and why is it not launched? What's in the way of launching it?" We might review new modeling or scoring algorithm update and try to understand what's working in it, what's not. We'll just cover whatever we want or whatever feels most important. As you said, we set our goals very dynamically, so whatever seems like the most important thing for us to work on now and next is what we spend our time on. I think that's served the project really well versus feeling attached to some quarterly goals, or something. We'll look at, "What is going to help people the most?" Or, "What's the biggest problem right now?" What are either one of those? And we will go tackle it. We might change our roadmap multiple times in two weeks based on what we see.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:08):<br />
+I'm hearing no Jira, no Asana, no Monday.com.</p>
+<p><strong>Keith Coleman</strong> (00:52:11):<br />
+No.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:12):<br />
+Okay.</p>
+<p><strong>Keith Coleman</strong> (00:52:12):<br />
+Yeah, I mean, we have to use Jira to coordinate with some other teams. Sometimes when we file a request, we have to make a Jira ticket. But no, I am not a fan of heavyweight task management. I love being on the same page, being able to keep most things in my head, and having a really light way to write down the things that the team can't keep in its head.</p>
+<p><strong>Jay Baxter</strong> (00:52:34):<br />
+We did use Asana briefly, but my memory of it is that you spent more time in the meeting grooming a backlog of irrelevant stuff than actually talking about the proper priorities. I think it's nice in the Google Doc that, if something becomes irrelevant, it can just fall off without needing explicit backlog grooming.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:58):<br />
+Just to maybe summarize a little bit of how you guys operate that might inspire other companies to set teams up like this, so I'm going to go through a few things you shared. One is one person in charge of the team, like the founder almost. They're basically the founder of the team. They have one very senior, essentially, sponsor/decision-maker that they interface with. In your case, Elon, no big deal. In other cases, it could be the CTO, CPO, someone like that. The team is focused 100% on its product and goal. You keep the team very small, so you start with one person of each function. One front-end engineer, back-end, ML person, designer, researcher, PM, and then Google Docs is almost basically for your project management. Yeah, it's basically run with Google Docs, stop, don't use big, complicated products.</p>
+<p><strong>Keith Coleman</strong> (00:53:50):<br />
+I think that's a pretty good recipe. On the Google Docs, people can do what they want. If they want to use thumbnails, go for it. I think those first ingredients, really, are key structurally. Then beyond that, it's a matter of having an ambitious goal that gets-</p>
+<p><strong>Keith Coleman</strong> (00:54:00):<br />
+And then beyond that, it's a matter of having an ambitious goal that gets people fired up to go do great work.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:06):<br />
+Yeah. Awesome. I think there's a lot there that a lot of people think they should do when they set these teams up, but they don't actually do, and it feels like each of these is just a really key ingredient to it to actually succeeding.</p>
+<p><strong>Keith Coleman</strong> (00:54:17):<br />
+It definitely really helped us succeed. I don't know that the project would be here if it was not for some of those elements.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:24):<br />
+That's a powerful statement. This thing that has changed the way the world understands what is true would not have existed if you didn't set it up in this specific way.</p>
+<p><strong>Keith Coleman</strong> (00:54:34):<br />
+Yeah. I don't know if I would've begun the project had I not known. We had that structure, that ability to make decisions, the autonomy, the speed, the ability to go fast. We started with that in 1.0 and it's been continued and if anything, furthered in X. X as a whole company operates with a lot of those attributes, and I think it's one of the reasons the product is successful. I think those are big reasons why at least, Jay can speak for himself, I have so much fun working on this. I love working on it. It's great to wake up every day and solve these problems. We get to do them efficiently, make decisions quickly, build stuff that helps a lot of people. It's awesome.</p>
+<p><strong>Jay Baxter</strong> (00:55:25):<br />
+This whether thermal or Elon way of operating is definitely more fun and the fact that... That combined with the awesome mission is super important for internal recruiting. I remember when I was first chatting to Keith about this back in early 2020, I had another project. I worked on a few, but one was like personalize the number of push notifications that we send, and it drove a lot of DAU without losing opt-outs significantly. So that was setting me on track, or if I had kept working on that, I could have probably gotten a promotion from that with low risk, or I could take this huge career... It's not as big at a career risk as joining or founding an actual external startup, but there is still career risk, I guess, in joining a team like this. I think all of the same aspects of recruiting that apply to external startups and apply internally, and if you can have an exciting vision, that is key.</p>
+<p><strong>Keith Coleman</strong> (00:56:30):<br />
+Related to that and your list, Lenny, one thing we missed that's super important is that on this project, and I think of successful projects like it in startups, is that people are self-selecting to join. We did not assign anyone to this project. People reached out to join or they applied to join the job. I and the team interviewed every single person that joined the team and we were like, "We want that person on the team. They want to be on the team." And so people are totally bought in to the goal, mission, the way the team works, the other people they're going to be working with. And that makes a huge difference.</p>
+<p><strong>Keith Coleman</strong> (00:57:10):<br />
+So a great time to do that is at the start of one of these things. If you're going to try something crazy, it's going to be tough if you're just assigning random people to it. But if you let people opt in and self-select much more likely to be successful. And one thing that I have observed at X, which really surprised me was that this is also possible at a large scale. One of the things that Elon did when he bought the company was he basically asked people to self-select to stay. You had to click the button. And he sent an email out that was like, "Hey, Twitter 2.0."</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:44):<br />
+Fork in the road. Right? [inaudible 00:57:46]</p>
+<p><strong>Keith Coleman</strong> (00:57:45):<br />
+Fork in the road. Fork in the road. Exactly. He's like, "Twitter 2.0, now X, it's going to be hardcore. We're going to do ambitious things. You're going to work your butt off." And you had to click on the form and say, "Yes, I want to join." And I think that was really important for the company because you want people to opt into that. You want the people to be saying, "Yeah, that's what I want to do," and the company's going to be a lot more successful. If people aren't sure, it's better for them probably to go do something else and where they're naturally more aligned and happier. And I thought that was a great approach to taking a large company and getting it down to people who are really excited about working together on a mission. So for us, we did it from day one, which I think is an easy way to do it, but it's possible to do it later as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:33):<br />
+I love that you described it as fun and I think a lot of people when they see Elon laying off a bunch of people, being very hardcore himself, people don't imagine it as a fun place to work. And it's clear how much you guys love working on this, how fun it is and how interesting it is. And it's interesting to hear that 'cause I think a lot of people don't feel that externally. Is there anything else along the lines of just working for Elon within an org Elon runs that might surprise people about just the way of working that's interesting or surprising or you think other companies might want to think about adopting?</p>
+<p><strong>Keith Coleman</strong> (00:59:07):<br />
+I've always liked lean teams, but my experience at X has made me change the way I would think about running a future org-... If I were to start a company and had to change the way I think about starting that company, I would be even leaner than I would've made it before. I've been amazed with just how much the team is able to accomplish with a small group. And I think because of a small group, shortly after the acquisition, we had this product called Spaces. It had been in the product before, but it was pretty small scale, and Elon wanted to run these large spaces. I forget who the first people he was going to bring on were, but he was going to be there. Ultimately, these things have gone on to host politicians and things like that, and he's like, "Guys, we got to scale this up." I forget the numbers.</p>
+<p><strong>Keith Coleman</strong> (00:59:57):<br />
+He's like, "We need to be able to scale a million people," or something like that. I'm getting the numbers wrong. "You need to be able to scale way up." This is the kind of thing at 1.0 That would've taken a year if it had ever happened, and the team did it in two or three weeks. And it was really exciting and inspiring to see. I didn't work on that, but I watched it from the outside. I'm like, "Wow, with this tiny team motivated behind a big goal that was like, 'Hey, guys, it's not like, are we going to do this?' It's, 'We are going to do this.'" They got it done in two or three weeks. That must've felt amazing for them. It was certainly exciting to see. But I've definitely come to appreciate just how lean something can be and not just get by but actually thrive because it's that lean.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:42):<br />
+I think the point you made about people opting into that is important, 'cause I think a lot of people hearing that would be like, "I would never want to be asked to build something like that in two weeks." And I think a lot of people do, and we love that kind of experience, especially working with the Elon, especially shipping something at that scale. But I think there's an important element there of just like, "Okay, I don't want to do that. I have other things to do in my life other than ship spaces." So I think that's a key point you've raised of just there's an opt-in step.</p>
+<p><strong>Keith Coleman</strong> (01:01:10):<br />
+Totally. I think the opt in is important, and it may even be that you want to opt in at one point in your life, and maybe at another point in your life something else is better. I think whatever it is you're choosing to do, it's nice to be opting in to feel like it's aligned with how you want to spend your time.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:25):<br />
+Something on my mind, and I don't know if you guys want to go here, but it's something I think a lot of people think about is when Elon came in, he let go of 80% of folks. And everyone's just like, "Twitter is dead. It's all going to fall apart. There's no way they can run this thing with that small of a staff," and clearly they were wrong. Clearly, it's working great. It's becoming a massive deal in the world and continues to grow. Is there anything about that that you were surprised by or anything about just how it continues to operate so well in spite of that big shift?</p>
+<p><strong>Keith Coleman</strong> (01:01:57):<br />
+I think the leaner team, the reduced process in bureaucracy is a big reason it does move as fast as it does. It's easier to get stuff done faster here. Yeah. I think that shrinking is actually a big reason for the increased pace of launches, the increased pace of experimentation. One thing that I noticed a result of that is the people who are here, they seem to all really feel like owners. They take the sense of responsibility that an owner takes in the product. They'll try to track down what's wrong, fix whatever is needed, jump in to help build or fix, improve any system that needs help, even if it's outside of their space. And there's the flip side of that too. For people who've worked at big companies, they may have experienced this thing where there's like ano-... You want to change something in some other system or product, and so you reach out to that team. And maybe they're a little resistant, they'll maybe be like, "Oh, we'll get to that next quarter or so-</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:07):<br />
+They have their own goals to hit. Yeah. [inaudible 01:03:08]</p>
+<p><strong>Keith Coleman</strong> (01:03:08):<br />
+Yeah. Exactly. They don't really necessarily want to help you or they're busy. Here, you're like, "Hey, guys, we need to do this thing with that other system you work on." And they're like, "Great! Here's the code. Here are the docs. Send us the fab if you have any questions, and we'll get it in." And it's just the thing, you can just jump in and get it done. And that kind of collaborative effort, like the sense of shared ownership, I think from my experience came from or was a result of the shrinking of the team down to people who wanted to be there and work together to build this thing. So I think that's been a really positive impact. It's not always easy. Certainly, a lot of people have a lot of responsibilities, but they're here because they're up for it.</p>
+<p><strong>Jay Baxter</strong> (01:03:53):<br />
+Yeah. I think one other thing that's key is when you are forced to have such a small team, well, this is important anyways, but deleting code is more important than writing it a lot of the time. So I think so often maybe due to promotion incentives or just regular human tendency, engineers have a tendency to add these little incremental wins that actually add more of a long-term maintenance cost than is clear, because you just run a little one month A-B test, you see this significant win and you don't realize the maintenance burden you just added to your team for the rest of eternity until you turn the thing off. So I think there's a lot to be gained and you get forced to do this, by the way, when you have such a small team. It's just auditing parts of your system and deleting the things where the maintenance cost is worse than the gains. So I think we did have to do this across the company after the big layoffs, and systems are leaner now and they can be worked on by fewer numbers of people.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:02):<br />
+That's an amazing point. I remember Elon's being like, "Here, we have to throw away the whole thing. We have to re-architect everything. It's stupid the way it's built." And it sounds like that actually worked.</p>
+<p><strong>Jay Baxter</strong> (01:05:10):<br />
+Yeah, so-</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:10):<br />
+Well.</p>
+<p><strong>Jay Baxter</strong> (01:05:11):<br />
+You don't have to rewrite everything from scratch. Some things are good, I guess, to rewrite. But just even deleting the unnecessary cruft and keeping the rest of the core system, that's awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:23):<br />
+I love that we're creating a formula to run these sorts of companies and teams. There's so much here. I want to go back to the building of the original product. I took us on a long tangent and an amazing tangent, but I heard a story of when you launched Birdwatch at that point. You specifically wanted to keep expectations very low and there was a GIF in the thing, and it just looked like clearly this is not ready for prime time. Talk about just how you did that, how you launched it in a way where people weren't like, "It's never going to work."</p>
+<p><strong>Keith Coleman</strong> (01:05:53):<br />
+We were very disciplined, I guess you could say, about having the product prove itself at every given point. When we built the first mockups, these were just pictures of depicting what community notes might look like. We showed those to people across the political spectrum. We saw, hey, people really like these. Whether they're on the right or left, they seem very open to reading these community notes even when they're critical to people of their own side. So we're like, "All right. That gives us confidence that if we can build this, if we can actually make this as a reality, it's going to work." Then there's a question of can we make it a reality? Will people in the real world be able to write notes that are of this quality?</p>
+<p><strong>Keith Coleman</strong> (01:06:35):<br />
+And so we had an internal pilot test version of this where you could write notes. And we first basically ran this through an Amazon MTurk type of participant test just to see if you just put some normal people in there, will they be able to write these notes? All those notes weren't good, but it was clear that there were people out there who could write good notes. So then like, "Okay, this is possible. What will happen if we actually do this out in the real world? And let's run a pilot and find out." And so we took that pilot that we'd run the MTurk of test on, and we released it to at first 1000 people, totally out in public, and we didn't know what was going to show up. You could imagine the notes could have been terrible.</p>
+<p><strong>Keith Coleman</strong> (01:07:27):<br />
+And so we were talking, "Well, what do we do? We're going to put this out there. Everyone's going to have all these questions. They're probably going to be really skeptical, and we know it might be a total dumpster fire. And so what do we do to set expectations appropriately?" We felt like we could probably get there in the end, but we just didn't know what was going to happen at first. We wanted to set expectations, and so we're like, "Well, why don't we just stick..." There's the page where you see a post in the notes below. We're like, "Why don't we just stick a dumpster fire GIF on that page?" And you go there, you're like, "Hey, anything you see below here might just be a total dumpster fire. At least it would show we were aware of that as a possible risk." In the end, we did not do that. It cracked me up, but we thought it was like-</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:13):<br />
+Oh, you didn't actually launch. Okay. That was just a concept. Okay.</p>
+<p><strong>Keith Coleman</strong> (01:08:16):<br />
+We had mockups of it, and every time I looked at the mockup, I laughed, but ultimately we had so much to explain on that page, like, what is this thing and how does it work? Ultimately, we're like, "Okay, this is probably going to distract from the point." So we pulled it. I wish maybe it had seen the light of day at one point, but yeah, ultimately we kept it simple and we focused that page on explaining what was going on here. But again, as has happened many times with the project, we put the pilot out there and the notes were good.</p>
+<p><strong>Keith Coleman</strong> (01:08:48):<br />
+They weren't all good. It was a mixed bag, but there was gold in there. And from the very early days with just 1000 contributors, it was obvious that people could write notes that were informative, that were neutral, that spoke to controversial challenging topics, and that if we could just identify those from the rest, this was going to work. It was going to work as well as the very first mockups we had made. So that became the focus that is, how do we sift out the gold from the rest?</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:19):<br />
+I think you may have shared with this with me, when someone noticed you guys were testing this and they took screenshots and tweeted it, and I think Elon replied, "This is cool."</p>
+<p><strong>Keith Coleman</strong> (01:09:27):<br />
+Yeah. Yeah. So in the very early days when it was just a Figma prototype, we were running these usertesting.com on moderated studies. I guess one of the participants sent one to an NBC reporter who wrote a bunch of stories on it. Anyway, that day, there was a lot of chatter about it on the service, and Elon... To put this back in time perspective, this is, I think, 2020, so two years before any acquisition stuff happened, Elon is just a Twitter user building rockets and electric cars and other cool stuff and stumbles on this thing that depicts the prototype that we've been testing. And he writes back, "Definitely worth trying, IMO." And I remember thinking that was cool back then and it's interesting to see, he's obviously had a very consistent point on it. I think the idea was appealing and he has obviously been a big fan of it in the product and had been a big supporter proponent. So yeah, it was cool that it came from... that support has been from the very early days before he was ever involved in the company.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:36):<br />
+I love that moment. That must have felt really wild for Elon to be commenting on this Figma prototype retesting.</p>
+<p><strong>Keith Coleman</strong> (01:10:42):<br />
+It was cool. It was cool.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:44):<br />
+Oh, man. So when we were preparing for this interview, I asked you guys what's the main thing you want to make sure people get and understand about why community notes has been so effective? And Keith, you specifically said that it was the principles behind how you wanted to approach this and how you continue to stick to this throughout. And we'll talk about how you kept it alive throughout all these different CO changes in leaders. But just talk about these principles, what the actual principles are and why that was so key to it working out.</p>
+<p><strong>Keith Coleman</strong> (01:11:16):<br />
+There are a number of principles that I think when we first shared them with people at the company seemed maybe a little bit crazy. But I think they are the reason the product works, and I think they've been very important, and we do. We come back to them regularly, today, all the time. Probably the craziest one is just that this thing is going to be the voice of the people. It's going to represent the voice of people. It's not going to represent the company's voice. So it is not a tech company deciding what shows. It is the people deciding what shows, and that had a lot of implications on the design. First of all, we don't have a button that will change the status of a note. So if a note is showing because the people have rated it and found it helpful, it is going to show. We can't change that.</p>
+<p><strong>Keith Coleman</strong> (01:12:08):<br />
+And that is the kind of thing that when we first propose this, that's unsettling to people. They're like, "Wait, so something can go up and the company can't take it down, or can't change its status, get it to stop showing." And we're like, "Yeah, and it has to work that well. If it doesn't work well enough to do that, then it doesn't work." This is one of our key principles was, if there's a problem with a note that's so bad, you want to do something about it's a problem with the system. We need to redesign the system to be showing good notes. And so yeah, we had to get everyone comfortable with the idea that there was no button to change the status of a note. Similarly, as we talked about earlier, we wanted this to represent all of humanity.</p>
+<p><strong>Keith Coleman</strong> (01:12:53):<br />
+And so we didn't want to be arbiters of who can come in and be a contributor and who can't. So we open it to everyone. You just have to meet a really basic objective criteria. You have to have a verified phone to help reduce the likelihood of having bots or things like that participating. But beyond that, it's random selection and it still is that way today. And again, that people took some time to get people comfortable with it. But I think that the fact that this is the voice of the people and reflects their output through an open and transparent process is so key to both why it is good, why it works, but also why it's trusted. So that's number one and I think will forever be the heart of the product. Another one that people thought was crazy was transparency.</p>
+<p><strong>Keith Coleman</strong> (01:13:49):<br />
+The previous approaches to dealing with misleading info, it felt to a lot of people, like black box tech companies or media companies or leads or whatever making decisions. We're like, "People need to get comfortable with this. They need to trust this. So the whole thing has to be out in the open." The code that decides what notes share has to be out in the open. All of the data and ratings that make it happen have to be out in the open. People should be able to take the code and data and replicate the whole service and that we have done exactly what we've said we've done. And they should be able to audit it. They should be able to go and look and say, "Hey, I think this part could be better."</p>
+<p><strong>Keith Coleman</strong> (01:14:28):<br />
+Or if they think we're biased, they should be able to work with the data and point it out. And if people have good observations, that should factor back into the code. And this is, again, something that's difficult to get people comfortable with, that everything is out there, you can't cover anything up. But I think that's so essential to people trusting it. Yeah, we set these out on day one. We go back to them constantly because we're always evolving the product, and we're always like got to make sure every new change is open. Whenever we update the scoring system, there's an update in GitHub when the data is published daily so you can download it. And so yeah, I think those have been really essential to the thing working.</p>
+<p><strong>Jay Baxter</strong> (01:15:13):<br />
+And by the way, these do not come without a cost. It's actually really hard from an end perspective to actually open source the actual algorithm that's running on the actual data. Because the way large-scale services like this are usually architected does not naturally lend itself to being run as a script by someone who's downloaded a TSV. So we actually have to take weird architectural decisions to make this possible in a way that probably wouldn't have been if we didn't start with this assumption from scratch. We would've had to maybe rewrite the system to make it like this.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:49):<br />
+What's an example of that?</p>
+<p><strong>Jay Baxter</strong> (01:15:50):<br />
+For instance, there's a matrix factorization that we train. Usually, you would train a matrix factor... train your ML model once and then serve it, I guess with a separate service. But we didn't want to have people externally spinning up services to be able to replicate the system that we had. So basically, I don't think it would've been actually very cool if we had open sourced the code in a way that wasn't actually runnable, I guess, by someone just... At this point, you can download Python code and run a script. You do need a lot of RAM right now, but you can do it on one machine.</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:35):<br />
+Okay. How much RAM are we talking about?</p>
+<p><strong>Jay Baxter</strong> (01:16:37):<br />
+Oh, only like 500 gigs.</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:41):<br />
+Okay. Okay. That's reasonable.</p>
+<p><strong>Jay Baxter</strong> (01:16:41):<br />
+It'll take a day if you don't do anything special to speed it up. Good to know, but yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:16:45):<br />
+Cool.</p>
+<p><strong>Jay Baxter</strong> (01:16:46):<br />
+Possible is the key thing, and people have done it. Vitalik Buterin had a blog post where he talks about his explorations, making sure the algorithm really does what it says it does. And I think just the fact that a handful of people have done this, there's enough people who have done it that there's someone you'd probably trust who's verified it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:17:11):<br />
+And that's rolling out to Meta. No big deal. I love just as you described these principles, just I could imagine a PM at a company being like, "Okay, guys. Here, I want to do this project." There's so much idealism to it that rarely works in real life; going to be open source. You're going to give it to everyone. We don't have actual control over what it's going to do, don't worry about it. It's going to just change the way people see this thing that we've been very careful about and then it works. And I think that's very rare and it's really impressive. And what I'm hearing partly is that sticking to those principles was actually really fundamental to it working and not bending over when someone's like, "No, no, no, we can't do this. What if we change this part?"</p>
+<p><strong>Keith Coleman</strong> (01:17:54):<br />
+I think if we had broken with any of those principles, if there was anything black box, if there was whatever, the product would be a lot harder to trust. And so I think it's because we've just stuck to them so cleanly simply that people can trust it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:18:11):<br />
+You've talked about a few moments when it was like, wow, the White House changed their announcement because of the community note. We talked about the dog is a cat. Are there any other moments that after you launched of, "Holy shit, this is working? This is going to a</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

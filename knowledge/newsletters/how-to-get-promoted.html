@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to get promoted — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to get promoted</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to get promoted</div>
+    
+    <div class="article-meta">2022-02-01<span>·</span>2,100 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’ve been stuck at the same level for a few years now. What advice do you have for getting promoted?</h2>
+</blockquote>
+<p>Getting a promotion is like eating a huge burrito: it’s a lot of work, it’s unclear what’s on the inside, it feels great for a bit, but then you wonder why you did this to yourself.</p>
+<p>Knowing all that, we keep wanting it.</p>
+<p>Over the course of my 16-year career, I’ve been promoted roughly nine times. First as an engineer, from an intern all the way to head of engineering, and later as a product manager, from a junior PM to a manager of PMs. I was stuck at the same level for many years at times, and at other times I was promoted year after year.</p>
+<p>Reflecting back on my experience and the experience of my colleagues, the most important ingredient has always been simply doing great work, over and over. But the process does often need a nudge, particularly if you’ve been stuck in the same role for a while. I’ve found seven strategies for significantly increasing your chances of getting a promotion, no matter your role:</p>
+<ol>
+<li><strong>Deliver more impact</strong></li>
+<li><strong>Take on more scope</strong></li>
+<li><strong>Demonstrate that you’ve addressed a gap</strong></li>
+<li><strong>Find an influential champion</strong></li>
+<li><strong>Pay attention to who gets promoted</strong></li>
+<li><strong>Ask for it</strong></li>
+<li><strong>Quit and go work somewhere else</strong></li>
+</ol>
+<p>Before we get into it, it’s important to note that even if you do all of these things, you may still not get promoted, for very practical reasons:</p>
+<ol>
+<li>There’s a minimum amount of time you need to be in your current role before you can get promoted</li>
+<li>There aren’t any available roles at the new level</li>
+<li>The company isn’t doing well and doesn’t have the budget to promote people</li>
+<li>You just aren’t ready for the next level</li>
+</ol>
+<p>I also strongly encourage you not to over-fixate on promotions and levels. Be patient. Like preparing for a marathon, it takes time to get your mind and body ready for the next level. One of the most common ways to crash and burn at a company is to be put in a role you aren’t ready for.</p>
+<p>With that in mind, let’s get into it.</p>
+<h3>1. Deliver more impact</h3>
+<p>Companies desperately want to give more responsibility to people who deliver results. <strong>If you aren’t getting promoted, it usually means you aren’t seen as someone who can consistently deliver significant impact</strong>. You can always make excuses, like people not seeing the impact you’re making, or not having the resources to deliver the impact, but that’s part of the job—fight for resources, take on work that’s most meaningful to the business, and highlight your wins.</p>
+<p>There are many ways you can deliver more impact:</p>
+<ol>
+<li>Contribute to hitting more ambitious goals that directly map to business growth</li>
+<li>Lead and successfully launch an important project</li>
+<li>Work on higher-visibility, more important, projects</li>
+<li>Save the company a lot of money</li>
+<li>Help the company run significantly more efficiently</li>
+<li>Move to a team that’s working on more critical work</li>
+</ol>
+<p>When you look at the people around you who got promoted, how much impact did they drive to help the business grow, or work more efficiently? If you consistently find a way to drive significant impact for the business, you’ll be prime promotion material.</p>
+<h3>2. Take on more scope</h3>
+<p>As <a href="https://tarajayefrank.com/">Tara Jaye Frank</a> so accurately puts it, “People don’t get promoted for doing their jobs really well. They get promoted by demonstrating their potential to do more.” At many companies, you get promoted only after you’ve demonstrated you can handle the next level. <strong>And</strong> <strong>there’s no better way to demonstrate that you can take on more responsibility than by taking on more responsibility.</strong> Like they say: do the job you want.</p>
+<p>In my case, a year into becoming a senior PM, I proactively began mentoring a couple of junior PMs, and that became a big factor in my being promoted to a manager a year later. Similarly, I got promoted from a mid-level PM (L5) to a Senior PM (L6) after leading a mission-critical project (Instant Book) for a couple of years, which spanned multiple departments, reported up to the executive staff, and became a major part of the company strategy—going far beyond the scope of a traditional mid-level (L5) PM. I showed people that I could handle more, and they gave me more. This happened again when I got promoted from an M1 to an M2, only after I took on managing five sub-teams and showed that I could handle it.</p>
+<p>What’s something you can take on that increases your scope or responsibility? Some suggestions:</p>
+<ol>
+<li>Take on work that your manager is currently doing</li>
+<li>Take on a project for someone while they’re out</li>
+<li>Lead ambitious projects</li>
+<li>Get ahead on next year’s strategy</li>
+<li>Take the reins of an important visioning exercise</li>
+<li>Architect or wireframe the next big product</li>
+</ol>
+<p>But note that if you’re doing the job of someone at the next level for over a year, without being recognized for it, it’s time to have a hard conversation with your boss.</p>
+<h3>3. <strong>Demonstrate that you’ve addressed a gap</strong></h3>
+<p>No matter your role or level, there’s a skill or behavior that is keeping you from the next level. Whether it’s your ability to execute reliably, communicate well, or lay out an inspiring five-year vision, it’s always something. <strong>To get promoted, you’ll need to demonstrate that you’ve addressed that gap, in the eyes of both your manager and other influential leaders involved in the promotion process.</strong></p>
+<p>Here’s my advice:</p>
+<ol>
+<li>In your very next 1:1, push your manager to articulate which 2-3 skills/behaviors/attributes are most keeping you from the next level.</li>
+<li>Put together 3-10 concrete actions you (and your manager) can take over the next six months to improve at these skills/behaviors/attributes.</li>
+<li>Align on this list with your manager and put them into an <a href="https://docs.google.com/spreadsheets/d/12Z8euSULYHGSKgJMR47QuK2cEyHm0B-6hAmanqtVqQ0/edit#gid=0">action plan spreadsheet</a>, like so:</li>
+</ol>
+<p><img alt="Image from How to get promoted" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/3591173f-c598-44ce-aac2-6807c6ef4e35_950x306.png" /></p>
+<ol>
+<li>Schedule a monthly “career coaching” session where you and your manager review each of these action items and review how they’re going—giving them each a status color.</li>
+<li>Keep doing this every month, between performance review cycles, and continue to focus on concrete actions you can take to address your gaps.</li>
+</ol>
+<p>Broadly, what you need to do is to get crystal clear about your gaps, keep both of you accountable to making progress on addressing these gaps, and stay aligned on how it’s going. <a href="https://review.firstround.com/the-power-of-performance-reviews-use-this-system-to-become-a-better-manager#:~:text=Create%20a%20two%2Dsided%20action%20plan">Read more</a> about how this can fit into your regular performance review process.</p>
+<h3>4. Find an influential champion</h3>
+<p>Promotions generally happen through a calibration process, where managers across the company come together to discuss the performance of every report. <strong>The most underappreciated, and often the most powerful, ingredient in getting promoted is to have someone with influence fight for you in the calibration process.</strong></p>
+<p>The fastest ramp up in my career happened when I moved to a new manager who was incredibly influential within the org. He not only helped me level up as a PM, which led to some of the best work of my career, but he also fought for me cycle after cycle, leading to one promotion after another.</p>
+<p>But don’t let this become an excuse for why you aren’t being promoted. The best way to get a champion is to do a great job (e.g. deliver impact, address gaps, and the other items on this list). If you’re doing a great job, people will want to champion you. Give them ammo to fight for you:</p>
+<ol>
+<li>Hit goals</li>
+<li>Keep your manager updated on how you’ve addressed gaps</li>
+<li>Start a “wins” folder or document to keep track of your wins and impact</li>
+<li>Lay out your case for why you believe you should be promoted</li>
+<li>Treat your manager as a partner, not a gatekeeper</li>
+</ol>
+<p>Do a great job, help them articulate how great a job you’re doing, and good things will happen.</p>
+<h3>5. Pay attention to who gets promoted</h3>
+<p>There’s a reason no two <a href="https://www.lennysnewsletter.com/p/jobs-of-product-manager#:~:text=Public%20examples%20of%20career%20ladders">company career ladders</a> are alike. Explicitly or implicitly, every company prioritizes different skills and behaviors. If you pay attention to who gets promoted, you can start to see what actually matters at your company. For example, <a href="https://www.lennysnewsletter.com/p/product-management-survey">here’s how different PM skills are emphasized</a> across a few dozen companies:</p>
+<p><img alt="Image from How to get promoted" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ec74669b-0f27-44de-a2ef-f2cc0c611833_1100x1474.png" /></p>
+<p>My advice is to have a conversation with your manager about what you should be paying attention to beyond the career ladder. What should you be reading between the lines?</p>
+<p>I’d also encourage you to chat with colleagues who recently got promoted and ask them what they did. Even your manager may not be aware of what other leaders are looking for.</p>
+<h3><strong>6. Ask for it</strong></h3>
+<p>When was the last time you told your manager you’d love to get promoted? It may seem obvious to you, but they may not know how important this is to you. Bring it up at your next 1:1 and see what happens. Better yet, create the action plan we discussed in item 3 above.</p>
+<p>This doesn’t need to be a constant conversation. Just make sure your manager knows it’s on your mind.</p>
+<h3><strong>7. Quit and go work somewhere else</strong></h3>
+<p>Finally, sometimes the best path to a promotion is to jump ship. I don’t like this path because it’s often defeatist and can put you in a position you aren’t truly ready for. But it’s sometimes necessary. In many cases, it’s a matter of finding a better manager, or getting out of a rut at your current company. If you’re stuck at the same level for over two years, and nothing I’ve shared above seems to be helping, it’s probably time to explore a new gig.</p>
+<p>Zooming out and looking back at my career, of all the strategies I’ve shared above, the most important factor in getting promoted has always been simply doing good work. Consistently. If you do only that and nothing else, most of the time things will generally take care of themselves. But if not, these strategies will help get you over the hump. And just like with a huge, delicious burrito—be patient, but be determined.</p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://twitter.com/lennysan/status/1486861610895360000">What most contributed to you getting your last promotion?</a></li>
+<li><a href="https://hbr.org/2021/05/do-you-want-to-get-promoted">Do You Want to Get Promoted?</a> by HBR</li>
+<li><a href="https://www.lennysnewsletter.com/p/senior-product-manager">Becoming a senior PM</a> by Jackie Bavaro</li>
+<li><a href="https://womeninproduct.medium.com/ask-wip-how-do-i-get-promoted-to-senior-pm-794be2d2e00f">Ask Women in Product: How do I get promoted to Senior PM?</a></li>
+<li><a href="https://www.linkedin.com/business/learning/blog/productivity-tips/how-to-get-promoted">How to Get Promoted — The Complete Guide to Moving Up</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Superjoi:</strong> <a href="https://www.lennysjobs.com/jobs/9710eb14-bc72-46a5-b75b-2949c5c1bfa7">UI/UX Designer</a> (LA, Remote-Global)</li>
+<li><strong>Superjoi:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/4111e336-604a-43c7-90b4-8cf03952800b">Full Stack Engineer</a> (LA, Remote-Global)</li>
+<li><strong>HireArt:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/fd0b1a53-7741-4a2b-8739-a976d2482afe">Senior Full-Stack Engineer</a> (Remote-US)</li>
+<li><strong>Universe:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/38cfa180-37e3-4882-99ae-3a6d35a04d32">Product Lead - Commerce Tools</a> (Remote-Global)</li>
+<li><strong>Universe:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/5b414879-8180-4651-bc80-39610ee206f2">Product Lead - Creation Tools</a> (Remote-Global)</li>
+<li><strong>Clubhouse:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/ed55d82e-f9b6-47b7-837d-b8f29b9e2b41">Growth Product Manager</a> (SF, Remote-US)</li>
+<li><strong>Earthly Technologies:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/958ba7ed-1571-4249-a103-2e58dfcc40bd">Senior Product Manager</a> (Remote-US, Remote-Canada)</li>
+<li><strong>Otta:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/896bc872-ef34-44a5-85bd-74784e9bea89">Product Manager</a> (London)</li>
+<li><strong>Sonar:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/d830dd44-5885-452a-a0fc-681a667d20c5">Product Manager, Integrations</a> (ATL, Remote-US)</li>
+<li><strong>LiveAuctioneers:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/4550e1ee-d35a-4975-9bb1-ec28725672cc">Senior Product Manager, Platform</a> (NYC, Lehi UT)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://youtu.be/PRh80RyT74I">Are you an ideal team player?</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=PRh80RyT74I">Watch on YouTube</a></p>
+<ol>
+<li><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/lex-fridman-podcast/id1434243584?i=1000497016023">Lex Fridman and Dan Carlin</a></li>
+<li><strong>Read:</strong> <a href="https://www.collaborativefund.com/blog/does-not-compute/">Does Not Compute</a> by Morgan Housel</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

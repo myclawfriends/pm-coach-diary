@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is good monthly churn — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What is good monthly churn</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What is good monthly churn</div>
+    
+    <div class="article-meta">2022-02-08<span>·</span>2,337 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">B2B</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2C</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: What is a good monthly churn for a SaaS business?</h2>
+</blockquote>
+<p>Look, I made a meme.</p>
+<p><img alt="Image from What is good monthly churn" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b93a2670-8b88-43e4-b760-635e30ea058d_5120x3412.png" /></p>
+<p><em>You could even argue that churn is both a leading cause of business </em><em>death</em><em> and the biggest </em><em>tax</em><em> on your growth 🤣</em></p>
+<p>As Ben points out, churn is unavoidable. So what to do? Beyond constantly working to <a href="https://www.lennysnewsletter.com/p/how-to-increase-your-products-retention">reduce churn</a>, it’s essential that you understand what healthy monthly churn looks like for your type of business—so that you know if you’re on track for 🚀 or ☠️</p>
+<p>Though you should generally spend your time focusing on <a href="https://www.lennysnewsletter.com/p/how-to-increase-your-retention-issue#:~:text=First%2C%20how%20does%20one%20measure%20retention%3F">cohort retention</a> and <a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29#:~:text=2.%20What%20is%20good%20Net%20Revenue%20Retention%3F">net revenue retention</a> instead of monthly churn—because monthly churn blends new and existing users and hides what’s really going on long-term—it’s still a powerful metric, because it’s quick (you don’t have to wait for cohort curves to flatten), it’s easy (every dashboard has this), and, most interestingly, it tells you how many new users you need to bring in each month in order to continue to grow. Losing 2% of users each month? Grow by over 2% and you’re 📈</p>
+<p>Depressingly, your monthly churn stat also tells you how quickly you’ll churn through your users if you do nothing. For example, with an 8% monthly churn, you’ll lose almost two-thirds of your users each year 😵‍💫 Even with a 4% monthly churn, you’re rebuilding a third of your users base year after year. This is why SaaS businesses with revenue expansion (i.e. <a href="https://tomtunguz.com/negative-churn/">negative churn</a>) are so sought-after.</p>
+<p>But again, churn is normal and unavoidable. Step one is understanding what healthy (vs. deathly) churn looks like for your business.</p>
+<h3>What is GOOD and GREAT monthly churn</h3>
+<p>To come up with a benchmark, I came at it from two directions:</p>
+<ol>
+<li>I reached out to all the smartest growth people I know and asked them what they consider GOOD and GREAT monthly churn when advising and investing in companies.</li>
+<li>I asked <a href="https://twitter.com/patticus?lang=en">Patrick Campbell</a>, the founder and CEO of <a href="https://www.profitwell.com">ProfitWell</a>, to dig into his treasure trove of data (13,000 anonymized SaaS companies), to see what monthly churn real companies are seeing.</li>
+</ol>
+<p>After hearing from the experts, and looking at Patrick’s data on the top percentile of SaaS companies, clear answers emerged:</p>
+<ul>
+<li><strong>For B2C SaaS:</strong> Between 3% and 5% monthly churn is GOOD, and less than 2% is GREAT</li>
+<li><strong>For B2B SMB + Mid-Market:</strong> Between 2.5% and 5% is GOOD, and less than 1.5% is GREAT</li>
+<li><strong>For B2B Enterprise:</strong> Between 1% and 2% is GOOD, and less than 0.5% is GREAT</li>
+</ul>
+<p><img alt="Image from What is good monthly churn" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a15abbdc-c994-4688-bb26-3d75ee3d0366_2728x2320.png" /></p>
+<h4><strong>Definitions</strong></h4>
+<ul>
+<li><strong>B2C SaaS:</strong> Subscription products sold to consumers; e.g. Duolingo, Spotify, Grammarly</li>
+<li><strong>B2B SMB + Mid-Market:</strong> Subscription products sold primarily to companies with fewer than 1,000 employees, generally charging less than $1K per month for the average customer; e.g. Gusto, Intercom, Airtable, Asana</li>
+<li><strong>B2B Enterprise:</strong> Roughly defined as subscription products sold primarily to companies with more than 1,000 employees, generally charging more than $5K per month for the average customer; e.g. Salesforce, Snowflake, Workday, ADP</li>
+</ul>
+<h4><strong>Disclaimers and advice</strong></h4>
+<p>This metric is looking at the steady state of churn. New user churn in the first month is always the steepest, normally ranges from 5% to 50%, and happens for a number of reasons.</p>
+<blockquote>
+<h4>“You can often attribute month 1-3 churn to be failure of activation/onboarding. This can vary a <em>lot</em> across companies, and even within the same company by channel and funnel.</h4>
+<h4>For businesses with paid user acquisition, the other factor is acquiring the wrong kind of customer. I’ve told more than one company: Hey, if you just cut your paid marketing by half, I bet your churn will go down!”</h4>
+<h4>—ChenLi Wang, ex-growth at Dropbox</h4>
+</blockquote>
+<p>As you grow, long-term, expect monthly churn to go down.</p>
+<blockquote>
+<h4>“Monthly churn on subscriber base decreases with age of the business as long-haul subs pull that number down.”</h4>
+<h4>—Elena Verna, growth at Netlify, ex- at Miro, SurveyMonkey</h4>
+</blockquote>
+<p>In a B2B SaaS business, net revenue retention is a more important metric than monthly churn.</p>
+<blockquote>
+<h4>“In SMB/Mid-Market SaaS especially, revenue retention is much more important than customer retention.</h4>
+<h4>For example, in the Shopify ecosystem, SaaS players will inevitably see ‘unavoidable churn’ due to shorter lifespan of smaller merchants. This is inherent to the Shopify model. I’ve seen the expansion for many commerce SaaS products look great as merchants grow/graduate to Shopify Plus. Net revenue retention can look very healthy even with low logo retention in these businesses.”</h4>
+<h4>—Mike Duboe, ex-growth at Stitch Fix, Tilt</h4>
+</blockquote>
+<p>For B2C SaaS, you’ll want to focus primarily on cohort-based retention.</p>
+<blockquote>
+<h4>“I would only look at monthly churn to see how much you need to maintain new user acquisition to keep up growth. Other than that, you should look at it by cohort basis.”</h4>
+<h4>—Yuriy Timen, ex-growth at Grammarly, Airtable, Canva</h4>
+</blockquote>
+<p>Make sure to break churn down into its component parts.</p>
+<blockquote>
+<h4>“Churn should always be modeled between (1) intentional and involuntary churn and (2) soft and hard churn:</h4>
+<h4>1. Intentional churn is when a user willingly decides to stop using the product. Where I see companies losing meaningful percentage points is in overlooking involuntary churn—good data instrumentation can flag these events, like credit card declined, forgot password, connection errors.</h4>
+<h4>2. If users stop using the product but are still paying for it (whether annually or monthly recurring), that’s soft churn and should be a concern where value extraction is greater than value generation.”</h4>
+<h4>—<strong>Crystal Widjaja, CPO at Kumu, ex-growth at Gojek</strong></h4>
+</blockquote>
+<p>And finally, a healthy churn rate is highly dependent on your price point.</p>
+<blockquote>
+<h4>“The higher the price point, the lower you should expect the target churn.”</h4>
+<h4>—Adam Grenier, VP Marketing at MasterClass, ex-Uber</h4>
+</blockquote>
+<p>This last point is really important, so let’s explore it further.</p>
+<h2>What is GOOD and GREAT monthly churn, by price point</h2>
+<p>Why would churn be highly correlated with price? Two reasons:</p>
+<ol>
+<li><strong>Customer type:</strong> The cheaper your product, the smaller the businesses you’re likely selling to—and the smaller the businesses, the more likely they are to go out of business, change their minds, or switch to a competitor.</li>
+<li><strong>Unit economics:</strong> If it’s costing you thousands of dollars to close a deal, you won’t survive if too many of those customers churn. And so companies with a high price point don’t last long if churn is too high.</li>
+</ol>
+<p>To understand healthy monthly churn by price point (i.e. how much you charge each customer on average per month), <a href="https://twitter.com/patticus?lang=en">Patrick</a> sliced and diced the data, and with input from the experts, this is what we found:</p>
+<p><img alt="Image from What is good monthly churn" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7bf3352f-bd4e-4347-ad33-2d843f82558c_5584x3360.png" /></p>
+<p><strong>Takeaways:</strong></p>
+<ol>
+<li>This is very much in line with the first benchmark—just more granular and likely even more useful.</li>
+<li>Acceptable churn at the highest B2B price points is very low—below 0.35% at $5K+ 😵‍💫</li>
+<li>There’s a lot more variance in B2B churn vs. B2C churn. If you’re building a B2C subscription product, you basically want to see less than 2% churn per month, no matter your price point.</li>
+</ol>
+<blockquote>
+<h4>“Basically in consumer it’s nearly impossible to have under a 1% monthly revenue churn rate. I mean, people will have it, but the difference between best 10% and best 25% isn’t that much. Whereas in B2B there’s a bigger difference between top 25% and top 10%.”</h4>
+<h4>—Patrick Campbell, CEO of ProfitWell</h4>
+</blockquote>
+<h2><strong>When it’s OK for your churn to be higher</strong></h2>
+<p>If you’re finding your own monthly churn to be much higher than these benchmarks, don’t despair. There are cases when it isn’t necessarily bad:</p>
+<ol>
+<li><strong>You’re just starting out:</strong> Use these benchmarks as a guide to prioritize between retention vs. acquisition, and don’t miss this post on <a href="https://www.lennysnewsletter.com/p/how-to-increase-your-products-retention">ways to increase your retention</a>. But just know, startups rarely increase retention significantly.</li>
+<li><strong>You have low CAC and marginal costs:</strong> Growth is a balancing act between CAC, retention, and unit economics. If you can acquire new users cheaply (e.g. through SEO, WOM, or virality), you can afford to lose more users. <a href="https://twitter.com/danhockenmaier/status/1270376412642373633">This thread by Dan Hockenmaier</a> explains why low retention for businesses like Shopify and Twitter is OK.</li>
+<li><strong>You’re not building a venture-scale business:</strong> These benchmarks are coming from people who helped build iconic, massively scalable businesses. This level of retention is <em>not</em> required for product-market fit, or to build a sustainable business. Though the upside will be limited, a flat retention curve that drives a scalable acquisition strategy is enough to keep your business alive.</li>
+</ol>
+<h2>Bonus: What is GOOD and GREAT cohort retention</h2>
+<p>To save you from having to jump between multiple posts, below I’ve included what healthy <strong><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">cohort-based retention</a></strong> looks like, at 6 months at the user level and at 12 months at the net revenue level.</p>
+<p>As a reminder, cohort-based retention looks at the percentage of users/customers who are still active x months after signing up, and is the best predictor of product-market fit. Here’s what you want to see, based on your particular type of business:</p>
+<h4><strong>GOOD and GREAT user retention</strong></h4>
+<ul>
+<li><strong>Consumer Social:</strong> ~25% is GOOD, ~45% is GREAT</li>
+<li><strong>Consumer Transactional</strong>: ~30% is GOOD, ~50% is GREAT</li>
+<li><strong>Consumer SaaS:</strong> ~40% is GOOD, ~70% is GREAT</li>
+<li><strong>SMB/Mid-Market SaaS:</strong> ~60% is GOOD, ~80% is GREAT</li>
+<li><strong>Enterprise SaaS:</strong> ~70% is GOOD, ~90% is GREAT</li>
+</ul>
+<h4><strong>GOOD and GREAT net revenue retention</strong></h4>
+<ul>
+<li><strong>Consumer SaaS:</strong> ~55% is GOOD, ~80% is GREAT</li>
+<li><strong>Bottom-Up SaaS:</strong> ~100% is GOOD, ~120% is GREAT</li>
+<li><strong>Land and Expand VSB SaaS:</strong> ~80% is GOOD, ~100% is GREAT</li>
+<li><strong>Land and Expand SMB/Mid-Market SaaS:</strong> ~90% is GOOD, ~110% is GREAT</li>
+<li><strong>Enterprise SaaS:</strong> ~110% is GOOD, ~130% is GREAT</li>
+</ul>
+<blockquote>
+<h4>“Monthly churn benchmarks all add up to the most important retention metric of all: the point at which your cohort retention asymptotes.</h4>
+<h4>Chart the percentage of users remaining in a given cohort over time—at what level does that line flatten out, or in the very best businesses, start to turn back upward again?”</h4>
+<h4>—<strong>Dan Hockenmaier, Head of Strategy at Faire, ex-growth at Thumbtack</strong></h4>
+</blockquote>
+<p>For more on this, don’t miss <a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">the full post on cohort-based-retention</a>.</p>
+<p>And if you have any questions or feedback, or would like to see any other benchmarks, just leave a comment or reply to this email 👌</p>
+<p><a href="https://www.lennysnewsletter.com/p/monthly-churn-benchmarks/comments">Leave a comment</a></p>
+<p><em>Thank you to <a href="https://twitter.com/akgrenier">Adam Grenier</a>, <a href="https://twitter.com/bmrothenberg">Brian Rothenberg</a>, <a href="https://twitter.com/chenliw">ChenLi Wang</a>, <a href="https://www.linkedin.com/in/crystalwidjaja/details/experience/">Crystal Widjaja</a></em><em>,</em>**<em><a href="https://twitter.com/danhockenmaier">Dan Hockenmaier</a>, <a href="https://twitter.com/dariusmc">Darius Contractor</a>, <a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a>, <a href="https://www.linkedin.com/in/jamiequint/">Jamie Quint</a>, <a href="https://twitter.com/mduboe">Mike Duboe</a>, <a href="https://twitter.com/npilosof?lang=en">Naomi Ionita</a>, <a href="https://www.notion.so/sriramkri/Sriram-Krishnan-5a434396fb9d43bfaebce6aa5c1f5e01">Sriram Krishnan</a>, <a href="https://www.linkedin.com/in/yuriytimen/">Yuriy Timen</a>, and in particular <a href="https://twitter.com/patticus?lang=en">Patrick Campbell</a>, CEO of ProfitWell, for contributing their wisdom to this post.</em></p>
+<p><em>If you aren’t familiar with ProfitWell, it has a free subscription and SaaS financial metrics product that’s used by over 25K companies, from MasterClass and Whoop to Notion and Typeform (and my newsletter!). You can even use ProfitWell for <a href="https://www.profitwell.com/benchmarks">benchmarks custom-tailored to your own data, here</a>.</em></p>
+<p><em>Thank you all 🙏</em></p>
+<h2>📚 Further study</h2>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">What is good retention</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-increase-your-retention-issue">How to increase your retention</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/payback-period">What is good payback period</a></li>
+<li><a href="https://tomtunguz.com/saas-innovators-dilemma/">The Innovator’s Dilemma for SaaS Startups</a> by Tomasz Tunguz</li>
+<li><a href="https://sacks.substack.com/p/individuals-or-teams-whos-the-better">Individuals or Teams: Who’s the Better Customer for SaaS Products?</a> by David Sacks</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Siteline:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/3cc1fa57-e3e3-4b93-9d0d-fac7c592545b">First Product Manager</a> (SF, Remote-US)</li>
+<li><strong>Koodos</strong>: <a href="https://lennys-jobs.pallet.xyz/jobs/1412066a-3922-47c6-99f7-28401ed895f5">Product Engineer</a> (NYC, Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/77af7c80-baa3-4208-b322-2ea674604fdb">Senior Product Manager, Communications</a> (Remote-US)</li>
+<li><strong>Empower:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/5d73dc1a-9b0d-45d9-a661-735f07650d26">Product Manager</a> (Remote-Global)</li>
+<li><strong>Superjoi:</strong> <a href="https://www.lennysjobs.com/jobs/9710eb14-bc72-46a5-b75b-2949c5c1bfa7">UI/UX Designer</a> (LA, Remote-Global)</li>
+<li><strong>Superjoi:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/4111e336-604a-43c7-90b4-8cf03952800b">Full Stack Engineer</a> (LA, Remote-Global)</li>
+<li><strong>HireArt:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/fd0b1a53-7741-4a2b-8739-a976d2482afe">Senior Full-Stack Engineer</a> (Remote-US)</li>
+<li><strong>Universe:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/38cfa180-37e3-4882-99ae-3a6d35a04d32">Product Lead - Commerce Tools</a> (Remote)</li>
+<li><strong>Universe:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/5b414879-8180-4651-bc80-39610ee206f2">Product Lead - Creation Tools</a> (Remote)</li>
+<li><strong>Clubhouse:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/ed55d82e-f9b6-47b7-837d-b8f29b9e2b41">Growth Product Manager</a> (SF, Remote-US)</li>
+<li><strong>Earthly Technologies:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/958ba7ed-1571-4249-a103-2e58dfcc40bd">Senior Product Manager</a> (Remote-US, Remote-Canada)</li>
+<li><strong>Otta:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/896bc872-ef34-44a5-85bd-74784e9bea89">Product Manager</a> (London)</li>
+<li><strong>Sonar:</strong> <a href="https://lennys-jobs.pallet.xyz/jobs/d830dd44-5885-452a-a0fc-681a667d20c5">Product Manager, Integrations</a> (ATL, Remote-US)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://www.tiktok.com/@mimo_mio/video/7029807544944069894?_d=secCgYIASAHKAESPgo833ZZlLy4Ub5tHcH5c6ss0rgQWVMAC%2Fg6kov%2FLjEPTkguVAMBkUyzKHONmqWK5bzlw%2BOHMMJORh3VHFY7GgA%3D&amp;checksum=7ef5f380257e35bb15c71586ee7238941818ad1cf788fd97d6c6071c98283c4b&amp;language=en&amp;preview_pb=0&amp;sec_user_id=MS4wLjABAAAA2iretHzEfQauJoWoVDho3eU1VQmRKZG6iNUOenqpUcVl8gJSHUMxwg39P0Ku3b1c&amp;share_app_id=1233&amp;share_item_id=7029807544944069894&amp;share_link_id=4C119251-14F5-4FA1-8A53-A0493C34522F&amp;timestamp=1644083180&amp;tt_from=twitter&amp;u_code=d4gh1jfaca4l4e&amp;user_id=6656083751413628934&amp;_r=1">Duett chain of numnumcat</a> on TikTok</li>
+<li><strong>Listen:</strong> <a href="https://podcasts.apple.com/us/podcast/optimizing-workspace-for-productivity-focus-creativity/id1545953110?i=1000549503046">Optimizing Workspace for Productivity, Focus, &amp; Creativity</a> by Huberman Lab</li>
+<li><strong>Read:</strong> <a href="https://svpg.com/scaling-with-process-vs-people/">Scaling with Process vs. People</a> by Marty Cagan</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

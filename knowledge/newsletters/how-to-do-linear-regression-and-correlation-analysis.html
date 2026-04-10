@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to do linear regression and correlation analysis — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to do linear regression and correlation analys…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to do linear regression and correlation analysis</div>
+    
+    <div class="article-meta">2023-05-02<span>·</span>3,711 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">產品管理</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career.</em></p>
+<p><em>If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-use-chatgpt-in-your-pm-work">How to use ChatGPT in your PM work</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/discussion-how-and-where-are-you/comments">Discussion: How and where are you finding the best job opportunities?</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/what-jury-duty-taught-me-about-product">What jury duty taught me about product management</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post.</em></p>
+<blockquote>
+<h2>Q: You’ve mentioned regression analysis a few times in your posts . What exactly is a regression analysis, and how do I run one?</h2>
+</blockquote>
+<p>I’ll be honest. Though it’s come up in the newsletter a few times, I’ve also never <em>truly</em> understood what a regression analysis is. I know it helps you understand how two metrics are connected, but when exactly to run one, how to run one, and how regression differs from metrics being <em>correlated</em>, I’ve never deeply understood. I imagine many of you feel the same way. Considering how often these two methods come up, and (as you’ll see below) how powerful these tools can be, it’s important we all get smarter about this.</p>
+<p>To help us out, making her <a href="https://www.lennysnewsletter.com/p/measuring-cohort-retention">return appearance</a>, I’ve pulled in <a href="https://www.linkedin.com/in/olgaberezovsky/">Olga Berezovsky</a>, author of the wonderful <a href="https://dataanalysis.substack.com/">Data Analysis Journal</a> newsletter, to explain what exactly correlation and regression analysis are, when to use one versus the other, how to run an analysis yourself (including recommended tools and templates), and a couple of common pitfalls to avoid. I’ve always wanted a simple, clear, and actionable explanation of correlation and regression analysis, and I’m excited to finally have one.</p>
+<p><em>You can find Olga on <a href="https://www.linkedin.com/in/olgaberezovsky/">LinkedIn</a> and <a href="https://twitter.com/OlgaBerezovsky">Twitter</a>, and <a href="https://dataanalysis.substack.com/">subscribe to her newsletter</a> for all kinds of great, actionable advice on data analysis and product analytics. Also, don’t miss Olga’s other guest post, on <a href="https://www.lennysnewsletter.com/p/measuring-cohort-retention">measuring cohort retention</a>.</em></p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/f96f8914-8651-4375-9d0c-f67756b4329a_8000x4000.png" /></p>
+<p>Linear regression and correlation analysis are two of the most common (and crucial) methods for getting insights from data. Both are used as a foundation for predictions and forecasting, but they are hard to understand, often confused with each other, and difficult to do without prior training.</p>
+<p>In this post, I will cover the fundamentals of both linear regression and correlation analysis, demonstrate the primary use cases for each, and lay out steps and tools for how you can quickly conduct such analysis on your own.</p>
+<h2>Correlation analysis</h2>
+<p>Correlation analysis illustrates <strong>the degree of a relationship</strong> between two variables, i.e. how closely they are correlated. The result is always between -1.0 and 1.0, where 1.0 denotes the highest positive correlation, -1.0 stands for the highest negative correlation (explained below), and 0 means no correlation:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/2c4dd36d-ef1e-45af-8499-b94875043d75_1600x431.png" /></p>
+<p>Correlation does not imply causation, but it’s the simplest and fastest way to locate which features or metrics correlate the most with high or low user engagement.</p>
+<p>In my work, I like to run a correlation analysis first thing when I am coming fresh to the data and looking for connections between metrics. For example, at MyFitnessPal, I used correlation analysis to understand if logging weight is correlated with starting a trial, or if stopping logging exercises is correlated with user churn.</p>
+<p>Examples of great use cases for doing correlation analysis:</p>
+<ol>
+<li>Is there any relationship between the two features or two user activities (e.g. booking a hotel and purchasing a concert ticket, creating a document template, and sending a message to a collaborator)?</li>
+<li>Do they increase and decrease together (e.g. does an increase in comments per post correlate with an increase in post shares? Is the decline in activated trials related to the price change)?</li>
+<li>Are they dependent or independent (e.g. the day’s weather and your app usage, activations by day of the week, or market recession and your subscription churn)?</li>
+</ol>
+<h4><strong>There is a “positive” and “negative” correlation</strong></h4>
+<p>Positive correlation—increase in X is correlated with an increase in Y:</p>
+<ul>
+<li>An increase in installs relates to an increase in signups</li>
+<li>An increase in notifications relates to an increase in daily active users</li>
+</ul>
+<p>Negative correlation (or inverse correlation)—increase in X is correlated with a decrease in Y:</p>
+<ul>
+<li>An increase in price is related to a decrease in the trial-to-paid rate</li>
+<li>An increase in webpage time load relates to a decrease in page views</li>
+</ul>
+<p>Depending on your question, you may find everything you need with just a correlation analysis. It’s simpler and faster to do than linear regression, it’s easier to understand, and this step alone might give you enough insight into your question. For example, if you simply want to measure the strength of the connection between, for example, a user seeing an upsell and activated trials, correlation would be sufficient. If, however, having the upsell view data, you want to predict new trials or gauge how much of the increase in showing upsells will be reflected in new trials, then you need linear regression.</p>
+<p>Note: If you jump straight to doing a linear regression and the values are not correlated, you’ll often find an inconclusive pattern. That’s why I recommend running a correlation analysis first—to confirm whether there is a correlation between X and Y, and if it’s a positive or negative correlation. Once you know if X and Y are related, then you can expand the analysis and predict Y using linear regression.</p>
+<h2>Linear regression</h2>
+<p>Linear regression takes correlation analysis further and shows <strong>how much one variable affects another</strong> and, more importantly, whether you can <strong>use the pattern of one variable to predict and estimate the behavior</strong> <strong>of another</strong>. Importantly, just like correlation analysis, a linear regression doesn’t prove causation, but it does give you more confidence that there’s a strong connection between variables, plus how this connection is expected to change if you increase or decrease variables.</p>
+<p>Use cases for linear regression:</p>
+<ol>
+<li>How much do page views have to increase to improve signups by 2x?</li>
+<li>Is showing more recommended articles to readers increasing return visits?</li>
+<li>How many exercises do users have to log in the app to see an improvement in user retention?</li>
+<li>If we send 3x more notifications, how much will this increase DAU?</li>
+<li>How many months will it take for Lenny to reach 500,000 subscribers? (Answer: About two months, assuming the current trend won’t change and Substack won’t release another killer feature. It’s estimated around July 2023.)</li>
+</ol>
+<p>Per the last point, linear regression is also often used for predicting averages for user activity, growth, and revenue. For example, at Change.org I used regression to forecast the day and time when we hit 200 million users (and I was within 10 minutes right!). At MyFitnessPal we use linear regression to estimate how many meals users have to log to become “sticky” or how many days users have to use the app to upgrade their subscription plan.</p>
+<h3>The difference between linear regression and correlation analysis</h3>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/62413fa0-3d80-411c-af93-ebd0f096a26a_1042x644.png" /></p>
+<p>Correlation analysis confirms <strong>the relationship</strong> and <strong>connection</strong> between two variables.</p>
+<p>Linear regression analysis shows <strong>how much one variable affects another</strong> and how to <strong>predict, estimate, or explain its behavior</strong>.</p>
+<p>Another way to understand it:</p>
+<ul>
+<li>If you can swap X and Y and get the same result, use correlation. If changing them affects your outcome, use regression.</li>
+<li>If your analysis aims to answer <em>if</em> there is a relationship between X and Y, use correlation. If you aim to answer <em>how</em> X affects Y or haveX <em>predict</em> Y, use regression.</li>
+</ul>
+<h2>How to run a correlation and linear regression analysis</h2>
+<p>To demonstrate both of these analyses, I’ll share some of the work my team did at <a href="https://www.myfitnesspal.com/">MyFitnessPal</a>. We set out to prove that encouraging users to log more foods soon after signup would improve overall user retention.</p>
+<p>MyFitnessPal is the leading nutrition and food-tracking app, offering the tools to log meals quickly and easily. Using the app, users can track meals, learn about their habits, and reach their weight goals.</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/c3827257-40ba-4493-afab-8b1ecaa464e3_1486x932.png" /></p>
+<p>For my analysis, I will be using “food logging events” to measure and analyze user engagement (<a href="https://www.lennysnewsletter.com/i/70174617/step-define-active">see my previous guest post</a> for advice on how to pick your “active” user metric). For your product, your active user metric could be app opens, session starts, screen views, requesting rides, booking a room, etc.</p>
+<p>To prove that food logging has an impact on user retention, I will be running both a correlation and linear regression (using dummy data), as an example:</p>
+<ol>
+<li>
+<p>Correlation analysis to confirm:</p>
+</li>
+<li>
+<p>There is a relationship between logging foods and retention.</p>
+</li>
+<li>
+<p>The relationship is strong, and the correlation is positive.</p>
+</li>
+<li>
+<p>If there is a relationship, and it’s strong, then take the next step with regression to validate that an increase in the number of users who log a meal has the opportunity to increase active user retention.</p>
+</li>
+</ol>
+<h3>Running analysis using product analytics tools</h3>
+<p>Unlike my early years as an analyst, having to run such analysis in Excel, R, SPSS, or STATA software that required training and had a steep learning curve, today we can take advantage of product analytics tools that are intuitive and help you confirm the relationship between variables in seconds.</p>
+<p>Below I’ll show you a way to run such an analysis in Amplitude and Mixpanel, along with Excel, Google Sheets, and other tools. These digital analytics tools offer features that are similar to correlation and linear regression modeling. They use your historical data to help you locate signals, patterns, and connections by doing correlation analysis, and on top of that develop predictions of expected user behavior. In other words, using Mixpanel and Amplitude, you can do correlation and go slightly beyond that with predictions. For linear regression, I’ll show you how to supplement your analysis with Excel and Google Sheets.</p>
+<h4><strong>Amplitude—Compass feature</strong></h4>
+<p>In Amplitude, you can click into the <em>Analysis</em> section and pick the <a href="https://help.amplitude.com/hc/en-us/articles/235147347-The-Compass-chart-discover-your-users-a-ha-moments">Compass</a> chart. Follow these steps to run a correlation analysis:</p>
+<ol>
+<li>Select the user activity you want to measure—logging a meal, opening the app, sending an invite, viewing a listing, creating a video, etc.</li>
+<li>Pick the metric you want to see an impact on—retention, trial, churn, activation, etc.</li>
+<li>Adjust the time range for the user activity—e.g. 7 days after signup, for example:</li>
+</ol>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/78e896f2-95f7-48ee-9b9b-54afade0ed89_1600x262.png" /></p>
+<p>Compass returns the correlation score based on your input data (using a sample of data for reference):</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/2baa5a31-974f-4d36-9ca0-143669f4e8d0_794x436.png" /></p>
+<p>We received a 0.564 correlation score, which proves there is a relationship between food logging and user retention in this dataset. Amplitude says it’s “highly predictive,” meaning there is a high likelihood of food logging predicting high retention. That said, it <strong>doesn’t mean that new users registering tomorrow and logging more foods will have better retention</strong>. There is still work to do to prove that. This just indicates that based on our historical data:</p>
+<ul>
+<li>A big percentage of users who logged food in their first 7 days after signup returned to the app on the 14th day.</li>
+<li>Among users who returned to the app on the 14th day, a big percentage of them had logged food in their first 7 days.</li>
+</ul>
+<p>There is no proof yet that every new user who will log in twice as often will show improved retention.</p>
+<p>My next step here was to run the same analysis for other user activities and see if there is as strong a relationship for other MyFitnessPal features: water intake logging, plan activation, intermittent fasting, logging an exercise, etc. As you can see below, many other features don’t show as strong a correlation with retention:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/2b0d4576-4b64-44f1-acc7-6b5e44b58755_1600x983.png" /></p>
+<p>As a bonus, the Compass report in Amplitude also shows the impact of the <em>frequency</em> of activity on retention. For example, it helped us determine if logging food once in 7 days (versus, say, five times) is sufficient to detect improvement (it is).</p>
+<h4><strong>Mixpanel—Signal report</strong></h4>
+<p>In Mixpanel, you can use the <a href="https://help.mixpanel.com/hc/en-us/articles/115004567503-Signal-Report">Signal</a> feature to confirm the relationship and connection between user activity and any of your metrics. To access this feature, click on Mixpanel Apps in the top navigation bar:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/fa43cedf-6c5c-4c86-9004-1834eb8014f6_586x752.png" /></p>
+<p>Signal analyzes the correlation between an action and an outcome, to help you understand what user behavior drives conversion, retention, or growth.</p>
+<p>To create a Signal report in Mixpanel, follow these steps:</p>
+<ol>
+<li>Define the user cohort for analysis (e.g. new users)</li>
+<li>Choose a time frame (e.g. the last quarter)</li>
+<li>Pick the goal/metric (e.g. second-week retention)</li>
+<li>Select the user activity you want to measure (e.g. “log food”)</li>
+<li>Add additional filters to the selected user activity (such as specific time, device type, or geo)</li>
+<li>Click “Correlate”</li>
+</ol>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/8e337589-70ec-4914-a080-8c27c63ba1a2_1600x448.png" /></p>
+<p>Signal returns the correlation score based on your inputs:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/1e69ca2a-9ffc-4948-98d7-663ce47dd701_1600x148.png" /></p>
+<p>In our example, we received a 0.78 correlation score, which proves logging food is strongly correlated with second-week retention in this dataset. If you click on “Details,” you can view the heatmap that helps you locate the ideal frequency of food logs to get the highest retention (not actual data; using an example for reference):</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/3b519473-fc93-4ef5-a103-028630c7b1e5_1600x989.png" /></p>
+<p>Mixpanel suggests that this action needs to be completed at least 2 times within 3 days of registration to have an impact on user retention (see the green box above).</p>
+<p>We can run the same analysis for other user activities in our app to confirm if there is a strong relationship for other features, using the “Top features” breakdown:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/a7a8aedf-95b6-482c-85ad-6f299c0a30ae_840x960.png" /><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/c7c739bc-4c61-48f3-9732-c5729c79bb62_1600x527.png" /></p>
+<p>Mixpanel returns a list of top activities in the app along with their correlation score to user retention. It makes it very easy to locate strong product features.</p>
+<p>Both Amplitude and Mixpanel help us confirm the association between retention and food logs, and determine how strongly predictive these associations are and their pattern of relationship. They don’t, however, give us an estimate of how much we should increase food logs to improve active user retention. And this is what linear regression can help to uncover. To confirm any type of prediction, we have to leverage statistical tools to model the linear regression trend line.</p>
+<p>This can be done in Excel, Google Sheets, or in a number of free online tools.</p>
+<p>For Excel, you will need to install an additional package, the <a href="https://support.microsoft.com/en-us/office/load-the-analysis-toolpak-in-excel-6a63e598-cd6d-42e3-9317-6b40ba1a66b4">Analysis ToolPak</a>. Once it’s downloaded, from the Data menu select Data Analysis, then select Regression. For running either a correlation or linear regression in Excel, you need to create two columns with your input data, like so (again, using made-up data):</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/c2e8f0f1-fc74-4244-8d72-cf3f60ce40b1_988x970.png" /></p>
+<p>For Google Sheets, you can leverage functions and a scatterplot chart:</p>
+<ol>
+<li>Correlation =CORREL(X range, Y range):</li>
+</ol>
+<blockquote>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/1dfeb900-e932-49d9-847b-90cf739235a2_1176x458.png" /></p>
+</blockquote>
+<ol>
+<li>Linear regression, instead use <em>=LINEST(Y range, X range, true, true)</em>, where <em>true</em> stands for if you want to see additional statistics or calculate intercept.</li>
+</ol>
+<p>Here’s a quick template to help you get started: <a href="https://docs.google.com/spreadsheets/d/1T4LAcBx9HHhDydMW0NPr1jOaEzx5GtZ9CTrcjeTrFZ8/edit#gid=1443729456">Correlation and Linear regression template</a>.</p>
+<p>Alternatively, you can upload the same input data into online calculators such as <a href="https://datatab.net/statistics-calculator/regression">DATAtab</a>, <a href="https://www.statskingdom.com/linear-regression-calculator.html">Statistics Kingdom</a>, or <a href="https://www.socscistatistics.com/tests/regression/default.aspx">Social Science Statistics</a> and get correlation and linear regression right in the tools.</p>
+<p>Note: Addressing outliers for linear regression is important. Depending on their value and position, outliers can affect the regression and change its trend line. In some cases, you should keep them, because they make your regression more precise (the image below on the left). In other cases, outliers deviate from the whole result and must be eliminated (the image on the right):</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/ee4bea31-3c86-4d10-bff1-73e0d26c68ec_1600x697.png" /></p>
+<p><em><a href="https://www.statisticshowto.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/#definition">Learn more about outliers in linear regression</a></em></p>
+<p>To understand which outliers should be removed, you have to see the whole distribution of your data points. As a rule of thumb, the closer outliers are to your average, the less likely they affect the regression. The further outliers fall from the average, the more leverage they have to skew the trend line. Additionally, you also need to consider data variance. If it’s overall high, you should keep extreme outliers. Read more: <a href="https://www.statisticshowto.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/#definition">Leverage in Linear Regression: How it Affects Graphs</a>.</p>
+<p>That’s why running linear regression on your own in Excel can be tricky. It’s safer to leverage online tools and statistical applications that can build the regression for you. If you need help with exploring outliers, different types of regressions, or distributions, I recommend using a product called <a href="https://www.wizardmac.com/">Wizard</a>. It helps you build a scatterplot in seconds, find outliers, find correlation scores, and more:</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/d754829c-8750-4337-9674-b91adfd950a8_1126x1050.png" /></p>
+<h3><strong>To recap, here are the steps to run correlation and linear regression:</strong></h3>
+<p><strong>Hypothesis:</strong> An increase in food logs will improve active user day-30 retention.</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/94a29cc5-cd83-491e-9f6c-6b9a332596bd_1278x974.png" /></p>
+<h2>To conclude</h2>
+<ol>
+<li>Correlation is the simplest and fastest way to locate which features or metrics correlate the most with high or low user engagement.</li>
+<li>Linear regression takes correlation analysis a few steps further. It shows how much one variable affects another and if you can use the pattern of one variable to predict and estimate the behavior of another.</li>
+<li>Neither correlation nor linear regression implies causation. They help you locate which features or metrics correlate the most with user engagement and answer whether there’s a strong connection between variables, and if this connection will change if you increase or decrease variables.</li>
+<li>The fastest way to confirm relationships between metrics and user activity is by leveraging product analytics tools, like Mixpanel, Amplitude, etc.</li>
+<li>To learn how much one variable affects another, or to predict, estimate, or explain its behavior, you have to supplement analysis with linear regression either via online tools, statistical applications, or Excel.</li>
+<li>If you do linear regression manually in Excel, make sure you address influential outliers (if you have any), which can make your trend line skewed.</li>
+</ol>
+<h3>📚 Further study</h3>
+<ol>
+<li>A fun, quick <a href="https://www.youtube.com/watch?v=QzY4roUb3HM">video walk-through</a> on the differences between correlation and regression, from 365 Data Science</li>
+<li><a href="https://hbr.org/2015/11/a-refresher-on-regression-analysis">A Refresher on Regression Analysis</a></li>
+<li><a href="https://mlu-explain.github.io/linear-regression/">A Visual Introduction To (Almost) Everything You Should Know</a></li>
+<li><a href="https://help.amplitude.com/hc/en-us/articles/235147347">The Compass chart: discover your users’ “a-ha” moments</a></li>
+<li><a href="https://help.mixpanel.com/hc/en-us/articles/115004567503-Signal-Report#build-a-query-in-signal">Mixpanel Signal Report</a></li>
+<li><a href="https://www.statisticshowto.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/#definition">Linear Regression: Simple Steps, Video. Find Equation, Coefficient, Slope</a></li>
+<li><a href="https://dataanalysis.substack.com/p/what-statistics-are-used-in-data">What Statistics Are Used In Data Analysis?</a></li>
+<li><a href="https://dataanalysis.substack.com/p/behold-how-you-can-handle-missing">Behold! How You Can Handle Missing Data</a></li>
+<li><a href="https://datatab.net/tutorial/causality">Causality, correlation and regression</a></li>
+</ol>
+<p><em>Thanks, Olga! You can find Olga on <a href="https://www.linkedin.com/in/olgaberezovsky/">LinkedIn</a> and <a href="https://twitter.com/OlgaBerezovsky">Twitter</a>, and <a href="https://dataanalysis.substack.com/">subscribe to her newsletter</a> for all kinds of great, actionable advice on data analysis and product analytics.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from How to do linear regression and correlation analysis" src="https://substack-post-media.s3.amazonaws.com/public/images/f8eb7d1d-965c-4b8a-813d-b233fc74197b_1526x1240.png" /></p>
+<p>If you’re looking for a new gig, join the collective to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>❤️‍🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/02f1d98a-a58e-427b-a46e-9e8b1fd52295">Product Marketing Manager</a> (NY, remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/e42afaf7-f323-441d-8f4c-cf7a252e9ca3">Senior Software Engineer</a> (Remote)</li>
+<li><strong>Wingspan:</strong> <a href="https://www.lennysjobs.com/jobs/b8d36434-9885-4d23-80bf-9ac3847e37de">Technical Account Manager</a> (Remote)</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

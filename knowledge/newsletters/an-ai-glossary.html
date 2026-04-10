@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>An AI glossary — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">An AI glossary</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">An AI glossary</div>
+    
+    <div class="article-meta">2025-06-24<span>·</span>3,280 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">B2B</span> <span class="mini-tag">B2C</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>You’re probably hearing a lot of AI jargon, and you probably <em>sort</em> <em>of</em> know what some of it means . . . but not <em>really</em>. Below is an “explain it to me like I’m 5” definition of the 20+ most common AI terms, drawn from my own understanding, a bunch of research, and feedback from my most AI-pilled friends.</p>
+<p>If you already know all this, no sweat, this post isn’t for you. For everyone else, keep the following list handy next time you’re in a meeting and you’re struggling to keep up with all the AI words flying around the room. I’ll continue adding to this list as new buzzwords emerge.</p>
+<p><em>P.S. If you prefer, you can listen to this post in convenient podcast form: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from An AI glossary" src="https://substack-post-media.s3.amazonaws.com/public/images/3ded72ed-e8da-43dd-ba53-50eb67ca8518_2912x1938.png" /></p>
+<h3><strong>Model</strong></h3>
+<p>An AI model is a computer program that is built to work like a human brain. You give it some input (i.e. a prompt), it does some processing, and it generates a response.</p>
+<p>Like a child, a model “learns” by being exposed to many examples of how people typically respond or behave in different situations. As it sees more and more examples, it begins to recognize patterns, understand language, and generate coherent responses.</p>
+<p>There are many different types of AI models. Some, which focus on language—like <a href="https://openai.com/index/introducing-o3-and-o4-mini/">ChatGPT o3</a>, <a href="https://www.anthropic.com/claude/sonnet">Claude Sonnet 4</a>, <a href="https://deepmind.google/models/gemini/pro/">Gemini 2.5 Pro</a>, <a href="https://www.llama.com/">Meta Llama 4</a>, <a href="https://grok.com/">Grok 3</a>, <a href="https://www.deepseek.com/">DeepSeek</a>, and <a href="https://mistral.ai/">Mistral</a>—are known as large language models (LLMs). Others are built for video, like <a href="https://deepmind.google/models/veo/">Google Veo 3</a>, <a href="https://openai.com/sora/">OpenAI Sora</a>, and <a href="https://runwayml.com/">Runway Gen-4</a>. Some models specialize in generating voice, such as <a href="https://elevenlabs.io/">ElevenLabs</a>, <a href="https://cartesia.ai/">Cartesia</a>, and <a href="https://suno.com/">Suno</a>. There are also more traditional types of AI models, such as classification models (used in tasks like fraud detection), ranking models (used in search engines, social media feeds, and ads), and regression models (used to make numerical predictions).</p>
+<h3><strong>LLM (large language model)</strong></h3>
+<p>LLMs are text-based models, designed to understand and generate human-readable text. That’s why the name includes the word “language.”</p>
+<p>Recently, most LLMs have actually evolved into “multi-modal” models that can process and generate not just text but also images, audio, and other types of content within a single conversational interface. For example, all of the ChatGPT LLM models natively support text, images, and even voice. This started with GPT-4o, where “o” stands for “omni” (meaning it accepts any combination of text, audio, and image input).</p>
+<p><a href="https://every.to/p/how-ai-works">Here’s a really good primer on how LLMs actually work</a>, and <a href="https://youtu.be/zjkBMFhNj_g">also this popular deep dive by Andrej Karpathy</a>:</p>
+<p><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">Watch on YouTube</a></p>
+<h3><strong>Transformer</strong></h3>
+<p>The transformer architecture, developed by Google researchers in 2017, is the algorithmic discovery that made modern AI (and LLMs in particular) possible.</p>
+<p>Transformers introduced a mechanism called “attention,” where instead of only being able to read text word‑by‑word, sequentially, the model is able to pay attention to all the words at once. This helps the models understand how words relate to each other, making them far better at capturing meaning, context, and nuance than earlier techniques.</p>
+<p>Another big advantage of the transformer architecture is that it’s highly parallelizable—it can process many parts of a sequence at the same time. This makes it possible to train much bigger and smarter models simply by scaling up the data and compute power. This breakthrough is why we suddenly went from basic chatbots to sophisticated AI assistants. Almost every major AI model today, including ChatGPT and Claude, is built on top of the transformer architecture.</p>
+<p><a href="https://ig.ft.com/generative-ai/">This is the best explanation of transformers</a> I’ve seen. Here’s also a more technical and visual deep dive:</p>
+<p><a href="https://www.youtube.com/watch?v=KJtZARuO3JY">Watch on YouTube</a></p>
+<h3><strong>Training/Pre-training</strong></h3>
+<p>Training is the process by which an AI model learns by analyzing massive amounts of data. This data might include large portions of the internet, every book ever published, audio recordings, movies, video games, etc. Training state-of-the-art models can take weeks or months, require processing terabytes of data, and cost hundreds of millions of dollars.</p>
+<p>For LLMs, the core training method is called “next-token prediction.” The model is shown billions of text sequences with the last “token” (roughly analogous to a word, see definition of <em>token</em> below) hidden, and it learns to predict what word should come next.</p>
+<p>As it trains, the model adjusts millions of internal settings called “weights.” These are similar to how neurons in the human brain strengthen or weaken their connections based on experience. When the model makes a correct prediction, those weights are reinforced. When it makes an incorrect one, they’re adjusted. Over time, this process helps the model improve its understanding of facts, grammar, reasoning, and how language works in different contexts. <a href="https://www.youtube.com/watch?v=rEDzUT3ymw4">Here’s a quick visual explanation</a>.</p>
+<p>If you’re skeptical of next-token prediction generating novel insights and super-intelligent AI systems, here’s Ilya Sutskever (co-founder of OpenAI) explaining why it’s deceptively powerful:</p>
+<p><a href="https://www.youtube.com/watch?v=YEUclZdj_Sc">Watch on YouTube</a></p>
+<h3><strong>Supervised learning</strong></h3>
+<p>Supervised learning refers to when a model is trained on “labeled” data—meaning the correct answers are provided. For example, the model might be given thousands of emails labeled “spam” or “not spam” and, from that, learn to spot the patterns that distinguish spam from non-spam. Once trained, the model can then classify new emails it’s never seen before.</p>
+<p>Most modern language models, including ChatGPT, use a subtype called “self-supervised learning.” Instead of relying on human-labeled data, the model creates its own labels, generally by hiding the last token/word of a sentence and learning to predict it. This allows it to learn from massive amounts of raw text without manual annotation.</p>
+<h3><strong>Unsupervised learning</strong></h3>
+<p>Unsupervised learning is the opposite: the model is given data without any labels or answers. Its job is to discover patterns or structure on its own, like grouping similar news articles together or detecting unusual patterns in a dataset. This method is often used for tasks like anomaly detection, clustering, and topic modeling, where the goal is to explore and organize information rather than make specific predictions.</p>
+<h3><strong>Post-training</strong></h3>
+<p>Post-training refers to all of the additional steps taken after training is complete to make the model even more useful. This includes steps like “fine-tuning<em>”</em> and “RLHF.<em>”</em></p>
+<h3><strong>Fine-tuning</strong></h3>
+<p>Fine-tuning is a post-training technique where you take a trained model and do additional training on specific data that’s tailored to what you want the model to be especially good at. For example, you would fine-tune a model on your company’s customer service conversations to make it respond in your brand’s specific style, or on medical literature to make it better at answering healthcare questions, or on educational content for specific grade levels to create a tutoring assistant that explains concepts in age-appropriate ways.</p>
+<p>This additional training tweaks the model’s internal weights to specialize its responses for your specific use case, while preserving the general knowledge it learned during pre-training.</p>
+<p>Here’s an awesome technical deep dive into how fine-tuning works:</p>
+<p><a href="https://www.youtube.com/watch?v=eC6Hd1hFvos">Watch on YouTube</a></p>
+<h3><strong>RLHF (reinforcement learning from human feedback)</strong></h3>
+<p>RLHF is a post-training technique that goes beyond next-token prediction and fine-tuning by teaching AI models to behave the way humans want them to—making them safer, more helpful, and aligned with our intentions. RLHF is a key method used for what’s referred to as “alignment.”</p>
+<p>This process works in two stages: First, human evaluators compare pairs of outputs and choose which is better, training a “reward model” that learns to predict human preferences. Then, the AI model learns through reinforcement learning—a trial-and-error process where it receives “rewards” from the reward model (not directly from humans) for generating responses the reward model predicts humans would prefer. In this second stage, the model is essentially trying to “game” the reward model to get higher scores.</p>
+<p><a href="https://www.labellerr.com/blog/reinforcement-learning-from-human-feedback/">Here’s a great guide</a>, plus this technical deep dive into RLHF:</p>
+<p><a href="https://www.youtube.com/watch?v=T_X4XFwKX8k">Watch on YouTube</a></p>
+<h3><strong>Prompt engineering</strong></h3>
+<p>Prompt engineering is the art and science of crafting questions (i.e. “prompts”) for AI models that result in better and more useful responses. Like when you’re talking to a person, the way you phrase your question can lead to dramatically different responses. The same AI model will give very different responses based on how you craft your prompt.</p>
+<p>There are two categories of prompts:</p>
+<ol>
+<li>Conversational prompts: What you send ChatGPT/Claude/Gemini when you’re having a conversation with it</li>
+<li>System/product prompts: The behind-the-scenes instructions that developers bake into products to shape how the AI product behaves</li>
+</ol>
+<p>Here’s a podcast episode from just last week where we cover this and much more:</p>
+<p><a href="https://www.youtube.com/watch?v=eKuFqQKYRrA">Watch on YouTube</a></p>
+<h3><strong>RAG (retrieval-augmented generation)</strong></h3>
+<p>RAG is a technique that gives models access to additional information at run-time that they weren’t trained on. It’s like giving the model an open-book test instead of having it answer from memory.</p>
+<p>When you ask a question like “How do this month’s sales compare to last month?” a retrieval system is able to search through your databases, documents, and knowledge repos to find pertinent information. This retrieved data is then added as context to your original prompt, creating an enriched prompt that the model then processes. This leads to a much better, more accurate answer.</p>
+<p>One common source of “hallucinations” is when you don’t give the model the context it needs to answer your question through RAG.</p>
+<p>Broadly, to summarize:</p>
+<ul>
+<li><strong>Pre-training:</strong> Teaches the model general knowledge (and language)</li>
+<li><strong>Fine-tuning:</strong> Specializes the model for specific tasks</li>
+<li><strong>RLHF:</strong> Aligns the model with human preferences</li>
+<li><strong>Prompt engineering:</strong> The skills of crafting better inputs to guide the model toward the most useful outputs</li>
+<li><strong>RAG:</strong> A technique that retrieves additional relevant information from external sources at run-time to give the model up-to-date or task-specific context it wasn’t trained on</li>
+</ul>
+<p>Here’s a great overview of fine-tuning vs. RAG vs. prompt engineering:</p>
+<p><a href="https://www.youtube.com/watch?v=zYGDpG-pTho">Watch on YouTube</a></p>
+<h3><strong>Evals</strong></h3>
+<p>Evals (short for “evaluations”) are structured ways to measure how well an AI system performs on specific tasks, such as correctness, safety, helpfulness, or tone. They define what “good” looks like for your AI system and help you answer the question: Is this model doing what I want it to do?</p>
+<p>Evals are basically unit tests or benchmarks for your AI product. They run your model through predefined inputs and compare its responses against expected outputs. This helps you quantify progress, catch regressions, and guide you toward improvements.</p>
+<p>For example, here’s what an eval to measure the toxicity and tone of a model’s response might look like. Your model output would be inserted into the {text} variable:</p>
+<p><img alt="Image from An AI glossary" src="https://substack-post-media.s3.amazonaws.com/public/images/9cda3b44-8466-4878-b18d-197fc702688b_2913x1703.jpeg" /></p>
+<p>Evals are often described by top product leaders as the most critical, yet overlooked, skill for building successful AI products:</p>
+<p><img alt="Image from An AI glossary" src="https://substack-post-media.s3.amazonaws.com/public/images/f097be41-cdc9-42be-bf6f-7221b653b871_2913x4511.jpeg" /></p>
+<p><a href="https://www.lennysnewsletter.com/p/beyond-vibe-checks-a-pms-complete">Don’t miss this excellent guest post by Aman Khan</a> that teaches you how to craft evals for your product.</p>
+<h3><strong>Inference</strong></h3>
+<p>Inference is when the model “runs.” When you ask ChatGPT a question and it generates a response, that’s it doing inference.</p>
+<h3><strong>MCP (model context protocol)</strong></h3>
+<p>MCP is a recently released open standard that allows AI models to interact with external tools—like your calendar, CRM, Slack, or codebase—easily, reliably, and securely. Previously, developers had to write their own custom code for each new integration.</p>
+<p>MCP also gives the AI the ability to take <em>actions</em> through these tools, for example, updating customer records in Salesforce, sending messages in Slack, scheduling meetings in your calendar, or even committing code to GitHub.</p>
+<p>It’s still early in the definition of AI protocols, and there are other competing proposals, like A2A from Google and ACP from BeeAI/IBM.</p>
+<p>Here’s a really nice in-depth explanation of MCP:</p>
+<p><a href="https://www.youtube.com/watch?v=N3vHJcHBS-w">Watch on YouTube</a></p>
+<h3><strong>Gen AI (generative AI)</strong></h3>
+<p>Gen AI refers to AI systems that can create new content, such as text, images, code, audio, or video. This is opposed to models that just analyze or classify data, such as spam detection, fraud analysis, or image recognition models.</p>
+<h3><strong>GPT (generative pre-trained transformer)</strong></h3>
+<p>“GPT” captures the three key elements behind how state-of-the-art LLMs like ChatGPT 4.1, Claude Opus 4, Llama 4, and Grok 3 work:</p>
+<ol>
+<li><strong>Generative:</strong> The model doesn’t just classify or analyze—it can generate new content.</li>
+<li><strong>Pre-trained:</strong> It first learns general language patterns by being trained on massive amounts of text (as described above) and can then be fine-tuned for more specific tasks.</li>
+<li><strong>Transformer:</strong> This refers to the breakthrough architecture (described above) that allows the model to understand context, relationships, and meaning across language.</li>
+</ol>
+<p>The combination of these three ideas—generation, large-scale pre-training, and the transformer architecture—is what made tools like ChatGPT feel intelligent, coherent, and surprisingly useful across a wide range of tasks.</p>
+<h3><strong>Token</strong></h3>
+<p>A token is the basic unit of text that an AI model understands. For LLMs, this is sometimes a word, but often just a part of a word. There are analogous concepts like “patches” for image models and “frames” for voice models.</p>
+<p>For example, “ChatGPT is smart.” might be split into the tokens “Chat,” “GPT,” “is,” “smart,” and “.” Even though “ChatGPT” is one word, the model breaks it into smaller pieces to make learning language more scalable, flexible, and efficient.</p>
+<p><a href="https://ig.ft.com/generative-ai/">This explanation of transformers</a> also explains tokens really well, and <a href="https://tiktokenizer.vercel.app/">here you can see how top models tokenize words</a>.</p>
+<p>Here’s the paragraph above tokenized by GPT-4o:</p>
+<p><img alt="Image from An AI glossary" src="https://substack-post-media.s3.amazonaws.com/public/images/d3088588-455d-4845-9430-7957104ffa7b_1160x550.png" /></p>
+<h3><strong>Agent</strong></h3>
+<p>An agent is an AI system designed to take actions on your behalf to accomplish a goal. Unlike chatbots like Claude or ChatGPT, which take a prompt and quickly respond with an answer, an agent can plan, work step-by-step, and use external tools, often across many apps or services, to achieve some outcome you set for it.</p>
+<p>To borrow a definition from <a href="https://www.lennysnewsletter.com/p/make-product-management-fun-again">this recent guest post, “Make product management fun again with AI agents,”</a> it’s best to think of the term “agent” as a spectrum, where AI systems become “agentic” the more of the following behaviors they exhibit:</p>
+<ol>
+<li><strong>Acts proactively</strong>,as opposed to waiting to be prompted</li>
+<li><strong>Makes its own plan</strong>,as opposed to being given instructions</li>
+<li><strong>Takes real-world action</strong>, such a<strong>s</strong> updating a CRM, running code, or commenting on a ticket—as opposed to only sharing recommendations</li>
+<li><strong>Draws on live data</strong>, such as a web search or a customer support queue—as opposed to relying on static training or your manually uploading a file</li>
+<li><strong>Creates its own feedback loop</strong>,where it watches its own output and iterates without human assistance</li>
+</ol>
+<p><a href="https://www.anthropic.com/engineering/building-effective-agents">Here’s a great guide from Anthropic</a> for how to build effective agents.</p>
+<h3><strong>Vibe coding</strong></h3>
+<p>The term originated from <a href="https://x.com/karpathy/status/1886192184808149383">this tweet</a> by Andrej Karpathy:</p>
+<p><img alt="Image from An AI glossary" src="https://substack-post-media.s3.amazonaws.com/public/images/c479abab-b22e-4d16-b666-b28492803ee1_1190x848.png" /></p>
+<p>Vibe coding has come to mean building apps using AI tools like Cursor, Windsurf, Bolt, Lovable, v0, or Replit, by describing what you want in plain English (i.e. prompts) rather than writing code. In many cases, you never look at the code at all.</p>
+<h3><strong>AGI (artificial general intelligence)</strong></h3>
+<p>AGI refers to AI being “generally” smart—not just good at narrow tasks like coding, math, or data analysis, but capable of performing a wide range of tasks well, as well as learning how to tackle new problems without needing specialized training.</p>
+<p>When people talk about reaching AGI, they usually mean the point where AI is more intelligent than the average human across most subjects. Some people believe we’ve already reached this point.</p>
+<p>Artificial “superintelligence” (ASI) refers to the next step beyond AGI—AI that is much more intelligent than the best human minds in virtually every domain. We don’t believe we have reached this point yet, and there are debates about whether AGI to ASI will be <a href="https://www.lesswrong.com/w/ai-takeoff">a fast or slow takeoff</a>.</p>
+<p><a href="https://www.youtube.com/watch?v=SEkGLj0bwAU">Watch on YouTube</a></p>
+<h3><strong>Hallucination</strong></h3>
+<p>A hallucination is when an AI model generates a response that sounds confident but is factually incorrect or entirely made up.</p>
+<p>This happens because the model doesn’t actually “know” facts or look things up in a database. Instead, it generates responses by predicting the most likely next token/word based on patterns in its training data. When it lacks the right information, it may confidently fill in the gaps with something that sounds plausible but isn’t real.</p>
+<p>The good news is that newer models are getting better at avoiding hallucination, and there are proven strategies—like RAG and prompt engineering—that help mitigate the risk (<a href="https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">here’s a guide from Anthropic</a>).</p>
+<h3><strong>Synthetic data</strong></h3>
+<p>To train ever more intelligent models, you need ever more data. But once the models are trained on the entire internet, every book ever published, every recording, dataset, etc., how do we give them more data? Part of the answer is “synthetic” data.</p>
+<p>Synthetic data is artificially generated data. It follows the same patterns and structure as human-generated data, and, amazingly, it can be just as effective at helping models learn. It’s valuable when real data is limited, sensitive, or fully exhausted.</p>
+<p>Synthetic data is generated differently depending on the type of data:</p>
+<ol>
+<li><strong>Text:</strong> LLMs are prompted to generate fictional customer support chats, medical notes, or math problems based on real-world examples.</li>
+<li><strong>Images:</strong> <a href="https://huggingface.co/learn/computer-vision-course/en/unit10/datagen-diffusion-models">Diffusion models</a> and <a href="https://www.impetus.com/resources/blog/synthetic-data-generation-using-gans/">GANs</a> create realistic visuals, from street scenes to x-rays to product photos, without copying actual images.</li>
+<li><strong>Audio:</strong> Voice and sound models synthesize speech, background noise, or music that mimic real recordings.</li>
+</ol>
+<p>To a human, synthetic data can often be indistinguishable from real data, for example, a chatbot transcript that seems authentic but was entirely generated.</p>
+<p><a href="https://www.youtube.com/watch?v=ZPPBujNssnU">Watch on YouTube</a></p>
+<p>Any other AI jargon you’d like to see explained? Did I get something wrong? Drop me a comment 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/an-ai-glossary/comments">Leave a comment</a></p>
+<h3>Bonus: Some of my additional favorite videos</h3>
+<p><a href="https://www.youtube.com/watch?v=eMlx5fFNoYc">Watch on YouTube</a><a href="https://www.youtube.com/watch?v=LCEmiRjPEtQ">Watch on YouTube</a></p>
+<p><em>Thank you to <a href="https://www.linkedin.com/in/dennisyang/">Dennis Yang</a>, <a href="https://www.linkedin.com/in/hilarygridley/">Hilary Gridley</a>, and <a href="https://www.linkedin.com/in/amanberkeley/">Aman Khan</a> for feedback on this post.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

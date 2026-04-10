@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Joining as the first product manager — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Joining as the first product manager</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Joining as the first product manager</div>
+    
+    <div class="article-meta">2020-05-05<span>·</span>2,340 words</div>
+    <div class="tags-row"><span class="mini-tag">產品管理</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong><em>If you find this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a></em></strong></p>
+<p><a href="https://www.lennyrachitsky.com/?action=share">Share Lenny's Newsletter</a></p>
+<blockquote>
+<h2><strong>Q: I'll soon be starting a new role at a startup (Series A, 40 people) as their first product hire. <a href="https://www.lennyrachitsky.com/p/q-and-a-must-reads-on-growth-what">I've read your past advice</a></strong> on what to focus on as new PM<strong>, however do you have any specific advice for someone</strong> joining as the <em>first</em> product hire?</h2>
+</blockquote>
+<p><img alt="Image from Joining as the first product manager" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c6649583-e090-4910-b4c6-f99c4c04c89c_534x300.gif" /></p>
+<p>First of all, congrats on the new role! This sounds like an amazing opportunity, particularly at a time like this.</p>
+<p>I’ve been getting this question often recently, so I’m excited to dive in. Since I personally haven't been the first PM at a company, I used this as an excuse to do some new research. I reached out to a bunch of smart friends and friends of friends who have been first PMs, along with <a href="https://twitter.com/lennysan/status/1250870043216232448">putting out a call on Twitter</a>. Taking all of these insights, including input from the first PM of Superhuman, Lyft, Airbnb, Front, Patreon, and many other great companies, I’ve synthesized the most concrete and consistent pieces of advice below.</p>
+<p>Here’s a summary:</p>
+<ol>
+<li><strong>Listen and learn</strong></li>
+<li><strong>Become the expert on the product</strong></li>
+<li><strong>Form your own opinions</strong></li>
+<li><strong>Build trust with the CEO</strong></li>
+<li><strong>Build trust with the team</strong></li>
+<li><strong>Align expectations</strong></li>
+<li><strong>Find balance</strong></li>
+</ol>
+<p>Before we get into the concrete suggestions, let’s look into <em>when</em> to hire your first PM, and <em>what</em> to expect from the role.</p>
+<h2>When to hire your first PM</h2>
+<p><strong><a href="https://www.kennorton.com/newsletter/2016-02-12-product-manager-zero.html">Ken Norton</a> (early PM at Google):</strong></p>
+<blockquote>
+<p>“When do you go from PM Zero to PM One? Many of the founders I’ve worked with are surprised when <strong>my recommendation is often</strong> <strong><em>not yet</em></strong>. Usually I discourage them from hiring <strong>until they’ve found product/market fit</strong>. But even when you’re hitting your growth phase, the danger of having too many cooks in the kitchen exceeds the cost of being overworked. A starvation diet when it comes to PMs is preferable to being overstuffed.</p>
+<p><strong>Surprisingly, your team may tell you when it’s time, although not in so many words. Here are some signals they’ll send:</strong></p>
+<ol>
+<li>“You’re slowing us down.”</li>
+<li>“You’re detached from the details.”</li>
+<li>“The rest of our business needs you.”</li>
+</ol>
+</blockquote>
+<p><strong><a href="https://medium.com/@jgolden/when-and-how-to-make-your-first-product-hire-809ebce6cda4">Jonathan Golden</a> (first PM at Airbnb):</strong></p>
+<blockquote>
+<p>“My advice is that it’s time to hire your first product manager when all three of the following are met:</p>
+<ul>
+<li><strong>You’ve achieved product/market fit and need to scale</strong></li>
+<li><strong>Your engineering team is greater than seven people</strong></li>
+<li><strong>You are mentally ready to let someone else control the roadmap at some level</strong></li>
+</ul>
+<p>This stage normally happens right after a Series A financing. The team sees the work ahead of them and the founder realizes that her number-one priority needs to be hiring for and building out other functions of the business.”</p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/tjwood">Tim Wood</a> (first PM at Patreon):</strong></p>
+<blockquote>
+<p>“<strong>The less experience founders have building products, the sooner it should be</strong>. On the other hand, if the founder is an ex-PM and the engineers and/or designers are product-oriented, a company could get by for quite awhile without a dedicated PM.”</p>
+</blockquote>
+<h2>What to expect as a first PM</h2>
+<blockquote>
+<p><strong>“The first PM is an extremely challenging role</strong>. You’re gonna have a lot of tough battles, and the second PM is gonna owe you a ton for how easy they’ll have it”</p>
+<p>ー Anonymous</p>
+<p><strong>“The amount of ambiguity facing a 1st time PM is tremendous</strong>. Often the founders/execs are still extremely hands on and aren’t comfortable sharing ownership. So there’s a lot of tension. Your job is to bring clarity and focus (i.e. decrease ambiguity) yet stay extremely flexible to changing things all over again every six months. PMs help get ambiguity under control in critical areas + let it exist in others.”</p>
+<p>ー <a href="https://www.linkedin.com/in/benerez/">Ben Erez</a> (first PM at Abstract)</p>
+<p>“<strong>Roll up your sleeves, be a team player</strong>. I had to wear many hats – QA, user research, API documentation, marketing, BD – to move the team fwd. While in other companies, you have someone in each role, you have to do it all at early stage. I loved it, but it's not for everyone.”</p>
+<p>— <a href="https://www.linkedin.com/in/ahujakaran/">Karan Ahuja</a> (first PM at Tally)</p>
+</blockquote>
+<p>Now, let’s dive in.</p>
+<h2>How to succeed as the first PM</h2>
+<h3>1. Listen and learn</h3>
+<blockquote>
+<p><strong>“First, take time to observe, listen, learn how &amp; why things are done</strong>. You have but a short time to just <em>be there</em> before you need to <em>do things.</em> Make the most of it!”</p>
+<p>ー <a href="https://www.linkedin.com/in/ketkiwarudkar/">Ketki Duvvuru</a> (first PM at Superhuman)</p>
+<p><strong>“Spend your first month really focused on developing understanding and empathy</strong>. Sit down with as many of your new coworkers as you can, and understand:</p>
+<ul>
+<li>How does the product development process work today, and how can it be improved?</li>
+<li>Who has been serving as the PM to date? Was it solely the CEO, or has an engineer or salesperson been calling some of the shots without a PM in place?”</li>
+</ul>
+<p>ー <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (first PM at Lyft, Chariot)</p>
+<p><strong>“Don't upset the apple cart</strong>. You're joining a company that clearly has had some success: they are growing and as you say, have PMF with a core product. Your instinct will be to quickly change things, both because there's improvements that seem obvious but also because you'll want to show value (they hired you for your product expertise, right?!). This is a mistake I see many executives who are hired into smaller companies make.</p>
+<p><strong>These bigger moves upset the apple cart and because the product leader (or executive) didn't generate the trust from the founder, or made mistakes in these bigger moves because of lacking context, it ends up as a disaster. Move slower than you think.</strong></p>
+<p>While many of those things initially will come to pass, <strong>instead of focusing on what isn't going right, look to what is working and why</strong>: can you build upon those process and make them slightly better/more efficient? Can you expand into something that's closely related (process or features)? These initial successes will both engender trust from the founders as well as give you more context and confidence to make the bigger changes you want (and likely will need) to make after your first 3-6 months on the job.”</p>
+<p>— <a href="https://www.linkedin.com/in/naabbott/">Nate Abbott</a> (Head of Product at Front)</p>
+</blockquote>
+<h3>2. Become the expert on the product</h3>
+<blockquote>
+<p>“As for any product manager, <strong>invest deeply in getting to know your customer</strong> really really well”</p>
+<p>— <a href="https://www.linkedin.com/in/ketkiwarudkar/">Ketki Duvvuru</a> (first PM at Superhuman)</p>
+<p>“Understand your product, your customers and your competition. <strong>Within 3 months, you should know about all the nooks and crannies of your product, and you should know it better than anyone else at the company</strong>. Talk to your product’s top fans, and really understand why they use the product. Screenshot and document the key flows and features your competitors offer.”</p>
+<p>ー <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (first PM at Lyft, Chariot)</p>
+<p><strong>“OWN the product... live in it</strong>. Live with the support staff, observe customers using it, help with QA and test it. Know it better than everyone else.”</p>
+<p>ー <a href="https://www.linkedin.com/in/markleck/">Mark Leck</a></p>
+</blockquote>
+<h3>3. Form your own opinions</h3>
+<blockquote>
+<p><strong>“Don't assume, validate</strong>.”</p>
+<p>ー <a href="https://www.linkedin.com/in/ayojimoh/">Ayo Jimoh</a> (first PM at Visibly)</p>
+<p><strong>“One of the biggest mistakes I made as a PM at Zimride was not pushing earlier to identify the need for Lyft’s product to exist</strong>, as I was too in the Zimride weeds and too focused on growing our existing product. It really took our CEO, Logan, to identify and push for a much-needed pivot. Now that I’m a founder, I understand why it can often take a founder-level view to identify a pivot like this. But as a first PM, you’re obviously at an early stage company — and a great PM should be regularly stepping back asking your founders and team: “Is this really the product we should be building?”</p>
+<p>ー <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (first PM at Lyft, Chariot)</p>
+<p><strong>“Internalize the CEO's vision</strong> before developing your own”</p>
+<p>— <a href="https://colinjam.es/">Colin James Belyea</a></p>
+</blockquote>
+<h3>4. Build trust with the CEO</h3>
+<blockquote>
+<p>“Like a parent sending their child off to kindergarten, your CEO is going to have a tough time turning over control of their baby — their product — to you. <strong>Start exercising responsibility and control over the product slowly at first, and then more quickly over time as you build bonds with your CEO</strong>. Don’t expect full autonomy for the first months, until you’ve proven yourself. Your #1 goal in your first 90 days is to ensure that your CEO feels comfortable with you, and increasingly hands the product reins to you. Don’t underestimate how hard this will be for them, and make sure you’re constantly communicating with them.”</p>
+<p>ー <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (first PM at Lyft, Chariot)</p>
+<p>“Do jam sessions with the founders. Have frequent chats/debates about the product vision, strategy, competition, etc. These sessions <strong>give a window into each other's thought processes, principles, values, and are key to building alignment &amp; trust</strong>. Can't emphasize this enough.”</p>
+<p>— <a href="https://www.linkedin.com/in/ahujakaran/">Karan Ahuja</a> (first PM at Tally)</p>
+<p>“Train the CEO how a good PM organization should run. After a month of transition, <strong>I like to pitch back the role and define it clearly</strong>. Help them learn the new, lean process you put in place. Don’t be afraid to stand your ground if the CEO breaks process.”</p>
+<p>ー <a href="https://www.linkedin.com/in/drakerehfeld/">Drake Rehfeld</a> (CEO)</p>
+</blockquote>
+<h3>5. Build trust with the team</h3>
+<blockquote>
+<p>“The company grew without a PM. <strong>You need to show they'll benefit from having one</strong>.”</p>
+<p>ー<a href="https://www.linkedin.com/in/anand-george-samuel-10838218/">Anand Samuel</a></p>
+<p>“<strong>Build trust &amp; invest in relationships from day one</strong>. Ask questions about what's worked/not worked, ask people about their hopes/fears, listen, get to know everyone. Don't be a ‘know-it-all’ person and try to change things immediately. Drive quick wins, and deliver impact <em>consistently</em>.”</p>
+<p>— <a href="https://www.linkedin.com/in/ahujakaran/">Karan Ahuja</a> (first PM at Tally)</p>
+<p><strong>“Ship something</strong>. Could be a spec or something as small as solving a customer query.”</p>
+<p>ー <a href="https://twitter.com/sai_grsh">Sai Girish</a></p>
+</blockquote>
+<h3>6. Align expectations</h3>
+<blockquote>
+<p>“<strong>Be sure to understand how the founders define product management</strong>. It's ok if they don't have a detailed sense of a PM's role, but it's important that you are all aligned on the responsibilities you will have and the value you can bring.”</p>
+<p>— <a href="https://www.linkedin.com/in/tjwood">Tim Wood</a> (first PM at Patreon)</p>
+<p>"<strong>Ensure a clear understanding of the PM role across the org</strong>. Set expectations, discuss how you can help, and what you need to do that. Especially important since first Product person is the CEO."</p>
+<p>ー <a href="https://twitter.com/wooedbywords">Nina</a></p>
+<p>“As the first PM at a company, many teammates likely will have never even worked with a product manager before, and may question the need for the role. <strong>Regularly, and repeatedly, explain what a PM does and how this will be better, not worse, for your new teammates</strong> — many of whom will be used to going straight to engineers and getting them to build things. Your role is to start shielding engineers from the product roadmap being controlled by whoever made the most recent engineering ask, and you need to repeatedly make your new coworkers believe this is a good thing.”</p>
+<p>ー <a href="https://www.linkedin.com/in/evangoldin/">Evan Goldin</a> (first PM at Lyft, Chariot)</p>
+</blockquote>
+<h3>7. Find balance</h3>
+<blockquote>
+<p><strong>“Biggest learning was to balance desire to ship (quick wins, credibility) w/ time spent learning the product</strong> and developing customer empathy.”</p>
+<p>ー <a href="https://www.linkedin.com/in/isaacsouweine/">Isaac Souweine</a> (first PM at Frank &amp; Oak, and Sonder)</p>
+<p>“For starters, an early PM should <strong>be particularly attuned to the balance between chasing growth and getting the overall product in a stable position</strong>. Making this tradeoff of resources is often contentious, but startups can ignore overall product health for only so long. A product leader needs to develop a framework to make these decisions.”</p>
+<p>ー <a href="https://medium.com/@jgolden/when-and-how-to-make-your-first-product-hire-809ebce6cda4">Jonathan Golden</a> (first PM at Airbnb)</p>
+</blockquote>
+<p>The PM role is always a tough gig, but the first PM role is even tougher. It’s also an incredible learning opportunity and a role that will accelerate your career. As you can tell from the advice above, there is a lot to it. I hope these insights help. Good luck 🙏</p>
+<p>Additional recommended reading:</p>
+<ol>
+<li><a href="https://twitter.com/lennysan/status/1250870043216232448">This twitter thread</a></li>
+<li><a href="https://medium.com/@jgolden/when-and-how-to-make-your-first-product-hire-809ebce6cda4">When and How to Make Your First Product Hire</a> by Jonathan Golden</li>
+<li><a href="https://www.kennorton.com/newsletter/2016-02-12-product-manager-zero.html">Product Manager Zero</a> by Ken Norton</li>
+<li><a href="https://firstround.com/review/our-6-must-reads-if-youre-hiring-a-product-manager/">Our 6 Must Reads If You're Hiring a Product Manager</a> by First Round</li>
+<li><a href="https://a16z.com/2013/10/04/why-founders-fail-the-product-ceo-paradox/">Why Founders Fail: The Product CEO Paradox</a> by a16z</li>
+<li><a href="https://medium.com/once-upon-a-team/when-should-you-a-hire-a-product-manager-91e393862150">When should you hire a Product Manager?</a> by Ellen Chisa</li>
+<li><a href="https://www.linkedin.com/pulse/20121127191851-7298-seeking-captain-america-not-captain-crap-hiring-your-first-product-manager/?trk=mp-author-card">Seeking Captain America &amp; Not Captain Crap: Hiring Your First Product Manager</a> by Hunter Walk</li>
+<li><a href="https://medium.com/@gokulrajaram/the-biggest-mistake-ceos-make-when-looking-for-their-first-product-manager-347aaeb15a75">Hiring your first Product Manager</a> by Gokul Rajaram</li>
+</ol>
+<h2><strong>Inspiration for the week ahead 🧠</strong></h2>
+<ol>
+<li>
+<p><strong>Watch</strong>: Constraints breeding creativity (via <a href="https://twitter.com/bhaugh">@bhaugh</a>)</p>
+</li>
+<li>
+<p><strong>Listen</strong>: Tingles (via <a href="https://twitter.com/MikePLewis">@MikePLewis</a>)</p>
+</li>
+<li>
+<p><strong>Follow</strong>: <a href="https://thebreeze.substack.com/">The Breeze</a> — A new’ish newsletter by my buddy <a href="https://twitter.com/leepnet">Tommy Leep</a>, where he shares unique insights about the climate tech space.</p>
+</li>
+</ol>
+<p>That’s it for this week!</p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

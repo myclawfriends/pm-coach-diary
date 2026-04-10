@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Duolingo reignited user growth — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Duolingo reignited user growth</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Duolingo reignited user growth</div>
+    
+    <div class="article-meta">2023-02-28<span>·</span>4,812 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I humbly tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out about work.</em></p>
+<p><em>If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/growth-inflections">Growth inflections</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-be-better-prepared-for-layoffs">How to be prepared for layoffs</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">How Coda builds product</a></em></li>
+</ol>
+<p><em>Subscribe to get access to these posts, and every post.</em></p>
+<p>I was at a small event a few months back where <a href="https://www.linkedin.com/in/jorgemazal/">Jorge Mazal</a> (former CPO of Duolingo) shared the story behind Duolingo’s growth reaccelerating. I was captivated. I’ve never seen a growth story like this before—4.5x growth for a mature product, driven by a small handful of product changes, rooted in an innovative growth model, and explained in such actionable detail. I asked Jorge if he’d be willing to share (and expand on) the story with a broader audience, and I’m so happy he agreed. Many products already look to Duolingo for inspiration, and I suspect this story will only increase that trend. Enjoy!</p>
+<p><em>Follow Jorge for more on <a href="https://www.linkedin.com/in/jorgemazal/">LinkedIn</a> and <a href="https://twitter.com/jorgemazal">Twitter</a>.</em></p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/01d58ab8-30d0-4dab-bf99-772047443e44_8000x4000.png" /></p>
+<p>I joined Duolingo as the Head of Product in late 2017. Duolingo was already the most downloaded education app in the world, with hundreds of millions of users, fulfilling its mission to “develop the best education in the world and make it universally available.” However, user growth was slowing down. By mid-2018, daily active users (DAU) were growing at a single-digit rate year-over-year, which was troubling, given the explosive growth the company had seen in the past. This was a problem for a startup with investors anxious to see fast monetization growth.</p>
+<p>In this post I’ll cover some of our early failures and then our first big wins that helped us turn around growth, including launching leaderboards, refocusing on push notifications, and optimizing the “streak” feature. These, together with several other efforts across Product and Marketing, helped us grow DAU by 4.5x over four years. Robust organic user growth supercharged Duolingo toward its 2021 IPO.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/9cf69f9c-ebae-4578-8383-d3bc752b40a2_1410x556.png" /></p>
+<p>This article is an in-depth look into that journey. It is my hope that sharing this work will help others find their own growth breakthroughs faster.</p>
+<h3><strong>Phase 1: Increasing gamification</strong></h3>
+<p>Our first attempt at reigniting growth was focused on improving retention, i.e. fixing our “leaky bucket” problem. We prioritized working on retention over new-user acquisition because all of our new-user acquisition was organic, and, at the time, we didn’t have an obvious lever to pull to supercharge that. Also, some of us had a suspicion that we could improve retention through gamification. There were two main reasons why this felt like the right approach to me. First, Duolingo had already implemented several gamification mechanics successfully, such as the progression system on the home screen, streaks, and an achievements system. And second, top digital games at the time had much higher retention rates than our product, which I took as evidence that we hadn’t yet reached the ceiling for gamification’s impact.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/d8463cc2-78d0-4d66-a3f9-fab80364f8e0_994x778.png" /></p>
+<p>Armed with a short presentation I co-created with our chief designer, we were able to get just enough buy-in from the rest of the executive team to create a new team, the Gamification Team. The team consisted of an engineering manager, an engineer, a designer, an APM, and me.</p>
+<p>But there was one small issue: we had no idea which incremental gamification mechanics would work for Duolingo.</p>
+<p>Our team at the time was hooked onagame calledGardenscapes<em>,</em> a mobile, match-3 puzzle game similar to Candy Crush<em>.</em> This mobile game became our first inspiration.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/9030159b-ede9-4d3c-9f99-d22f4c7df4f3_1280x720.png" /></p>
+<p>As we looked at the different game mechanics in Gardenscapes, we didn’t really know what we were looking for—we just knew that Gardenscapes seemed stickier than Duolingo, and we saw several parallels. A three-minute Duolingo lesson felt similar to a Gardenscapes match-3 level, and Duolingo and Gardenscapes both used progress bars to provide visual feedback on how close the user was to completing the session. Gardenscapes, however, paired its progress bar with a moves counter, which Duolingo didn’t do. The moves counter allowed users only a finite number of moves to complete a level, which added a sense of scarcity and urgency to the gameplay. We decided to incorporate the counter mechanic into our product. We gave our users a finite number of chances to answer questions correctly before they had to start the lesson over.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/ee942fef-feab-4796-bda7-b01b16adb8da_1600x951.png" /></p>
+<p>It took our team a couple of months of work to add the counter. With the release of the update, I expectantly waited for an unmitigated success. Depressingly, the result of all that effort was completely neutral. No change to our retention. No increase in DAU. We hardly got any user feedback at all. I was deflated. The greatest effect the initiative had was on our team. After the results came out, we quickly fell into dissension. Some wanted to continue iterating on the idea, while others wanted to pivot. The team almost immediately (and dramatically) disbanded, and the idea was abandoned. It was pretty awful. The one silver lining of this failure was that I learned a lot about the company culture and about how to improve my personal leadership style—though that’s for a different article.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/be863857-c1ed-4e63-99e1-93358e33cf2a_400x300.png" /></p>
+<h3><strong>Phase 2: Referrals</strong></h3>
+<p>Feeling burned after our gamification effort, we completely pivoted away from improving retention and put together a new product team focused on acquiring new users, called the Acquisition Team. At the time, Uber was doing well with user acquisition and had reputedly grown largely because of its referral program. Inspired by this, we created a referral program similar to Uber’s. The reward was a free month of our premium subscription, Super Duolingo (at the time, it was called Duolingo Plus). Seemed like a pretty good offer to us!</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/c685d30e-1e4b-4ed1-b572-ae980beeaa7f_1600x536.png" /></p>
+<p>We implemented the feature and hoped our second attempt would be more successful. Instead, new users increased by only 3%. It was positive, but not the type of breakthrough we needed. Still, the team doubled down and pushed through, shipping iterations to the referral program and making some other bets, but no avail.</p>
+<p>While the team continued to iterate, it became clear to me that we had to find a different approach to tackle our growth problem.</p>
+<h3><strong>Time to regroup</strong></h3>
+<p>The aftermath of these back-to-back failures in only a few months was a period of reflection for me about making better product bets.</p>
+<p>In hindsight, it became clear why the Gardenscapes moves counter was not a good fit for our product. When you are playing Gardenscapes, each move feels like a strategic decision, because you have to outmaneuver dynamic obstacles to find a path to victory. But strategic decision-making isn’t required to complete a Duolingo lesson—you mostly either know the answer to a question or you don’t. Because there wasn’t any strategy to it, the Duolingo moves counter was simply a boring, tacked-on nuisance. It was the wrong gamification mechanic to adopt into Duolingo. I realized that I had been so focused on the similarities between Gardenscapes and Duolingo that I had failed to account for the importance of the underlying differences.</p>
+<p>It also did not take long to understand why our referral program did not produce Uber-like success. Referrals work for Uber because riders are paying for rides on a never-ending pay-as-you-go system. A free ride is a constant incentive. For Duolingo, we were trying to incentivize users by offering a free month of Super Duolingo. However, our best and most active users already had Super Duolingo, and we couldn’t give them a free month when they were already in a plan. This meant that our strategy, which needed to rely on our best users, actually excluded them.</p>
+<p>In both of these situations, we had borrowed successful features from other products, but the wrong way. We had failed to account for how a change in context can impact the success of a feature. I came away from these attempts realizing that I needed a better understanding of how to borrow ideas from other products intelligently. Now when looking to adopt a feature, I ask myself:</p>
+<ul>
+<li>Why is this feature working in that product?</li>
+<li>Why might this feature succeed or fail in our context, i.e. will it translate well?</li>
+<li>What adaptations are necessary to make this feature succeed in our context?</li>
+</ul>
+<p>In other words, we needed to use better judgment in adapting when adopting. Being more systematic in just this area would have made a big difference in what gamification mechanics we chose to pursue. And we would have probably been dissuaded from focusing on referrals altogether. I was committed to making sure our next attempts would be more methodical. We needed to be better at basing our decisions on data, insights, and foundational principles.</p>
+<h3><strong>Phase 3: Using data and models</strong></h3>
+<p>Duolingo has always excelled at collecting data, especially in support of A/B testing. But there hadn’t been much effort put into using the data for insights generation. Having seen from the inside how Zynga and MyFitnessPal used data, I felt we could use Duolingo’s data to find a North Star metric and get the breakthrough we needed.</p>
+<p>My time at Zynga and MyFitnessPal gave us inspiration on how to segment and model our users by engagement level. Zynga separated their users and measured retention based on the following weekly retention metrics:</p>
+<ul>
+<li><strong>Current users retention rate (CURR):</strong> The chance a user comes back this week if they came to the product each of the past two weeks</li>
+<li><strong>New users retention rate (NURR):</strong> The chance a user comes back this week if they were new to the product last week</li>
+<li><strong>Reactivated user retention rates (RURR):</strong> The chance a user comes back this week if they reactivated last week</li>
+</ul>
+<p>Later, when I worked at MyFitnessPal, I found that they had adopted and expanded Zynga’s retention work. They not only used CURR, NURR, and RURR to measure growth but also to model future scenarios. They also added SURR:</p>
+<ul>
+<li><strong>Resurrected user retention rate (SURR):</strong> The chance a user comes back this week if they resurrected (from a longer absence) last week</li>
+</ul>
+<p>I hypothesized that we could use these metrics at Duolingo as a starting point to create a more sophisticated model, and use that model to identify a North Star metric. Working with the data scientist and the engineer manager in the Acquisition Team, we came up with the model below. We used the same retention rates as Zynga and MyFitnessPal, but we tweaked from a weekly view to a daily view and we added several more metrics.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/c2785b10-a1e1-4f7c-b796-30fce95e2c7d_1600x902.png" /></p>
+<p>The blocks, or <em>buckets</em>, represent different user segments with different levels of engagement. And every single user who has ever used the product is in one, and only one, bucket on any given day. That means the buckets in the model are MECE (mutually exclusive, collectively exhaustive) in representing the entire base of users who have ever used Duolingo. The <em>arrows</em> measure the movement of users between the buckets (these include CURR, NURR, RURR, and SURR, but evolved into daily retention rates rather than weekly). Combining the buckets and the arrows, the model creates an almost closed-circuit system, with new users being the only break.</p>
+<p>Conveniently, the top four buckets of the model add up to DAU. Those buckets are defined as:</p>
+<ul>
+<li><strong>New users:</strong> first day of engagement ever in the app</li>
+<li><strong>Current users:</strong> engaged today and at least one other time in the prior 6 days</li>
+<li><strong>Reactivated users:</strong> first day of engagement after being away for 7-29 days</li>
+<li><strong>Resurrected users:</strong> first day of engagement after being away for 30 days or longer</li>
+</ul>
+<p>The remaining three buckets represent users who were not active today and have different degrees of inactivity.</p>
+<ul>
+<li>
+<p><strong>At-risk WAU:</strong> inactive today, but active in at least one of the prior 6 days</p>
+</li>
+<li>
+<p>At-risk WAU + DAU = WAU</p>
+</li>
+<li>
+<p><strong>At-risk MAU:</strong> inactive in the past seven days, but active in at least one of the prior 23 days</p>
+</li>
+<li>
+<p>At-risk MAU + WAU = MAU</p>
+</li>
+<li>
+<p><strong>Dormant users:</strong> inactive in the past 31 days or longer</p>
+</li>
+<li>
+<p>MAU + dormant users =  Total user base</p>
+</li>
+</ul>
+<p>The fact that DAU, WAU, and MAU can easily be calculated from these buckets made it easy to model them over time. This is a key feature of the model. Additionally, by manipulating the rates represented by the arrows, we can model the compounding and cumulative impact of moving these rates over time; in other words, the rates are the levers product teams can pull to grow DAU.</p>
+<p>With the model created, we started taking daily snapshots of data to create a history of how all of these user buckets and retention rates had evolved on a day-by-day basis over the past several years. With this data, we could create a forward-looking model and then perform a sensitivity analysis to predict which levers would have the biggest impact on DAU growth. We ran a simulation for each rate, where we moved a single rate 2% every quarter for three years, holding all the other rates constant.</p>
+<p>Below are the results of our first simulation. It shows how those small 2% movements on each lever impacted forecasted MAU and DAU.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/cc3963cd-00fd-4020-83fa-4567be6b3223_1600x775.png" /></p>
+<p>We immediately saw that CURR had a gigantic impact on DAU—5 times the impact of the second-best metric. In hindsight, the CURR finding made sense, because the Current User bucket has an interesting characteristic: current users who stay active return to the same bucket.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/45204e46-e5f0-44ed-a801-b5a56c34954b_1600x678.png" /></p>
+<p>This produces a compounding effect, which means that CURR is much harder to move, but when it does, it will have a greater impact. Based on this analysis, we knew that CURR was the metric we had to move in order to get that strategic breakthrough we wanted. We decided to create a new team, the Retention Team, with CURR as its North Star metric.</p>
+<p>One of the biggest benefits of focusing on CURR was deciding not to work on things that seemed paramount before, especially new-user retention. This was a huge mindset shift for a company that had tremendous success spending years running the bulk of its growth experiments on new users first.</p>
+<p>Another big lesson was seeing the massive gap between how a metric could impact DAU vs. MAU; for example, CURR’s impact on DAU was 6 times its impact on MAU. iWAURR (inactive WAU reactivation rate) was the second-best lever for moving DAU but a distant fourth for moving MAU, behind increasing new and resurrected users. This meant that, at some point, we would still need to figure out new growth vectors for new-user acquisition if we wanted to see substantial MAU improvements. But for the time being, our focus was only on moving DAU, so we prioritized CURR over all other growth levers. And it turned out to be the right choice.</p>
+<h3><strong>Leaderboards vector</strong></h3>
+<p>With this clear directive, we looked at our historical model data and at our A/B tests going back a few years to see if we had inadvertently done anything that had moved CURR in the past. Surprisingly, we hadn’t. In fact, CURR had not moved in years. We had to figure out our first steps to move CURR based on first principles.</p>
+<p>I still thought gamification was a good place to start when trying to improve retention. Our failure with the Gardenscapes-style moves counter hadn’t actually disproved any of the original reasons why we believed gamification still had upside for Duolingo—we had only learned that the moves counter was a clumsy attempt at it. This time, we would be more methodical and intelligent about features we added or borrowed. We made sure to apply the lessons from our prior efforts with gamification.</p>
+<p>After some consideration, we decided to bet on leaderboards. Here’s why and how. Duolingo already had a leaderboard for users to compete with their friends and family, but it wasn’t particularly effective. Based on my experience at Zynga, I felt that there was a better way. When I started working on Zynga’s FarmVille 2 game, it included a leaderboard similar to Duolingo’s existing leaderboard, where users competed with their friends. I had hypothesized based on my personal experience as a player that the closeness of the competitor’s engagement would be more important than the closeness of personal relationships. I thought this would be especially true in a mature product where many users’ friends weren’t active anymore. From our testing at Zynga, that idea turned out to be true. Based on this, I felt a leaderboard system, similar to what I had helped design at Zynga, would succeed in the context of our product.</p>
+<p>FarmVille 2’s leaderboard also included a “league” system. Beyond getting to the top of a weekly leaderboard, users had the opportunity to move through a series of league levels (e.g. from the Bronze league to the Silver league to the Gold league). Leagues provided users with a greater sense of progress and reward, an integral element in game design. They also increased engagement over time, since engaged users move up to more competitive leagues week after week. We felt this feature would translate well to Duolingo’s existing product because it tapped directly into the common human motivators of competitiveness and progression.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/c30bdb3b-bf15-4b2d-8bb4-72827c136cdd_516x514.png" /></p>
+<p>Not all aspects of the FarmVille 2 leaderboards would translate well to Duolingo, though. We had to use our judgment to adapt this gaming mechanic to Duolingo’s context. In FarmVille 2, competing in the leaderboard required completing additional kinds of tasks on top of the core gameplay. That was something that we purposefully left out. In the Duolingo context, more tasks would only add unnecessary complexity to language learning. We deliberately made our leaderboard as casual and frictionless as possible; users were automatically opted in and could progress to the top of the first league by merely engaging consistently in their regular language study. By keeping the game mechanic exciting, but making it simpler than in FarmVille 2, we felt like we had struck the right balance of adopting and adapting.</p>
+<p>The leaderboards feature had a huge and almost immediate impact on our metrics. Overall learning time increased by 17%, and the number of highly engaged learners (users who spend at least 1 hour a day for 5 days a week) tripled. At this time, we hadn’t yet figured out how to calculate statistical significance for CURR, but we saw that our traditional retention metrics (D1, D7, etc.) improved materially and with statistical significance. Going forward, the leaderboards feature became a vector for improving metrics, and teams continue to optimize the feature to this day. Also importantly, the leaderboard was the Retention Team’s first breakthrough!</p>
+<h3><strong>Push notifications vector</strong></h3>
+<p>The Retention Team was completely energized to find more mechanics to keep current users engaged and motivated to practice every day. One area they started to look into was push notifications. Based on substantial A/B testing in prior years, Duolingo had established that notifications can be a big vector for growth, but that impact had plateaued for us over the years. With a re-energized team full of new ideas, we felt it was the right time to revisit this vector.</p>
+<p>As we started diving into this, there was one principle that became paramount. It came from a cautionary tale from Groupon’s CEO. He explained to Luis von Ahn, our CEO, that for a long time, Groupon stuck to one email notification per day. But their team started wondering whether sending more emails would improve metrics. The CEO eventually gave in and allowed his team to test sending one more email to each user each day. This test resulted in a big increase to their target metrics. Encouraged, Groupon kept experimenting, sending more emails, even as many as five a day. Then, in what felt like a change from one day to the next, their email channel lost most of its effectiveness. Over time, the accumulation of Groupon’s aggressive email tests had basically destroyed their channel. One often underappreciated risk with aggressively A/B testing emails and push notifications is that it results in users opting out of the channel; and even if you kill the test, those users remain opted out forever. Do this many times, and you’ve destroyed your channel. This was the outcome to avoid. For our push notifications, we established one foundational rule: protect the channel.</p>
+<p>With this constraint in mind, we decided to give the team a lot of freedom to optimize on dimensions like timing, templates, images, copy, localization, etc., but they could not increase the quantity of notifications without strong justification and CEO approval. Over time, through countless iterations, A/B testing, and a bandit algorithm, the team was able to generate dozens of small- and medium-size wins that have amounted to substantial gains in DAU year after year.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/48a366a3-a3cc-4286-bd9c-5e7c24155d09_464x242.png" /></p>
+<h3><strong>The streak vector</strong></h3>
+<p>In the search for even more growth vectors, the APM on the Retention Team started exploring whether there was a strong correlation between retention and usage of particular Duolingo features. He discovered that if a user reached a 10-day streak, their chances of dropping off were reduced substantially. Clearly, a lot of this was simply correlation and selection bias, but we felt the insight was interesting enough to start investing in improving this feature again.</p>
+<p>The concept of a streak is really quite simple: show users the number of consecutive days they’ve done any activity on the app. But it turns out that there is a surprisingly large number of optimization opportunities around streaks.</p>
+<p>We got our first big win with the streak-saver notification—a notification that alerts users with streaks if they are about to lose their streak. This late-night notification proved that indeed there was considerable upside to doubling down on streak optimizations. After this, several improvements followed: calendar views, animations, changes to streak freezes, and streak rewards, among others. Each helped improve upon the original streak idea and generated substantial improvements to retention.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/6e7d9190-a4af-4e67-9f9b-2d1fae8a36be_242x417.png" /></p>
+<p>To date, the streak feature is one of Duolingo’s most powerful engagement mechanics. When people talk about their Duolingo experience, they often bring up their streak. I recently met one user who told me, “I have a 1,435-day streak!” and added, “with no streak freezes!” His bragging rights were well-earned, as he had been studying his chosen language daily for almost four years.</p>
+<p>Streaks work for a number of reasons. One of those is that a streak increases user motivation over time; the longer the streak is, the greater the impetus to keep the streak going. When it comes to user retention, this is the exact behavior we want in our users. Each day that a learner comes to Duolingo, they care a bit more about coming back the next day than they did the day before, hence increasing retention and DAU. As a meta-lesson, our success with the streak mechanic further showed us that we could squeeze major wins from existing features. We could see the value in both big breakthroughs and in fast optimizations. And an A+ team often has a mix of both.</p>
+<h3><strong>Growth beyond CURR</strong></h3>
+<p>We didn’t stop at CURR; there was a very healthy paranoia that at some point CURR would hit a ceiling, so sooner or later we would have to figure out growth vectors for new user acquisition. The Retention Team stayed focused on increasing CURR, but as a company, we consistently increased our investment in growth by creating more and more Product and Marketing teams to find new vectors (for both retention and acquisition). Luckily, several of these bets worked, including expanding internationally, building social features (this is what the Acquisition eventually team pivoted to, with great success), accelerating course content creation, working with influencers, increasing our presence in schools, investing (a little bit) in paid UA, and going crazy viral on TikTok. Each of these merits its own case study.</p>
+<h3><strong>Overall results</strong></h3>
+<p>Through our efforts over four years, we were able to increase CURR by 21%, which represents a reduction in the daily churn of our best users by over 40% and, together with our other successful bets, led to an increase in our DAU of 4.5x. Last year was one of the fastest growth rates in Duolingo’s history. The quality of the user base also improved; the share of our DAU with a streak of 7 days or longer increased almost 3 times to more than half of our DAU. This means that not only does Duolingo have a much higher number of active users now, but also that those users are much more likely to keep coming back, refer their friends, and subscribe to Super Duolingo. This growth was key to Duolingo’s successful IPO.</p>
+<h3><strong>Parting thoughts</strong></h3>
+<p>I hope that this article gives you the inspiration you need to find new vectors of growth for your product. If you adopt anything from my experience at Duolingo, I hope you adapt it to your own context using your best judgment. Don’t blindly trust what Duolingo or any other company did. Certainly that didn’t work for me. Happy experimenting!</p>
+<h3><strong><em>Acknowledgements</em></strong></h3>
+<p><em>Gamification Team: You know who you are. Thank you for teaching me so much!</em></p>
+<p><em>Acquisition Team: Vanessa Jameson (Engineer Director), Cem Kansu and Liz Nagler (PMs on the team, now VP of Product and Product Area Lead for Growth, respectively), and the rest of the team, who worked super-hard and eventually made a smart and successful pivot to work on social features. Shoutout to Nico Sacheri (Principal PM) and Hideki Shima (Eng Director), who have been crushing it leading the Connections team for the past couple of years.</em></p>
+<p><em>Growth Model: Erin Gustafson (Staff Data Scientist) and Vanessa Jameson, who collaborated with me in the creation of the growth model. Learn more about how Erin is working to evolve the way Duolingo thinks about growth in her recent post: <a href="https://blog.duolingo.com/growth-model-duolingo/">https://blog.duolingo.com/growth-model-duolingo/</a></em></p>
+<p><em>Retention Team: Sean Colombo (OG Engineer Manager for the team, and now Eng Area Lead for Growth), Daniel Falabella (OG PM for the team, now GM for Duolingo ABC), John Trivelli (Designer on leaderboards), Anton Yu (PM who “re-discovered” streaks and so much more), Jackson Shuttleworth and Osman Mansur (Sr. PM and PM on the team today, still crushing it), Antonia Scheidel (Engineering Manager, also crushing it), and all the wonderful engineers and designers who have worked and continue to work on this team.</em></p>
+<p><em>Gina Gotthilf, who was a total growth rock star in Duolingo’s early years.</em></p>
+<p><em>Luis von Ahn (CEO) and Tyler Murphy (Chief Designer), with whom I reviewed every single product change for almost five years.</em></p>
+<p>Thank you, Jorge! You can follow Jorge for more on <a href="https://www.linkedin.com/in/jorgemazal/">LinkedIn</a> and <a href="https://twitter.com/jorgemazal">Twitter</a>.</p>
+<p>Have a fulfilling and productive week 🙏</p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting bi-monthly drops of world-class hand-curated product and growth people who are open to new opportunities.</p>
+<p><img alt="Image from How Duolingo reignited user growth" src="https://substack-post-media.s3.amazonaws.com/public/images/f8eb7d1d-965c-4b8a-813d-b233fc74197b_1526x1240.png" /></p>
+<p>If you’re looking for a new gig, join the collective to get personalized opportunities from hand-selected companies. You can join publicly or anonymously, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>❤️‍🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>Athena:</strong> Head of Growth (Remote)</li>
+<li><strong>MetaMap:</strong> <a href="https://www.lennysjobs.com/jobs/74ca739b-4b51-4d55-8727-6606327fae58">VP, Product</a> (SF, Miami, Mexico City)</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

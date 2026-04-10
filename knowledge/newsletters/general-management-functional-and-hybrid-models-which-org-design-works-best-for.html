@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>General management, functional, and hybrid models: Which org design works best for top companies? — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">General management, functional, and hybrid models:…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">General management, functional, and hybrid models: Which org design works best for top companies?</div>
+    
+    <div class="article-meta">2024-06-25<span>·</span>2,594 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">工程</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m trying to decide if we should switch to a GM model. When (and why) do companies generally make this move, and what are some tips for making the transition successful?</h2>
+</blockquote>
+<p>Much of your time as a senior leader is spent figuring out how to organize your people. And one of the most common and consequential questions that company leaders face is whether to move to (or from) a GM organizational model.</p>
+<p>Today’s guest authors, <a href="https://www.linkedin.com/in/rohinipandhi/">Rohini Pandhi</a> and <a href="https://www.linkedin.com/in/marygliu/">Mary Liu</a>, have witnessed firsthand how reorgs transformed the way six different prominent companies operate, including Square, Shopify, Dropbox, Meta, Google, and Mercury. In this post, Rohini and Mary lay out a tactical and in-depth breakdown of when, why, and how you can shift between a GM, functional, and hybrid model. I’ve always felt that a comprehensive and super-tactical post about this very critical transition has been missing in the world, so I’m excited to finally bring you one.</p>
+<p><em><a href="https://www.linkedin.com/in/rohinipandhi/">Rohini Pandhi</a> is currently a product leader at <a href="https://mercury.com/">Mercury</a>. Previously, she spent over seven years at <a href="https://squareup.com/us/en">Square</a>/<a href="https://block.xyz/">Block</a> leading product work on Square payments, invoicing, and the Bitkey hardware Bitcoin wallet. She’s also been a PM for companies ranging from small startups to large enterprises, is the co-founder of the startup bootcamp <a href="https://www.transparentcollective.com/#/">Transparent Collective</a>, and is an active angel investor. You can find her on <a href="https://www.linkedin.com/in/rohinipandhi/">LinkedIn</a> and <a href="https://twitter.com/rohinip">X</a>.</em></p>
+<p><em><a href="https://www.linkedin.com/in/marygliu/">Mary Liu</a> is a seasoned product leader specializing in core/growth products and AI for consumer and SaaS companies. She has founded and scaled new product and platform areas at <a href="https://squareup.com/us/en">Square</a> and <a href="https://www.shopify.com/">Shopify</a> and accelerated growth and engagement at <a href="https://www.dropbox.com/about">Dropbox</a> and <a href="https://about.meta.com/technologies/facebook-app/">Facebook</a>. She now advises growth-stage companies as an interim product leader, devising product and talent strategies, often involving AI/ML transformations, to unlock their next level of growth. You can find her on <a href="https://www.linkedin.com/in/marygliu/">LinkedIn</a>.</em></p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/b57956f5-9add-417f-ba3b-14ce39344174_1600x800.png" /></p>
+<p>Late last year, Block (formerly known as Square) made several striking announcements about its org structure. The company <a href="https://www.businessinsider.com/jack-dorsey-warns-block-employees-job-cuts-internal-memo">laid off</a> about 10% of its headcount and moved Square from a general management (GM)-led organization to a functional model, which was a surprise to most employees and the press. For years, Square’s product and engineering teams had been organized into separate business units, each led by a general manager who owned the business outcomes and related product mandates. Now product and engineering are centralized into functional organizations, where engineering, product, and design discipline leaders co-lead product metrics that drive specific business outcomes.</p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/6eb20cc5-a6b3-4fe0-a4d4-db65a196ad29_1452x512.png" /></p>
+<p>As the founder and CEO of Block and Square, Jack Dorsey underscored the change to his <a href="https://s29.q4cdn.com/628966176/files/doc_financials/2023/q4/Block_4Q23_Shareholder_Letter.pdf">shareholders</a>:</p>
+<blockquote>
+<p><em>“</em><em>The past organizational structure was holding us back, slowing us down, and weakening our skills.</em><em> I want Square to be a leader in engineering and design again. A team people point to as an inspiration, and aspire to join.”</em></p>
+</blockquote>
+<p>Block is not alone in this type of restructuring. Other successful companies, including Coinbase, Shopify, and DoorDash, have shifted between GM models and functional models at various stages of their growth.</p>
+<p>While there is no perfect organizational design, the optimal organizational structure involves carefully weighing the pros and cons that align with the company’s current lifecycle, values, and offerings. To make the most suitable choice, leading companies consider the inherent strengths of their products and business approaches, and the implications an org structure has on internal decision-making and talent retention.</p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/f10d723e-3418-467d-b2c1-abe9221a3fdc_4000x3416.png" /></p>
+<h2>How company stage informs organizational design</h2>
+<p><strong>In the early stages, companies almost always adopt the functional model.</strong> Since general managers are responsible for business P&amp;L, the founder essentially plays the role of a GM. The rest of the organization focuses on finding product-market fit, scaling the core product, or building new product functionality.</p>
+<p><strong>To scale the founder’s role, companies consider GM models typically after they have multiple proven product groups, predictable business outcomes, and significant scale.</strong> For example, Block transitioned to the GM structure close to its IPO, when it had hundreds of millions in revenue, an extensive portfolio of product groups (e.g. Cash App, Capital, Invoices), and thousands of employees. Coinbase shifted to a GM structure in late 2022 when it produced multi-billions in revenue from distinct customer segments (consumer vs. institutions). About 10 years after founding, Airbnb restructured to a GM-led model when the company was a few thousand employees strong and started expanding beyond accommodations (e.g. experiences)—all of which ran differently and required fast decision-making. Interestingly, after Airbnb divested from these new business bets (as a result of the pandemic), they’ve reverted back to a function-led structure.</p>
+<p><strong>In practice, most companies operate in a hybrid model but</strong> <strong><em>skew</em></strong> <strong>toward the GM or functional mode.</strong> Depending on what is needed for specific products and teams to succeed, some parts of the company are GM-led, with P&amp;L accountability, and some are function-led, with product success metrics. The approach marries GM-model advantages in speed and agility with functional-model benefits in product cohesion and organizational alignment.</p>
+<h2>How <strong>product and business model</strong> inform organizational structure</h2>
+<p>Besides company stage, leading companies typically have two primary considerations for deciding between a functional versus GM model:</p>
+<h4><strong>Factor A: How close is the product North Star metric to revenue?</strong></h4>
+<p><strong>The closer your North Star metric is to revenue, the more suited your organization is to a GM model.</strong> For instance, many payments and commerce platforms (e.g. Block, Coinbase, Amazon) have a North Star metric of transaction volume, which directly drives their business topline. Since each of their product lines has an immediate impact on that P&amp;L, those product groups can be easily aligned to GM responsibilities.</p>
+<p>Conversely, companies with product metrics that are a few levels removed from direct revenue impact often work better with functional structures. For example, most ad-based businesses (e.g. Meta, Google Search) invest heavily in user growth and engagement as their product North Star metrics. These product metrics scale user reach and time spent on their platforms, which indirectly drive the ad impressions and business revenue but are detached from immediate P&amp;L impact. The functional model allows functional leaders to focus on the product priorities that will ultimately make the company a success.</p>
+<p>A hybrid approach could work for companies somewhere in between. For instance, DoorDash’s product and operational metrics are both equally important to business topline and margins, given the incredible complexities of its go-to-market and logistics operations. So the company pairs product leaders alongside GMs. Product leaders are responsible for product growth and engagement, with the typical engineering, product, and design triads. GMs lead go-to-market and operations (e.g. marketing, sales, partnerships, physical micro-fulfillment centers) and have P&amp;L responsibilities. Similarly, parts of Canva also pair their product leaders with GMs. Product teams build Canva’s scalable content creation software, while GMs lead the enablement of hundreds of content experts to produce its rich content library of more than 125 million templates and media. The separation of duties between the product teams and GM orgs allows Canva to grow both its platform and content templates in parallel, one of its key business differentiators.</p>
+<h4><strong>Factor B: How critical is the holistic customer journey to the product’s growth?</strong></h4>
+<p><strong>Functional models optimize for product growth through cohesive customer journeys.</strong> This is especially critical for growth-stage companies. When the customer journey is seamless, organic flywheels emerge. The core product’s reach and distribution enables new products to be surfaced organically in user journeys. Those new products then increase core product stickiness and retention.</p>
+<p>For example, Shopify’s core product is a single “back-office” that makes it easy for e-commerce merchants to operate their online store. The core back-office offerings solve merchants’ needs for online store transactions: building elegant websites, accepting payments, and managing orders. More complex merchant needs, such as those before and after an online store transaction like website marketing and order fulfillment, Shopify makes possible through first- and third-party apps and services. The shift from GM to functional model in 2020 made it easier for the company to deliver a seamless merchant experience across the suite of products that are part of the core back-office.</p>
+<p>Product cohesion also amplified organic growth flywheels. Synergies across core product lines enabled the core platform to scale across customer segments and make it easier to organically attach apps and services in flow, instead of needing ad-like “cross-sell” strategies. Although it takes longer for Shopify to win specific verticals (such as fulfillment) through first- and third-party apps, the overarching merchant experience has been highly defensible and sticky. Shopify is now the sole system of record and engagement for many customers.</p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/a76ceea4-a26e-4df0-8e3e-003eda32414b_1600x893.png" /></p>
+<h2>Organizational structure’s downstream impact on <strong>teams and talent</strong></h2>
+<p>Best-in-class companies also consider a few downstream factors of their organizational design when deciding on the right one. The structure can impact how business-critical decisions are made, the cultural tone set for the company, and even talent goals.</p>
+<h4><strong>Factor A: Can the business support redundant teams?</strong></h4>
+<p>GM organizations often have redundant staffing across functional disciplines so that business units can operate as independently as possible—a key trait of the GM model. A great example within Block was the mirrored corporate structure of Square and Cash App. Both organizations had their own teams running functions like compliance, communications, and marketing. They even had separate physical office locations, underscoring the optics of the autonomous business areas.</p>
+<p>That said, most GM companies take a hybrid approach. For instance, Coinbase and Intuit both have centralized platform teams alongside GM business units. Platform groups build shared services and infrastructure, especially where there are data network effects (e.g. AI modeling, identity and security) to enable more intelligent and consistent application layers. GM-led business units build platforms and products unique to distinct customer segments, with dedicated resourcing for the business unit to move nimbly. For example, Intuit’s B2B business area leads QuickBooks and Mailchimp, whereas Intuit’s consumer business area leads TurboTax and Credit Karma. Similarly, Coinbase has three business areas serving institutions, consumers, and developers distinctly.</p>
+<p>On the other side of the coin, companies like Meta and Shopify use a hybrid approach to help leaders move quicker within the functional structure. Leaders set company-level priorities and pull together a special task force, with a champion or captain for each priority to drive critical decisions. Those champions are GM-like. They have the vision and strategy chops to consider the end-to-end product journey and business “system.” They influence and debate with their peers and executive teams to win sponsorship and resourcing across various product and business organizations. Decision alignment frameworks like <a href="https://en.wikipedia.org/wiki/Responsibility_assignment_matrix">RACI</a>, <a href="https://en.wikipedia.org/wiki/Responsibility_assignment_matrix#RAPID">RAPID</a>, and <a href="https://review.firstround.com/square-defangs-difficult-decisions-with-this-system-heres-how/">SPADE</a> also help delegate downstream decisions to people outside the task force.</p>
+<h4><strong>Factor B: What type of talent is the company aiming to retain?</strong></h4>
+<p>In GM organizations, leaders with depth of expertise in one specific domain are crucial, because they are responsible for the success of their business area alone. For example, a GM leader you may consider hiring for an e-commerce lending business would have a vastly different profile than a GM leader focused on building payment infrastructure.</p>
+<p>In functional structures, the core engineering, product, and design triad is more fungibleand can be placed in various projects that need their discipline expertise, rather than specific business or industry domains. It’s more important to have strong and flexible crafters for a functional structure.</p>
+<p>In addition to the type of talent required, another consideration is talent retention and career ladders. Within the GM structure, the promotional path for an ambitious senior leader is to wait for a GM position to open up. When the structure limits these leaders from “leveling up,” the best they can do is find larger internal teams to lead or search for opportunities externally. Conversely, a functional model allows discipline leaders to own an increasingly larger scope of impact as they rise in the ranks. But this model allows only a small number of top leaders to own the business end-to-end across disciplines, which can limit the learning for strong crafters who have multidisciplinary aptitude.</p>
+<p>One of the biggest advantages to a hybrid structure is that it provides additional flexibility in career ladders so that a company can retain strong talent across the board. Meta and Shopify have champions leading company-level priorities across disciplines and organizations, akin to GMs. Intuit and Coinbase have more “horizontal” product groups that drive shared missions across business units, such as platform and growth teams, which affords more opportunities for senior leaders to take on responsibilities with more breadth, akin to GMs, partnering across business units to make tough tradeoffs like balancing short- and long-term investments.</p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/931eefc9-eab0-41c8-9050-84e076a999ac_1600x878.png" /></p>
+<h2><strong>Summary</strong></h2>
+<p>The “right” organizational model is all about determining acceptable tradeoffs. To decide what suits your company’s stage, culture, and products best, it’s crucial to deeply understand your product and business model advantages, the processes that will drive the appropriate decision-making internally, and the people who can execute to make it all happen.</p>
+<p>Companies often start with a more functional mindset and then swing to the other side of the spectrum, installing GMs who can drive additional growth. While the perfect hybrid state of balance is almost impossible to achieve, most organizations aim to get the best of both worlds as they scale and end up with a structure that leans toward one of the models described above, either with quasi-GMs installed or shadow functional organizations operating across the matrixed organization.</p>
+<p><img alt="Image from General management, functional, and hybrid models: Which org design works best" src="https://substack-post-media.s3.amazonaws.com/public/images/66e3cb6f-aa8d-4ddc-bece-f0ee3b41824a_4000x4282.png" /></p>
+<p><em>Thanks, <a href="https://www.linkedin.com/in/rohinipandhi/">Rohini</a> and <a href="https://www.linkedin.com/in/marygliu/">Mary</a>! Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

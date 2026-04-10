@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to build your PM second brain with ChatGPT — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to build your PM second brain with ChatGPT</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to build your PM second brain with ChatGPT</div>
+    
+    <div class="article-meta">2025-12-16<span>·</span>3,358 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">AI/PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">Public speaking course</a></em>**</p>
+<p><em>Annual subscribers get </em><em>19 premium products for free for one year</em><em>: <a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Gamma, n8n, Bolt, Devin, Wispr Flow, Descript, Linear, PostHog, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, ChatPRD + Stripe Atlas</a> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>Someone smarter than me once said, <strong>“AI won’t replace you, but a person using AI better than you might.”</strong> I believe this is exactly right. Right now, we all need to be building the skills that help us become that person using AI better. Lucky for us, Amir Klein is already that person and has written a guide for the rest of us. Though it’s targeted at product managers, the advice and workflows can be implemented by anyone in any function. Thank you, Amir, for giving us a glimpse into the future and the concrete steps to get there.</p>
+<p><em>For more, follow Amir on <a href="https://www.linkedin.com/in/amir-klein-9b8444189/">LinkedIn</a>. You can also listen to this post in convenient podcast form on <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a>.</em></p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/c33617f9-bda1-49fb-ad65-965d4cd30017_1456x970.png" /></p>
+<p>The first month in my new role at monday.com, I was tasked with building our first AI agent. The goal was to create an AI co-pilot, something users could turn to for insights, explanations, or building complex workflows they wouldn’t know how to create on their own. To build that, I needed a ton of context—all the internal knowledge, decisions, assumptions, and scattered inputs that shape any product direction. And gathering all of that felt completely overwhelming.</p>
+<p>I was drowning.</p>
+<p>All that context lives everywhere: Slack channels, Notion pages, Monday boards, decks, Google Docs. Hundreds of tiny fragments I could never quite piece together. I kept running into mental blocks, forgetting what I knew from where, and getting stuck. Instead of trying to keep all of that context in my head like I always had, this time I wanted to try something new. I dumped everything I had into a ChatGPT Project, word-vomited all that was on my mind, and asked if it could help me get started. And boy, did it.</p>
+<p>Finally, I felt like I could smell a roadmap on the horizon, a direction was forming, and things began to click. Even better, I felt <em>somewhat</em> in control without being stressed about storing everything in my head. I could store it in the AI instead—a second brain. Instead of all that information overloading my own brain and pulling my attention in a hundred different directions, I could finally focus on the product work I love and need to get right to be successful: understanding the problem, shaping the vision, and building something meaningful.</p>
+<p>My good friend Tal taught us <a href="https://www.lennysnewsletter.com/p/build-your-personal-ai-copilot">how to think with AI</a>. I’m building on Tal’s post by showing what happens when AI becomes an extension of your mind—when it carries your context, grows alongside you, and ultimately amplifies what you’re capable of as a PM.</p>
+<h2><strong>Context is important—but comes with a heavy mental load</strong></h2>
+<p>No matter <em>what</em> we’re doing, we’re constantly trying to hold way too much information in our heads. I always imagine it like carrying a giant basket filled with random things like eggs, water bottles, watermelons, toy cars, a cactus (I hope you’re picturing a Dr. Seuss scene). And I’m on the go, so things are rocking all around the basket, and more things keep being added, and then an egg falls and cracks, one of the water bottles starts to spill over, a toy car keeps banging into one of the watermelons . . . basically anxiety in a metaphor.</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/5bcfe94d-b894-40b4-b540-f3d151ec6934_1452x1021.png" /></p>
+<p>That’s what it feels like trying to hold all the context required to do product work. But the hardest part isn’t just <em>carrying</em> it; it’s that none of these pieces arrive neatly fitted together. Context comes in fragments: user feedback, metrics, market changes, internal constraints, past decisions, intuition. As PMs, our job is to assemble those pieces into a clear picture—shaping the problem, forming the hypothesis, and defining the solution space.</p>
+<p>When you can pull that together, you build products that solve real problems so well that customers change habits for them, pay for them, and genuinely feel the impact. But doing that synthesis in your head, and doing it over and over again, can literally feel impossible.</p>
+<p>That’s where AI comes in. When you feed in all of that context that you’ve been trying to juggle yourself, your ChatGPT Project becomes a second brain that can store the information and synthesize it for you. That means that it can know and retrieve the right piece of data for the right problem—like an instantaneous librarian—and even use what it knows to run analyses and generate recommendations, like an associate PM.</p>
+<p>It’s important to say: using a second brain doesn’t dull your role but actually sharpens it. Your reasoning, product sense, knowledge, and taste are still doing the real work; AI just amplifies them. You can’t outsource judgment or creativity. This isn’t AI thinking instead of you—it’s you thinking with more clarity because all the mental overhead is gone. You still make every decision; the second brain just clears the path from your insight to the output.</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/9c40ace8-e4df-4d0b-bd26-d88744f0404e_1456x970.png" /></p>
+<h4><strong>Step 1: Create its personality</strong></h4>
+<p>If someone were to ask you, “Hey, do you want a really smart, eager, motivated, capable person by your side who knows what you know and is super-enthusiastic to tackle anything you want?” you’d probably say yes in a heartbeat. Well, you’re in luck, because that’s exactly what Projects can be.</p>
+<p>At monday.com, I had all of this information (my ever-growing basket) that I was in dire need to create a plan from. So I turned to ChatGPT, opened a Project, and got started. Cue the music.</p>
+<p>If you’re trying this yourself, Projects live in ChatGPT’s left sidebar under “New project.”</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/0e557423-fe2a-4492-adc3-0cb032bec4a3_1456x815.png" /></p>
+<p><em>(I’ll share how to do the same thing in Claude and Gemini later on.)</em></p>
+<p>Once you’re inside, if you approach Projects like a second brain that you’re growing, you want to first make sure it thinks in the way you think. In other words, you need to build its personality. Each Project has an instructions section where you can first define this “personality” in plain language.</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/1ddada6e-be58-48ce-a679-be0826af983a_1456x648.png" /></p>
+<p>A really awesome way of doing this is with the help of ChatGPT (of course). Open a new chat and describe what you want. For example:</p>
+<blockquote>
+<p><code>I’m a Monday PM working on AI agents. I’m building a ChatGPT Project to be my thought partner, something that’ll work with me on my initiatives, something that’ll know how to challenge me in all the right places, push back on areas that feel weak, and creatively think of alternatives with me. This Project’s “personality” has to be sharp, smart, fun, and not always agreeing with everything I come up with. It also needs to be a pro at product management—this includes product sense and product execution, with a strong sense for product taste and delight. Can you help me write the instructions for this project? :) Cheers!</code></p>
+</blockquote>
+<p>It’ll output instructions for what you want:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/23039a59-4ae2-4571-bfdf-5e1ea9bbffa3_1456x725.png" /></p>
+<p>Tweak what you want or just copy the whole thing as is into the instructions page, and your second brain is now eagerly waiting for you to feed it information!</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/79a93831-a93b-4a7d-8f4e-537ca24b0d2a_1456x685.png" /></p>
+<h4><strong>Step 2: Feed it information</strong></h4>
+<p>Now comes the fun and legitimately relieving part: feeding it all that context that you are barely holding onto. Go to “Add files” and just dump it in.</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/a2b9e072-f56b-4419-aa5e-db1e205ac768_1456x592.png" /></p>
+<p>I think the biggest “whoa” moment for me is realizing that <em>everything</em> is essentially text. The classics, like PRDs and docs, are a given, but decks, websites, Excel/CSV sheets, dashboards, and Slack channels all contain text too. They just need to be exported into PDFs and then you can upload them into the files section too.</p>
+<p>Once you see everything as text, you start to understand how much context you can actually give your second brain. Here’s what that looks like in practice:</p>
+<p>I’ll scroll through a massive Slack channel that’s gotten impossible to navigate. I’ll export it or, if that’s not possible, I’ll copy and paste the entire channel’s contents into a doc and save it as a PDF. Then I drop it into the Project. Now ChatGPT knows what has already been discussed, what decisions were made, and what issues keep resurfacing.</p>
+<p>When I need it to understand our product’s capabilities, instead of rambling on to it about how my product works, I go to our support or docs site, hit Command + P, and save the entire page as a PDF to drop in. That way, whenever I mention a feature, my second brain already knows how it works.</p>
+<p>I do the same with research data like transcripts, interviews, surveys, CSVs. Everything becomes fuel. Each file adds depth to the brain.</p>
+<p>In the case of the first initiative I led at monday.com, I started with a few decks that different colleagues of mine had made, downloaded PDFs of monday.com documentation pages explaining how specific things work, and added a bunch of CSV files containing Reddit threads of conversations thousands of people had about monday.com in relation to AI and our competitors. This was enough to get the ball rolling and start formulating a plan. The beauty of Projects is that you’ll start creating new artifacts from it. Whatever it is you’re creating—whether it be PRDs, overview docs, or strategy decks—once finished, you can take those, put them in a doc, download them, and feed them back into your second brain. Each new thread you open will be up to date with you on your work. It becomes a living thing.</p>
+<p>This is what my Project ended up containing after hundreds of threads:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/14317a45-0720-4493-be0f-4443c227e688_800x444.png" /></p>
+<h4><strong>Step 3: Let it cook</strong></h4>
+<p>There’s no one specific thing to use Projects for. As your second brain becomes more and more knowledgeable about your work, you can lean on it for everything that you don’t want to do but needs to get done. For example:</p>
+<p><strong>1. Sign-up forms</strong></p>
+<p>I needed to create a sign-up form for users to get early access to the agent we were building. This is a classic case of something that seems pretty easy at first but ends up making you bang your head against a wall. How should I phrase what I want to ask? How do I make the output from the form clear and purposeful for me without making filling out the form exhausting for users? Your second brain can now swoop in to save the day as it holds all the context on your initiative. In this case, I asked:</p>
+<blockquote>
+<p><code>I’m sending out a form to users to sign up for a waitlist for our first agent. I want to put 2-3 questions on the form which gauges their expectation to ensure we’re aligned on what we’re building and to receive another level of verification around the pain point. These questions should be concise, and the user’s answer will be open-ended (free text).</code></p>
+</blockquote>
+<p>My sign-up form looked like this:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/026eb721-00ac-4ab7-8220-306932bffc91_800x542.png" /></p>
+<p><strong>2. Prototypes</strong></p>
+<p>Sometimes, when I’m deep in a conversation with the Project, we’ll hit a moment where the idea feels stuck in theory. We’re talking about flows, interactions, edge cases, but it’s all abstract. So I’ll say:</p>
+<blockquote>
+<p><code>“Let’s make this real. Write me a prompt for Lovable that builds this experience.”</code></p>
+</blockquote>
+<p>I’ll drop in screenshots from Figma, highlight the areas I’m referring to, and describe how I want the behavior to work.</p>
+<blockquote>
+<p><code>“This panel should expand on hover. This tooltip should guide users through setup. Keep it lightweight, just enough to simulate the flow.”</code></p>
+</blockquote>
+<p>The Project uses those images as a reference, the entire context it has from its lifespan, and it generates a Lovable prompt I can copy straight in. Ten minutes later, we’re looking at a working prototype.</p>
+<p>Here’s an example of a Lovable prototype that I was able to create literally within seconds, thanks to all the context my second brain held:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/b8b9b2eb-b964-447b-88b3-501a2f6cc9aa_800x835.png" /></p>
+<p>And this is what we ended up shipping:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/9d4ac194-d2bc-4d5f-a0d0-7e5a934e32da_800x784.gif" /></p>
+<p>It’s not just a “wow” moment—it’s a workflow. A prototype like this lets me gather my designer and engineer, show them the idea, and get feedback <em>before</em> anyone has to build. This workflow fits so natively into what I’m doing, and truly increases my productivity and the productivity of the whole team so tremendously, that it’s become one of my favorite things to do.</p>
+<p><strong>3. Tailored communications</strong></p>
+<p>When you zoom out, PM work is full of moments where you need to communicate the same initiative from a completely different angle. It happens daily. Sometimes hourly:</p>
+<ul>
+<li>Marketing needs a short blurb for an announcement.</li>
+<li>Leadership needs three crisp sentences for a QBR.</li>
+<li>Enablement needs a deck that makes the value obvious to sales.</li>
+<li>Your designer needs a user-testing script that speaks to the problem, not the roadmap.</li>
+</ul>
+<p>None of these tasks are hard because of the writing itself. They’re hard because you have to mentally reload the context, remember what matters to each audience, and then translate the same initiative in so many different ways. That reload cost is enormous! My second brain removes that step entirely. I just word-dump everything I want to be highlighted for the respective request (the overview, the goals, the nuances, what I believe is most important for which audience), all as unstructured and messy as you can imagine, and it returns tailored versions for each audience in seconds. I’m still the one making the calls, but the friction between <em>what I know</em> and <em>how I need to express it</em> disappears. Suddenly the tasks that used to eat half a day take minutes.</p>
+<p>Once you get into the habit of constantly adding more files to your second brain and opening more threads, you’ll become comfortable with your tailor-made companion by your side. Next, you’ll wonder how you did anything without it. Your second brain becomes such a powerful tool that sometimes you can even forget you aren’t speaking to a human being. You might end up having a moment like this:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/cdf76adf-ccf2-4e05-90cb-1a9d42b4ffb3_1456x380.png" /></p>
+<p>Creepy? Maybe. But also comforting.</p>
+<h2><strong>Context is the new interface</strong></h2>
+<p>As PMs, context is the raw material we think with. It’s how we spot patterns others miss. It’s how we distinguish noise from signal. It’s how we turn a vague cluster of symptoms into a crisp problem statement that we rally around. When all that context lives only in your head, your output is limited by your working memory—the five or six ideas you can juggle at once. When the context sits outside your head, intact and retrievable, your thinking expands. You’re able to see the whole picture instead of just the part you can remember in the moment. <em>That’s</em> the breakthrough second brains give you: You don’t just remember more. You reason better.</p>
+<p>At monday.com, we saw the same pattern for months with our customers: they loved the <em>idea</em> of AI in our product, but they had no idea how to start. They didn’t know where to use it, how to set it up, or how to fit it into their workflow. Our team had user interviews, market research, feedback threads, product data about what was going on with our customers—I can feel my heart racing faster and faster just writing about it.</p>
+<p>We had a beautiful, massive, messy cloud of information, and before creating my second brain, I’d have spent days drowning and reassembling all of it in my head before I could form a clear hypothesis. Within minutes of my blabbering everything on my mind to Projects, it surfaced the key pain point for our users: they weren’t blocked by capability but by confidence. They needed scaffolding, not features. That insight alone unlocked the product direction we eventually shipped—and it was a huge success!</p>
+<p>The more I worked this way, the more obvious it became that your second brain amplifies you and your skill sets. Once it holds the same context you do—your information, but also your reasoning, your decisions, your instincts—it becomes an extension of how you think.</p>
+<p>AI isn’t replacing what I do. Rather, it’s expanding my capacity to do it well.</p>
+<h2><strong>Appendix: Using Claude or Gemini as your second brain</strong></h2>
+<p>Everything I described above works beautifully with ChatGPT Projects, but the principles don’t belong to any one tool. If you prefer Claude or Gemini, you can build the exact same second-brain setup there too. The workflow is almost identical: give it instructions, feed it context, and let it grow with you.</p>
+<p>In Gemini it’s called Gems, conveniently found on the left-hand panel:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/6ecf35e3-2652-4917-a5ef-0b341df33cb1_1456x826.png" /></p>
+<p>When you open a new Gem, you put in the custom instructions:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/66fb4557-9965-4024-8d61-0c01064208a4_1456x826.png" /></p>
+<p>In Claude it’s called Projects, also found on the left-hand panel:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/2a23f8c3-ca66-451e-9161-6ee366f07b46_1456x764.png" /></p>
+<p>Click on “New project”:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/a943348e-6559-4ab6-85af-6d27fade6985_1456x301.png" /></p>
+<p>Once in, name it and give it a description for future use:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/70e2a43d-3b41-42f8-8564-bad80f3c5dc4_1456x764.png" /></p>
+<p>Like the other AIs, provide it with custom instructions from the right-hand Instructions component:</p>
+<p><img alt="Image from How to build your PM second brain with ChatGPT" src="https://substack-post-media.s3.amazonaws.com/public/images/29ab58cb-26cb-4195-86f4-d19f0f382583_1456x764.png" /></p>
+<p>PM away!</p>
+<p><em>Thanks, Amir!</em></p>
+<p><em>For more, follow Amir on <a href="https://www.linkedin.com/in/amir-klein-9b8444189/">LinkedIn</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

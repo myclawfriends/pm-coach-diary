@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Become a more technical product manager — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Become a more technical product manager</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Become a more technical product manager</div>
+    
+    <div class="article-meta">2024-03-26<span>·</span>3,038 words</div>
+    <div class="tags-row"><span class="mini-tag">工程</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>P.S. Don’t miss my </em><em><a href="https://www.lennysjobs.com/">PM recruiting service</a></em><em> (to hire your next Sr. PM or VP), </em><em><a href="https://www.lennybot.com/">Lennybot</a></em><em> (an AI chatbot trained on my newsletter posts, podcast interviews, and more), and my </em><em><a href="https://lennyswag.com/">swag store</a></em>**<em>(great gifts for your favorite PM, or yourself!)</em></p>
+<blockquote>
+<h2>Q: How do I become more technical?</h2>
+</blockquote>
+<p>A technical background is a superpower for product managers, <a href="https://www.lennysnewsletter.com/p/getting-more-technical">as I’ve said</a> before. You’ll make better decisions, understand trade-offs, make more accurate estimates, and communicate with engineers with more confidence, while also creating more career opportunities for yourself. And now that AI is increasingly infused into products, it’s even more important that product managers understand the basics.</p>
+<p>To help you level up, I teamed up with <a href="https://www.linkedin.com/in/colinmatthews-pm/?originalSubdomain=ca">Colin Matthews</a>, instructor of the very popular Maven course <a href="https://maven.com/tech-for-product/tech-fundamentals?promoCode=LENNY25">Technical Foundations for Product Managers</a>. Below, Colin breaks down in the simplest way possible—and with hands-on practice—APIs, code deployments, system architectures, branches, databases, unit tests, and much more. If you’ve been embarrassed, or too busy, to ask your engineers how all this works—this post is for you.</p>
+<p><em>For more from Colin, <a href="https://maven.com/tech-for-product/tech-fundamentals?promoCode=LENNY25">check out Colin’s Maven course</a>—the next cohort kicks off on May 6! <a href="https://maven.com/tech-for-product/tech-fundamentals?promoCode=LENNY25">Use this link to get 25% off</a>.</em></p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/0942a45c-a8af-4249-8eb6-7d4334f2ef47_4000x2000.png" /></p>
+<p>Building a strong foundation of technical skills improves your ability to bridge technical and business domains, uncover implementation issues before they’re in production, and improve your working relationships with your technical counterparts. This quick guide will help get you up to speed and start building your skills with hands-on practice.</p>
+<h2>Application architecture and APIs</h2>
+<p>Almost every software product is built with the same three parts: a client, a server, and a database. Things can get a lot more complicated as you grow, but these fundamental ideas stay the same.</p>
+<p>The client is your website or app that’s used by the end user.</p>
+<p>The server processes requests from the client.</p>
+<p>The database is your permanent storage of data.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/da847544-73b7-4327-907e-6c7c8b2e879e_1600x1020.png" /></p>
+<p>Your client communicates with your server through an application programming interface, or API.</p>
+<h3>What is an API?</h3>
+<p>For most software product managers, we’re talking about web APIs. This is the front door to your server that allows other applications to access data or trigger events.</p>
+<p>APIs are everywhere—<a href="https://developers.facebook.com/docs/#">Meta</a>, <a href="https://www.etsy.com/developers/documentation/getting_started/api_basics">Etsy</a>, <a href="https://openai.com/product">OpenAI</a>, <a href="https://developer.citi.com/">your bank</a>, <a href="https://open.epic.com/">your doctor</a>, <a href="https://openweathermap.org/api">the weather</a>. These kinds of public APIs are meant to be used by developers outside of the company that built them. Anyone who has permission can start making API calls to get data, submit new information, or even interact with AI.</p>
+<p>APIs can also be private. These are intended to be used only within that application or product (versus by third parties).</p>
+<p>As a quick example, let’s look at how Airbnb might fetch listings to show you when you search for Toronto.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/e1faa688-ea6a-428b-bab1-26f483f079fa_1600x573.png" /></p>
+<p>Breaking this down, we can see that:</p>
+<ol>
+<li>The client sends a request to <strong><em>listings</em></strong> at the URL <strong><em>api.airbnb.com</em></strong> and specifies the location as <strong><em>Toronto</em></strong></li>
+<li>The server gets the listings in Toronto from the database</li>
+<li>The database returns listings to the server</li>
+<li>The server returns listings to the client</li>
+</ol>
+<h3>Wait, so what exactly is the API?</h3>
+<p>Is the API the server? Kind of. As we said above, the API is the server’s front door—it’s the set of actions that are available to clients. The API (hosted on a server) will either process the request itself or pass it downstream to be processed.</p>
+<p>Going back to our Airbnb example, in addition to fetching Listings, you could imagine the API also allows a client to access Users, Bookings, Prices, and more. We commonly call these <strong>endpoints</strong> or <strong>resources</strong>.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/3bf479fb-04ff-4431-85b7-7acbc4446257_1600x859.png" /></p>
+<p>Let’s take a look at another example: OpenAI. OpenAI supports a wide range of actions via their API. You can create images, transcribe audio, and get chat responses. Here’s what their API endpoints look like:</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/a5163957-c391-49c0-932c-6e0033d55cf8_1600x780.png" /></p>
+<p>OpenAI has organized their API into a few groups—images, chat, and audio. Within each, there are a few endpoints that allow you to take different actions. For example, you could send a request to <strong><em>/audio/speech</em></strong> to create an ​​MP3 file of text-to-speech with the AI voice of your preference.</p>
+<p>Here’s an example:</p>
+<h3>What are some common patterns with APIs?</h3>
+<p>Once you understand a few basic patterns with APIs, you’ll be able to breeze through technical documentation in no time.</p>
+<p>First, there are three main types of APIs:</p>
+<ul>
+<li><strong>SOAP:</strong> This is a legacy design, still used mostly in health care and financial services.</li>
+<li><strong>REST:</strong> This is the most popular design pattern; we’ll get into more details below.</li>
+<li><strong>GraphQL:</strong> This is a newer design created at Meta, most commonly used in private APIs within your own application. It uses the same request types but in different ways.</li>
+</ul>
+<p>As mentioned, REST is by far the most popular design for APIs. It supports many different request types, but there are two we’ll focus on today—GET and POST.</p>
+<h4><strong>GET requests</strong></h4>
+<p>GET requests do what you think they would: get stuff. Every time you open a web page, your browser sends a GET request to the server at the URL you’ve entered and the server returns some content to be rendered.</p>
+<p>In its simplest form, this content can be an HTML file that your browser displays, or it can be a more complex format that needs to be interpreted, like JSON.</p>
+<p>Let’s update our Airbnb example above to specify the request type.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/1daedca6-1581-4578-884c-af1abe5ec32b_1600x572.png" /></p>
+<p>Now we can see that we’re sending a <strong><em>GET</em></strong> request to the <strong><em>/listings</em></strong> endpoint. We also specified that we only want listings in <strong><em>Toronto</em></strong>.</p>
+<p>Let’s break the request down into its components:</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/4f39c658-bd8b-42f7-b7b5-3192103f6a68_999x256.png" /></p>
+<ol>
+<li><strong>Base URL:</strong> The “home” for all API endpoints</li>
+<li><strong>Endpoint:</strong> The specific resource we want to access</li>
+<li><strong>Query parameter:</strong> Additional data passed in with our requests</li>
+</ol>
+<h4><strong>POST requests</strong></h4>
+<p>POST requests are used to submit new data to the server. For example, we would use a POST request on Open AI’s <strong><em>/images/generations</em></strong> endpoint to create a new image.</p>
+<p>We would also include a <strong><em>body</em></strong> with the request, which contains data to be processed by the server. Here’s what that might look like:</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/5ba36e38-cad7-494f-b632-662441ffa51d_1600x555.png" /></p>
+<p>As long as we have access, OpenAI will respond to this request with the cutest baby sea otter you’ve ever seen.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/5e990493-6ff3-4645-8b6b-bc8b363dc15f_1024x1024.png" /></p>
+<p>Remember that text-to-speech example with an AI-generated voice that we got from OpenAI’s API? Well, that was a POST request.</p>
+<p>To generate this, we sent a POST request to <strong><em>https://api.openai.com/v1/audio/speech</em></strong> with the following body:</p>
+<p><code>{</code></p>
+<p><code>"model": "tts-1",</code></p>
+<p><code>"input": "Did you know subscribers to Lenny's Newsletter get exclusive discounts with partners? Pretty cool! And there's a Slack channel!",</code></p>
+<p><code>"voice": "alloy"</code></p>
+<p><code>}</code></p>
+<p>In response to this request, the API sends back an MP3 file with the text-to-speech phrase.</p>
+<h3>How can I practice?</h3>
+<p>Want to try a request for yourself? Follow along to generate your own images using DALL-E and OpenAI’s API.</p>
+<ol>
+<li>Sign up for an API account at <a href="https://platform.openai.com/signup">https://platform.openai.com/signup</a></li>
+<li>Navigate to API Keys. Verify your account and create your first API key. Make sure you copy it!</li>
+</ol>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/89ebaba6-e0e5-492c-aef6-eeaa97734661_1600x666.png" /></p>
+<ol>
+<li>Using <a href="https://www.postman.com/">Postman</a> or a web-based API request tool (<a href="https://stackblitz.com/edit/github-18edst?embed=1&amp;file=README.md&amp;hideExplorer=1&amp;view=preview">here’s a free one</a>), make a POST request to <strong><a href="https://api.openai.com/v1/images/generations">https://api.openai.com/v1/images/generations</a></strong></li>
+<li>
+<p>Add the following Headers</p>
+</li>
+<li>
+<p>Authorization: Bearer [your-api-key]</p>
+</li>
+<li>
+<p>Content-Type: application/json</p>
+</li>
+<li>
+<p>Add the following body in JSON</p>
+</li>
+</ol>
+<p><code>{</code></p>
+<p><code>"model": "dall-e-3",</code></p>
+<p><code>"prompt": "A cute baby sea otter",</code></p>
+<p><code>"n": 1,</code></p>
+<p><code>"size": "1024x1024"</code></p>
+<p><code>}</code></p>
+<ol>
+<li>Send your request!</li>
+</ol>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/d22ebc1d-3c16-401e-afd9-c9c74df8efa5_1600x866.png" /></p>
+<h2>Software development lifecycle</h2>
+<p>Now that we understand the basics of application architecture and APIs, we can talk about how engineers actually build software. Chances are you’re following some version of the software development lifecycle, or SDLC. This follows a familiar process:</p>
+<ol>
+<li>
+<p>Plan</p>
+</li>
+<li>
+<p>What outcome are you trying to achieve?</p>
+</li>
+<li>What solution(s) will get you there?</li>
+<li>What customer problems align to business goals?</li>
+<li>How will customers know you offer the solution?</li>
+<li>
+<p>Design</p>
+</li>
+<li>
+<p>What will you build?</p>
+</li>
+<li>How will it work?</li>
+<li>
+<p><strong>Implement</strong></p>
+</li>
+<li>
+<p><strong>Engineers write the code</strong></p>
+</li>
+<li>
+<p><strong>Test</strong></p>
+</li>
+<li>
+<p><strong>Does the code match the specifications?</strong></p>
+</li>
+<li><strong>Do our systems work together as intended?</strong></li>
+<li><strong>Can customers use our feature to accomplish their goal?</strong></li>
+<li>
+<p><strong>Deploy</strong></p>
+</li>
+<li>
+<p><strong>Move code from local through dev, staging, and production</strong></p>
+</li>
+<li>
+<p>Maintain</p>
+</li>
+<li>
+<p>Resolve bugs</p>
+</li>
+<li>Handle customer support</li>
+</ol>
+<p>You’re likely familiar with Planning and Design, but how well do you understand the processes of <strong>Implementation</strong>, <strong>Testing</strong>, and <strong>Deployment</strong> that engineers go through?</p>
+<h3>Implementation</h3>
+<p>We all use tools like Google Docs to collaborate. We can comment on others’ work, track changes over time, and share work publicly once it’s ready. Engineers have a similar tool for code: Git.</p>
+<p>Git is a version-control system that tracks changes as they are made to code. Products like GitHub allow engineers to move those changes from their local machine to online storage, where others can view and edit as well. This is similar to the idea of moving your local text file over to Google Docs so others can collaborate with you.</p>
+<p>The home for all their code is a <strong>repository</strong>, or <strong>repo</strong>. This is like a Google Drive folder that tracks changes to files.</p>
+<p>When an engineer wants to make a change, they <strong>commit</strong> it from their local copy to the copy in GitHub.</p>
+<p>But having a bunch of disorganized commits would be like everyone changing a Google Doc at the same time—an absolute mess. To solve for this, engineers create <strong>branches</strong>. A branch is a copy of the code. Engineers use these to make their changes in isolation from each other.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/7d712ca1-75cf-48d9-b091-219490455626_1036x422.gif" /></p>
+<p>Once they’re done, they submit a <strong>pull request</strong> from their branch back into the <strong>main branch</strong>. This request will be reviewed by other engineers, who can suggest improvements before it is accepted.</p>
+<p>Once the pull request is approved, the independent branch will be <strong>merged</strong> back into the main branch.</p>
+<p>Another style of version control typically found in legacy workflows is called Gitflow. This has many more layers of branches, such as Develop and Release. It usually requires specific approvals to move code up from a lower branch to a higher branch, until it eventually reaches the main branch after a scheduled release.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/71b31e4e-5545-49b0-87c3-9b5b100dabfb_1600x555.png" /></p>
+<h3>Testing</h3>
+<p>You might be surprised to learn that any one engineer doesn’t actually know how the whole codebase works at any given time. Each engineer has a high-level view of the product and a more detailed understanding of the last few components they worked on. Because many engineers work on the same codebase, they often have to learn (or re-learn) how specific sections work before implementing new changes. On top of that, they may not have context beyond what you’ve provided to gut-check if what they’re building makes sense. This makes testing essential to successfully shipping new features the first time.</p>
+<p>There are many types of testing, but we’ll focus on the following:</p>
+<ul>
+<li>Unit tests</li>
+<li>Integration tests</li>
+<li>End-to-end tests</li>
+<li>User acceptance tests</li>
+</ul>
+<p>Testing is a high-leverage area for PMs to quickly improve your product quality. A quick round of end-to-end testing with your engineering team before a major release will help them build context on the workflow and catch issues before you ship to production.</p>
+<h4><strong>Unit tests</strong></h4>
+<p>Unit tests are code written in combination with new functions, to test a variety of functionality. For example, we might have a function called Double, which doubles any number we send it. A unit test would provide <em>4</em> and check that the result is <em>8</em>.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/7b6a245d-935e-426b-95f6-70ad1b299301_1060x684.gif" /></p>
+<p>This is the lowest level of testing. The percentage of the code base that has associated unit tests is called <strong>coverage</strong>.</p>
+<h4><strong>Integration tests</strong></h4>
+<p>Integration tests are tests between different components of the software. For example, we might test that the new feature we added to upsell customers at checkout properly works with our tax calculation service. This is targeted testing between components that are independent but closely related.</p>
+<h4><strong>End-to-end tests</strong></h4>
+<p>End-to-end (E2E) tests are a full walkthrough of the desired workflow and interact with all relevant systems. E2E testing is more time-intensive but often reveals issues you otherwise might not find. This is especially true if the workflow is dependent on many services working together correctly.</p>
+<h4><strong>User acceptance tests</strong></h4>
+<p>User acceptance tests are typically in the domain of product or design. These tests require users to use the current version of your feature from beginning to end with minimal intervention. From this, you’ll learn if the interaction design is intuitive or if more work is needed before making the feature available.</p>
+<h3>Deployment</h3>
+<p>Once our feature is ready, we need to make it available to customers. Usually you would move your current version of the code to at least two of these environments:</p>
+<ul>
+<li><strong>Dev:</strong> Servers dedicated for developers to use</li>
+<li><strong>Staging:</strong> A close replica of production for testing and internal use</li>
+<li><strong>Production:</strong> The main environment used by customers every day</li>
+</ul>
+<p>Deployment practices follow one of two patterns: scheduled or continuous. Scheduled deployments happen on a recurring cadence, like once a week, once a month, or once a quarter.</p>
+<p><strong>Continuous deployment</strong> <strong>(CD)</strong> allows developers to automatically deploy their code to one or more environments when it is merged into a branch. For example, any approved pull requests to the main branch would automatically deploy to the production environment.</p>
+<p>Continuous deployment is usually paired with <strong>continuous integration (CI)</strong>, which refers to running tests <em>automatically</em> every time new code is added to a branch. This can include unit tests, integration tests, vulnerability assessments, and more. CI helps developers ensure that their changes work without manual testing.</p>
+<p><img alt="Image from Become a more technical product manager" src="https://substack-post-media.s3.amazonaws.com/public/images/217106ec-1ef8-40be-863c-ab996c4ad9ea_1600x980.png" /></p>
+<p><a href="https://www.lennyspodcast.com/reflections-on-a-movement-eric-ries-creator-of-the-lean-startup-methodology/">Popularized by Eric Ries</a>, CI/CD helps teams move quickly and keep the pace of shipping code to production high. For example, <a href="https://twitter.com/dps/status/1767936528729477344">Stripe’s annual letter</a> highlights their robust deployment and testing methodologies, with more than 400 deployments per day and 1.4 million automated tests!</p>
+<h3>How can I practice?</h3>
+<p>Want to learn how to create a new pull request yourself? Check out this <a href="https://docs.google.com/document/d/11_WFRYVy_UZUrlEfApB5SSea5T4Jj11ov4zCeDvio4g/edit?usp=sharing">free practice exercise</a>, where I’ll walk you through each step of creating your own branch, creating commits, and ultimately submitting a pull request. It includes five videos covering every step along the way.</p>
+<p>All you’ll need is a GitHub account and about 15 minutes!</p>
+<h2>Putting it all together</h2>
+<p>Here are a few questions to consider the next time you write a PRD or work on a feature:</p>
+<h4><strong>Application architecture</strong></h4>
+<ul>
+<li>What changes need to be made to each tier for your new feature?</li>
+<li>Ask the engineer to walk you through implementation at a high level. Does it align with what you were expecting?</li>
+</ul>
+<h4><strong>APIs</strong></h4>
+<ul>
+<li>Have you tested your API from the perspective of your customer?</li>
+<li>How well does your API support customer workflows?</li>
+<li>Test internal and external APIs yourself. Do they perform the way you expect? What bottlenecks are there (if any)?</li>
+</ul>
+<h4><strong>SDLC</strong></h4>
+<ul>
+<li>How can you reduce implementation risk through closer collaboration with technical stakeholders?</li>
+<li>How much testing, and what types of testing, are appropriate for the change you’re pushing to production?</li>
+</ul>
+<p>The purpose of this isn’t to micromanage engineers or take responsibility for <a href="https://www.svpg.com/four-big-risks/">feasibility</a>. It’s to help you be a better collaborator with your technical team by reducing communication overhead between you and them.</p>
+<p><em>Thank you, Colin! For more from Colin, <a href="https://maven.com/tech-for-product/tech-fundamentals?promoCode=LENNY25">check out his Maven course</a>—the next cohort kicks off on May 6. <a href="https://maven.com/tech-for-product/tech-fundamentals?promoCode=LENNY25">Use this link to get 25% off</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

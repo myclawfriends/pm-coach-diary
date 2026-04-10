@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Perplexity builds product — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Perplexity builds product</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Perplexity builds product</div>
+    
+    <div class="article-meta">2024-04-30<span>·</span>3,515 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">AI</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career.</em></p>
+<p><em>If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/the-secret-to-duolingos-growth">The secret to Duolingo’s exponential growth</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-accelerate-growth-by-focusing">How to accelerate growth by focusing on the features you already have</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-ai-will-impact-product-management">How AI will impact product management</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/how-to-make-an-impact-in-your-first">How to make an impact in your first 90 days</a></em></li>
+</ol>
+<p><em>For $150 a year, get access to these posts and every prior post, along with an invite to a private Slack community with global meetups, a mentor matching program, interview prep support, live AMAs, and more. I guarantee you’ll get 100x the value of a subscription or your money back.</em></p>
+<p>Founded less than two years ago, <a href="https://www.perplexity.ai/">Perplexity</a> has become a many-times-a-day-use product for me, replacing many of my Google searches—and I’m not alone. With fewer than 50 employees, the company has a user base that’s grown to tens of millions. They’re also generating over $20 million ARR and taking on both Google and OpenAI in the battle for the future of search. Their <a href="https://x.com/AravSrinivas/status/1782784338238873769">recent fundraise of $63m</a> values the company at more than $1 billion, and their investors include Nvidia, Jeff Bezos, Andrej Karpathy, Garry Tan, Dylan Field, Elad Gil, Nat Friedman, Daniel Gross, and Naval Ravikant (but sadly not me 😭). Nvidia CEO Jensen Huang said he uses the product “<a href="https://arc.net/l/quote/uglckdse">almost every day</a>.”</p>
+<p>I sat down with <a href="https://www.linkedin.com/in/hjohnny/">Johnny Ho</a>, the company’s co-founder and head of product, to give you an inside look at how Perplexity builds product—which to me feels like what the future of product development will look like for many companies:</p>
+<ol>
+<li><strong>AI-first:</strong> They’ve been asking AI questions about every step of the company-building process, including “How do I launch a product?” Employees are encouraged to ask AI before bothering colleagues.</li>
+<li><strong>Organized like slime mold:</strong> They optimize for minimizing coordination costs by parallelizing as much of each project as possible.</li>
+<li><strong>Small teams:</strong> Their typical team is two to three people. Their AI-generated (highly rated) <a href="https://www.perplexity.ai/podcast">podcast</a> was built and is run by just one person.</li>
+<li><strong>Few managers:</strong> They hire self-driven ICs and actively avoid hiring people who are strongest at guiding other people’s work.</li>
+<li><strong>A prediction for the future:</strong> Johnny said, “If I had to guess, technical PMs or engineers with product taste will become the most valuable people at a company over time.”</li>
+</ol>
+<p><em>For more, check out <a href="https://www.perplexity.ai/">Perplexity</a>. And <a href="https://www.perplexity.ai/hub/careers">they’re hiring</a>! For more stories of how the best product teams operate, don’t miss my deep dives into <a href="https://www.lennysnewsletter.com/p/how-linear-builds-product">Linear</a>, <a href="https://www.lennysnewsletter.com/p/how-shopify-builds-product">Shopify</a>, <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a>, <a href="https://www.lennysnewsletter.com/p/how-notion-builds-product">Notion</a>, <a href="https://www.lennysnewsletter.com/p/how-duolingo-builds-product">Duolingo</a>, <a href="https://www.lennysnewsletter.com/p/how-ramp-builds-product">Ramp</a>, <a href="https://www.lennysnewsletter.com/p/how-miro-builds-product">Miro</a>, <a href="https://www.lennysnewsletter.com/p/how-coda-builds-product">Coda</a>, <a href="https://www.lennysnewsletter.com/p/how-gong-builds-product">Gong</a>, and <a href="https://www.lennysnewsletter.com/p/how-snowflake-builds-product">Snowflake</a>.</em></p>
+<p><em>P.S. I’m collaborating with Perplexity on a deep dive into how product managers use Perplexity, and we’d love to hear from you. Fill out <a href="https://perplexity.typeform.com/to/gh54lgJh">this short survey</a> if you use Perplexity regularly, and they’ll reach out to conduct a user interview.</em></p>
+<h1>How Perplexity builds product</h1>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/c79f69d5-7443-4c73-870c-ab2fdf76c24c_2048x1365.webp" /></p>
+<h3><strong>1. How do you use AI tools within Perplexity to build Perplexity?</strong></h3>
+<p>Honestly, at the very beginning, we didn’t know how to do all kinds of things, including product management, <em>project</em> management, finances, HR, etc. We had early access to GPT-3, and as we were figuring out how to build the company, we’d start everything by asking AI, “What is X?” and then “How do we do X properly?” For example, we asked questions like “How do you launch a product? What should be the steps in the launch process?” You get a rough step-by-step process, which for a startup was good enough. Obviously, it’s often not correct on the first try, but neither is a human, right? So we’d just iterate naturally from there.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/b9d81313-7d81-4b90-bd2a-c65a278d353d_1600x1036.png" /></p>
+<p>Trying to figure things out by ourselves took days, but with AI and some prompting, we could get rolling in five minutes.</p>
+<p>We’re still doing this. This week, for example, I asked Perplexity, “How do I write an email inviting someone to Perplexity Pro?”</p>
+<p>We even tried to use it at times to build our product, but we found AI tooling wasn’t anywhere near good enough when it comes to coding. It could help us write scripts, but if you wanted sustainable code to build a platform on, it didn’t really work. Even today, with the advances and latest models, it still only writes templates. You can’t really design a new long-lived abstraction with it.</p>
+<h3><strong>2. How many PMs do you have?</strong></h3>
+<p>We have only two full-time PMs, in an organization of 50.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/1695cb77-8c3c-4ee9-81bd-aca112fd9f5a_1600x1125.png" /></p>
+<p>Typical projects we work on only have one or two people on it. The hardest projects have three or four people, max. For example, <a href="https://www.perplexity.ai/podcast">our podcast</a> is built by one person end to end. He’s a brand designer, but he does audio engineering and he’s doing all kinds of research to figure out how to build the most interactive and interesting podcast. I don’t think a PM has stepped into that process at any point.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/06c9380c-cddb-4063-8773-e3f23499152a_1600x1036.png" /></p>
+<p>We leverage product management most when there’s a really difficult decision that branches into many directions, and for more involved projects.</p>
+<p>The hardest, and most important, part of the PM’s job is having taste around use cases. With AI, there are way too many possible use cases that you could work on. So the PM has to step in and make a branching qualitative decision based on the data, user research, and so on. For example, a big problem with AI is how you prioritize between more productivity-based use cases versus the engaging chatbot-type use cases. Pretty early on, we decided to focus on the former, but there are still ongoing discussions.</p>
+<p>We plan to hire one or two more PMs over the next year, but the bar for hiring is going to stay very high.</p>
+<h3><strong>3. I assume much of your success has been due to hiring well, and keeping a very high bar. What do you most look for when hiring (that maybe others don’t)?</strong></h3>
+<p>Given the pace we are working at, we look foremost for flexibility and initiative. The ability to build constructively in a limited-resource environment (potentially having to wear several hats) is the most important to us.</p>
+<p>When you take a look at resumes of PMs, a lot of them prioritize helping other people and finding alignment. I believe this becomes less important with the advent of AI. So you don’t necessarily need skills around managing processes or leading people as much. We look for strong ICs with clear quantitative impacts on users rather than within their company. If I see the terms “Agile expert” or “scrum master” in the resume, it’s probably not going to be a great fit.</p>
+<p>Also, AI allows PMs to do a <em>lot</em> more IC work, especially for data analysis and customer insights. You still need some fundamental knowledge, of course (i.e. math, statistics, a basic grasp of programming), but it’s never been easier to be a truly “technical” PM.</p>
+<p>We still select for culture fit and being easy to work with, but we’re less looking for people who guide other people’s efforts, because it’s not as necessary with AI. This might change as we get to a certain scale, but at the current scale, there are way more products to build than there are people to work on them.</p>
+<p>I think in the future, I expect fewer layers of management in the industry in general. And if I had to guess, a technical PM or an engineer with product taste will become the most valuable people at a company over time.</p>
+<h3><strong>4. Do you structure your teams around products, user types, user journeys, outcomes, or something in between? Has this changed over the years?</strong></h3>
+<p>My goal is to structure teams around minimizing “coordination headwind,” as described by <a href="https://www.linkedin.com/in/alex-komoroske-6597336/">Alex Komoroske</a> in <a href="https://komoroske.com/slime-mold/">this deck on seeing organizations as slime mold</a>. The rough idea is that coordination costs (caused by uncertainty and disagreements) increase with scale, and adding managers doesn’t improve things. People’s incentives become misaligned. People tend to lie to their manager, who lies to <em>their</em> manager. And if you want to talk to someone in another part of the org, you have to go up two levels and down two levels, asking everyone along the way.</p>
+<p>Instead, what you want to do is keep the overall goals aligned, and parallelize projects that point toward this goal by sharing reusable guides and processes. Especially with the advance of AI, it’s possible to minimize coordination costs by using AI for “<a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck debugging</a>” your ideas instead of relying on perfect alignment and consensus. We also keep a “who’s who” list updated in our internal docs, and if you feel the need to reach out to anyone, just do it. This requires a large degree of trust.</p>
+<p>But even more importantly, with AI, you don’t have to reach out to people as often. Sometimes before asking the question you were going to ask someone else, you could first try spending one minute asking AI to reduce coordination costs and give everyone a reasonable jumping-off point to do it themselves.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/6612e4f4-673a-4570-8b67-7800f978b6ff_1600x1036.png" /></p>
+<h3><strong>5. How far out do you plan in detail, and how has that evolved over the years?</strong></h3>
+<p>Perplexity has existed for less than two years, and things are changing so quickly in AI that it’s hard to commit beyond that. We create quarterly plans. Within quarters, we try to keep plans stable within a product roadmap. The roadmap has a few large projects that everyone is aware of, along with small tasks that we shift around as priorities change. Being nimble is critical as developments in AI often have unforeseeable impact. For example, the rapid developments in open-source models and context length have had downstream impact on the product, roadmap, and overall business. Just recently, Meta released Llama 3 and Mistral released 8x22B; we’re looking into creative ways to use those models in our product.</p>
+<p>The projects in the product roadmap also need to be flexible because new product development runs in parallel with a technical/model development roadmap. Engineers shift between maintaining existing products and building new products, depending on the week. The technical roadmap tends to grow quickly as we run into limitations of existing systems and accumulate tech debt, but we try to prioritize tech debt that unlocks product improvements.</p>
+<p>Within a given week, though, plans are fairly stable. Each week we have a kickoff meeting where everyone sets high-level expectations for their week. We have a culture of setting 75% weekly goals: everyone identifies their top priority for the week and tries to hit 75% of that by the end of the week. Just a few bullet points to make sure priorities are clear during the week.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/a667091e-df3b-4ca8-908a-ab332c02bbca_1600x1104.png" /></p>
+<p>Taking a moment at the beginning of the week to reflect on meta tasks brings clarity and prevents overly reactive or hectic decision-making. Over time, our ability to estimate size and prioritize based on return on investment has also improved.</p>
+<h3><strong>6. Do you use OKRs in some form?</strong></h3>
+<p>We try to be as rigorous and data-driven as possible in quarterly planning. All objectives are measurable, either in terms of quantifiable thresholds or Boolean “was X completed or not.” Our objectives are very aggressive, and often at the end of the quarter we only end up completing 70% in one direction or another. The remaining 30% helps identify gaps in prioritization and staffing. Underinvestments, for example, in hiring infra engineers become quickly apparent when infrastructural goals aren’t met.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/ce3f301a-c3a9-44a5-b140-e094db25d771_1600x1000.png" /></p>
+<h3><strong>7. How do your product/design review meetings work?</strong></h3>
+<p>After the central objectives and high-level designs are determined, we try to be fairly decentralized in our decision-making. Projects are driven by a single DRI, and execution steps are done in parallel as much as possible.</p>
+<p>The first step for any project is to break it down into parallel tasks as much as possible to reduce coordination issues. We do this in Linear, and I lead this work along with the PM on the team (or whoever is handling the PM duties). We strive for each task to be self-contained—you should be able to execute on it without blockers. And you will likely have to make some controversial decisions, but you can just work through the controversy later.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/9e714a3f-cc26-454c-86eb-76a795100adc_1600x1036.png" /></p>
+<p>At the beginning of each project, there is a quick kickoff for alignment, and afterward, iteration occurs in an asynchronous fashion, without constraints or review processes. When individuals feel ready for feedback on designs, implementation, or final product, they share it in Slack, and other members of the team give honest and constructive feedback. Iteration happens organically as needed, and the product doesn’t get launched until it gains internal traction via dogfooding.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/d564f868-872f-4d01-b9de-37ce38519c3b_820x292.png" /></p>
+<p>I encourage people to try to work in parallel as much as they can. They should not be waiting for everyone to unblock them. Ideally, you have design, front end, and back end all working at the same time on the same project. And now that we have a business team, all four people could work in parallel, whereas conventionally you might wait for designs or mock-ups to show up first.</p>
+<h3><strong>8. How do reporting lines work?</strong></h3>
+<p>The teams are currently structured by function (product, R&amp;D, design, business, etc.), and different teams think about different layers of the company and stack. But all energy is directed toward improving the core product. We design objectives that translate to common top-level metrics and improve the user experience holistically. For example, all teams share common top-level metrics while A/B testing within their layer of the stack. Because the product can shift so quickly, we want to avoid political issues where anyone’s identity is bound to any given component of the product.</p>
+<p>At our current size, we are flat by design, and the reporting structure does not dictate priorities as much as commitments to top-level goals. Our two full-time PMs—one web and one mobile—report to me as head of product. We’ve found that when teams don’t have a PM, team members take on the PM responsibilities, like adjusting scope, making user-facing decisions, and trusting their own taste.</p>
+<h3><strong>9. You build one of the most beloved and successful products out there. What would you say is unique or central to your approach to product that leads to such success?</strong></h3>
+<p>Central to our approach is to take feedback, both from users and internally, and distill it into a few intuitive products that can work for many customers. We also try to distill the feedback in a way that motivates and informs our team, setting a broad vision but letting individuals control their own decisions about what would best serve the original goal. Our decentralized approach for decisions passes the torch of responsibility, enabling fast-paced iteration without the need for approval processes. Individuals make urgent, locally optimal decisions. Any misalignments are then ironed out quickly afterward.</p>
+<h3><strong>10. What’s your primary tool for task management, and bug tracking?</strong></h3>
+<p><a href="https://linear.app/">Linear</a>. For AI products, the line between tasks, bugs, and projects becomes blurred, but we’ve found many concepts in Linear, like Leads, Triage, Sizing, etc., to be extremely important. A favorite feature of mine is auto-archiving—if a task hasn’t been mentioned in a while, chances are it’s not actually important.</p>
+<p>The primary tool we use to store sources of truth like roadmaps and milestone planning is <a href="https://www.notion.so/">Notion</a>. We use Notion during development for design docs and RFCs, and afterward for documentation, postmortems, and historical records. Putting thoughts on paper (documenting chain-of-thought) leads to much clearer decision-making, and makes it easier to align async and avoid meetings.</p>
+<p><a href="https://www.unwrap.ai/">Unwrap.ai</a> is a tool we’ve also recently introduced to consolidate, document, and quantify qualitative feedback. Because of the nature of AI, many issues are not always deterministic enough to classify as bugs. Unwrap groups individual pieces of feedback into more concrete themes and areas of improvement.</p>
+<h3><strong>11. Would you say roadmap ideas primarily come top-down (teams are told what to build) or bottom-up (teams generally come up with the ideas)?</strong></h3>
+<p>High-level objectives and directions come top-down, but a large amount of new ideas are floated bottom-up. We believe strongly that engineering and design should have ownership over ideas and details, especially for an AI product where the constraints are not known until ideas are turned into code and mock-ups. Plenty of brainstorming is going on at all times. We have a dedicated brainstorm channel in Slack, follow-up ideas are collected in Linear, and often polishes go straight to code without anyone asking.</p>
+<p>The best examples of bottom-up ideas can be seen in Perplexity’s Discovery, Collection, and Sharing experiences. For example, as I shared above, our brand designer Phi builds <a href="https://www.perplexity.ai/podcast">the Discover Daily podcast</a> and simultaneously makes decisions around the script, ElevenLabs integration, brand, and audio engineering. With AI, it’s impossible to predict use cases until iterations of the product are released. A year ago, we would never have predicted that the Discover experience would eventually be built into a podcast.</p>
+<h3><strong>12. When people see a company like yours from the outside, it all looks perfect and like you have everything figured out. What are some things that aren’t working well or have been big challenges?</strong></h3>
+<p>Big challenges today revolve around scaling from our current size to the next level, both on the hiring side and in execution and planning. We don’t want to lose our core identity of working in a very flat and collaborative environment. Even small decisions, like how to organize Slack and Linear, can be tough to scale. Trying to stay transparent and scale the number of channels and projects without causing notifications to explode is something we’re currently trying to figure out.</p>
+<h3><strong>13. What are some fun/unique rituals or traditions you have on the product team or at the company?</strong></h3>
+<p>A lot of features and products at Perplexity were built during one-week (or less) hackathons. Focused sprints to build new features have proved to be the most exciting and memorable times. Our first interactive search prototype, Pro Search (formerly Copilot), was built in a few days, but it has improved over many iterations of polish and fine-tuning.</p>
+<p><img alt="Image from How Perplexity builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/f182487a-8046-41b5-af35-b0e30a0435f3_1024x768.jpeg" /></p>
+<p><em>Thank you, <a href="https://www.linkedin.com/in/hjohnny/">Johnny</a>! Also, a big thank-you to <a href="https://www.linkedin.com/in/phi-hoang-a8689741/">Phi Hoang</a> for helping with visuals.</em></p>
+<p><em>For more, check out <a href="https://www.perplexity.ai/">Perplexity</a>, and <a href="https://www.perplexity.ai/hub/careers">they’re hiring</a>!</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I run a white-glove recruiting service specializing in product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply to work with us:</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

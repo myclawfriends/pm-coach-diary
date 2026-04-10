@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Navigating your early career — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Navigating your early career</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Navigating your early career</div>
+    
+    <div class="article-meta">2020-08-11<span>·</span>1,995 words</div>
+    <div class="tags-row"><span class="mini-tag">職涯</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">工程</span> <span class="mini-tag">創業</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><h2><strong>Q: How can one plan a better career path when I’m in my early 20s? Things like knowing what role to be in a company, when to quit a job, when and set out for another new adventure?</strong></h2>
+<blockquote>
+<p>“You can’t connect the dots looking forward; you can only connect them looking backward. So you have to trust that the dots will somehow connect in your future. You have to trust in something — your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life.”</p>
+<p>— Steve Jobs</p>
+<p>“Everybody has a plan until they get punched in the mouth.”</p>
+<p>— Mike Tyson</p>
+</blockquote>
+<p>Surprisingly, Steve Jobs and Mike Tyson have the same career advice: You can plan all you want, but it won’t work out the way you expect. Instead, they suggest, follow your interests — be they building computers or punching people in the mouth — and only looking backward will it make any sense.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!Wdes!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fa2e30ca4-8424-46ed-8b6c-19292325fc6f_480x392.gif"><img alt="Image from Navigating your early career" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a2e30ca4-8424-46ed-8b6c-19292325fc6f_480x392.gif" /></a></p>
+<p>I’ve found this to be spot-on.</p>
+<p>When I was in high school, the main thing I knew was that I wanted to work with computers. I read every computer programming book I could find (often buying, reading, and returning them to save money 🤫). This led me to a number of odd jobs fixing, teaching, and programming computers. Which led me to study computer science in college. Which led me to a job as an engineer at a startup, which led me to start my own company, which led me to join Airbnb, which unexpectedly led me to this newsletter adventure.</p>
+<p>Looking back, each step along this journey was an important building block to enable me to do what I do now. Looking forward, never in a million years would I have imagined I’d be spending my time writing a newsletter.</p>
+<p>But that isn’t actually helpful, is it? When you’re in your 20s, you can’t just sit around, follow your passions and hope good things happen. Because they often won’t. You need to plan ahead and be smart about your choices.</p>
+<p>So below are five strategies I’ve found valuable in navigating my own early career. I certainly don’t have all of the answers, and I’m no master career strategist, but I’ll share what worked for me. Plus, in addition to my own experience, I’ve integrated a selection of the advice that <a href="https://twitter.com/lennysan/status/1292260280517287937">some of you shared on Twitter</a> over the past few days.</p>
+<h3>1. Don’t over-optimize for the resume</h3>
+<p>I made this drawing back in 2012, while deciding between a couple of career paths, and I still think about it:</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!sz_l!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F8029ae6c-4b34-44c2-9da4-18cfddbb9eac_1280x1280.jpeg"><img alt="Image from Navigating your early career" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8029ae6c-4b34-44c2-9da4-18cfddbb9eac_1280x1280.jpeg" /></a></p>
+<p>Many of our career decisions early on are driven by a need to check checkboxes:</p>
+<p>✔️ Go to a top school</p>
+<p>✔️ Become a manager</p>
+<p>✔️ Work at a unicorn startup</p>
+<p>✔️ Get a fancy title</p>
+<p>✔️ Start a company</p>
+<p>Why do we do this? Because <em>one day</em> we’ll finally be able to do what you’ve always wanted to do. When will this happen? Oh, just after I get that one last ✔️ on my resume.</p>
+<p>What I’ve learned is that the pressure to keep building your resume <em>never</em> ends. And more importantly, you can often do what you <em>actually</em> want to do much sooner, without that perfect resume. Don’t lose sight of what you’re ultimately after.</p>
+<h3>2. Follow your interests — but not in a vacuum</h3>
+<p><a href="https://www.youtube.com/watch?v=IIMu1PGbG-0">Watch on YouTube</a></p>
+<blockquote>
+<p>“<strong>Passion is not something you follow</strong>. It’s something that will follow you as you put in the hard work to become valuable to the world.”</p>
+<p>— <a href="https://www.nytimes.com/2012/09/30/jobs/follow-a-career-passion-let-it-follow-you.html">Cal Newport</a></p>
+</blockquote>
+<p>When I consider career opportunities, I always come back to this Venn diagram:</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!PGOV!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0a9ba31-863b-4077-94ea-d2d50cd9391c_1912x1326.png"><img alt="Image from Navigating your early career" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b0a9ba31-863b-4077-94ea-d2d50cd9391c_1912x1326.png" /></a></p>
+<p>What people often miss when following their passions/interests is creating value for others. Without that, it’s just a hobby or a dead-end. You won’t always know what you enjoy or what you’re good at until you try it, but I try to make this my north star.</p>
+<p>One suggestion to make this easier — <strong>strive to do more of the things that give you energy</strong>, and less of the things that sap it. Over time, you’ll gravitate towards the right work.</p>
+<h3>3. When you’re comfy for too long – shake things up</h3>
+<blockquote>
+<p>“<strong>It is not that we have a short time to live, but that we waste a lot of it</strong>. Life is long enough, and a sufficiently generous amount has been given to us for the highest achievements if it were all well invested.”</p>
+<p>— Seneca</p>
+</blockquote>
+<p>I was at my first job out of college for nine years. I was at my second job (not counting my startup) for seven years. Loyalty is great, and you learn a lot sticking with a problem and an organization for a long period of time, but looking back, I got a bit too comfy and stuck around too long. And when I think about the most pivotal moments in my career, they always came at the end of these long stretches: Leaving that first job led to my startup, and leaving that second job led to this newsletter.</p>
+<p>If you find yourself feeling too comfortable (and you have the means), make a change. Switch teams, switch roles, switch companies. Life is short.</p>
+<h3>4. Work with great people</h3>
+<blockquote>
+<p>“We are the average of the five people we spend the most time with”</p>
+<p>— Jim Rohn</p>
+</blockquote>
+<p>Once your career begins, you’ll spend more time with your co-workers than most anyone else in your life. As a result, these people will significantly influence the trajectory of your career, particularly:</p>
+<ul>
+<li>Which skills you build</li>
+<li>How high you set your bar</li>
+<li>The quality of the network you build</li>
+</ul>
+<p>It’s crazy to me how little we know about our future colleagues when choosing a new job. When looking for a job, I’d spend just as much time digging into the people as you spend on the actual job details.</p>
+<p>For sure get to know your future hiring manager and your future team before you take a role, but also focus on the company culture. People will come and go, but the culture will remain. Ask yourself: Does this company attract the kind of people I want to work with? Will they push me to get better? And are these the people who I aspire to become?</p>
+<h3>5. Never stop learning</h3>
+<blockquote>
+<p>“The more that you read, the more things you will know. The more that you learn, the more places you'll go.”</p>
+<p>— Dr. Seuss</p>
+</blockquote>
+<p>At the risk of revealing how nerdy I was in school, I got my very first job while taking an <a href="https://www.microsoft.com/en-us/learning/mcse-certification.aspx">MCSE</a> certification test the summer after my sophomore year of high school. What is the MCSE you ask? It’s a “certification program from Microsoft that enables IT Professionals and Developers to validate their technical expertise through rigorous, industry-proven, and industry-recognized exams” 🤮</p>
+<p>I took the test in a small room inside an adult computer training school in Los Angeles. As I was leaving to go home, after completing (and passing) the test, I walked past a lady who happened to run the school. She looked at me — a 16-year-old kid taking this test that normally only middle-aged IT professionals take, and on the spot offered me a job to teach at the school.</p>
+<p>The job ended up being super lame, but it was an important stepping stone towards my next job – building websites for a small web agency. This experience taught me that good things happen when you follow your interests and learn for learning’s sake.</p>
+<p>Those are five strategies that have helped me most, but for <em>much</em> more incredible advice, check out these two Twitter threads with THOUSANDS of pieces of advice:</p>
+<ol>
+<li><a href="https://twitter.com/lennysan/status/1292260280517287937">What’s the best career advice you got in your 20s?</a></li>
+<li><a href="https://twitter.com/abhineezy/status/1292917832527708160">What’s the *worst* advice you got in your 20s?</a></li>
+</ol>
+<p>Here’s a selection of some of my favorites:</p>
+<h3>Further recommended reading</h3>
+<ol>
+<li><a href="https://www.amazon.com/Good-They-Cant-Ignore-You-ebook/dp/B0076DDBJ6/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">So Good They Can't Ignore You: Why Skills Trump Passion in the Quest for Work You Love</a> by Cal Newport</li>
+<li><a href="https://www.amazon.com/How-Fail-Almost-Everything-Still-ebook/dp/B00COOFBA4">How to Fail at Almost Everything and Still Win Big</a> by Scott Adams</li>
+<li><a href="https://www.amazon.com/Subtle-Art-Not-Giving-Counterintuitive-ebook/dp/B019MMUA8S/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life</a> by Mark Manson</li>
+<li><a href="https://www.amazon.com/Great-Work-Performers-Better-Achieve-ebook/dp/B074ZKB2QT/ref=sr_1_2?crid=FL07GUHN4X8F&amp;dchild=1&amp;keywords=great+at+work&amp;qid=1597000341&amp;s=digital-text&amp;sprefix=great+at+work%2Cdigital-text%2C239&amp;sr=1-2">Great at Work: The Hidden Habits of Top Performers</a> by Morten T. Hansen</li>
+<li><a href="https://www.amazon.com/Habits-Highly-Effective-People-Powerful-ebook/dp/B01069X4H0/ref=bmx_4/135-7532039-2376341?_encoding=UTF8&amp;pd_rd_i=B01069X4H0&amp;pd_rd_r=12670d60-bb05-466e-97b7-7312a7535b8f&amp;pd_rd_w=F9MUj&amp;pd_rd_wg=thzAQ&amp;pf_rd_p=2876eb4f-6f13-4a84-8c22-9ec887c09643&amp;pf_rd_r=KYA7NYNXA6V7APDJBSVR&amp;psc=1">The 7 Habits of Highly Effective People</a> by Stephen R. Covey</li>
+</ol>
+<p>If you have any of your own advice to share, please post them in the comments below.</p>
+<p><a href="https://www.lennysnewsletter.com/p/navigating-your-early-career-issue/comments">Leave a comment</a></p>
+<p>Till next week!</p>
+<h2>🔥 <strong>Job opportunities</strong></h2>
+<ul>
+<li><strong>Product</strong>: <a href="https://angel.co/company/kudo-meeting/jobs/913705-product-manager">KUDO</a> (NY), <a href="https://jobs.all-hands.us/companies/uptime2020/jobs/product-manager-2-5943a3d1-9819-417b-aee9-fc6a563b276e">Uptime2020</a> (Remote)</li>
+<li><strong>Growth</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4076601003">Cerebral</a> (Remote), <a href="https://jobs.lever.co/outschool/4f18d9fe-516b-4285-a5df-357f6cff5b92">Outschool</a> (Remote)</li>
+<li><strong>Design</strong>: <a href="https://www.cascade.io/jobs/analytical-product-designer">Cascade</a> (SF), <a href="https://jobs.lever.co/pachama/f4f49853-9d59-4dcc-9d0b-143ca63a53d2">Pachama</a> (Bay area), <a href="https://www.notion.so/Founding-Designer-San-Francisco-d1296f25efcc43a7833fd28ea3952b39">Primer</a> (SF), <a href="https://hire.withgoogle.com/public/jobs/getresqcom/view/P_AAAAAAJAAAZNCnYKqm8MiR">ResQ</a> (Toronto), <a href="https://sourcetable.com/jobs#contract-designer">Sourcetable</a> (Remote)</li>
+<li><strong>Engineering lead</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4076598003">Cerebral</a> (Remote), <a href="https://jobs.lever.co/snackpass/00505223-bc85-4c28-8e4b-31217d05c2de">Snackpass</a> (Remote)</li>
+<li><strong>Frontend engineer</strong>: <a href="https://www.cascade.io/jobs/front-end-product-engineer">Cascade</a> (SF), <a href="https://www.notion.so/levelshealth/Join-Levels-Remote-Developer-58454f0db7e3466692f7b75db6237ddf">Levels</a> (Remote), <a href="https://www.notion.so/Founding-Frontend-Engineer-San-Francisco-783c2072b9c047a88cb884babb47ef04">Primer</a> (SF), <a href="https://transformdata.io/careers/">Transform</a> (SF)</li>
+<li><strong>Backend engineer</strong>: <a href="https://sourcetable.com/jobs#backend-engineer">Sourcetable</a> (SF), <a href="https://transformdata.io/careers/">Transform</a> (SF)</li>
+<li><strong>Fullstack engineer</strong>: <a href="https://www.notion.so/Software-Developer-e7cad269968e4d5aaeb1f6da9e282626">Centered</a> (Remote), <a href="https://icebreaker.video/product-engineer">Icebreaker</a> (Remote), <a href="https://jobs.lever.co/snackpass/7c3bb72b-70d3-45ca-9dea-eea57ed5333d">Snackpass</a> (Remote), <a href="https://projectwren.com/careers/software-engineer">Wren</a> (west coast)</li>
+<li><strong>iOS engineer</strong>: <a href="https://www.notion.so/Lead-iOS-Developer-ba18577b6ba44ad68e45b8e7a957353c">Pairplay</a> (Remote)</li>
+<li><strong>Sales/BD</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4105169003">Cerebral</a> (Remote), <a href="https://angel.co/company/kudo-meeting/jobs/649855-vice-president-of-sales">KUDO</a> (NY/SF), <a href="https://jobs.lever.co/pachama/996cdde4-737b-4794-ad0f-d726448c3dfb">Pachama</a> (Bay area), <a href="https://angel.co/company/swayable/jobs/808347-director-of-sales">Swayable</a> (NY)</li>
+<li><strong>Community</strong>: <a href="https://jobs.lever.co/outschool/449fa54a-1778-4255-a95d-a65dc28194c7">Outschool</a> (SF)</li>
+<li><strong>Security</strong>: <a href="https://angel.co/company/kudo-meeting/jobs/592999-cybersecurity-compliance-program-manager">KUDO</a> (NY)</li>
+<li><strong>HR</strong>: <a href="https://boards.greenhouse.io/cerebral/jobs/4125981003">Cerebral</a> (Remote)</li>
+</ul>
+<h2><strong>🧠 Inspiration for the week</strong></h2>
+<ol>
+<li><strong>Watch:</strong> Steve Jobs’ 2005 Stanford commencement speech</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=UF8uR6Z6KLc">Watch on YouTube</a></p>
+<ol>
+<li><strong>Listen</strong>: <a href="https://nav.al/rich">How to get rich</a> by Naval</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=1-TZqOsVCNM">Watch on YouTube</a><br />
+3. <strong>Read</strong>: <a href="https://www.brainpickings.org/2014/09/01/seneca-on-the-shortness-of-life/">The Shortness of Life: Seneca on Busyness and the Art of Living Wide Rather Than Living Long</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider <a href="https://www.lennyrachitsky.com/">sharing it with friends</a>, or subscribing if you aren’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

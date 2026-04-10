@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A year free of PostHog ($16,500 value): The all-in-one analytics, experimentation, feature flag, surveys, session replay, error tracking, data warehouse, LLM analytics platform — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">A year free of PostHog ($16,500 value): The all-in…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">A year free of PostHog ($16,500 value): The all-in-one analytics, experimentation, feature flag, surveys, session replay, error tracking, data warehouse, LLM analytics platform</div>
+    
+    <div class="article-meta">2025-12-02<span>·</span>871 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">創業</span> <span class="mini-tag">B2B</span> <span class="mini-tag">職涯</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Fav AI/PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">Fav public speaking course</a></em>**</p>
+<p><em>This Giving Tuesday, I’m partnering again with <a href="https://givedirectly.org/lenny">GiveDirectly</a> and over two dozen other Substack writers to send cash to every family across three villages in rural Rwanda. If we’re successful, over </em><em>800 families</em><em> in extreme poverty will each receive $1,100, no strings attached, to spend on what they need most. </em><em>All donations today, December 2, 2025, will also be 1.5x matched</em><em> (while funds last). </em><em>Please donate 👇</em>**</p>
+<p><a href="https://givedirectly.org/lenny">Give now and get matched</a></p>
+<p><img alt="Image from A year free of PostHog ($16,500 value): The all-in-one analytics" src="https://substack-post-media.s3.amazonaws.com/public/images/09ab6ac0-f9ab-4d44-8d79-9b2c3f2a6b0d_1457x971.png" /></p>
+<p>I’m excited to welcome <a href="https://posthog.com/">PostHog</a> to the <a href="https://lennysproductpass.com/">Lenny’s Newsletter Product Pass</a> 🎉</p>
+<p><strong>All annual Lenny’s Newsletter subscribers now get one full year’s worth of PostHog Scale</strong> <strong><em>and</em></strong> <strong>2x the free-tier credits, a $16,500 value.</strong> This deal is available to <em>all</em> annual subscribers, and brings the total value of the <a href="https://lennysproductpass.com/">Product Pass</a> to <strong>over $25,000</strong>. Simply absurd.</p>
+<p><em>This is the first time PostHog has ever offered a deal like this, and you won’t find it anywhere else. Like all Product Pass deals, you must be a new PostHog customer to take advantage of the deal. See <a href="https://www.lennysnewsletter.com/i/168890236/important-offer-details-read-before-subscribing">Product Pass terms here</a>.</em></p>
+<p>PostHog helps you build successful products by giving you literally every piece of SaaS that you need: <strong>analytics</strong>, <strong>experimentation</strong>, <strong>feature flags</strong>, <strong>session replay</strong>, <strong>error tracking</strong>, <strong>data warehouse</strong>, <strong>LLM analytics,</strong> <strong>surveys</strong>, and <a href="https://posthog.com/products">more</a>—all in one platform. In the words of the founders, “We keep adding new capabilities at a pace that’s borderline unreasonable.”</p>
+<p><img alt="PostHog – We make dev tools for product engineers" src="https://substack-post-media.s3.amazonaws.com/public/images/0ba1efd8-6b7f-447b-bafd-d99042ab5d18_1200x632.png" /></p>
+<p>The all-in-one platform strategy that PostHog is executing is really interesting to me. I rarely see it done this well, because it’s hard to do. But if you pull it off—like they are—you can build a generational business. Being able to follow an issue from a session recording, to its impact in analytics, to shipping a fix as a feature flag, to testing a variant, to collecting feedback with surveys—that’s the holy grail.</p>
+<p>Side note: I stupidly had a chance to invest in PostHog early on and passed because I didn’t think this strategy would work 🤦. I’m just happy to get to work with them on this collaboration now.</p>
+<p>Oh, they also just launched <a href="https://posthog.com/ai">PostHog AI</a>, which integrates with all of the products and lets you ask questions about your data, magically create dashboards, build surveys using natural language, summarize session replays, and more. <a href="https://youtube.com/playlist?list=PLnOY1RYHjDfzBX5wsSUHwLj91xuGnH5Ci&amp;si=WS2ElJSPw5UE7h-v">More how-to videos here</a>.</p>
+<p>In addition to all the wonderful products PostHog offers, there’s so much to love about how the PostHog team operates:</p>
+<ol>
+<li>Their <a href="https://posthog.com/">website</a> is 🤌</li>
+<li>Their <a href="https://posthog.com/handbook/story">story</a> is inspiring.</li>
+<li>Their <a href="https://posthog.com/community/profiles/27732">vibes</a> are hilarious.</li>
+<li>
+<p>Their <a href="https://posthog.com/blog">company blog</a> is one of the most genuinely useful and high-signal-to-noise company blogs out there. A model for how to do content marketing. Some examples:</p>
+</li>
+<li>
+<p><a href="https://posthog.com/blog/ceo-diary-6">I’ve consistently underestimated how important communication is as a CEO</a></p>
+</li>
+<li><a href="https://posthog.com/founders/first-1000-users">How we got our first 1,000 users</a></li>
+<li><a href="https://posthog.com/founders/startup-sales-strategy">How to do startup sales with no experience</a></li>
+<li><a href="https://posthog.com/newsletter/job-interview-questions-engineers">Job interview questions engineers should ask (but don’t)</a></li>
+<li><a href="https://posthog.com/blog/brand">How not to be boring</a></li>
+</ol>
+<p>Over 300,000 companies use PostHog, including 65% of every YC batch, Lovable, Supabase, ElevenLabs, and even Y Combinator itself.</p>
+<p>Twice the free credits gives you tons of room to scale (90% of their users never exceed their already-generous free tier), and the Scale add-on gives you all the features you need to grow: priority support, white labeling, unlimited projects, HIPAA BAA, SAML, SSO + advanced permissions, audit logs, extended session replay retention, and more. If you’re already a subscriber, <a href="https://lennysproductpass.com/">redeem your free account here</a>. Otherwise 👇</p>
+<p>Increasingly, your Lenny’s Newsletter subscription is becoming your product builder’s starter pack: <strong>all the tools, guidance, and community you need to build, launch, and grow a world-class product (and career). For just $200-$350/year.</strong></p>
+<p><img alt="Image from A year free of PostHog ($16,500 value): The all-in-one analytics" src="https://substack-post-media.s3.amazonaws.com/public/images/418562e3-0649-407d-898f-d3774d9134a7_2912x1880.png" /></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

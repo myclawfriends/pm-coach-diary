@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My all-time favorite reads on product, growth, leadership, writing, investing, and much more — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">My all-time favorite reads on product, growth, lea…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">My all-time favorite reads on product, growth, leadership, writing, investing, and much more</div>
+    
+    <div class="article-meta">2021-10-05<span>·</span>3,718 words</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2B</span> <span class="mini-tag">成長</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: I’m taking some time off and looking to study up on all things product and company building. Any recommendations?</h2>
+</blockquote>
+<p>For the past three years, I’ve been keeping a private collection of all my favorite reads/listens/watches: around 200 of the most actionable, highest signal-to-noise content I’ve come across on product, growth, investing, writing, and much more.</p>
+<p>Access to <a href="https://coda.io/@lennysan/lennys-newsletter-community-resources">this collection</a> has been a perk of your paid subscription, but many of you didn’t know it existed, aren’t sure how to find it, and honestly, it’s gotten a bit stale. Inspired by your question, I’ve spent the past week cleaning it up—removing posts that haven’t stood the test of time and adding dozens more.</p>
+<p><strong>Below, I present my all-time favorite content across seven subjects:</strong></p>
+<ol>
+<li><strong>🚀 Growth</strong></li>
+<li><strong>🌱 Startups</strong></li>
+<li><strong>✍️ Writing</strong></li>
+<li><strong>💸 Angel investing</strong></li>
+<li><strong>🦸‍♂️ Product management</strong></li>
+<li><strong>👑 Leadership</strong></li>
+<li><strong>🏗 Frameworks</strong></li>
+</ol>
+<p>I’m certain I’ve missed many great pieces of content. You can <a href="https://coda.io/form/Nominate-a-resource_dzwJdExoJuW">nominate</a> your favorite posts to be added or just reply and share it with me—seriously, please do that 🙏. You can also <a href="https://coda.io/@lennysan/lennys-newsletter-community-resources">visit the full directory here</a> anytime. Within some of these categories, for completeness, I’ve included some of my own writing that has been particularly helpful to readers (and that I’m particularly proud of).</p>
+<p>Finally, some advice for not getting overwhelmed by this amount of content:</p>
+<ol>
+<li>Pick the one subject you’re most curious about <em>right now</em> and read just a few of the pieces</li>
+<li>Save this email and come back to it when you’re looking for inspiration in a subject</li>
+<li>Archive this email immediately and get back to work</li>
+</ol>
+<p><img alt="Image from My all-time favorite reads on product, growth, leadership, writing, investing" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b9654246-b8b0-432c-bdd9-12776264fa26_2048x1024.png" /></p>
+<h2>🚀 Growth</h2>
+<h4>General</h4>
+<ol>
+<li><a href="https://www.paulgraham.com/growth.html">Startup = growth</a> by Paul Graham</li>
+<li><a href="https://www.reforge.com/blog/growth-wins">Growth wins</a> by Casey Winters, Brian Balfour, and Kevin Kwok</li>
+<li><a href="https://www.youtube.com/watch?v=n_yHZ_vKjno">Growth</a> by Alex Schultz</li>
+<li><a href="https://www.julian.com/guide/growth/intro">Growing a startup</a> by Julian Shapiro</li>
+</ol>
+<h4>Growth strategy</h4>
+<ol>
+<li><a href="https://www.reforge.com/blog/growth-loops">Growth loops are the new funnels</a> by Brian Balfour</li>
+<li><a href="https://brianbalfour.com/four-fits-growth-framework">Four fits for $100m+ growth</a> by Brian Balfour</li>
+<li><a href="https://a16z.com/2017/06/09/distribution-model-sales-channels/">Distribution</a> by Ben Horowitz</li>
+<li><a href="https://andrewchen.com/power-user-curve/">The power user curve</a> by Andrew Chen</li>
+<li><a href="https://www.reforge.com/blog/racecar-growth-framework">The racecar growth framework</a> by Dan Hockenmaier and myself</li>
+<li><a href="https://review.firstround.com/drive-growth-by-picking-the-right-lane-a-customer-acquisition-playbook-for-consumer-startups">Drive growth by picking the right lane</a> by Dan Hockenmaier and myself</li>
+</ol>
+<h4>B2B sales</h4>
+<ol>
+<li><a href="https://www.foundingsales.com/">Founding sales</a> by Pete Kazanjy</li>
+<li><a href="https://blog.eladgil.com/2019/10/fear-of-sales.html">Fear of sales</a> by Elad Gil</li>
+<li><a href="https://a16z.com/2020/12/03/adding-top-down-sales-bottom-up-enterprise-startup/">The “$20M to $500m” question: Adding top down sales</a> by a16z</li>
+<li><a href="https://www.kracov.co/writing/b2b-saas-marketing-guide">B2B SaaS marketing guide</a> by Alex Kracov</li>
+<li><a href="https://www.kracov.co/writing/founder-sales">How I’ve approached founder-led sales</a> by Alex Kracov</li>
+<li><a href="https://medium.com/the-mission/the-best-sales-pitch-ive-seen-all-year-7fa92afaa248">The greatest sales pitch I’ve seen all year</a> by Andy Raskin</li>
+<li><a href="https://sacks.substack.com/p/simple-math-to-set-up-a-sales-team">Simple math to set up a sales team</a> by David Sacks</li>
+<li><a href="https://review.firstround.com/Positioning-Your-Startup-is-Vital-Heres-How-to-Do-It-Right">Positioning your startup is vital—here’s how to nail it</a> by Arielle Jackson</li>
+<li><a href="https://www.lennysnewsletter.com/p/positioning">Positioning</a> by April Dunford</li>
+</ol>
+<h4>B2B GTM</h4>
+<ol>
+<li><a href="https://www.field-guide.unusual.vc/chapters-enterprise/the-modern-go-to-market">The modern GTM</a> by Unusual Ventures</li>
+<li><a href="https://docs.google.com/presentation/d/1YoaOOX6a2SR7exE4roSg1AxYOxFykCEUS6roYyUtydU/edit">GTM nirvana</a> by Caroline Clark</li>
+<li><a href="https://medium.com/sequoia-capital/the-market-curve-44097b626f6d">The market curve</a> by Mike Vernal</li>
+<li><a href="https://review.firstround.com/this-gtm-leader-turned-investor-crowdsources-early-lessons-from-stripe-figma-and-more#lesson-3-beware-of-abandoning-founder-led-sales-prematurely-but-be-ready-to-scale-immediately-once-you-find-true-market-pull">This GTM-leader-turned-investor crowdsources early lessons from Stripe, Figma &amp; more</a> by Meka Asonye</li>
+</ol>
+<h4>PLG / Bottom-up</h4>
+<ol>
+<li><a href="https://www.field-guide.unusual.vc/field-guide-enterprise/introduction-to-plg-product-led-growth">Introduction to PLG (product-led growth)</a> by Sandhya Hegde</li>
+<li><a href="https://www.field-guide.unusual.vc/field-guide-enterprise/picking-a-gtm-motion">Picking a GTM motion</a> by John Vrionis</li>
+<li><a href="https://wfh.substack.com/p/how-david-sacks-built-the-first-bottom">How David Sacks built the first bottom-up playbook for enterprise</a> by Bri Kimmel</li>
+<li><a href="https://www.lennysnewsletter.com/p/sales-bottom-up">The Transition: Layering sales onto a bottom-up self-serve product</a> by Pete Kazanjy</li>
+<li><a href="https://a16z.com/2020/07/29/growthsales-the-new-era-of-enterprise-go-to-market/">Growth + sales: The new era of enterprise go-to-market</a> by Peter Lauten and Martin Casado</li>
+<li><a href="https://andrewskotzko.com/how-to-know-if-youre-interviewing-at-a-product-led-company/">How to know if you’re interviewing at a product-led company</a> by Andrew Skotzko</li>
+<li><a href="https://mattryall.net/blog/product-led-growth">Product-led growth lessons from Atlassian</a> by Matt Ryall</li>
+<li><a href="https://blog.stage2.capital/the-product-led-growth-plg-playbook-for-b2b-startups">The product-led-growth (PLG) playbook for B2B startups</a> by Mark Roberge</li>
+</ol>
+<h4>SEO</h4>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/crafting-an-seo-strategy-issue-34">Winning at SEO</a> by Brian Ta</li>
+<li><a href="https://ryanberg.co/how-zapier-reached-35m-arr-with-this-saas-seo-strategy/">The SEO strategy Zapier used to reach $140M ARR</a> by Ryan Berg</li>
+<li><a href="https://foundationinc.co/lab/masterclass-empire/">How MasterClass built an $800M edtech empire in just 5 years</a></li>
+<li><a href="https://foundationinc.co/lab/canva-seo">The Canva backlink empire: How SEO, outreach &amp; content led to a $6B valuation</a></li>
+<li><a href="https://www.openphone.co/blog/how-we-grew-our-saas-blog-traffic-to-30k-monthly-visits-in-6-months/">How we grew our SaaS blog traffic to 30k monthly visits in 6 months</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/content-driven-growth-strategy">Content-driven growth</a> (by me)</li>
+</ol>
+<h4>Marketplaces</h4>
+<ol>
+<li><a href="https://sarahtavel.medium.com/the-hierarchy-of-marketplaces-introduction-and-level-1-983995aa218e">The hierarchy of marketplaces</a> by Sarah Tavel</li>
+<li><a href="https://a16z.com/2020/02/20/marketplace-engagement/">Four paths to marketplace success</a> by D’Arcy Coolican</li>
+<li><a href="https://kwokchain.com/2020/01/23/underutilized-fixed-assets/">Underutilized fixed assets</a> by Kevin Kwok</li>
+<li><a href="https://a16z.com/2021/03/31/marketplace-supply-strategy/">Marketplace supply strategy</a> by Casey Winters and Anne Lewandowski</li>
+<li><a href="https://sarahtavel.medium.com/white-space-for-building-a-marketplace-how-to-find-your-competitions-vulnerabilities-and-79674aa4d399">“White space” for building a marketplace</a> by Sarah Tavel</li>
+<li><a href="https://caseyaccidental.com/marketplace-types">Sequencing business models: The types of marketplaces</a> by Casey Winters</li>
+<li><a href="https://a16z.com/marketplace-100/">The a16z Marketplace 100: 2021</a> by D’Arcy Coolican and Brandon Barros</li>
+<li><a href="https://www.firehose.vc/p/firehose-194-operating-leverage-">Operating leverage</a> by Alex Taussig</li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">How to kickstart and scale a marketplace business</a> (by me)</li>
+</ol>
+<h4>Growth team structure</h4>
+<ol>
+<li><a href="https://www.thetwentyminutevc.com/casey-winters/">How to hire a head of growth</a> by Casey Winters and Harry Stebbings</li>
+<li><a href="https://www.reforge.com/blog/growth-system">Building growth: product, process, and team</a> by Brian Balfour, Casey Winters, and Kevin Kwok</li>
+<li><a href="https://cxl.com/blog/dont-build-growth-teams/">I’ve built multiple growth teams. Here’s why I won’t do it again</a> by Lars Lofgren</li>
+</ol>
+<h2>🌱 Startups</h2>
+<h4>General</h4>
+<ol>
+<li><a href="https://blog.samaltman.com/startup-advice">Startup advice</a> by Sam Altman</li>
+<li><a href="https://www.paulgraham.com/startuplessons.html">The hardest lessons for startups to learn</a> by Paul Graham</li>
+<li><a href="https://www.youtube.com/watch?v=C27RVio2rOs">Building product</a> by Michael Seibel</li>
+<li><a href="https://medium.com/craft-ventures/the-cadence-how-to-operate-a-saas-startup-436aa8099e8">The cadence: How to operate a SaaS startu</a>p by David Sacks</li>
+<li><a href="https://future.a16z.com/north-star-metrics/">Choosing your north star metric</a> (by me)</li>
+</ol>
+<h4>Fundraising</h4>
+<ol>
+<li><a href="https://www.beautiful.ai/player/-LiSV45O9K1sE8uv5oMj/On-Presentations">On presentations</a> by Siqi Chen</li>
+<li><a href="https://www.ycombinator.com/library/3b-advice-on-pitching">Advice on pitching</a> by Aaron Harris (YC)</li>
+<li><a href="https://medium.com/startup-grind/all-the-public-startup-pitch-decks-in-one-place-7d3ddff33bdc">All the public startup pitch decks in one place</a> by Andy Sparks</li>
+<li><a href="https://www.lennysnewsletter.com/p/a-playbook-for-fundraising">A playbook for fundraising</a> by Marc McCabe</li>
+<li><a href="https://www.field-guide.unusual.vc/field-guide-enterprise/fundraising-milestones-valuations">The unusual guide for raising seed and Series A capital</a> by John Vrionis</li>
+<li><a href="https://www.sequoiacap.com/article/writing-a-business-plan/#">Writing a business plan</a> by Sequoia</li>
+<li><a href="https://www.ycombinator.com/library/4A-a-guide-to-seed-fundraising">A guide to seed fundraising</a> by Geoff Ralston (YC)</li>
+<li><a href="https://schlaf.me/ondeck/">How to run an investment process</a> by Steve Schlafman</li>
+<li><a href="https://blog.pear.vc/2021/08/03/marketsizing/">Market sizing guide</a> by Pear VC</li>
+<li><a href="https://mrallenmiller.medium.com/lets-talk-series-bs-9733cc2eebf1">Let’s talk Series Bs</a> by Allen Miller</li>
+</ol>
+<h4>Product-market fit</h4>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=bpnYFG1-rdk">Do you have product market fit?</a> by Casey Winters</li>
+<li><a href="https://podcasts.apple.com/us/podcast/andy-rachleff-on-how-to-know-if-youve-got-product-market-fit/id1488560647?i=1000458416917">Andy Rachleff on “How to know if you’ve got product market fit”</a></li>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-know-if-youve-got-productmarket">How to know if you’ve got product-market fit</a> (by me)</li>
+<li><a href="https://www.lennysnewsletter.com/p/what-it-feels-like-when-youve-found">What it feels like when you've found product-market fit</a> (by me)</li>
+<li><a href="https://www.lennysnewsletter.com/p/time-to-product-market-fit">How long it takes to find product-market fit</a> (by me)</li>
+<li><a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29">What is good retention?</a> (by me)</li>
+</ol>
+<h4>Pricing strategy</h4>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/saas-pricing-strategy">Pricing your SaaS product</a> by Patrick Campbell</li>
+<li><a href="https://a16z.com/2021/03/11/bottom-up-pricing-packaging-let-the-user-journey-be-your-guide/">Bottom up pricing &amp; packaging: Let the user journey be your guide</a> by Jennifer Li and Martin Casado</li>
+<li><a href="https://tomtunguz.com/seat-vs-usage-based-pricing/">Per seat or per use pricing: A framework for evaluating the right strategy for your startup</a> by Tomasz Tunguz</li>
+<li><a href="https://review.firstround.com/pricing-lessons-from-working-with-30-seed-and-series-a-b2b-startups">Pricing lessons from working with 30+ seed and Series A B2B startups</a> by Tyler Gaffney</li>
+</ol>
+<h4>Financials</h4>
+<ol>
+<li><a href="https://sacks.substack.com/p/the-burn-multiple-51a7e43cb200">The burn multiple</a> by David Sacks</li>
+<li><a href="https://every.to/napkin-math/cash-conversion-cycle-bridging-the-18577406">Cash conversion cycle: Bridging the gap between profitability &amp; cash flow</a> by Adam Keesling</li>
+<li><a href="https://www.indexventures.com/optionplan/#expected_funding_rounds_pre_exit=series-b-and-c&amp;employee_country=us&amp;mode=seed">Benchmarks of option plans</a> by Index Ventures</li>
+</ol>
+<h4>Co-founder relationship</h4>
+<ol>
+<li><a href="https://schlaf.me/cofounder/">Investing in your co-founder relationship to weather the storm</a> by Steve Schlafman</li>
+<li><a href="https://review.firstround.com/the-founder-dating-playbook-heres-the-process-i-used-to-find-my-co-founder">The founder dating playbook: Here’s the process I used to find my co-founder</a> by Gloria Lin</li>
+<li><a href="https://www.lennysnewsletter.com/p/saving-your-co-founder-relationship">Healing your co-founder relationship</a> by Carole Robin</li>
+</ol>
+<h4>Working remotely</h4>
+<ol>
+<li><a href="https://about.gitlab.com/company/culture/all-remote/guide/">GitLab’s guide to all-remote</a></li>
+<li><a href="https://zapier.com/learn/remote-work/">Zapier’s guide to working remotely</a></li>
+</ol>
+<h2>✍️ Writing</h2>
+<ol>
+<li><a href="https://www.paulgraham.com/useful.html">How to write usefully</a> by Paul Graham</li>
+<li><a href="https://www.amazon.com/dp/B0090RVGW0/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">On Writing Well</a> by William Zinsser</li>
+<li><a href="https://dilbertblog.typepad.com/the_dilbert_blog/2007/06/the_day_you_bec.html">The day you became a better writer</a> by Scott Adams</li>
+<li><a href="https://perell.com/essay/why-you-should-write/">Why you should write</a> by David Perell</li>
+<li><a href="https://www.julian.com/guide/write/intro">Writing well</a> by Julian Shapiro</li>
+<li><a href="https://perell.com/note/write-for-yourself/">Write for one person</a> by David Perell</li>
+<li><a href="https://www.amazon.com/Writing-10th-Anniversary-Memoir-Craft/dp/1439156816">On Writing: A Memoir of the Craft</a> Stephen King</li>
+</ol>
+<h2>💸 Angel investing</h2>
+<ol>
+<li><a href="https://nav.al/angel-1">How to angel invest</a> by Naval</li>
+<li><a href="https://www.paulgraham.com/angelinvesting.html">How to be an angel investor</a> by Paul Graham</li>
+<li><a href="https://sacerdoti.medium.com/investing-in-public-non-obvious-lessons-from-100-angel-investments-a5951985593e">Investing in public: Non-obvious lessons from 100+ angel investments</a> by Tod Sacerdoti</li>
+<li><a href="https://spearhead.co/blog">Spearhead blog</a> by Naval and Nivi</li>
+<li><a href="https://www.amazon.com/Angel-Invest-Technology-Startups-Timeless-Investor/dp/0062560700">Angel</a> by Jason Calacanis</li>
+</ol>
+<h2>🦸‍♂️ Product management</h2>
+<h4>General</h4>
+<ol>
+<li><a href="https://medium.com/@noah_weiss/10-traits-of-great-pms-a7776cd3d9cd">10 traits of great PMs</a> by Noah Weiss</li>
+<li><a href="https://medium.com/the-year-of-the-looking-glass/building-products-91aa93bea4bb">Building products</a> by Julie Zhuo</li>
+<li><a href="https://blackboxofpm.com/product-management-mental-models-for-everyone-31e7828cb50b">Product management mental models for everyone</a> by Brandon Chu</li>
+<li><a href="https://www.sachinrekhi.com/3-types-of-product-managers-builders-tuners-innovators">3 types of product managers: Builders, tuners, innovators</a> by Sachin Rekhi</li>
+<li><a href="https://newsletter.bringthedonuts.com/p/what-makes-a-strong-product-culture">What makes a strong product culture?</a> by Ken Norton</li>
+<li><a href="https://svpg.com/good-product-team-bad-product-team/">Good product team/bad product team</a> by Marty Cagan</li>
+<li><a href="https://svpg.com/executive-engagement/">Executive engagement</a> by Marty Cagan</li>
+<li><a href="https://hackernoon.com/observations-on-product-management-3abc7e00148e">Observations on product management</a> by Dan Hill</li>
+<li><a href="https://www.quora.com/What-distinguishes-the-Top-1-of-product-managers-from-the-Top-10/answer/Ian-McAllister?srid=3wR&amp;st=ns">What distinguishes the top 1% of product managers from the top 10%?</a> by Ian McAllister</li>
+</ol>
+<h4>Templates</h4>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37">My favorite product management templates</a> (by me)</li>
+<li><a href="https://docs.google.com/document/d/1aPAOEvYbT9gsSUUtucANjcKQf1J5CqMwLgbMhuAiQxY/edit">Growth experiment write-up template</a> by David Ly Khim</li>
+<li><a href="https://hypercontext.com/goal-examples">180+ OKR and goal examples</a></li>
+</ol>
+<h4>The PM role</h4>
+<ol>
+<li><a href="https://boz.com/articles/communication-is-the-job">Communication is the job</a> by Boz</li>
+<li><a href="https://www.reforge.com/blog/product-specializations">The growing specialization of product management</a> by Adam Fishman and Keya Patel</li>
+<li><a href="https://www.ravi-mehta.com/product-manager-skills/">How to become a peak product manager</a> by Ravi Mehta</li>
+<li><a href="https://www.youtube.com/watch?v=24F8WlyMR00">Dropbox VP, product and growth Adam Nash on great product leaders</a></li>
+<li><a href="https://www.sachinrekhi.com/how-am-i-going-to-move-my-product-forward-today">How am I going to move my product forward today?</a> by Sachin Rekhi</li>
+<li><a href="https://www.sachinrekhi.com/a-leaders-guide-to-implementing-okrs">A leader’s guide to implementing OKRs</a> by Sachin Rekhi</li>
+<li><a href="https://medium.com/@johnpcutler/time-management-tips-for-product-managers-925e4ac5efa9">Time management: Tips for product managers</a> by John Cutler</li>
+<li><a href="https://www.lennysnewsletter.com/p/jobs-of-product-manager">Product management career ladders</a> (by me)</li>
+<li><a href="https://www.lennysnewsletter.com/p/product-management-survey">A comprehensive survey of product management</a> (by me)</li>
+</ol>
+<h4>Getting into PM</h4>
+<ol>
+<li><a href="https://www.lennysnewsletter.com/p/how-to-get-into-product-management">How to get into product management</a> (by me)</li>
+<li><a href="https://twitter.com/sriramk/status/1249860579994435585">Breaking into PMing</a> by Sriram Krishnan</li>
+<li><a href="https://www.sachinrekhi.com/podcast-how-to-break-into-product-management">How to break into product management</a> by Sachin Rekhi</li>
+</ol>
+<h4>Strategy</h4>
+<ol>
+<li><a href="https://www.amazon.com/dp/B004J4WKEC/">Good Strategy Bad Strategy</a> by Richard Rumelt</li>
+<li><a href="https://hackernoon.com/wtf-is-a-strategy-bcaa3fda9a31">WTF is strategy?</a> by Vince Law</li>
+<li><a href="https://blackboxofpm.com/applying-leverage-as-a-product-manager-ffad4a99db24">Applying leverage as a product manager</a> by Brandon Chu</li>
+<li><a href="https://sloanreview.mit.edu/article/how-to-become-a-strategic-leader/">How to become a strategic leader</a> by Julie Zhuo</li>
+<li><a href="https://gibsonbiddle.medium.com/intro-to-product-strategy-60bdf72b17e3">How to define your product strategy</a> by Gibson Biddle</li>
+<li><a href="https://boz.com/articles/strategy-tactics">Mission, strategy, and tactics</a> by Boz</li>
+<li><a href="https://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management">Working backwards</a> by Ian McAllister</li>
+<li><a href="https://www.lennysnewsletter.com/p/getting-better-at-product-strategy">Getting better at product strategy</a> (by me)</li>
+</ol>
+<h4>Vision</h4>
+<ol>
+<li><a href="https://www.amazon.com/Magic-Thinking-Big-David-Schwartz-ebook/dp/B00NGZIR92/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">The Magic of Thinking Big</a> by David Joseph Schwartz</li>
+<li><a href="https://medium.com/@m2jr/how-to-build-a-breakthrough-3071b6415b06">How to build a breakthrough</a> by Mike Maples, Jr.</li>
+<li><a href="https://laurabehrenswu.com/2019/02/14/a-founders-guide-to-coming-up-with-a-strategy/">A founder’s guide to coming up with vision and strategy</a> by Laura Behrens Wu</li>
+</ol>
+<h4>Execution</h4>
+<ol>
+<li><a href="https://www.ycombinator.com/library/4e-product-development-cycle-fundamentals">Product development cycle fundamentals</a> by Michael Seibel</li>
+<li><a href="https://blackboxofpm.com/making-good-decisions-as-a-product-manager-c66ddacc9e2b">Making good decisions as a product manager</a> by Brandon Chu</li>
+<li><a href="https://thinkgrowth.org/your-job-is-not-to-make-every-possible-customer-happy-f59a59595af">Your job is not to make every possible customer happy</a> by Steve Blank</li>
+<li><a href="https://www.sachinrekhi.com/how-am-i-going-to-move-my-product-forward-today">How am I going to move my product forward today?</a> by Sachin Rekhi</li>
+<li><a href="https://www.amazon.com/dp/B078FZ9SYB/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Measure What Matters</a> by John Doerr</li>
+<li><a href="https://blog.farbodsaraf.com/p/miros-product-alignment-approach">Miro’s product alignment approach</a> by Farbod Saraf</li>
+<li><a href="https://medium.com/the-year-of-the-looking-glass/the-agony-and-ecstasy-of-building-with-data-56215764d67c">The agony and ecstasy of building with data</a> by Julie Zhuo</li>
+<li><a href="https://blackboxofpm.com/deadlines-d6925e5c694f">Deadlines</a> by Brandon Chu</li>
+<li><a href="https://uxdesign.cc/how-to-solve-problems-6bf14222e424">A three-step framework for solving problems</a> (by me)</li>
+<li><a href="https://www.lennysnewsletter.com/p/prioritizing">Prioritizing</a> (by me)</li>
+</ol>
+<h4>Communication</h4>
+<ol>
+<li><a href="https://www.heavybit.com/library/video/executive-communication/">Executive communication</a> by Michael Dearing</li>
+<li><a href="https://hbr.org/2016/11/how-to-write-email-with-military-precision">How to write email with military precision</a> by Kabir Sehgal (HBR)</li>
+<li><a href="https://www.lennysnewsletter.com/p/minto-pyramid-principle-scr">The Minto pyramid principle and the SCR Framework</a> (by me)</li>
+</ol>
+<h4>Design</h4>
+<ol>
+<li><a href="https://medium.muz.li/how-to-identify-good-design-in-6-steps-e35da387b7c9">How to identify good design in 6 steps</a> by José Torre</li>
+<li><a href="https://blog.standuply.com/10-exercises-to-train-product-thinking-cda9882327b7">10 exercises to train product thinking</a> by Alex Kistenev</li>
+<li><a href="https://medium.com/the-year-of-the-looking-glass/how-to-work-with-designers-6c975dede146">How to work with designers</a> by Julie Zhuo</li>
+<li><a href="https://merci.medium.com/training-your-product-intuition-276a7f8965b6">Training your product intuition</a> by Merci Victoria Grace</li>
+<li><a href="https://uxtools.co/blog/">UX Tools</a></li>
+</ol>
+<h4>User research</h4>
+<ol>
+<li><a href="https://svpg.com/discovery-learning-vs-insights/">Discovery: Learning vs. insights</a> by Marty Cagan</li>
+<li><a href="https://www.producttalk.org/2017/03/ladder-of-evidence/">The ladder of evidence: Get more value from your customer interviews and product experiments</a> by Teresa Torres</li>
+<li><a href="https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/">Why you only need to test with 5 users</a> by Jakob Nielsen</li>
+</ol>
+<h4>Hiring and interviewing</h4>
+<ol>
+<li><a href="https://www.bringthedonuts.com/essays/productmanager.html">How to hire a product manager</a> by Ken Norton</li>
+<li><a href="https://www.amazon.com/Cracking-PM-Interview-Product-Technology-ebook-dp-B00ISYMUR6/dp/B00ISYMUR6/ref=mt_other?_encoding=UTF8&amp;me=&amp;qid=1604518122">Cracking the PM Interview</a> by Jackie Bavaro and Gayle Laakmann McDowell</li>
+<li><a href="https://jackiebo.medium.com/interview-tips-for-senior-pms-2424f7b7c967">Interview tips for senior PMs</a> by Jackie Bavaro</li>
+<li><a href="https://productmanagerhq.com/product-manager-interview-create-a-product-roadmap/">Product manager interview: Create a product roadmap</a> by Clement Kao</li>
+<li><a href="https://review.firstround.com/our-6-must-reads-if-youre-hiring-a-product-manager">Our 6 must reads if you’re hiring a product manager</a> by First Round Capital</li>
+<li><a href="https://theskip.substack.com/p/stage-of-company-not-name-of-company">Stage of company, not name of company</a> by Nikhyl Singhal</li>
+</ol>
+<h4>Managing and leadership</h4>
+<ol>
+<li><a href="https://themanagershandbook.com/">The Manager’s Handbook</a> by Alex MacCaw</li>
+<li><a href="https://www.amazon.com/dp/B079WNPRL2/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">The Making of a Manager</a> by Julie Zhuo</li>
+<li><a href="https://adamnash.blog/2011/12/16/be-a-great-product-leader/">Be a great product leader</a> by Adam Nash</li>
+<li><a href="https://ev.medium.com/the-job-of-leadership-757e4bc3e539">The job of leadership is to foster alignment and enthusiasm toward the right goal</a> by Ev Williams</li>
+<li><a href="https://review.firstround.com/how-to-craft-your-product-team-at-every-stage-from-pre-product-market-fit-to-hypergrowth">How to craft your product team at every stage, from pre-product/market fit to hypergrowth</a> by Nikhyl Singhal</li>
+<li><a href="https://blackboxofpm.com/managing-and-developing-product-managers-2f9a3963fab6">Managing and developing product managers</a> by Brandon Chu</li>
+<li><a href="https://www.reforge.com/blog/crossing-the-canyon-product-manager-to-product-leader">Crossing the canyon: Product manager to product leader</a> by Fareed Mosavat and Casey Winters</li>
+</ol>
+<h4>Books</h4>
+<ol>
+<li><a href="https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756/ref=sr_1_3?dchild=1&amp;qid=1633218032&amp;s=books&amp;sr=1-3&amp;text=Patrick+Lencioni">The Five Dysfunctions of a Team</a> by Patrick Lencioni</li>
+<li><a href="https://www.amazon.com/Difficult-Conversations-Discuss-What-Matters/dp/0143118447/ref=sr_1_1?crid=3UHZA5822BT7I&amp;dchild=1&amp;keywords=difficult+conversations&amp;qid=1633218077&amp;s=books&amp;sprefix=diffi%2Cstripbooks%2C381&amp;sr=1-1">Difficult Conversations</a> by Douglas Stone, Bruce Patton, and Sheila Heen</li>
+<li><a href="https://www.amazon.com/gp/product/B000XUBC04/ref=dbs_a_def_rwt_bibl_vppi_i1">Quiet Leadership</a> by David Rock</li>
+<li><a href="https://www.amazon.com/INSPIRED-Create-Tech-Products-Customers-ebook/dp/B077NRB36N/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=1604518136&amp;sr=8-1">INSPIRED</a> by Marty Cagan</li>
+<li><a href="https://www.amazon.com/dp/B078FZ9SYB/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Measure What Matters</a> by John Doerr</li>
+<li><a href="https://www.amazon.com/High-Output-Management-Andrew-Grove-ebook/dp/B015VACHOK/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=1604518093&amp;sr=8-1">High Output Management</a> by Andy Grove</li>
+<li><a href="https://www.amazon.com/Good-Strategy-Bad-Difference-Matters/dp/0307886239/ref=sr_1_2?crid=6Y4216VBY4SS&amp;dchild=1&amp;keywords=good+strategy+bad+strategy&amp;qid=1604518099&amp;sprefix=good+stra%2Caps%2C221&amp;sr=8-2">Good Strategy Bad Strategy</a> by Richard Rumelt</li>
+<li><a href="https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375/ref=sr_1_3?crid=166R5M9J274R&amp;dchild=1&amp;keywords=radical+candor&amp;qid=1604518107&amp;sprefix=radical+cando%2Caps%2C220&amp;sr=8-3">Radical Candor</a> by Kim Scott</li>
+<li><a href="https://www.amazon.com/gp/product/B00HJUBRPG/ref=dbs_a_def_rwt_bibl_vppi_i0">Don't Make Me Think, Revisited</a> by Steve Krug</li>
+<li><a href="https://www.amazon.com/dp/B01H4G2J1U/ref=cm_sw_em_r_mt_dp_JQhTFb87JRW2A">The Mom Test</a> by Rob Fitzpatrick</li>
+<li><a href="https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/ref=sr_1_1?crid=2295ECMZR7NCW&amp;dchild=1&amp;keywords=the+design+of+everyday+things&amp;qid=1604518114&amp;sprefix=the+design+of%2Caps%2C219&amp;sr=8-1">The Design of Everyday Things</a> by Don Norman</li>
+<li><a href="https://www.amazon.com/gp/product/0307887898/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0307887898&amp;linkCode=as2&amp;tag=bdickason-20&amp;linkId=81b071dc5c7a3de02e958da0b043dbeb">The Lean Startup</a> by Eric Ries</li>
+</ol>
+<h2>👑 Leadership</h2>
+<ol>
+<li><a href="https://docs.google.com/document/d/1ZJZbv4J6FZ8Dnb0JuMhJxTnwl-dwqx5xl0s65DE3wO8/mobilebasic">The Great CEO Within</a> by Matt Mochary</li>
+<li><a href="https://larahogan.me/blog/etsy-lessons/">Etsy lessons</a> by Lara Hogan</li>
+<li><a href="https://medium.com/@katiemdill/to-show-recognition-try-speaking-a-different-language-2f5b0682820c">To show recognition, try speaking a different language</a> by Katie Dill</li>
+<li><a href="https://review.firstround.com/The-Best-Approach-to-the-Worst-Conversation">The best approach to the worst conversation: “You’re fired</a>” by Michael Lopp</li>
+<li><a href="https://coda.io/@shishir/executive-onboarding">Shishir’s tips for executive onboarding</a> by Shishir Mehrotra</li>
+<li><a href="https://sriramk.com/exec-101-first-thirty-days">Exec 101: First 30 days</a> by Sriram Krishnan</li>
+<li><a href="https://boz.com/articles/career-cold-start">A career cold start algorithm</a> by Boz</li>
+<li><a href="https://growth.eladgil.com/book/the-role-of-the-ceo/role-of-the-ceo-managing-yourself/#say-no">Say no</a> by Elad Gil</li>
+</ol>
+<h2>🏗 Frameworks</h2>
+<ol>
+<li><a href="https://jtbd.info/2-what-is-jobs-to-be-done-jtbd-796b82081cca">Jobs to be done (JTBD)</a> by Alan Klement</li>
+<li><a href="https://www.atlassian.com/team-playbook/plays/daci">DACI decision-making framework</a></li>
+<li><a href="https://coda.io/@gokulrajaram/gokuls-spade-toolkit">Gokul’s S.P.A.D.E. Toolkit</a></li>
+<li><a href="https://twitter.com/shreyas/status/1399042778613485578">Product management frameworks</a> by Shreyas Doshi</li>
+<li><a href="https://docs.google.com/document/d/1-UiEeoiV0xBFVZgid63FRaph03OCmHzyEExubn63j0U/preview?pru=AAABd3tL7t4%2AnXt0OF-ZzdI8U_ZK8RlDbQ#heading=h.by5ehyjf5695">Frameworks v0.2</a> by Chris Paik</li>
+<li><a href="https://stratechery.com/2015/aggregation-theory/">Aggregation theory</a> by Ben Thompson</li>
+<li><a href="https://www.eugenewei.com/blog/2019/2/19/status-as-a-service">Status as a service</a> by Eugene Wei</li>
+</ol>
+<p><a href="https://coda.io/@lennysan/lennys-newsletter-community-resources">Visit the directory</a></p>
+<p><em>Anything missing? Please <a href="https://coda.io/form/Nominate-a-resource_dzwJdExoJuW">nominate</a> anything else you’ve found useful. And have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Brace:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/f04ce367-5a1f-462e-a79d-725870b8eded">Senior Product Manager</a> (NYC)</li>
+<li><strong>Goldin Auctions:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/9c678421-6315-445c-a735-9362904b5229">Director of Marketing</a> (Remote-Global)</li>
+<li><strong>Highlight:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/6db63ec8-0421-4e06-9908-0376f44c2f99">Founding Blockchain Engineer</a> (Remote-Global)</li>
+<li><strong>Pinpoint:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/70b2de44-b90f-4d37-a146-948144a92873">Product Manager</a> (Remote-Global)</li>
+<li><strong>Aescape:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/117d35d9-a9b3-49d0-82df-b27a6c074e0f">Product Management Lead</a> (Brooklyn, NY)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c4bde52c-d66e-4b42-96fb-2ba861f72e27">Senior Growth Product Manager</a> (Remote-US)</li>
+<li><strong>Mynd:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/b6da1eaa-5a2b-4ad4-92f9-5ac4b9f764e5">Product Lead, Internal Tools</a> (Remote-US)</li>
+<li><strong>CHPTR:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/c96f89cb-0288-4028-ae4d-f380567449de">Founding Back-End Engineer</a> (Remote-US)</li>
+<li><strong>Permutive:</strong> <a href="https://pallet.xyz/list/lennys-jobs/jobs/1ff1e376-ab34-4138-ba4a-822475672a93">Senior Product Manager</a> (NYC)</li>
+<li><strong>CloudTrucks:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/68d092da-db3a-4f25-8b95-2072342c18fe">Product Manager-Console</a> (SF)</li>
+<li><strong>Fairchain:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/f2963b88-7eaf-4b4d-9788-4b58f5c6b785">Software Engineer, Full Stack</a> (NYC)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=5">Legend</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=4">Great</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=3">Good</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=2">OK</a> • <a href="https://a.sprig.com/672d7967625042535f477e7369643a3434363132?r=1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

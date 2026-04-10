@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Essential reading for product builders—part 2 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Essential reading for product builders—part 2</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Essential reading for product builders—part 2</div>
+    
+    <div class="article-meta">2025-08-12<span>·</span>2,254 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">策略</span> <span class="mini-tag">領導</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to a </em><em>🔒 paid edition 🔒</em><em> of my weekly newsletter. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">Courses</a></em>**</p>
+<p><em>P.S. Annual subscribers get a free year of 15+ premium products: </em><em><a href="https://www.lennysnewsletter.com/p/productpass">Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, and ChatPRD</a></em><em> (while supplies last). </em><em><a href="https://www.lennysnewsletter.com/subscribe?">Subscribe now</a>.</em>**</p>
+<p>Less than a month ago I published <a href="https://www.lennysnewsletter.com/p/essential-reading-for-product-builderspart">part 1 of this series</a>, and it’s already my <a href="https://www.lennysnewsletter.com/archive?sort=top">9th most popular post of all time</a>. This tells me there’s a growing need for curated, thoughtful content as an antidote to the endless slop filling our feeds and inboxes.</p>
+<p>To continue building an essential reading library for product leaders, I’ve picked 10 more timeless reads that you probably haven’t read but should. This includes a handful that popped into my mind after I published part 1, suggestions you sent me, and a few honorary mentions for extra credit. The pieces below cover a wide spectrum of advice around growth, leadership, communication, entrepreneurship, and more.</p>
+<p>I’m not including books here—that list is yet to come. If you have suggestions for essays I’m still sleeping on, please share them in the comments. 🙏</p>
+<p><a href="https://www.lennysnewsletter.com/p/essential-reading-for-product-builderspart-1ac/comments">Leave a comment</a></p>
+<p><em>You can listen to this post in convenient podcast form here: <a href="https://open.spotify.com/show/0IIunA06qMtrcQLfypTooj">Spotify</a> / <a href="https://podcasts.apple.com/us/podcast/lennys-reads/id1810314693">Apple</a> / <a href="https://www.youtube.com/@lennysreads">YouTube</a></em></p>
+<p><img alt="Image from Essential reading for product builders—part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/77f6a1f9-9234-41fc-b5ee-d4e1c0e3d07b_2912x1940.png" /></p>
+<h3><strong>1. <a href="https://medium.com/the-year-of-the-looking-glass/building-products-91aa93bea4bb">Building Products</a>, by Julie Zhuo</strong></h3>
+<blockquote>
+<ol>
+<li>“A product succeeds because it solves a problem for people. This sounds very basic, but it is the single most important thing to understand about building good products.</li>
+<li>The first step in building something new is understanding what problem you want to solve, and for whom. This should be crystal clear before you start thinking about any solutions.</li>
+<li>The second question you should ask yourself is ‘Why is this particular problem worth solving?’</li>
+<li>If the audience you are building for is narrowly defined (and one that you are a part of), then you may be able to rely on your intuition to guide your product decision-making. If not, then you should rely on research and data to inform your decisions.</li>
+<li>If you are a start-up founder, your path will be easier if you go after a problem for a narrowly defined audience, and then expand to broader audiences after you have some initial traction.</li>
+<li>The problem you’re trying to solve should be easy to communicate in a sentence or two and resonate with someone from your target audience. If not, consider that a big red flag.”</li>
+</ol>
+</blockquote>
+<h3><strong>2. <a href="https://boz.com/articles/communication-is-the-job">Communication Is the Job</a>, by Andrew Bosworth</strong></h3>
+<blockquote>
+<p>“When I’m doing a poor job of communicating it can feel like I’m pushing with a rope. I have some clear vision in my head and people just aren’t doing what I expect. It can be a frustrating experience and it is tempting to blame the audience for not understanding. But make no mistake, when this happens, it is your fault. You have to sit down and ask questions from a place of humility to hear what they took away from what you said. Take full responsibility for any discrepancy from what you intended and make corrections with your entire audience.”</p>
+</blockquote>
+<h3><strong>3. <a href="https://www.heavybit.com/library/video/executive-communication/">Executive Communication</a>, by Barbara Minto via Michael Dearing</strong></h3>
+<blockquote>
+<p>“The best executive communication starts with ‘Situation.’ The nickname for this is SCQA, or the Pyramid Principle.</p>
+<p>The best executive communication starts with the state of affairs. It’s fact-based, unambiguous. It’s totally not controversial. No matter what side of an issue or a hard choice you’re on, you should be able to read the situation and go, ‘That pretty much sums it up.’ Whether you’re on one side or another of an issue, it doesn’t matter. You should read the situation and agree to it. Agree that’s fair.</p>
+<p>The next thing that comes out is the complication. A crisp, short statement about what has changed or what’s making things harder. What’s changed, what’s making things harder? The question, the ‘Q,’ falls automatically out of ‘S’ and ‘C’ and it’s almost always ‘What should we do?’ You can save yourself a lot of anxiety if you’re trying to practice this. If you get hung up on ‘Q,’ it’s almost always ‘What should we do?’</p>
+<p>‘Answer,’ ‘A,’ answer first at the top of a pyramid. Pyramid-shape your evidence underneath it, and it has to resolve the complication 100%. […] Every conversation in [your] life is an opportunity to SCQA. Friends, loved ones, pets, conversations at the deli counter, everything.”</p>
+</blockquote>
+<p><img alt="Image from Essential reading for product builders—part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/b4b4289c-bfc8-4853-a95a-f0d7a41aa076_676x398.png" /></p>
+<h3><strong>4. <a href="https://a16z.com/distribution/">Distribution</a>, by Ben Horowitz</strong></h3>
+<blockquote>
+<p>“When I ask new entrepreneurs what their distribution model will be, I often get answers like: ‘I don’t want to hire any of those Rolex-wearing, BMW-driving, overly aggressive enterprise sales slimeballs, so we are going to distribute our product like Dropbox did.’ In addition to taking stereotyping to a whole new level, this answer demonstrates a deep misunderstanding of how sales channels should be designed.</p>
+<p>What is a sales channel? It’s a route to market for a product or set of products. It can range from your website to a sophisticated sales force. The sale itself must be supported with the right marketing, process, and optimization strategy. Selecting the right channel is critical for any business—and products often fail because the company chose the wrong route to market.”</p>
+</blockquote>
+<h3><strong>5. <a href="https://medium.com/sequoia-capital/the-market-curve-44097b626f6d">The Market Curve</a>, by Mike Vernal</strong></h3>
+<blockquote>
+<p>“The market you choose to serve is one of the most important factors for an early-stage startup. And for most technologists, it’s a blind spot. To help, we wanted to share one way of thinking about market. […]</p>
+<p>The simplest and most important way to think about market size is (a) how many potential customers are there and (b) what might each customer be worth to you. […]</p>
+<p>Thinking about the number of customers and the revenue per customer is a tremendously clarifying way to think about a single company.”</p>
+</blockquote>
+<p><img alt="Image from Essential reading for product builders—part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/39b591b0-8d1d-4cad-b3bf-0b2ef74fc513_1210x582.png" /></p>
+<h3><strong>6. <a href="https://brianbalfour.com/four-fits-growth-framework">The Four Fits</a>, by Brian Balfour</strong></h3>
+<blockquote>
+<p>“How do you grow? The ‘go-to’ answer for almost every question in startups is ‘build a great product’ or you need ‘product market fit.’ Every time I hear that answer, it feels completely [unsatisfying]. Building a great product is a piece of the puzzle, but it’s far from the full picture. There are terrible products that have reached $1B+ and amazing products that never make it anywhere. Why is that?”</p>
+</blockquote>
+<p><img alt="Image from Essential reading for product builders—part 2" src="https://substack-post-media.s3.amazonaws.com/public/images/fa9fae11-cf31-482b-9eae-8b7e8beddb68_1782x1230.png" /></p>
+<h3><strong>7. <a href="https://paulgraham.com/growth.html">Startup = Growth</a>, by Paul Graham</strong></h3>
+<blockquote>
+<p>“A startup is a company designed to grow fast. Being newly founded does not in itself make a company a startup. Nor is it necessary for a startup to work on technology, or take venture funding, or have some sort of ‘exit.’ The only essential thing is growth. Everything else we associate with startups follows from growth.”</p>
+</blockquote>
+<h3><strong>8. <a href="https://review.firstround.com/give-away-your-legos-and-other-commandments-for-scaling-startups/">Give Away Your Legos</a>, by Molly Graham</strong></h3>
+<blockquote>
+<p>“The best metaphor I have for scaling is building one of those huge, complex towers out of Legos. At first, everyone’s excited. Scaling a team is a privilege. Being inside a company that’s a rocket ship is really cool. There are so many Legos! You could build anything. At the beginning, as you start to scale, everyone has so many Legos to choose from—they’re doing 10 jobs—and they’re all part of building something important.</p>
+<p>You have so many choices and things to build during this early phase that it’s easy to get overwhelmed. There’s too much work—too many Legos. You’re not sure you can do it all yourself. Soon, you decide you need help. So you start to add people. That’s when something funny happens on a personal level and to teams: People get nervous. […]</p>
+<p>Almost everything about scaling is counterintuitive. And one of the foremost examples is that reacting to the emotions you’re having as your team adds more people is usually a bad idea<strong>.</strong> Everyone’s first instinct is to grab back the Legos that the new kid took—to fight them for that part of the tower or to micromanage the way they’re building the tower. But the best way to manage scaling (and one of the secrets to succeeding in a rapidly growing company) is to ignore those instincts, and go find a bigger and better Lego tower to build. Chances are if you pick your head up and look around, there’s a brand-new exciting pile of Legos sitting right next to you.”</p>
+</blockquote>
+<h3><strong>9. <a href="https://medium.com/@stewart/we-dont-sell-saddles-here-4c59524d650d">We Don’t Sell Saddles Here</a>, by Stewart Butterfield</strong></h3>
+<blockquote>
+<p>“Consider the hypothetical Acme Saddle Company. They could just sell saddles, and if so, they’d probably be selling on the basis of things like the quality of the leather they use or the fancy adornments their saddles include; they could be selling on the range of styles and sizes available, or on durability, or on price.</p>
+<p>Or, they could sell <em>horseback riding</em>. Being successful at selling horseback riding means they grow the market for their product while giving the perfect context for talking about their saddles. It lets them position themselves as the leader and affords them different kinds of marketing and promotion opportunities (e.g., sponsoring school programs to promote riding to kids, working on land conservation or trail maps). It lets them think big and potentially be big.”</p>
+</blockquote>
+<h3><strong>10. <a href="https://www.paulgraham.com/schlep.html">Schlep Blindness</a>, by Paul Graham</strong></h3>
+<blockquote>
+<p>“One of the many things we do at Y Combinator is teach hackers about the inevitability of schleps. No, you can’t start a startup by just writing code. I remember going through this realization myself. There was a point in 1995 when I was still trying to convince myself I could start a company by just writing code. But I soon learned from experience that schleps are not merely inevitable, but pretty much what business consists of. A company is defined by the schleps it will undertake. […]</p>
+<p>The most striking example I know of schlep blindness is Stripe, or rather Stripe’s idea. For over a decade, every hacker who’d ever had to process payments online knew how painful the experience was. Thousands of people must have known about this problem. And yet when they started startups, they decided to build recipe sites, or aggregators for local events. Why? Why work on problems few care much about and no one will pay for, when you could fix one of the most important components of the world’s infrastructure? Because schlep blindness prevented people from even considering the idea of fixing payments.</p>
+<p>Probably no one who applied to Y Combinator to work on a recipe site began by asking ‘Should we fix payments, or build a recipe site?’ and chose the recipe site. Though the idea of fixing payments was right there in plain sight, they never saw it, because their unconscious mind shrank from the complications involved. You’d have to make deals with banks. How do you do that? Plus you’re moving money, so you’re going to have to deal with fraud, and people trying to break into your servers. Plus there are probably all sorts of regulations to comply with. It’s a lot more intimidating to start a startup like this than a recipe site.</p>
+<p>That scariness makes ambitious ideas doubly valuable. In addition to their intrinsic value, they’re like undervalued stocks in the sense that there’s less demand for them among founders. If you pick an ambitious idea, you’ll have less competition, because everyone else will have been frightened off by the challenges involved. (This is also true of starting a startup generally.)”</p>
+</blockquote>
+<h3>Honorary mentions:</h3>
+<ul>
+<li><a href="https://coda.io/@shishir/eigenquestions-the-art-of-framing-problems">Eigenquestions: The Art of Framing Problems</a><strong>,</strong> by Shishir Mehrotra and Matt Hudson</li>
+<li><a href="https://www.bringthedonuts.com/essays/what-makes-a-strong-product-culture/">What Makes a Strong Product Culture?</a>, by Ken Norton</li>
+<li><a href="https://medium.com/the-year-of-the-looking-glass/how-to-work-with-designers-6c975dede146">How to Work with Designers</a>, by Julie Zhuo</li>
+<li><a href="https://andrewchen.com/the-next-feature-fallacy-the-fallacy-that-the-next-new-feature-will-suddenly-make-people-use-your-product/">The Next Feature Fallacy</a>, by Andrew Chen</li>
+<li><a href="https://blackboxofpm.com/product-management-mental-models-for-everyone-31e7828cb50b">Product Management Mental Models for Everyone</a>, by Brandon Chu</li>
+</ul>
+<h4><strong>What’s still missing from this list? Share it in the comments (along with the impact it had on you). Bonus points for stuff people may not have heard of 👇</strong></h4>
+<p><a href="https://www.lennysnewsletter.com/p/essential-reading-for-product-builderspart-1ac/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

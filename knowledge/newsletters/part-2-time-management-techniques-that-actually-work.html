@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Part 2: Time management techniques that actually work — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Part 2: Time management techniques that actually w…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Part 2: Time management techniques that actually work</div>
+    
+    <div class="article-meta">2024-08-27<span>·</span>2,056 words</div>
+    <div class="tags-row"><span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">職涯</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><h2>🚨 Enter to <strong>win an all-expenses-paid ticket to the Lenny &amp; Friends Summit</strong></h2>
+<p><a href="https://www.youtube.com/@LennysPodcast">My YouTube channel</a> just crossed 100,000 subscribers (😱), so to celebrate, and to thank you for listening, I’m hosting my biggest ever giveaway:</p>
+<p><strong>Win an all-expenses-paid ticket to the <a href="https://lennyssummit.com">Lenny &amp; Friends Summit</a> on October 24th in San Francisco. One lucky winner will get a ticket to the summit, a round-trip flight to San Francisco, and a hotel stay for two nights.</strong></p>
+<p>To enter, just subscribe to Lenny’s Podcast on Apple, Spotify, and YouTube, leave a rating, and fill out this form.</p>
+<p>Already did these things? You can still enter!</p>
+<p>I’ll pick a winner on August 29th and notify them by August 31st. Enter here. Good luck!</p>
+<p>Now, on to this week’s post…</p>
+<p>My post a few weeks ago on <a href="https://www.lennysnewsletter.com/p/time-management-techniques-that-actually">time management techniques that actually work</a> is on track to be my most popular post ever (wtf!). Since I left a bunch of tactics out of that post to keep it from feeling overwhelming, I’ve got seven more productivity tricks for you that I use regularly:</p>
+<h3>1. Set arbitrary deadlines</h3>
+<p>Deadlines work. Even arbitrary ones.</p>
+<p>One of my favorite techniques for getting someone to finish something that’s important but not urgent is to come up with an arbitrary deadline together. I say to the person, “Let’s come up with an arbitrary deadline!” We both know it’s made up, but there’s a weird gravitational pull once you’ve put a date out there.</p>
+<p>It’s important to have the person doing the work pick the deadline so that it’s a date that works for them. You’d be surprised how often it’s very reasonable. And how often they hit it.</p>
+<p>Pick a <a href="https://www.lennysnewsletter.com/i/147172995/keep-a-waiting-for-list">waiting-for</a> off your list that’s been lagging, and float the idea of picking an arbitrary deadline to that person.</p>
+<h3>2. Use pen and paper for your to-dos—and rewrite them each morning</h3>
+<p>Something I’ve learned about myself is that if my to-dos are sitting inside an app on my laptop, the one place I don’t want to look is that app on my laptop. There’s hard work to do there! Let’s check my email and Slack channels for the thousandth time instead.</p>
+<p>However, when my to-dos are sitting right in front of my face, in a nice notebook I can’t swipe away (and always have with me), I’m much more likely to see the work I need to do, and thus work on the things I should be working on.</p>
+<p><img alt="Image from Part 2: Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/ecefabf1-3d4b-4d0f-9fe9-aac1d7739d21_5712x3045.jpeg" /></p>
+<p>A secondary trick I found to be <em>super</em>-effective is to rewrite my to-dos each morning on a fresh page. I tear out the previous page, transferring anything that wasn’t done but is still a priority for today to the new page. I rethink <a href="https://www.lennysnewsletter.com/i/147172995/each-morning-write-down-just-things-you-have-to-accomplish-that-day">my top 1-3 priorities</a> and, in the process, remove stuff that I’ve been transferring for too many days.</p>
+<p>As a bonus, it also feels so damn nice to cross out a to-do physically, and tear out pages and throw them away. It may be irrational, but it’s much more satisfying than checking a checkbox in a to-do app.</p>
+<p>A reader shared the same advice with me:</p>
+<p><img alt="Image from Part 2: Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/fa4ec7f8-a0f3-430c-98f6-6f0b40dc1d38_1084x232.png" /></p>
+<h3>3. Say no to stuff you’ve said yes to</h3>
+<p>In the previous post, I shared a tactic for knowing when to say no: ask yourself, would I say yes if it were tomorrow? Well, often we still say yes, and today is now almost tomorrow. And you’re wishing you didn’t say yes.</p>
+<p>Here’s the good news: often you can still get out of it, without much issue. This will save you a bunch of time and stress, and it’s almost always not a big deal to that person. It just takes crafting the right message to that person.</p>
+<p>There are basically three routes you can take here:</p>
+<ol>
+<li><strong>Light:</strong> “Hey John, I see this presentation I offered to give is coming up, and I’m finding myself unexpectedly slammed right now. I’m still totally on board with giving it, but I wanted to just check—how important, and timely, is this presentation to your team? If it’s not that big of a deal, I’d love to skip it, or push it out. Let me know if that’s OK. But again, I don’t want to cause you trouble, so if it’s important, I’m still 100% happy to make it happen.”</li>
+<li><strong>Medium:</strong> “Hey Michelle, I noticed our meeting is coming up later this week. Any chance we could skip the meeting and knock it out over email async?”</li>
+<li><strong>Heavy:</strong> “Hey Steven, bad news. I won’t be able to make the coffee chat we have coming up next week. Something timely came up, and I need to prioritize it. Very sorry about this.” ← Try not to do this, but it’s also OK occasionally.</li>
+</ol>
+<p>Backing out of something can feel terrible, but once you’ve experienced the relief from not having to do something your former self agreed to, you’ll find there’s a lot of power here. Better still, you’ll get better at saying no in the first place.</p>
+<h3>4. Build out a library of text replacement snippets</h3>
+<p>Anytime I find myself writing out an address, phrase, or paragraph over and over again, I turn it into an auto-expanding snippet. I’ve created snippets for common email replies, URLs, email addresses, and sentences I find myself using often.</p>
+<p>To do this, I’ve settled on using an app called <a href="https://textexpander.com/individual">TextExpander</a>. It’s fugly, but has the best combination of features. Here’s a screenshot of some of my snippets:</p>
+<p><img alt="Image from Part 2: Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/b455d3a6-8283-4f85-830f-96997b27f9cc_742x872.png" /></p>
+<p>For most people, though, if you’re on a Mac, I’d highly recommend starting with the built-in <a href="https://support.apple.com/guide/mac-help/replace-text-punctuation-documents-mac-mh35735/mac">text replacement</a> feature. Go to <em>System Settings</em> → <em>Keyboard</em> → Click <em>Text Replacements</em> under <em>Text Input</em>. To poke your toes in the water, add a few replacements (click the “+” on the bottom left) for your email address(es), Calendly link, and a URL you often share. I settled on starting my snippets with “@@” since I never use this in regular writing, but some people like to start with “/” or “;” or “-”. Try stuff and see what feels natural.</p>
+<p><img alt="Image from Part 2: Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/dfca3e85-83b6-4c94-aa69-1978fc5144b7_892x524.png" /></p>
+<h3>5. <strong>Do an end-of-day calendar review for the next day/week</strong></h3>
+<p>At the end of each day, spend 15 minutes reviewing your calendar for the next day. And on Friday (or Sunday) evening, review your calendar for the week ahead. During this time:</p>
+<ol>
+<li>Review meetings you’ve got coming up, and think about what you need to do to be ready for them.</li>
+<li>Write out your <a href="https://www.lennysnewsletter.com/i/147172995/each-morning-write-down-just-things-you-have-to-accomplish-that-day">1-3 most important to-dos</a> in your notebook (see tip #2 above).</li>
+<li>Slot important to-dos into your calendar (<a href="https://www.lennysnewsletter.com/i/147172995/use-your-calendar-for-to-dos">per my advice in last week’s post</a>).</li>
+<li>Check in on <a href="https://www.lennysnewsletter.com/i/147172995/keep-a-waiting-for-list">waiting-for’s</a> that have been lagging.</li>
+<li>Look at meetings you can kill, or shift, in order to make your day more productive.</li>
+<li>Extra credit: Reflect on whether you used your day/week well. See tip #6 below.</li>
+</ol>
+<p>This one habit took my anxiety each morning from “holy shit I’ve got so much to do” to “I’ve got this.” You start feeling ahead of the curve versus always starting the day a little behind. Also, you can spot days/weeks where you’ve taken on way too much, and adjust (or simply set expectations) accordingly.</p>
+<p>My approach to making time for this process is to do it each afternoon right before I leave for the day, and then on Sunday evening. I know it’s not ideal to be working on Sunday evening, but I rarely get to this on Friday, and even spending 15 minutes before the craziness of the week kicks in has a huge impact on my week.</p>
+<p>Cal Newport has a technique he calls the <a href="https://calnewport.com/drastically-reduce-stress-with-a-work-shutdown-ritual/">work shutdown ritual,</a> where he takes this idea further and even says the words “schedule shutdown, complete” when he finishes it 😅 (Thank you to reader Beth Spencer for sharing this with me.)</p>
+<h3>6. Do a time and energy audit</h3>
+<p>What do you want to be spending your time on? I bet it’s things like longer-term strategy, in-depth product design feedback, identifying blockers coming around the curve, mentorship, and leveling up your writing/thinking in a few key docs and decks.</p>
+<p>What are you <em>actually</em> spending your time on? I bet it’s not that.</p>
+<p>Step one in addressing this mismatch is to see how you’re currently allocating your time, to identify your revealed preferences versus your stated preferences.</p>
+<p>I couldn’t find a good guide for how to do this well, so I asked Perplexity and <a href="https://www.perplexity.ai/search/i-want-to-do-a-time-audit-of-m-ymXFQqrFRKWqg88sX.qXnw">got a great answer</a>.</p>
+<p><img alt="Image from Part 2: Time management techniques that actually work" src="https://substack-post-media.s3.amazonaws.com/public/images/455b18af-0ed9-45b8-b1d0-a2f37d08b19f_1226x1276.png" /></p>
+<p>In addition to doing a time audit, I’ve also found an energy audit to be transformative. What type of work gives you energy? What saps you of energy? Wouldn’t that be good to know, so that you can do more of the former and less of the latter? Yes indeed.</p>
+<p>That audit will inform how you want your day-to-day schedule to ideally look, and will help you use your energy best throughout the day. <a href="https://beta.mocharymethod.com/blog-post/energy-audit">Here’s an amazing step-by-step guide</a> from Matt Mochary for how to do this, and here’s a video walk-through if you’d prefer:</p>
+<p><a href="https://www.youtube.com/watch?v=emAXGqwtPCk">Watch on YouTube</a></p>
+<h3>7. Set up your environment for flow</h3>
+<p>When have you felt the most productive? Where were you sitting, what were you wearing, what did you eat/drink, and what time of day was it? Learn what your mind and body need to get into the flow.</p>
+<p>For me, it’s:</p>
+<ol>
+<li>A good pair of over-ear headphones</li>
+<li>Binaural beats (e.g. <a href="https://my.brain.fm/payment?extended_promo=30">Brain.fm</a>)</li>
+<li>Caffeine (or something like <a href="https://magicmind.co/">Magic Mind</a>)</li>
+<li>Fast, reliable Wi-Fi</li>
+<li>Having 1 to 3 clear to-dos that I know I’ll be focusing on</li>
+<li>At least two hours to work, with confidence that I won’t be disturbed (<a href="https://www.lennysnewsletter.com/i/147172995/keep-do-not-disturb-mode-on">here’s tips for that</a>)</li>
+<li>Ideally, in the morning</li>
+</ol>
+<p>Knowing this, I make sure to have all of these in place whenever I need to get deep work done—basically, every day.</p>
+<p>What is this list for you? I’d actually love to know. Share it in the comments and see what other folks say too:</p>
+<p><a href="https://www.lennysnewsletter.com/p/part-2-time-management-techniques/comments">Leave a comment</a></p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=ephzgxgOjR0">How Future Billionaires Get Sh*t Done</a> by Y Combinator</li>
+<li><a href="https://www.youtube.com/watch?v=Y_bArdkS8NQ&amp;t=2s">Entrepreneur Life: Tips to manage your time as a startup founder</a> by Caya</li>
+<li><a href="https://pmarchive.com/guide_to_personal_productivity.html">Pmarca Guide to Personal Productivity</a> by Marc Andreessen</li>
+<li><a href="https://perell.com/note/leave-a-summary-for-yourself/">Leave a Summary for Yourself</a> by David Perell</li>
+</ol>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’ve got a white-glove recruiting service for senior product roles, working with a few select companies at a time. If you’re hiring, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

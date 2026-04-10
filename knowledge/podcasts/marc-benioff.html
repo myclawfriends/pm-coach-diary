@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Behind the founder: Marc Benioff — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Behind the founder: Marc Benioff</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Behind the founder: Marc Benioff</div>
+    
+    <div class="article-meta">2024-12-22<span>·</span>11,014 words<span>·</span>Marc Benioff</div>
+    <div class="tags-row"><span class="mini-tag">B2B</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span> <span class="mini-tag">策略</span> <span class="mini-tag">Podcast</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=tOGK1nlHdFo" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+I want to zoom back to the beginning of Salesforce. One of the most legendary launch events in startup history. Just looking back at that, any lessons from what you did right to get people to pay attention?</p>
+<p><strong>Marc Benioff</strong> (00:00:09):<br />
+I'm throwing everything against the wall. I'm looking at what's going to stick. I am looking to try to find the winning tactic and turn it into a winning strategy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:17):<br />
+Your stock is at an all-time high. I'm curious just what you believe is most contributed to you being able to stay on top and continue to grow.</p>
+<p><strong>Marc Benioff</strong> (00:00:24):<br />
+I actually never look at the stock. I find the stock to be very distracting. The stock isn't the goal. That's not why we're doing this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:30):<br />
+AI is the defining technology of our lifetime and probably any lifetime. When was the moment for you where you started to realize this?</p>
+<p><strong>Marc Benioff</strong> (00:00:38):<br />
+I keep having these existential freakout moments about AI. This is really moving fast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:44):<br />
+As a founder, you're just like, "Goddamn, I just got used to AI, and everyone is wanting to work on AI in my company. Now, we got to freaking figure out agents?"</p>
+<p><strong>Marc Benioff</strong> (00:00:50):<br />
+No, no, no, no, no. That's a mistake. You want the mindset of, "Oh, the next thing is coming. I can't wait for the next thing."</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:01):<br />
+Today, my guest is Marc Benioff. He's co-founder and CEO of Salesforce, which is the second largest B2B SaaS company in the world worth around $350 billion at the time of this recording, making $35 billion a year in revenue, and 25 years later, is still growing like crazy and dominating the market. In our conversation, we talk about leadership, AI, domain names, beginner's mind, marketing, product, sales, the hardest moment in Marc's journey of building Salesforce. Also, what exactly is an agent and so much more. If you enjoy this podcast, don't forget to subscribe and follow it in your favorite podcasting app or YouTube. It's the best way to avoid missing future episodes, and it helps the podcast tremendously. With that, I bring you Marc Benioff.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:49):<br />
+This episode is brought to you by Cloudinary, the foundational technology for all images and video on the internet. Trusted by over 2 million developers and many of the world's leading brands, Cloudinary is the API-first image and video management platform built for product leaders who rely on visual storytelling to express their unique product value, who are building engaging web and app experiences, and who understand that harnessing the power of AI to automate is the only way forward.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:19):<br />
+Gil Grossman, Engineering Team Lead at Fiverr, says that our users share billions of images, video, and audio files. Cloudinary's ability to automate our post-production work at scale amounts to a savings of up to 92,000 work days per month. Think bold, build big, ship fast. Let Cloudinary handle your media needs. Start your free plan today at cloudinary.com/lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:44):<br />
+This episode is brought to you by Enterpret, interpret, unifies all your customer interactions from Gong calls to Zendesk tickets to Twitter threads to App Store reviews and makes it available for analysis. It's trusted by leading product orgs like Canva, Notion, Loom, Linear, Monday.com, and Strava to bring the voice of the customer into the product development process, helping you build best-in-class products faster.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:07):<br />
+What makes Enterpret special is its ability to build and update customer-specific AI models that provide the most granular and accurate insights into your business, connect customer insights to revenue and operational data in your CRM or data warehouse to map the business impact of each customer need and prioritize confidently, and empower your entire team to easily take action on use cases like win-loss analysis, critical bug detection, and identifying drivers of churn with Enterpret's AI system wisdom. Looking to automate your feedback loops and prioritize your roadmap with confidence like Notion, Canva, and Linear? Visit E-N-T-E-R-P-R-E-T.com/lenny to connect with the team and to get two free months when you sign up for an annual plan. This is a limited-time offer. That's enterpret.com/lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:57):<br />
+Marc, thank you so much for being here. Welcome to the podcast.</p>
+<p><strong>Marc Benioff</strong> (00:04:00):<br />
+Excited to finally get connected with you and excited to do this podcast with you too.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:04):<br />
+I'm even more excited, and I actually want to start with something that I think most people don't know about you, but to me, it's almost like a microcosm of how far ahead you look and almost how... basically, how visionary you are, and that's that you've owned a number of epic domain names. For example, bill.com, you.com-</p>
+<p><strong>Marc Benioff</strong> (00:04:26):<br />
+You.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:26):<br />
+... code.com, appstore.com. First of all, are there others I don't know about?</p>
+<p><strong>Marc Benioff</strong> (00:04:28):<br />
+There's a lot.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:29):<br />
+Okay.</p>
+<p><strong>Marc Benioff</strong> (00:04:30):<br />
+Salesforce.com.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:30):<br />
+Salesforce.com.</p>
+<p><strong>Marc Benioff</strong> (00:04:32):<br />
+That all came from... I'll tell you. It's a good story actually because what happened was I was working at Oracle for 10 years from 1986, and 1996 rolled around like it was a snap of the fingers. All of a sudden, I realized, "Whoa, what has just happened to the last decade?" The decade just flew by. It was crazy. It was a big moment for me in my career, and I had a... It was a huge acceleration. I went from being a kid right out of college to working for Larry Ellison. But after 10 years, I was pretty trashed, and so I said to Larry, "Hey, I need to go and take some time off."</p>
+<p><strong>Marc Benioff</strong> (00:05:13):<br />
+So I went to Hawaii and rented a little house on the beach. I had done some angel investing, and it was a cool moment where some of my companies started to go public, including Siebel Systems and others, and Saba Software, and people I had met at Oracle like Tom Siebel and Bobby Yazdani. Then, I was just fascinated at that point with the internet. I had been working on it at Oracle for a couple years, so I started buying a bunch of domain names of companies that I thought companies. They weren't companies yet. Now, they are companies. But ideas that I thought the names would be great companies one day and reflected where I thought things were going. Yeah. It's a long time ago now. It's a really long, long time ago. I think almost 30 years.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:00):<br />
+So one of the domain names you owned was appstore.com, which I know you gifted to Steve Jobs, I read in your book. Is there a story there that you could share because that's an epic domain just to gift?</p>
+<p><strong>Marc Benioff</strong> (00:06:09):<br />
+It's a great story, but it's really a story about my relationship with Steve Jobs. When I was in college in 1984, I had the opportunity to be an intern at Apple. I wrote the first native assembly language on the Macintosh. It's a crazy thing to be able to say, but it's true that I was writing these example programs for this Macintosh 68000 Development System on these Apple headquarter buildings in Bandley, Bandley Road in Cupertino and started to have a relationship with Steve Jobs in that... Not that I was actually talking to him. I was like this snot-nosed 19-year-old kid, but he's running around the building. We have this refrigerator over here with all these fruit juices. There's a masseuse over here doing shots and massages. There's a motorcycle in the lobby. There's a pirate flag on the roof, and there's Steve Jobs running around, yelling at everybody, and it was freaking cool.</p>
+<p><strong>Marc Benioff</strong> (00:07:10):<br />
+Okay. So you can just imagine like you're like, "Whoa, this is like I'm in a movie." There's a lot of other cool parts of a movie too that were going on, and it started my relationship with him, and then I actually got to know him then as I eventually got to Oracle. Then, eventually, I started Salesforce, and I had this moment at Salesforce. It was, I think, 2000, 2001. I cannot remember exactly what it was, and we were at the opening of one of his movies for Pixar, and we're having dinner. There's a lot of details around the dinner. It'll be a hugely long story if I go forever.</p>
+<p><strong>Marc Benioff</strong> (00:07:56):<br />
+He says to me, "Well, Marc, now, listen to me. You're doing so great. You've got your company, Salesforce. If you need any help, you make sure you call me, okay?" I'm like, "Yes, sir. I will do that." He took out his... He had just introduced the iPod, and he's like, "I got a thousand songs in my pocket here. Look at this, and that, and all that." It's this cool device. I'm like, "That's such a cool screen. Steve." He goes, "Oh, thanks so much." I go, "Steve, you could do movies on there too, not just... or photos. You didn't have to do songs." "No, Marc. I will never do a device like that. Absolutely not."</p>
+<p><strong>Marc Benioff</strong> (00:08:34):<br />
+That's a little insight into his personality that he would never ever exactly say, "Oh, yeah, I'm going to do the movie device that have the photo, the phone, the this." So, anyway. Things were moving along at Salesforce, and so I was like, "I'm stuck, and I need to get through my block, writer's block, entrepreneur's block. I'm going to reach out to him." He's like, "Come down here right away."</p>
+<p><strong>Marc Benioff</strong> (00:09:03):<br />
+So, literally, I got in my car, brought a few of my team with me, and we go down, and he's like, "Oh, yeah. Oh, yeah, you're blocked. There's three things you need to do right now." I'm like, "Okay. What are they?" He go, "Your company, it better get 10 times larger than it is now in 24 months or it's over." "Oh, okay. Yes, sir. Yes, sir." "Number two, you better sign a huge customer for this Salesforce automation product like Avon. They're a great salesforce." The CEO of Avon was on his board at the time, so that was on his mind. "And one last thing I'm going to tell you you must do." I'm like, "Yes, sir. What is it?" "You better go build an application economy." "An application economy?" "Yes." "What does that mean?" "I don't know, but you're going to go figure it out."</p>
+<p><strong>Marc Benioff</strong> (00:09:55):<br />
+It was like meeting with your guru and getting a Zencon or something where you're... Now, you have a puzzle I have to solve. I literally went away, and I had all the notes from the meeting. I went through it over and over again. Then, finally, I'm like, "I think he wants me to build an app store." At that moment, I went to the domain registry, and I bought appstore.com. Then, I started working on it at Salesforce so that we would have the ability with our platform to build apps, and then sell them, and that you could do all these things.</p>
+<p><strong>Marc Benioff</strong> (00:10:34):<br />
+So I did all that and launched AppExchange in 2005 or 2006. We didn't call it App Store because when we tested the App Store name in focus groups, customers are like, "This is not an app store. This is an app exchange. We're all going to exchange apps and capabilities with each other." Anyway, it rolled out, iPhone rolled out, and then he basically said to me one day, "Hey, come down and see me." This is maybe a year after iPhone. I'm like, "I'll be right down."</p>
+<p><strong>Marc Benioff</strong> (00:11:08):<br />
+I get down there, and I have some team members with me. They'd heard this story before, et cetera, and then we're sitting there like this in the Apple Auditorium. It's not like in a hotel or anything. I remember it very clearly like it was yesterday. He said, "I brought you all down here today." It's very good theatrical performance. I could never do what he does. It's incredible. He's got the thing, and then he says, "And I'm here to reveal to you the App Store." All of our people go, "Huh." They're doing break breath, and they're all like... go white because they're like, "Oh, Marc has been talking about App Store for years. How could Steve even..."</p>
+<p><strong>Marc Benioff</strong> (00:11:51):<br />
+Then, at the end of it... It's all over. Everyone leaves the auditorium. They're all going out to play with the App Store and all these things. I walked down. He's sitting down there by himself working on something. He's in the corner of the stage. I go, "Hey, Steve. Can I talk to you for a second?" He goes, "Of course." Very generous with me. Very kind with me. I go, "Steve, I'm going to give you a gift." "Wow, but Marc, what are you are going to give me?" "Steve, I'm going to give you something you don't have, but maybe you'll need, which is the appstore.com URL, appstore.com, and the trademark for App Store because after that meeting we had six years ago, I ended up trademarking these things and buying this URL." He's like, "Oh, it's very nice, but you know this App Store thing isn't going to be very big. Whatever, but thank you very much." That was the story of App Store. It's amazing. It was a very amazing relationship that I had with him. Very grateful to have that relationship and dramatically influenced me in my career and my whole life.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:59):<br />
+There's one thread that I love about everything you shared. Here is how generosity was at the center of so much of this, him helping you, you helping him, just wanting to help each other.</p>
+<p><strong>Marc Benioff</strong> (00:13:08):<br />
+He is a very generous person, and I'll tell you that he never turned down anything that I asked him to do. I have so many stories, but one story was I was thinking about buying this house, and I wasn't sure should I buy this house, Should I not buy this house, whatever, and so he went... He said, "I'll go look at it for you." So he went, he is looking at this house, and then he calls me, and he goes, "Well, I don't know if you should do this or that, but this might be good. Maybe it is good. Maybe it is a good idea."</p>
+<p><strong>Marc Benioff</strong> (00:13:41):<br />
+Then, I'm emailing with him after that, and he's very sick, and it's all very sad. Then, he sends me an email, and the last email he sent to me was he said... I said, "Wow. Well, this has worked out better than I thought." He goes, "Marc, everything has worked out so much better than we could have ever imagined." It was just a beautiful thought and incredibly sad all at the same moment, and that was my last correspondence with him.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:14):<br />
+I feel like we could do Steve Jobs stories all day.</p>
+<p><strong>Marc Benioff</strong> (00:14:16):<br />
+Yeah. Oh, no, I have hours.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:19):<br />
+Yes, you can.</p>
+<p><strong>Marc Benioff</strong> (00:14:20):<br />
+I have a lot of Steve Jobs stories, but-</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:21):<br />
+Oh, man.</p>
+<p><strong>Marc Benioff</strong> (00:14:22):<br />
+Yeah. Anyway, those are a couple of them.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:24):<br />
+By the way, I also love that he had B2B SaaS advice here like, "You need a big customer. You need to hire ACVs, build the marketplace."</p>
+<p><strong>Marc Benioff</strong> (00:14:30):<br />
+Oh, he hated those. He hated SaaS, and he hated that I was doing enterprise software.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:31):<br />
+Yeah, he did.</p>
+<p><strong>Marc Benioff</strong> (00:14:35):<br />
+He's trying to talk me out of being an enterprise software executive. He's like, "Now, Marc, what are you going to do? You're going to go home and tell your kids that you're working on enterprise software? Who do you sell to, CIOs? Have you had met them? How can you be doing this? I can't imagine a more horrible career." I'm like, "I love it, Steve." "No, Marc, you cannot love this. This is not great." It was really a funny thing. He really disliked that, but yet, he was incredibly supportive of me. He would call me all the time. It was really amazing, actually.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:06):<br />
+Yeah. It feels like a place he was wrong in the end here, which is cool, cool to know. I want to go in a different direction.</p>
+<p><strong>Marc Benioff</strong> (00:15:12):<br />
+He was rarely wrong, by the way, so.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:14):<br />
+He was rarely wrong with B2B SaaS. $350 billion of value. Who would've known it existed? Speaking of that, so I want to zoom back to the beginning of Salesforce and when you launched Salesforce. It's crazy to think back to that when basically, you were trying to convince people the future of software was not desktop software, it was going to be in the cloud, it was SaaS. You had all these end of software logos. You had mascots walking around with this no software thing. You hired fake protesters at... I think it was Siebel's conference. It was very hard.</p>
+<p><strong>Marc Benioff</strong> (00:15:44):<br />
+I think you read one of my books, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:46):<br />
+I know the history of a lot of these things.</p>
+<p><strong>Marc Benioff</strong> (00:15:48):<br />
+Oh, okay.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:49):<br />
+It's one of the most legendary launch events in startup history, so I've heard of it many times at this point.</p>
+<p><strong>Marc Benioff</strong> (00:15:54):<br />
+It was a crazy moment. I mean, Siebel, who was really the enterprise software company doing CRM, was doing a user conference. I was looking for an opportunity to launch our product, so we hired a bunch of actors. They were doing this event in San Francisco, and San Francisco is very woke, so people expect a good protest. So we got some picket signs at Home Depot and made some signs that said, "The end of software is near," and all kinds of other... "No software," and all these things. We had a lot of funny things on signs. We were running a protest outside of Siebel that they were in the software business, but we were like, "Oh, no, we've got to get out of software. We've got to create the end of software." So we have picketers outside of the streets.</p>
+<p><strong>Marc Benioff</strong> (00:16:50):<br />
+Anyway, he comes out himself out of the building and really gets super upset. Right then, we hit a button, and we have other actors in a van who come out, and they are staging themselves as news crew. So they are like KNMS, K No More Software, and we're like... They're interviewing the protesters. So now he thinks that it's a media thing. He calls the police. He got very upset. He's a great guy. By the way, I love Tom Siebel. I think he's also one of the great entrepreneurs of our generation. He's just fuming, and he doesn't know what's going on. He doesn't exactly know it's us, and we're just having the best time. That night, we had our huge launch event at one of the top theaters in San Francisco. We hired a great band, and it was really... We just had so much fun. It was just a really great time. That was all happened. I remember very well. It was February 22nd of 2001 or 2000, 2000, February 22nd, 2000.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:06):<br />
+I love this. I haven't heard that interview, the reporter part of that story before.</p>
+<p><strong>Marc Benioff</strong> (00:18:10):<br />
+It was crazy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:12):<br />
+I love it, and it sounds frivolous potentially, but I think the genius of this that I want to touch on is-</p>
+<p><strong>Marc Benioff</strong> (00:18:18):<br />
+"Frivolous" is a good word. It probably was frivolous.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:21):<br />
+So what I imagine is you're trying to get people to even know Salesforce exists, to differentiate, to get the name out, and I feel like that's something a lot of founders struggle with. They don't really know how to get their name out, how to get people to pay attention. Just looking back at that success, I guess, just any lessons from what you did right to get the word "Salesforce" out to get people to pay attention at all to what you were doing?</p>
+<p><strong>Marc Benioff</strong> (00:18:42):<br />
+Well, it's a noisy world, Lenny, and you can see that. You can get on Twitter. It's like... I mean, there's a lot of noise, and how do you break through? We have that challenge today. We're introducing a huge new product called Agentforce. I've only been working on it for a couple months now. I introduced it at our Dreamforce Conference, and that was one way to break through, which was I took our conference and said, "It's just going to be about Agentforce." I'm trying to think about, "What are all the things I need to do to get my company 100% on Agentforce, my customers, everyone?" because I know I have a window of opportunity here.</p>
+<p><strong>Marc Benioff</strong> (00:19:25):<br />
+We're first, we're ahead. We have hundreds of customers on this now. We're on it, which is amazing. We've moved our whole help infrastructure to Agentforce. We're seeing incredible results. We've cut our human escalation from our support infrastructure down by 50%. We're resolving 83% of all of our inquiries robotically. It's incredible. So, now, how do I get that message out? How do I do it globally? How do I find my KNMS moment where I can come up with something that's viral and exciting?</p>
+<p><strong>Marc Benioff</strong> (00:20:04):<br />
+I'm trying lots of different things. I have Matthew McConaughey and Woody Harrelson who are two friends of mine helping me. So they said, "We'll cut ads for you." They have not been together in an ad ever, and they haven't done anything together since True Detective. They're friends of mine. Again, very generous people to agree to do this. We've shot three ads so far. I put them out on Twitter to get feedback from folks. Is this a good idea?</p>
+<p><strong>Marc Benioff</strong> (00:20:35):<br />
+I am running this help.salesforce.com to show what we can do with it. Is that a good idea? I'm training all my salespeople in how to sell it. Is that a good idea? I'm running aggressive marketing against Microsoft because they have really a terrible product, Copilot, that I have to position against and market against. Is that a good idea? Should I be marketing and positioning against them?</p>
+<p><strong>Marc Benioff</strong> (00:20:58):<br />
+I'm trying lots of things, and what I'm trying to do, Lenny, is what I recommend to all entrepreneurs. The message is really in the medium here, which is that I am looking to try to find the winning tactic and turn it into a winning strategy. I don't know actually which one of those things is going to be the most important thing in launching this product, so I'm trying a lot of things with that old expression. I'm throwing everything against the wall. I'm looking at what's going to stick. Then, once I find that thing, I will then grow that as my strategy, and that is what I'm trying to do.</p>
+<p><strong>Marc Benioff</strong> (00:21:33):<br />
+I'm even expanding my distribution organization. I'm trying to hire an additional one to 2,000 account executives just to focus on Agentforce. So I'm trying to do everything I can to get that light switch to go on where I can show customers this is an incredible opportunity to lower your cost, to make things better, and to show that for the first time, we can have digital labor, that Salesforce isn't just managing your data, but we're a digital labor provider. So this is that moment.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:03):<br />
+There's so much there that I love, this idea of trying a bunch of things, looking for the tactic that becomes your strategy. It feels like also there's this focus of just go all in and focus on this one thing, and then try a bunch of different ways for this one thing that you're focused on to win. There's also an element of... I just had Seth Godin on the podcast, and one of his big lessons is be remarkable. Create something people remark about. So this celeb-oriented ad that you're working on, I think, is a really good example of that.</p>
+<p><strong>Marc Benioff</strong> (00:22:31):<br />
+Well, that is a key thought though that he's saying, which is you got to find it, but finding that is the hard part, so you got to be like... One of my friends is Chris Rock, the comedian. So what he'll do is he just doesn't go out and do a Netflix special with all of his jokes. He's out there testing his jokes in clubs and doing all kinds of crazy things. I won't go through all the crazy stuff he does to test his jokes, but by the time it gets to the big Netflix special, he knows what works and what doesn't work. So that is something that we all have to do as entrepreneurs. We need to be testing lots of things. We need a lot of experimentation, and we can't be too arrogant.</p>
+<p><strong>Marc Benioff</strong> (00:23:15):<br />
+I think another thing that's extremely important is... I have a pretty deep meditation practice for three, four decades which is we have to be cultivating our beginner's mind. We have to use our mindfulness in a way to clear everything out and then get back to, "What is my beginner's mind?" In the beginner's mind, I have every possibility, but in the expert's mind, I have few, and in some cases, maybe none. So I've been doing this a long time. I've been writing software since I'm 15. I'm now 60. That's 45 years. I don't want to have an expert's mind. I want to have a beginner's mind, and how do I have that beginner's mind? Because those ideas will come at me if I can go, "What could work?" rather than saying, "Oh, I know what is going to work," or, "This is the one thing that is going to definitely work," or, "We have to do this."</p>
+<p><strong>Marc Benioff</strong> (00:24:10):<br />
+As soon as you start using words like that, you know that you're going to completely implode and fail. You have to say, "Here, we have to do all these things." Like in my company right now, we just did this all-hands call. I was like, "There's six things I really want to get done," but one thing is I didn't get everybody focused on Agentforce and really watch the energy. Number two is I need to find more fuel in the company to fuel this idea because this is clearly a breakthrough product, so how do I get everyone focused on it? Number three, where I think it's really important, we need more distribution capability. We don't sell through franchises. We're not selling through dealers, resellers. We sell direct, so I know I need more account executives.</p>
+<p><strong>Marc Benioff</strong> (00:24:56):<br />
+Number four is I need to be telling lots of customer stories. So, number one, customer zero, me, and number two is I need to tell you all the stories. Like, you can see the story of Disney. I'm doing a huge amount of AI work for them and Agentforce work. Let me tell you the story about Disney. I need to tell you that story, and then we have this whole ecosystem of people around the company called Trailblazers, millions of them, who know our platform. They all have to become agentblazers.</p>
+<p><strong>Marc Benioff</strong> (00:25:23):<br />
+The last thing is I just shipped the product into all 135,000 Salesforce customers. So it's their nascent, and they need to flick it on. I need to motivate them to turn it on. These are the six things I'm thinking about all the time. So it's not just one thing. I'm trying to figure out what it is, and I need a beginner's mind to assess how do I move forward, how do I evolve, how do I inspire, how do I motivate, how do I energize.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:51):<br />
+This episode is brought to you by Coda. I use Coda every day to coordinate my podcasting and newsletter workflows from collecting questions for guests to storing all my research to managing my newsletter content calendar. Coda is my go-to app and has been for years. Coda combines the best of documents, spreadsheets, and apps to help me get more done, and Coda can help your team to stay aligned and ship faster by managing your planning cycle in just one location, set and measure OKRs with full visibility across teams and stakeholders, map dependencies, create progress visualizations, and identify risk areas.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:26):<br />
+You can also access hundreds of pressure test templates for everything from roadmap strategy to final decision-making frameworks. See for yourself why companies like DoorDash, Figma, and Qualtrics run on Coda. Take advantage of this special limited time offer just for startups. Head over to coda.io/lenny and sign up to get six free months of the team plan. That's coda.io/lenny to sign up and get six months of the team plan. Coda.io/lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:57):<br />
+I love this idea of beginner's mind. I imagine it's very difficult to operationalize, especially for a company at 25 years old at this point. Obviously, you meditate. You put a lot of effort and focus into building this. It's hard to do that within a company. Is there anything you do with meetings, with leadership, with the way you operate that spreads this way of thinking within the org?</p>
+<p><strong>Marc Benioff</strong> (00:27:18):<br />
+Well, Salesforce is now the second largest software company in the world, but also the second largest software company in Japan, and that's a country where I put a lot of time and energy into. I love going there. I love going to Kyoto. When I go to Kyoto, I like to go to some of these amazing Zen temples. By the way, that's one of the things that Steve Jobs love to do, and he used to go to these great sushi restaurants. There's a great one in Kyoto named Sushiiwa. If you go in there, you'll see he's signed something for them. It says, "All good things. Steve Jobs." I said, "What did he do over here?" He would go to this great sushi restaurant, and then he would go to Ryōan-ji, the Rock Garden Temple. Incredible metaphysical temple.</p>
+<p><strong>Marc Benioff</strong> (00:28:04):<br />
+I've gone there. I've gone there for decades. I've brought a lot of friends of mine there. Yeah. You got to clear your mind and let it come in. You got to receive it. You need to listen. I remember I even brought Neil Young there, the musician. He's one of my favorite people in the world, and obviously, I love his music. His soundtrack is the soundtrack of my entire life. We were sitting there, and he was so deep in meditation, and then he started walking around. The temple was closing, and then he was in the zone, and I didn't want to bother him, but I'm like, "You know, I think we got to go."</p>
+<p><strong>Marc Benioff</strong> (00:28:38):<br />
+Anyway, it turned out he had written a whole album while we were there in his head, and he was basically transcribing it all. This incredible creative process. Look, we're all writing an album in our head. What album are you writing? What music are you writing? How are you getting into that zone yourself? You want to be a great entrepreneur. You want to be a great CEO. You got to clear your mind, and you got to be ready to write that music.</p>
+<p><strong>Marc Benioff</strong> (00:29:06):<br />
+That music could be your business plan, your product plan, your product launch plan like we're talking about for my Agentforce product. That's what we're all trying to do, and I use a place like Kyoto as a place to do that also because geography is important. Where you are matters. I know you're in Marin, so Marin County. Maybe you can go out to the top of Mount Tam. Maybe you go to Spirit Rock with Jack Kornfield and go clear your mind there, but you got to find the place to do that and create the location. It may not be in the office. It may be somewhere else.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:41):<br />
+By the way, you have the most amazing friends list. All these folks you mentioned, I've met.</p>
+<p><strong>Marc Benioff</strong> (00:29:41):<br />
+Okay.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:49):<br />
+I don't know how long this goes. [inaudible 00:29:49].</p>
+<p><strong>Marc Benioff</strong> (00:29:48):<br />
+They are cool. I am lucky that I've met a lot of cool people. Yeah. I don't know how I got so lucky to meet some of these people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:53):<br />
+I want to zoom out a little bit and talk about... Every month or so, I hear about a startup, I do a bunch of angel investing, that's trying to basically disrupt Salesforce, come after Salesforce. They bash your... don't kill me for saying this, your user experience. They're like, "Oh, so complicated. It's been around three to five years."</p>
+<p><strong>Marc Benioff</strong> (00:30:11):<br />
+We are too complicated. I agree.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:12):<br />
+Okay. I'm curious just what you believe is most contributed to you being able to stay on top and continue to grow. We're recording this today, and your stock is at an all-time high basically even now.</p>
+<p><strong>Marc Benioff</strong> (00:30:25):<br />
+Wow, I didn't even know that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:27):<br />
+Roughly.</p>
+<p><strong>Marc Benioff</strong> (00:30:29):<br />
+I actually never look at the stock.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:29):<br />
+Okay.</p>
+<p><strong>Marc Benioff</strong> (00:30:31):<br />
+I find the stock to be very distracting, and I encourage my employees also don't look at the stock because the stock is just a reflection. Money isn't the goal, right? The stock isn't the goal. It's coming at the end of the journey. It's like that's not why we're doing this. The journey is the reward. That's also something Steve Jobs would say all the time. Another bow to Steve Jobs here. I think that this is really important, and I look at myself as a startup.</p>
+<p><strong>Marc Benioff</strong> (00:31:05):<br />
+I am a startup CEO. I'm a startup entrepreneur. I'm still at the beginning of Salesforce. No matter what I'm doing at Salesforce, whether I'm the CEO, I'm sometimes the chair of the board. Like, last week, we had a board meeting. Sometimes I'm a product manager. This is a startup, and we're a 25-year-old, 75,000-person, $38 billion, $300 something billion market cap startup, but we're a startup nonetheless. We have some great products, but we are just starting. As an example, Lenny, we are just starting the digital labor industry, and we have a product called Agentforce, and we are just starting. We are just at the beginning.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:47):<br />
+I want to bounce around a little bit, but let's talk about Agentforce. I know this is, as you've said, the thing you're most focused on right now. It's a big bet you all are taking. When people hear this word "agent," I think a lot of people are embarrassed to even ask like, "What does that even look like? What is an agent beyond what LLMs are today?" Is there an example you could give of something you've seen that maybe blew your mind of what an agent can do?</p>
+<p><strong>Marc Benioff</strong> (00:32:09):<br />
+Yeah. I saw it in the movies. I saw it in Minority Report, which was a movie that was co-written by our futurist, Peter Schwartz. Tom Cruise runs into the Gap store, and all of a sudden, it says, "Hey. Hey, Tom. Have you thought about this new shirt? Look at these jeans. You bought this last time. Now, you could try this. You could try that. What about this? What about that?" It knew his history. It understood him. It knew what was going on. This is 20 years ago. This whole store changes digitally to reflect his interest, his ideas, and it's starting to talk to him and work with him.</p>
+<p><strong>Marc Benioff</strong> (00:32:51):<br />
+That is an agent. It isn't just the agent that we saw in the Matrix, Mr. Smith, or whatever it is. It's someone that's working with you, someone. That's an interesting, for you, slip. It's something that is working with you. It could be your piece of software in your phone. It could be a robot that's going to be in your home. It could be your car that knows you, understands your preferences, has an institutional memory of you, and now is helping to advise you.</p>
+<p><strong>Marc Benioff</strong> (00:33:22):<br />
+I'll give you an example that I'm going to... I go into UCSF all the time. I'm actually just getting through an Achilles rupture right now, so I've had a lot of interactions, and the hospital... or you're getting your healthcare, getting your labs done, getting your physical done, getting your scans done, whatever it is. There's always these pre-operative and post-operative or pre-procedure and post-procedure things, and you're getting these phone calls. Every time I get a phone call, I'm like, "Ugh, that probably just cost them a hundred bucks, and we probably could do that a lot cheaper and a lot easier with an agent."</p>
+<p><strong>Marc Benioff</strong> (00:33:58):<br />
+Then, when I talk to my doctors and nurses at UCSF, they're all burnt out post-pandemic because they're scheduling pajama time to go through all their digital messages at night. It's like a lot of this could be done a lot easier with agents and AI, and we're going to make their lives a lot better, a lot easier, simpler. Some of those things that they're doing, they don't need to talk to me about what my cholesterol number is because I got my labs, and the cholesterol number is this number or that number. A lot of this can be done with technology, and then save the parts that are important for them like when I come to see them or I want to have a real, deeper, more empathetic conversation face-to-face with a deeply experienced doctor. That's a whole another opportunity for me.</p>
+<p><strong>Marc Benioff</strong> (00:34:45):<br />
+That is an agent or the agent is like... Here's an example. I had a CT scan, and you have to drink this contrast, and then all of a sudden, the... drink it, but they give it to you through an IV, and then they're taking better pictures. But then, you have to drink water to flush the contrast out of your body. Do you think anyone called me and said, "Hey, did you drink the water?" No, nobody calls me to drink the water. You have to remember. You're on your own in healthcare in the US. So the agent is going to call you and say, "Hey, did you drink the water? Did you take your meds? Do you need to have a repeat lab? Do you need to go see your doctor again?" So the agent is going to be there by your side. So that's an healthcare example. There's a lot of examples that we can probably have.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:25):<br />
+There's just a story in The New York Times which isn't about agents specifically. It was about comparing ChatGPT to a doctor where they tested a doctor's ability to diagnose versus a ChatGPT directly or a doctor plus ChatGPT. By far, the best was just ChatGPT, removing the doctor from the equation.</p>
+<p><strong>Marc Benioff</strong> (00:35:43):<br />
+Yeah. They wrote up a clinical study where they actually did look at, in a semi-peer-reviewed way, that ChatGPT, in many cases, was giving more accurate diagnoses than a doctor because the doctor had a more bias coming in working with the patient. So that's super interesting and I think something that we should probably all look at that study and think about that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:09):<br />
+Speaking of The New York Times, there's actually this quote I found. You did this op-ed talking about AI. So the quote is, "Throughout my career in Silicon Valley, I've witnessed numerous waves of innovation, but none compared to the profound impact of AI. AI is the defining technology of our lifetime and probably any lifetime." When was the moment for you where you started to realize this where it's like, "Oh shit, this is not just another cool toy?"</p>
+<p><strong>Marc Benioff</strong> (00:36:33):<br />
+Well, I keep having these existential freakout moments about AI, and it's happened over a series of decades. But for those of us who grew up with these movies like WarGames and Minority Report or Her or... across the board or read some of these books. One of my favorite books on AI is Ghost Fleet. You think about, "Where are we going with AI? Where are we going with AI?" With Salesforce, I think about our journey, and I've been waiting for this to happen and trying to bring us along, especially in the last decade with the development of our Einstein platform, and now the development of our Agentforce platform.</p>
+<p><strong>Marc Benioff</strong> (00:37:18):<br />
+This week, at Salesforce, we'll probably do about 2 trillion AI transactions. With our total now, Einstein and Agentforce platforms, we're definitely the largest provider of enterprise AI transactions in the world as far as I could tell, and I keep thinking, "Wow, this is going to get more and more intense." One step was we had to automate all these customer touch points. So like wearing my Disney fanboy shirt here, we run the Disney Store and the Disney Guides, and there's Disney Real Estate, and there's the DisneyQuest call center, and there's... Every aspect of Disney. When you're a customer, you're interfacing with Salesforce.</p>
+<p>So that's what we've loved doing, automating all these customer touch points: sales, service, marketing, analytics, Slack, integrating it all with MuleSoft. That's what we do, and then aggregating it all into a big database where we call it data cloud, and then federating that data cloud to other data sources. So that's the two steps we've been doing, automate the customer touch points, aggregate the data, and then step three is the agentic platform on top of that.</p>
+<p><strong>Marc Benioff</strong> (00:38:29):<br />
+When you think about what's happening now that you can go to help.salesforce.com and have your issues resolved with that on the agentic layer, that's amazing. Then, the fourth layer that will come will be the robotic drone layer where those robots and drones will then feed off of the platform and all of these capabilities. That vision of the future is something that we've all had in the industry for years. It's not my magic vision. This is a vision that's been around. It's been the fundamentals of computer science that we would move from having... We'd go from data to automation, and that is what we're all driving, and we're driving that industry. We're going lower cost, easier to use, and more automated constantly. That's powerful. This is really moving fast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:21):<br />
+You mentioned Einstein briefly. I'll also mention my dog is named Einstein, and I got Einstein swag once with the socks, and I love them, so. Also, that's also an example of you bought einstein.com very early.</p>
+<p><strong>Marc Benioff</strong> (00:39:33):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:34):<br />
+That was another domain name that you owned.</p>
+<p><strong>Marc Benioff</strong> (00:39:36):<br />
+Well, I just thought Einstein would be a great name to talk about artificial intelligence, and it really has been. There. You can see him behind me right on my shelf, on my bookshelf. I keep him back there. You see Einstein? I think they were [inaudible 00:39:50].</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:36):<br />
+My view is blocked.</p>
+<p><strong>Marc Benioff</strong> (00:39:36):<br />
+Oh, I'll go grab him.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:52):<br />
+Totally. Okay. Let's check it out.</p>
+<p><strong>Marc Benioff</strong> (00:39:54):<br />
+There he is. Ugh.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:55):<br />
+Show and tell Segment in the podcast.</p>
+<p><strong>Marc Benioff</strong> (00:39:55):<br />
+Oh, yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:59):<br />
+Oh, cute.</p>
+<p><strong>Marc Benioff</strong> (00:40:00):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:00):<br />
+That's a big old Einstein.</p>
+<p><strong>Marc Benioff</strong> (00:40:02):<br />
+That's a key part of our vision for Salesforce, our Einstein platform was everything we're doing. We wouldn't get to Agentforce without getting to good old Einstein here.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:12):<br />
+Very cute. As you talk about all this, I imagine many people are thinking, "Oh shit, we're not going to have as many people working. What are we going to do with our jobs? AI as agents." I know anything you say could be taken way out of context and just like, "Marc Benioff says everyone is not working," but I guess just... I know you've said you're not going to be hiring as many engineers next year. I guess anything there to help people understand how the workforce will change in the future?</p>
+<p><strong>Marc Benioff</strong> (00:40:35):<br />
+Well, I can tell you about my own company and what I'm telling my own employees, which is that, yeah, we're going to have to rebalance some of our workforce because you can see it in the numbers I just gave you which is we need less support engineers because we have a robotic support layer with Agentforce. So that is very real, and we all need to adapt. At the same time, I'm hiring a lot more account executives and folks to grow the company. So I just encouraged everybody on the all-hands call to think about that.</p>
+<p><strong>Marc Benioff</strong> (00:41:06):<br />
+Then, I just gave you the idea of healthcare. The interesting thing about healthcare though is that a lot of the jobs that I think that are going to get created just... we don't have people for, and I think there's a lot of things that we need help with in the world that we don't have people for. So I think a lot of these jobs will not necessarily get replaced, and I think that... I have a home in a small town, and in this small town... It's very much a blue-collar town. Folks are still working in the restaurants, driving trucks, working in the supermarket, and working on their homes, building, construction, gardening.</p>
+<p><strong>Marc Benioff</strong> (00:41:56):<br />
+Look, it's going to be a long time before, I think, jobs in the small town where I have a home will ever get impacted. But in the large town where I have a home, San Francisco, well, then I just gave you an example where I think that jobs will get impacted. So it'll be a tale of two cities, literally, and I think you will see different impacts in different places.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:21):<br />
+So what I'm hearing there is support people trending down, account executive sales trending up?</p>
+<p><strong>Marc Benioff</strong> (00:42:27):<br />
+Right now, that is Salesforce in a nutshell.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:31):<br />
+That touches on something I wanted to touch on also which is that you're... A lot of founders today are very product-minded, very product-oriented founders, and they want to build product-first companies, grow product-led, all these things. Salesforce, I think, very publicly, is very sales-led, very marketing-led, not product-led. Obviously, product is a core part of it, and it all works together, and all these things. But I guess just any advice for founders that are very product-oriented and maybe are hesitant to lean into sales, into cust-</p>
+<p><strong>Marc Benioff</strong> (00:42:57):<br />
+Yeah. I would say we're not sales-led. Well, I think let's just use Agentforce as an example, right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:01):<br />
+Mm.</p>
+<p><strong>Marc Benioff</strong> (00:43:01):<br />
+So we're running the year, we're running this year. This is our fiscal year 25. Okay? It ends in the end of January next year. Lenny, this is the year of data cloud. This was not supposed to be the year of Agentforce. So it's the year of data cloud. I just gave you the pitch. We've automated all the customer touch points. Now, we're adding the data cloud to all of our customer implementations. We have 135,000 customers. We've implemented data cloud into all of them. They all need to turn it on. Our teams need to show our customers how to build data cloud and how it's going to help our customers have a better data structure. I almost combined "beta" and "data" together. So they need a better data structure, data architectures, data cultures.</p>
+<p><strong>Marc Benioff</strong> (00:43:51):<br />
+Then, we had our breakthrough, and I can tell you the story where all of a sudden, I'm like, "Wow, this agent technology is happening much faster than I thought it was going to, and we are going to market now." By the time we get to Dreamforce, we are going to take this incredible technology. We accelerated it radically because we bought this company called Airkit, which is one of our Ohana... It's a great story.</p>
+<p><strong>Marc Benioff</strong> (00:44:18):<br />
+Great entrepreneur have this company, fantastic company called RelateIQ that we bought many years ago, about 10 years ago, stayed with us for many years, like six or seven years, wanted to leave, and we said, "Great." We gave them the investment to leave, invested in the company through Salesforce Ventures, built this amazing platform, and then we said, "Now, we want to buy it back." Then, he came back about a year ago, and then it just accelerated the agent vision, and then we delivered Agentforce production code at the end of October. So, all of a sudden, now, we are releasing this product.</p>
+<p><strong>Marc Benioff</strong> (00:44:56):<br />
+I think it's very important, if you're an entrepreneur, to realize it's not just about the product. It's not just about sales. It's not just about marketing. It's not just about accounting. It's not just about your investors. It's not just about your employees. It's not just about your stakeholders. It's about everything, so you better be ready to be an orchestra leader. You can't just be playing the clarinet.</p>
+<p><strong>Marc Benioff</strong> (00:45:20):<br />
+I think that's what you're getting to, which is that there's entrepreneurs who are like, "I'm just going to play the clarinet." For those, I don't think they're going to go as far as they could go. You want to be playing the whole symphony, and you want to get everyone running. That symphony is sales, service, marketing, product. Every part of your shareholders, your stakeholders, your customers. You have to be constantly playing the whole symphony, and you have to have a big mind to think about, "Whoa, I have a lot of stakeholders in my company, not just one stakeholder." It's not just about product and technology. If you're going to narrowcast yourself, you're doing a disservice not just to yourself, but to everybody else as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:02):<br />
+Speaking of big mind and beginner's mind, we have a recurring segment on this podcast that I call Fail Corner. Where it comes from is people come on this podcast, they share all these stories of, "Everything is going great. We're killing it. I've had all these successes," and people get discouraged because they hear just people only succeeding when they often fail. So I try to ask guests to share a story, and let me ask you this. Is there a story you could share when it was a big struggle for you when you're struggling when something went super wrong that you worked through and learned something from?</p>
+<p><strong>Marc Benioff</strong> (00:46:35):<br />
+Sure. Well, I'll just give this example. About two years ago, we went through this huge transformation in our company, and there were a lot of crazy things that were happening, but it was a little bit like we're all on this Airplane, and everything is going really well. Then, something seems to be going really wrong, and we look up front, and the two pilots seemed to be missing. Then, the one guy with the parachute jumped out of the plane, and then we're all like, "Whoa, what are we going to do?" We had to do some really crazy and somewhat destructive things at the moment to basically get the regeneration of the company.</p>
+<p><strong>Marc Benioff</strong> (00:47:12):<br />
+One of those things that we did two years ago was we had to architect a layoff, and we had never done a scaled layoff before. We had to lay off 10% of the company to save the company, and I didn't want to do it. I mean, it's the last thing I want to do as an entrepreneur, which is to adjust our headcount, but we were coming out of the pandemic, and we had just hired too many people.</p>
+<p><strong>Marc Benioff</strong> (00:47:33):<br />
+Now, it turned out that a lot of companies in Silicon Valley all did that same maneuver during the pandemic. Things were so robust in the pandemic that we were overhiring. By the time the pandemic was over, we had too many people. I mean, what did I know? It was my first pandemic. All of a sudden, my next pandemic, I'll know that there's an economic cycle associated with it and an inflation cycle too.</p>
+<p><strong>Marc Benioff</strong> (00:47:58):<br />
+So I learned a lot in the pandemic, and now, we're here. Now, all of a sudden, we're architecting two years ago this layoff. Then, when we did the layoff, then I'm trying to overcommunicate. I'm having all employee meetings. It's a complete dumpster fire. It's a nightmare. I'm getting bashed in the press, on Twitter. Everyone is shooting at me. It's like, "Oh, boy." If I had a thick skin, it got a lot thicker during that moment because it's never going to go well no matter what, and it didn't go well but we got through it to the point where you're giving me these accolades, wonderful, on this podcast about where we are today financially and from a structural standpoint or now from product innovation standpoint, but that's not where we were two years ago.</p>
+<p><strong>Marc Benioff</strong> (00:48:51):<br />
+It was clear we had to go through a financial transformation, which included an adjustment of our head count, and we had to go through a technology, and a product, and an innovation transformation. Those two things were going to require us to do a number of things, and they were going to be painful. So we all had to go through some of that pain to get the gain that we have now, and that was not easy.</p>
+<p><strong>Marc Benioff</strong> (00:49:17):<br />
+I was in shock that I was going through this two years ago because I had already been running the company for 23 years. Things were going pretty well. Yes, there were a lot of failures during that period. I just didn't expect another massive issue to hit me. But guess what? There're constantly massive issues coming at you, and there's more coming, and that's the nature.</p>
+<p><strong>Marc Benioff</strong> (00:49:39):<br />
+My friend, Michael Bell, is probably the best entrepreneur I know. He says, "There is no linear success." So what that means is that stock chart that you just referred to, there's no up-and-to-the-right perfect chart where it's just one line. I don't care who you are. Apple doesn't have one. No one has one. Okay? There's going to be changes. It could be economic changes. It could be societal changes. It could be the pandemic. There's no up-and-to-the-right. If you think it's only going to be about up and to the right, you're in the wrong business or you have the wrong life. Right? Hey, the monastic life is maybe more for you where you're just out living in that more of that steady state. Right? But if you want more variation where it's not steady state, the entrepreneurial life is a rock-and-roll roller coaster, and you get ready because it's going to be pounding you all the time.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:33):<br />
+One of these people that you described that jumped out of the airplane speaking on the roller coaster ride is your co-CEO, Bret Taylor. What's interesting to me is he's also all-in on agents, and what it makes me think about is there's this meme of what did Ilya see when he left and tried to kick out Sam Altman. I'm curious just like what did you guys see about agents being the future that you're both so committed to this? So interesting.</p>
+<p><strong>Marc Benioff</strong> (00:50:54):<br />
+Well, I just think that this idea that agents are one of the most important things that we're all going to work on, and I think everyone is going to go to agents. Look, I just heard about Google today has Agentspace. At first, I was like, "Well, I guess they like the Agentforce name." I love Sundar. He's one of my favorite people in the world. We heard Microsoft now has agents. I read Oracle has agents now. SAP has agents. Everybody's got agents, and good. That's what we want. We don't want to be the only one.</p>
+<p><strong>Marc Benioff</strong> (00:51:30):<br />
+If you're the only one and no one else is working on it, you've got a problem, actually. So you don't want to be the only one. You want to be in a market. You don't want to be one company offering a solution and the only one. You want to be in a competitive market where people are competing with you, and you're selling against somebody else, and you're getting better, and you're moving forward. It's like the automobile industry. One of my favorite people is Akio Toyoda. Toyoda-san was now the Chairman of Toyota, was the CEO of Toyota. His grandfather started Toyota. He says, "Better, better, better. Never best." It's the Japanese motto of Kaizen.</p>
+<p><strong>Marc Benioff</strong> (00:52:10):<br />
+So we talked about Japanese Shoshin, which means beginner's mind. Now, we're learning another Japanese word here, Kaizen. Kaizen is continuous improvement, and you need to be doing continuous improvement. With where we are right now with agents, every software industry is going to move to agents. We have to just like every software industry... Well, at least in CRM or automating customer touchpoints, data and managing data, and building that data infrastructure, agents. It's all related. We're all moving in the same direction.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:47):<br />
+I'm just thinking as a founder, you're just like, "Goddamn, I just got used to AI, and everyone is wanting to work on AI in my company. Now, we got to freaking figure out agents?"</p>
+<p><strong>Marc Benioff</strong> (00:52:54):<br />
+No, no, no, no, no. That's a mistake. That is the mindset you want. You want that mindset. You want the mindset of, "Oh, the next thing is coming. I can't wait for the next thing." In some ways, you have to be saying, "I can't wait for the next failure. I can't wait for the next success. I can't wait for the next innovation." Oh, well, that's innovation overall, right?</p>
+<p><strong>Marc Benioff</strong> (00:53:18):<br />
+See, we're in an industry where technology is constantly getting lower cost, easier to use, and more automated. So if you're doing for two and a half decades, or four decades, or four and a half decades now that I've been doing it... When I started in this industry, I started on a computer called the TRS-80 Model I with 4K of RAM. I was doing a podcast recently, and they're like, "Well, who did you sell your first piece of software to?" I said, "Well, I sold it to CLOAD Magazine in Goleta, California and-</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:54):<br />
+For $75.</p>
+<p><strong>Marc Benioff</strong> (00:53:54):<br />
+For $75, and they said, "Thank you for..." and then they said, "Oh, that's great, and did you send them the disk?" I'm like, "No, no. There was no disk. CLOAD standard for Cassette Load in BASIC. That was the command in BASIC, C-L-O-A-D, Cassette Load, CLOAD. That was the command. So that was the name of their magazine, and then you would get the cassette every month with five or six things that they had bought from people like me." I mean, they didn't know they were buying it from a 15-year-old kid in high school in Burlingame High School California. But I had written the How to Juggle thing, and they bought it for $75. They sent me the one-page agreement, and I signed it. Then, I told my parents, and they're like, "What? Huh? You're doing what? Oh, okay. That's nice, honey. Great job."</p>
+<p><strong>Marc Benioff</strong> (00:54:45):<br />
+So they didn't understand. Nobody knew. It was crazy. It was like 1979 or 1978, so nobody knew I was selling software. I was in high school. It was just a moment in time, but I need to have that mindset all the way along which is, "What is the next great thing? What is the next great success? What is the next great failure?" You're growing. You're evolving. You're learning from that. That's what you want. You want to have that growth mindset. Right? You want to embrace that. Does it make sense what I said?</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:21):<br />
+Absolutely.</p>
+<p><strong>Marc Benioff</strong> (00:55:22):<br />
+I jumped on that one little thought. "Oh, gee, yeah. I've got this now under control, but now I've got agents, so now, what am I going to..." It's like, "No, that's what you want." By the way, I want what's after that too, and what's after that, and what's after that. That's what's really exciting about the future. It's coming.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:43):<br />
+Why?</p>
+<p><strong>Marc Benioff</strong> (00:55:43):<br />
+I want to be... One of our customers said this, and people think I said it. It wasn't me. I want to get to the future first and welcome our customers there. That's what I think is... By the way, that's what I think Elon Musk does so well. He is like... I don't know all the crazy things he's doing to see the future. He's clearly doing some unusual things, but then he's like, "Yeah, we're going to have robots in the future, and brain machine interfaces, and driving electric cars. All of these things are going to be happening in the future, and I'm going to have 10 companies that are going to do all of them." Wow.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:23):<br />
+He's not only thinking about it, he's doing them each.</p>
+<p><strong>Marc Benioff</strong> (00:56:26):<br />
+Amazing,</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:27):<br />
+Amazing.</p>
+<p><strong>Marc Benioff</strong> (00:56:27):<br />
+No one like this.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:29):<br />
+Yeah.</p>
+<p><strong>Marc Benioff</strong> (00:56:29):<br />
+Never seen anything like it. I don't understand how it is even possible.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:34):<br />
+Same. Marc, I know you have to run. This was incredible. I think this is a beautiful place to end it.</p>
+<p><strong>Marc Benioff</strong> (00:56:40):<br />
+Oh, Lenny, you're so much fun. I've been looking forward to being on your podcast and talk about entrepreneurship, and thanks for everything you're doing for the industry and for entrepreneurs everywhere.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:49):<br />
+Same, Marc Benioff.</p>
+<p><strong>Marc Benioff</strong> (00:56:50):<br />
+We're all so grateful to you. Goodbye now, and welcome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:53):<br />
+I feel the same. Thank you. Bye. Bye, everyone.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:56):<br />
+Thank you so much for listening. If you found this valuable, you can subscribe to the show on Apple Podcasts, Spotify, or your favorite podcast app. Also, please consider giving us a rating or leaving a review as that really helps other listeners find the podcast. You can find all past episodes or learn more about the show at lennyspodcast.com. See you in the next episode.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

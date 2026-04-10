@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to communicate tradeoffs so leaders will listen — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to communicate tradeoffs so leaders will liste…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to communicate tradeoffs so leaders will listen</div>
+    
+    <div class="article-meta">2024-09-10<span>·</span>4,874 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">組織</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>We all know that sinking feeling you get when everything is on track, your team is humming—and then an exec drops a high-priority feature request on your team. How you handle that ask, and how well you’re able to articulate the tradeoffs required to take on this new work, is a PM superpower. It’s one that can save you and your team from unnecessary stress while helping you do what’s best for the company’s future.</p>
+<p><a href="https://www.lennysnewsletter.com/p/meet-your-lennys-newsletter-fellows">Newsletter Fellow</a> <strong><a href="https://www.linkedin.com/in/tarstarr">Tara Seshan</a></strong> knows a thing or two about explaining tough choices to higher-ups. She spent seven years as an early PM and Business Lead at <a href="https://stripe.com/">Stripe</a>, was Head of Product for two years at <a href="https://watershed.com/">Watershed</a>, and founded a health-care startup as an early <a href="https://thielfellowship.org/">Thiel Fellow</a>.</p>
+<p>Below, she shares her hard-earned playbook for making tradeoffs crystal clear to even the busiest leaders. I wish I’d had this guide when I was a PM.</p>
+<p><em>Tara is currently working on a new startup in the creative-tools space within <a href="https://shv.com/">Sutter Hill Ventures</a>, co-hosts a podcast called <a href="https://podcasts.apple.com/us/podcast/red-queen-podcast/id1744818916">The Red Queen</a>, and writes about the friction between our private and working selves at <a href="https://worktopia.substack.com/">Working Assumptions</a>. Follow her on <a href="https://www.linkedin.com/in/tarstarr">LinkedIn</a> and <a href="https://x.com/tarstarr">X</a>.</em></p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/4b4e1be4-1b50-4b02-925b-f4640282990a_4000x2000.png" /></p>
+<p>For years, communicating tradeoffs to senior leaders was one of my biggest challenges. While presenting the pros and cons between two priorities, I’d somehow always end up committing to doing <em>both</em>, and in less time than I had planned. As you’d expect, this usually went … badly. I’d burn myself out or, worse, burn out my team.</p>
+<p>But when I started managing, I finally understood why I had been so ineffective at it. Sitting on the other side of the table, I watched others make the same mistakes I had. I realized I hadn’t been framing tradeoffs correctly.</p>
+<p>For example, in an attempt to force a choice, I used to say things like:</p>
+<ul>
+<li><em>“We are thin on resources.”</em></li>
+<li><em>“All of the engineers on the team are working on this other feature. Maybe we can sneak your thing in if they can do it in spare cycles.”</em></li>
+<li><em>“I’m not sure if this is really high-priority.”</em></li>
+<li><em>“I have many things higher in my stack rank [shows list].”</em></li>
+<li><em>“Yes, we could deprioritize our new dashboard rehaul [or insert current project here]—what do you think?”</em></li>
+</ul>
+<p>It turns out that statements like these are counterproductive. They actually <em>invite</em> leadership teams to avoid the choice you’re presenting. It’s clear to me now why the answer to my tradeoff presentations was always to “do both.”</p>
+<p>When I learned how to frame choices correctly, I was finally able to convince company leadership to make real, painful decisions. The first time I pushed a tradeoff using the techniques below, it was exhilarating! We only had to do the one most important thing! This led to many fewer late nights at the computer for me and my team, which made me a much more popular PM. These days, it’s a skill I apply in every tough product roadmap conversation.</p>
+<h2>How to frame tradeoffs effectively</h2>
+<h3><strong>1. Repetition doesn’t spoil the prayer</strong></h3>
+<p>If company leaders haven’t heard of or don’t care about your existing priorities, it’ll be inherently challenging to preserve them when an urgent request comes along. The more work that your team has done up front to bring leadership into the story of your priorities and strategy prior to this decision point, the less work your team will have to do when new requests come in.</p>
+<p>This involves a lot of repetition of your priorities, your projects, and your strategy (in that order). As Eric Schmidt, the former Google CEO, used to say, <strong>“repetition doesn’t spoil the prayer.”</strong></p>
+<p>There are many ways to do this up-front planning and evangelism, but my favorite way is to create a public and ongoing stack rank (OSR) of projects:</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/8bd95e86-1e1d-4d6e-a588-e3b00d7102bc_1600x386.png" /></p>
+<p>In your OSR, every discrete project is sequenced according to its priority, its resourcing, and its outcomes. It is complementary to your OKRs, which might be at a higher level and less numerous. With an OSR, it is clear when a specific project is “above” or “below” the resourcing cutline. <a href="https://docs.google.com/spreadsheets/d/1E_K0CIuREcBmKPHZbZ9-YKGOnVmurDdGC7NZv3bsCd0/edit?gid=1930726146#gid=1930726146">Here’s a template</a> for an OSR (remixed from one created by my friend <a href="https://www.briewolfson.com/">Brie Wolfson</a>).</p>
+<p>The OSR takes a common PM statement like “I don’t think this new request is a high priority” and puts it in the context of everything that <em>is</em> and <em>isn’t</em> a priority for your team. It changes the conversation with other teams from “Why can’t we do this one extra thing?” into “Do you agree that X is more important than Y?”</p>
+<p>I like to make the OSR document extremely accessible to everyone around the company. I present it at the smallest provocation. I always share it with the team during fortnightly GTM catch-ups, embed a slide version in executive presentations (right up front!), and email a set of short summary statements in our weekly team progress updates. I try to become the “repeater-in-chief,” as Jeff Bezos called himself.</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/98f53df9-e7c5-4981-b613-1c7f8a7234a4_1600x908.png" /></p>
+<p>On one memorable occasion, I mapped the top 10 features on our OSR to the Billboard Top 10 and turned the features into specific song lyrics (“Metered billing-oh-na-na” to the tune of Camila Cabello’s “Havana,” anyone?). I will note that it was unbelievably cringe and that I still hate myself for doing this, but it was effective. Every single person on our broader cross-functional team remembered our 10 most important features.</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/0e3abcab-2428-43c0-b703-84daffad6f00_970x1014.png" /></p>
+<h3><strong>2. “Steelman the request” to find your blind spots</strong></h3>
+<p>Imagine you’re in a big meeting with your company’s leadership team, arguing that the company should not do the new large user request. We should stick to existing roadmap item X, you say. But the CRO pipes up, “Wait. I just heard from the account manager that there are three other large customers who have this same request, and that it represents a meaningful percentage of our revenue expansion for the year.” “Ooh, those are great logos,” the CPO says. After some discussion, the group concludes that you should really do this new request—your case folds. And, of course, it’s expected that you should hit your team goals too. You trudge off to inform your team that you’re doing double the work.</p>
+<p>This hypothetical situation could’ve been avoided if you’d “steelmanned” the new request before the meeting. Steelmanning is a technique used in debate where you present the strongest possible version of your opponent’s argument before countering it. It makes you much more persuasive, and minimizes the chance that you get surprised by new information with the executive team. Because you’ve already thought through every angle, it positions you as the expert in the room and gives you the opportunity to explore counterarguments on your own terms.</p>
+<p>In order to steelman a request, you have to collaborate closely with the requester. Faire CPO Ami Vora, <a href="https://youtu.be/6UHAop9fhNU?si=GF3amwVxFLKxZqeo&amp;t=595">in this clip from her podcast episode with Lenny</a>, suggests approaching requests with curiosity, and assuming the requester has insight and information that you do not have. It’s really hard to do this when you’re feeling defensive! In the moment, I remind myself that the most important first reaction is to pause, think, and then ask clarifying questions instead of reacting defensively. I might say something like “That’s interesting and new to me! Let’s find the customer call recording and then watch it together; I want to hear what you think.” If the communication is over email or chat, I’ve actually fed the email thread into ChatGPT<a href="#footnote-1">1</a> and asked it to advise me as if it were my career coach. It does a surprisingly great job at helping me respond with curiosity.</p>
+<p>When you steelman a request, you’re not necessarily saying that the request is a good idea. Instead, you are saying that colleagues are smart and have information you do not. This technique helps you notice your blind spots, fill them in with research, and make a much more informed decision. And sometimes that decision is to do the request!</p>
+<p>An excellent example of this is from a <a href="https://www.reddit.com/r/ProductManagement/comments/kwrtlz/a_product_lesson_when_i_got_a_from_jeff_bezos/">PM at Amazon</a> who once received the dreaded “?” email from Jeff Bezos, in reference to why screws were so hard to find in Amazon search. (Bezos was famous for forwarding customer requests sent to jeff@amazon.com with simply a “?” to the unsuspecting Amazon employee.)</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/60d66f9d-973c-4a37-8ee7-d3cb29851855_458x212.png" /></p>
+<p>In this situation, most PMs would think, “How can I explain to the CEO why finding screws on Amazon.com is a low-priority, low-impact issue?” Instead, the PM steelmanned the request.</p>
+<p>He looked into the data and investigated the issue deeply, even though it seemed trivial. After he spent days digging into the data and talking to customers, he realized that the concern wasn’t just about screws. Screws were a representative problem. It turned out that <em>anything</em> on Amazon that was unbranded and “specification-driven” rather than “brand-driven” was very hard to find. Bezos’s instincts were right on this one, likely because he had expertise—or a very well-informed hunch—that the PM didn’t. By steelmanning the ask, the PM was able to discover a really important and widespread customer experience issue behind the seemingly trivial problem.</p>
+<p>Fixing this class of issue, rather than the specific issue of just screws, required a meaningful amount of engineering and product work. It likely derailed the existing roadmap to make that possible. But the PM now knew it was a problem worth solving.</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/d878db55-b789-4960-8800-51f6917d95f4_1600x589.png" /></p>
+<h3><strong>3. Company first, team second</strong></h3>
+<p>Even though you really care about your team’s goals, leadership is always thinking about the company’s goals first. They will always respond better to a “company-first” framing of any decision. As a PM, you might assume that relating the tradeoff to your team goals would reassure leadership—after all, they might have explicitly approved of these goals during your planning season. But the company goals are more top-of-mind and important to them. Framing your tradeoff in terms of company goals means that they won’t have to do that same thing in their own heads. It reassures them that you’re making the best global prioritization decision for the company instead of a locally optimal decision for your team. And it means they’re more likely to side with your argument.</p>
+<p>When I was starting Stripe Billing, the subscriptions and invoicing product suite, it was hard to get my requests prioritized, no matter how well I argued my case. Stripe had been focused on global expansion. As a result, the payments leadership team would deny requests that distracted them from those goals. My team goals around adding subscriptions features weren’t going to directly and obviously support global expansion, so I was rejected in favor of other teams’ requests at every turn.</p>
+<p>At the time, I was incredibly frustrated. I had faithfully communicated my team goals and how these features achieved them, I thought. But I was completely missing the relationship between my team goals and the company goals in my communication. No wonder these teams didn’t think the tradeoff was worth it! Since my product really <em>did</em> help global expansion, I had to reframe and return in order to get the help my team needed.</p>
+<p><strong>Framing the decision in the context of company goals helps everyone in the room orient around what really matters.</strong> And if you can show a more significant impact on the company goals than the alternative, it provides a very strong case for prioritizing your solution over others’.</p>
+<h3><strong>4. Predict the future, just a little bit</strong></h3>
+<p>Most incoming requests are framed in the context of a short-term goal. But as a leader on the product team, you should think long-term! Put on your fortune-teller hat and predict the future a little bit. If we decide to take this thing on now, what happens next quarter? Next year? What ongoing costs do we take on? What will happen to team morale if the team works nights and weekends for another quarter? Another two quarters? You should explicitly lay out these prioritization considerations to the leadership team.</p>
+<p>It’s doubly important to think this way while considering go-to-market requests. Revenue teams are often incentivized around a quarter, but product teams should think beyond that time period. Thinking and communicating about the long term will help you be more persuasive with leadership (who are usually desperately trying to balance “delivering quarterly results” with a big-picture vision). It can also help identify gaps in the plan that the revenue teams may have missed.</p>
+<p>When I was Head of Product at Watershed, which helps companies measure and report on their carbon emissions, a PM leader on my team named <a href="https://www.linkedin.com/in/shind/">Steve</a> was frustrated that measuring a carbon footprint involved so much manual intervention. But the company wasn’t ready to solve that problem. Leadership was much more concerned with the upcoming seasonal demand surge. The default path to meet that customer need was to hire many analysts to manage the process manually, and have the engineering team build features to increase analyst efficacy. This approach was guaranteed to help the company meet the demand surge, but it would come at great cost to the long-term unit economics and product-building.</p>
+<p>Steve believed that we were making the wrong tradeoff, especially in light of technology developments in AI. Instead of accepting the company decision, he proposed a big intervention to automate Watershed’s measurement process. In the short term, this would potentially lower the quality bar of the user experience and impact analyst throughput. But in the long term, this reprioritization of efforts would be meaningfully better for the company. A more automated solution would dramatically lower marginal operating cost. It meant that the company would truly build toward becoming a software-driven solution, instead of a hybrid between software and services.</p>
+<p>To persuade leadership, Steve communicated two things:</p>
+<ol>
+<li>A deeply detailed picture of what the 3- and 15-month outlook might look like if the company followed his automated-future vision</li>
+<li>A roadmap of specific features that made the long-term path come alive, demonstrating how this path required a more minimal short-term tradeoff than everyone had assumed</li>
+</ol>
+<p>Steve’s argument was excellent because it soothed the leadership team’s core fear: that the upcoming demand surge would go badly if we didn’t take the manual approach. He was able to tell the leadership team, thanks to all his detailed work, that the tradeoff was less dramatic than they had assumed. He made it obvious that investing in “long-term automation” had just enough overlap with the short-term need to mitigate fears about the surge. Ultimately, company leadership decided to make the automation path the top companywide priority for the year. To put the cherry on top, Steve gave the new priority a catchy, memeable name (“Transform Measurement!”) that spread like wildfire throughout the organization.</p>
+<p>Next time you get a request to prioritize something that will hurt the company in the long term, challenge it! Leadership teams want to do the right long-term thing, but there might be a short-term-oriented fear holding them back. If you can lay out the long-term vision while striking at the core fear behind the short-term thinking, your vision becomes the obvious best choice.</p>
+<h3><strong>5. Always communicate an opinionated decision</strong></h3>
+<p>You have mastered the details, you’ve thought through the problem, and you’ve talked to a ton of stakeholders. But equally important is that you make an opinionated proposal for the solution.</p>
+<p>Teams often shy away from having a POV, deferring to leadership to choose between two unbiased options. But people forget that they have more context on the issue than anyone on the leadership team and are the best positioned to make a recommendation. Whenever possible, leadership actually prefers to endorse a team’s specific opinion. As a PM, you have ownership over execution, but you should also be invested in the decision itself.</p>
+<p>Presenting an opinionated decision can sometimes be tricky. In order to persuade leadership, I like to hammer home my point with a dedicated document and a meeting. I frame it using “<a href="https://www.lennysnewsletter.com/p/minto-pyramid-principle-scr">SCQA</a>” to focus the discussion on the single request at hand.</p>
+<p>Here’s how I approach making a document like that:</p>
+<ol>
+<li>As part of writing the document, I always put the decision right at the top—the “bottom line up front” (BLUF).</li>
+<li>In the “Situation” section, I elaborate on the context of my roadmap and priorities. Make sure to frame the company priorities in this section and how they relate to my priorities. I highlight the part of the roadmap that is to be traded off against the new request. This should feel like common knowledge already, but remember, repetition doesn’t spoil the prayer!</li>
+<li>In the “Complication” section of the document, I outline the request that my team received. I steelman the request and outline any data I might have collected. I use qualitative data heavily as part of my narrative because it makes the issue come alive for readers. I include any risks associated with not taking action.</li>
+<li>In the “Question” section, I directly present the key decision as a succinct tradeoff to leadership: “We must choose between [X, new request] or [Y, existing item on OSR]. Should we do X or Y?” I then explain why it’s a tradeoff between those specific items.</li>
+<li>In the final “Answer” section, I conclude with a more thorough explanation of my decision. I project the outcome of making this decision. I also try to answer any big open questions with a hypothesized outcome (indicating my level of certainty!).</li>
+</ol>
+<p><a href="https://docs.google.com/document/d/e/2PACX-1vQDH0AX5FGuXrDLX3e7cT6KGo3dJAxm1IYFYRVs-MyCCqM6o1gC2EtqaVobaZ02CTuGxjm56IwHLXdt/pub">Here’s a template</a> you can use for that tradeoff document, heavily based on SCQA.</p>
+<p>If I’m verbally discussing this document in a meeting, I’ll start the meeting with a quick orientation of why we’re there. Since I’m usually talking to busy executives who don’t do pre-reads, I’ll kick off with a silent reading period (about 8 minutes, depending on the length of the document). I’ll begin the discussion by restating my recommendation and outlining the decision-making period (“I’d like to gavel on this decision at the end of the meeting—the default is that we’ll move forward with this approach”) and then open the floor for new information. “Anything we didn’t account for in this document?” I might ask. If there is new data from the group, we’ll talk about it. Ideally, thanks to steelmanning the argument prior, there isn’t anything new!</p>
+<p>Three-quarters of the way through the meeting, I’ll know if it’s converging or diverging—that is, if it’s to end in a decision or if it will need further investigation. If the meeting went well, we’ll conclude with the decision and the next steps that I outlined. If the meeting introduces a lot of new information or seems like it isn’t driving consensus, I’ll try to flag that as soon as possible. I still try to end with some very specific actions, such as following up with the decision maker one-on-one, spending more time with the large customer in question to clarify the ask, and then coming back to the forum with an update. Of course, the only “bad” meeting in this context is one that ends <em>without</em> clear next steps and a timeline to get to a decision!</p>
+<h2>Tradeoff traps</h2>
+<p>Now that you’re armed with the tools to communicate tradeoffs and the terms of a decision, what could possibly go wrong? Unfortunately, there are a few tradeoff traps that are perfectly positioned to lure optimistic, productive, and structured product leaders.</p>
+<h3>1. The “peanut butter” trap</h3>
+<p>Imagine an executive asks you to build this very exciting feature—it shouldn’t take the team more than a couple days to make, and it seems fun. You, brimming with optimism, add it to the list. However, even a small ask is never as small as you think it will be. And each request adds up. It’s easy to understand why the team wants to do these things: They bring delight to customers! Your team is staffed with optimists! But the insidious thing about these types of asks is that they aren’t quite big enough for you to say, “You need to pick between our top priority and this small ask” or “This small ask will delay our top priority by one quarter.” The team becomes “<a href="https://www.quora.com/Phrases-When-someone-says-dont-peanut-butter-it-do-it-with-excellence-what-does-that-mean">peanut buttered</a>”—spread too thin—over a list of tiny requests. They find that their roadmap is suddenly made up of many cute features, leaving no capacity for the big and important work they need to do.</p>
+<p>By treating all of these small requests as real tradeoffs, you can keep the team on task.</p>
+<h3>2. The “just one more engineer” trap</h3>
+<p>When Jeff Huber, a former Google SVP, asked the Google Video Product Lead if they should acquire YouTube, the product lead balked at the prospect. He said, basically, “I think we just need one more good Java/UI engineer and we’d be kicking butt vs. YouTube.”</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/6f3d414f-9782-436f-b87e-9d698c517f80_1216x1370.png" /></p>
+<p>It’s funny to think about this request for one “Java/UI engineer” making Google Video competitive with YouTube, but this mindset is actually more common than you’d think.</p>
+<p>Every product team will always need “one more engineer.” However, adding more engineers to the team is not a good solution to a problem that requires a tradeoff. Productive team leaders often focus on adding more capacity in order to say yes to more requests. And while more capacity can indeed help teams do more, there is absolutely no amount of capacity that would eliminate the need to prioritize new requests. Planning will always scale to match capacity, and you’ll still always have more incoming requests than you can satisfy.</p>
+<p>Instead, you should prioritize requests based on their importance to the business first. Once you agree on priorities and tradeoffs, you should then ask for the capacity to execute on those specific priorities. A better answer with regard to YouTube might have been something like (based off <a href="https://x.com/sacca/status/1433946689061130243">Chris Sacca’s response</a><a href="#footnote-2">2</a> here):</p>
+<blockquote>
+<p><em>“Positionally, Google is focused on trying to get all the world’s video on our platform, while YouTube is specifically focused on creating and hosting user-generated video content. Unlike YouTube, we, Google, have to play nice with the media and ISPs, while they’re making media companies mad by catering to users. The real question here isn’t about tech, or specific resources, it’s about position. We have a tradeoff to make: (1) we can buy them, once we have enough leverage to confront media companies directly, (2) we can take the same strategy, but we have to prepare the rest of Google for the fallout, or (3) we can pursue our existing strategy and lean into the advantages we have, like the recent deal we did at the Olympics in Torino. I think we should do 3. And if we do 3, we’re not staffed to do it well. I need [X] people to do it right.”</em></p>
+</blockquote>
+<h3>3. The “but we have a framework” trap</h3>
+<p>PMs love frameworks, which can indeed be helpful in making decisions. Frameworks help you order by relative priority, but you’ll still always be evaluating line items on the margin. Also, frameworks tend to be abstract. They can only be put into practice and adjusted through individual cases. Most importantly, business frameworks aren’t laws of physics. They may turn out to be wrong when new data comes to light.</p>
+<p>In the case of a contentious tradeoff, it can make sense to reference the existing framework as a start. But don’t stop there! Elaborate on the problem by raising details that don’t quite fit the framework. As part of steelmanning the argument, think about where the framework might be wrong. If it doesn’t make sense with new data, mention that and throw it out. A framework doesn’t excuse you from diving into the specifics on an important decision.</p>
+<h2><strong>Trap examples</strong></h2>
+<p>Now that we know the right way to communicate about priorities and understand what traps are out there, why were those initial examples wrong? Here’s my review.</p>
+<ul>
+<li><em>“We are thin on resources”</em>: This presents no options, with no context on existing priorities. The “just one more engineer” trap!</li>
+<li><em>“All of the engineers on the team are working on this other feature. Maybe we can sneak it in if they can do it in spare cycles”</em>: No options presented, and no context on the existing priorities. The peanut butter trap!</li>
+<li><em>“I’m not sure if this is really high-priority”</em>: It doesn’t provide details into what is a priority. The framework trap!</li>
+<li><em>“I have many things higher in my OSR”</em>: Closer, but doesn’t yet present a specific option of what might be cut. It’s the framework trap!</li>
+<li><em>“Yes, we could deprioritize our new list page”</em>: An option, but how is leadership supposed to know the value of the list page? Do they care? It’s the framework trap yet again!</li>
+<li>“<em>No—to build the feature, which might help a sales demo with one big client, we’d have to push out support for single sign-on for enterprises for a quarter, which means these 10 clients won’t be onboarded in that time. I don’t think it’s worth it for the company; we won’t hit our usage and revenue goals</em>”: The exact right framing! A little OSR reference couldn’t hurt, but this is great.</li>
+</ul>
+<p>Ultimately, the best way to frame a tradeoff is to put yourself into the CEO role: If you were responsible for the overall success of the business over the long term, what would you want to know about a prioritization decision? What information or arguments would help you choose? Now jump back into your PM body and figure out how, when, and with what tools you can present that in a clear way to leadership.</p>
+<h2>📚 Further study</h2>
+<ul>
+<li><a href="https://www.heavybit.com/library/video/executive-communication/">Harrison Metal: Executive Communication</a></li>
+<li><a href="https://www.youtube.com/watch?v=zNfoSKIobK8">Lucy Spence: A Devilish Approach to Tradeoffs</a></li>
+</ul>
+<p><em>Thanks, Tara! For more from Tara, check out her newsletter, <a href="https://worktopia.substack.com/">Working Assumptions</a>, and follow her on <a href="https://www.linkedin.com/in/tarstarr">LinkedIn</a> and <a href="https://x.com/tarstarr">X</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’ve got a white-glove recruiting service for senior product roles, working with a few select companies at a time. If you’re hiring, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p>
+<p><a href="#footnote-anchor-1">1</a></p>
+<p>Prompt: Imagine you’re a highly competent and empathetic executive coach teaching me, Tara, how to be more curious instead of defensive. Await further instructions.</p>
+<p>Next prompt: Here is an email thread (attached) between me and our Head of Sales. How would you characterize the relationship? What can I do to make it more collaborative?</p>
+<p>Next: In reference to this specific request, I want to ensure that I have the most information to make the right decision instead of just agreeing to do what he asks. What’s the best way to elicit that information, if he’s reluctant to share it?</p>
+<p>Next: Now, help me edit my planned response to his request to be less defensive and to maximize curiosity. I want it to be informal and match the friendly tone of the emails. (Sometimes I’ll ask it to be “even more chill and friendly!”)</p>
+<p><a href="#footnote-anchor-2">2</a></p>
+<p>Chris Sacca’s tweet, if you don’t follow him and thus can’t see it on X:</p>
+<p><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/075089a0-a070-4f43-bfe7-bc3034dcd101_1076x1892.png" /><img alt="Image from How to communicate tradeoffs so leaders will listen" src="https://substack-post-media.s3.amazonaws.com/public/images/f7ba06f5-15c7-41ca-acfb-e17c4481329d_1046x1312.png" /></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to become a supermanager with AI — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to become a supermanager with AI</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to become a supermanager with AI</div>
+    
+    <div class="article-meta">2024-11-19<span>·</span>3,832 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">策略</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Last week’s guest post</a> about tactics for becoming a “super IC” is on track to being my most popular post of all time, so I’m thrilled to bring you a follow-up that’s designed specifically for <em>managers</em>. In spite of what you may hear, we will still need (great) managers in the future—to scale (well-functioning) teams, to mentor and coach individuals, and to think beyond the day-to-day. Below, <a href="https://www.linkedin.com/in/hilarygridley/">Hilary Gridley</a>, director of product management at WHOOP, shares strategies she’s learned to leverage the latest AI tools to not just become a better manager but to level up her entire team. These tactics and tools are practical and actionable, and you can start experimenting with them today, even if you’re not managing. This post blew my mind when I first read it, and I’m very excited to share it with you.</p>
+<p><em><a href="https://www.linkedin.com/in/hilarygridley/">Hilary Gridley</a> is the director of product management at WHOOP, where she oversees the core product team, including AI, Health, and Coaching initiatives, specializing in combining AI with evidence-based approaches to help millions improve their health and performance. Previously, she was a senior director of product at Big Health, a product marketer at Dropbox, and designed youth advocacy campaigns with major brands like H&amp;M and 3M that engaged millions of young people.</em></p>
+<p><em>For more from Hilary, check out her <a href="https://hils.substack.com/">newsletter</a>, and follow her on <a href="https://x.com/yourgirlhils">X</a> and <a href="https://www.linkedin.com/in/hilarygridley/">LinkedIn</a>.</em></p>
+<p><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/c822459d-bc8f-4227-ab28-c68d2da7197d_4000x2000.png" /></p>
+<p>I love managing people. My team inspires me, and it’s a genuine honor to help them sharpen their skills, build resilience, exceed their own expectations, and find meaning in their work.</p>
+<p>Yet, like many managers, my calendar is packed, my unread Slack messages seem endless, and my attention is pulled in countless directions. I’ve been intrigued by the potential of AI to help managers like me spend more time coaching their teams, but most resources I’ve seen focus on productivity for individual contributors—so-called “super ICs.”</p>
+<p>This year, I fully embraced AI as a management tool, and the results have been transformative. Our team’s performance, productivity, and NPS have all reached all-time highs. One PM on the team, <a href="https://www.linkedin.com/in/alexa-j-murray/">Alexa</a>, says, “The team has 10x’d in efficiency and skill. Now that I have experienced AI-augmented product management and leadership, I don’t think I could work for a company where AI wasn’t allowed. It would feel equivalent to being asked to handwrite my PRDs—in cursive.”</p>
+<p>If 2024 was the year of the super IC, I predict 2025 will be the year of the supermanager. A supermanager harnesses AI to amplify their impact while fully embracing the human side of management. By scaling their efforts, supermanagers can effectively oversee larger, flatter teams and extend their coaching beyond just direct reports, fostering a culture of continuous learning throughout the organization.</p>
+<p>The skills that make for great managers—providing clear, consistent feedback and articulating the difference between good and excellent—translate remarkably well to creating GPTs that can give your team nearly unlimited access to your insights. And by helping your team develop a natural instinct for collaborating with AI, you’re not just improving their productivity; you’re building a more capable, adaptive, and high-impact product team.</p>
+<p>In this post, I’ll share the strategies that are turning this vision of the supermanager into reality for my team—and how you can do the same for yours:</p>
+<ol>
+<li>Level up your team’s writing skills</li>
+<li>Turn your team into debate champions</li>
+<li>Help your team master synthesis skills</li>
+<li>Build a custom GPT that thinks like you on-demand</li>
+<li>Teach your team how to use AI as a thought partner</li>
+</ol>
+<h3><strong>Strategy 1: Level up your team’s writing skills</strong></h3>
+<p>Communication is a superpower in any role, but especially for product managers. A PM’s ability to drive clarity across different functions, explain decisions, and inspire their team can be the difference between high performance and burnout. To nurture my team’s writing instincts, I spend a lot of time explaining the “why” behind my edits to their documents/emails/decks/etc. While this personalized feedback is key to improving the writing <em>and</em> the writer, it is time-consuming, often delaying the team from getting their messages out swiftly.</p>
+<p>To scale myself, I distilled my most common writing feedback into a GPT called “The Executive Editor” (try it <a href="https://chatgpt.com/g/g-67328e9be4988190baa9b07a00b2628c-hilary-s-executive-editor">here</a>). This tool allows my team to paste in their emails, decks, or Slack messages and receive a letter grade on structure, clarity, level of detail, and tone, along with actionable recommendations for improvement. Here’s an example output:</p>
+<p><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/db2e1cf8-8208-4103-a042-de7c8cc00e76_1470x878.png" /><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/c1722abf-eb63-489d-865e-9f898cd3d74e_1586x1110.png" /><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/24d2b3b1-71d9-4639-95c2-9a22467df09d_1606x1142.png" /></p>
+<p>Six months ago, I didn’t think this could work. But I’ve learned that LLMs are <a href="https://www.lennysnewsletter.com/p/five-proven-prompt-engineering-techniques">only as effective as the prompts they’re given</a>. If you don’t know what makes writing good, it’s tough to teach a model how to evaluate or generate quality writing. However, if you’re skilled at explaining something to people—as many great managers are—you’re well equipped to teach it to an AI, allowing you to create effective GPTs that give your team unlimited opportunities to get your feedback.</p>
+<p>And while this may sound like a chore (who enjoys being graded?), my team has found it invaluable. Previously, in order to avoid becoming a bottleneck, I could review only high-stakes communications, like emails to the CEO or all-hands presentations. Now my team can receive ongoing feedback from “me” on any message they want to send at any time. One PM told me she keeps the tab open in her browser at all times. Another PM on the team, <a href="https://www.linkedin.com/in/sampropis">Sam</a>, said: “I’ve been using this as my first (and second) pass on emails and decks, and it has reduced the frequency with which I run things by Hilary. It has already leveled up my game. Beyond just editing, it’s transformed my approach to executive messaging.”</p>
+<p>Creating a tool like this has a few benefits:</p>
+<ol>
+<li>My reports can receive feedback multiple times a day rather than once or twice a week, greatly accelerating their growth.</li>
+<li>The impact scales beyond my team; colleagues across the company have adopted The Executive Editor.</li>
+<li>I’ve noticed that, org-wide, communication is getting clearer, whether it’s an email to the C-suite or a quick Slack note explaining a controversial decision.</li>
+</ol>
+<p>Of course, I’m still available to review work—and I do. But I no longer have to provide the first-round feedback I once did, since the draft has already undergone several rounds of what are essentially my suggestions before I even touch it. This allows me to dive straight into the specifics of the project, ensuring the team is getting maximum Hilary Per Minute (HPM).</p>
+<p>You can implement a similar approach in any area where you provide consistent feedback, such as PRDs, presentations, or roadmaps. The goal isn’t to remove yourself from the process; rather, it’s about ensuring that the time you do spend giving feedback is high-leverage and impactful. By empowering your team to improve their writing skills independently, you help them communicate more effectively, fostering a culture of continuous learning and growth.</p>
+<p><em>You can use The Executive Editor <a href="https://chatgpt.com/g/g-67328e9be4988190baa9b07a00b2628c-hilary-s-executive-editor">here</a>, find the prompt I wrote for it <a href="https://docs.google.com/document/d/1PyfwLZcSxENRc3CGptPKRWS7k33vf2h_ELG4lA2AZD4/edit?usp=sharing">here</a>, and instructions for creating a custom GPT <a href="https://zapier.com/blog/custom-chatgpt/">here</a>.</em></p>
+<h3><strong>Strategy 2: Turn your team into debate champions</strong></h3>
+<p>Many people are drawn to product management because it’s likened to being the CEO of a product. However, the reality sets in when they find themselves in meetings with actual CEOs, who have strong opinions and an intimate knowledge of the business. It becomes clear that your power lies in your ability to influence—advocating effectively for your perspective, both on paper and in real-time discussions.</p>
+<p>The good news is that anyone can learn the logical reasoning skills needed to build a solid argument. I created a GPT specifically designed to help product managers strengthen these skills through scenario-based simulations that mirror real-world situations, such as feature prioritization or balancing competing metrics. You can try it out <a href="https://chatgpt.com/g/g-673290301700819084afa36bdbcdfa3b-product-management-logic-coach">here</a>. I love scenario-based learning because it helps people apply theoretical concepts to real life, with immediate feedback that creates a fast, repeatable learning loop.</p>
+<p>Here’s an example output from the GPT:</p>
+<p><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/b2ed51d7-f56e-4875-802b-d74bbed95e1e_1400x1414.png" /><img alt="Image from How to become a supermanager with AI" src="https://substack-post-media.s3.amazonaws.com/public/images/390a7319-4424-458a-a716-e1c91267fde2_1346x1212.png" /></p>
+<p>While we wait for everyone to join our weekly team meeting, I’ll pull up this GPT to generate a discussion question for the team. It’s a fun, low-pressure way to sharpen our live debate skills while fostering team camaraderie (and requires no preparation from me). We decide on an answer, enter it, and the GPT provides a breakdown of the reasoning behind why each option is correct or incorrect. This allows us to learn from both the answer and one another’s thought processes.</p>
+<p>After I began integrating this GPT into our regular meetings, team members reported feeling more confident when presenting their ideas and have been more successful in influencing executives. And they can continue enhancing their skills together without time-consuming training sessions.</p>
+<p>You can implement similar AI-driven coaching tools to help your team build confidence in areas like strategic thinking or decision-making. By providing consistent, targeted practice, you empower your team to grow while you focus on the high-impact coaching moments.</p>
+<p>This approach not only elevates individual skills but also fosters a culture of learning and support within your team.</p>
+<p><em>You can use the logic coach <a href="https://chatgpt.com/g/g-673290301700819084afa36bdbcdfa3b-product-management-logic-coach">here</a> and find the prompt I wrote for this GPT <a href="https://docs.google.com/document/d/1PyfwLZcSxENRc3CGptPKRWS7k33vf2h_ELG4lA2AZD4/edit?tab=t.0#heading=h.g0bsru2fvrfw">here</a>.</em></p>
+<h3><strong>Strategy 3: Help your team master synthesis skills</strong></h3>
+<p>AI-generated meeting notes are a popular tool, but in my experience, they often miss the mark. They tend to drift toward broad abstractions rather than providing clarity and nuance. Good meeting notes confirm whether everyone in the room arrived at the same conclusions, which is not always obvious from transcripts, and they allow people who were not in the room to quickly understand the points of view expressed and why the room gravitated in certain directions.</p>
+<p>For PMs, synthesizing meeting notes isn’t “just admin work.” It’s a critical skill. PMs attend meetings that others don’t—like customer calls, executive strategy reviews, and technical discussions. Their synthesis of these meetings allows them to update their own perspectives and share key insights with others, so that thoughtful decisions aren’t reduced to “We’re doing this because the CEO says so.” Effective synthesis prevents miscommunication, aligns teams, and sharpens strategic thinking.</p>
+<p>However, teaching synthesis is challenging. The process of how I arrive at my own notes isn’t always clear for people who weren’t in the room. And when PMs lead meetings, they’re usually focused on immediate follow-ups, which leaves little time for practicing this skill. That’s where AI can help, but only with a balanced approach that ensures the team stays actively engaged in the synthesis process. Here’s how I encourage my team to use AI as a tool, not a crutch:</p>
+<ol>
+<li><strong>Write a prompt that articulates the specific goals of the summary.</strong> I loaded <a href="https://docs.google.com/document/d/1PyfwLZcSxENRc3CGptPKRWS7k33vf2h_ELG4lA2AZD4/edit?usp=sharing">this prompt</a> into a custom GPT that my team uses, which I’ve found gets better results than a generic, out-of-the-box summarizer.</li>
+<li><strong>Write the first draft for three takeaways.</strong> Before looking at AI-generated notes, I ask team members to write down the top three takeaways they personally find essential from a meeting. This approach encourages them to prioritize, reflect on what truly matters, and sharpen their instincts before comparing their takeaways with the AI’s draft. By doing this, the AI acts as a secondary perspective, not the primary one.</li>
+<li><strong>Focus on “why” and “how,” not just “what.”</strong> I challenge PMs to go beyond just documenting what happened by clarifying why key decisions were made and how these decisions will impact the team’s priorities. This helps deepen their understanding of the discussions, creating notes that provide richer context for other teams to foster alignment across the organization.</li>
+<li><strong>Adjust your approach based on the meeting.</strong> For recurring updates or straightforward topics, the AI can handle the note-taking. But for strategic insights and more nuanced conversations, PMs should spend more time editing. The AI handles the grunt work; PMs layer in the strategic depth.</li>
+</ol>
+<h3><strong>Strategy 4: Build a custom GPT that thinks like you on-demand</strong></h3>
+<p>When I first started working with AI, I was skeptical that it could ever replicate the feedback I give my team. But I’ve realized that if you’re good at teaching people how to do something, you’re also extremely well suited to teaching a robot.</p>
+<p>This realization has been a breakthrough. With my “Executive Editor” GPT, for instance, my team now has access to feedback that is remarkably similar to what I’d give. They get real-time guidance on going from 0 to 80, which means I can focus my time on getting them from 80 to 100. At the end of the day, they are getting to higher-quality, faster.</p>
+<p>The coolest part is that the AI can help you, as a manager, articulate standards that feel intuitive but are hard to put into words. Explaining precisely what “good” means to you can be challenging, especially if you’ve developed a gut sense of what works. To make this easier, you can reverse engineer your own feedback: upload examples of work you consider high-quality and low-quality, ask the AI to identify the specific differences, and then have it create a prompt that could transform the “bad” examples into “good” ones.</p>
+<p>Here’s a simple guide to creating a GPT that thinks like you:</p>
+<ol>
+<li><strong>Identify what kind of feedback you are best at giving.</strong> If you’re unsure, try prompting the AI, <em>“I want to create a custom GPT that helps my team upskill in an area where I am uniquely strong. What are some examples of skills or areas where [product] leaders might have unique expertise they could teach an AI?”</em></li>
+<li><strong>Translate this skill area into a GPT concept.</strong> Let’s say you love getting into the details of UX design. You could create a GPT where your team can upload wireframes to get a first round of feedback, or it could generate thoughtful questions to ask during usability testing. If you’re not sure, upload a PDF of this post into the AI and say, “<em>I’d like to focus on [x domain]. Read this document and then give me 10 new creative ideas for GPTs I could create to help my team upskill in this area.”</em></li>
+<li><strong>Teach the model to think like you.</strong> Start gathering examples of “before” and “after” work, where your input has improved the final product. Or simply identify a few examples of best-in-class work in your eyes. Use the AI to analyze the differences to identify patterns in your feedback and edits. You can prompt it with <em>“Describe in detail the differences between the ‘before’ and ‘after’ versions.”</em> Drill in and be more specific, using my favorite prompt: “<em>Be 100x clearer and more specific.</em>”</li>
+<li><strong>Ask the AI to write a prompt for you.</strong> Once the AI understands the patterns, ask it to help write a prompt that would output work that meets your standards for excellence. For example, <em>“Write a prompt that would make an AI turn a rough draft like the ‘before’ example into a polished version like the ‘after’ example. Explain the why behind any recommendations with extreme specificity and detail.”</em> Use this as a starting point, and then refine it yourself. Test the prompt by running “before” examples and seeing what it outputs.</li>
+<li><strong>Create and share the GPT.</strong> <a href="https://zapier.com/blog/custom-chatgpt/">Follow these instructions to create your own GPT</a>. Load your prompt in, and add any helpful documents to the knowledge base. If you’ve written any blog posts on this subject, for example, you could load those in. Then publish and share it with your team. Emphasize that you’re still available to provide time and feedback but that this tool makes your insights accessible whenever they need it.</li>
+</ol>
+<p>This practice doesn’t just scale your skills—it also challenges you to articulate exactly how you approach things, making you a more reflective and effective leader. For more inspiration, check out more examples of custom GPTs <a href="https://www.lennysnewsletter.com/p/you-should-be-playing-with-gpts-at">here</a>.</p>
+<h3><strong>Strategy 5: Teach your team how to use AI as a thought partner</strong></h3>
+<p>Upskilling your team on AI is one of the best things you can do as a PM manager today. Strong instincts for collaborating with AI can help you solve problems faster, see around corners, and communicate more effectively. You won’t get there by copy-pasting long, single-use prompts or using pre-built GPTs, as helpful as these can be. Your team needs to treat AI as true collaborators—engaging in back-and-forth iteration, asking insightful questions, and prompting the AI to help uncover the right path forward.</p>
+<p>To build these instincts, I created a 30-day “Collaborate with AI” program: a hands-on, practical learning journey designed to teach effective AI co-intelligence in just a few minutes each day while making it a habit. This program uses micro-assignments that encourage you to engage deeply with AI—iterating, adding context, and refining prompts to significantly improve results.</p>
+<p>As a result, we’ve all become better problem solvers. We now use AI as a thinking partner that challenges our assumptions, sharpens our communication, and helps us make well-informed decisions and recommendations. <a href="https://www.linkedin.com/in/anjaliahuja/">Anjali</a>, a PM on the team, says that “using AI to weigh trade-offs and anticipate questions from different team members helps me bring refined ideas to the table, making cross-functional time more effective. By the time I share with my manager, I’ve already eliminated weaker ideas, and I’m ready with answers to drive alignment.”</p>
+<p>Here are some examples of micro-assignments from the program. You can find the full program, including prompts, <a href="https://docs.google.com/spreadsheets/d/1zJ4rbi9YcQuGqGxc6-AQD0-44oT9l4Eyono0AdpgJbA/edit?gid=0#gid=0">here</a>.</p>
+<p><strong>Get better outputs by providing context.</strong> Learn how providing detailed context to the AI can significantly improve the relevance and specificity of its answers.</p>
+<ol>
+<li>Prompt, <em>“Help me plan an upcoming vacation. What information can I give you that would be the most helpful?”</em></li>
+<li>The AI will respond with a variety of follow-up questions. Answer as many as you like and see what sorts of answers you get.</li>
+<li>Prompt, “<em>Let me tell you about some of the best vacations I’ve ever had.”</em> Add specific context, like the names of hotels or restaurants you’ve enjoyed.</li>
+<li>Prompt, <em>“Your suggestions are too _____, make them more ____.”</em> Use a variety of adjectives: too generic, expensive, touristy, predictable, etc. Notice how this changes the output.</li>
+<li>Prompt, <em>“Let’s go with [destination]. Ask me three questions that will allow you to build the perfect itinerary for me.”</em> The AI will ask you three questions and then suggest an itinerary for you.</li>
+<li>Prompt, <em>“Make this 100x more specific.”</em> Notice how this changes the output.</li>
+</ol>
+<p><strong>Provide colleagues with the best answer to their questions.</strong> Learn how to break down a question, arrive at an answer, improve it, fact-check it, and anticipate objections.</p>
+<ol>
+<li>Prompt, “<em>I am a product manager who just received this question from an engineer and I want to ensure I come up with the best possible answer in the next 3 minutes. Provide a step-by-step guide for how I should determine the answer: ‘What’s the acceptable latency threshold for [feature], and what’s our plan if latency increases during peak usage times?’ ”</em></li>
+<li>Prompt, <em>“Can you suggest an initial target based on similar features or benchmarks? Show your work so I can validate it.”</em></li>
+<li>Prompt, <em>“Give me a better answer, and explain why it’s better.”</em></li>
+<li><em>Prompt, “I want to confirm that everything here is accurate on my own. How can I do that?”</em></li>
+<li>Ask, <em>“Imagine you are the engineer who sent me this question. What pushback might you have to this response?”</em></li>
+</ol>
+<p><strong>Create a growth plan for yourself.</strong> Create an actionable, personalized growth plan with a clear deliverable that will help you improve a specific skill.</p>
+<ol>
+<li>Prompt, <em>“I am a [product manager] focused on [domain]. I would like to improve my [strategic thinking] over the next three months. What specific skills or behaviors will help me do this while making a tangible impact in my role?”</em></li>
+<li>Prompt, <em>“Suggest 3 specific deliverables I could work on over the next month to practice these skills in a way that adds value to [my company].”</em></li>
+<li>Prompt, <em>“Make this 100x more specific.”</em></li>
+<li>Choose one deliverable and ask, <em>“Is there a more lightweight way to approach [idea] so it doesn’t become a big project that distracts me from short-term execution?”</em></li>
+<li>Prompt, <em>“Can you suggest questions I could ask my manager to get feedback on my progress along the way?”</em></li>
+</ol>
+<h3><strong>Conclusion: Supermanagers don’t do it alone</strong></h3>
+<p>AI isn’t here to replace managers. It’s here to make us more effective. By building tools that provide real-time feedback, guide skill development, and enable independent growth, you can empower your team to reach new heights without sacrificing the personal connection that defines great management. Embracing AI allows you to focus on the high-impact coaching moments that truly make a difference, while your team gains the tools to improve and succeed every day.</p>
+<p><em>Thanks, Hilary!</em></p>
+<p><em>For more from Hilary, check out her <a href="https://hils.substack.com/">newsletter</a>, and follow her on <a href="https://x.com/yourgirlhils">X</a> and <a href="https://www.linkedin.com/in/hilarygridley/">LinkedIn</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>Hiring? 👀</h2>
+<p>I’ve got a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), where I work with a few select companies to fill their open roles. If you’re hiring, apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

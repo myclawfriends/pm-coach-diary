@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Make product management fun again with AI agents — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Make product management fun again with AI agents</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Make product management fun again with AI agents</div>
+    
+    <div class="article-meta">2025-04-29<span>·</span>5,713 words</div>
+    <div class="tags-row"><span class="mini-tag">AI</span> <span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Tal Raviv’s <a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">last guest post</a> on working “unfairly” as a PM is my fourth most popular of all time, and <a href="https://www.youtube.com/watch?v=wFhurV1l6Jk">his podcast episode</a> is a huge fan favorite. Now he’s back with a guide to using AI agents to make PMing fun again, which I predict will be in the top 5 most popular posts of all time. [Editor’s note: this prediction proved to be true].</p>
+<p><em>For more from Tal, check out his <a href="https://talraviv.co/">63 free video tutorials</a> on using AI agents at work, and his other guest post on <a href="https://www.lennysnewsletter.com/p/build-your-personal-ai-copilot">building your AI thinking partner</a>. You can also book Tal for an <a href="https://talraviv.co/build-sprints">AI build sprint</a> with your team.</em></p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/70119d0a-d718-435b-9de9-86f47bc13309_2912x2130.jpeg" /></p>
+<p>What’s beautiful about product management is that everything is our job.</p>
+<p>What’s maddening about product management is that <em>everything is our job</em>.</p>
+<p>But while we’re busy with draining-yet-essential tasks (penning updates, wrangling meetings, syncing sources of truth, or acting as mission control), we’re displacing critical time to get up to speed on new tech, immerse ourselves in customer conversations, analyze data, build trust, and be thoughtful about the future: the important parts of our job.</p>
+<p><a href="https://www.lennysnewsletter.com/p/product-manager-is-an-unfair-role">Productivity hacks</a> and <a href="https://youtu.be/wFhurV1l6Jk?si=YFpjMnVgEl262Oi5&amp;t=1672">cultivating self-reliant teams</a> can help, but with tech orgs flattening, more of these types of repetitive but necessary tasks are falling on fewer product managers.</p>
+<p>Enter AI “agents.” Unlike chat-based LLMs, agents can listen to the real world, make basic decisions, and take action. In other words, they’re becoming talented enough to take on our least favorite, least impactful—but still necessary to do—PM tasks.</p>
+<p>If you’re like me, you’ve heard the promises and proclamations about how agents will reshape productivity, but your workday hasn’t changed at all yet. It’s not you—operationalizing AI agents for product work is hard. <em>Where to start? What tools? What about security? Costs? Risks? And why is there such a #$@% learning curve?</em></p>
+<p>After interviewing founders of AI agent platforms, running numerous usability sessions with PMs building their first agents, and gathering insights from a <a href="https://maven.com/p/50b3a6/build-6-pm-ai-agents-in-56-minutes">hands-on workshop</a> for over 5,000 product managers, I’ve compiled their collective wisdom. This post shares their insights on what works—and what doesn’t—in the real world. We’re first going to learn how to build an AI agent, hands-on. Then I’ll share a unified framework for any PM to plan their second (and third) agent. We’ll cover best practices, pitfalls, powers, and constraints.</p>
+<p>While AI agents aren’t magic genies, they can take a lot of repetitive, energy-draining PM tasks off our plate, let us focus on the most important work, and even make our jobs a bit more fun.</p>
+<h2>What is an AI agent?</h2>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/312f3fd5-95f0-404c-83fd-c0d76f4f56de_556x500.png" /></p>
+<p>The term “AI agent” is admittedly fuzzy. Instead of debating names, it’s more useful to identify behaviors. Think of the term “agent” as a spectrum, where AI systems become “agentic” the more of the following behaviors they exhibit:</p>
+<ol>
+<li><strong>Acts proactively</strong>,as opposed to waiting to be prompted.</li>
+<li><strong>Makes a plan</strong>,as opposed to being given instructions.</li>
+<li><strong>Leverages context</strong>,accessing an internal knowledge base about your company and team, pulling the most up-to-date information regularly.</li>
+<li><strong>Draws on live data</strong> such as a web search or a support queue (as opposed to relying on static training or manually uploading a file).</li>
+<li><strong>Takes real-world action.</strong> Updates a CRM, runs code, or comments on a ticket, as opposed to only making recommendations.</li>
+<li><strong>Creates its own feedback loop.</strong> Watches its own output and iterates without human assistance.</li>
+</ol>
+<p>With new startups launching weekly, this framework helps me appreciate each product’s place in the landscape. Each row here is a product category, and each column is a useful behavior.</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/7a2f4d73-bb94-4d79-ada4-2d7ac3b6b7c8_2913x3100.jpeg" /></p>
+<p>Notice how each row checks some, but not all, boxes. AI systems are still very early, and each category approaches the opportunity from a different starting point.</p>
+<p>Of all the flavors and approaches of agents today, the category I refer to as “AI automations” is currently the most practical for helping product managers with monotonous busywork. This includes tools like Zapier, Lindy AI, Relay App, Gumloop, Cassidy AI, and so on. In this post, we’ll focus on this category of agents, but however you define AI agents, the important thing is that they can help us spend more time with our customers, give more attention to our teammates, build better products, and have more fun.</p>
+<h2>Launch your first AI agent right now</h2>
+<p>Let’s quickly launch an AI agent that preps you for a customer call, and let it run in the background while you read the rest of this article.</p>
+<p><em>These instructions are for Zapier Agents (note: I have no affiliation with Zapier, I’m just a fan of this tool) and will take just 10 quick steps.</em></p>
+<h3>Ingredients</h3>
+<ol>
+<li>Zapier Agents</li>
+<li>Google Calendar (or Outlook)</li>
+<li>Slack (or MS Teams)</li>
+</ol>
+<h3>Instructions</h3>
+<ol>
+<li><a href="https://zapier.com/sign-up">Create a Zapier account</a> and navigate to “Zapier Agents.”</li>
+</ol>
+<p><em>Note that Zapier Agents is a new, separate product from the classic “Zaps” you may be familiar with.</em></p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/7b0fcb3c-a21f-47e7-8b1c-929fe4675c48_1600x899.png" /></p>
+<ol>
+<li>Select “Create a custom agent,” give it a name, and click “Start from scratch.”</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/57a1aab8-ba53-40c7-ab75-f1f40b8ae395_1600x911.png" /></p>
+<ol>
+<li>Click “Configure” at the top and “Create behavior.”</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/897706f4-16fc-4730-9588-d6100c5ac190_1600x892.png" /></p>
+<ol>
+<li>Set our automation to run every day at 8 a.m.</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/e1dc45e2-982f-48d6-a1fd-5bcb8244ad5f_1600x920.png" /></p>
+<ol>
+<li>Paste the following prompt into the instructions field:</li>
+</ol>
+<p><code>Look at all my calendar events for today [CALENDAR FIND MULTIPLE EVENTS], find all the external participants (people who have a different email address domain than mine), and do a web search for each of those email addresses. Summarize who these people are (where they work, what title they have, how long they’ve been in that role, information on past roles, and anything else you deem relevant) and send me a message in Slack.</code></p>
+<p><code>[SEND DIRECT MESSAGE] for each meeting with external participants (skip meetings with only internal participants) and tell me:</code></p>
+<p><code>- Name of meeting</code></p>
+<p><code>- Time of meeting</code></p>
+<p><code>- Name and relevant information of each external participant (formatted on their own line)</code></p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/cc9ffbdd-cfe4-4fba-9e27-5e6ce9c0ec23_1600x887.png" /></p>
+<ol>
+<li>Delete the placeholder text “[CALENDAR FIND MULTIPLE EVENTS]” and, with your cursor still in that spot, click “Insert tools.”</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/969961f5-1f89-40d9-8d55-b25940a95f69_1600x897.png" /></p>
+<p>If you’re using Google Calendar, choose “Find Multiple Events.”</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/66b0f44a-a34e-4567-9fcb-160af1350828_1600x912.png" /></p>
+<ol>
+<li>Link your calendar software, and select your personal calendar.</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/1c6085b1-6b30-42de-b4c8-efce5c9cea83_1600x1122.png" /></p>
+<p>You should see the calendar block inline with your prompt:</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/9dc850b4-db7f-4aaa-a13f-b2aa9770d0af_1600x891.png" /></p>
+<ol>
+<li>Delete the placeholder text “[SEND DIRECT MESSAGE]” and, with your cursor still in that spot, use the “Insert tools” menu to connect your favorite messaging service.</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/6431bf3b-93e2-4b62-8e5b-45fc0fb3934c_1600x933.png" /></p>
+<p>I’m using Slack, and I’ll set it to be able to send me a direct message.</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/2264812f-56a1-4d87-ab65-696d13bdc9c8_1600x938.png" /></p>
+<p><em>Constraining the agent to only DM frees us for worry-free experimentation.</em></p>
+<ol>
+<li>Woo! We’re ready to run. Click “Save instructions &amp; test.”</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/faf854ce-0d25-4f08-8501-0628c8917a24_1600x891.png" /></p>
+<p>You’ll get a message like this:</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/0a88ed9c-1cfc-458f-b6d9-6b36fbbb8f10_1600x738.png" /></p>
+<ol>
+<li>If you’re happy with this, go ahead and turn it on. (Don’t sweat this decision, since the only action it can take is privately DMing you.)</li>
+</ol>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/42e5b32f-189d-422b-bef6-e3db8b88ff66_1600x898.png" /></p>
+<p>Congratulations. You’ve set up your first PM AI agent, now running in the background while you sit back and read Lenny’s Newsletter.</p>
+<h2>Plan your second AI agent</h2>
+<p>With our new agent running in the background, let’s unpack what we did . . . by planning our second AI agent.</p>
+<p>The first step is deciding what problem we want to solve. For this exercise, we’ll focus on opportunities that pre-AI automations couldn’t address.</p>
+<p>Ask yourself: What ongoing work requires some judgment and writing abilities—but not your full expertise and intuition? Put another way, if my company assigned me a junior intern, what would I have them do?</p>
+<p>Below are examples of use cases where product managers have gotten a lot of value from AI agents. (If any of them jump out at you, feel free to copy.)</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/c347d339-d5da-45d9-916f-ca1d8149b286_2912x4362.jpeg" /></p>
+<p><em>Note: Try to phrase this goal in one or two sentences, exactly the way you would in a Slack message to a junior intern.</em></p>
+<p>I recommend choosing <strong>ongoing tasks that arrive continually</strong>. AI automations shine in one-at-a-time, repetitive tasks.</p>
+<p>In contrast, I don’t recommend designing for a big, one-time “batch” task (e.g. sifting through dozens of emails that already arrived). For batch tasks, consider working directly from an AI system:</p>
+<ul>
+<li>Export the data and manually upload to Claude, Gemini, or ChatGPT.</li>
+<li>Use a built-in tool like Slack AI, Notion AI, Gemini for Workspace, or Microsoft Copilot.</li>
+<li>Connect directly to software apps with MCP integrations.</li>
+</ul>
+<h2>Design how your agent is going to work</h2>
+<p>Now that we’ve chosen what to delegate, let’s design how it’s going to work. Below is a checklist for planning an agent, regardless of what platform we’ll choose. Keep your chosen task in mind as you work through the list:</p>
+<p><strong>☑️ Do</strong> <strong><em>I</em></strong> <strong>understand this task?</strong></p>
+<p><strong>☑️ Could I start even smaller?</strong></p>
+<p><strong>☑️ Can I keep the downside low?</strong></p>
+<p><strong>☑️ Am I giving enough context?</strong></p>
+<p><strong>☑️ Am I staying close to raw customer signals?</strong></p>
+<h3>1. Do <em>I</em> understand this task?</h3>
+<p>Just as when delegating to people, the fanciest AI will perform only as well as the instructions it’s given.</p>
+<p>Are you clear on how <em>you</em> would accomplish this task manually, with mouse, keyboard, and coffee? Do you know where the key information lives? Can you clearly put it in words? The first step is looking inward.</p>
+<p>As Max Brodeur-Urbas, the CEO of Gumloop, put it, “Understanding a problem should be the only prerequisite to solving it.”</p>
+<p>The best way to gain this clarity is to do the task once or twice. That way, you can provide examples of what success looks like. In our customer prep call example, think of the last time you prepared for a customer call. What sources did you intuitively consult? What information were you primarily looking for? (And what wasn’t relevant?)</p>
+<p>And if you’ve already been doing this task manually for a while, you’ve got this step covered. For example, when I watched a colleague set up a “weekly updates” agent, he already had a channel full of examples he could copy and paste as templates.</p>
+<h3>2. Could I start even smaller?</h3>
+<p>Since AI agents evoke the image of a magical genie, it’s tempting to ask for all of our wishes at once.</p>
+<p>It’s more realistic to approach our agent like a new product, or a new process. As PMs, we know that to make both successful, we need to start small and cut scope. (Ironically, as PMs, it’s hard to cut scope when it’s for ourselves.)</p>
+<p>Ask yourself, what’s the <em>worst</em> part? The step you dread the most? Let’s start by delegating only <em>that</em>. We’ll do the rest of the steps manually first.</p>
+<p>If your dream is to monitor five competitor websites, first launch with <em>one</em>.</p>
+<p>In our customer prep call example, it would have been tempting to have it scan the web, our Slack, Gong, Zendesk, Mixpanel, and HubSpot. However, we launched it with one data source to keep it simple to start, which allows us to build from there.</p>
+<h3>3. Can I keep the downside low?</h3>
+<p>Murphy’s Law is as true for AI as it is for people: <em>Anything that can go wrong, will go wrong.</em> To sleep well at night, let’s ensure that any mistakes don’t really cost anything.</p>
+<p>Don’t try to predict how much a model will hallucinate (it will) or if your workflow will get it right the first time (it won’t). Instead, design your agent in a way that gives you all the upside and caps the downside.</p>
+<p>Examples of keeping a low downside, with high benefit:</p>
+<ol>
+<li>Instead of pinging a Slack channel → <strong>Send me a DM that I can copy-paste</strong></li>
+<li>Instead of sending an email → <strong>Create a draft and star the thread for my review</strong></li>
+<li>Instead of making a decision → <strong>Make a recommendation</strong></li>
+<li>Instead of modifying a document → <strong>Append suggestions at the bottom</strong></li>
+</ol>
+<p>Keeping a low downside is also a matter of physically restricting access with permissions (and even more granular). This is where agent platforms that have hard access constraints can really shine, because those physically limit the AI system’s behavior.</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/027db2e8-326f-40d4-a2e1-cac596863314_1328x1284.png" /></p>
+<h3>4. Am I giving enough context?</h3>
+<p>Your AI agent most likely doesn’t need an in-depth competitive-landscape presentation, the three-year vision, or the entire company org chart.</p>
+<p>It <em>probably</em> does need to know where to access the right data, get your guidance for making decisions, and understand how to identify people on your team.</p>
+<p>Setting AI up for success looks a lot like what it takes to set up a human for success. For example, if you wanted an intern to “scan all Slack messages for feature requests about two-factor authentication shared by someone on the customer success team” . . . well, they’d need a way to know <em>who is on the customer success team</em>. If you expect your agent to make a decision on prioritization, <em>share your prioritization framework</em>.</p>
+<h3>5. (Danger zone) Am I staying close to raw customer signals?</h3>
+<p>It feels obvious that an AI model with more raw training data will have better judgment. Yet when it comes to our own brains as PMs, it’s very tempting to fill our days with AI summaries—and deprive our own brains of “training data.”</p>
+<p>If I use AI to summarize everything, I’m gonna quickly degrade my customer intuition. In other words, product managers: AI isn’t endangering your job, but <em>letting AI</em> <em>read for you</em> is.</p>
+<p>What’s the middle ground? Use AI to traverse, roam, navigate, cluster, and clean up large amounts of data, but don’t let it blur your vision with summaries. Stay in the weeds by insisting on exact quotes and direct links to the original support tickets, sales call snippets, and screen recordings.</p>
+<p>Max Brodeur-Urbas shares another strategy. If you’ve ever tried to glean feedback from a support thread, you know that not only is it a ton of scrolling but also that the key insights are often at the end. Gumloop uses AI to get insights from their helpbot chat threads. But instead of summarizing, the role of AI is to <em>reason about the root cause</em> to better classify:</p>
+<p>“We use AI to analyze each chat and ask, ‘What is this person struggling with? What is the main complaint?’ We take those thoughtful analyses of the thread and we create a report that references the original issue, so we can go back and look at the raw conversation.”</p>
+<p>Now that we know <em>what</em> we want to build, let’s decide <em>how</em> we’ll build it.</p>
+<h2>Construct your agent with a prompt (platform-agnostic)</h2>
+<p>The elephant in the room around AI agents isn’t hallucinations, security, or costs (though we’ll address those soon). It’s the learning curve. As product managers, the last thing we need is one more hard thing to figure out.</p>
+<p>Many AI agent platforms require building blocks, subroutines, systems thinking. It may not be “coding,” but it sure is programming.</p>
+<p>At the same time, we’ve been spoiled with <a href="https://www.lennysnewsletter.com/p/a-guide-to-ai-prototyping-for-product">AI prototyping tools</a> that let us build with natural language conversations.</p>
+<p>When I was running AI agent usability sessions with PMs, several of the PMs had the same clever thought: “Why don’t I build this with an AI prototyping tool instead?”</p>
+<p>The short answer is “tempting, but not recommended.” While API integrations aren’t Nobel Prize–worthy work, you <em>are</em> building a third-party app. That creates bureaucracy for (1) registering your app with each SaaS service and (2) obtaining IT permission internally. (I haven’t even gotten to compliance or security reviews.)</p>
+<p>And real talk: using AI prototyping tools for production apps is still a lot of maintenance, babysitting bugs, and regressions. Just imagine building (and maintaining) our simple customer prep call agent, with Slack and Calendar integration, by vibe coding. It would take a lot of attention to get it working reliably over time.</p>
+<p>So how can we enjoy (1) building in plain English and (2) the pre-built integrations and security of existing platforms? The answer, of course, is to let AI help.</p>
+<p>Tools like Cassidy, Relevance, and Zapier Agents (in contrast to Zaps) have begun to let you prompt in natural language. Gumloop has “Gummie,” a chatbot that will guide you. Manus impresses at making a plan but lacks key workplace integrations or the ability to listen to triggers.</p>
+<p>None of these feel as smooth as giving instructions to a person, so I’ve created a prompt that transforms your natural language into step-by-step guidance. (File this under “prompts I hope will become obsolete very soon.”)</p>
+<p>Paste the following into your favorite LLM tool that has web search abilities and, ideally, reasoning. I recommend <strong>OpenAI’s o3 Deep Research</strong> or <strong>Perplexity Deep Research</strong> for this prompt.</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/1063e6ab-9aa5-4d73-aea4-2b517d639a6f_1416x390.png" /></p>
+<h3>AI agent builder prompt</h3>
+<p><code>Below are my objectives for an AI agent workflow. You’re an expert explainer of how to build an AI agent that is excellent at explaining to newbies. I want to build an agent in either Relay App or Lindy AI or Zapier Agents (not Zaps) or Cassidy AI or Gumloop or Relevance AI.</code></p>
+<p><code>For each platform, using only their official documentation or tutorials or videos, create step-by-step, explicit, hand-holding walkthroughs for me on how to create it in each platform (each one separately, without combining platforms).</code></p>
+<p><code>Keep it as simple as possible. No recommendation should ever require coding. (If you have no choice but to recommend a direct API call or webhook, make it super-clear and explicit how to make that work.) Use only the minimum necessary access permissions to achieve the task.</code></p>
+<p><code>Don’t gloss over any step; assume I don’t know anything and need even the smallest steps spelled out for me. If a step requires an LLM prompt, write the prompt for me. Same for any query strings (e.g. Gmail search query or otherwise).</code></p>
+<p><code>When you suggest a feature or functionality, ensure that this ability truly exists in that platform! If the web results don’t directly support your recommendation, It’s OK to still recommend it, but note your uncertainty inline in the step itself, using a “🚨” emoji, and provide alternatives in case it doesn’t exist, marked by “♻️.”</code></p>
+<p><code>For each service, spell out for me any components I’d need to have in place outside the platform I choose. Also, highlight any risks why these instructions might not actually work and questions to ask myself before I get started to save me time.</code></p>
+<p><code>If there’s a better tool you recommend for this job (AI agent, automation, or other no-code solution), repeat this process for that tool. If you recognize this is a batch task and not a continuous task (i.e. one-time vs. trigger-driven), then suggest better ways to do this potentially with an LLM even if it’s a bit more manual effort.</code></p>
+<p><code>🌅 OPPORTUNITY</code></p>
+<p><code>[If your boss gave you a junior intern (smart, motivated, zero experience), what would you have them do? Why is it valuable and impactful?]</code></p>
+<p><code>🪖 INSTRUCTIONS FOR AI AGENT TO FOLLOW</code></p>
+<p><code>[Tell your new junior intern how you would go about it at the level of naming the services, clarifying decisions, etc. that a human would need to perform the task. Use the format ❝Whenever ______ happens, I want you to decide ______, based on this data _______ and/or using web research, compare it to previous data from last time, and then go ahead and do ________.”]</code></p>
+<p><code>Ping me before the final action by [DMing me/Create a draft/etc.].</code></p>
+<p>The results of this prompt are sometimes delightful, sometimes imperfect.</p>
+<p>But even when I need to fill in gaps, I’ve found it to be a much-needed boost over the intimidating learning barrier. As one founder candidly put it, “Today our platform makes smart people feel dumb.”</p>
+<p>With this prompt, I can focus more on <em>what</em> I want done and a little less on the <em>how</em>.</p>
+<p>I used it to review NPS survey responses that arrived in a Slack channel and decide if any of them hint at a technical issue that warrants proactively creating a Zendesk ticket.</p>
+<p>Here I’ve implemented it in Lindy AI:</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/b103d0f9-348c-4d84-b6ef-b2db6814c717_1600x1074.png" /></p>
+<p>Not every tool will have what you need, but there’s usually a creative workaround. In Cassidy, there wasn’t a Zendesk “create ticket,” so I had it post in a channel instead:</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/a61c538f-210a-481b-8b8c-a7f84af7a506_1600x894.png" /><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/3d376246-6f14-4183-a0d5-970067803d34_1160x230.png" /></p>
+<h2>Choose a platform</h2>
+<p>The best AI agent platform is the one that your company already uses and trusts.</p>
+<p>If the marketing team has already connected something like Zapier to something sensitive like HubSpot, then your best bet is leveraging that instead of trying to pick a whole new tool.</p>
+<p>Another important criterion is whether it supports the integrations you need. It’s worth checking if a platform both integrates with the service you want to use <em>and</em> if it supports the action (e.g. several platforms can read Zendesk tickets but not create them).</p>
+<p>All else being equal, I recommend choosing the tool that can achieve your goal in the fewest moving parts. How to figure that out quickly? You guessed it: AI.</p>
+<p>Continue the same thread above:</p>
+<p><code>Based on the platforms above and the methods chosen, please create a platform comparison table on all of the critical aspects required to make them happen. Each column should be a different platform, and each row should be a different functionality relevant to the steps you outlined. Focus the rows on concrete functionalities rather than abstract concepts or subjective traits or guesses. In each table cell, cite web sources where possible. Use emojis sparingly to draw attention to critical differences.</code></p>
+<p><code>Finally, if I could choose only one platform, based only on your answers above for this specific use case only and no web results or marketing claims, which platform do you recommend I choose to implement this specific objective based on simplicity and likelihood of not needing technical skills, fastest to set up, and easiest learning curve?</code></p>
+<h2>Releasing your agent into the wild</h2>
+<p>By now, you’ve chosen a platform and built your first draft of an agent. Let’s test it out and give our junior intern a quick win.</p>
+<p>Since we’ve designed our AI agent with low downside (see above), launching this is not a dramatic decision. It’s just a test in a bigger environment.</p>
+<h3>Be forgiving and compassionate</h3>
+<p>This is good advice for AI as much as for people. If AI is acting weird in 2025, it’s worth searching for bugs in <em>our</em> inputs.</p>
+<p>One PM in an AI agent usability session I was running noticed the agent was hallucinating sprint numbers in Slack updates. He traced it back to the fact that his examples had “Sprint 5” in the titles but his project management board didn’t mention “sprints” at all. (It was an easy fix to remove “Sprints” from the examples.)</p>
+<p>The same PM noticed the AI was mislabeling tasks as done. He realized his project management board only had an estimated “end date” but there was no “task status.” This was fine when everyone accessing the board met daily. The AI (reasonably) assumed that anything past that date was “done.” (Again, easy fix: he added a “done” checkbox, which instantly improved the results.)</p>
+<p>Before getting frustrated with AI, ask yourself if you threw it any curveballs, or shared <a href="https://www.svpg.com/lead-with-context-not-control/">enough context</a> to make the right decision.</p>
+<h3>Trust is gained in drops</h3>
+<p>After a few cycles, you’ll start to get a sense for how much you trust the AI.</p>
+<p>If the results generally look good, consider increasing its scope and responsibility. Dare you allow it to send that draft without approval? Perhaps add that additional data source to the flow?</p>
+<p>If things aren’t going well, be candid with your feedback. Process, people, and product have one thing in common: they require iteration. (Even the smartest person in the world needs feedback to know if they’re heading in the right direction.)</p>
+<p>Some tools can accept the feedback and translate it directly to their own instructions:</p>
+<p><img alt="Image from Make product management fun again with AI agents" src="https://substack-post-media.s3.amazonaws.com/public/images/313b6eb8-ae53-4f85-af33-7a1eb1467077_1312x1276.png" /></p>
+<p>For other tools, what you can do is go back to the original AI thread above, and clarify and update your original prompt instruction (using the ✏️ icon). Then re-run it with the clarification.</p>
+<p>Another way to think of this is, you’re building a product with a customer of one. It’s natural for things not to work on the first shot. Fortunately, when they do, you’ll be able to push a lot of your least favorite work off your plate—it’s worth it.</p>
+<h2>Optimizing costs</h2>
+<p>PMs’ biggest concern about AI agents isn’t something we saw in the <em>Terminator</em> series. It’s cost. This is understandable—we’re creating a proactive, continuous process that decides when to run. At the same time, many of these platforms price based on usage. (Btw, Skynet’s monthly invoice must’ve been huge.)</p>
+<p>Like any business, AI agent companies aspire to price based on value. And hopefully the <em>value</em> of AI agents will grow past that of a junior intern.</p>
+<p>Flo Crivello of Lindy: “Companies have millions and millions of dollars in payroll and then they spend a thousand dollars on an AI. It’s like, you actually want these lines to cross. You should be happy to spend on the AI agent platform, because every dollar you spend on the AI agent platform is saving you $10 that a human would have done otherwise.”</p>
+<p>Meanwhile, competition will drive prices closer to cost. And the <em>cost</em> to run foundation models is steadily dropping.</p>
+<p>Setting down the economics textbook, here’s some super-practical advice on cost no matter where things go, from Jacob Bank of Relay.app: “When you’re working with an AI step, there are two ways to reduce cost. You pick a cheaper model or you feed it less data. I typically recommend first getting the thing working with a good model and lots of data. [Then] if it’s not that frequent of a use case, I just don’t even bother with cost optimization. If it’s something that’s going to run 100 times a day and cost $10 each time, then those are the two levers I pull.”</p>
+<h2>Security</h2>
+<p>Security was already on everyone’s mind with original chat interfaces, so understandably, security is a consideration with AI agents too.</p>
+<p>One top concern is around AI absorbing and learning from company data. Fortunately, every AI system provider has an option not to train with queries. (Whether that’s good enough depends on your company policy.)</p>
+<p>Another concern is having third-party SaaS accessing company data. I recommend evaluating this risk according to the alternatives:</p>
+<ol>
+<li>Are you using third-party automations already (regardless of AI)? If so, how much more risk does AI itself add to your workflow?</li>
+<li>How many <em>human</em> employees have been granted those permissions? Keeping recent scandals in mind, much more risk does AI truly add to the picture?</li>
+</ol>
+<p>To quote Jacob Bank again: “People are way too casual about hiring employees and giving them lots of information, and way overly strict about SaaS products that have security best practices.”</p>
+<p>All that said, I’m not a security expert. Consult your local CISO.</p>
+<h2>Where might agents evolve next?</h2>
+<p>So far, we’ve built one AI agent and a framework for creating more. Now let’s imagine how these tools might evolve from eager interns to capable colleagues.</p>
+<h3>Closing the feedback loop <em>without a human</em></h3>
+<p>I’ve run agents that made an intelligent decision but then proceeded to implement it like a blindfolded kid hitting a piñata.</p>
+<p>When humans make a silly mistake (overwrite the headers of a spreadsheet or append an unreadable, ugly block of text to a Google doc), it’s instantly obvious to us. AI agents don’t have this instinct, and it’s not always for lack of intelligence.</p>
+<p>A big barrier is <em>permissions</em>. <strong>Companies are more comfortable giving “write access” than they are allowing apps to view company data.</strong> This may feel counterintuitive, but it makes sense that letting a third party “create a contact in Salesforce” is a safer permission than “view all my existing contacts.” Same for posting in a Slack channel vs. reading the contents of a Slack channel.</p>
+<p>Where AI cannot close the loop, humans bear the steps of (1) observing an error and (2) communicating that error to the AI system. In the “build/test/learn” cycle, “build” is way stronger than the other two.</p>
+<p>Solutions won’t come from better AI models or tools but rather from creative solutions on how to modularize and orchestrate them. Replit’s Agent recently became able to take screenshots of its own virtual browser and analyze what it sees, which saves a lot of error reporting for me as a user. For Slack and Salesforce, I can imagine an internal trusted AI agent that sits inside the destination app, has access to the same instructions, and gives feedback to the third-party agent.</p>
+<p>However this gets solved, having agents view results and improve their own instructions (much as people improve their operational checklists) will lift a big burden off humans, and be a giant step forward for AI.</p>
+<h3>AI copilots, AI prototyping, and AI agents will start to blend</h3>
+<p>Remember how this post began with a chart of “What is an agent?”? Each row had its unique gaps. I expect the rows to close the gaps and fill up with checkmarks.</p>
+<p>I expect that high-context thought partners (AI copilots), natural language app builders (AI prototyping), and proactive decision-makers (AI agents) will all start to borrow elements from each other.</p>
+<p>It only makes sense that the AI tools of the future will have a ton of context on your company and role, connect to real-world inputs and outputs, and operate by natural conversation.</p>
+<h2>Putting it all together</h2>
+<p>AI agents aren’t magical genies (yet), but they represent a genuine opportunity to reclaim our energy, focus, and ultimately our joy in product work. Taking a step toward using AI agents in your own work is doable if you take the right steps. To recap:</p>
+<ol>
+<li><strong>Start small:</strong> Pick a task you know well, and scope it down.</li>
+<li><strong>Design for limited downside:</strong> Create safety nets for inevitable mistakes.</li>
+<li><strong>Build with words:</strong> Leverage AI to leapfrog the learning curve.</li>
+<li><strong>Iterate with compassion:</strong> Even the smartest colleague needs feedback.</li>
+<li><strong>Slowly build trust:</strong> Gradually increase scope and responsibility.</li>
+</ol>
+<p>The most exciting part about AI is where we invest the time and energy we reclaim. We can immerse ourselves in customer problems, build deeper relationships with our teams, and enjoy <em>creating</em>. (You know—all the reasons we chose PMing in the first place.)</p>
+<p>So implement your ~~first~~ second agent today. Then your third. Not only will you build product intuition for agentic AI (a skill every PM needs in 2025), but maybe, just maybe, product management will get a little more fun again.</p>
+<h2>Special thanks</h2>
+<ul>
+<li>
+<p>PMs</p>
+</li>
+<li>
+<p>Ursula Sage</p>
+</li>
+<li>Amir Klein</li>
+<li>Tony Privitelli</li>
+<li>Eliran Zagbiv</li>
+<li>Aviram Marom</li>
+<li>Orr Weil</li>
+<li>
+<p>AI agent product leaders</p>
+</li>
+<li>
+<p>Jacob Bank (<a href="https://www.relay.app/">Relay App</a>)</p>
+</li>
+<li>Justin Fineberg and Jake Rosenthal (<a href="https://www.cassidyai.com/">Cassidy AI</a>)</li>
+<li>Max Brodeur-Urbas (<a href="https://www.gumloop.com/">Gumloop</a>)</li>
+<li>Flo Crivello (<a href="https://lindy.ai/">Lindy AI</a>)</li>
+<li>Bryce Vernon (<a href="https://zapier.com/agents">Zapier Agents</a>)</li>
+</ul>
+<p><em>Thank you, Tal! For more, check out his <a href="https://bit.ly/42Mfr4j">AI PM course</a> and his upcoming free 45-minute lightning lesson, “<a href="https://maven.com/p/b1789c/how-ai-p-ms-slice-open-great-ai-products">How AI PMs Slice Open Great AI Products</a>,” on May 13th. You can find Tal on <a href="https://www.linkedin.com/in/talsraviv/?originalSubdomain=il">LinkedIn</a> and <a href="https://x.com/talraviv?lang=bn">X</a>.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

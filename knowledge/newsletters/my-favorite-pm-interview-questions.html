@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My favorite PM interview questions — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">My favorite PM interview questions</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">My favorite PM interview questions</div>
+    
+    <div class="article-meta">2021-06-15<span>·</span>1,827 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">職涯</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><a href="https://www.lennysnewsletter.com/?action=share">Share Lenny's Newsletter</a></p>
+<blockquote>
+<h2>Q: What are your favorite interview questions when interviewing senior Product Managers?</h2>
+</blockquote>
+<p>Interviewing product managers is tough, mostly because the job of a PM is so broad and ill-defined. How does one interview one person for <em>ten</em> different jobs?</p>
+<p><img alt="Image from My favorite PM interview questions" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7abc6cd1-f2a2-48de-ad7d-3bea8f1d0a6c_2048x1654.png" /></p>
+<p>The answer is you just do it. Building on <a href="https://www.lennysnewsletter.com/p/jobs-of-product-manager">last month’s post</a> where I dissected the ten jobs of a product manager—based on reviewing 20+ PM career ladders at some of today’s biggest tech companies—in this post I’m going to share my favorite interview questions for PMs, one question per PM “job”. You don’t need to cover all ten questions in one session (i.e. you can split them across interviewers), and you may need to screen for fewer (or more!) areas based on the expectations of PMs at your company. My advice to you is to use this collection as inspiration and tailor your questions to your own needs.</p>
+<p>In addition to ten PM-specific questions, I’ve also included my favorite generalist interview questions, no matter the function. I always try to find time to ask at least a couple of these questions.</p>
+<p>If you’ve got an interview question or two that you’ve found super valuable, I’d love to hear it! Share it in the comments—including what you look for in a great answer 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/my-favorite-pm-interview-questions/comments">Leave a comment</a></p>
+<p><em>Shoutout to you <a href="https://twitter.com/jamiequint/status/1357505793675776000?s=20">Jamie Quint</a>, <a href="https://twitter.com/eric3000/status/1357509749101776896?s=20">Erik Metelka</a>, <a href="https://twitter.com/anandc/status/1375307223404998659?s=20">Anand C</a>, <a href="https://twitter.com/stuukkii/status/1357517347003592704?s=20">Corinna Stukan</a>, <a href="https://twitter.com/kevinyien/status/1357539304755593218?s=20">Kevin Yien</a>, <a href="https://www.linkedin.com/in/evangoldin">Evan Goldin</a>, and the <a href="https://firstround.com/review/the-best-interview-questions-weve-ever-published/">First Round Review</a> for inspiring some of these questions.</em></p>
+<h2>My favorite PM interview questions</h2>
+<h3>1. Impact</h3>
+<blockquote>
+<p><strong>What’s the most important or impactful product you shipped? What made it so important or impactful?</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Have they actually launched something significant, and how significant was it</li>
+<li>How do they measure impact/importance, and does it match your definition</li>
+<li>How much responsibility they had in the project, or were they just helping out</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>The example they pick is not very important—likely means they haven’t worked on anything meaty</li>
+<li>They didn’t have much influence over what it was, or how it turned out</li>
+</ul>
+<h3>2. Collaboration</h3>
+<blockquote>
+<p><strong>Tell me about a time you disagreed with an engineer on your team, and how you resolved it.</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Being able to convince others with information while also preserving relationships for the long term.</li>
+<li>Genuinely hearing out the other person’s point of view—understanding their needs and priorities. And ideally, being convinced otherwise.</li>
+<li>Working backward from an outcome both parties want to achieve</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Them backing down immediately, without a great reason</li>
+<li>Railroading the other person with their idea</li>
+</ul>
+<h3>3. Ownership</h3>
+<blockquote>
+<p><strong>Share a time you shipped a product that failed. Why did it fail and what did you learn?</strong></p>
+<p><strong>Can you give me one other example?</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Ownership of the failure</li>
+<li>Being able to identify and articulate the source of the failure</li>
+<li>Taking away a lesson that informs how they build product today</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Throwing others under the bus</li>
+<li>Not taking the failure seriously</li>
+</ul>
+<h3>4. Leadership</h3>
+<blockquote>
+<p><strong>Tell me about a time when your team didn’t gel. What was the issue, and how did you deal with it?</strong></p>
+<p><strong>Has this happened on other teams you’ve been on?</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Taking it upon themselves to solve this problem—a history of spending time and energy on improving team dynamics</li>
+<li>Being able to articulate the root cause of the issue</li>
+<li>Resolving it</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>It’s not my job</li>
+<li>A pattern of teams they’ve been on not gelling</li>
+</ul>
+<h3>5. Execution</h3>
+<blockquote>
+<p><strong>Pick a project you’re proud of that took 3-9 months. Walk me through it from beginning to end. I’ll ask questions along the way. [Give this ~7-10 mins]</strong></p>
+</blockquote>
+<p>What to look for (and dig into):</p>
+<ul>
+<li>How they aligned around the priorities, success criteria, and a timeline</li>
+<li>How they dealt with delays and disagreements—how efficiently and effectively they got work back on track</li>
+<li>How they kept everyone aligned and focused throughout</li>
+<li>How they kept their manager/execs onboard</li>
+<li>How smoothly the launch went</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>They were told what to build and they just built it</li>
+<li>There were zero issues, which almost never happens and probably means they aren’t being honest</li>
+</ul>
+<h3>6. Strategy</h3>
+<blockquote>
+<p><strong>Pick a product you worked on in the past year—talk me through your product strategy for it.</strong></p>
+<p><strong>[Alternatively] A take-home assignment to come up with a strategy to 10x the growth of your existing product.</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Excitement to talk about this, body language, and energy</li>
+<li>A clear, succinct, and cohesive articulation of the strategy</li>
+<li>Deep insights into the problem they were solving</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>A lack of strategy</li>
+<li>It’s hard to follow their strategy</li>
+</ul>
+<h3>7. Customer insights</h3>
+<blockquote>
+<p><strong>Tell me about a time you did user research on a product/feature, and that research had a big impact on the product.</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Examples of them talking to customers before launch</li>
+<li>These conversations impacting what they launch</li>
+<li>Experience using different modes of research (e.g. survey, 1:1 conversations)</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Haven’t spent time talking to customers</li>
+<li>It’s hard for them to think of an example</li>
+</ul>
+<h3>8. Vision</h3>
+<blockquote>
+<p><strong>Tell me the vision for one of your recent projects or teams.</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>They actually have a vision to share</li>
+<li>They get excited about sharing their vision</li>
+<li>The vision they share is at least somewhat inspiring</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>They only share the impact they plan to drive, or a set of features, versus a vision of the future</li>
+<li>They can’t think of any examples</li>
+</ul>
+<h3>9. Planning</h3>
+<blockquote>
+<p><strong>How do you get your team to commit to a deadline?</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Working with their teammates to co-create deadlines</li>
+<li>Using deadlines as a tool to motivate and focus, vs. a way to force everyone to work endlessly</li>
+<li>Working backward from hard deadlines</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Mandating deadlines to the team without involving them</li>
+<li>Expecting deadlines to be hit or else</li>
+</ul>
+<h3>10. Communication</h3>
+<blockquote>
+<p><strong><em>[This is something you can learn through all of the other questions]</em></strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Clarity</li>
+<li>Conciseness</li>
+<li>Convincingness</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>They often ramble</li>
+<li>You don’t feel convinced by their answers</li>
+</ul>
+<h3>Bonus: Decision making</h3>
+<blockquote>
+<p><strong>What’s the biggest one-way-door product decision you’ve ever had to make?</strong></p>
+</blockquote>
+<p>What to look for:</p>
+<ul>
+<li>Their decision-making process, what inputs they take into account</li>
+<li>How they balance business needs and user needs</li>
+<li>How they bring everyone along</li>
+<li>How they de-risked it (if applicable)</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Not bringing people along, working in a silo</li>
+<li>Relying too heavily on their opinion</li>
+</ul>
+<p>With these ~~10~~ 11 interview questions in your arsenal (and the additional questions reading this inspires), you’ll next want to put together a rubric that details what you look for in a good answer. This helps you and your teammates keep a consistent bar for each candidate, and is a key ingredient to avoiding bias. <a href="https://www.dropbox.com/s/j0kgha273o3aq6e/PROD-68984460-270918-0219.pdf?dl=0">Here’s an example</a> courtesy of Evan Goldin, and a neat <a href="https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/use-a-grading-rubric/">rubric template builder</a> courtesy of Google.</p>
+<h3>My favorite generalist interview questions for any function:</h3>
+<p>To go one step further, here are some of my favorite interview questions that work for anyone at any level:</p>
+<ol>
+<li>When I go ask people you’ve worked with about you, what will I hear?</li>
+<li>What’s something you’re better at than most other people—what’s your superpower?</li>
+<li>What’s something you’re working to improve?</li>
+<li>Among the people you’ve worked with, who do you admire most and why?</li>
+<li>What kinds of people do you like to work with? What kinds of people have you found it difficult to work with?</li>
+<li>Tell me about a time you took the initiative. What happened?</li>
+<li>What's one part of your previous company’s culture that you hope to bring to your next one? What one part do you hope to not find?</li>
+</ol>
+<h3>📚 Further reading</h3>
+<p>There are tons more great interview questions out there. Here’s more inspiration:</p>
+<ol>
+<li><a href="https://twitter.com/lennysan/status/1357504493340880896">This Twitter thread</a></li>
+<li><a href="https://www.dropbox.com/s/j0kgha273o3aq6e/PROD-68984460-270918-0219.pdf?dl=0">Evan Goldin’s PM interview rubric at Chariot</a></li>
+<li><a href="https://review.firstround.com/40-favorite-interview-questions-from-some-of-the-sharpest-folks-we-know">40 Favorite Interview Questions from Some of the Sharpest Folks We Know</a></li>
+<li><a href="https://review.firstround.com/hire-a-top-performer-every-time-with-these-interview-questions">Hire a Top Performer Every Time with These Interview Questions</a></li>
+<li><a href="https://review.firstround.com/the-best-interview-questions-weve-ever-published">The Best Interview Questions We've Ever Published</a></li>
+</ol>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<ol>
+<li><strong>Gitpod</strong>: <a href="https://pallet.xyz/job/85a37e65-b9b3-4a93-acf6-e6a6d1f28fa4?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Product Manager</a> (Remote)</li>
+<li><strong>Shift</strong>: <a href="https://pallet.xyz/job/2907defd-bb4b-4972-86d5-024eda23dcd6?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Remote)</li>
+<li><strong>Postlight</strong>: <a href="https://pallet.xyz/job/c205c9c1-b4e8-4a43-a538-adaa2bfe974d?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (NYC, Remote)</li>
+<li><strong>Noyo</strong>: <a href="https://pallet.xyz/job/7e49a835-3b73-4bc2-a397-feea3e8d3e80?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">VP of Product</a> (Remote)</li>
+<li><strong>Polygence:</strong><a href="https://pallet.xyz/job/55046525-1bd3-4901-8452-45fc1c643d82">Head of Product</a> (Palo Alto)</li>
+<li><strong>Metafy:</strong><a href="https://pallet.xyz/job/3bd02acf-9da4-4769-9dd7-fed6a81045c8">Principal Product Manager</a> (Remote)</li>
+<li><strong>Brex:</strong><a href="https://pallet.xyz/job/5a8a0c07-552b-49a0-ac12-e588280790c5">Senior Product Manager on Growth</a> (Remote)</li>
+<li><strong>6ix:</strong><a href="https://pallet.xyz/job/5322e118-bba3-4a9f-ac38-da61d5b4cab8">Project Manager</a> (Remote/Toronto)</li>
+<li><strong>Brex:</strong><a href="https://pallet.xyz/job/5a8a0c07-552b-49a0-ac12-e588280790c5">Senior Product Manager on Growth</a> (Remote)</li>
+<li><strong>Mage</strong>: <a href="https://pallet.xyz/job/d41acc31-b5fa-4e68-8c5a-7973c29ad712?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Front-end engineer</a> (Santa Clara, CA)</li>
+<li><strong>Panther:</strong><a href="https://pallet.xyz/job/fb5d0f95-eadf-44b2-8968-d2ad35ed5ab9?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Designer</a> (Remote)</li>
+</ol>
+<p><em>Browse many more open roles, or add your own, on <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch</strong>: <a href="https://kottke.org/21/06/transformation-of-a-bonsai-tree-over-12-months">Transformation of a Bonsai Tree Over 12 Months</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=Xi6gaRoLUYA">Watch on YouTube</a></p>
+<ol>
+<li><strong>Watch</strong>: <a href="https://kottke.org/21/06/jumping-from-25000-feet-without-a-parachute-and-landing-safely">Jumping from 25,000 Feet Without a Parachute and Landing Safely</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=GaANi96Z-Wg">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read:</strong> <a href="https://review.firstround.com/counterintuitive-lessons-on-how-to-get-better-as-you-scale-from-twilio%27s-jeff-lawson#lesson-5-metrics-are-the-least-important-part-of-your-annual-plan">Counterintuitive Lessons on How to Get Better as You Scale, From Twilio’s Jeff Lawson</a></li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

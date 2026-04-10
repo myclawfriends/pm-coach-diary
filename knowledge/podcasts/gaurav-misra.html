@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to win in the AI era: Ship a feature every week, embrace technical debt, ruthlessly cut scope, and create magic your competitors can&#x27;t copy | Gaurav Misra (CEO and co-founder of Captions) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">How to win in the AI era: Ship a feature every wee…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">How to win in the AI era: Ship a feature every week, embrace technical debt, ruthlessly cut scope, and create magic your competitors can&#x27;t copy | Gaurav Misra (CEO and co-founder of Captions)</div>
+    
+    <div class="article-meta">2025-03-27<span>·</span>16,525 words<span>·</span>Gaurav Misra</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">策略</span> <span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">B2C</span> <span class="mini-tag">產品管理</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=PDobJV8wh1g" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Gaurav Misra</strong> (00:00:00):<br />
+There's rarely a time like this where so much is possible. Even like five, seven years ago, it's so hard to start a company. Everything feels like it's done, someone else is working on it. Suddenly, it's a time, right now, which I've never even experienced, where everything you try just works.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:14):<br />
+With people constantly hearing about all the things happening. Is there any tools or processes or approaches you've figured out to help stay focused?</p>
+<p><strong>Gaurav Misra</strong> (00:00:21):<br />
+Our engineering goal is every engineer should ship a marketable product every week.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:27):<br />
+I love just how wild that sounds. How do you maintain quality and make it all cohesive?</p>
+<p><strong>Gaurav Misra</strong> (00:00:31):<br />
+I actually think as a startup your job is to take on technical debt because that is how you operate faster than a bigger company. Bigger companies don't take contact technical debt, they pay it usually right away, or they're paying back technical debt from the days when they were a startup.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:45):<br />
+Is there anything else that in how you operate and the way you build product that you think is really unique and interesting?</p>
+<p><strong>Gaurav Misra</strong> (00:00:50):<br />
+We have what we think of as the public roadmap. This is basically what people have asked us for. There's all these surface areas where we receive user feedback, but these are all features that every competitor knows about. If a user is asking us for it, they're asking everybody for it.</p>
+<p><strong>Gaurav Misra</strong> (00:01:04):<br />
+It's not going to be a game changer in terms of winning against your competition. So we have a second roadmap which we think of as a secret roadmap.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:15):<br />
+Today my guest is Gaurav Misra. Gaurav was an early employee at Snap where he led the design engineering team, which he explains in the conversation. He's also an engineer at Microsoft and a couple other companies. Most recently, he's the co-founder and CEO of Captions, one of the most successful and cutting-edge consumer AI products, which lets you generate and edit talking videos with AI. They have over 10 million users and have raised over a hundred million dollars.</p>
+<p><strong>Gaurav Misra</strong> (00:04:53):<br />
+Thank you. Thanks for having me. Excited.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:55):<br />
+I very rarely have early stage founders on the podcast, but I wanted to chat with you because you're at the center of so much of what is top of mind for a lot of builders these days, AI and video, and just consumer and social apps.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:11):<br />
+Also going viral and finding new marketing channels. So I think there's a lot that people can learn from the way you approach product, the way you've built product and the way you just think about where things are going. So again, thank you for being here.</p>
+<p><strong>Gaurav Misra</strong> (00:05:26):<br />
+Appreciate it. Honestly, it's an exciting time. I got to say like there's rarely a time like this where so much is possible. In normal times, if you think about even five, seven years ago, it's so hard to start a company. It's so hard to come up with an idea. It's just like everything feels like it's done, someone else is working on it. Or it's like, oh it's been tried three times and failed three times. And suddenly, it's a time, right now, which I've never even experienced honestly in my career, where everything you try just works.</p>
+<p><strong>Gaurav Misra</strong> (00:05:56):<br />
+There's so many possibilities. There's not enough people in the world to work on them. Honestly. There's more things that can be done than there's people available to do them. It is just such a rare thing. And honestly, it's not going to last forever. We are going to catch up to this, but just feels lucky to be part of that movement. It's awesome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:17):<br />
+When you said everything is working, I think what's an important distinction there is the building of the tool works. The tech is now there to build all these things that have not been possible before. The thing that is increasingly, difficult, and I want to get your take on this, is getting anyone to pay attention and stick with your thing because it's so easy to build stuff and everything is just awesome and interesting. It's harder to get people to pay attention and stick with your product.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:42):<br />
+So I guess is there anything there, you've learned that you've built a number of successful products. We'll talk about Snap and what you're doing now, about just, I don't know, what you need to think about these days to get anyone to pay attention and then stick around.</p>
+<p><strong>Gaurav Misra</strong> (00:06:54):<br />
+Yeah, I mean honestly it's a great point and I think there is a lot of hype obviously, and part of it, that's what's driving a lot of this growth for a lot of companies. And I think from a user acquisition/marketing perspective, in a world five or seven years ago, if you were making something novel and you went to users and it was like, "Oh, we got something better." People are going to be like, "Well, whatever. Everybody says they got something better. I don't care." But today, and this is not probably the way you should do it, but you can go and just say, "We've rethought this thing with AI." And a bunch of people will just be like, "Well, how?" Or "Maybe I should check this out."</p>
+<p><strong>Gaurav Misra</strong> (00:07:33):<br />
+They'll just try it. Obviously, you have to deliver on the promises. If you don't deliver, people will come in, they'll play around a bunch and then just leave. But if you can truly deliver on the promises, there's great opportunities to require users at scale. So I think that's slightly different. And I don't know how long that lasts, but it is definitely a different time from that perspective. I do think also at the core of building products is solving problems. I think a lot of people sort of get caught up in this, well, it's cool and people will come for the cool right now. People will come in and be like, "Well, let me check it out. It's cool."</p>
+<p><strong>Gaurav Misra</strong> (00:08:11):<br />
+But at the end of the day, if you're just building a playground and people play around in the playground and then they leave after playing around, it's not a business. So I think that is still key. You have to be solving real problems.</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:25):<br />
+As we were talking, I'm thinking about every day there's something that would maybe a few years ago be news for a year. Holy shit, this is now possible. Now it's like every day something like that happens and then we're like, all right, so what I think about is like, we'll have AGI one of these days or super intelligence and everyone's going to be, "Oh, amazing." And then, "Okay, what's for dinner?"</p>
+<p><strong>Gaurav Misra</strong> (00:08:46):<br />
+Isn't that already happening? Think about, in a way, I self-reflect on this sometimes if like, you've seen Iron Man and stuff, they have the J.A.R.V.I.S thing and you've seen Interstellar and they have the TARS machine. They're talking back and forth with these things like bouncing ideas. That is science fiction. That's literally science fiction. Okay, it's not perfect, but it exists in a way that nobody could have imagined. That's science fiction has become reality and I feel like nobody cares.</p>
+<p><strong>Gaurav Misra</strong> (00:09:18):<br />
+In a way, you would've expected the world to be turned upside down, but it feels like almost in a way so slow and people are like, yes, adoption is happening, but I feel like it's almost a shocking development in a way.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:31):<br />
+It feels like you guys have done a good job staying top of mind and continuing to get people excited because to your point, there's so much happening. How do you get people to continue to be like, "Oh, okay, wow, what their building is actually is interesting and continues to be interesting."</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:45):<br />
+Anything you've learned about just what it takes to stay top of mind and continue to pull people back and get people re-excited over and over?</p>
+<p><strong>Gaurav Misra</strong> (00:09:51):<br />
+Hundred percent. I mean, I think honestly it just comes down to not just AI for the sake of AI or AI for the sake of excitement or hype or novelty or whatever that is, it's actually effective AI like AI that solves real problems, practical problems. And the fundamentals haven't changed. In a way, there's three steps to building products. You identify a user problem, you apply some technology to solve that problem, but then finally you have some mechanism to find people who have that problem. If you can do all three of those things, then in any environment you can create great products. But I think right now what's different is so much is changing on the technology side that you can create products that could not have been created before and solve problems that could not have been solved before. And that's creating the opportunity.</p>
+<p><strong>Gaurav Misra</strong> (00:10:45):<br />
+And for us, especially in the video space, it's truly endless. We've just begun, our goal specifically for video is not to build professional tools. We're not building for professionals at all. We're building for the person who could not have created video before. They didn't have the tools, the skills, the means to be able to create video and now they can because they're able to jump over that skill gap or that time gap. Maybe they're business owners, they don't have time, they want results, and honestly a lot to solve there just tons.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:20):<br />
+Solve people's problems. Easier said than done, but it's a good reminder. In the end that's all that matters. Something that I always think about with people in your shoes is just how do you not get overwhelmed and how do you know what to pay attention to? How do you stay focused?</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:36):<br />
+Any tips there for folks that are just reading every day, a new announcement, and then just like I just, how do I? What do I do? There's too much.</p>
+<p><strong>Gaurav Misra</strong> (00:11:44):<br />
+It is the new problem of product development in a way. There's too many possible paths you can go down. There's too many ideas, there's too many things you could do. And I mean obviously, prioritization is always an important skill set and has always been, but it's become an even more important skill set right now because you have to figure out what not to pay attention to. Our general framework for it is to look for user demand, and actually the easiest way to check for user demand is to just see what has virality.</p>
+<p><strong>Gaurav Misra</strong> (00:12:10):<br />
+Usually, what has virality and what people want to share and talk about, there's something at the core of it that actually is interesting. Now, it may not always be interesting in a way that's like maybe it's a one-time use case. Maybe it's not something that people would do repeatedly. Maybe it's not something you could build like a subscription business off of, but oftentimes there's some things, some core element of it that has resonated with people. And if you can identify that core and then mold it into fitting into your business, it's actually a great way to identify what actually works. And we have these tools right now. We don't have to build anything. You can just kind talk about it and people will share it, share the idea.</p>
+<p><strong>Gaurav Misra</strong> (00:12:49):<br />
+And you can measure how well the product might be received even before you built anything. So it's a great tool we use for prioritization. We spend a lot of time on social media. Obviously, our app is often used for social media, so a lot of our employees will spend a lot of time on social media. We look at what the trends are, what's happening, and based on that we can get a pretty good read of what might resonate well with people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:15):<br />
+So as a leader of a company with people constantly hearing about all the things happening, is there any tools or processes or approaches you've figured out to help people continue, stay focused, not get excited about every shiny new object and actually ship things? I</p>
+<p><strong>Gaurav Misra</strong> (00:13:30):<br />
+I mean honestly, it's all about incrementality in a way. I think we do aim to ship every week. Our engineering goal is every engineer should ship a marketable product every week. And so what's a marketable product is a product that you can show to users and the user might subscribe or pay for the app just for that or come to the app essentially just for that. And that's why table stakes features, let's say we're talking about word processor or something. If you had auto format or just table stakes stuff like justify alignment or something, no one's going to come to your word processor for justify alignment. You can market that because it's obvious, of course it exists, but if you did something unique that nobody else has done, you can go and show that to people and people will come to your app just for that.</p>
+<p><strong>Gaurav Misra</strong> (00:14:22):<br />
+And even if your app doesn't have a lot of the obvious stuff, maybe it doesn't have justify alignment, people will jump over that just to use these new tools and new abilities that you might be building and marketing. So we try to do every engineer one marketable feature per week, and a lot of that stuff may not work, but a lot of it does work and we can figure out obviously, where to put in more effort, things that start to work, we double down on those things, build more. People often complain because think about it, in one week where we're shipping, it's not complete, it's MVP, truly.</p>
+<p><strong>Gaurav Misra</strong> (00:14:57):<br />
+And we slice the hell out of it. We take the design and we cut, cut, cut until we can really say that it's going to be useless if we cut anymore. We get that out and people come in. And if things are going well, people will use it despite all the problems that it might have, and now people will complain and we'll have a list of problems and we know what to do next. That's a starting point essentially. As long as we're shipping one a week, we get a ton of volume of features and products and directions we're releasing, cut a lot of that. What remains expand from there. So it works really well, and it keeps people focused.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:37):<br />
+I love the simplicity of that. I love just how wild that sounds for a lot of companies I imagine. Every engineer ships a marketable feature or product every week.</p>
+<p><strong>Gaurav Misra</strong> (00:15:46):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:48):<br />
+There's some people listening to this and are just completely stressed out by this idea and there's some people listening who are like, this is exactly how I want to work. This is how every company should build.</p>
+<p><strong>Gaurav Misra</strong> (00:15:56):<br />
+Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:58):<br />
+How do you maintain quality and make it all cohesive? I imagine that's the big trade-off. Just, any tricks there for folks that want to maybe start operating this way.</p>
+<p><strong>Gaurav Misra</strong> (00:16:06):<br />
+Quality is not something you compromise on most of the time. I think yes, there's strategic compromises in quality, but most of the time what you want to do is have a bar for quality where people should come in and if they're using the feature, it should work, right? Of course. And the way to cut down on time, and I think this is a mistake people make a lot of the time, is when time is being pressured downward, a lot of times engineers, PMS, designers, they will cut on quality rather than cutting on scope. And actually you can cut on scope. It's actually, the method that we use is we look at every element that's going to take any time to build and we just say, what if we remove this? Is the product still useful?</p>
+<p><strong>Gaurav Misra</strong> (00:16:48):<br />
+And we keep repeating that until we remove whatever's left and we say it's going to be useless at this point. And that becomes the one-week project, right? It actually really works. It narrows down to the core of what you're really trying to ask. So for example, let's say we wanted to build something to add an image on your video or something like that, and this is a really basic idea. I just made it up right now. And you might imagine a design in which you import your image from your camera roll, but before it lands in your video you might want to remove the background. You might want to change the hue and saturation or something like that. And you might expect a designer to design all of those features and you let it design, but you really quickly realize that you can cut all of that stuff.</p>
+<p><strong>Gaurav Misra</strong> (00:17:38):<br />
+You can cut the background or you can cut the hue saturation. All you really need is pick. And then there might be a picker. We need a picker with a library, with a lot of different type. What if you want to pull from the cloud? What if you want to pull from the drive or something like that? Cut all of that, right? And essentially come down to the core, which is just native picker from the camera, lens, straight in the video, no UI. And that is already, that should be useful. If that's not useful, then anything else built on top of that is also useless. So that's how we might go about it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:12):<br />
+That last sentence is so key to this. It's the core idea of ship small iterative features before you invest a lot in something to figure out is there anything there, is this worth spending weeks on?</p>
+<p><strong>Gaurav Misra</strong> (00:18:24):<br />
+Totally. And I think the coolest part of this method is the first thing that the users will come in, they'll use the thing, they'll import images and the first thing they'll complain about is what bothers them the most? Is it human saturation? Is it background removal? Is it picking from the cloud? You'll just get the most complaints about that thing.</p>
+<p><strong>Gaurav Misra</strong> (00:18:43):<br />
+People will be like, and people will be honest about it or they'll be like, "This sucks. It doesn't even have background removal. What kind of image thing is this?" And you have to take that feedback and just next week you can ship in a single week all the things that the user's complaining about.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:59):<br />
+And then they're like, wow, this team is shipping like crazy.</p>
+<p><strong>Gaurav Misra</strong> (00:18:59):<br />
+Yes. Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:01):<br />
+Solve all my problems. So responsive. This connects a common sign of product market fit, which is when people are complaining about the thing that means they actually care enough to complain and that's a really good sign if they're complaining about something.</p>
+<p><strong>Gaurav Misra</strong> (00:19:13):<br />
+It's very true, very true. If nobody complains, it's almost red flag.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:18):<br />
+A lot of this is turning into an archeology of a modern product team and startup. So I want to keep digging. This is not where I was planning to go, but this is awesome. I love that this approach of every engineer shipping something every week that's marketable connects directly to where I started this conversation, which is how do you stay above the noise?</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:36):<br />
+And part of the answer is just ship stuff constantly, and just continue to impress people. Like, "Here's a new amazing video feature." "Look at this thing."</p>
+<p><strong>Gaurav Misra</strong> (00:19:43):<br />
+Exactly. Yep. I think it's definitely key, right? And there's enough area and enough scope for that to happen. I think truly in normal times it may not be possible to create that much roadmap that quickly, but I think because there's so much innovation underlying all this, there is that scope available. The roadmap almost seems unlimited, just truly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:07):<br />
+Okay. The other question I imagine people would be wondering is how do you work on longer-term projects that take many weeks? There's also infrastructure, I guess, back-end stuff. So maybe answer those questions.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:17):<br />
+How do you think about long-term stuff and then how do you deal with back-end stuff that isn't a feature that anyone would care for?</p>
+<p><strong>Gaurav Misra</strong> (00:20:22):<br />
+Yep. Usually, we'll dedicate time to that separately. For example, usually Q4 for us is infrastructure quarter. We just go and build all the infrastructure. Q4 is generally, we've already delivered a ton of products and stuff. We're feeling pretty good about the rest of the year. Things are winding down. Obviously, holidays and stuff coming up. And so we spend all that time paying the technical debt.</p>
+<p><strong>Gaurav Misra</strong> (00:20:48):<br />
+I actually think there's a unique thing to think here about technical debt in general. And as a startup, your job is to take on technical debt because that is how you operate faster than a bigger company. Bigger companies don't take on technical debt, they pay it usually right away. Or they're paying back technical debt from the days when they were a startup, and they took on a lot of it. I mean Snaps, I used to work at Snap and there was a lot of examples of that over there, and I'm sure it happens at every other company.</p>
+<p><strong>Gaurav Misra</strong> (00:21:19):<br />
+And we think about it as like, well, is this a problem we need to solve today or is this a problem that the 50th engineer or the hundredth engineer or the 500th engineer can solve? And if it is a problem that a future engineer can solve, we should use that future engineer now. Essentially, that's what we're doing. And we're saying we're going to push this to somebody in the future. And by the way, if the company fails, that engineer will never be hired and all this won't matter anyways. So it's like financial debt in many ways. Financial debt is taken on to create leverage. It can be a good thing like if you're buying a house, you take on debt and you can buy something probably more than you can afford without taking on debt.</p>
+<p><strong>Gaurav Misra</strong> (00:22:04):<br />
+And it's the same thing. You can create products that you wouldn't be able to build with a small team that you have by taking on strategic technical debt. It's very positive actually.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:13):<br />
+Wow, this is such a cool idea. And where my mind goes is that future engineer may be an AI agent engineer.</p>
+<p><strong>Gaurav Misra</strong> (00:22:19):<br />
+Exactly, yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:21):<br />
+Just solving problems, just on technical debt in you.</p>
+<p><strong>Gaurav Misra</strong> (00:22:24):<br />
+Exactly. Some engineer in the future Five-hundred engineer many years from now will get a promotion because they solve this big problem that those really bad early engineers created.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:36):<br />
+So obviously, there's a line to this. There's only so much debt you can take on before you become a big problem.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:43):<br />
+Is there any thoughts on just that balance of just how much is too much and how if it's enough for a net feature engineer or just-</p>
+<p><strong>Gaurav Misra</strong> (00:22:50):<br />
+Yeah, I mean I think generally the rule of thumb is every piece of debt that you take on you have to pay interest on. So if there is debt that you've taken on, there's 1% or 2% of your time that is going to be taken away every day in maintaining bugs and issues and restarts and crashes and things that are happening with that. Because you did it the fast way, something's going to go wrong with it. Every day. 1% of your time will be taken away. If you take on enough debt, you'll be paying 80 or 90% interest and you'll not have any time to do anything new. You'll just be paying interest. That's all.</p>
+<p><strong>Gaurav Misra</strong> (00:23:23):<br />
+And that's when you get into the mode of like, oh, we're just keeping the lights on. We don't have any engineers to do anything. We're just keeping the lights on. That's the failure case for a startup. So in a way, you have a technical debt runway. Once you run out, once you've taken on too much debt. And if you haven't delivered value in that time, enough value to hire the engineers to pay the interest or just pay off the debt, you'll get in trouble.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:46):<br />
+I love that. That's such a nice heuristic of how to think about when to invest in something. I don't want to go down this too far, but just a thought I have is ... because sometimes there's big technical decisions you got to make that impact the way everything builds or is built in the future. I imagine those you spend more time on and take really seriously.</p>
+<p><strong>Gaurav Misra</strong> (00:24:02):<br />
+Definitely. Yeah, I mean I think as long as it's possible for wherever it's like a two-way door, you can do whatever you want. I mean this is a classic methodology. If it's A one-way door, it's worth thinking about and sort of doing correctly at least as much as the one-way door would matter to you in the future.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:22):<br />
+How much do your engineers use Cursor and tools like that to build? How much is AI helping your team move?</p>
+<p><strong>Gaurav Misra</strong> (00:24:28):<br />
+A hundred percent, yeah. I mean everybody's using it. It's super helpful. I mean even I'm using it honestly. Yeah, it's a huge multiplier for the team, no doubt.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:40):<br />
+And is a Cursor specifically. Is there anything else that you guys found useful?</p>
+<p><strong>Gaurav Misra</strong> (00:24:43):<br />
+Yeah, we are using Cursor. Yep. We've tried all the different tools. We were using Devin as well, which is another, you know? That's more advanced, I guess. It's solving bugs for you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:52):<br />
+Yeah, Devin's basically, I think it's 500 bucks a month and it's like an AI engineer that you just chat within Slack.</p>
+<p><strong>Gaurav Misra</strong> (00:24:58):<br />
+Exactly, yeah. In a way, these are the types of things that us as a startup can do that bigger companies can't just, you know, they can't just pull in Devin. They have to get 30 lawyers in the room first before that happens.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:11):<br />
+And they're all called Devin, these are like agents. Everyone's going to have hundreds of Devins working at their company.</p>
+<p><strong>Gaurav Misra</strong> (00:25:15):<br />
+Exactly. You can have multiple Devins. I actually heard you can have a manager of Devins who's managing Devins.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:21):<br />
+I love that managers are all getting layered, like unlayered and then they're going to have AI managers. That's the ultimate bait and switch.</p>
+<p><strong>Gaurav Misra</strong> (00:25:30):<br />
+Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:32):<br />
+Okay. Is there anything else that in how you operate and build the way you build product or set up the way you build product that you think is really unique and interesting that other people might be able to learn from?</p>
+<p><strong>Gaurav Misra</strong> (00:25:42):<br />
+Our process is a bit interesting in that way. We have a design team, we have a PM team. We're very early on those teams right now. And obviously, we have engineering. And we have all the different surface areas. So iOS, Android, web. There's backend team, machine learning team, research team. So generally, when we're developing products, we may start off with a PM first approach where we're finding some sort of overall issue that we want to take on some new area or pillar we want to take on and then creating sort of product specs from there.</p>
+<p><strong>Gaurav Misra</strong> (00:26:17):<br />
+But a lot of times we'll also start the opposite way. We'll first design something without even having any idea of what or why we're doing it, but we'll design a bunch of different things and then we'll sit down with the PMs and look at the designs and just go over one and the next and the next until we find interesting things and ideas that pop out of that.</p>
+<p><strong>Gaurav Misra</strong> (00:26:36):<br />
+And a lot of times that leads to us discovering things that we wouldn't have discovered if we were just too focused on the metrics and the numbers and things like that. So it's almost reversing the process a little bit and starting with design first, but it can often result in finding unique ideas basically. I also think that we have a unique setup in how we create our roadmap. So normally you have a single roadmap and we actually divide a roadmap into two different roadmaps. So we have what we think of as the public roadmap. This is basically what people have asked us for. So there's all these surface areas where we receive user feedback and we look at all that feedback and people will ask for features. They'll ask for, I want background removal, I want to undo and redo, I want to upload longer videos, whatever it is, a bunch of different features.</p>
+<p><strong>Gaurav Misra</strong> (00:27:26):<br />
+And we'll just make a list of that. And just like anything else, we'll prioritize it and we'll look at how many people it affects and what the possible markets are and just get it done basically one at a time.</p>
+<p><strong>Gaurav Misra</strong> (00:27:37):<br />
+But these are all features that every competitor knows about. These are public. If a user's asking us for it, they're asking everybody for it. And every team has essentially more or less the same list and everybody's prioritizing it. And yeah, sure you can win a little by extra nicely prioritizing it or winning a little in prioritization or execution or something, but it's not going to be a game changer in terms of winning against your competition. So we have a second roadmap which we think of as a secret roadmap. So this is a roadmap that nobody asked for anything on this like literally, nobody has ever asked for it.</p>
+<p><strong>Gaurav Misra</strong> (00:28:13):<br />
+And if a user were shown something on it, they might be like, "I don't need this. I don't know what this is." But given our unique vantage point, our unique understanding of the problem set, the user space and the technology, we've come up with some special ideas that we think will completely revolutionize how something is used where we can truly change the behavior of the user. I think that's what at is at the core of. It's like people are doing things one way if we're able to show them another way. And once they try it, they never go back. That's what a product is, that's success. And those are the types of ideas that we put on the secret roadmap. These are things we never talk about publicly, never tell anybody about, and we announce them and just give them to users and see the effects.</p>
+<p><strong>Gaurav Misra</strong> (00:29:00):<br />
+A lot of this we come up with through brainstorming. So we do actually do quarterly brainstorming, company-wide, everybody's included like everybody from. It's not just a product team thing, it's like engineering, recruiting, everybody's included in. And we all come up with marketing, obviously, everybody comes up with ideas, we vote on the ideas, rank the ideas, and then the product team takes over from there and thinks about like feasibility and technology and what the different things could be. So this is a way where we can take all that noise that people are getting, everybody's browsing social media, seeing all these different things that are blowing up, these models and advancements and we can get all that information together and provide a unique internal roadmap where how are we going to approach and create value out of all of these different advances that are happening.</p>
+<p><strong>Gaurav Misra</strong> (00:29:49):<br />
+So that's our general methodology. And a lot of times the biggest wins will come from the secret roadmap. That's the game-changing stuff. It's not going to be the user requests usually that are going to do that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:02):<br />
+I love just how calling it the secret roadmap makes it extra interesting. [inaudible 00:30:07]</p>
+<p><strong>Gaurav Misra</strong> (00:30:06):<br />
+Exactly, yeah. It's a secret.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:09):<br />
+It's a secret. I'm not even going to ask you what's on that secret roadmap. You can't tell me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:15):<br />
+What's an example of feature that came out of that secret roadmap that's been a big deal for you guys?</p>
+<p><strong>Gaurav Misra</strong> (00:30:18):<br />
+Tons. I mean, I'll give you an example from a long time ago. One of the first AI features we added after the app initially took off was this feature called eye contact. So this was a feature where if you're recording something, oftentimes people who are new to recording a video might read from a script or a teleprompter or something like that and they might have that off-screen. So it looks like you're reading and it's not great from the perspective of the video itself or the viewer of the video. So we had this feature where it basically shifts your eyes to look at the camera.</p>
+<p><strong>Gaurav Misra</strong> (00:30:52):<br />
+And we were actually the first company to build this. We worked with Nvidia on this. It's actually really interesting because when we originally reached out to Nvidia about this. They were not sure why we needed this. And they actually gave it to us pretty openly and were excited about some sort of partnership of how can we get this technology into something that could be useful.</p>
+<p><strong>Gaurav Misra</strong> (00:31:19):<br />
+But we saw this creator use case which was unique, and it was one of the ideas that came out of the brainstorm and we threw it on there, we launched it. It was a huge success. I mean, I'll be honest, the video, the ad that we made, a social media post that demonstrates this was so viral, it was made in basically every language around the world. It still till today gets millions of views. We find reposts and reposts of that thing that other people have created that get millions and millions and millions of views because people are like, "Wow, this is a great idea."</p>
+<p><strong>Gaurav Misra</strong> (00:31:59):<br />
+And now it's been copied the hell out of, I think it's available basically on every app you can imagine. For good reason of course. But that's one of the ideas that came out of it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:10):<br />
+You talked about how you come up with these secret roadmap ideas. I'm just intrigued by this. I'm going to spend a little more time here.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:14):<br />
+Does your team ever work with an AI LLM to help brainstorm? I imagine that's where things will go, where you're actually jamming. The AI agent is brainstorming along with you.</p>
+<p><strong>Gaurav Misra</strong> (00:32:25):<br />
+Honestly, I would like for it to go there. It hasn't gone there yet. We haven't done that exactly, because the problem is context. And I think just the context of understanding the user, the use case, it's so abstract. Even right now, I feel like I understand our users obviously, but I can't exactly verbalize why that is or how that is, a little bit abstract. And I spend a lot of time with RPMs and designers imparting anything that I understand and I've learned over the many years I've been working on this, how do I impart this to them? But then it's a challenge because I can't even verbalize it myself. And so it's an extra hard challenge to figure out how do I put this context? How do I make it available to an LLM when I can't even put it into words exactly. And honestly, this is probably my own feeling but, and I need to work on this, but there is something to it.</p>
+<p><strong>Gaurav Misra</strong> (00:33:26):<br />
+I do remember at Snap for example, I think one of the most unique things about Snap and the CEO Evan Spiegel was that he had an unmatched understanding of the user. I think years and years and years of the company's existence past, almost a decade. And nobody understood the user like he did. He would come up with ideas that everybody would disagree with and we would launch them and there would be hits, just hits after hits. And nobody would understand why. Everyone would line up and be like, "Great." Round of applause for everyone, but no one knew why.</p>
+<p><strong>Gaurav Misra</strong> (00:34:07):<br />
+A great example of that is a lot of this was figured out in retrospect too. I think there was a point at which Snap declared that they're a camera company and a lot of people laugh at them and said, "Camera. What are we making digital cameras or something?" Or, "Why is it a camera company?"</p>
+<p><strong>Gaurav Misra</strong> (00:34:22):<br />
+But I think at the core of it was this idea that Snapchat opens to the camera and that was actually the differentiator. That actually that small decision was holding the entire company against all competition because when the moment passes where your friend is doing something funny and you need to capture it, you're not going to open Instagram or anything else because it doesn't open to the camera. You're going to open Snapchat because you can capture it right away. And Instagram can never copy that because all their metrics are going to go down as soon as they do that. So that is a fundamental understanding. And I figured this out much later, actually, but it's such a powerful idea.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:08):<br />
+I'm glad you talked about Snap. That's where I definitely wanted to go. This is where I was going to start. So I'm glad we circled back to your experience at Snap. So the reason I am interested in this is if you think about social networks like Snap is basically the last social network to have launched and stuck around other than TikTok, which I don't think is a social network. I think it's just this content platform. I don't think you're really interacting with people really. And that was 2011 when it launched. So it's been like 15 years since the last social network launch that has worked.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:40):<br />
+And I think it's interesting also because there's rarely been a lot of insight into just how Snap operates. You were there really early. You're a big deal at Snap. You built a lot of really important features. So I wanted to spend a little time here, and it feels like a lot of things you learn from Snap you're bringing to your company now. So let me just ask, I think you may have answered this, but I'm curious if there's something else here just broadly maybe other than Ev's brain, what do you think was core to Snap being a successful consumer social product?</p>
+<p><strong>Gaurav Misra</strong> (00:36:12):<br />
+There were a couple of different things that went well. I do think for a company like Snapchat or Social Network, the core product market fit can be extremely strong. Essentially, the reason that people are downloading it, the way that it's spreading, the way that it's distributing, the way that it's inviting friends or sending Snaps or whatever it is, that product market fit can be so strong sometimes that it can be hard to actually build something because you actually can't tell if what you're building is what's responsible for growing the thing or if it's actually hurting it and it's growing despite what you're doing basically.</p>
+<p><strong>Gaurav Misra</strong> (00:36:53):<br />
+And I think because of that, it actually sometimes teaches people the wrong things. It teaches people that the contrarian thing that they were doing was right when it was actually just wrong and the company just grew despite it. And I think some of the things that Snap did well and it needed to do really was to continue innovating, right?</p>
+<p><strong>Gaurav Misra</strong> (00:37:17):<br />
+Because for a company like Snap, it has a ton of competition. Social networks are monopolies by nature and there's a lot of reasons for Facebook or any other social network to stop the growth of Snapchat. And they tried, they tried really, really hard. And the way that Snap was avoiding that was by innovating. I think the core of it was the setup that they had, which was very unique. I've never seen anything like it. I've worked at a bunch of different companies, but obviously there's a CEO and the CEO was very product-led, his designer himself, but he surrounded himself with the design team. That was sort of the central team in the company. And the design team was like 10, 12 people. Basically, pretty small, even at 5, 6,000 employees it was that small still.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:02):<br />
+Oh wow. At 6 or 6,000 employees. The design team was, you said how many, five or six people?</p>
+<p><strong>Gaurav Misra</strong> (00:38:07):<br />
+10, 12 people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:08):<br />
+10, 12. And to add to that, there's no PMs really for a long time. That was before.</p>
+<p><strong>Gaurav Misra</strong> (00:38:12):<br />
+For a long time, yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:14):<br />
+Big difference.</p>
+<p><strong>Gaurav Misra</strong> (00:38:14):<br />
+Initially, there were no PMs at all. PMs were introduced with monetization. Once monetization was a big sort of element, that's where PMs came in. Today, I think there's a ton of, or there's an adequate number of PMs across the company, but there was a long period of time, especially when the innovation was happening, when there were a much, much smaller number of PMs and it was very designer led. But at the same time, I think that's slightly misleading in the way that these weren't your sort of average designers.</p>
+<p><strong>Gaurav Misra</strong> (00:38:43):<br />
+These were designers who were actually PMs as well. That's what the secret sauce was. They were able to not just design but also do the PM part which is a big responsibility. It's a lot of work, especially for that many employees, but it gave the CEO a way to have granular control over what exactly was being launched in which part of the app at all times.</p>
+<p><strong>Gaurav Misra</strong> (00:39:05):<br />
+Because he could meet with a set of 10 or 12 people and know every change that was happening that was user impacting. A lot of changes were being worked on that were infrastructure and types of things that keep going on in the back end where you're improving ranking and whatever that might be, performance and things like that. And those were not usually his concern. He was concerned with what UI are we adding where? And if you needed to add UI to the app, you needed it designed. And if there's no designers in the company, except for a handful who talk directly to the CEO, you create a very granular control over what's being launched in the company. So everything needed to be approved by Evan. If you hadn't approved it, it's not going out. So the design team actually held a lot of power in that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:50):<br />
+This is awesome. So what I'm hearing partly is, I don't know if this is true, but it feels true that to make a consumer app that is successful and breaks through, you almost need a singular mind that continues to stay in the weeds on everything. And the way Evan did that is very close to the design team who basically ran product.</p>
+<p><strong>Gaurav Misra</strong> (00:40:10):<br />
+That's very true. Yeah, it's very true. And he was able to keep the context of the entire app in his head at the same time. He knew the interdependencies and what we're doing and why we're doing it. And so that gave him just very granular control over the company's product roadmap.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:26):<br />
+It makes me think about Brian Chesky and Airbnb is a consumer product, it's not a social network, but I wonder if that's just an interesting insight just for consumer products. They will generally do better if there's one person with a really ... the right sort of combination of experiences, insights, and just they continue to run and own every detail.</p>
+<p><strong>Gaurav Misra</strong> (00:40:46):<br />
+Definitely. And also the ability to bring about change, the ability to truly energize an entire organization to do something that's not just incremental but fundamental.</p>
+<p><strong>Gaurav Misra</strong> (00:40:58):<br />
+&lt;&lt; Founder mode &gt;&gt;</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:00):<br />
+Exactly.</p>
+<p><strong>Gaurav Misra</strong> (00:41:01):<br />
+Founder mode. That's what we're getting to, basically.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:04):<br />
+Yeah, ever heard of it. Okay. And then you said that these designers, so I know it's famous that Snap had no PMs for a long time. Designers were PMs. This point you made about the designers where PME is really important. I think a lot of people look at this, they're like, "Amazing. We're just going to hire just designers. We don't need all these PMs. Slow everything down. Just tell us what not to build." Can you just talk about the level of these designers? What allowed them to be as successful as they were without any PMs?</p>
+<p><strong>Gaurav Misra</strong> (00:41:32):<br />
+Yeah, I mean I think what was expected from the designers now was not just the ability to design, the skill set of designing, which all of them were IC designers by the way. And there were no reports, so they weren't allowed to have reports actually. And so they were designing everything themselves, but they also had to have the leadership skills to go figure out the roadmap, write all the documents, work with the different teams, figure out shipping schedules and just know everything, not just the technical and the engineering part, but the UX and the UI and the product needs and why are we doing this.</p>
+<p><strong>Gaurav Misra</strong> (00:42:15):<br />
+The roadmap, there's just a ton to keep in mind. And that means that it was a job that was just highly ... it was very high workload. No doubt, very high workload. These people work really hard and they were paid highly too. For what it's worth, they were paid way higher than you would expect designers or PMs or engineers to be paid with quarterly bonuses and all kinds of things.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:43):<br />
+That's interesting. And it reminds, people always say, "Why do you need PMs?" There's like someone has to do the work that a PM does. They're not sitting around doing nothing. And it's important to note the person that will take on the PME work, they have to be good at it and enjoy it. And a lot of designers don't want to be doing writing docs and organizing stakeholders and getting alignment and ...</p>
+<p><strong>Gaurav Misra</strong> (00:43:03):<br />
+100%, 100%. That's why it was so hard to find those people who were able to do two things. I actually think there's an insight in there is innovation between when you're merging craft right between two different functions. And I do think there's something special about one person doing two different functions or at least being able to do. And I think a lot of unique insight and innovation can come from that.</p>
+<p><strong>Gaurav Misra</strong> (00:43:31):<br />
+I actually think on my personal side, I eventually joined the design team. I started at Snap on the engineering team. I eventually joined the design team over the last two years that I was at Snap. And a big part of what I did there was create this function called design engineering. And that was actually a different combination. It wasn't the designer PM. It was the designer engineer. The person who can think of the UX design it and also build it and launch it, all of those things.</p>
+<p><strong>Gaurav Misra</strong> (00:44:03):<br />
+And we saw both the ability to take designers and teach them engineering and take engineers and teach them design as part of that. Obviously, the reason that we created that function was very different. It was actually to continue innovating as the company got bigger. One of the problems that we identified was that as the company got bigger and bigger and there's like 500 engineers, 1,000 engineers, 2,000 engineers, 3,000, suddenly it just becomes very difficult to do everything.</p>
+<p><strong>Gaurav Misra</strong> (00:44:32):<br />
+Everything is a six-month project or a one-year project. Every product is a massive investment of 500 engineers and a lot of time. And so you really have to pick your bets. If you get it wrong, if you are innovating and trying to create new products and you spend 500 engineers for a year and it doesn't work, it's a big problem. You're going to be in trouble, especially if we're coming like Snap where everybody was copying what they're doing so they had to constantly innovate, create new stuff and push the bounds.</p>
+<p><strong>Gaurav Misra</strong> (00:44:59):<br />
+I think Evan's philosophy was always he didn't fight the things that were getting copied, right? Stories got copied pretty much straight up. A lot of things that Snap created got copied, but he was more of the mindset of like, "Let's expand the pie, do something new and push the boundaries." We'll keep innovating basically. And so to do that with that scale of a company becomes really hard. And so we had this idea of let's create a small team where we can go and pretest a lot of these ideas because we had a lot of ideas and we can't go and build all of these things. So the idea was create a small team of these design engineers, people who are able to do the entire product design engineering process in their head and can put together early versions of the product, which we would actually bake into the Snapchat app itself.</p>
+<p><strong>Gaurav Misra</strong> (00:45:46):<br />
+And we were able to even test, for example, run a test in Australia, see how it's performing. Run a test in a couple of high schools, just a couple of high schools, see how people behave. And that way we already have data on how this might perform in a real world environment, but we haven't built it to production level. It's a prototype, essentially. It's how a startup might build something.</p>
+<p><strong>Gaurav Misra</strong> (00:46:08):<br />
+The same idea of what we're doing at our company now, build fast, get it out there, get feedback, understand whether it works or not, and then work with the engineering team to build it at a scale. Once we understand the product and the dynamics, then it makes sense to put on 500 engineers for six months to build it.</p>
+<p><strong>Gaurav Misra</strong> (00:46:25):<br />
+So that was a big part of it. I think the nice thing that came out of it that was completely unexpected but actually transformational for me in a way was obviously in big organizations, alignment is a big issue. How do you get everybody on the same page? And a big part of a PM's job is actually to create alignment and it can be a lot of work because you go talk to all these stakeholders and get them on the same page.</p>
+<p><strong>Gaurav Misra</strong> (00:46:48):<br />
+But one of the insights that we had, which was unique was as the company gets bigger, you can actually create alignment by causing internal virality. If there's enough people in the company, it actually starts acting like a consumer base might. If you share something interesting with someone, they will share it with somebody else because they think it's interesting and you can actually create virality inside a company.</p>
+<p><strong>Gaurav Misra</strong> (00:47:16):<br />
+So one thing that we would do is we would create these prototype products. We would just go into an area, redo a bunch of stuff, create these prototype products that didn't exist in Snapchat normally, and then we would just share the build and it would explode. It would just go viral inside the company. Day after day we would hear from engineers, then managers, then VPs, then eventually from Evan being like, "Oh my God, everyone's talking about this. Why am I the last one to hear about it?"</p>
+<p><strong>Gaurav Misra</strong> (00:47:47):<br />
+So it would create instant alignment across the company of this is exciting, this is something that we want to get behind. And everyone would be asking, "When are we doing this? When is this happening? I see someone's already working on it." So it was a great way to do that. And once we really understood that the product actually had good dynamics and we had tested it, it was a great way to get it out in front of everybody and create this idea of, "Hey, we're all working on this. This is the future."</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:17):<br />
+<strong>Gaurav Misra</strong> (00:50:00):<br />
+100%. Getting things in people's hands, trying it out. Oftentimes, unless you truly try it out, in design, it can, in theory, look good with all the perfect conditions, but when you actually use it, you realize it's actually not that useful, for example. Or when you give it to users. And some of this is intuition, honestly, just like anything else, but there's nothing like getting something in the hands of users at the end of the day.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:23):<br />
+I love how many of these things you brought over to your current company, and I'm trying to think about, one is this idea of just constantly innovating feels like that's informed and tell me what I'm missing, but that feels like that's informed. The ship market will feature every single week. This idea of getting design, starting almost with design versus PM a lot of times. I'm curious why you don't even go straight to prototype in those cases. Is it just the tools aren't there yet or?</p>
+<p><strong>Gaurav Misra</strong> (00:50:47):<br />
+I mean, I think our shipping process is fast enough that within a week we can get it out anyways. So that way we just get user feedback, which is even better.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:55):<br />
+And then the other really interesting thing, I'm trying to visualize that triangle of a product team, the triad of PM, engineer, design. Feels like you guys at Snap took the corners, not the corners, the line of that triangle. And you have design engineers. You have design PMs. I imagine engineers were PME already. They're very product oriented PMs. Did you have a function called design PMs? Probably not.</p>
+<p><strong>Gaurav Misra</strong> (00:51:20):<br />
+I mean honestly, it's interesting.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:21):<br />
+Sorry, engineer PMs.</p>
+<p><strong>Gaurav Misra</strong> (00:51:23):<br />
+Yeah, engineer PMs should be a thing, I feel like, or every engineer should strive to understand the product, right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:29):<br />
+Yeah. A lot of companies operate that way. Like Stripe, I think they had hundreds of engineers before they hired the first PM because I think the engineers were doing what they did at Snap to do the PM work. So it feels like at your company you don't operate that way. It feels like you have PMs, engineers, designers. Talk about why you decided not to approach things that way.</p>
+<p><strong>Gaurav Misra</strong> (00:51:48):<br />
+I do think PM is a very valuable function. I think it may be actually, and maybe I'll get roasted for this, but I think at the end of the day, not hiring PMs at Snap might've been one of those decisions where it actually succeeded despite that and because someone needs to do that work. If you don't have enough people to do it, then nobody truly owns it and then it doesn't really happen. Or if it doesn't happen, no one's responsible, which is not the right structure you want in an organization. So I think though, that being said, there was something unique to be said about what if a designer had the PM mindset.</p>
+<p><strong>Gaurav Misra</strong> (00:52:29):<br />
+It's actually the same idea as what if an engineer had the PM mindset and then you get even crazier. What if the PM had a design and engineering mindset? I think all we're talking about is everybody truly understanding all the functions that they're working with. Having a fundamental, broad understanding of the functions they're working with.</p>
+<p><strong>Gaurav Misra</strong> (00:52:48):<br />
+At Captions, we're actually going even one step further than that. Why shouldn't the PM understand marketing? I think that's actually the biggest opportunity for PMs to understand is how do we actually find the users who have this problem? I think that's a big part of solving the problem. I have a unique take on this in terms of I actually think PMs should own all the way to marketing in a way. And the reason is that if you think about marketing, it's expanding the surface area of the product, right? It's like search marketing is just placing a button to your product in Google.</p>
+<p><strong>Gaurav Misra</strong> (00:53:28):<br />
+Facebook ads is just placing a button to your app in Facebook. It's almost like you work at Facebook. You work at Facebook, you have a button in the app somewhere, you make a specific thing and people show up. The funnel begins there and you have all the metrics all the way from the beginning, all the way from when the user tapped on the button in Facebook and then they went down all the steps and then they landed on some onboarding screen and they did the thing, they used the application.</p>
+<p><strong>Gaurav Misra</strong> (00:53:56):<br />
+That's where the journey begins. And all of that is, in a way, it's a product. It's the same skillset. Understanding users from that point on is I think that's fundamental. How do we not do that today? We should be. So that's how we think about stuff. But I think the core idea is that every function should understand every other function deeply as much as possible and maybe even to the level where they can operate in that function. And that just increases the likelihood that all decisions being made in the company at the micro level will be optimized for all possible parts of the funnel that different people are essentially looking after. That's something we think about quite a bit.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:44):<br />
+I completely agree with that take. It's interesting that at Airbnb, Brian was famous for changing the titles of all product managers to product marketing manager for exactly this point because he's like-</p>
+<p><strong>Gaurav Misra</strong> (00:54:56):<br />
+Makes sense.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:57):<br />
+... you should be doing the marketing, you shouldn't just be building the thing. And to me, I've always assumed as a PM, your job is for this thing to grow and to get adopted and be loved.</p>
+<p><strong>Gaurav Misra</strong> (00:55:07):<br />
+Of course.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:07):<br />
+So it's interesting people don't already think of it that way.</p>
+<p><strong>Gaurav Misra</strong> (00:55:10):<br />
+I agree.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:11):<br />
+But obviously, it's hard to learn the skills of being awesome and paid growth and SEO and product marketing, messaging, positioning, but I completely agree. That's such an important element of building a product. You're not just building a thing, hope it works. Goodbye. So I love that that's how you think about it. And so I guess when you hire PMs, it sounds like you look for marketing instinct and some experiences.</p>
+<p><strong>Gaurav Misra</strong> (00:55:31):<br />
+100%. And at least the ability and instinct to be able to learn it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:38):<br />
+Yeah. Okay, so I'm going to share one other thing that I thought as you were talking that I think is really interesting and it comes up a bunch on this podcast and this connects back to Ev and what we can learn from his success. So Patrick Olson once tweeted this tweet that has really stuck with me, which is it was around user research and the way he described it is user research isn't go to user research that informs what you build and then you build that. It's instead you do user research, it informs the mental model you have as a leader, a product builder of what your customers need and what pains they have, and you adjust that model in your head and then that's how you decide what to build. And it feels like Ev is very much that. His head was learning what people need, teens in particular, and it just worked.</p>
+<p><strong>Gaurav Misra</strong> (00:56:28):<br />
+Yeah, I think it's very spot on. I would say though Snap didn't like user research as a function for the longest time. I think there was one user researcher in the company until, again, 5,000 employees, the post IPO basically. But I think the people that were making a lot of the product decisions and the CEO himself, of course, were very steeped in how the user behaves and how they operate. They understood that.</p>
+<p><strong>Gaurav Misra</strong> (00:56:56):<br />
+I do think Snap also had a unique way of thinking about how to determine if a product is within scope or out of scope of what their mission was. And I think a lot of companies use the cyber framework and we try to as well, but essentially, the idea at the core was that they want to enable private sharing in a safe way. So I think that makes it clear that certain things just are out of scope for Snap.</p>
+<p><strong>Gaurav Misra</strong> (00:57:28):<br />
+It's actually one of the reasons why Snap wasn't the company to discover "short form video," TikTok style stuff because it was just against the nature of the company to even try something. It was against the mission of the company. Public sharing means possibly bullying and bad behaviors, which is exactly what Snap was trying to avoid. We don't want those behaviors to develop on the app. So for example, on Instagram stories, you can share somebody else's stories to your followers. I can take your story and share it to my followers. You can't do that on Snap.</p>
+<p><strong>Gaurav Misra</strong> (00:58:02):<br />
+And there was a discussion about should we do this? No, because it can enable bullying. Essentially, you're not consenting to your thing being shared to my followers and that's essentially bad. So a lot of it was done based on this type of pillar-based thinking of this is our mission, this is what we're trying to do, does it fit within or is it outside? If it's outside, we don't do it no matter what the cost of it is, no matter how exciting it is.</p>
+<p><strong>Gaurav Misra</strong> (00:58:30):<br />
+And even on Spotlight, the big challenge was like how do you take something like that and put that inside the Snap mission? So that was something we worked on quite a bit. Yeah, I mean I think there's tons of stories about earlier versions. I mean Snap almost had essentially what is TikTok earlier than TikTok existed and it died out because it didn't align with the mission essentially, but happy to get into it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:56):<br />
+Yeah, that actually would be really interesting, because interesting that these things are important. It's important to have these clear values in the mission of the company and to not focus on things that are outside that. And then you hear these stories of they had TikTok potentially. So yeah, whatever you can share there, that'd be awesome.</p>
+<p><strong>Gaurav Misra</strong> (00:59:12):<br />
+Yeah, I mean, I don't know if you remember this, but there was this product called Our Stories, and essentially it was MyStory, but it was a public story. And it started off with this idea of campus stories where you can post to your campus and other people can see it. And that actually started creating a lot of virality because essentially people would post. There was viral moments truly where people would post stuff like, "Oh, I think two people fell in love on it or something like that." Those types of things really went viral and it had really good engagement.</p>
+<p><strong>Gaurav Misra</strong> (00:59:47):<br />
+But at the end of the day, the problem was that we were against algorithmic essentially ranking of those types of things. So there was a curation team that was looking through every single one so that there's no negative behaviors happening essentially on the app. That was just not scalable. Even though it had really high engagement and was doing well, it just wasn't feasible to have a person looking at every single thing posted to determine whether it's appropriate or not.</p>
+<p><strong>Gaurav Misra</strong> (01:00:15):<br />
+It ended up dying out, but it looked like what was an early version of TikTok before it had launched. So I think in a way though it was a good thing because I think Snap does have a mission and I think it is solving a problem. I do think there is a bifurcation of social media at this point. There is what you traditionally think of as social networking where you share things with your friends. And by the way, remember the days where that used to be the way that apps would go viral. You would share things with your friends and then they would share with their friends and everybody was worried about friend sharing and how do you send to a friend and can I text message my friend or whatever.</p>
+<p><strong>Gaurav Misra</strong> (01:00:59):<br />
+That time is over. Virality now happens through a completely different mechanism. It happens through essentially algorithms that are deciding whether your piece of content is worth showing to an arbitrary number of people, and this is the new age of social media. It's TikTok, it's YouTube Shorts and Instagram Reels and so on. And I think actually it's changing the fundamental nature of how people interact, fundamental nature of how things go viral. And I actually think from a regulatory perspective, we should be thinking these as differently.</p>
+<p><strong>Gaurav Misra</strong> (01:01:37):<br />
+On one side, you have something where you're deciding who sees something and then on the other side, you have something where the company is deciding which means that it's semi curated, right? It's actually the company's voice. So yeah, I don't know, should Section 230 apply to that? I have no idea. Or maybe not. Maybe we're thinking about this the wrong way, so it should be interesting.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:03):<br />
+Wow. All right. Well, I'm out of my depth on the legality decision, so I'm going to not follow that thread, but I imagine there's something really interesting there actually. So you've been talking about just how much things are changing and I just wanted to follow that thread and specifically, you guys are at the cutting edge of what is possible with AI video.</p>
+<p><strong>Gaurav Misra</strong> (01:02:25):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:25):<br />
+It feels like we're approaching and maybe we're there. This world where you have no idea if it's real or AI. I'm curious, first of all, just how far you think we are from that and second of all, the implications on the world where you can just generate any video you want.</p>
+<p><strong>Gaurav Misra</strong> (01:02:40):<br />
+It's fundamental. At the end of the day, a time where video images, audio can't be trusted actually hasn't existed for a while. If you think about ... I mean there was a world in the 1800s where there was no video or audio or images and everything was proven by he said, she said for the most part. And it's possible that if everything can be generated and anything can be created and it looks just as real as if it were real and there's no way to tell, then we might actually return to that world where there's no way to prove anything besides physical evidence or he said, she said.</p>
+<p><strong>Gaurav Misra</strong> (01:03:20):<br />
+And I think that's scary, but also possibly opens a bunch of new opportunity for someone to figure out how to solve this problem. I think it's going to be a big problem. I do think today, we are almost there in terms of creating absolutely photorealistic video. I mean the very recent models, a very cutting edge is just about ... It feels like a few centimeters away from achieving it, but I do think to fully get there to the point where it cannot be differentiated at all, it's still a couple of years away.</p>
+<p><strong>Gaurav Misra</strong> (01:03:52):<br />
+I also think that it is use case driven in a way. I think thinking about Captions for a second, we take a unique view on what type of video we want to focus on. Video generation and text to video generation. If you look at it today, it's all silent video. There's no audio and it's often what you think of as stop video or B-roll, right? You can actually make a movie with B-roll. And a lot of a movie or a TV show or a social media post or an ad actually is dialogue or monologue. That's actually what it is is people talking to each other, to the camera, interacting. That's actually what makes true story.</p>
+<p><strong>Gaurav Misra</strong> (01:04:35):<br />
+B-roll is supportive elements that are showing up to set the scene or something like maybe before the scene opens, you see a few shots of New York City or LA or something, and then you jump into the room and now two people are talking. So our goal is to solve the talking video problem. How do we create video where people are delivering dialogue or monologue or things like that? And that's what we focus on purely. And there actually isn't a lot of work happening in that area today and it's not a solved problem. We're getting there, we're getting closer and closer, but today's models actually bifurcate a little bit.</p>
+<p><strong>Gaurav Misra</strong> (01:05:15):<br />
+So there's a set of companies today that are able to create these types of what we're talking about is avatar videos. They're using this technology called neural rendering. It's actually not a technology that's affected by the transformer and diffusion model revolution or the large model revolution, essentially. This is a technology that existed separately and it doesn't have anything to do with the AI growth happening right now. It just happens to produce semi-realistic outputs, but it actually stops at some point because it's not clear how it becomes generalizable in every situation.</p>
+<p><strong>Gaurav Misra</strong> (01:05:55):<br />
+It has to be trained on people individually. So you might ingest a little bit of video of you and then you can generate you. And so it's a different technology and a different outcome, essentially. And a bunch of companies using this type of model, a bunch of companies are doing general text to video with no audio today. These are large generative models and they have the capability to do more, but that frontier just hasn't been reached yet. I think there's no doubt in anybody's mind on the research side that it is 100% solvable. It's just like somebody has to go do it and we haven't gotten there yet. Nobody has had the time to go and do that yet. So that's where we're at, essentially.</p>
+<p><strong>Gaurav Misra</strong> (01:06:35):<br />
+We're working purely on large generative models for talking videos. So that's our core focus. I do think though, from a safety perspective, we have a unique framework or how we think about it. So generally videos divide into two categories. So for us, we think on one side of what is documentation, so this is the type of video that it could be a personal video where you're taking a video with your friends and you're hanging out, you're at a restaurant. It's documenting what happened. You had fun, whatever it was, it's for your memories. And there's a non-personal version of this which is like, oh, it's like a reporter documenting a crime or something that happened or whatever it is and who was involved, where was it? Maybe it was a natural disaster or something, and this is for history. We want to see what happened.</p>
+<p><strong>Gaurav Misra</strong> (01:07:27):<br />
+And there's actually no benefit to AI-generated video in any of this. Actually, all of this, it's just negative. It's all negative. If we are generating fake versions of reality to fool people, there's just nothing good about that. And we want to stay away from that, essentially. We want to design products and build products that make it difficult to use for that particular use case, for anything that falls within that. And on the other side, you have what we think of as storytelling.</p>
+<p><strong>Gaurav Misra</strong> (01:07:56):<br />
+Now this could be ads, it could be social media posts, it could be TV, movies. All of these things are storytelling. They're designed for entertainment, they're designed for fun. And nobody believes if you watch a Geico commercial, you're not thinking that the gecko is real selling insurance somewhere out there. You know that this is fabricated and it's for entertainment. And same with reality TV even, right? It's called reality TV. It's definitely not reality and social media, ads, all this stuff falls in the category.</p>
+<p><strong>Gaurav Misra</strong> (01:08:28):<br />
+And if we can enable more people to tell stories and entertain other people and get their message out there, that is pure positive. This is where we want to focus. And a lot of our effort in the product and design process goes into how do we design products and build products that specifically make it really hard to use on one side and really easy to use on the other side. And that's the real challenge.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:53):<br />
+That's really helpful. Something that I'm really curious about as you're chatting is ByteDance just released a really amazing model. I was actually just looking at it where you put a photo in, I think, and it just creates a video of this person talking in all these different ways. Where does that fall amongst the buckets you just described?</p>
+<p><strong>Gaurav Misra</strong> (01:09:09):<br />
+I think that falls exactly in the area that we're in, which is talking people and that's what they're going after as well there. So that's actually one of the first examples of a large model that a larger company has released where it's able to do these dialogue or monologue videos. And I mean you yourself, you've seen it, so I'm not going to describe it too much, but as you know, it's highly expressive. It doesn't look like an avatar video. It looks like ...</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:37):<br />
+Yeah, it's wild.</p>
+<p><strong>Gaurav Misra</strong> (01:09:38):<br />
+And that's because of the technology that's used is fundamentally different. It's just like this is using a true large diffusion model is what they use. Whereas most companies that are working on avatar technology are actually using something pretty basic in comparison.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:53):<br />
+How long has it been since that Will Smith spaghetti video? Just to give us a reference of how fast things are moving?</p>
+<p><strong>Gaurav Misra</strong> (01:09:58):<br />
+Oh my god, it's been so fast, right?</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:59):<br />
+I think it's a year.</p>
+<p><strong>Gaurav Misra</strong> (01:09:59):<br />
+Amazing.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:59):<br />
+Or is it like two years?</p>
+<p><strong>Gaurav Misra</strong> (01:10:03):<br />
+I think it's probably about a year and a half, two years. Right?</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:04):<br />
+Wow. We'll link to that video and then you could tell basically that video is the state of the art of AI video one to two years ago. And then we'll link to this other Omni something. I forget what it's called. I'm just showing what it's like today.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:18):<br />
+Geez, Louise. Okay, final question and this is around something that I know you have a really interesting insight on, which is that you see marketing using AI video basically as the final frontier of how people will experience AI is marketing, is seeing it in marketing channels. Talk about why you think that's the case and just what that looks like.</p>
+<p><strong>Gaurav Misra</strong> (01:10:42):<br />
+It comes back to what we were talking about before where the reality is that no matter how interesting, advanced and amazing a technology is, science fiction has become reality. We were talking about this. What was literally science fiction on TV is real now and most people still don't even know about it, to be honest.</p>
+<p><strong>Gaurav Misra</strong> (01:11:01):<br />
+My parents live in India and they are the only ones in the neighborhood that know about ChatGPT and they write these amazing notes to the community just with all these words. And people are just like, "How did you get so good at writing?" And they're not telling anybody, but there's still a ton of people who don't even know that these advancements have happened. And so adaption is actually much slower, even for the most exciting things. Of course, in tech circles, everybody's talking about it, but the reality is it takes a while to get out there.</p>
+<p><strong>Gaurav Misra</strong> (01:11:33):<br />
+And I think for companies that are going to succeed, they're going to have to figure out how to market these products so that they can be the ones to reach all these people that have the problems that they're now able to solve. And we think about that every day. So on that note, as a consumer product, we spend a bunch of time and money on marketing our products, and we often use performance channels and all kinds of things, but about a year ago, we would run AI video in ads and things like that, and we would get all these comments of people being like, "Oh my God, this is so fake. Don't show me this."</p>
+<p><strong>Gaurav Misra</strong> (01:12:08):<br />
+And around that time, the technology got just about good enough that suddenly, those comments stopped happening and suddenly, you could get performance that was even better than actually recording with a person because you could just try more things. You could just generate 30, 40 possibilities and one of them would win and it would win more than the one creative you can get from a person. And more interestingly, when you think about localization, you're going to go do that in every language. Once you discover winning creative, now you have to go localize that in every market and rebuild it from scratch.</p>
+<p><strong>Gaurav Misra</strong> (01:12:51):<br />
+It's just a ton. And oftentimes it doesn't perform as well because it's been rethought essentially. But we found that just translating it with AI was able to get performance almost as good as the original, in the original language. So this is going to fly to the entire market. I think wherever there's dollars to be made, saved, it is inevitable. It will be consumed and it will very quickly be a lot of social media.</p>
+<p><strong>Gaurav Misra</strong> (01:13:21):<br />
+I mean, you could imagine a social network of the future where, and this is dystopian by the way, so watch out. You could imagine a social network of the future where all content is generated. None of the people are real. I mean, the algorithm isn't tailoring whose content to show you, but it's purely generating content that is completely catered to you, with people and everything completely catered to you. I don't think it's out of the question. It almost seems inevitable in a way, but that's not too far away, I think. That's actually very possibly real in five years or something like that.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:00):<br />
+What I'm imagining, because it's hard to imagine a social network where it's people because usually we want to know who these people are. I don't care random sharing status updates, but I can see a TikTok that is all AI.</p>
+<p><strong>Gaurav Misra</strong> (01:14:11):<br />
+Exactly, exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:13):<br />
+Wow, just content tuned to your loves and interests.</p>
+<p><strong>Gaurav Misra</strong> (01:14:17):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:17):<br />
+And just random videos. Wow.</p>
+<p><strong>Gaurav Misra</strong> (01:14:21):<br />
+Yep. Because do you know, you see a TikTok feed, you don't even know who's real or not today, right? It's not like we-</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:27):<br />
+Right. That's how I would approach it. I would just join TikTok and start uploading videos that are AI generated.</p>
+<p><strong>Gaurav Misra</strong> (01:14:32):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:33):<br />
+And then build a whole network of that. Oh my god, the future is wild.</p>
+<p><strong>Lenny Rachitsky</strong> (01:14:37):<br />
+Let's go to failure corner. Something that I try to do with this podcast is share moments where things didn't go well. There's all these stories of everything's going great all the time. All this foundries killing it, building a billion-dollar company. Oh, so awesome. But they don't know all the things that go wrong. So let me ask you, is there a story you can share of when things didn't work out? When you failed?</p>
+<p><strong>Gaurav Misra</strong> (01:14:59):<br />
+At the beginning of the company, we actually had a bunch of time where we spent figuring out what we wanted to do, and I think it's an unconventional story almost in a way because we started off the company, the first thing we did was build the Captions app. We launched the app. That was the first thing we did. Took two days to build it. We put it out there and it immediately took off. It was absolutely shocking because I built it on a weekend. We put it out there, I called my co-founder on Monday. I'm like, "It's at the top of the app store. We're getting like 600 videos a day."</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:31):<br />
+Top of the app store, holy shit.</p>
+<p><strong>Gaurav Misra</strong> (01:15:33):<br />
+And we didn't do anything to enable that. It just happened on its own. It was almost anti-climactic in a way because we thought it would be a lot more time spent figuring out the product before that would happen. And so it felt like, "Wait, this can't be it, right? It can't be this fast. How did this happen?" So we got distracted because of that, because we were like, "Oh, okay. Well, maybe ... This is cool. It'll work. That's great, but we got to figure out what the product is."</p>
+<p><strong>Gaurav Misra</strong> (01:16:07):<br />
+And so we spent at least a year, year and a half thinking about building social networks and all kinds of things when we should have been working on Captions because there was product market fit there. And how we figured that out is Captions was sitting on my personal account, so I wasn't checking that a lot. About a year and a half into the company, as we were working on other projects and stuff, I went back to my personal account, just opened it, and I saw that there was $500,000 in there.</p>
+<p><strong>Gaurav Misra</strong> (01:16:38):<br />
+I looked at a chart and it was just growing. The revenue was just growing completely on its own. No employees, no releases, no bug fixes, no customer support. There was like 2,000 open support tickets that were unanswered for a year and a half, and great reviews. It's just going completely on its own. And so that was a clear sign to me. It was like, "Oh my God, you should have been working on that. That product works."</p>
+<p><strong>Gaurav Misra</strong> (01:17:05):<br />
+And so we immediately had a meeting. I mean, it was tough to figure out what the right path was at that point because we'd invested so much time in other things as well, but reset</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

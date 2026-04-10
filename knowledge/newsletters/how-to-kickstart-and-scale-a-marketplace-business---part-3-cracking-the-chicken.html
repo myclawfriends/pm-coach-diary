@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Kickstart and Scale a Marketplace Business – Part 3: Cracking the Chicken-and-Egg Problem 🐣 - Growing Initial Supply — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to Kickstart and Scale a Marketplace Business …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to Kickstart and Scale a Marketplace Business – Part 3: Cracking the Chicken-and-Egg Problem 🐣 - Growing Initial Supply</div>
+    
+    <div class="article-meta">2019-11-25<span>·</span>2,965 words</div>
+    <div class="tags-row"><span class="mini-tag">策略</span> <span class="mini-tag">成長</span> <span class="mini-tag">B2B</span> <span class="mini-tag">設計</span> <span class="mini-tag">B2C</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<p><strong>“Supply growth was all sales - door to door, walking into restaurants during their downtime, talking to owners</strong>. It was very sales driven. What we did was take every excuse they had for not using GrubHub, and removed it as an obstacle. Fast forward to a couple of years later — you only pay when you receive orders, there are no hidden fees, you can cancel any time. We got to a place where there was zero downside to sign up and to give it a try.”</p>
+<p>— Casey Winters (ex-growth at GrubHub, CPO Eventbrite)</p>
+</blockquote>
+<p>Welcome to the third post of our limited series on marketplace growth, where I share learnings and insights from founders and early employees at today’s most successful marketplace businesses. I’ll be releasing four more parts over the next two weeks, and then I’ll return to my regular cadence of once-a-week. 🤙</p>
+<p>I continue to be blown away by the response to this project. Thank you so much to everyone who has sent me kind words, helpful feedback, or shared these posts with others. I started this research out of a personal desire to learn more about other marketplace businesses, but seeing how valuable this has become to so many makes me feel all warm and fuzzy inside.</p>
+<p>What I said in the last post continues to be true — it only gets better from here. If you’re new to this series, don’t miss the earlier posts covering <strong>Phase 1: Cracking the chicken-and-egg problem:</strong></p>
+<ul>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">Part 1:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace">Constrain the marketplace 🔬</a></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Part 2:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-9ee">Decide which side of the marketplace to concentrate on 🧐</a></li>
+<li>Part 3: Drive initial supply 🐥 <em>(this post)</em></li>
+<li><strong><a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Part 4:</a></strong> <a href="https://www.lennysnewsletter.com/p/how-to-kickstart-and-scale-a-marketplace-2e5">Drive initial demand 👋</a></li>
+</ul>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p>
+<h2>Step 3: Drive initial supply 🐥</h2>
+<p>As we saw in the last post, the vast majority of marketplaces start off supply-constrained. Interestingly, most marketplaces <em>continue</em> to stay supply constrained throughout most of their history (which we’ll spend more time on later). Why are most marketplaces supply constrained? <a href="https://twitter.com/ljin18/status/1099418839979315201">Li Jin (partner at a16z) said it well</a>, “the best consumer marketplaces end up supply-constrained because they tap into an incredible amount of demand. The product/market fit is so strong that this demand puts pressure on supply.”</p>
+<p><strong>With supply being so essential, how did today’s biggest marketplace companies grow their initial supply? Below we’ll dive into each and every lever, but here’s a cheat sheet:</strong></p>
+<p><img alt="Image from How to Kickstart and Scale a Marketplace Business – Part 3: Cracking the" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ae0aa833-5470-41bd-b3dc-f123fceaa4e2_2134x433.png" /></p>
+<p>I’ve integrated all of my learnings and surprises into the individual sections below, but before we get there, one fascinating meta-learning that emerged from this research is how <em>few</em> levers individual companies found success in early-on. <strong>The median number of levers that the biggest marketplace companies relied on to kickstart supply growth was just TWO (and the average was 2.5).</strong> Though this isn’t necessarily true for everyone, the lesson here for most teams is to focus, focus, focus. Early on, you are more likely than not to find most of your success in a couple of levers. Figure out what those are and double down.</p>
+<p>Now, let’s get into each lever (sorted by most commonly utilized):</p>
+<h3><strong>1. Direct sales</strong></h3>
+<h4>One of the most significant learnings (and surprises) for me in doing this research was how important one-on-one direct sales was to most early marketplaces. Sales ended up being a crucial lever for about 60% of the companies I talked to — twice as common as the next biggest lever (piggy-backing and referrals).</h4>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“<strong>Direct sales was critical to get the first listings on the platform</strong>, especially in immature markets without critical mass. It enabled us to pick and choose different supply types and build the right mix of homes. The local teams were accountable for their market and could themselves decide which supply to acquire, e.g. in which neighbourhood, what size of the listing, and price points.”</p>
+<p>— Georg Bauser</p>
+</blockquote>
+<p><strong>OpenTable:</strong></p>
+<blockquote>
+<p>“On the restaurant side, unfortunately, there were no easy levers early days. <strong>It was hire a direct sales force on the street.</strong> <strong>People on the street knocking on doors, carrying the software.</strong> Demo’ing it and showing them how it worked.<strong>”</strong></p>
+<p>— Mike Xenakis</p>
+</blockquote>
+<p><strong>Etsy:</strong></p>
+<blockquote>
+<p>“The main thing that I believe really worked was <strong>recruiting sellers in person at craft fairs</strong> and elsewhere. This was a small activity in terms of human effort, but it scaled beyond that since the sellers marketed themselves.”</p>
+<p>— Dan McKinley</p>
+</blockquote>
+<p><strong>Caviar:</strong></p>
+<blockquote>
+<p>“For us, for supply growth, it was <strong>direct sales / field sales - no question</strong>!”</p>
+<p>— Gokul Rajaram</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“Uber Black was initially ops and phone driven. <strong>They would call limo companies to pitch them</strong>. A lot of limo companies were sole proprietorships, and the pitch was ‘While you are waiting for trips, we’ll guarantee you a minimum level of income if you keep this app on’.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p><strong>DoorDash:</strong></p>
+<blockquote>
+<p>“<strong>The primary lever for restaurant growth was pounding the pavement, inside and outside sales, people on phones, door to door sales</strong>. The pitch is that we bring you incremental demand. Large QSRs and fast casual chains like McDonald’s, Chipotle, and Panera have quoted publicly that delivery is 70-80% incremental, and thus gives resturants access to new types of customers. We have always prided ourselves as being a merchant-first platform. For a small mom and pop business, they don't have many options to drive demand. They’re doing payroll, marketing, staffing; all of these things take them away from why they started a restaurant in the first place, and what makes them happy. We can do the marketing for you, and help keep your kitchen busy even when in-restaurant dining is slow.”</p>
+<p>— Micah Moreau</p>
+</blockquote>
+<p><strong>AngelList:</strong></p>
+<blockquote>
+<p>“<strong>To grow initial supply, we asked a bunch of investors we knew to fill in a web form</strong> with their name, location, markets they like, investments per year, typical investment amount, etc.”</p>
+<p>— Babak Nivi</p>
+</blockquote>
+<h3><strong>2. Referrals</strong></h3>
+<h4>The second most common early supply-growth lever (tied with the next lever) was offering a referrals program — incentivizing existing supply to refer new supply. About a third of the marketplaces I spoke with saw a lot of success here.</h4>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“Referrals and ambassador programs were big for us early on. <strong>Double digits of %’s of new supply early on came from these programs</strong>. We went after students because our primary audience was younger and millennial. Some students made so much they had <a href="https://splinternews.com/these-college-roommates-made-six-figure-incomes-recruit-1793844669">weekly lobster dinners</a>. The pitch to students was to get some work experience and make some money. We had tiers of rewards -- the top tier was essentially a part-time job. As a reward at the top tier, we gave you a letter of recommendation from the COO of Lyft, which many students valued very highly, and was very cheap for us.  <strong>Referrals (online program) was more impactful top-line, but Ambassadors (people referring users on the ground) were key piece to the launch strategy in each city</strong> -- seeding supply and demand ahead of launch. We were able to reduce overhead when launching a city this way, by getting the word out early.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“On the supply side, <strong>referrals was about 1/3 of the first trips — and they were also the best drivers.</strong> The other 1/3 was WOM, and 1/3 was paid.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p><strong>Caviar:</strong></p>
+<blockquote>
+<p>“Referrals, yes, <strong>a big growth lever on supply in every market</strong>, both early in the life of a market, and later too.”</p>
+<p>— Gokul Rajaram</p>
+</blockquote>
+<p><strong>DoorDash:</strong></p>
+<blockquote>
+<p>“<strong>Referrals is massive on the Dasher side</strong>. It is effective on the consumer side too but a lower % of our acquisition mix than dashers.”</p>
+<p>Micah Moreau</p>
+</blockquote>
+<h3><strong>3. Piggy-back off of an existing network (mostly Craigslist)</strong></h3>
+<h4>About a third of the marketplaces also relied heavily on piggy-backing off of an existing network (in almost every case, Craiglist) to bootstrap their supply growth. I don’t have a lot of quotes here (sorry!), but when it worked, it was the first or second most important lever for these companies.</h4>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“The first thing the launcher team would do when they launched a market would do is figure out supply. <strong>They would go straight to Craigslist</strong>.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<h3><strong>4. Word of mouth</strong></h3>
+<h4>Though not really a growth lever, organic word of mouth was a significant factor in the growth of early supply for about a fourth of today’s biggest marketplaces.</h4>
+<p><strong>OpenTable:</strong></p>
+<blockquote>
+<p>“<strong>The restaurant industry is very tight</strong>. Every restaurateur sure knows each other -- so if someone is trying something out, there is a virality that takes place. We benefited from that. A year or two later, with the transient nature of restaurant employees, they are bouncing every couple of years -- if they go from one restaurant that’s using OpenTable, the first thing they say to the owner is that you have to get this software.”</p>
+<p>— Mike Xenakis</p>
+</blockquote>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“You can read our IPO filing — WOM was listed as a key strength and quantified as <strong>36% of supply awareness</strong>.”</p>
+<p>— Brian Rothenberg</p>
+</blockquote>
+<p><strong>Patreon:</strong></p>
+<blockquote>
+<p>“<strong>Creators come to the platform because they already follow their peers online</strong>, and thus see other creators launch on Patreon.”</p>
+<p>— Tal Raviv</p>
+</blockquote>
+<h3><strong>5. Subsidizing</strong></h3>
+<h4>Similarly, about a fourth of the marketplaces I spoke with bootstrapped supply by subsidizing (paying for it) in some form.</h4>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“<strong>We used money to solve the problem</strong>. We’d guarantee you $40/hour to drive. All you had to do was maintain an acceptance rate of 70% and keep your app running. You could decline riders up to a point, but you don’t get paid for doing nothing.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>We had an income floor for drivers</strong>, to guarantee some amount of money per hour. This helped us jump-start the marketplace from scratch.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>Breather:</strong></p>
+<blockquote>
+<p>“You have to choose which side to subsidize. For Breather, that was the supply side. <strong>We subsidized it with things like furniture and locks, to increase the quality</strong>. With low size transactions (e.g. 2hrs), you can’t walk in and have it be schmucky.”</p>
+<p>— Julien Smith</p>
+</blockquote>
+<p><strong>Zillow:</strong></p>
+<blockquote>
+<p>“<strong>We subsidized leads in almost all of our marketplaces to get them going</strong>. We wanted to show new users the quality of our connections and give them a risk-free way to get started. We would then slowly turn on pricing as we proved the value. This helped us build supply in the early days of each marketplace.”</p>
+<p>— Nate Moch</p>
+</blockquote>
+<h3><strong>6. Employees are the early supply</strong></h3>
+<h4>In a few cases (Rover, TaskRabbit, and DoorDash), the company’s own employees were the initial supply — both to create liquidity and to better understand the problem space.</h4>
+<p><strong>Rover:</strong></p>
+<blockquote>
+<p>“<strong>All early supply was employees</strong>”</p>
+<p>— David Rosenthal</p>
+</blockquote>
+<p><strong>DoorDash:</strong></p>
+<blockquote>
+<p>“We have a policy where <strong>everyone in the company dashes once a month</strong>. In the early days, there was always a shortage of dashers, so Tony and the team dashed constantly, close to every day. In addition, Tony and his wife had their weekly date night on Friday nights, and on some of those date nights Tony and his wife would dash together.”</p>
+<p>— Micah Moreau</p>
+</blockquote>
+<p><strong>TaskRabbit:</strong></p>
+<blockquote>
+<p>“<strong>In the earliest days, Leah [the CEO] and the early team were Taskers</strong>. I remember distinctly dispatching employees from HQ when tasks would come in. In the early days, we were obsessed with ensuring that every customer who came to the platform had a delightful experience. If that meant we had to drop everything we were doing and run a task, we did. It was a great way to ensure quality in the early days.”</p>
+<p>— Jamie Viggiano</p>
+</blockquote>
+<h3><strong>7. Single-player mode</strong></h3>
+<h4>I was surprised to learn that the tactic of bootstrapping one side of a marketplace by offering that side a tool they find useful on its own (aka “single-player mode”) wasn’t more common. But when it worked (for OpenTable, Eventbrite, Patreon), it was the most important tactic for these marketplaces to get off the ground.</h4>
+<p><strong>OpenTable:</strong></p>
+<blockquote>
+<p>“To get into the door with restaurants, we couldn’t lead by talking about online bookings -- there were no online bookings. <strong>We decided to invest in the software side of the business -- we created a solution that could stand on its own without the demand side</strong>. What this meant was building a suite of tools for restaurants to replace their manual booking process (usually a notebook they passed around). Our sales pitch initially was 90% “use our software to better run your restaurant”, and 10% “we’ll help customers find your restaurants and book a table online.”</p>
+<p>— Mike Xenakis</p>
+</blockquote>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“We made the product <strong>self-service for the supply side</strong> early on.”</p>
+<p>— Tamara Mendelsohn</p>
+</blockquote>
+<h3><strong>8. Performance Marketing</strong></h3>
+<h4>I was also surprised to learn how rarely performance marketing was used to grow initial supply, being a major lever early-on only for Lyft and Uber.</h4>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>SEM + Display + FB was effective early on for both supply and demand</strong>. It gave you a baseline for CAC that you can use for other levers. Even if it was a tinkle of growth, we had the machine going, and it allowed us to dial it up and down.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<p><strong>Uber:</strong></p>
+<blockquote>
+<p>“<strong>The paid channel was half the signups, but only 1/3 of the first trips</strong>, which tells you it was the least efficient channel.”</p>
+<p>— Andrew Chen</p>
+</blockquote>
+<h3><strong>9. Loops</strong></h3>
+<h4><strong>A couple of companies (Eventbrite and Airbnb) found a powerful supply-oriented loop (also known as a flywheel, or virality), which drove early supply</strong></h4>
+<p><strong>Eventbrite:</strong></p>
+<blockquote>
+<p>“<strong>We invested in strengthening viral loops</strong> in our product where attendees (the demand side) would become event creators (supply side). In addition, we had a free-to-paid loop where our free product (free to use for free events) attracted a lot of creators who tried the product for free first. Many of these free creators later hosted paid events, converting into paid users. <strong>The free viral loop ultimately drove 34% of supply-side awareness/acquisition</strong>, and 17% of creators who have produced a free event have gone on to host a paid event within twelve months (included in our public IPO filing).”</p>
+<p>— Tamara Mendelsohn and Brian Rothenberg</p>
+</blockquote>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“Person books trip —&gt; loves the experiance and gets an offer to make their home available for guests while on their trip to help pay for trip —&gt; becomes host”</p>
+<p>— Casey Winters</p>
+</blockquote>
+<h3><strong>10. Events</strong></h3>
+<h4>And a few companies (Airbnb and Lyft) successfully organized events/meetups to help build early supply.</h4>
+<p><strong>Airbnb:</strong></p>
+<blockquote>
+<p>“<strong>To launch a city, we’d travel there and hold a meetup</strong>. Here in San Francisco, it’s not a big deal to meet a founder. In other places, that’s pretty novel. They would get so excited that they met us that they’d tell their friends. The markets started turning on, and we religiously focused on making sure customers loved us.”</p>
+<p>— Brian Chesky (<a href="https://medium.com/cs183c-blitzscaling-class-collection/cs183c-session-18-brian-chesky-d680da55f80c">source</a>)</p>
+</blockquote>
+<p><strong>Lyft:</strong></p>
+<blockquote>
+<p>“<strong>An early part of our foundation was onboarding classes for drivers</strong>. We would bring bagels, and have dozens of driver applicants come at once to go through a series of educational videos &amp; chats.”</p>
+<p>— Benjamin Lauzier</p>
+</blockquote>
+<h3><strong>11. SEO / Content Marketing</strong></h3>
+<h4>I was very surprised by how rarely SEO was impactful in driving early supply growth — only being a key lever for Eventbrite.</h4>
+<blockquote>
+<p>“<strong>We invested in blog posts, white papers</strong>, ‘How to Market Your Event’ articles that drove SEO traffic from creators.</p>
+<p><strong>In addition to content we wrote ourselves, we had a great UGC/SEO loop</strong>: 1) creators built their event pages with user generated content, 2) creators linked to their event pages on Eventbrite from their own websites, 3) these Eventbrite.com event pages ranked well in SEO. They also created content for and funneled link value to our "San Francisco events" SEO pages. 4) this drove both demand, and a good portion of supply as well.”</p>
+<p>— Tamara Mendelsohn and Brian Rothenberg</p>
+</blockquote>
+<h3><strong>12. Leverage your community</strong></h3>
+<h4>And finally, maybe the most unique lever of supply growth I came across in this research came from Etsy.</h4>
+<blockquote>
+<p>“<strong>One of the most effective early levers for supply growth was building the Etsy community</strong>, offline. After spending years going to craft fairs every weekend promoting the brand we launched a program called <strong>Etsy street teams that organized passionate community members around the country (eventually the world) and had them be on-the-ground brand evangelizers</strong>. We provided tools and money for these leaders to start their own “teams” (or chapters made up of other sellers) that went to craft/vintage fairs and promoted the Etsy brand to buyers. Some of these teams are still around and <a href="https://www.etsysf.com/">very much alive today</a>. More recently Etsy has invested in traditional advertising but early on, they did nothing of the sort - it was sellers promoting their shops/the brand that drove growth. <strong>And they were not compensated -- they got value from sharing what they were passionate about, ie. Etsy!</strong>”</p>
+<p>— Nickey Skarstad</p>
+</blockquote>
+<p>Once you sense that you’ve got enough supply — or even prior to that (we’ll spend more time on how to understand this in a subsequent post) — you then need to figure out how to drive your initial demand. In our next post we’ll explore this exact question, covering the twelve most important early demand-growth levers across these seventeen companies. <strong>Can you guess what the first two most common growth levers might be?</strong> I was pretty surprised when I saw this. Hint: They aren’t performance marketing, SEO, referrals, sales, or PR.</p>
+<p><strong>Ask: If you work at any of the companies I looked into:</strong></p>
+<ol>
+<li>PLEASE let me know if I got anything wrong. I’ll correct it in the next post. Just reply to this email or DM me <a href="https://twitter.com/lennysan">@lennysan</a>.</li>
+<li>If you have any other insights to share about what was important early-on for your company (or any marketplace company), I’d love love love to know. Please share!</li>
+</ol>
+<p><a href="https://www.lennysnewsletter.com/subscribe?">Sign up now</a></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

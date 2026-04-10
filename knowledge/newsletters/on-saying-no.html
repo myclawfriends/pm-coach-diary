@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>On saying no — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">On saying no</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">On saying no</div>
+    
+    <div class="article-meta">2024-05-21<span>·</span>3,009 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span> <span class="mini-tag">Podcast</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: This may seem weird, but the skill I’m working on most right now is simply saying no. I don’t say yes to many things, but even that small number takes too much time away from existing projects and obligations. It’s theoretically easy but difficult in practice, when many requests come from people you like, admire, and respect. How have you gotten better at saying no?</h2>
+</blockquote>
+<p>I’ve had to learn to say no out of self-preservation. Each day I get more than 100 emails, a dozen DMs on Twitter and LinkedIn, and at least twenty Slack messages and social media pings. All with asks, offers, and requests that are mostly easy individually but add up to an avalanche of work. Just replying with a polite “no thanks” to every one of them would take up my entire day. And if I messed up and accidentally said something that came across poorly in one of my replies, a world of pain could follow.</p>
+<p>Saying no doesn’t come naturally to me (I really like helping people), but to consistently produce a high-caliber newsletter and 1-2 podcast episodes a week, I’ve had to build this skill. Below is everything I’ve learned about how to say no, including a bunch of templates that I use to (kindly) let people down.</p>
+<p><em>Important: This advice is meant for a solopreneur with too many good opportunities and too little time—a privileged place to be. If you’re just starting out and looking for opportunities, or have a day job with less flexibility in what you can say yes and no to, this advice will be less relevant. Though probably still helpful. For advice for saying no during your day job, <a href="https://www.lennysnewsletter.com/p/saying-no">check out this post</a>.</em></p>
+<h3>Why you should say no more often</h3>
+<p>Someone (probably <a href="https://x.com/naval">Naval</a>) once tweeted this advice that, for the life of me, I can’t find, so I’ll paraphrase: You become successful by doing something really well. Once you’re successful, you get offers to do cool things, like go to fancy fun events, do new projects, and meet interesting people. But when you start spending your time on these other things, you don’t have as much time to do the thing that made you successful in the first place. That work suffers. And so your success fades.</p>
+<p>This is why so many people who come out of nowhere and become really successful also quickly disappear. It’s hard to resist the distraction. But it’s essential.</p>
+<blockquote>
+<p><strong>“The difference between successful people and really successful people is that really successful people say no to almost everything.”</strong> ―Warren Buffett</p>
+</blockquote>
+<h3><strong>Deciding when and why to say yes</strong></h3>
+<p>As you’ve heard many times, saying yes to something means you’re saying no to something else. So how do you know what to say yes to? Here’s my guide:</p>
+<ol>
+<li><strong>Imagine if there were no emotion involved:</strong> I ask myself, “If I didn’t care whether the other person felt disappointed or sad when I said no, what would I do?” Then I do that. Once the decision is clear, it simply becomes a matter of how to break the news to them most kindly.</li>
+<li><strong>Do more things that energize you:</strong> Run an <a href="https://beta.mocharymethod.com/blog-post/energy-audit">energy audit</a> and learn what brings you energy and what saps your energy. Say yes to more of the former and less of the latter. It may sound simple, but this simple practice is life-changing.</li>
+<li><strong>Ask yourself, What if you had to do it tomorrow?</strong> It’s incredibly easy to say yes to something that’s months in the future. Then all of a sudden that talk is next week, and 100% of the time I’m thinking, “WTF was I thinking?” Now I always ask myself, “Would I be excited about this if it were tomorrow?” The answer is almost always no. So I say no.</li>
+<li><strong>Filter asks through your priorities:</strong> What are the two or three things you must do well to be successful in your work and life? For me, if I can produce a great newsletter post and prepare well for each podcast interview, then my business will grow. If I take my eye off the ball there, it will decline. So I say no to almost anything that isn’t furthering these priorities.</li>
+<li><strong>Make it a two-factor decision:</strong> A trick that my wife suggested, which has worked well, is to run big asks of my time by her. For example, speaking gigs. Every time I’m about to say yes to a talk, I have to tell her I’m about to say yes to a talk. And most of the time, she reminds me how much I dislike them, and that helps me get over the hump of the fear around letting someone down. It works wonders, and I’ve never regretted saying no to these things.</li>
+<li><strong>Reflect on what you’ve said yes to in the past:</strong> In spite of everything above, I still say yes to many things. Often things I regret—events, coffee chats, talks, calls, etc. But what I’ve learned to do is reflect on the event afterwards. About half the time, I realize I should have said no. And so I use that to remind myself that next time, even though it sounds like a neat event with interesting people, you’re probably going to be A-OK not going.</li>
+</ol>
+<p><img alt="Image from On saying no" src="https://substack-post-media.s3.amazonaws.com/public/images/06b0cefd-f6fb-49f5-82e7-65161fb08cb8_1388x664.png" /></p>
+<h3>General strategies for saying no</h3>
+<ol>
+<li><strong>Just don’t reply:</strong> This may sound unkind, but I’ve learned that no reply feels better than a half-hearted reply. People know you’re busy, and will assume that you didn’t see it (totally understandable) or it’s not a fit (oh well). In the past, when you’ve emailed a busy person and not heard back, did you feel mad at the person? I suspect not.</li>
+<li><strong>Pivot to email:</strong> When someone asks to meet or hop on a call, ask to keep the conversation to email (see template below). Not only does this save you time and a call, but it also helps you get to the root of the ask, removing all the fluff and letting you help faster.</li>
+<li><strong>Create a policy for yourself (and then tell them the policy):</strong> This trick has helped me a ton. I created policies for myself like “I don’t do talks/podcasts/events/etc.” and “No CEOs, founders, or VCs on the podcast.” When I tell people that’s my policy, they totally understand and move on. Your policy could be things like “I’m not taking on any new projects until [Date]” or “I’m not adding anything to my todo list right now” or “I don’t say yes to anything on the spot”:</li>
+</ol>
+<p><img alt="Image from On saying no" src="https://substack-post-media.s3.amazonaws.com/public/images/44fcfea0-9eea-4b6c-8f38-5afbd7466b52_2160x2818.png" /></p>
+<ol>
+<li><strong>Block out deep work time (and don’t ever schedule over it):</strong> Speaking of policies, I have a policy of no meetings before 3 p.m. I reserve this time for “<a href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692">deep work</a>” time, to work on the newsletter and prepare for podcast episodes. Quite a luxury, I know, but even during my day-job days I blocked out two hours on Wednesday and Friday mornings for the same reason. In addition to this delicous focus time, a secondary benefit is that with the remaining (limited) number of hours in the day, you’re forced to say no more often.</li>
+</ol>
+<p><img alt="Image from On saying no" src="https://substack-post-media.s3.amazonaws.com/public/images/05861e98-6102-4082-b6b2-263890fd044e_1830x1262.png" /></p>
+<ol>
+<li><strong>Ask to check back in a month from now:</strong> If you’re open to the idea but aren’t sure, tell the person to ping you again in a month (or three months) to revisit the idea. Over half the time, they’ll never email you about it again. Problem solved.</li>
+</ol>
+<h3>Templates for saying no</h3>
+<p>Finally, here are actual templates I’ve set up for myself for asks I regularly have to decline. I’ve tried a few different tools to make these easy, and currently I’m happy with <a href="https://textexpander.com/">TextExpander</a> as my tool of choice.</p>
+<p><strong>Request for coffee chats (aka picking your brain)</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>I truly wish I had the time. Unfortunately, I’ve got too much on my plate right now and need to prioritize other things. [Optional: Can I answer your questions over email? What are you most curious about?]</p>
+</blockquote>
+<p><strong>Request to hop on a call about something</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>Happy to help! Can we keep this to email to start? I’m trying to cut back on calls, and I can often be even more helpful over email (since it gives me some time to think). What are you most curious about?</p>
+</blockquote>
+<p><strong>Speaking invitation</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>I appreciate your thinking of me. I’m flattered! I really wish I had the time. Unfortunately, I have a blanket rule of no talks, events, or podcasts, which I have in place in order to protect my writing/creative time. I hope you understand.</p>
+<p>And thanks again for the invite!</p>
+</blockquote>
+<p><strong>Event invitation</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>Thank you so much for the invitation, and for thinking of me. I know the event will be a lot of fun. I wish I could make it work. Unfortunately, I’ve got a bit too much on my plate right now and need to prioritize other things, so I’ll very kindly have to pass on this, but I truly appreciate the invite!</p>
+<p>Thank you again.</p>
+</blockquote>
+<p><strong>Request to invest in a startup—before meeting them but you know it’s not a fit</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>Thank you for sharing this opportunity with me. I can absolutely see this becoming a big business, and there’s a lot to love about what you’re building. It’s not a fit for me as an investor, unfortunately, but I won’t be surprised in the least if/when you become a big success.</p>
+<p>Thank you again for the opportunity, and good luck on the journey!</p>
+</blockquote>
+<p><strong>Request to invest in a startup—after you’ve met with the founder and it’s not a fit</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>Thanks again for finding time to chat earlier this week. I’ve been marinating on the opportunity and digging into the space since our call. There’s so much to love about what you’re building: (e.g. [share the things you loved]). It was a tough call, but I’m very kindly going to pass on asking to invest in this round. I just couldn’t get over the hump on a few things (e.g. [share the things that convinced you not to invest]). That being said, I’ll continue to be a fan of yours and what you’re building, and I will not be surprised in any way if/when this becomes an incredibly successful business.</p>
+<p>Thank you again for giving me a chance to invest, and good luck on this journey 🙏</p>
+</blockquote>
+<p><strong>Request for someone to come on my podcast—guest is against my policy</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>I really appreciate the suggestion, and [Guest name] seems great. Unfortunately, I have a rule of no founders, CEOs, or VCs on the podcast, in order to prioritize folks further down the ladder. Thank you for the offer, though.</p>
+</blockquote>
+<p><strong>Request for someone to come on my podcast—not a fit</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>I really appreciate the suggestion! Unfortunately, she/he isn’t a fit for the podcast.</p>
+</blockquote>
+<p><strong>Request to write a guest post for the newsletter</strong></p>
+<blockquote>
+<p>Hi [Name],</p>
+<p>I really appreciate the offer, and for thinking of me. It’s unfortunately not a fit for my newsletter. Thanks, though!</p>
+</blockquote>
+<h4>Other phrases you can integrate to make it your own</h4>
+<ol>
+<li>Mention the priorities you’d be sacrificing (e.g. “This would take time away from my family life”).</li>
+<li>“I decline with gratitude” or “I’ll very kindly decline this offer.”</li>
+<li>“My heart says yes, but my schedule says no.” (h/t <a href="https://www.onstartups.com/tabid/3339/bid/60758/Dear-Friend-Sorry-My-heart-says-yes-but-my-schedule-says-no.aspx">Dharmesh</a>)</li>
+<li>“I want to ensure I continue to do my best with my existing projects.”</li>
+<li>“I’m struggling to finish the work I already have on my plate.”</li>
+</ol>
+<h3>Additional inspiration</h3>
+<p><img alt="Image from On saying no" src="https://substack-post-media.s3.amazonaws.com/public/images/c4df30ac-33c7-4edd-a625-48f8453c30a5_1832x1844.png" /><img alt="Image from On saying no" src="https://substack-post-media.s3.amazonaws.com/public/images/9d17934b-c5d0-41e6-bed5-2ac013cbf720_1832x808.png" /><a href="https://www.youtube.com/watch?v=sWdTsesGvfU">Watch on YouTube</a></p>
+<blockquote>
+<p>“Just because you have all of these demands on your time and on you doesn't mean that you have to say yes. You get to decide because you’re the master of your fate, the captain of your soul. And understanding that really changed the meaning of my life in that I was no longer driven by what other people wanted me to do but took charge of my own destiny, making choices based on ‘what do I feel is the next right move for me?’” —Oprah Winfrey</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=H8eP99neOVs">Watch on YouTube</a></p>
+<blockquote>
+<p>“People think focus means saying yes to the thing you’ve got to focus on. But that’s not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I’m actually as proud of the things we haven’t done as the things I have done. Innovation is saying ‘no’ to 1,000 things.” —Steve Jobs</p>
+</blockquote>
+<h4><strong>Bonus: Examples of excellent decline messages shared in</strong> <strong><em><a href="https://tim.blog/2017/11/25/how-to-say-no/">How to Say No</a></em></strong> <strong>by Tim Ferriss:</strong></h4>
+<p><strong><a href="https://www.ushg.com/danny-meyer">Danny Meyer</a>:</strong></p>
+<blockquote>
+<p>“Jeffrey,</p>
+<p>Greetings and thanks for writing. I’m grateful for the invitation to participate in Tim’s next book project, but I’m struggling, at this moment, to make time ends meet for all we’re doing at USHG, including my ongoing procrastination with my own writing projects.</p>
+<p>I thought carefully about this, as it’s clearly a wonderful opportunity, but I’m going to decline with gratitude.</p>
+<p>I know the book will be a big success!</p>
+<p>Thanks again, Danny.”</p>
+</blockquote>
+<p><strong><a href="https://www.nealstephenson.com/">Neal Stephenson</a>:</strong></p>
+<blockquote>
+<p>“Hey there, Tim.</p>
+<p>Sorry for the slow response, and thanks for thinking of me in this context. It has become pretty obvious of late that I’m trying to do too much. And so, I started an experiment of not adding anything whatsoever to my to do list so that it wouldn’t get any longer. The result is that the items that were already on my to do list only spawned more items as I crossed them off. And so, it’s a little like fighting a hydra. I am hoping that if I am ruthlessly efficient, I can one day get to the point where the list actually gets shorter instead of longer.</p>
+<p>In the meantime, unfortunately, the ruthlessly efficient part of this plan means that I am turning down things like this just as a blanket policy. Again, thanks for thinking of me, and good luck with the project! Neal.”</p>
+</blockquote>
+<p><strong><a href="https://www.wendymacnaughton.com/">Wendy MacNaughton</a>:</strong></p>
+<blockquote>
+<p>“Hi, Tim, okay, I’ve been battling with this, and here’s the deal. After five intense years of creative output and promotion, interviews about personal journeys and where ideas come from, after years of wrapping up one project one day and jumping right into promoting another the next … I’m taking a step back. I recently maxed out pretty hard, and for the benefit of my work, I’ve got to take a break. Over the past month, I’ve canceled contracts and said no to new projects and interviews. I’ve started creating more space to explore and doodle again, to sit and do nothing, to wander and waste a day.</p>
+<p>And, for the first time in five years, I’m finally in a place where there’s no due date tied to every drawing, no deadline for ideas. And it feels really right. So, while I really wanted to do this with you, I respect you and your work, and I’m honored that you’d ask me to participate. And as capital S stupid as it is for me professionally not to do it, I’m going to have to say thank you, but … I’ve got to pass.</p>
+<p>I’m simply not in a place to talk about myself or my work right now. Crazy for a highly verbal, only child to say. Hopefully, we will get a chance to talk somewhere down the line. I promise any thoughts I’ll have for you then will be far more insightful than anything I could share with you right now. I hope the space created by my absence is filled by one of the brilliant people I suggested in my previous email. And really, thank you so much for your interest. I’ll be kicking myself when the book comes out.</p>
+<p>Wendy.”</p>
+</blockquote>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://www.onstartups.com/tabid/3339/bid/60758/Dear-Friend-Sorry-My-heart-says-yes-but-my-schedule-says-no.aspx">Sorry. My heart says yes, but my schedule says no.</a> by Dharmesh Shah</li>
+<li><a href="https://ryanholiday.net/this-is-your-reminder-to-say-no/">This is Your Reminder to Say ‘NO’</a> by Ryan Holiday</li>
+<li><a href="https://tim.blog/2018/07/19/essentialism/">How to Say “No” Gracefully and Uncommit</a> with Tim Ferriss</li>
+<li><a href="https://www.jessicahische.is/helpingyouanswer">Jessica’s Client Email Helper</a></li>
+</ol>
+<p><em>Thank you, <a href="https://x.com/jayclouse/status/1790083303275442557">Jay Clouse</a> for asking the question that inspired this post, and <a href="https://x.com/david_perell">David Perell</a> for sharing inspiration as I wrote it. Have a fulfilling and productive week 🙏</em></p>
+<h2>👀 Hiring? Or looking for a new job?</h2>
+<p>I’m piloting a white-glove recruiting service for product roles, working with a few select companies at a time. If you’re hiring for senior product roles, apply below.</p>
+<p><a href="https://www.lennysjobs.com/talent/">Apply to join</a></p>
+<p>If you’re exploring new opportunities yourself, use the same button above to sign up. We’ll send over personalized opportunities from hand-selected companies if we think there’s a fit. Nobody gets your info until you allow them to, and you can leave anytime.</p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

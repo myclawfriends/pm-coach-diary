@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Examples and templates of 1-Pagers and PRDs — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Examples and templates of 1-Pagers and PRDs</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Examples and templates of 1-Pagers and PRDs</div>
+    
+    <div class="article-meta">2021-08-31<span>·</span>1,266 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">領導</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">工程</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><blockquote>
+<h2>Q: Do you have any examples of great 1-Pagers/PRDs/product specs? I’m looking for a structure I can borrow and inspiration for what great looks like.</h2>
+</blockquote>
+<p>It’s particularly hard to find real-life examples of great 1-Pagers and PRDs (product requirements documents), in part because honestly most of them aren’t very good, but mostly because these documents have confidential information in them and thus aren’t readily shared.</p>
+<p>The good news is that if you’re at a mid-to large-size company, you have the rare gift of having access to boatloads of real-world 1-Pagers from past and current projects. Don’t squander it. Pick a few projects that were big successes, find their original 1-Pagers, and study them. Seriously, add this to your to-do list for next week. You’ll learn a lot.</p>
+<p>For the rest of us peons, don’t worry, I got you. Below, I’ve pulled together a handful of solid 1-Pagers, with added commentary, plus a bunch of A+ templates that I love. If you’ve come across any other examples of 1-Pagers/PRDs in the wild that you can share, leave a comment and I’ll add it to the list 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/prds-1-pagers-examples/comments">Leave a comment</a></p>
+<h3><strong>But first, what makes a great 1-Pager/PRD?</strong></h3>
+<p>As you read through these 1-Pagers, look for these elements that make them effective:</p>
+<ol>
+<li><strong>Problem-oriented:</strong> They crystallize the problem being solved in a few strong sentences—ideally near the top of the document—to focus the brainpower of every teammate in the same direction.</li>
+<li><strong>Clear success criteria:</strong> They super-specifically define what success looks like when the product or feature ships, at first to make sure it’s even worth doing, and later to help everyone make tradeoff decisions throughout the project.</li>
+<li><strong>Just enough direction:</strong> They give the reader (e.g. engineers, designers, managers) just enough an idea of what the project will entail—including requirements and constraints—without eliminating the opportunity for (your super-smart) teammates to come up with even better solutions.</li>
+<li><strong>Urgency:</strong> There’s a clear (proposed) timeline by which to review, align on, build and ship the project, to keep the project moving forward (and from exploding in scope).</li>
+<li><strong>Short and sweet:</strong> In the end, if you want this document to be used, it needs to be readable. So keep it brief (that’s why I like the term 1-Pager), clean up formatting and comments anytime it starts to get messy, and put additional context into an appendix at the end.</li>
+</ol>
+<p>With that, some examples.</p>
+<h3>Examples of 1-Pagers/PRDs</h3>
+<p><strong>1. <a href="https://drive.google.com/file/d/1koKv1Elt8_NAzcWwpbd0llp8LDEs1e-z/view?usp=sharingg+links+to+designs%2C+decisions+made%2C+and+edge+cases.">Lost and Found (Lyft)</a></strong> by <a href="https://www.linkedin.com/in/evangoldin">Evan Goldin</a></p>
+<p>Again, I love the problem-orientedness, the very clear success criteria, and the overall simplicity of this document.</p>
+<p>To level it up further, it could have crystallized the problem more clearly, outlined the details of the spec more concretely, and generally kept the document cleaner.</p>
+<p><strong>2. <a href="https://docs.google.com/document/d/1eWVN-1LFNTMobw9rp_oqah37NXTGvdYRk__SUpq7_RQ/edit?usp=sharing">Shift Swap Project Charter</a></strong> by <a href="https://twitter.com/johnkoht">John Koht</a></p>
+<p>I love the structure of this one, the problem-orientedness, and the clear success criteria.</p>
+<p>It’s missing any sense of a solution, the list of “players” is too long, and there are far too many success criteria. I’d cut back on both of these.</p>
+<p><strong>3. <a href="https://docs.google.com/document/d/1F4WuF0fp7QL1YGnkv5mvbX85iuWZMaGw4ol-IJFFuQI/edit?usp=sharing">Shopify to Quickbooks Connector</a></strong> by <a href="https://www.linkedin.com/in/toddkovalsky/">Todd Kovalsky</a></p>
+<p>I love the acceptance tests, the success criteria, and how fully thought-out the features are—assuming this is meant for an engineer who’s ready to build.</p>
+<p>Where it needs work is the document itself, which is relatively messy, not fully fleshed-out, and missing much of any insight into the problem itself.</p>
+<p><strong>4. <a href="https://docs.google.com/document/d/1G3Qrsnp_QyV7twNvKwGc_oir8jBAJ6pd0yyJkUTMTnk/edit#heading=h.9mazvlhmsilr">prodmgmt.world</a></strong> by <a href="https://twitter.com/nurijanian">George Nurijanian</a></p>
+<p>I love the problem-orientedness, the directional solution’ing, and the clear success criteria</p>
+<p>This would be stronger if you replaced the “User” section—which doesn’t seem valuable—with a clearer sense of why this direction is the right one.</p>
+<p>Now, let’s turn our attention to templates.</p>
+<h3>My favorite 1-Pager/PRD templates</h3>
+<ol>
+<li><a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">My 1-Pager template</a> — What I use anytime I start a new project.</li>
+<li><a href="https://paper.dropbox.com/doc/Front-1-Pager-template--BRKbuX4FcAJ__BMryiLQFQlYAg-lhj0cggaonhJvH3B2f6gg">Front’s PRD template</a> (by Nate Abbott) — Love the structure and clarity it enforces.</li>
+<li><a href="https://docs.google.com/document/d/1mEMDcHmtQ6twzNlpvF-9maNlAcezpWDtCnyIqWkODZs/edit">Kevin Yien’s PRD template</a> (PM at Square) — Love this whole template, particularly the “Non-Goals” section and the step-by-step flow.</li>
+<li><a href="https://docs.google.com/document/d/1W46cmPfPwXIIH2mNNbbQ5EdjnhQFqGxGhT5iAijmJjc/edit#heading=h.cqt1a4hrfy8u">Asana’s project brief template</a> — Particularly love the problem statement framework.</li>
+<li><a href="https://s3.amazonaws.com/marketing.intercomcdn.com/assets/Intercom-Job-Story-template.pdf">Intercom’s story template</a> — Love the simplicity, while still having everything you need to get started.</li>
+<li><a href="https://docs.google.com/document/d/1yrU5F6Gxhkfma91wf_IbZfexw8_fahbGQLW3EvwdfQI/edit">Product Hunt’s PRD template</a> — Love the way it begins (Who, Why, What). A bit long though.</li>
+<li><a href="https://docs.google.com/document/d/1BeNK9BYd3-8pAqVYR_B0Gzp7kGNtWdPFHJKIXI52_84/edit?ts=5f264700#heading=h.6jynaot9cbnq">Steve Morin’s 1-pager template</a> (EM at Asana) — Love the focus on success criteria and risks.</li>
+<li><a href="https://coda.io/@yuhki/figmas-approach-to-product-requirement-docs/prd-name-of-project-1">Figma’s PRD template</a> — A super comprehensive plug-and-play template.</li>
+<li><a href="https://docs.google.com/document/d/1eBaBOF2A3rIfXeqqjq4uFAxX2f85JqanJmq-72ptur0/edit">Bolt PRD Template</a> — Ideal for hardware products.</li>
+</ol>
+<p>I hope these examples and templates provide enough inspiration to craft your own killer 1-Pagers. Good luck!</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://medium.com/@johnpcutler/great-one-pagers-592ebbaf80ec">Great One-Pagers</a> by John Cutler</li>
+<li><a href="https://productschool.com/blog/product-management-2/focus-on-purpose-product-one-pager-template/">How to Focus on the Purpose of Your Product</a> by Product School</li>
+<li><a href="https://uxpin.medium.com/how-to-write-a-painless-product-requirements-document-508ff6807b4a">How to Write a Painless Product Requirements Document</a> by Jerry Cao</li>
+</ol>
+<p>For more templates, <a href="https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37">don’t miss this post</a>, and if you have any other great examples, do share 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/prds-1-pagers-examples/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week</em>🙏</p>
+<h2><strong>🔥 Featured job openings</strong></h2>
+<ol>
+<li><strong>Perfect Recall:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/7ac1bf05-0aa6-436e-8546-6e14c5222f7e">Founding Fullstack Engineer</a> (Waterloo)</li>
+<li><strong>Spatial:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/9424b997-d1e3-4eb1-8b0a-e9f1cc622fb5">Backend Engineer</a> (Remote-US)</li>
+<li><strong>Maven:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/de48b7e9-782d-4c3e-a354-6abd66fb7d0d">Product Lead</a> (Remote-US)</li>
+<li><strong>Republic:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/da2ec715-1731-4709-9194-e4c630709ab1">Product Manager</a> (NYC, Remote-US)</li>
+<li><strong>Snackpass:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/e3813aa9-51f9-405d-ab6b-b6e3338c4397">Product Manager, Payments</a> (SF, NYC, LA, Remote)</li>
+<li><strong>Fabulous:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/aba1b987-d8fe-4160-be34-43ea3fe18079">Product Manager</a> (Remote)</li>
+<li><strong>Stonks:</strong> <a href="https://pallet.xyz/list/lennys-jobs/job/4b47d0cb-9b97-41c8-88ab-e3c188e3c036">Backend Web Developer, Founding team</a> (Remote)</li>
+</ol>
+<p><em>Browse more open roles, or add your own, at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://kottke.org/21/08/how-cast-iron-pans-are-made">How Cast Iron Pans Are Made</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=NEQP94YbYFo">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read:</strong> <a href="https://www.rei.com/blog/climb/fun-scale">The Fun Scale</a> by REI</li>
+<li><strong>Read:</strong> <a href="https://www.thepullrequest.com/p/the-man-whose-software-ate-the-world?token=eyJ1c2VyX2lkIjoxODQ5Nzc0LCJwb3N0X2lkIjozNDc3NzgwMywiXyI6IktOdlVVIiwiaWF0IjoxNjI0Njc1NTA0LCJleHAiOjE2MjQ2NzkxMDQsImlzcyI6InB1Yi00NzE4Iiwic3ViIjoicG9zdC1yZWFjdGlvbiJ9.H_VFVdzCfhAevGszkym2CNUQiAMd1ciQgur8oQCH0pQ">The man whose software ate the world</a> by Antonio García Martínez</li>
+</ol>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

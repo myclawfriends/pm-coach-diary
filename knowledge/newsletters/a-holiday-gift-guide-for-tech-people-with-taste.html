@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A holiday gift guide for tech people with taste 🤌 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">A holiday gift guide for tech people with taste 🤌</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">A holiday gift guide for tech people with taste 🤌</div>
+    
+    <div class="article-meta">2025-11-18<span>·</span>4,837 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">創業</span> <span class="mini-tag">B2C</span> <span class="mini-tag">職涯</span> <span class="mini-tag">成長</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey there, I’m Lenny. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> |</em><em> </em><em><a href="https://www.youtube.com/@howiaipodcast">How I AI</a></em><em> </em><em>| <a href="https://www.lennysnewsletter.com/s/lennys-reads">Lenny’s Reads</a></em><em> | </em><em><a href="https://maven.com/lenny">My fav AI/PM courses</a> | <a href="https://ultraspeaking.com/lennyslist?via=lenny">My fav public speaking course</a></em>**</p>
+<p><em>Become an annual subscriber and get an unbelievable deal: </em><em>A full free year of 17+ premium products, including <a href="https://www.lennysnewsletter.com/p/productpass">Devin, Lovable, Replit, Bolt, n8n, Wispr Flow, Descript, Linear, Gamma, Superhuman, Granola, Warp, Perplexity, Raycast, Magic Patterns, Mobbin, ChatPRD, and Stripe Atlas</a> (while supplies last). <a href="https://www.lennysnewsletter.com/p/productpass">Learn more</a>.</em>**</p>
+<p>For the fifth consecutive year, I’m excited to present my holiday gift guide.</p>
+<p>The theme this year is taste 🤌:high-quality non-obvious stuff. No slop. I’ve included more high-end and handmade products this year than in previous years, but there are also still plenty of affordable items.</p>
+<p>As always, nothing below contains affiliate links, I’m not an investor in any of these companies, and I’m not benefiting from recommending any of these products (except one, which will be clear). This list is simply a collection of things I love and think you’ll love too.</p>
+<p>For more ideas, check out my previous gift guides from <a href="https://www.lennysnewsletter.com/p/lennys-newsletter-holiday-gift-guide-e6b">2024</a>, <a href="https://www.lennysnewsletter.com/p/a-new-parent-gift-guide-for-product">2023</a> (for new parents), <a href="https://www.lennysnewsletter.com/p/lennys-newsletter-holiday-gift-guide">2022</a>, and <a href="https://www.lennysnewsletter.com/p/lennys-holiday-gift-guide">2021</a>.</p>
+<p>Did I miss something absolutely awesome? Share it in the comments 🙏</p>
+<p><a href="https://www.lennysnewsletter.com/p/a-holiday-gift-guide-for-tech-people/comments">Leave a comment</a></p>
+<p>Enjoy!</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/d4c9fa0b-ef85-49a8-ae68-a22b91bf4194_2912x1940.png" /></p>
+<h3><strong>For the home</strong></h3>
+<ol>
+<li><strong><a href="https://www.handcraftedmodern.co/products/medium-maple-wood-donut-bowl">Handcrafted Modern maple donut bowl</a>:</strong> My wife got us this, and I was like “wtf is it?” But then I realized how much a beautiful wood piece adds to your space. <a href="https://www.handcraftedmodern.co/makers/elise-mclauchlan">The artist makes lots of other great stuff, too</a>.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/b6252421-205a-415e-99e0-a8832b4a4498_1600x1205.jpeg" /><br />
+2. <strong><a href="https://www.coyuchi.com/products/organic-crinkled-percale-sheet-set-undyed?variant=50911855411492">Coyuchi 100% organic cotton sheets</a>:</strong> Pricey, but oh so nice. You spend so many hours in your sheets, imho it makes sense to splurge here.</p>
+<p><img alt="Organic Relaxed Linen Sheet Set" src="https://substack-post-media.s3.amazonaws.com/public/images/81f64fd5-1724-46c0-916f-7db72ddd6d97_600x453.jpeg" /><br />
+3. <strong><a href="https://sublime.metalabel.com/candle?variantId=1">Deadline candle</a>:</strong> “Transforms your most dreaded moments into sacred ritual.”</p>
+<p><img alt="Finite time. Infinite potential. " src="https://substack-post-media.s3.amazonaws.com/public/images/14c70f61-6d6d-4248-947f-efc6bb587409_1200x1600.jpeg" /><br />
+4. <strong><a href="https://maticrobots.com/">Matic</a>:</strong> <a href="https://www.nytimes.com/wirecutter/reviews/matic-robot-vacuum/">Wirecutter</a>, <a href="https://www.wired.com/review/matic-robot-vacuum/">Wired</a>, <a href="https://gizmodo.com/the-matic-robot-vacuum-charms-and-sucks-in-a-good-way-2000638109">Gizmodo</a>, <a href="https://www.theverge.com/tech/816645/matic-robot-vacuum-review">The Verge</a>, and <a href="https://www.zdnet.com/home-and-office/kitchen-household/this-robot-vacuum-broke-the-industry-mold-heres-my-verdict-after-months-of-testing/">ZDNet</a> have all reviewed it and said it’s the best smart vacuum ever made. I agree. We use ours constantly. They are raising prices on December 2 (from $1,095 to $1,245—tariffs 🫠), so ordering before then will save you $150. They also offered me a deal to share with this community: use <a href="https://maticrobots.com/">this link</a> to get a free 6-to-9-month supply of replacement HEPA bags. Their team sent me a unit to try out when they were just getting started, and I loved it so much I’ve been telling everyone about it.</p>
+<p><img alt="Matic" src="https://substack-post-media.s3.amazonaws.com/public/images/6ad9f1dc-92f9-458e-8a56-20f798352710_1308x872.webp" /></p>
+<ol>
+<li><strong><a href="https://www.livingtea.net/products/seasonal-tea-club-gift-subscription?variant=40597401141315&amp;selling_plan=2122285123">Living Tea seasonal tea club</a>:</strong> A friend got this for me, and it’s so nice. They include background on each tea, how to best steep them, and all kinds of extras that make the experience feel special. <a href="https://www.fivemountainstea.com/shop/Gifts__Accessories/5MIBL001.html">These stainless-steel infusers</a> are really handy (especially if you’re wary of tea bags these days). We also love <a href="https://leavesandflowers.com/collections/all">Leaves and Flowers</a> and <a href="https://www.rishi-tea.com/collections/gift-sets">Rishi</a> teas.</li>
+<li><strong><a href="https://soundhealinglab.com/collections/chimes-and-shakers/products/koshi-chimes">Koshi chimes</a>:</strong> The sound of these is unique and delightful. “Simply move the chime gently holding it by its cord to produce a crystalline, relaxing sound that mesmerizes and calms.”</li>
+</ol>
+<p><img alt="Koshi Chimes - Made in France - Koshi Chimes" src="https://substack-post-media.s3.amazonaws.com/public/images/a91540b7-a390-42f5-9056-89a096c23114_1600x1214.jpeg" /></p>
+<ol>
+<li><strong><a href="https://maju.design/?v=7516fd43adaa">Plant-based desk lamp</a>:</strong> You may have noticed one of these in my podcast background. We bought it at the West Coast Craft fair in SF, but they also sell them at <a href="https://museumstore.sfmoma.org/products/lily-cloud-omni-santal-ash-lamp?variant=45466879295666">SFMOMA</a>. I don’t recommend the ones with legs, though, as they tend to come off. <a href="https://store.moma.org/collections/lighting/products/space-s-mini-portable-lamp-orange">These are also cute</a>. As are <a href="https://nymag.com/strategist/article/steal-my-noguchi-lamp.html?gad_source=1&amp;gad_campaignid=21471568684">these classic Noguchi lamps</a>.</li>
+</ol>
+<p><img alt="Processed with VSCO with c3 preset" src="https://substack-post-media.s3.amazonaws.com/public/images/19f7f427-25cf-4bee-b62b-4d3c59066833_600x800.jpeg" /><br />
+8. <strong><a href="https://www.amazon.com/ANGELS-HORN-Bluetooth-Turntable-Turntables/dp/B09VK9DLYR?th=1">Angels Horn vinyl record player</a>:</strong> Includes built-in speakers (and Bluetooth!), so it’s a really easy, versatile, and affordable way to enjoy records. We’ve had this for years and love it.</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/7696fe54-822c-44c4-a7d6-c379f9540685_1373x1369.jpeg" /><br />
+9. <strong><a href="https://www.amazon.com/Graf-Lantz-Bierfilzl-Square-Coasters/dp/B0BXYQ1VXF?th=1">Graf Lantz Bierfilzl merino wool round coasters</a>:</strong> I can’t get enough of these around the house. Lots of color options, and the <a href="https://www.amazon.com/Graf-Lantz-Bierfilzl-Square-Coasters/dp/B09LKZHDRH?th=1">square ones</a> are nice too.</p>
+<p><img alt="Merino Wool Round Coaster Multi 6 Pack in Rainbow | Graf Lantz" src="https://substack-post-media.s3.amazonaws.com/public/images/bd4b3af4-8c6f-4202-a646-abe6f3a56b16_900x1125.jpeg" /><br />
+10. <strong><a href="https://verasalt.co/">Vera salt</a>:</strong> Microplastic-free salt. After learning that I was <a href="https://www.lennysnewsletter.com/p/a-builders-guide-to-living-a-long">half-man, half-plastic</a> and also that sea salt is one of the most microplastic-laden foods one can consume (<a href="https://ai.hubermanlab.com/clip?sids=chunk_3456144">thanks, Huberman</a> 🥴), we discovered this product (through <a href="https://superpower.com/">Superpower</a> marketplace), and it’s now our go-to salt. Pretty, healthy, and yummy. Pairs well with this plastic-free <a href="https://www.kleankanteen.com/products/plastic-free-water-bottle-27oz?variant=860232191">Klean Kanteen</a> water bottle (which is not as fun as other bottles but easy to clean).</p>
+<p><img alt="Flake Spring Salt (180g) - Microplastic Free – Vera Salt" src="https://substack-post-media.s3.amazonaws.com/public/images/5e508308-bb96-4734-899a-81e83cd99519_1445x963.jpeg" /></p>
+<h3><strong>For parents and kids</strong></h3>
+<ol>
+<li><strong><em><a href="https://www.amazon.com/Charts-Babies-Picture-Book/dp/1419785184">Charts for Babies</a></em></strong> <strong><a href="https://www.amazon.com/Charts-Babies-Picture-Book/dp/1419785184">by Michelle Rial</a>:</strong> MY WIFE HAS A NEW BOOK COMING OUT. I know I’m biased, but it’s genius. It’s also cute as hell, will warm your heart, and will incept your kids into liking STEM. It’s coming out in April, and <a href="https://www.amazon.com/Charts-Babies-Picture-Book/dp/1419785184">you can pre-order it here</a>. If you haven’t seen <a href="https://www.amazon.com/Am-Overthinking-This-Over-answering-questions/dp/1452175861/ref=sr_1_3?dib=eyJ2IjoiMSJ9.W6mGAhve3sUVTgLNelMtqfvnZVB3R1LNvZNxXtn9N4g5FRd_4YBibF5SJ4kwFM7URKi2vCnufB1z3M0SOnWtYfl9ymbui6Y7ZT1JQownA-UJRSQZaBynMVMLX_p9qDtY.z8c5kf1m1g3XDL-N4gxe5kidNA6GAcTVwma6mWSyeok&amp;dib_tag=se&amp;qid=1762985370&amp;s=books&amp;sr=1-3&amp;text=Michelle+Rial">her first book</a>, that one makes a great gift too (for adults).</li>
+</ol>
+<p><img alt="Charts for Babies A Picture Book" src="https://substack-post-media.s3.amazonaws.com/public/images/55950225-9b78-44db-ab1b-1c8cfd635c81_920x920.jpeg" /></p>
+<ol>
+<li><strong><a href="https://shop.whitney.org/products/emerging-artist-baby-hat">Emerging Artist beanie for babies</a>:</strong> We gifted this to our nephew when he was younger, and it’s never not funny.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/35d1e9db-947e-48b9-a94f-f4b11757b6ef_1000x655.png" /></p>
+<ol>
+<li><strong>Kids’ <a href="https://loogguitars.com/products/loog-pro-acoustic-natural">guitar</a> or <a href="https://loogguitars.com/collections/loog-piano">piano</a>:</strong> They come with guides to help you learn, and they are really high-quality. My wife and I even practice on it while we’re playing with our son because we’re both learning piano.</li>
+</ol>
+<p><img alt="loog piano" src="https://substack-post-media.s3.amazonaws.com/public/images/107eb3f6-33bb-4424-821e-a8cab5c80c2c_1024x1024.jpeg" /></p>
+<ol>
+<li><strong><a href="https://us.yotoplay.com/yoto-mini">Yoto mini player</a>:</strong> A neat screen-free audio player for kids. Our son loves his so much. He rotates between the Beatles, Raffi, Queen, and Spanish <a href="https://us.yotoplay.com/collections/best-sellers">cards</a> while he walks around dancing, listening to it (rather than staring at a screen). How can you not love that? Sir Paul McCartney and Chan Zuckerberg Ventures are investors, to encourage more screen-free entertainment options for kids. Many people love the <a href="https://us.tonies.com/">Tonies</a> as an alternative.</li>
+</ol>
+<p><img alt="Yoto 101: Everything You Need to Know About a Yoto Player - Everyday Reading" src="https://substack-post-media.s3.amazonaws.com/public/images/7bd9fadb-a60d-418a-849c-7133706cf0ba_2560x1707.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.catbirdnyc.com/famous-letter-gold-ring.html#306=98">Personalized ring</a> (<a href="https://www.catbirdnyc.com/tiniest-name-necklace.html">or necklace</a>):</strong> For your BFF, mom, lover, or just get it for yourself. As a fun twist, make it the joke name you call your kid/pet.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/a88a8e0c-8683-4be4-8c5f-a894bc097476_1020x402.png" /></p>
+<ol>
+<li><strong>Personalized <a href="https://oxfordpennant.com/collections/customizable">pennant</a> or <a href="https://littlemoonjumper.com/blankets/stroller-blankets/?sort=bestselling">blanket</a>:</strong> Is there anything kids/parents/humans love more than their name on stuff?</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/cc3c1cbf-ea07-4762-a8c4-bc3d1210de5e_1914x570.png" /></p>
+<ol>
+<li><strong><a href="https://www.coyuchi.com/products/pebbled-handstitched-organic-toddler-quilt-undyed-w-warms?variant=50911873368356">Coyuchi handstitched organic toddler blanket</a>:</strong> Nontoxic naps for your little one.</li>
+<li><strong><a href="https://www.hineighbor.com/collections/outdoor-chairs/products/low-chair-jr?variant=39959166976080">Kids’ Adirondack chair</a>:</strong> Extra-cute if you place it near your adult-sized chair on the porch.</li>
+</ol>
+<p><img alt="A studio photo of Low Chair Jr. Default Title" src="https://substack-post-media.s3.amazonaws.com/public/images/2f41cf53-849a-46e0-978b-3f365c5d2823_800x800.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.bellalunatoys.com/products/senger-organic-cotton-brown-teddy-bear?variant=7265131266094">Organic floppy brown teddy bear</a>:</strong> This teddy bear is relatively expensive, but it’s a rare non-polyester option for something your kid will be snuggling all night. It’s made in Germany from certified organic cotton and pure organic wool. <a href="https://www.bellalunatoys.com/collections/handmade-toys/organic-toys">They have other animals too</a>.</li>
+</ol>
+<p><img alt="Senger - Organic Brown Teddy Bear - Brown bear - Germany - Bella Luna Toys" src="https://substack-post-media.s3.amazonaws.com/public/images/6bae884c-5dc3-426f-995c-eed4e57e1304_1000x1000.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.gallerynucleus.com/detail/13584/">John Klassen prints</a>:</strong> There are also <a href="https://www.gallerynucleus.com/artists/jon_klassen">originals</a>, but most are sold out. <a href="https://www.gallerynucleus.com/artists/jon_klassen?category=prints">More prints here</a>. IYKYK 🔺</li>
+</ol>
+<p><img alt="I Want My Hat Back - Pg. 25-26 - Drama [PRINT], Jon Klassen" src="https://substack-post-media.s3.amazonaws.com/public/images/eb149af7-97b1-498b-b240-73c5734b71a3_750x513.jpeg" /></p>
+<h3><strong>For gadget lovers</strong></h3>
+<ol>
+<li><strong><a href="https://modretro.com/products/chromatic-tetris-bundle?variant=49807115223342">ModRetro Chromatic</a>:</strong> A modern remake of the original Game Boy by Palmer Luckey (founder of Anduril and Oculus). It feels great, plays great, and makes a unique gift for gamer friends.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/e0c82f8d-ee9e-4ca6-861b-d3ec4bd9fe0c_1000x667.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.peakdesign.com/products/tech-pouch?Color=Eclipse&amp;Size=Small">Peak Design tech pouch</a>:</strong> They also make a <a href="https://www.peakdesign.com/products/tech-pouch?Size=Regular&amp;Color=Eclipse">larger version</a>, and <a href="https://www.peakdesign.com/products/wash-pouch?Size=Regular&amp;Color=Coyote+X-Pac%E2%84%A2">their toiletry bag</a> is great.</li>
+</ol>
+<p><img alt="Person holding an Eclipse Tech Pouch Small with electronic accessories on a wooden surface" src="https://substack-post-media.s3.amazonaws.com/public/images/5b55ef7d-1299-4457-83f1-8af5ed72fabf_1024x1024.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.aranet.com/en/home/products/aranet4-home">Aranet CO2 monitor</a>:</strong> Did you know high CO2 impairs your cognition? <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4892924/">Research</a> shows that brain function decreases by 15% when CO2 levels are over 1,000 ppm, and by over 50% above 1,400 ppm. Freaky shit. I’ve got one of these in my office and open a window anytime it gets into the yellow zone.</li>
+</ol>
+<p><img alt="Aranet4 HOME US" src="https://substack-post-media.s3.amazonaws.com/public/images/923f1dfe-e908-4542-ad49-47ad110df468_1100x824.bin" /></p>
+<ol>
+<li><strong><a href="https://www.amazon.com/dp/B0DL8CK73P?th=1">Belkin MagSafe 3-in-1 charger</a>:</strong> I saw these at a hotel once, immediately got it, and love it. Better than any other nightstand charger I’ve tried.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/4b2af550-4892-487f-b14c-4d8f242c44ae_924x785.jpeg" /><br />
+5. <strong><a href="https://herschel.com/shop/backpacks/kaslo-daypack-tech?v=11289-07070-OS">Herschel tech backpack</a>:</strong> This has been my go-to bag for years.</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/0748b920-bd9e-4c46-b08b-6ee75de3e45a_1456x1304.png" /><br />
+6. <strong><a href="https://www.amazon.com/dp/B0CFRWFTQQ?th=1">Sony WH-1000XM5 noise-canceling wireless headphones</a>:</strong> These have become my workhorse headphones. Grab <a href="https://www.amazon.com/dp/B0DZHXKZNP?th=1">this cute stand</a> if you use headphones at your desk. My wife prefers the <a href="https://www.amazon.com/Bose-QuietComfort-Wireless-Cancelling-Headphones/dp/B0CCZ1HQ39?th=1">Bose QuietComfort</a> because, as the name suggests, they are comfy.<br />
+7. <strong><a href="https://www.amazon.com/dp/B0D6G99C1H?th=1">iPhone case with built-in stand</a>:</strong> I learned about this from <a href="https://www.kevinrose.com/">Kevin Rose’s newsletter</a>. There’s also <a href="https://www.amazon.com/dp/B0D7GV2JGT?th=1">an Anker version</a>, but I like this one better.</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/8a1bfcc0-8c0a-417f-ad5c-3f06c50dbe86_1365x1500.jpeg" /><br />
+8. <strong><a href="https://www.amazon.com/dp/B07Q87WJ7M?th=1">Hooga amber book light</a>:</strong> I originally got it to change the baby’s diaper during the night while keeping the lights dim and super warm. Now use it nightly while reading in bed. Lasts forever, charges easily, and has multiple brightness settings.<br />
+9. <strong><a href="https://www.amazon.com/All-New-Amazon-Kindle-Colorsoft-Signature-Edition/dp/B0CN3XR57P?th=1">Amazon Kindle Colorsoft</a>:</strong> Did you know they make Kindles in color? Thanks for the tip, <a href="https://x.com/urbanistvc">Laura Fingal-Surma</a>.<br />
+10. <strong><a href="https://www.apple.com/airpods/">AirPods</a>:</strong> For all your friends who have “AirPods #1,” “AirPods #2,” . . . “AirPods #5” in their Bluetooth devices list.</p>
+<h3><strong>For your stressed founder friend or family member</strong></h3>
+<ol>
+<li><strong><a href="https://www.functionhealth.com/gifting">Function Health</a> or <a href="https://superpower.com/gift">Superpower</a> membership:</strong> Make sure they aren’t pushing themselves <em>too</em> far.</li>
+<li><strong><a href="https://spirit-rock.secure.retreat.guru/program/gift-certificate/">Spirit Rock gift certificate</a>:</strong> I did a 10-day silent retreat there a number of years back, and it was life-changing. <a href="https://www.spiritrock.org/calendar?programType=retreats">Check their upcoming retreats here</a>.</li>
+<li><strong><a href="https://shop.therapynotebooks.com/products/anti-anxiety-notebook">The Anti-Anxiety Notebook</a>: “</strong>Utilizing Cognitive Behavioral Therapy, a rigorously-tested and widely-used treatment, you’ll develop the skills to identify, challenge, and change unhelpful thought patterns so you can feel better.”</li>
+</ol>
+<p><img alt="The Anti-Anxiety Notebook" src="https://substack-post-media.s3.amazonaws.com/public/images/9cba646c-0bfb-40f0-8ced-afcf995969e2_900x900.jpeg" /><br />
+4. <strong><a href="https://jinenstore.com/collections/best-selling-gifts/products/jinen-japanese-hot-spring-minerals-bath-salts-hinoki-500g">Japanese Hot Spring Minerals bath salts</a>:</strong> 🧘🧘🧘<br />
+5. <strong><a href="https://reliquarysf.com/collections/leaves-and-flowers/products/sleep-tea">Leaves and Flowers Sleep Tea</a>:</strong> 💤💤💤<br />
+6. <strong><a href="https://jinenstore.com/collections/best-selling-gifts/products/daiyo-rice-wax-japanese-candles-earth-colors">Rice wax Japanese candles</a>: 🕯️🕯️🕯️</strong></p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/9bb4f37c-1efa-490b-969b-69e4e4da8f6e_1500x878.png" /><br />
+7. <strong><a href="https://www.mbuenopottery.com/shop/p/candle-holder">Candle holder</a>:</strong> Goes well with <a href="https://bluecorncandles.com/products/pure-beeswax-tea-light-candles">beeswax tea lights</a>, and creates a really nice light effect.<br />
+8. <strong><em><a href="https://www.amazon.com/Runnin-Down-Dream-Thrive-Actually/dp/0593799666">Runnin’ Down a Dream: How to Thrive in a Career You Actually Love</a></em></strong> <strong><a href="https://www.amazon.com/Runnin-Down-Dream-Thrive-Actually/dp/0593799666">by Bill Gurley</a>:</strong> I haven’t read this yet, but I’m 100% sure it’ll change many people’s lives, considering the impact <a href="https://www.youtube.com/watch?v=xmYekD6-PZ8">his talk</a> on the same subject has had on people I know.<br />
+9. <strong><a href="https://www.amazon.com/dp/B01HN3RYDC?th=1">Squishy stress ball set</a>:</strong> I’ve got fidgety hands, so I often need something to play with. You may see me holding these during my podcast chats sometimes. “Free from BPAs, phthalates, and latex.”<br />
+10. <strong><a href="https://www.peopleiveloved.com/collections/objects/products/things-will-work-out-keychain">“Things will work out” keychain</a>:</strong> A comforting reminder to have around.</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/3f8e5beb-90a3-4a21-8101-3603189a45c1_1624x822.jpeg" /></p>
+<h3><strong>For the PM who just cashed out their OpenAI stock</strong></h3>
+<ol>
+<li><strong>Donate</strong> to <strong><a href="https://www.givedirectly.org/">GiveDirectly</a></strong>, <strong><a href="https://www.stjude.org/">St. Jude Research Hospital</a></strong>, <strong><a href="https://donate.sfmfoodbank.org/page/32140/donate/1?ea.tracking.id=DigAd2526-PMG&amp;ea.tracking.id=DigAd2526-PMG&amp;gad_source=1&amp;gad_campaignid=22907547271">SF-Marin Food Bank</a></strong>, or your favorite charity.</li>
+<li><strong><a href="https://www.shopesqueleto.com/products/evil-eye-hamsa-gold-charm?pr_prod_strat=e5_desc&amp;pr_rec_id=cd53d792c&amp;pr_rec_pid=8086385262779&amp;pr_ref_pid=8086385131707&amp;pr_seq=uniform">Evil eye charm</a> or <a href="https://www.mquan.com/collections/objects/products/eye-new-eye-indigo?variant=12128027836530">stoneware</a></strong></li>
+<li><strong><a href="https://flamingoestate.com/products/brads-parmesan-wheel">100-pound Parmesan wheel</a>:</strong> “Crafted by hand from the milk of cows grazing high in the alpine meadows of Benedello di Pavullo, these monumental Parmesan wheels are aged by Giorgio Cravero, whose family has been perfecting the art of affineurship in Bra, Italy, since 1855. Simply put—the best Parmigiano Reggiano that exists.”</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/16b29601-3316-457f-8f73-5f494366b6cc_1544x1326.png" /><br />
+4. <strong><a href="https://communedesign.shop/products/furniture-music-wind-chimes">A $4,000 wind chime</a>:</strong> Part of Chris Kallmyer’s “collection of furniture made to intone atmospheric music and breezy melodies that promote social well-being through sound.”</p>
+<p><img alt="Chris Kallmyer for Commune Wind Chime" src="https://substack-post-media.s3.amazonaws.com/public/images/34a32df3-e310-4981-bd89-2f8d34e3d1e8_1445x964.jpeg" /><br />
+5. <strong><a href="https://www.balmuda.com/lovefrom-balmuda/">Jony Ive’s $5,000 lantern</a>:</strong> “The simple form is the result of meticulous design and engineering. Available in polished stainless steel with gold lens guard and component details. Easy to maintain, disassemble and repair, and to recycle at the end of a lifetime of use. A limited edition of 1,000 pieces.”</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/c17d09f2-4671-4deb-92a7-607dc4eadf77_1504x1504.jpeg" /><br />
+6. <strong><a href="https://home.lamarzoccousa.com/product/linea-micra/">A really nice coffee machine</a>:</strong> Make your home feel like your dream coffee shop. <a href="https://home.lamarzoccousa.com/product/strada-x1/">There’s also one for $20k</a>. <a href="https://weberworkshops.com/products/eg-1?variant=31624830353461">And a $4k coffee grinder</a>. <a href="https://weberworkshops.com/products/the-sg-1">And this</a> 🤣</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/720ea557-69bc-4700-9fc1-bacf4d65dc61_2560x1707.jpeg" /></p>
+<ol>
+<li><strong><a href="https://www.snodesport.com/products/ad-80-quick-adjusting-dumbbells">A really nice set of adjustable dumbbells</a>:</strong> “In its simplest form, strength means utilizing muscle to generate force. And if you are interested in living a long and healthy life and playing with your great-grandkids someday, then muscle mass should be a priority. Never in the history of human civilization has a 90-year-old said, ‘I wish I had less muscle.’” —<a href="https://peterattiamd.com/category/exercise/strength-muscle-mass/">Peter Attia</a></li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/46ac4bf9-35dd-4fe4-b15e-ff766f8f2833_1200x815.png" /><br />
+8. <strong><a href="https://www.shopterrain.com/shop/haws-fazeley-flow-watering-can-05l?cj_flex=Content&amp;cj_publishercid=3512519&amp;cjdata=MXxOfDB8WXww&amp;cjevent=f96198a3c34811f0801001ae0a1cb82b&amp;cm_mmc=cj-_-affiliates-_-Wirecutter+Inc.-_-11554124&amp;color=028&amp;type=STANDARD&amp;size=0.5L&amp;quantity=1">A really nice watering can</a>:</strong> Wirecutter:“The highest-scoring can in our houseplant testing is also the smallest and most expensive. But it’s well-made—by a 130-year-old British company—and a delight to use.”</p>
+<p><img alt="Haws Fazeley Flow Watering Can, 0.5L #1" src="https://substack-post-media.s3.amazonaws.com/public/images/ffa2127d-3004-4e3f-9f9a-0590e0cd88e3_1450x2175.jpeg" /><br />
+9. <strong><a href="https://origin-made.com/collections/store/products/candeia?variant=39858954272848">A really nice candle holder</a>:</strong> “Consists of a mouth-blown glass shade paired with either a brass or alpinina stone base option. Candeia’s design was informed by gentle memories from the designer Rui Alves’ childhood.”</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/eb23255b-d044-405d-9058-0aa7ad3194ac_914x1024.jpeg" /><br />
+10. <strong><a href="https://store.newyorker.com/products/a-century-of-poetry-in-the-new-yorker">Poetry written by humans</a>:</strong> No slop here.</p>
+<p><img alt="A Century of Poetry in The New Yorker 2 " src="https://substack-post-media.s3.amazonaws.com/public/images/b25ddc6f-375a-4b2f-ad1c-08d2f2cd6a9d_1000x740.png" /></p>
+<h3><strong>Other fun stuff</strong></h3>
+<ol>
+<li><strong><a href="https://www.booksaremagic.net/item/nQhV0zs_31GYHpOYUyRrDw/lists/LRuDNzlF1pHc/">Books Are Magic hat</a>:</strong> Signal to the world your love for books and Brooklyn bookstores.</li>
+</ol>
+<p><img alt="Burnt Orange - BAM Books Hat by Books Are Magic | Books Are Magic" src="https://substack-post-media.s3.amazonaws.com/public/images/52617310-06c0-47b4-ae69-02617ead0839_1200x824.jpeg" /><br />
+2. <strong><em><a href="https://www.newyorker.com/v2/offers/tnyagift01002?ot=%7B%220%22%3A%224e168c05-8cca-4eee-8e6f-d620129bf17d%22%7D&amp;ct=0">The New Yorker</a></em></strong> <strong><a href="https://www.newyorker.com/v2/offers/tnyagift01002?ot=%7B%220%22%3A%224e168c05-8cca-4eee-8e6f-d620129bf17d%22%7D&amp;ct=0">subscription with tote</a>:</strong> Classy yet practical.<br />
+3. <strong><a href="https://smallworksprojects.com/collections">Small Works expertly framed limited-edition prints</a>:</strong> “Small Works has made frames for the Whitney Museum in New York and mega-gallery Gagosian, and just about every major artist and art-hanging institution in the Bay, from SFMOMA to Tartine. They make the frames that make the art world swoon.” —<em><a href="https://sfstandard.com/2025/10/13/artists-collectors-obsessed-man-s-frames/">The San Francisco Standard</a></em><br />
+4. <strong><a href="https://cedarandhyde.com/collections/kat-and-roger">Kat and Roger pottery</a>:</strong> “Their work combines classic shapes and graphic surface patterns with earthy natural clay textures.”</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/e4a6e396-a599-4a78-85e2-91c062b56706_1200x1800.jpeg" /><br />
+5. <strong><a href="https://www.milkandhoney.jewelry/">Milk + Honey breast-milk jewelry</a>:</strong> This may creep some people out, but it was a hit in our household.</p>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/2caa0720-491b-4222-a230-b4c1c63adc81_2500x1667.webp" /><br />
+6. <strong><a href="https://madeincookware.com/collections/stainless-clad">Made In stainless-steel cookware</a>:</strong> We started with one pan and are slowly replacing every pan with Made In.<br />
+7. <strong>Organic cotton clothing</strong> from <strong><a href="https://waxlondon.com/collections/organic-cotton">Wax London</a>, <a href="https://fahertybrand.com/">Faherty</a>, <a href="https://wearpact.com/">Pact</a>,</strong> <strong><a href="https://industryofallnations.com/collections/underwear">Industry of All Nations</a></strong>, and <strong><a href="https://nadsunder.com/">Nads</a>:</strong> My favorite clothing brands from <a href="https://www.lennysnewsletter.com/p/a-builders-guide-to-living-a-long">Justin Mares’s guide to living a long and healthy life</a>.<br />
+8. <strong><a href="https://www.amazon.com/gp/aw/d/B0B45RTFQH/?_encoding=UTF8&amp;pd_rd_plhdr=t&amp;aaxitk=69cfb0e855eab9b2a8ac4f9b29f5a229&amp;hsa_cr_id=0&amp;qid=1763333232&amp;sr=1-1-9e67e56a-6f64-441f-a281-df67fc737124&amp;pd_rd_w=FGnU5&amp;content-id=amzn1.sym.9f2b2b9e-47e9-4764-a4dc-2be2f6fca36d%3Aamzn1.sym.9f2b2b9e-47e9-4764-a4dc-2be2f6fca36d&amp;pf_rd_p=9f2b2b9e-47e9-4764-a4dc-2be2f6fca36d&amp;pf_rd_r=V0GT0B40KHS7MAX6C1H2&amp;pd_rd_wg=GjPQZ&amp;pd_rd_r=d88c156b-1ce9-4590-82f3-e70218b2dd67&amp;th=1">Zennyth startraveler gel pens</a>:</strong> My go-to pens. I found them recommended on TikTok, of all places. You may have seen me holding one during my podcast. I also love <a href="https://www.amazon.com/Muji-Point-Black-0-5mm-Japan/dp/B07B6W5668/ref=ast_sto_dp_puis">Muji pens</a>. My wife loves <a href="https://md.midori-japan.co.jp/en/products/mdnote/">this notebook</a> (<a href="https://komorebistationery.com/products/midori-md-notebook-a5?variant=47699751043355">available here</a>).<br />
+9. <strong><a href="https://blissoma.com/photonic-spf-30-broad-spectrum-zinc-oxide-mineral-face-sunscreen-moisturizer-sensitive-skin-acne/">Blissoma SPF 30 broad-spectrum mineral facial sunscreen</a>:</strong> My go-to (face) sunscreen.</p>
+<p><img alt="Photonic - Light Shifting Solution SPF 30 Broad Spectrum Facial Sunscreen + Moisturizer" src="https://substack-post-media.s3.amazonaws.com/public/images/c9cfbffd-ec73-49f9-a455-9c994216b4d0_882x985.jpeg" /><br />
+10. <strong><a href="https://www.amazon.com/Owala-Insulated-Stainless-BPA-Free-Conquest/dp/B085DV8T75/ref=fabric-ww-slds-dp-fsdpnewarrivals-fa-xcat-fixed-desktop_d_sccl_1_1/136-3168637-1219309?pd_rd_w=S2fiw&amp;content-id=amzn1.sym.bcfe8fa4-e659-4035-91f3-d1293f01d987&amp;pf_rd_p=bcfe8fa4-e659-4035-91f3-d1293f01d987&amp;pf_rd_r=8A0C24PN1N5EF08BC8XY&amp;pd_rd_wg=7ykYB&amp;pd_rd_r=aaa8c4a0-a9e2-4252-86ca-fc4ea5212dca&amp;pd_rd_i=B0FDSL18S8&amp;th=1">Owala FreeSip insulated stainless-steel water bottle with straw</a>:</strong> My go-to water bottle. Make sure to replace the plastic straw with these <a href="https://koalastraw.com/">Koala stainless-steel straws</a>.</p>
+<h3><strong>Returning champions</strong></h3>
+<p>These are the products from past editions that drive nonstop thank-yous from readers for helping them discover, and which I also continue to love, use, and recommend:</p>
+<ol>
+<li><strong><a href="https://www.amazon.com/gp/product/B008RIS0UY?th=1">Corrugated cardboard cutter</a>:</strong> Breaking down Amazon boxes will never be the same.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/3bb78830-2a5a-40a6-ab59-e4012d523d1b_891x208.jpeg" /></p>
+<ol>
+<li><strong><a href="https://mantasleep.com/products/manta-silk-mask?variant=45539961766041">Manta silk sleep mask</a>:</strong> A twist! I’ve long recommended the <a href="https://www.amazon.com/WAOAW-Sleep-Sleeping-Blocking-Blindfold/dp/B09712FSLY">WAOAW sleep mask</a>, but I’ve recently switched to this because I found that the WAOAW left black marks on my pillow when I left it there for a bit, which doesn’t seem good. These Manta ones look ridiculous but work damn well and are really comfortable. You can go with <a href="https://mantasleep.com/products/manta-silk-mask?variant=45539961766041">silk</a> or <a href="https://mantasleep.com/products/manta-sleep-mask-pro">their standard fabric</a>, or even <a href="https://mantasleep.com/products/manta-sleep-mask-sound-new-genhttps://mantasleep.com/products/manta-sleep-mask-sound-new-gen">a pair with sound</a>. For a simpler option, my wife likes <a href="https://www.amazon.com/dp/B0CGR6M8VW?th=1">these</a>.</li>
+</ol>
+<p><img alt="Image from A holiday gift guide for tech people with taste 🤌" src="https://substack-post-media.s3.amazonaws.com/public/images/8bbe4c64-63d0-4f20-9db3-8fdaa3ea00ac_1400x980.png" /></p>
+<ol>
+<li><strong><a href="https://auraframes.com/gifting">Aura frames</a>:</strong> Digital picture frames have historically been super-lame, but this one is different. It feels like an actual picture frame and looks good on your shelf. One delight feature is that your photos appear immediately when the reciever opens up the frame. A perfect gift for grandparents and in-laws.</li>
+</ol>
+<p><img alt="Walden 15&quot; | Aura's largest, wall-worthy HD digital picture frame" src="https://substack-post-media.s3.amazonaws.com/public/images/aee24dae-0113-48e4-a5de-0cfcc7b211f7_800x800.jpeg" /></p>
+<ol>
+<li><strong><a href="https://aarke.us/products/aarke-kettle">Aarke stainless-steel hot water kettle</a>:</strong> I’m a tea guy, and I’ve tried a bunch of electric kettles. This has been the best by far. Not cheap, but beautiful, fast, and as plastic-free as I can find (there’s a small black plastic or silicone piece at the very top). <a href="https://aarke.us/">Aarke makes lots of other nice things too</a>.</li>
+<li>
+<p><strong><a href="https://www.glerups.com/collections/slip-ons">Glerups slippers</a>:</strong> I’ve been using the same pair of Glerups for years, and they still look great and feel great. <a href="https://www.nytimes.com/wirecutter/reviews/best-slippers/">Wirecutter loves them too</a>. We got a couple of extra pairs for guests (no shoes in the house, you animals). <a href="https://www.glerups.com/collections/children">They even make them for kids</a>. Many readers also love <a href="https://www.ugg.com/men-footwear/ascot-leather-distressed/1171296.html?dwvar_1171296_color=DDC">UGG slippers</a>, <a href="https://bombas.com/products/womens-gripper-slipper-bootie-sherpa-lined?variant=soft-taupe-heather&amp;size=m">Bombas gripper slippers</a>, <a href="https://topdrawershop.com/collections/house_shoes">Topdrawer Kolo house shoes</a>, and <a href="https://www.birkenstock.com/us/zermatt-shearling-felt/zermatt-cozyhomeshearling-woolfelt-0-latex-u_3732.html">Birkenstock Zermatt Shearling</a>.</p>
+</li>
+<li>
+<p><strong><a href="https://www.amazon.com/HOTO-Inflator-Portable-Compressor-Motorcycle/dp/B0CQ1RCJV7">Electric tire/ball inflator</a>:</strong> You don’t have to get this exact model or brand, but man, once you go electric, you don’t go back. Works with bikes, cars, balls . . . anything that needs to be inflated. Keep it in your car in case your tire pressure gets low. <a href="https://www.amazon.com/HOTO-Portable-Electric-Schrader-Motorcycle/dp/B0DCG1JGKN/ref=sr_1_4?crid=3SDNE7570J5M4&amp;dib=eyJ2IjoiMSJ9.p8-0jxbvQPawwaBkY_2fKDcjgLn-EjwILcJh0vwXt5j9vVdhe8c3z4qHWI9ceViure2tKMsL3GMFHMY6icRhb9iGpp036FjxDM1cNAWaEb-x1LsMWmp5jIgbXaNVV0kK_OR8ipOdTmqtI0wPLlq0dxFC52F0ocbtwSZyXsKUdceYt0NA29y43tHXyWYiL4URjfGumSn2up3v_Iq4dIuy4vNE1lWuc5leSQhDsjJNBxw.bYERujJsLJEP7UBC7VeWb0OGN4MtrOEMX8yyisPBabM&amp;dib_tag=se&amp;keywords=hoto+tire+inflator&amp;qid=1762984587&amp;sprefix=hoto+tire+inf%2Caps%2C187&amp;sr=8-4">Here’s a cute portable one</a> from HOTO, but there <a href="https://www.amazon.com/s?k=electric+tire+inflator+for+bike&amp;crid=30GQCVQINXI42&amp;sprefix=electric+tire+inflator+for+bike%2Caps%2C186">are other (less cute but cheaper) brands</a> that make these. <a href="https://hototools.com/">HOTO makes all kinds of other cool stuff too</a>. (Thanks, <a href="https://x.com/anirudh_twt/status/1857536319922057605">Anirudh</a>, for the tip.)</p>
+</li>
+<li><strong><a href="https://www.amazon.com/Owala-Lian-Li-LANCOOL-MESH/dp/B0C768CWDF?th=1">Owala kids’ insulated stainless-steel tumbler</a>:</strong> I haven’t found a better cup for toddlers. Good stocking stuffer. Tip: Replace the plastic straws with these <a href="https://www.amazon.com/dp/B07GQ7VR73">stainless-steel straws</a>.</li>
+<li><strong><a href="https://www.amazon.com/dp/B016790E7Q?th=1">DrTung’s Smart Floss</a>:</strong> Another twist! I’ve long recommended <a href="https://www.amazon.com/COCOFLOSS-Coconut-Oil-Delicious-Dentist-Designed-Cruelty-Free/dp/B082BF4TYW?th=1">Cocofloss</a>,but with my focus on reducing microplastics, I saw <a href="https://blueprint.bryanjohnson.com/blogs/news/my-oral-health-protocol">Bryan Johnson</a> recommend this, and now it’s my favorite. Makes a great stocking stuffer.</li>
+</ol>
+<h3><strong>Some bonus recommendations from readers (thanks, all!)</strong></h3>
+<ol>
+<li><a href="https://www.bhphotovideo.com/c/product/1714484-REG/reto_project_rk0101_reto_kodak_h35_half.html">Kodak Ektar H35 Half Frame film camera</a> via <a href="https://x.com/RobertJBye">Robert Bye</a></li>
+<li><a href="https://evanapplegate.com/map-gifts">Map gifts</a> via <a href="https://x.com/youwillmakemaps">Evan Applegate</a></li>
+<li><a href="https://ugmonk.com/collections/analog/products/analog-starter-kit-black-steel-with-cards?variant=44404663222422">Analog starter kit</a> via <a href="https://x.com/davidkylechoe">David Kyle Choe</a></li>
+<li><a href="https://www.amazon.com/dp/B0CLTK2JF8?social_share=cm_sw_r_cso_cp_apin_dp_5SGP9102CXDEW857S6NP&amp;titleSource=true&amp;th=1">Our Place Wonder Oven</a> via <a href="https://x.com/AGrillz">Abby Grills</a></li>
+<li><a href="https://cutleryandmore.com/products/hatsukokoro-kurogane-bunka-41739">Hatsukokoro Kurogane Bunka knife</a> via <a href="https://x.com/Maddy_Shroff">Madhav Shroff</a></li>
+<li><a href="https://www.horl.com/us/en/sharpeners/horl2/">Horl 2 knife sharpener</a> via <a href="https://x.com/jeremymcohen">Jeremy Michael Cohen</a></li>
+<li><a href="https://bearaby.com/products/the-napper">Bearaby cotton weighted blanket</a> by <a href="https://x.com/clairevo">Claire Vo</a></li>
+<li><a href="https://nordace.com/en/product/nordace-universal-travel-adapter-with-usb-charging-ports-type-c-usb/">Nordace universal travel adapter</a> via <a href="https://x.com/emilyross">Emily Ross</a></li>
+<li><a href="https://www.smartwool.com/en-us/wool-apparel-and-socks/everyday-socks/everyday-cozy-larimer-crew-socks/SW001890.html">Everyday cozy Larimer crew socks</a> via <a href="https://x.com/hristo_vassilev">Hristo Vassilev</a></li>
+<li><a href="https://www.amazon.com/dp/B0F66LNB8D">Anker Prime power bank</a> via <a href="https://x.com/nhuber">Nick Huber</a></li>
+<li><a href="https://www.amazon.com/dp/B00006IEEU?social_share=cm_sw_r_cso_cp_apin_dp_NZKV655CE78VNA07V309&amp;titleSource=true&amp;th=1">Prismacolor Premier colored pencils</a> via <a href="https://x.com/jackiebo">Jackie Bavaro</a></li>
+<li><a href="https://guidecraft.com/products/guidecraft-classic-kitchen-helper-stool">Guidecraft kitchen toddler tower</a> via <a href="https://x.com/mar15sa">Marissa Goldberg</a></li>
+</ol>
+<p>If there’s something else you absolutely love that people should know about, leave a comment 👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/a-holiday-gift-guide-for-tech-people/comments">Leave a comment</a></p>
+<p><em>Happy holidays! And have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

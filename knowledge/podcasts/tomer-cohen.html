@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why LinkedIn is turning PMs into AI-powered \&quot;full stack builders” | Tomer Cohen (LinkedIn CPO) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Why LinkedIn is turning PMs into AI-powered \&quot;full…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Why LinkedIn is turning PMs into AI-powered \&quot;full stack builders” | Tomer Cohen (LinkedIn CPO)</div>
+    
+    <div class="article-meta">2025-12-04<span>·</span>13,149 words<span>·</span>Tomer Cohen</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">AI</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">創業</span> <span class="mini-tag">B2C</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=R-zCfLQD_84" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Lenny Rachitsky</strong> (00:00:00):<br />
+I think it's so underappreciated, the turnaround that has happened within LinkedIn. I check it at least 10 times a day. What was the strategy behind it?</p>
+<p><strong>Tomer Cohen</strong> (00:00:06):<br />
+I start backwards. It's like what is the potential here? If you start from the premise that LinkedIn ultimately is a platform for economic opportunity that sits on top of a very strong social graph. Almost every aspect of economic transaction is possible.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:20):<br />
+Is there anything tactically that would just like, wow, that really made a big dent in people wanting to come here and post, share interesting content?</p>
+<p><strong>Tomer Cohen</strong> (00:00:25):<br />
+To really set the new purpose for it, which was this is not a springboard for other products. This is not a traffic jumpstart, it's not an upsell feed. It's really about people that matter, talking about things that I care about professionally. The first thing we did was really making AI first.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:39):<br />
+How do you actually on the ground help people shift their perspective and think AI first?</p>
+<p><strong>Tomer Cohen</strong> (00:00:43):<br />
+So it wasn't like, "Oh, we have this cool technology, what can we do with it?" It was like, "Let go of what you've built. Go back to the objectives you were trying to solve and now with this technology, how can you do that objective better?"</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:52):<br />
+There's so much I want to dig into here. Is there anything else that you think would be interesting or useful for folks?</p>
+<p><strong>Tomer Cohen</strong> (00:00:57):<br />
+AI is the ultimate matchmaker. It's underutilized, it's misunderstood, it's really about...</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:07):<br />
+Today my guest is Tomer Cohen. Tomer is chief product officer at LinkedIn overseeing all teams responsible for building and creating LinkedIn products and experiences, including product development, design, business development, content creation, and customer operations. During his tenure at LinkedIn, Tomer was head of the mobile team, led the effort to revamp the LinkedIn feed and to many people surprised, made it extremely interesting in a place I check regularly. And he was also at the center of shifting LinkedIn to an AI first mindset, which started way before AI became cool. In our conversation, Tomer goes inside the strategy behind the transformation of LinkedIn's feed and how they approached making it a place that people wanted to check and make it much more social.</p>
+<p><strong>Tomer Cohen</strong> (00:02:27):<br />
+Thank you for having me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:28):<br />
+Absolutely, my pleasure. So as I was preparing for this podcast, I reached out to a bunch of people that have worked with you and asked them what I should ask you on this podcast, and interestingly, every single one of them said this one thing that I need to ask you, which is about this phrase that apparently you use all the time. So first of all, can you guess what this phrase might be?</p>
+<p><strong>Tomer Cohen</strong> (00:02:47):<br />
+I have a few. Sometimes people call them Tomerisms.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:49):<br />
+Tomerisms.</p>
+<p><strong>Tomer Cohen</strong> (00:02:50):<br />
+But probably I might be wrong but not confused.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:54):<br />
+That's the one. Amazing. Okay, so let's talk about this phrase.</p>
+<p><strong>Tomer Cohen</strong> (00:02:58):<br />
+I don't say it so much anymore. I think it's ingrained into the cultures.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:02):<br />
+I was going to say that.</p>
+<p><strong>Tomer Cohen</strong> (00:03:03):<br />
+When they think of me, they think of this sentence already.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:04):<br />
+Those are the ultimate things where you don't need to say them as much anymore. Okay, so the phrase again is, "We might be wrong but we're not confused."</p>
+<p><strong>Tomer Cohen</strong> (00:03:10):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:11):<br />
+Let's talk about this. So what does this phrase mean and why do you find it so powerful and important to say often?</p>
+<p><strong>Tomer Cohen</strong> (00:03:17):<br />
+Yeah, by the way, it's a simple phrase, but it has in my opinion, so much depth into that and ultimately something I really believe in. It's rooted in clarity and principles that ultimately lead to leadership. And the first time I got the inspiration from it was from a startup founder I met many, many years ago. Their company was on the brink of failure. They had their last attempt and they decided on a path forward and after they decided on a path forward, he was still seeing people hedging in different directions and it led into this confusion in the system where we decided people are still hedging, they're still trying out things they thought could work, and he realized that unless they basically all pull through in the same direction, there is no chance they'll be able to be successful.</p>
+<p><strong>Tomer Cohen</strong> (00:04:04):<br />
+Now, pulling through in the same direction doesn't mean you're going to be successful, but this gives you a chance of success and that confusion, the system only luck and save you. So that was when he shared that, that was very impactful for me. I think it's a good one for life as well. And for me it comes down to two main parts. One is clarity of thought and clarity of execution, and they're both equally important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:29):<br />
+<strong>Tomer Cohen</strong> (00:06:46):<br />
+On the clarity of thought. What I find people to be attached to, especially when you build an environment with a lot of alpha types is that they get attached to being right or wrong and that really creates a lot of lingering in the system, a lot of confusion and they're still stuck to their ideas. And for me, I get attached to clarity and focus. I think that's much more important. That's why I think when I say I don't mind being wrong, it really comes from a humble place. I would rather go forward with everybody in the same direction than necessarily try to hedge all the time, which will give me no chance of success. The way we start, we do this in our product gens right now, is we actually spend some significant time on what is the problem we're trying to solve for, but not high level, not like, hey, we want to launch this product, we want to launch a video product.</p>
+<p><strong>Tomer Cohen</strong> (00:07:35):<br />
+It's exactly what type of video you're trying to launch for which audience, what is your unique criteria, what are you trying, what is very nuanced about what you're trying to solve for? Ideally, once the time you see the problem, you know exactly the problem you're trying, you actually can imagine that mountain. It's not just a mountain, you can see exactly the road, you can see exactly the end of the base camp. But then when you move to solution, I love solutions that are based on first principles. That they have, there's a principle thinking about it, there's opinions about it. If you talk to folks who work with me, they'll tell you, I push a lot for what is actually your opinion, what is your potentially controversial opinion and the best principles have teeth.</p>
+<p><strong>Tomer Cohen</strong> (00:08:18):<br />
+So saying that we should build a simple product for me is useless. Who doesn't want to build a simple product? But saying that I'm willing to sacrifice or trade off this, that's where I get excited. I'm like, okay, that's a very strong opinion. Let's go into that. Why were you willing to trade off those type of vectors to make it happen? And one thing that I saw also in clarity of thought was this, is I came to the US in 2008, I came from Israel. Our hobby in Israel is to argue. So we argue a lot, it's our love language in many ways. And I come to the US and I notice people say a lot like I don't exactly understand or I'm not exactly clear on this, and it took me a long time to realize they're actually disagreeing.</p>
+<p><strong>Tomer Cohen</strong> (00:09:03):<br />
+They're just masking it with a layer of misunderstanding and a good mentor of mine said, "Hey, just push back. Are you disagreeing or misunderstanding? If you're misunderstanding, let's spend the night. Let's get to a point where you can articulate my point of view in your words and I can do the same, but if we're disagreeing, let's stop. Why are we spending? Why wasting time just arguing it through?" So those became really powerful. That's on the clarity of thought, clarity of execution is even more important because many organizations actually reach a decision, they don't act on it, which it's one of those shocking things. They decide this is a top priority, but it doesn't make its way into the organization. And I'll give you an example. Somebody will say, "Hey, my top priority for my business is this initiative." And then I'll say, "But most of your engineers are working on this migration." And they'll say, "Yeah, we have to finish that." I'm like, "So why don't you say the migration is my number one priority?" It's like, "Yeah."</p>
+<p><strong>Tomer Cohen</strong> (00:10:09):<br />
+It's like, but that's exactly what you're doing. You have to make sure that what you're sharing as a priority is actually manifested in your resourcing. Then I'm like, "Hey, this is your top talent. Why is your top talent working on some moonshots that are not in your number one priority?" And they're like, "Yeah." This is where you start finding that really it doesn't really translate into execution as well and you can solve so much by just making that sure that focus is there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:36):<br />
+So the big lesson here is to push for clarity and push out anything that is unclear, confusion either in thought and also in execution. One of the folks that I talked to that worked with you about this phrase, Josh Redfern, he said that this phrase became really liberating for him, which is really interesting to hear because it forces you to make a call and to be aligned and make sure everyone is on the same page. I guess thoughts on just why this concept is so liberating.</p>
+<p><strong>Tomer Cohen</strong> (00:11:04):<br />
+It goes back to little alpha types or type A folks who are just so attached to not getting it wrong. When you need to move forward and it's not about being right or wrong, it's really about not being confused and making sure everybody's pulling in the same direction. That is actually really liberating. And when you know that the whole idea is to have a Socratic conversation about what you're trying to do, then coming to the table with some kind of half-baked ideas or actually not an opinion, I think actually brings into a conversation of feedback.</p>
+<p><strong>Tomer Cohen</strong> (00:11:39):<br />
+But you have to manifest it through, if you just play this through but then you potentially playing the right or wrong game, that's really poor. I also think it's the best way to learn. If you don't know exactly what you're doing, how can you learn back from why you made that decision? So if you had a clear understanding, ultimately it's a growing organization. This is not a one-off project. We're going to build many projects in the future. So if you're not sure about what we're trying to accomplish, how can you know what you learned from it?</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:09):<br />
+I love that. So the idea here is make it very okay to be wrong, but make it not okay to be confused and not clear about here's what we're doing, here's why we're doing it. Everyone's aligned exactly on the same idea.</p>
+<p><strong>Tomer Cohen</strong> (00:12:19):<br />
+How can I have a product conversation if I'm not sure what you stand for? It's really hard to have a Socratic conversation, really hard to have. If you ask folks how many time you left a meeting in corporate, it could be a startup or larger companies and you are not sure exactly what was the problem discussed or what are next steps. More often than not, they'll raise their hand. That for me is a waste of building time. So actually that agitates me in another great way, but when I come in and I'm proven wrong or there's a strong challenge or argument, again that's a little bit my love language, I actually enjoy those. I think we leave the conversation much better.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:09):<br />
+You said there's some other Tomerisms, what are some others just that you can share?</p>
+<p><strong>Tomer Cohen</strong> (00:13:14):<br />
+This is, again, this is classic to building large organizations, but I actually believe in, especially when it comes to products, to really set ambitious goals but then try to over-deliver on them, really set what are you trying to, there's almost like the opposite where people are underplaying it and over delivering, I don't understand what you're trying to do. For me it's like we are here to make an impact. We're here to really set our goals to something really massive. And when I'm trying to visualize this, I see a mountain, you see the peak and the peak exactly how it looks like, you see base camp, you know how to start and maybe the middle of the mountain is kind of blurry, but you'll figure this out. But at least you know the peak you're trying to share, share the peak, share where you're headed to and I think it's just a much more exciting way to build product. It's a much more inspirational way for folks to be part of the product process kind of thing.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:07):<br />
+I was just chatting with Vlad who worked at Airbnb for many years. He was actually my former manager at Airbnb and he reported to Brian for a long time and we talked about this trait that Brian also is really good at, is just setting crazy high goals. 10 X the goal that you thought you had and what would it take and it worked really well for Airbnb. So I love that you're doubling down on the same idea. Is there an example that comes to mind of one that you, some ambitious goal you set internally at LinkedIn that people are like, "No way," and then it ended up being effective?</p>
+<p><strong>Tomer Cohen</strong> (00:14:35):<br />
+Actually there's a lot, when I think about our LinkedIn feed and thinking about when you started off, it was hard to imagine what that product could be because it was more of a promotional in nature product and I was like, no, is going to be a place where millions of people and not just tens of millions will come daily. And that's insane. That makes no sense based on the numbers today, but I don't start building from the numbers today. I start from [inaudible 00:15:04] I start backwards. I'm like, what this could be, what is the potential here? So how many professionals exist in their role? How many of them would love to find a place to share and engage with content? And this is my starting point. I start from there. So I don't start from the existence to set my ambition. I start from what this could be like based on really inspiration and excitement.</p>
+<p><strong>Tomer Cohen</strong> (00:15:30):<br />
+Again, it's not detached from reality completely, but it's also not hooked to it. But then Basecamp could be a good start. You're not asking you to make it the next day, but if you don't have that ambition, there's no way you're going to hit that. There's just no way. And there's so many products across LinkedIn. LinkedIn is a 20 plus year old company that many folks did not give it a chance in almost every phase of it. And I think if anything, it's one of those that just keeps getting better and better every year. And part of it is you keep the landmark on. This really has the potential to do so much for so many people. It's really an economic platform. So if you play from that, one billion members, that's actually pretty small where we can actually go,</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:17):<br />
+I'm so happy you went to this example. This is exactly where I wanted to take the conversation. I was very much in the camp you described of LinkedIn, how could LinkedIn possibly become a place that I want to go and browse a feed and post content? As you probably know, for the longest time it was felt like this cringey place as you said, where everyone comes and promotes themselves, "Hey, I got a promotion or here's my company's new launch." And I think it's so underappreciated the turnaround that has happened within LinkedIn. I use it, I'm a multi-day, multi-Dow user. I check it at least 10 times a day. Most of my traffic to my newsletter comes from LinkedIn, not Twitter where people think, it's absurdly underappreciated and it's I think underappreciated what it took to make this happen.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:02):<br />
+And when I saw you guys starting to try to make it a place people post content, I was like, no way, this is not going to work. Why would people want to share stuff on LinkedIn? And it's working, it's amazing. So I want to spend some time here and just try to go inside the strategy that you guys put together to here's how we're going to make this happen. Come, we've shared, you have this peak of here's what we could become. How did you actually turn this around? What was the strategy behind it?</p>
+<p><strong>Tomer Cohen</strong> (00:17:26):<br />
+Yeah, by the way, I'm glad you're finding great audience and traffic on LinkedIn. I think your content, actually, your content is exactly what we're trying to build for, it's expertise, it's advice, it's people you can learn from and it's also the views that really matter, not just the volume that matters. I think if we take a step back, there's so much conversation about zero to one products or scaling products, but you don't have much conversations about minus one to one products, like turnaround products. And I think there's obviously the perception of the market you have to deal with, but people I think in minus to one products, at least from my experience and we had a few at LinkedIn, pages is another one, helping businesses build their presence on LinkedIn. What you find is it's actually, most of the time it's internally harder to do because there's so much entrenched flows and processes and metrics that people are using on that specific area.</p>
+<p><strong>Tomer Cohen</strong> (00:18:21):<br />
+So you almost have to change the inner workings of the system to make it work. Going back to the analogy of the mountain, if you start from the premise that I deeply believe in is that LinkedIn ultimately is a platform for economic opportunity that sits on top of a very strong social graph. Then really almost every aspect of economic transaction is possible and knowledge transaction is one of the most powerful economic transactions you can have. It's the biggest accelerant for an experience and we were always very strong at helping people get a job. We have seven hires per minute, but as we were building more and more knowledge and part of it was we bought LinkedIn, we bought Lynda to make it LinkedIn Learning a while back. Today we had 140 hours of learning every minute on LinkedIn happening across the feed and LinkedIn Learning, it's pretty powerful.</p>
+<p><strong>Tomer Cohen</strong> (00:19:13):<br />
+And the transformation to the LinkedIn feed was exactly like you said. We actually were the first company to have a social feed, but I think we started wrong. So we started with basically activity feed. So it was like who changed what, who changed the job, who connected to who. It was more of like a tracking your network feed and it became more promotional in nature. So in a way just letting that be just naturally just moved into more of a promotional type of feed. And what we've done is we've shifted dramatically into building, actually this was one of the things I was excited about. So after I was leading the mobile team, there was no feed team, there was no unified feed team, there was no feed PM to an extent, I asked to do this role, nobody cared about it. I really believed in it.</p>
+<p><strong>Tomer Cohen</strong> (00:20:07):<br />
+I have strong conviction about what I could do there. And I asked to do this role and we assembled the team around it and one of the main things we've done was to really set the new purpose for it, which was this is not a springboard for other products, this is not a traffic jumpstart for, it's not an app self feed, it's really about people that matter talking about things that I care about professionally. It's about knowledge exchange. It's about how can I get the right views to the right experts in a way that actually helps them build a reputation and build their business. And then we started from there backwards. So it was basically setting that ground for that mountain peak that was nowhere to be imagined at the beginning and making our way backwards.</p>
+<p><strong>Tomer Cohen</strong> (00:20:55):<br />
+The first thing we did was really making AI first. So the AI team back then was completely centralized. It was not part of any product team and we brought it together with one unified AI first team. And the belief I had was ultimately the engine of the car was AI and that was almost like de-prioritized or delegated to a team that was not unified in objectives. So bring that in. And then I spent most of my time on objectives and algorithm features and data training, which led me into my passion about training product people to be a first product people. And that was a big transformation there, really shifting and we had incredible AI team, but they were completely, actually, it was a confused operation. They were building something for a whole different purpose and we were trying to aim to that mountain peak and they were putting in a different direction. No bad intent, that's what they were told to do.</p>
+<p><strong>Tomer Cohen</strong> (00:21:56):<br />
+So bringing it together into this SWAT team was the first thing that actually was extremely powerful, but then became the hard work. You have a product that works in a certain way and you almost want to change its DNA altogether. And it was very hard because whenever we were trying to run experiments that were mass in scale, I told you everybody was relying on the feed for their traffic. It just scared the whole system because numbers were shifting up and down and teams were freaking out about meeting their goals. And then I realized that was just spending my time in escalations instead of actually building a great product. So what I did was I carved out two million members and I said, "Those are my members. I'm going to focus on building that mountain peak. I'm going to build for them."</p>
+<p><strong>Tomer Cohen</strong> (00:22:45):<br />
+Full liberty and doing whatever, it doesn't hurt numbers, giving the scale and really focus on building a great experience for them. And it wasn't overnight and it wasn't over a week, but over the course of months we've seen dramatic behavior change for those members, almost like secluded, like a country of people that were seeing a different experience of LinkedIn. And once we saw that you actually had strong evidence that wow, if I bring this in, we don't need to spend time talking about how this pie gets slotted between different teams. We can actually grow the pie. The experience just manifests itself in a whole different way and that was a big change internally. It wasn't overnight, but it was really powerful in getting everybody around to see, wow, we have this cohort that is doing extremely well, which was a randomized cohort and then how we can bring it out.</p>
+<p><strong>Tomer Cohen</strong> (00:23:39):<br />
+I've also done some crazy things. We've done some negative tests to prove some stuff out, test for the sake of learning. When you run something that you can show that if it's just a promotional feed and you played it out organically over time, engage with the tier rates. We ran some really important ad tests as well, but we're really shown separate, almost like we carved out the different product and we showed that this could work and then we brought it out to the main experience for everybody else. And then that was, I would say the inner workings of minus one to one. Then the scanning part really became when we started to focus on professional opportunities. So when people actually share, how do they get the right views into the experience?</p>
+<p><strong>Tomer Cohen</strong> (00:24:19):<br />
+We don't compete for volume, we're not in the same category of Meta in terms of the skill there, but we will compete all day long for the right people seeing your content. In fact, I think in many ways that's the most powerful part of LinkedIn. How do we make sure that it's professionally productive and safe conversations? How do we trade off bad engagement all day long? In fact, when we started shifting the AI objective from click through into more downstream conversations, spammers actually took notice as well. So they were jumping over the LinkedIn bandwagon, so we had to spend a lot of time removing bad activity from LinkedIn, but that's been the evolution of this process.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:02):<br />
+That is amazing. There's so much I want to dig into here. Okay, so this two million user carve out that you did, basically everyone was just like, what the hell are you doing to our metrics and goals? You're causing all this trouble for the business. Why is this team hurting our metrics? So that was basically a group that those two million users are the only ones that saw this new updated feed and were they removed from everyone else's metrics so they weren't fluctuated as much or was it just?</p>
+<p><strong>Tomer Cohen</strong> (00:25:26):<br />
+They could be kept in the overall because it wasn't as important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:29):<br />
+It was a small percent?</p>
+<p><strong>Tomer Cohen</strong> (00:25:30):<br />
+Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:30):<br />
+Okay. Got it.</p>
+<p><strong>Tomer Cohen</strong> (00:25:30):<br />
+But for us, they were like the world we were basically able to prove with them.</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:34):<br />
+Got it. Okay. That's so smart. Okay, so basically you just decided we're only going to move your metrics a little bit, worst case if we stick to it.</p>
+<p><strong>Tomer Cohen</strong> (00:25:41):<br />
+I felt that I tried for a few months to play on the overall experience with everybody, but it was really hard, almost like impossible because you have an organization that is so tied into how things work that I was just hitting walls after walls after escalations and it was just unproductive.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:00):<br />
+And this is before you were a chief product officer where you could have just said, "We will take this bet. We know this might hurt metrics short-term"?</p>
+<p><strong>Tomer Cohen</strong> (00:26:06):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:07):<br />
+Okay, got it. That makes sense. Okay, the other piece, so just like lessons I'm taking away from trying something like this that's an ambitious bet within a company, is put a PM and a team on it with a goal that feels like a core part of the success of just like somebody's ass is on the line to doing this thing.</p>
+<p><strong>Tomer Cohen</strong> (00:26:23):<br />
+Always.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:24):<br />
+Always, with focus on this one problem. And then there's the way you described there's this goal for this feed, but how did you actually try to turn that into a goal or metric or a KPI, what was that in the end, was there something there?</p>
+<p><strong>Tomer Cohen</strong> (00:26:35):<br />
+Yeah, this is an interesting one, one thing we've done actually because the feed is the first thing you land on. I can't just count how many folks engage with the feed because then I'm counting bypassers kind of thing and bystanders that are actually coming into the experience. So we actually started to look at the more, we go a lot into active, engaged and high value engagement. So we go downstream, we kind of put the onus on looking at more downstream engagement there and we build that as the feed engagement. So really trying to show that we're not just counting some overall whatever it is [inaudible 00:27:09] or sessions at the top level. That's not really helpful because any shifts can help there, but really setting targets for that. There's obviously it's a marketplace, so there's the creation side, there's the consumption side's, there's making sure that's healthy and engaging.</p>
+<p><strong>Tomer Cohen</strong> (00:27:23):<br />
+There was so much we went into that, but I think the best thing was it's almost like you carve out. I think when you do minus one to one, it's really hard unless the CEO says I don't care about how the company performs for the next two years, we're going to go for it. If you want to keep the site keep growing and the experience keep growing, carving out and almost like sending very specific unique metrics but then could easily be extended out once you show it was in retrospect the right way to do it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:52):<br />
+And then to give people a glimpse into the way your brain works to identify this is a big opportunity. So you talk about just like I see there's a lever that we're not investing enough in and I see this big opportunity to grow of LinkedIn. How did you decide I need to go and bet on this thing and lead this team and I think feed is a huge opportunity?</p>
+<p><strong>Tomer Cohen</strong> (00:28:10):<br />
+I start from beliefs a lot. So I start from what do I believe this could be or where I actually came to LinkedIn this way. In fact my biggest change in my career was when I moved here and I shifted to more like what do I care about? What am I excited about? What do I have conviction on? I think it's really hard to be a strong product leader without having strong conviction about something. So I start there and in fact coming to LinkedIn as an example, when I came into lead mobile, LinkedIn was a desktop first company, then mobile team was an offshoot of entrepreneurs. I came from a startup that I ran and it wasn't a big, it wasn't, it was like, okay, I want to do mobile, I guess fine. It's like noise at this point. Same with feed. And same when I shifted into ads, I felt really strong about the ability to flip that into a great way for companies to grow.</p>
+<p>So for me it starts with a conviction of where things could go, what do I believe in? I believe LinkedIn can be an incredible superpower and daily use case for every professional in the world. I believe knowledge sharing and knowledge exchange is the most amazing way to grow your career and to grow your business. So that needs to be a strong pillar of the experience, what didn't exist before and what is better than the feed experience, the home [inaudible 00:29:32] to actually build it. So I don't get attached to what did not work in the past. That's not, I don't know, maybe it's a mistake sometimes, but that doesn't stop me from thinking about the future.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:44):<br />
+How do you actually make time to think like this? A lot of people are listening. They're just like, "Okay, I want to think about what could this become?" Is this just the way brain works? You're always thinking what could this be? Do you set time aside to think quarterly or yearly, what could this be if we really made this amazing?</p>
+<p><strong>Tomer Cohen</strong> (00:30:02):<br />
+It's a good question. I haven't thought about it. It's like a process I do. I don't sit time aside for this, but I'm very reflective. I try to focus, love the conversations on the dream, what ultimately are we trying to achieve? I think LinkedIn has a great process called vision to values that started from our former CEO, Jeff Winner, which is like if you said this is for company or for a product, which is if you're successful, what change would happen in the world? Which I love. It's just a great phrase. It's just a great empowering phrase. So I actually tend to spend a lot of my time there. I'm also very optimistic in nature. Again, sometimes it's probably, I'm not best for any role perspective. You want somebody a bit more pessimistic about the future, but I tend to lead with beliefs versus evidence. I try to prove my beliefs with evidence, but I don't lead with evidence.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:59):<br />
+Awesome. Okay. And then maybe just one more tactical question about this shift that I wish I could spend hours on because it's so interesting, the success you had making the feed so engaging. Is there anything tactically that would just like wow that would really made a big dent in people wanting to come here and post and share interesting content, like a feature or a part of the strategy that really made the feed social?</p>
+<p><strong>Tomer Cohen</strong> (00:31:21):<br />
+I think the lesson would be, for me that was the biggest learning going into AI first that gave me the why is AI so core and why I got to make it a priority all the way to my role today to make sure the rest of the organization thinks AI first. The understanding is is that in a marketplace, if I'm able to satisfy your need on the other side, then it's magic. So ultimately it came down to AI is the ultimate matchmaker. It's underutilized, it's misunderstood, it's run separate from the team. And in a marketplace it's all about value exchange. And if I'm able to do value exchange really well, then people will come back and they do and they engage and actually they come back even more and they spend more time. So for me it was that depth into AI first as the engine that moves the whole organization forward.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:12):<br />
+Got it. So essentially making sure the content you are seeing is the most engaging you could see based on using AI to make the algorithm really smart?</p>
+<p><strong>Tomer Cohen</strong> (00:32:21):<br />
+On both sides. If you are the creator, if you're the person sharing, remember this was a while back, I think it was about the former Olympics and person shared an article on LinkedIn about how they should not call it Olympics, they should call it the commercial Olympics because it's all about commercials and less Olympics. And then they sent me this amazing screenshot about how NBC execs who were covering the Olympics were rearing the post, this first to them was gold. It was like, "Oh my god, my content is influencing, people are seeing it, people that matter." So that was really key. Making sure that when you share something, you share your expertise. The right people on the other side are relevant to your content and they see it. That could make your day or your week or actually it could make your living in many ways. And then on the receiving side, when I come in, it's the things I'm excited about seeing.</p>
+<p><strong>Tomer Cohen</strong> (00:33:17):<br />
+It's the things that are relevant, the reason your content resonates so much with other people, I can actually take your podcasts and I can apply them at work. What could be a better way to learn? I'll give you another example, which was very, very recent. I met with a known professor in this field and he shared with me how over the last year and a half he started using LinkedIn because somebody told him, "You have a great content, why don't you just post it?" I was like, "I don't want to post on social media." I'm like, "Oh, LinkedIn is different, share on LinkedIn." And he was like, "I post daily. I have so much content over the years, I post daily."</p>
+<p><strong>Tomer Cohen</strong> (00:33:51):<br />
+And he was like, he basically told me this is unbelievable in terms of economic opportunity I'm getting. He's like, "I'm getting speaking engagements that are roughly half the salary I make in a year here at the university. Just by people seeing this content and getting to the right people. I was invited to advise prime ministers on their investment strategy for the country and I've been teaching for 20 years, but this platform just completely elevated my ability to reach and influence people." That's the magic and that's the value exchange and that's the kind of matchmaking at scale.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:29):<br />
+<strong>Tomer Cohen</strong> (00:36:14):<br />
+I can spend days on this. This is so important. It's actually so important for me, it's a key focus for me. Actually to your point, long before it became cool to talk about AI in the last two years, and in fact I think I've learned this on myself. So when it comes to the feed, I took the role of the AI product leader, it didn't exist in the company. There was no person that was ever from a product perspective thinking about AI. I think it start with the belief, like we talked about before, I think every technological revolution has dramatically changed the way we build. And AI arguably is the biggest one in our lifetimes. And when I say AI first, it's not about a tech, it's a mindset. It's a start with strategy. It is rare. Maybe now you'll see it, but it was rare two years ago to see anybody in their strategy talk about the role of AI and how they build with AI.</p>
+<p><strong>Tomer Cohen</strong> (00:37:02):<br />
+Then it goes to the product and then the talent itself you hire, do they actually think this way? The analogy I would give to people is imagine a river rafting boat and you have everybody on the sides holding the pedals and adding accuracy, adding speed, but there's the guide on the back and they're holding those two pedals. Those two pedals navigate pretty much the boat and those pedals are AI and the guide better be you. And in most cases in companies the guide was somebody else, it wasn't the product leader. So then the question is, if AI actually is directing your product or success and it's the biggest factor and you as the product leader is not the one holding those two pedals, what are you doing? And then I realized that it was a bit of a lack of education in that, there was actually most product users used to think of AI as this black box, magic spells that they don't know how it's working so they're delegating.</p>
+<p><strong>Tomer Cohen</strong> (00:38:01):<br />
+And obviously that's as far from the truth as possible, but there's so many ways to unpack it. When it came to the feed where I push for example, more specifically for the teams, he doesn't stay as an AI first, there's the objective. I would ask him, "What is the objective of the algorithm?" I would challenge you to ask folks more in the folks who are leading products specifically with algorithms inherited built into them, what is the objective of the algorithm and can you write it down for me on a board? They should be able to do so, ultimately it's a mathematical formula and then it's like what features have you added to the algorithm? And this is not user features, this is specifically what parameters to learn on and then what investment do you have in data collections and fine-tuning?</p>
+<p><strong>Tomer Cohen</strong> (00:38:49):<br />
+Now everybody talks a big game about fine-tuning but again, two years ago, fine-tuning was something that the product folks thought the engineering team was supposed to do. No, it's the whole organization. In fact, you can build a whole strategy just on data collection and fine-tuning and your product will see tremendous success or you can delegate it and it will never happen. So in many ways that was bringing into the fold, in our phase one, which really started around 2016 for me and every team I went to, the AI component was the area I spent most of my time on. I hired people for that. Product leaders, I spent most of my, back to how do I spend my resources, most of my resources there. And it was my top priority all the way from strategy to talent. And ultimately with the last couple of years we've seen this metamorphosis of AI and this incredible new wave and we've done a pretty big change there as well over the last two years.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:49):<br />
+I love this. So I took some notes on what you're talking about. So the big message that I'm taking away so far is as a product leader, you need to think about things that you thought the engineering leader had to think about or the ML engineer was thinking about things like what is the objective of our algorithm? What are the features that we're building into it? What is the data collection strategy? How are we fine-tuning it? As a PM, you should be asking these questions.</p>
+<p><strong>Tomer Cohen</strong> (00:40:13):<br />
+In fact, you should go all the way to infrastructure. You can have massive lifts in your product outcomes and goals if you probably enhance your infrastructure. How many product people talk about the infrastructure they have? Not many. Influencers, those are things ultimately your goal is to win with your products and build a much more experience to your members and customers. Literally just changing the infrastructure on top of what you build. That could be the biggest lever than you building another button or experience for your members on the top of it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:45):<br />
+So say the PMs at LinkedIn, are you encouraging them all to, how is AI integrating into what you're doing? How do you just set this up so that teams do this well within LinkedIn?</p>
+<p><strong>Tomer Cohen</strong> (00:40:57):<br />
+Yeah. So coming into this role in early 2020, we basically established an AI academy. Every PM had to go through training just like we did mobile in 2014, we moved the whole organization to be mobile first, so everybody had to go through this process. I spent a lot of time in my reviews on the AI strategy, the objectives. We make sure there's actually AI practitioners on the product side who are strong, who can teach. So we in waves started to build more of expertise and distinguished leaders across that can actually bring this learning across the board. And then in fall 2022, when we all know what happened, at least a few months after, but we started early, we completely changed our entire almost product operations and portfolio so we can focus on this new wave of AI with LLMs in the front.</p>
+<p><strong>Tomer Cohen</strong> (00:41:47):<br />
+So LinkedIn has been working with AI very closely since the early days, but mostly as a matchmaker. So it was the matchmaker for our marketplaces. Somebody looks to hire this dream candidate and then you have a candidate looking for the dream job and AI would be the one doing the matchmaking. We talked about the knowledge sharing on the feed. It happens in our commerce platform as well. But AI, I was in the background so I never saw it, it was making those matches. And then with the new level of AI, we actually brought AI from the back of our marketplaces really as the matchmaker to the front. And one of the things we've done there was really asking the teams to completely revisit their entire roadmap.</p>
+<p><strong>Tomer Cohen</strong> (00:42:35):<br />
+This is fall of 2022, the world will learn about ChatGPT for several in March 2023. So we had a nice beginning there in terms of getting started. And the goal there was let go of what you've built, let go of your roadmap, go back to the drawing board with what are you trying to solve for, back to that idea of clarity on your problem statement and now tell me what's the solution. That's very much AI first.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:03):<br />
+It reminds me, so one of the folks I pinged about you, Shira Gasarch, she used this quote about you, "Maybe you were made for such a time as this." And it connects to a lot what you're talking about where you've been thinking a lot about. And back then it was called machine learning. It wasn't called AI for a long time and now it's AI. The fact that you've been on this so long is just a perfect synergy for now. It's working its way into everything.</p>
+<p><strong>Tomer Cohen</strong> (00:43:27):<br />
+Here's an example that I think sometimes to bring it to people in a more visceral way if you've been building products, product leaders are used to very much dictate the experience they're building. I want this experience to be exactly like this. I want the member to come from here and this is the options they have and I want them to be able to select this and this will be my default and I want the onboarding to progress this way. And I think this is one of the biggest shifts with this when you become an AI first leader, is that there's a realization that you don't control the experience anymore, you control the ingredients. It's almost like being a chef at the restaurant and you're used to deciding every part of the dish. You're deciding everything from the ambiance to the temperature of the broccoli and then this new technology comes in and say, just give me the ingredients, give me the guidelines of how you cook and now I'll take care of it. I'll take care of it for you.</p>
+<p><strong>Tomer Cohen</strong> (00:44:24):<br />
+For many folks, this is a very scary feeling, they're not used to letting go of the control. Obviously you build safety guards and responsible AI around it and that's super critical. But at the essence of it, AI is not deterministic. So giving it the rope to learn and do that experience for you ultimately would become much, much better. You have to have that belief going into it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:50):<br />
+Along those lines, I'm curious if there's anything you do to avoid, everyone's like, cool AI into everything and then all these stupid things ship, then no one wants. I saw this hilarious meme of like, oh wait, we built a kind of dumb artificial person. Let's integrate it into everything. Now it's everywhere. Is there anything you've learned about just how not to ship stuff that isn't great?</p>
+<p><strong>Tomer Cohen</strong> (00:45:11):<br />
+I can tell you what we've done here and we've failed a lot, but we learned so much along the way. When we started it in fall 2022, literally started with me calling the leaders coming to the room and we talked about, okay, let go of your roadmaps, like what we've done, great, but I want to let go of the roadmaps and I want to instead go back to what you're trying to solve for and let's meet in a couple of weeks and tell me how you're thinking differently about what you're trying to solve for knowing we have this technology in a role for us. So that was a starting point around just setting out some ground and principles around it. But we didn't start with new objectives to solve. So it wasn't like, "Oh, we have this cool technology, what can we do with it?" It was like go back to the objectives you were trying to solve and now with this technology, how can you do that objective better?</p>
+<p><strong>Tomer Cohen</strong> (00:46:00):<br />
+The second part is we actually allowed teams to run to really inspire creativity. I didn't want to contain them. I wanted to get them really excited about the potential here. And even some things we're building duplicates for a while of similar ideas but done differently because part of it was I was learning. I was very excited to see what people would come up with and see how they can do it. And there was no playbook for building this really, really well. And in many ways we were writing the playbook. Prompt engineering became a playbook internally for us, which every day was amazing. How do you cognitively reverse engineer the brain a little bit? That was incredible. In fact, a lot of things we've learned so much ahead of the market and even shared with OpenAI and shared with Microsoft. But then after that period of just everybody getting excited and building, we basically brought it down and we did top-down got it.</p>
+<p><strong>Tomer Cohen</strong> (00:46:53):<br />
+So we basically picked back to the objectives we had out of everything that we've seen, those for us look like the best four biggest best we want to want to aim for and we want to converge resourcing across it. So no more everybody's building whatever they want. We also, capacity is also constraint. Cost is a constraint. We want to start bringing them together. So we really much allowed people to, I would say in many words, diverge. But then I would say several weeks after converge, but we had a lot more excitement and understanding about how this thing works and what we can actually do with it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:30):<br />
+Love that advice. Basically give people a bunch of time and space to explore and experiment R and D and then as a top-down strategy, pick through this.</p>
+<p><strong>Tomer Cohen</strong> (00:47:40):<br />
+The top-down, we were like, there was literally, usually I do product jams for every multiple topics we have throughout the quarter. I just did every week. I just reviewed the five bets we had on a reputed basis, nothing else. Because it was so important for them to understand that this is what I care about and we had to be focused about it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:00):<br />
+It feels like that space to explore and go crazy is important because otherwise people at the company are going to be like, "Oh, I wish, there's so many, this thing I want to try with AI, we should try it." And they'll just be pissed because they don't have time to work on it.</p>
+<p><strong>Tomer Cohen</strong> (00:48:11):<br />
+It's a great point. It wasn't my intention, but I love that you're saying it. It's a great point because I think it gives them that. I was actually, for me sometimes almost in a, maybe too much, but I try to focus on learning. I was trying. I knew just going like this, we weren't going to learn a lot, but having people come back and trying different things and slightly going crazy and pushing the boundaries, we would learn so much. So for me it was learning, but I love the motivation around, also allowing them to have the energy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:39):<br />
+It relates to another point that a recent podcast episode I had with Brian Chesky where he introduces chaos sometimes when things are feeling too comfortable, when roadmaps, everything's calm, everything's on schedule. He's just like, "How do we do this in one day versus in two weeks? Let's just see what happens."</p>
+<p><strong>Tomer Cohen</strong> (00:48:56):<br />
+Yeah, because I think people get, there is just inertia, people get into their, it's human behavior, people get into their lanes, they start to feel really comfortable within the lanes, and then they don't know that there's a different way to do things and you have to almost externally invoke that or trigger that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:13):<br />
+If we think about just your career arc, I'm zooming out a little bit. You helped create the mobile experience on LinkedIn. You built the feed initially and now you're in front of AI. I could see why you're so successful at LinkedIn. I was talking to folks about your career arc at LinkedIn and you basically went from senior PM to senior PM number two, to group PM to director, to senior director to VP, to CPO in not that many years, it's a pretty meteoric rise. I wanted to spend a little time here and I want to maybe start with the question of just if you could give one specific piece of advice for someone looking to advance in their career based on what you found to be really effective, what would that be?</p>
+<p><strong>Tomer Cohen</strong> (00:49:53):<br />
+I realized everybody's in every stage in their career and they have different ways to think about the role then what they need. Maybe I'll just share about my journey, what worked for me instead of giving more of a general advice. First of all, I feel super fortunate I'm building. That's what I love doing. I love building, I love working with builders. Sometimes I'm like, I get paid for this, this is insane. But I love my craft and I love getting deep into it. So in many ways I think the things I'm excited about is the things I'm doing. When people are starting off, I usually really focus on learning from great people. People you talk to or have amazing mentors and managers. Some of them don't even know there were every mentors. It's not like a mentor officially. I try to pick up things from people all the time, and that's been just a remarkable experience working with great people.</p>
+<p><strong>Tomer Cohen</strong> (00:50:50):<br />
+And in many ways, a lot of those great people actually allowed me or empowered me to take on some bigger challenges. So I can see forks in the road where if it wasn't for that person saying something very specific, probably would've done something differently. And it just made me think a lot. So I really tried to absorb learning from great people. But by far, for me personally, again, this is very personal versus generic advice, it was when I moved here, I was an engineer for many years before I moved here for graduate school in 2008. And I always loved building, that was there from a young age but when I moved here, I realized my career path was very much dictated by one thing. It was like, what's most in demand? What's most challenging? And how do I do that? It was very childish in many ways.</p>
+<p><strong>Tomer Cohen</strong> (00:51:42):<br />
+It was not dictated by me, it was in a way dictated by society. So what's the toughest engineering role? What's the best company to go into? What's the best army unit to serve in? And I fell a lot along the way, but I always kept going. And then when I came here, there was a really big challenging for me personally around what do I care about? What matters most to me? And that was, again, it's very personal in many ways. It was very much for me, an impact on learning and actually how do I create impact more broadly? And I shifted 180 in how my thought process used to go. It was less about what was out there and exciting and in demand and challenging and it was more about where did I have strong conviction on, what was I passionate about and where did I feel I could make a dent and learn?</p>
+<p><strong>Tomer Cohen</strong> (00:52:35):<br />
+And that was my path forward. So after school with a student visa and massive school debt, I decided to start a company which was not a very intelligent decision based on my economic circumstances, but I didn't care. I was like, this is my new path. And then I got into LinkedIn. I didn't apply for a job. I met with who was in my role today, Deep Nishar, at that time and we talked and I said, "This is how I think this is how LinkedIn mobile should be built." And he was like, "Okay, how about you come and build it?" I was like, "Amazing." So I didn't apply to LinkedIn and then at LinkedIn I was always like, this is what I want to do, this is what's exciting for me and this is the dent I think I can make and this is my plan for it.</p>
+<p><strong>Tomer Cohen</strong> (00:53:21):<br />
+I don't know if this is a recommendation for everybody, but for me it's worked really, really well. It was really pursuing the conviction I had and my excitement and bring that to the fold with people. I do think that in products, in building product, if you're not genuinely excited about what you want to build, you don't have conviction about it, it's going to be very hard for you to make a big impact.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:45):<br />
+That's also a similar theme from my most recent podcast with Vlad of just, if you don't actually buy into the mission of the place you're working on, you're not going to have a good time.</p>
+<p><strong>Tomer Cohen</strong> (00:53:54):<br />
+Yeah. Say for product people, it's a very fortunate position. I always tell people, if you're in one of the most fortunate positions you can have, because if you just measure thing, for you, just measure based on your career and so on, people are going to evaluate you based on your actual work. It's a very special place. Nobody cares about your title, who cares? It's not. Maybe the company name for some people matters, but for the most part, it's about the impact you created with the products you've built. If I think about somebody's resume, I think if it was a product resume, it would be the products you built and the impact you had with it. I don't care about the companies you worked at, I don't care about the logos, I don't care about the titles. Slightly, again, not to overextend, but somebody, it's almost like an artist, right? It's like whatever, a musician, it's the albums you took out and how well they did. And I think for product people, it's a very fortunate place to be that you get measured based on the impact you had.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:53):<br />
+It sounds like a LinkedIn feature idea right there. I feel like if there's any company that could make that happen, it'd be you guys. So some of the takeaways here essentially is try to index towards what are you actually excited about and motivated to work on and driven by versus where it's the most amazing company to work at are the most challenging problem.</p>
+<p><strong>Tomer Cohen</strong> (00:55:17):<br />
+Yeah, I think sometimes great companies have great opportunities for you to have dent at scale, but you need to be the one doing it. If you are thinking about, I don't know, a title or that did not, once I did the change into my excitement around impact, that's been at least my yardstick. When I look at people that I talk to or interview internally, the first thing to my mind to me is like, "What did you build and what did you learn and how well did they do?" That's what I care about.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:50):<br />
+I imagine there's also people on the other side where all they do is work on things that really exciting to them and they could use a little pushing towards the other direction of what's actually important in the world.</p>
+<p><strong>Tomer Cohen</strong> (00:55:59):<br />
+100%. If you tell me, again, everybody has their different, if you tell me, "Hey, you can work on something super exciting, but it's on the fringes of the company or you can work on something which is a bit more grindy, but it's on the core of the company." The latter, no doubt, for me, impact first.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:19):<br />
+And just listening to the story you've told of the things you decided to focus on as a clear example that you saw, hey, there's this huge opportunity in the feed, I'm going to go tackle that or mobile. So I think there's a lot of, it's kind of this Venn diagram is what I'm taking away of just what's important, what am I excited about?</p>
+<p><strong>Tomer Cohen</strong> (00:56:36):<br />
+Yeah, this for me. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:38):<br />
+Awesome. Okay, so I note you got to run relatively soon, so we're going to get to our very exciting lightning round. But before we do that, is there anything else that you think would be interesting or useful for folks to know or leave them with? I know we covered a bunch of things already.</p>
+<p><strong>Tomer Cohen</strong> (00:56:52):<br />
+Yeah. One thing that actually I've now built it into a podcast, but something I'm really excited about is I don't think there's one way of building. Remember when the Steve Jobs biography came out, everybody read it. Oh, that's the way to build and that was unique to him. And one of the things I love a lot is when I look at great builders, they're all very distinct, they're all different. And I used to do this thing internally, I used to invite product builders of different disciplines and have a fireside chat with them. And I saw people across the company join not just PMs or designers, but folks across and I build that into a podcast.</p>
+<p><strong>Tomer Cohen</strong> (00:57:34):<br />
+I love your podcast. Mine is very different. It's more around what is their edge a little bit. This is from the co-founder of Pixar, Ed Catmull, to the CPO of Canva or Spotify, Roblox, but all the way to a chef, Dan Barber, who's the number one chef in the US for many years. And it's just everybody has their craft and they do it differently. It's called BuildingOne, I'm excited about it. It's a little bit of a plug right now, Lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:03):<br />
+Please. Yeah. Where do people find it? Let's blow it up. It's called BuildingOne?</p>
+<p><strong>Tomer Cohen</strong> (00:58:07):<br />
+BuildingOne on Apple or Spotify.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:08):<br />
+Perfect.</p>
+<p><strong>Tomer Cohen</strong> (00:58:11):<br />
+It's short and it's really about showing you different disciplines from a chef to an animation director. And really the main learning there is everybody builds differently and you can be very successful, but it's very authentic to how they are personally, and it's how they push their craft to the limit. It's how well they've done their craft.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:29):<br />
+I love that. And something I super believe is just the power of focusing on your strengths and the things that make you a little different versus trying to become good at everything.</p>
+<p><strong>Tomer Cohen</strong> (00:58:37):<br />
+100%.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:38):<br />
+That's so cool. Okay, BuildOne. We'll link to it in the show notes.</p>
+<p><strong>Tomer Cohen</strong> (00:58:42):<br />
+BuildingOne, yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:43):<br />
+BuildingOne. BuildingOne. Okay. Amazing. And it's on all the podcasting platforms. Okay, great. With that, we've reached a very exciting lightning round. Are you ready?</p>
+<p><strong>Tomer Cohen</strong> (00:58:50):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:51):<br />
+All right. First question is, what are two or three books that you recommended most to other people?</p>
+<p><strong>Tomer Cohen</strong> (00:58:57):<br />
+So I have this [inaudible 00:58:58] continuously, actually it's these three.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:57):<br />
+I love that you have them right there.</p>
+<p><strong>Tomer Cohen</strong> (00:59:02):<br />
+I can just tell you about them but-</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:03):<br />
+They look very [inaudible 00:59:04] back there. Don't [inaudible 00:59:05]</p>
+<p><strong>Tomer Cohen</strong> (00:59:05):<br />
+I'm not going to destroy my study. So I love fundamentals. I love studying from fundamentals. So if you're somebody who starts in your career, my fundamental books is One Mindset. It's about growth mindset. It's about basically the ability to continuously grow over time in one sentence is the whole idea is our skills, our abilities are malleable, we can completely develop them, we can build expertise and craft and mastery and it's really a mindset change. And Carol Dweck wrote the book, was also my wife's manager, and that's how we got into that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:05):<br />
+That's awesome.</p>
+<p><strong>Tomer Cohen</strong> (00:59:38):<br />
+So that's like our second religion at home. Second book is Thinking, Fast and Slow by Daniel Kahneman. I love behavioral economics. When I think about products, I think I always start from people, what is the member expectation? What are they trying to do? And this is the Bible for behavior. So if you're building front end products or even you're thinking about how you rally organization, it's an incredible book. Every page is like a stopper. You have to stop and think. And then lastly, and on the fundamental side is High Output Management by Andy Grove. It's like there's so much basics to doing good manager. It's like I think after you read this book, your managerial skills should start from a B. and then you can over time become an A. But beginning to a B is just a level of putting the effort in and knowing the best practices. So I think those are all fundamentally great books that I really like to give to people.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:41):<br />
+That's awesome. I love that they're right there behind you. Is there a favorite recent movie or TV show you've really enjoyed?</p>
+<p><strong>Tomer Cohen</strong> (01:00:47):<br />
+Yesterday I saw Bluey, you know Bluey?</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:49):<br />
+I've heard of Bluey. My kid is not old enough for it yet.</p>
+<p><strong>Tomer Cohen</strong> (01:00:52):<br />
+Oh, you're in for a treat.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:53):<br />
+Okay.</p>
+<p><strong>Tomer Cohen</strong> (01:00:54):<br />
+I love Bluey. So Bluey is this animation series from Australia and what's beautiful about it's, I can watch it with my six-year-old, nine-year-old and 12-year-old, and we're all going to enjoy it. We're all going to laugh at the same point but at the nuance of the jokes. It's like when I think about a product, the way Bluey is built, it's built for the whole family, but it's built as layers. There's layers of dialogue and points that they're trying to get across, and it's all packaged together into one experience. So for me, it's amazing that I could sit next to my six-year-old daughter, we would both laugh at this, it's a sweet animation kind of thing, it's like a family of dogs. And she would laugh at the nuance of the point, at a different nuance. For me it's like that's a genius creation of how you build a product.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:50):<br />
+Speaking of Ed Catmull, the Pixar does that really well as well.</p>
+<p><strong>Tomer Cohen</strong> (01:01:50):<br />
+Totally.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:56):<br />
+And I feel like the story of Bluey is really incredible too. It's just like a random little independent group and they just are making tons of money with it.</p>
+<p><strong>Tomer Cohen</strong> (01:02:02):<br />
+It's just amazing. The dialogue there is one, it's slightly edgy but not too edgy. It's exactly right. It's just exactly right.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:10):<br />
+Okay. Makes me want to watch it. Okay. Do you have a favorite product that you've recently discovered that you really love, whether it's physical or in digital?</p>
+<p><strong>Tomer Cohen</strong> (01:02:17):<br />
+So I like playing guitar. It's amateur, I'm not that good, but I love playing it. And there is a combination I've done recently I really like, there's a Spark Amp I have, which allows me to play with effects easily, but that's not what I use it for. I can tune my guitar based on the specific song I like. See, if I want to do Pink Floyd or Metallica or Nirvana or David Bowie, I can get that tune easily. I don't have to be an expert. I can just download the tune to my guitar, which is so great.</p>
+<p><strong>Tomer Cohen</strong> (01:02:49):<br />
+And then I couple that with the, it's called the Ultimate Guitar app, and basically it doesn't give me the chords and the tabs, it gives me the other instruments, so I can get the drums going. I can get the, it's a violin going, whatever that is that's going in the band. As somebody who does not play so well and plays for itself and nobody's supposed to listen to how I'm playing because it's really just a way for me to enjoy my time. It's just an amazing, I would never get into any band, so this is the closest I can get to get to a band. So I love that combination.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:22):<br />
+I wish we could close this podcast episode with you playing your guitar, but [inaudible 01:03:26].</p>
+<p><strong>Tomer Cohen</strong> (01:03:26):<br />
+I don't know if that will help the ratings of the show.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:29):<br />
+No, man, that's amazing. Okay, two more questions. Do you have a favorite life motto that you often repeat yourself, find really useful in work or in life, share with folks?</p>
+<p><strong>Tomer Cohen</strong> (01:03:38):<br />
+From growth mindset there's a motto that I really like. It's called becoming is better than being. It's like the moment you think you achieved something is the moment you start to deteriorate down. It's like we're really trying to grow as human beings. We're trying to learn, we're trying to evolve. Product is a good example. I think the moment you think you actually mastered it is the moment that you become obsolete. So I love the idea that becoming is a better goal than continuously trying to reach some kind of level.</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:06):<br />
+Love that. Final question, just to come back to LinkedIn. Is there a fun feature of LinkedIn people don't know about or should check out? Is there anything new that's like, oh, that's something you should try or that's something that might surprise you about LinkedIn these days?</p>
+<p><strong>Tomer Cohen</strong> (01:04:19):<br />
+Maybe I'll give a couple so I don't have to pick the best right off the bat. But one right now, we're heavily invested in video and it's doing so well for those creators. We talked about it like immersive video we can actually come in. We talked about for us, video is obviously a best practice right now in the industry, but on LinkedIn, the right views really matter. So highly encourage creators to think about their video play at LinkedIn. And then I think what we call our coach experience in some cases is so powerful. For job seekers out there, we have people hired on LinkedIn, there's like seven folks hired every minute. Job seeking is a lonely journey.</p>
+<p><strong>Tomer Cohen</strong> (01:05:02):<br />
+I was actually in a session recently meeting with job seekers and I was talking to them and one started crying midway into the session because they said, "I cannot share my journey with anybody because I feel like I'm alone in this. People don't get how hard it is. I feel very accomplished, but I can't get the job. And I wish there was a buddy, I wish there was something that I could talk to brainstorm with who wouldn't judge me, who would just be trying to help me without paying hundreds of dollars to a coach of some sort. I don't have that money."</p>
+<p><strong>Tomer Cohen</strong> (01:05:38):<br />
+And in many ways, when we walked him through the job seeking experience, the coach experience, we build this coach aspect where you can go to any job and you can riff on the job with this really new realities LLM that is tailored to you, personalized to you, private to you, everything from your fit to how to best apply, to consulting about different opportunities, to comparing this to others, to feeling supported. So when we talk to people around, we always, I love to measure the impact of our work by emotion, when we talk to job seekers after that, it was basically the sense of I felt supported. In many ways, getting to that ability to remove the loneliness is amazing. It's a little bit like people need to, we're making it more and more visible and more and more ramped to everybody to a certain point. But that's a really powerful way to just humanize the job seeking experience for everybody.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:37):<br />
+Awesome. And to find that it's just, is it called LinkedIn Coach or?</p>
+<p><strong>Tomer Cohen</strong> (01:06:40):<br />
+It's in the job. So if you go to the job tab on LinkedIn, actually just a few weeks ago, we just put it on the top. So you don't have to go to the specific job and find it, you can just start there and engage with it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:50):<br />
+Awesome. Just to give a quick plug to a future podcast that's coming out, there's this book called Never Search Alone, that we're going to have the author on the podcast soon. And it's all about the same idea of having a buddy that helps you search for a job.</p>
+<p><strong>Tomer Cohen</strong> (01:07:01):<br />
+Yeah. When I think about the future of AI in the sense of belief, that relationship is going to be sacred, the relationship between AI and the human is going to be [inaudible 01:07:10]. Do you know what Nomophobia means?</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:11):<br />
+Nomaphobia? No.</p>
+<p><strong>Tomer Cohen</strong> (01:07:14):<br />
+Nomophobia.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:15):<br />
+Nomophobia. No. Being afraid of something.</p>
+<p><strong>Tomer Cohen</strong> (01:07:18):<br />
+It's the anxiety of being away from your phone.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:18):<br />
+I have that.</p>
+<p><strong>Tomer Cohen</strong> (01:07:25):<br />
+I think we all. I think we're in for AI-nophobia at that point, where you're going to get to a point where AI is going to feel so intimate, so personal that it would actually feel concerning to you to be away from it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:37):<br />
+Oh man, there reminds me of Friend.com, which just launched in a really fun, I don't know if you saw Friend.com, their launch video.</p>
+<p><strong>Tomer Cohen</strong> (01:07:44):<br />
+No, I did not.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:45):<br />
+Oh, man. Check out Friend.com. It's like a digital friend that just is with you all the time and you're talking to him and it's an AI.</p>
+<p><strong>Tomer Cohen</strong> (01:07:50):<br />
+Oh, we're just getting started. There's going to be, we're in for incredible revolution there.</p>
+<p><strong>Lenny Rachitsky</strong> (01:07:55):<br />
+I'm excited and scared at the same time. Tomer, thank you so much for being here. This was amazing. You're awesome. Two final questions. Where can folks check out stuff that you're working on? You have a course also, you have a podcast, so just give people a sense of where to find that.</p>
+<p><strong>Tomer Cohen</strong> (01:08:07):<br />
+Awesome. So obviously I'm on LinkedIn, reach out anytime. I read everything people send to me. I don't always reply to everything, but I read everything sent to me. And then if you want to go deep on AI first, I have two courses, they're free. I think it's a phenomenal way for you to build or starting to build your expertise, especially if you're in product. It's a great way to go deeper and not just stay on the high level parts of things.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:36):<br />
+Amazing. We'll link to all those things in the show notes. Tomer, thank you so much for being here.</p>
+<p><strong>Tomer Cohen</strong> (01:08:40):<br />
+Lenny. Thank you. It's our pleasure.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:42):<br />
+Bye everyone. Thank you so much for listening. If you found this valuable, you can subscribe to the show on Apple Podcasts, Spotify, or your favorite podcast app. Also, please consider giving us a rating or leaving a review as that really helps other listeners find the podcast. You can find all past episodes or learn more about the show at Lennyspodcasts.com. See you in the next episode.</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

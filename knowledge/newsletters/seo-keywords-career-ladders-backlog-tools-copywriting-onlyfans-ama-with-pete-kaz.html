@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO keywords, career ladders, backlog tools, copywriting, OnlyFans, AMA with Pete Kazanjy and much more — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">SEO keywords, career ladders, backlog tools, copyw…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">SEO keywords, career ladders, backlog tools, copywriting, OnlyFans, AMA with Pete Kazanjy and much more</div>
+    
+    <div class="article-meta">2020-12-04<span>·</span>4,232 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">職涯</span> <span class="mini-tag">B2B</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello and welcome to this week’s edition of ✨ </em><em>Community Wisdom</em><em> ✨ — a weekly email highlighting the most helpful advice from our subscriber Slack community. As always, a b​i​g thank you to <a href="https://www.linkedin.com/in/kiyanibamba?originalSubdomain=ca">Kiyani</a> for pulling this email together.</em></p>
+<h4>💥 Top threads this week</h4>
+<ol>
+<li>SEO keyword prioritization</li>
+<li>Career ladders for PMs</li>
+<li>Backlog tools</li>
+<li>Tools for scheduling user interviews</li>
+<li>Building an “idea-repository”</li>
+</ol>
+<h4>🤓 Top reads and listens</h4>
+<ol>
+<li>Improving your copywriting</li>
+<li>OnlyFans and the creator economy</li>
+<li>Measuring SaaS Engagement</li>
+</ol>
+<h4><strong>🎤 AMA with</strong> Pete Kazanjy (about sales)</h4>
+<ol>
+<li>Learning how to do sales</li>
+<li>Managing lead flow</li>
+<li>Sales as an introvert</li>
+<li>Self-serve product experience</li>
+<li>Frameworks for doing large enterprise sales</li>
+</ol>
+<h1><strong>💥 Top threads this week</strong></h1>
+<h3>1. SEO keyword prioritization</h3>
+<blockquote>
+<p><strong>Q: We've started in SEO and it’s been one month now, but we are facing some friction on prioritizing keywords. Our keyword prioritization process currently looks like this:</strong></p>
+<ol>
+<li><strong>Gathered thousands of keywords based on important keyword seeds to our business.</strong></li>
+<li><strong>Populated these lists with data on search volume, search difficulty and CPC (as a proxy for high commercial intent).</strong></li>
+<li><strong>Prioritize keywords.</strong></li>
+<li><strong>Build content on those keywords.</strong></li>
+</ol>
+<p><strong>The problem is in step 3: which parameter (volume, CPC, difficulty) should we give more importance in T0 since we are justing starting (have a low domain score) and need to convert ASAP? Is there any way of quantitavely prioritize these keywords?</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/caique-carvalho-b39295106/">Caique Carvalho</a></strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/ngardideh">Nima Gardideh</a></strong>: One tactic I've seen is using AdWords first and then looking at conversion rates to prioritize the keywords for SEO. i.e. if you have 50 keywords: pay for the clicks first and see which ones bring in high-quality customers. Then go build search optimized pages to capture the traffic without having to pay for it.</p>
+<p><strong><a href="https://twitter.com/christoy">Chris Toy</a></strong>: Fix domain authority as the priority. The rest is a multiple on zero until you do. If you don’t fix domain auth, you can only target extremely niche or uncompetitive keywords.</p>
+<p><strong><a href="https://www.linkedin.com/in/yairlivne/">Yair</a></strong>: One other comment is that framing SEO as something that can convert immediately is fundamentally off. It takes at least 6 months to start seeing payoffs, and the right mindset here is long term.</p>
+<p><strong><a href="https://twitter.com/jfedor">Jeff</a></strong>: What are the best ways to increase Domain Authority?</p>
+<p><strong>Katie Mitchell:</strong> Quality backlinks and making sure your site runs fast, etc.</p>
+<p><strong><a href="https://www.linkedin.com/in/yairlivne/">Yair</a></strong>: Also being strong in a domain of knowledge, not just a lot of mediocre content across domains.</p>
+<p><strong><a href="https://twitter.com/fanfavorite_bta">Brian Ta</a></strong> : I’m going to run counter to everyone here:</p>
+<ul>
+<li>Domain authority isn’t a good use of your time to focus on. You’ll build it over time. Also worth noting that the number you see for domain authority is a made-up metric number that ahrefs or whatever tool you’re using calculated.</li>
+<li>Forget backlinks. I’ve worked with a number of sites, and I’ve never seen a positive correlation between backlinks and an increase in organic traffic <em>that can be attributed directly to backlinks</em>. Focus on your content.</li>
+<li>I’ve seen SEO pay off in a month. If it doesn’t pay off in 3 months, then it’s worth revisiting your strategy.</li>
+<li>I’ve always run keywords by the eye test. If the other content on the page looks bad and you can create something better, then go for it.</li>
+<li>If I was really pushed, I’d target for under 1000 first, once you prove it out, you can target the higher volume keywords.</li>
+<li>Generally, the lower volume/longer tail keywords will lead to high conversions because the user is further down the funnel. (“flower shop” versus “where to buy flowers in Burbank”)</li>
+<li>High-quality content is what’s going to make you win. Most other things are secondary.</li>
+<li>Make sure your site has its SEO foundations set.</li>
+</ul>
+<p><strong><a href="https://twitter.com/christoy">Chris Toy</a></strong>: I think good content is table-stakes – bad content gets you nowhere. Domain authority isn’t and is often overlooked, which is why I think peeps are focused on it. If you want SEO to be your backbone with results early enough to affect an early-stage startup (as it sounded like this was) then domain authority is probably going to be your issue. If you’re a high-growth startup with traffic coming from other places then yes you can afford to wait.</p>
+<p>I have seen grey/black hat backlinking attributed to SEO gains consistently over the last decade, was the original “hack”. But agree with the rest @Brian Ta!</p>
+<p><strong><a href="https://twitter.com/fanfavorite_bta">Brian Ta</a></strong>: I’ve helped a number of startups go from 0 to 100k a month with low 20s in their domain authority. I’ll have to respectfully disagree with you on needing to focus on domain authority.  Domain authority is the result of creating good content, getting traffic, and accruing links over time. Domain authority is a magic number that some engineer or SEO dreamed up of. It’s not the number that Google sees your site on. Optimizing for DA is optimizing for this magic number.</p>
+<p>What’s always worked is: good content and a good SEO strategy.On backlinks:<br />
+I haven’t seen any startup or company that’s invested in a backlink strategy that could be directly attributed to their growth in SEO. I’ve seen many attempt it, and none of them have worked. If someone wants to attempt to do black hat link building, it _might_ work until the time bomb ticks down and Google hands you down a manual penalty.</p>
+<p>I have quite a few clients that go the link building route, after we get their site to an acceptable state. 4 months later, without fail, they come back and say it was a waste of time and they didn’t see any measurable uptick in traffic.</p>
+<p><strong><a href="https://twitter.com/christoy">Chris Toy</a></strong>: @Brian Ta I think what we’re all saying is SEO is a lot of work and you have to do all of it. Good content to build DA over time is still DA, and you can’t just do DA with garbage content. It’s not a single variable thing.</p>
+<p><strong><a href="https://twitter.com/fanfavorite_bta">Brian Ta</a></strong>: Closing the loop. I’m talking to Chris on DMs but wanted to surface part of the convo.</p>
+<p>I'm going to push a little further on getting links. How many times have you done link building on an article and it hasn't worked? Would the content perform the same if you hadn't gotten links to it? I find that a lot of people will look at the number of backlinks a website has, see that they get a lot of traffic, and make the conclusion that backlinks help with more traffic. I’ve seen lots of websites where they’ve invested in tons of backlinks and gotten no return on it. The way that SEO case studies are broken down lends itself to survivorship bias. No one is breaking down how a no-name website didn’t achieve SEO. There aren’t companies bragging about how their SEO strategy didn’t pan out and that backlinks didn’t work. We usually see a company that has a lot of SEO success, and automatically assume that everything they did contributed to that success.</p>
+<p>What makes teasing apart backlink impact difficult, is that most companies are working on both backlinks and other large SEO fixes at the same time. What’s to say the big impact isn’t from the normal SEO stuff that you did and the links haven’t had much, if any, impact? You could make the argument that it’s the other way around, SEO fixes did nothing and backlinks did all of the work, but I’ve run enough SEO experiments to know that basic fixes for sure have an outsized impact.</p>
+<p>Anyway, those are my thoughts on backlinks and how they relate to SEO. It’s nice to have when you get it, don’t spend extra energy to build it out. You have a finite amount of time to spend on SEO, I’d much rather spend it on content creation than backlinks.</p>
+<h3>2. Care<strong>er ladders for PMs</strong></h3>
+<blockquote>
+<p><strong>Q: Anybody have any great examples of a career ladder/lattice for the various levels of product manager? e.g. Junior, Intermediate, Senior, Lead, etc. Shreyas’ mind map is a great start in defining the skill categories but I’m curious if there’s anything out there that outlines the expected level of competency in each category as you progress.</strong></p>
+<p><strong>– <a href="https://twitter.com/wplusv">Wayne Vernon</a></strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a>:</strong> Mind map in question</p>
+<p><img alt="Image from SEO keywords, career ladders, backlog tools, copywriting, OnlyFans, AMA with" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/0e4e3e49-4cd6-423f-bf26-6e0af1e41db2_1483x836.jpeg" /></p>
+<p><strong><a href="https://www.linkedin.com/in/benritchie1/">Ben Ritchie</a></strong>: I really like Ravi Mehta's product competency approach. He introduces his framework here but the full guide has a rubric for the skill level at each seniority: <a href="https://www.ravi-mehta.com/product-manager-roles/">What’s Your Shape? A Product Manager’s Guide to Growing Yourself and Your Team</a></p>
+<p><strong><a href="https://www.linkedin.com/in/amitjklein/">Amit</a></strong>: I've used this in the past as a starting point for self-assessments for PMs:  <a href="https://medium.com/agileinsider/product-manager-skills-by-seniority-level-a-deep-breakdown-cd0690f76d10">Product Manager Skills by Seniority Level — A Deep Breakdown</a></p>
+<p><strong>Lenny Rachitsky</strong>: Here are a bunch I’ve found (<a href="https://www.lennyrachitsky.com/p/weekly-questions-motivating-engineers">from this older post</a>):</p>
+<ol>
+<li><a href="https://blog.intercomassets.com/blog/wp-content/uploads/2019/05/Intercom-PM-job-ladder-Logo.pdf">Intercom</a></li>
+<li><a href="https://www.linkedin.com/pulse/deep-dive-product-management-leveling-oscar-sara-wajnberg/">Oscar</a></li>
+<li><a href="https://engineering.gusto.com/a-framework-to-help-product-managers-achieve-their-potential-2/">Gusto</a></li>
+<li><a href="https://medium.com/pminsider/product-manager-skills-by-seniority-level-a-deep-breakdown-cd0690f76d10">XO Group</a></li>
+<li><a href="https://about.gitlab.com/handbook/product/#product-management-career-development-framework">Gitlab</a></li>
+</ol>
+<p><strong><a href="https://twitter.com/archismandas">Archisman Das</a></strong>: There is a great write up by Sachin Rekhi on this. You can find it here - <a href="https://www.sachinrekhi.com/product-management-career-ladders-at-8-top-technology-firms">Product Management Career Ladders at 8 Top Technology Firms</a><strong>.</strong></p>
+<p>I also did this exercise for my time a while back and you can find it here. Although, I'm planning to revisit it again and looking forward to inputs on this thread.</p>
+<p><img alt="Image from SEO keywords, career ladders, backlog tools, copywriting, OnlyFans, AMA with" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/bf4fa8d3-fb2f-499e-a458-651f2d65b70e_1834x1156.png" /></p>
+<h3>3. Backlog tools</h3>
+<blockquote>
+<p><strong>Q: Who here has discovered a way of organizing their backlog that they’re pretty happy with? We're migrating ours to Asana, and starting fresh! Curious what kinds of mental models or frameworks folks here have found success with</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/kali-borkoski-998082171/">Kali Borkoski</a></strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: At a super high level, my backlog goals are:</p>
+<ol>
+<li>Development work only that is in a workable stage, i.e. can be picked up a ran with by a dev based on the information in the ticket</li>
+<li>If it’s dev work but <em>not</em> ready to be worked on, consider setting up an Icebox so your team can ignore it but you don’t lose it</li>
+<li>If it’s not dev work but an idea, feature request, etc. instead, it should live somewhere other than your backlog. Plus, schedule intentional time to groom your backlog.</li>
+</ol>
+<p>I used to try to do this as part of other ceremonies but it never really worked out. Now I have 30 minutes every 2 weeks where myself, my leads, and QA sort the backlog by last activity and work through closing, updating, etc. as many tickets as possible. It’s infrequent and short enough to not be painful but enough to slowly chip away at all the noise.</p>
+<p><strong><a href="https://www.linkedin.com/in/kali-borkoski-998082171/">Kali Borkoski</a></strong>: Thank you, @Wayne Vernon! What do you do with the tickets that fall in bucket #3?</p>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: I personally maintain my own list in a doc (Confluence for us) that I prioritize and add context to. There are definitely better ways to do this, e.g. most product management tools handle feature ideas and requests more natively. Really depends on your “customer” and how visible you need to make these things. For me, I’m not super worried about it so a doc works fine.</p>
+<p><strong><a href="https://www.linkedin.com/in/yairlivne/">Yair</a></strong>: At Quora we use Asana for tracking backlogs. Each team has its own backlog "project" where tasks are tracked. Teams usually have some cadence where the PMs/eng managers might go through the backlog tasks, reprioritize / potentially delete some / potentially just crank a few out. This is particularly useful ahead of weeks where we focus on product/tech debt and there's time to plow through a bunch of these.</p>
+<p><strong><a href="https://www.linkedin.com/in/kali-borkoski-998082171/">Kali Borkoski</a></strong>: @Yair, Thank you! What are the fields you've added to that Asana board? (Priority, effort, etc?)</p>
+<p><strong><a href="https://www.linkedin.com/in/yairlivne/">Yair</a></strong>: This was team-by-team, but I do think almost everyone has priorities, as well as topical tags.</p>
+<p><strong><a href="https://twitter.com/karrisaarinen">Karri Saarinen</a></strong>: We are makers of <a href="https://linear.app/">Linear</a>. Our framework is that you add all the new work to the backlog which means that’s only an idea but not committed work yet. Then you can have priorities or a few different categories like icebox, backlog, next that categorize generally how relevant this work is. Then for each cycle (sprint) we just select the work from the backlog to be worked on next.</p>
+<p>Overall we don’t worry or groom the backlog too much, we just add stuff and then in the cycle planning select what is relevant to work on next. So backlog is the dump of all the possible work we could do, and cycles define what we actually do. With that thinking you don’t need spent time organizing everything perfectly in the backlog, especially because most of it doesn’t ever get done.</p>
+<p>We also have a feature that autocloses issues after x months so the backlogs don’t get infinite. If an issue or bug doesn’t get done in 6mo, it likely never gets done and if it’s important, it will surface again.</p>
+<p><strong>Gaurav Chandrashekar</strong>: @Wayne, don't you have backlog grooming as part of the sprint ceremonies?</p>
+<p><strong><a href="https://twitter.com/wplusv">Wayne Vernon</a></strong>: @Gaurav, we follow a fairly casual implementation of agile at our org that is closer to Kanban than anything. Some like to have the “backlog groom” and pre-planning for the next sprint(s) be one and the same. Some alternate these week to week. I’ve personally had better luck setting aside completely separate time where we do nothing but try to revise/expand/close/prioritize old tickets in the backlog.TLDR: I’m not an agile expert or advocate. I generally take a high-context approach where I do what I feel will get the best results from the team and product I’m working with at the time. And I’m fortunate to work in an org that supports this approach.</p>
+<h3>4. Tools for scheduling user interviews</h3>
+<blockquote>
+<p><strong>Q: Who has a tool they like for scheduling/coordinating user interviews? We're looking at UserTesting but would love alternatives.</strong></p>
+<p><strong>– <a href="https://twitter.com/herzigma">Josh</a></strong></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/ttrauser">Manuel Bruschi</a></strong>: We use Calendly as a team with a round-robin assignment.</p>
+<p><strong>Tanmayi Sai</strong>: I use this <strong><a href="https://lookback.io/">Lookback</a></strong> after switching over from User Interviews. It's also good for unmoderated tests<strong>.</strong></p>
+<p><strong>Scott Stenback</strong>: Hi Josh - I know a founder who is building a new product around improving the scheduling experience. Let me know if you'd like a connection: <a href="https://www.buildbetter.app/">https://www.buildbetter.app/</a></p>
+<h3>5. Building an <strong>“idea-repository”</strong></h3>
+<blockquote>
+<p><strong>Q: Does anyone have a cool template for an “idea-repository”? I’m rotating to a new team and after talking with the UX teams I’ll be working with, they mentioned sometimes the ideas they propose in the projects get lost. I’m looking for some template or dynamic to tease this out. Something simple and clean that would allow everyone to express their view. I’m extremely interested in the ideas that come from UX teams.</strong></p>
+<p><strong>–</strong><a href="https://www.linkedin.com/in/frandangelo/">Franco</a></p>
+</blockquote>
+<p><strong><a href="https://twitter.com/herzigma">Josh</a></strong>: What tools do you use to capture ideas from other stakeholders, like user requests or executive requests? If you have a tool like that, then that's one good place.</p>
+<p>If your only tool (i.e., a tool that gets used and worked actively and on a daily basis) is your backlog tool (like Jira) then I'd schedule a couple of hours for brainstorming and prioritizing meeting. The diverge/converge framework from design sprints is pretty good for this. And then just prioritize their feedback for the backlog.</p>
+<p>Is this with the team you're rotating off or rotating on to? Either way might be nice to have the other PM (who you're replacing or who is replacing you) participate.</p>
+<p><strong>Sebastian Leon</strong>: Agreed with Josh, integrating idea-collection into an existing workflow is key!</p>
+<p>Ultimately, you need a list that anyone can add to, with 2 items per idea: 1) quick description, 2) link to doc with more context (optional). This can be done in Jira, Google Spreadsheets, Notion, etc. Anytime someone brings up an idea, ask them to add it to the list.</p>
+<p>For item 2), ask your team to fill out one of these templates (<a href="https://www.lennyrachitsky.com/p/my-favorite-templates-issue-37">link</a>). It’s actually pretty nice when backlog items are developed and matured over time, so that once it makes sense to prioritize it, a lot of the product thinking &amp; interesting decisions have already been done<strong>.</strong></p>
+<h1><strong>🤓 Top reads and listens</strong></h1>
+<h3>1. Improving your copywriting</h3>
+<p><strong><a href="http:/twitter.com/HenrM_Cruz">Henrique Cruz</a></strong>:</p>
+<ul>
+<li>Book: <a href="https://www.amazon.com/dp/B0090RVGW0/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">On Writing Well</a>, timeless advice about writing William Zinsser. <a href="https://www.betaglyph.com/on-writing-well/">Short review of the book</a>.</li>
+<li>Tips from Amazon:</li>
+</ul>
+<p><img alt="Image from SEO keywords, career ladders, backlog tools, copywriting, OnlyFans, AMA with" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ae068e3d-940f-4c37-8d4d-a32b2da86152_800x1034.jpeg" /></p>
+<p><strong><a href="https://www.linkedin.com/in/saushank/">Saushank</a></strong>: <a href="https://www.amazon.in/Nobody-Wants-Read-Your-Sh-ebook/dp/B01GZ1TJBI">Nobody wants to read your ebook</a>. Also, this course was quite good: <a href="https://www.skillshare.com/classes/Copywriting-For-Beginners-How-To-Write-Web-Copy-That-Sells-Without-Being-Cheesy/627184083?via=user-profile">Copywriting For Beginners: How To Write Web Copy That Sells Without Being Cheesy</a>.</p>
+<p><strong><a href="https://www.linkedin.com/in/benritchie1/">Ben Ritchie</a></strong>: It's not a book but two things that might help:</p>
+<ol>
+<li>First one is that the messaging is far more important than the exact wording so map out the benefits across multiple levels of abstraction and figure out the right level to speak to each audience with e.g.<br />
+   Analytics tool has better automation functionality -&gt; You can finish all of your reporting faster -&gt; You can spend more time on more strategic tasks.</li>
+<li>The second thing is this podcast episode which is really good at exploring the different ways to add emotional hooks to the same offer: <a href="https://www.digitalmarketer.com/podcast/perpetual-traffic/the-ad-grid/">Episode 33: The Ad Grid: How to Build Campaigns that Convert and Scale - DigitalMarketer</a></li>
+</ol>
+<h3>2. OnlyFans and the creator economy</h3>
+<p><strong><a href="https://twitter.com/jaymehoffman">Jayme</a></strong>: Awesome thread on OnlyFans and creator economy from @Peter Yang</p>
+<h3>3. Measuring SaaS Engagement</h3>
+<p><strong><a href="https://twitter.com/KJMagee">Joe Magee</a></strong>: Great piece for Saas founders out there on how to think about “engagement” in a bottoms-up GTM: <strong><a href="https://sacks.substack.com/p/measuring-saas-engagement">Measuring SaaS Engagement</a>.</strong></p>
+<h1><strong>🎤 AMA with</strong> Pete Kazanjy (about sales)</h1>
+<h3>1. <strong>Learning how to do sales</strong></h3>
+<blockquote>
+<p><strong>Q: Maybe not such a good question... Have you read Demand Side Sales? If so curious what you think. If not, it’s basically Jobs To Be Done product theory applied to sales. I’d like to understand how people (you) educate themselves around sales, because like product management, you can’t really “go to school for it”</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/david-m-krell-508a3331/">David Krell</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: I haven't read Demand Side sales, but sounds great! You're right that there isn't a "sales degree" per se, and that's in part what makes it challenging to learn later in your career, as most of the knowledge is learned via apprenticeship.</p>
+<p>I learned a lot via First Round's Network, which was an early peer education community, which inspired me to create Modern Sales (<a href="https://modernsaleshq.com/">https://modernsaleshq.com/</a>) which is the sales operations and leadership community my company, Atrium, runs. 20k people. But peer education is key.</p>
+<p>And then lastly ongoing learning of course is important. This is why I wrote Founding Sales - to reduce the learning curve: <a href="https://www.foundingsales.com/">https://www.foundingsales.com/</a>. Other great books are:</p>
+<ul>
+<li>Cracking the Sales Management Code</li>
+<li>The Transparency Sale</li>
+<li>The Challenger Sale</li>
+<li>To Sell Is Human</li>
+<li>Persuasion by Robert Cialdini</li>
+</ul>
+<h3>2. Managing lead flow</h3>
+<blockquote>
+<p><strong>Q: What systems \ process have you seen best for managing lead flow? Lot’s of clients signup, some should have sale engage. What is the best systems for pushing the right leads over to Sales?</strong></p>
+<p><strong>– <a href="https://twitter.com/meetalijavid">Ali Javid</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: Depends on the volume, but check out this chapter on "Inbound Marketing" from <strong><a href="https://www.foundingsales.com/6-inbound-marketing">Chapter 6 - Early Inbound Marketing: Inbound Lead Capture &amp; Response - Startup Inbound Basics — Founding Sales</a></strong></p>
+<p>The first step is to have a mechanism by which to capture signups and hand raising. Having a "Contact Sales" button on the home page, even if it's a bootie mailto: link is important, but the more sophisticated version is to have a lead form that flows into your CRM. For Self-Serve, we talked about this a LOT in the post I wrote for Lenny's newsletter, but getting signup data into a CRM in some capacity, usually via a syncing tool like Census (Segment =&gt; Redshift / Snowflake =&gt; Hubspot CRM / Salesforce etc.) is powerful. You want to get the leads into a place where a human can prioritize them/triage/act.</p>
+<h3>3. Sales as an introvert</h3>
+<blockquote>
+<p><strong>Q: I’ve always felt like folks who are good at sales are extroverted… do you know of more introverted people doing well in sales also? If so, what helps them succeed and there are any “classic introvert” traits that are actually an advantage?</strong></p>
+<p><strong>– <a href="https://www.linkedin.com/in/karaskrip/">Kara Skrip</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: Definitely. I talk about this some in this deck, starting at this slide:  <a href="https://docs.google.com/presentation/d/1pcSy-zV-776abGmZ8WJ7bGeXcHQAxscdypGdrUz28_c/edit#slide=id.g168e5f5d53_0_14">Founder Led Selling Maturity Stages - Founding Sales.</a> In short, yeah, you can see why someone who's extroverted would take more naturally to a task that requires to talk to lots of people they don't know.</p>
+<p>That said, the way I like to describe "modern salespeople" is as "consultants who happen to have a predisposition to one particular solution (theirs)".</p>
+<p>So analysis, writing, math, logic, argumentation, etc. all really becomes key there. And being good at those things is way more important than just being "fun." But getting good at / comfortable with selling behaviors does indeed require work, and you just build those muscles over time through lots of repetition.</p>
+<p>More here: <a href="https://www.foundingsales.com/1-mindset-changes">Chapter 1 - Mindset Changes: Startup Sales Mindset Changes — Founding Sales</a></p>
+<p><strong><a href="https://www.linkedin.com/in/karaskrip/">Kara Skrip</a></strong>: Yeah I can see the "doing your homework" or prep portion of the job being really good for introverts</p>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: "Doing your homework" (pre-call planning, proposal creation, etc.) is where a huge amount of the work is done.</p>
+<h3>4. Self-serve product experience</h3>
+<blockquote>
+<p><strong>Q: Hi Pete - in your post you talked about “is the product simple enough for self-serve?” - how do you differentiate between “not an easy product to use” versus a product that is just poorly designed? My gut is complexity of product does not necessarily = poor user experience. Can you talk a bit about this? Thank you in advance!</strong></p>
+<p><strong>– Anonymous</strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: This is really more of a product question, really, but I think that there's a linear relationship between the complexity of a problem being solved and the complexity of an associated solution. With great product and engineering effort you can of course abstract that away with elegance and simplicity, but the more complicated the problem, probably the more engineering and product effort to do so. So I think the point here is that you should be mindful of this, and be honest when looking at your activation metrics to see if you are indeed getting there with self-serve - and if not...maybe it needs more human earlier.</p>
+<h3>5. Frameworks for doing large enterprise sales</h3>
+<blockquote>
+<p><strong>Q: Hi Pete - are there any frameworks / processes that you recommend for doing large enterprise sales i.e. complex, lots of stakeholders, very intensive but large ACV? For example, does value based selling really work where you try and break down the solution into granular cost saving or revenue generating items to discuss with prospects.</strong></p>
+<p><strong>– <a href="https://twitter.com/nazking15">Nawaz Imam</a></strong></p>
+</blockquote>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: @Nawaz, are you talking about top-down enterprise selling?</p>
+<p><strong><a href="https://twitter.com/nazking15">Nawaz Imam</a></strong>: I'm guessing it could either be top down or bottom up depending on the type of organisation? Seems most likely to be top down though.</p>
+<p><strong><a href="https://www.linkedin.com/in/kazanjy/">Pete Kazanjy</a></strong>: For those larger orgs, being crisper about deal modeling, using a methodology like MEDDIC, for example, can be helpful: <a href="https://www.lucidchart.com/blog/close-more-deals-with-meddic-sales-process#:~:text=MEDDIC%20is%20an%20acronym%20that,customer%20into%20your%20sales%20funnel">Close more deals with the MEDDIC sales process</a>.</p>
+<p>That’s it for this week 👋</p>
+<p><em>If there’s anyone in your life who would benefit from this newsletter or community, consider giving them a​ ​g​i​f​t subscription</em>💞</p>
+<p>Sincerely,</p>
+<p>Kiyani and Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A guide to AI prototyping for product managers — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">A guide to AI prototyping for product managers</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">A guide to AI prototyping for product managers</div>
+    
+    <div class="article-meta">2025-01-07<span>·</span>4,449 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">工程</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>This post will transform how you build products, come up with new ideas, and operate as a PM.</p>
+<p>Whether you’re already deep into AI tools or just getting started, you’ll learn what tools you should be paying attention to, which tool to use when, and how to get unstuck when you run into an issue. You’ll find a collection of battle-tested prompts, real-world examples, and a step-by-step guide you can put into practice immediately. Imagine being able to turn Figma designs into a working app with a few clicks, or turn your PRD into a working prototype in minutes. This is all possible, and you’ll learn how.</p>
+<p><a href="https://www.linkedin.com/in/colinmatthews-pm/?originalSubdomain=ca">Colin Matthews</a> was a longtime PM and now teaches my favorite AI prototyping course: <a href="https://maven.com/tech-for-product/ai-prototyping-for-product-managers?promoCode=LENNYSLIST">AI Prototyping for Product Managers</a>. He also wrote my 9th most popular post of all time (<a href="https://www.lennysnewsletter.com/p/become-a-more-technical-product-manager">Become a more technical product manager</a>). I absolutely love how simply and clearly Colin is able to explain complex topics, and I personally learned <em>so much</em> from this post on AI prototyping. I’m confident you will too.</p>
+<p><em>If you’d like to learn more, <a href="https://maven.com/p/30546f/ai-prototyping-for-product-managers-in-2025">check out Colin’s free 30-minute lightning lesson</a>, where he shows you how to build a functional prototype in 10 minutes (including a few advanced techniques). And for much more, <a href="https://maven.com/tech-for-product/ai-prototyping-for-product-managers?promoCode=lennyslist">check out Colin’s top-rated four-week cohort-based course</a>, where you’ll master AI prototyping tools, learn to debug common issues, and build a fundamental understanding of how coding works. Use code “LENNYSLIST” to get $100 off.</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/5307ae42-888a-4ba5-8e9b-8cb6d3916c14_1456x1105.jpeg" /></p>
+<p>If you haven’t been paying close attention over the past six months, you may have missed the rise of tools like <a href="https://www.cursor.com/">Cursor</a>, <a href="https://replit.com/">Replit Agent</a>, <a href="https://v0.dev/">v0</a>, <a href="https://bolt.new/">Bolt</a>, and other new cutting-edge AI tools that allow you to build working apps in minutes. For example, it took me 10 minutes to build <a href="https://cfjzdhoyqmiljtvb3fnjprf0stjcd8tg.vercel.app/">this 2-D tank game</a> (with an AI opponent included), merely using this series of prompts:</p>
+<ul>
+<li><em>“Build a 2d tank game with an AI opponent.”</em></li>
+<li><em>“Add collision for the shot when it hits a tank.”</em></li>
+<li><em>“When health hits zero, play an animation and reset the game.”</em></li>
+<li><em>“Improve the acceleration for player movement.”</em></li>
+<li><em>“Make it so holding down the space bar has a timer to shoot a 2nd time.”</em></li>
+<li><em>“Add power ups to the map.”</em></li>
+</ul>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/f2bb8af7-b477-4009-a792-6f997633bb67_3220x1922.gif" /></p>
+<p>Pretty cool. But what’s cooler is that you can use these tools to build functional prototypes from a Figma design, convert a rough hand-drawn sketch to a working app, translate a PRD document into an interactive prototype, or even build a usable internal tool for your team, with no coding ability. In this post, I’ll cover the basics of AI prototyping, show how to get good results out of the most popular tools, and walk through an end-to-end example of building a prototype in less than 10 minutes.</p>
+<h2><strong>Choosing your tooling</strong></h2>
+<p>Current AI development tools come in three types:</p>
+<ol>
+<li><strong>Chatbots (e.g. <a href="https://claude.ai/">Claude</a>, <a href="https://chatgpt.com/">ChatGPT</a>):</strong> The AI tools you probably know, which can also write and explain basic code</li>
+<li><strong>Cloud development environments (e.g. <a href="https://replit.com/">Replit</a>, <a href="https://bolt.new/">Bolt</a>, <a href="https://v0.dev/">v0</a>, <a href="https://lovable.dev/">Lovable</a>):</strong> Full-stack platforms thatcan build and run your apps in the cloud</li>
+<li><strong>Local developer assistants (e.g. <a href="https://github.com/features/copilot">GitHub Copliot</a>, <a href="https://www.cursor.com/">Cursor</a>, <a href="https://codeium.com/windsurf">Windsurf</a>, <a href="https://zed.dev/ai">Zed</a>):</strong> Development environments (i.e. IDEs) that help you write code with the help of AI</li>
+</ol>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/263e0c31-8ed5-40d0-b3d3-2fff6ef4f129_2912x1858.jpeg" /></p>
+<p>Let’s review the most popular tools in each category to see what they can do and what we can build.</p>
+<h3>Chatbots (ChatGPT, Claude)</h3>
+<p><em><strong>Best for:</strong> Prototypes that are just one page and don’t have complex design requirements, like calculators, flip cards, or data visualizations</em></p>
+<p>Chatbots are capable of writing code in response to a question or prompt.</p>
+<p>A prompt like <strong><em>“Build me a calculator with React”</em></strong> results in the following:</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/06c9d7ea-1cb6-41dd-8c88-5f8d9ff2ae4e_1080x641.gif" /></p>
+<p>If you want to run this code, ChatGPT requires you to copy and paste the code into your IDE and run it on your own computer.</p>
+<p>Claude goes one step beyond ChatGPT’s abilities with their <a href="https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them">Artifact system</a>. Artifacts allow you to run the code within Claude’s interface and deploy to a shareable link. An unfortunate limitation is that you can’t make any direct edits to the code, so you’re entirely reliant on using prompts to make code changes.</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/71c5a618-e663-49d4-986e-0ea9c18620f8_1080x641.gif" /></p>
+<p>(<a href="https://www.perplexity.ai/">Perplexity</a> is another tool you’ve probably heard of, which feels similar to chatbots but is more focused on search and not as useful for creating apps. It can write basic code because it’s built on top of other AI models like ChatGPT and Claude, but I wouldn’t recommend it for this use case.)</p>
+<p>Remember that chatbots can write code for any part of our stack (client, server, database) but can’t host your code (deploy) for us. They also can’t create complex prototypes with multiple pages, and it’s difficult to change the code directly. As a result, these tools are best used for very simple one-time prototypes—which sometimes is enough to get the job done. Think of chatbots when you’re looking to create a very simple landing page, individual inputs like a date picker, or small apps like a to-do list.</p>
+<h3>Cloud development environments (Replit, Bolt, v0, Lovable)</h3>
+<p><em><strong>Best for:</strong> Prototypes with more than one feature, specific design requirements, or many pages</em></p>
+<p>Cloud development environments are one big step up from chatbots. These tools handle all the tasks required to turn your ideas into an actual working product. They can help you build end-to-end features, handle the backend infrastructure necessary to run your prototype, allow multi-file edits with agentic workflows, and take on more complex tasks across your codebase such as updating your database schema.</p>
+<p>One of the key differentiators among the various cloud development environments is hosting. As I explained in my <a href="https://www.lennysnewsletter.com/p/become-a-more-technical-product-manager">prior post</a> on becoming a more technical PM, every software product is built with three parts: a client, a server, and a database. The client is what the user interacts with (often written in JavaScript), the server processes requests from the client to retrieve data or integrate with other products (often written in Node.js, Python, or Java), and the database is your permanent storage of data. Making prototypes that have real features requires you to host both your client and server code, and may require a database to power the app.</p>
+<p>One of the most popular tools today, <a href="https://v0.dev/">v0</a>, is capable of writing and hosting both client and server code. By default it uses specific frameworks called <a href="https://nextjs.org">Next.js</a> and <a href="https://ui.shadcn.com/">Shadcn UI</a> to do so (both were created by <a href="https://vercel.com/">Vercel</a>, the same company that owns v0). v0 can deploy your code and run backend servers—plus, one of its strongest features is that it has great styling as a default. Here’s a basic CRM I built in v0 with the prompt “Build me a basic CRM.”</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/baa2653d-0687-4214-8a50-df1281081b31_3226x1938.png" /></p>
+<p><a href="https://bolt.new/">Bolt</a> is very similar to v0 in that it can also generate and deploy both client and server code. But a key difference is where the server runs. With v0, you deploy to real cloud hosting infrastructure, whereas Bolt runs the server code directly in the user’s browser. This means Bolt cannot natively support prototypes that need user identity like logins or accounts, multi-user interactions such as chat or collaborative workspaces, secure data operations like payment processing, or persistent data storage between sessions, because an isolated copy of the server is created on each user’s device. You can make up for this by integrating with external products like Supabase that offer servers and databases.</p>
+<p>Here’s a basic CRM I built with Bolt, using the prompt “Build me a basic CRM.”</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/fa08cc5e-283b-4da4-9d3a-441b93923b2b_3202x1938.png" /></p>
+<p>Another popular tool is <a href="https://replit.com">Replit</a>. Replit allows you to build full-stack applications, including a client, server, and database. It can build web apps using both JavaScript and Python frameworks and particularly excels at building internal admin tools (e.g. file conversion, job applicant tracking) and data-driven applications (e.g. image resizing, multi-page dashboards) with simple UIs.</p>
+<p>I use Replit whenever I need a fully functional back end or I want to use Python code. I’ve used it to build an MP4-to-GIF converter and a Substack image resizer—both tools I use weekly.</p>
+<p>Here’s a basic CRM I built with Replit, using the prompt “Build me a basic CRM.”</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/40190b06-861d-4a75-b2eb-44fe6ee9800b_3220x1950.png" /></p>
+<p>Finally, we have <a href="https://lovable.dev">Lovable</a>. It’s the newest of the bunch. Lovable is most similar to v0 and Bolt—it excels at generating websites, and uses JavaScript frameworks like React and Next.js. Its differentiation comes from its integrations with other popular tools. Lovable can connect to a GitHub repository, automatically add authentication and databases with Supabase, and help you connect to AI providers like Anthropic and OpenAI. All of these features make it one of the best AI coding tools for building products you actually want to use in production.</p>
+<p>One major drawback of Lovable is the lack of a code editor. To edit code, you have to ask the agent with prompting. This can make it difficult to debug issues directly in Lovable. I often find myself starting a new feature here but moving over to Cursor to resolve problems.</p>
+<p>Here’s a basic CRM I built with Lovable, using the prompt “Build me a basic CRM.”</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/5753e282-dacf-4349-9fd2-e6732810fe8f_3224x1938.png" /></p>
+<p>To recap:</p>
+<ul>
+<li>Choose v0 for beautiful designs by default</li>
+<li>Choose Bolt for quick prototypes with flexible designs</li>
+<li>Choose Replit for internal tools or products that store or transform data</li>
+<li>Choose Lovable for building production apps that benefit from integrations with your current tools</li>
+</ul>
+<p>Regardless of your choice, cloud development environments all support building more complex applications than chatbots, with the ability to deploy to the cloud and easily share updated iterations over time.</p>
+<h3>Local developer assistants (GitHub Copilot, Cursor, Windsurf, Zed)</h3>
+<p><em><strong>Best for:</strong> People who know how to code and are working on serious applications they want to ship to production</em></p>
+<p>The final type of AI development tool is local developer assistants. These products are targeted toward people who know how to write code. Tools like Cursor and GitHub Copilot can take prompts in a similar fashion to Claude but can then generate and apply changes within your own codebase and development environment (IDE). These tools do more than autocomplete—they can now write most of your code just using prompts.</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/eb9ff6f4-c9d2-4653-95c5-e63bd7e9e1f7_3246x2136.gif" /></p>
+<p>For example, I built this presentation app (with live Q&amp;A and polls!) in about 10 days using Lovable and Cursor. I started the app in Lovable to build basic features quickly, synced my code to GitHub to allow editing in other tools, and made final changes and fixed bugs with Cursor. This application uses authentication, databases, real-time updates, and more.</p>
+<p>Ten days may sound like a lot, but most of that time was spent resolving bugs and troubleshooting issues—something Cursor excels at compared with other tools, and something I get into a couple of sections down.</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/d66cb770-6f7d-4565-af71-02bd6d8da3f9_864x513.gif" /></p>
+<p>GitHub Copilot is more popular in enterprise environments, as it comes from a trusted vendor, Microsoft. It supports multi-file changes from prompts, code explanations, and more. I’ve found it works best when given very specific direction and does not perform as well as Cursor at more general instructions. For example, when I asked for a new feature without providing context, Copilot re-created components of my app that already existed, whereas Cursor modified my existing files directly.</p>
+<p>Two tools I haven’t spent as much time with but people are excited about are Windsurf and Zed. Windsurf is another IDE that can suggest multi-line changes to files and suggest commands such as moving files on your behalf. It excels at working on larger, more complex codebases. Zed is a highly performant editor built with a variety of productivity features such as prompt libraries, slash commands, and keyboard shortcuts for common actions like applying AI-generated code.</p>
+<h2><strong>Building your prototype</strong></h2>
+<p>Now that we’re familiar with the basic tools, let’s build some prototypes. The two most common prototyping use cases for product managers are:</p>
+<ol>
+<li>Converting an existing design to a functional prototype</li>
+<li>Building an idea into a prototype from scratch</li>
+</ol>
+<h3>Converting a design to a functional prototype</h3>
+<p>Let’s turn the following design for Airbnb’s home page into a working prototype. Say you want to use this prototype to explore a new feature, such as a price filter.</p>
+<p>Here’s our initial design:</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/cf29900c-a0a2-4474-8620-e5a50a11a530_3080x1424.png" /></p>
+<p>I chose Bolt for this task, as it’s better at building off a pre-existing design and we don’t need the backend database provided by Replit. Here’s a prompt I used (which you can copy and paste). Make sure to include a screenshot of the design!</p>
+<p><em>“Build a prototype to match this design. Match it exactly.”</em></p>
+<p>Here’s how this experience looks in Bolt:</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/000e35d0-08fd-471b-9f22-a12adae2b37f_1080x641.gif" /></p>
+<p>Next, we’ll add our new price filter feature. Notice in the prompt below how I describe every feature in detail. One pro tip with prompting these tools is to be hyperspecific when describing changes for your subsequent prompts, as it helps the AI pinpoint what should change.</p>
+<p><em>“Implement an inline price filter as a component of the search bar. It should appear next to ‘Add guests’ in its own section.</em></p>
+<p><em>Selecting the input should pop up a price filter with minimum and maximum values. The background of the pop-up should be white and should cover elements beneath it.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/6862d7f0-e5c6-4865-9716-69d171d5ceaa_3202x1920.gif" /></p>
+<p>This is a great starting point. Let’s extend this feature with a slider for the minimum price.</p>
+<p><em>“Can you add a price slider? It should have a blue line and a black node. Sliding the node should modify the minimum price.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/714f13e1-1534-4008-bf6f-1520264cdf4f_3218x1934.gif" /></p>
+<p>We now have a functional initial prototype of your product idea within 10 minutes! Without any coding skill. Incredible. We could even continue to improve this prototype filter (e.g. showing listings updated in real time as you adjust the price). Check out the prototype <a href="https://peaceful-shortbread-751d61.netlify.app/">here</a>.</p>
+<h3>Building a prototype from scratch</h3>
+<p>If you’re like me, your design skills are probably not good enough to create the initial design we used in the prior example. Luckily, you can build a prototype using existing patterns and components from free and publicly available design systems like <a href="https://tailwindcss.com/">Tailwind</a> or <a href="https://ui.shadcn.com/">Shadcn UI</a>.</p>
+<p>Let’s build a quick CRM with Bolt, then add a new feature to it. Let’s say we’re considering adding a feature that automates email outreach directly from our CRM and want to gather customer feedback about this feature before building it, by showing potential users a prototype of what it might look like.</p>
+<p>We can quickly put together a v1 with the following prompts:</p>
+<p><em>“Create a comprehensive customer relationship management (CRM) system.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/c04b9082-1628-49c1-8814-5270966c8554_3198x1842.png" /></p>
+<p>Again, let’s take a moment to pause here. We just created a working prototype of a CRM in less than five minutes—something that would have previously taken weeks of an engineer’s time. Unbelievable.</p>
+<p>Let’s keep going and see how we add a new feature.</p>
+<p><em>“Please implement a mock AI email writer. This should be accessible from the left nav.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/c61c29eb-4947-43af-a4c6-70497f745483_1080x641.gif" /></p>
+<p>Again, less than five minutes to be able to play with a new feature idea. Just think about how many ideas you can explore and how quickly you can bring them to market. AI prototyping tools have been available for less than six months and have already absolutely changed the speed at which teams can ship.</p>
+<p>Now we can take our prototype and get customers’ direct feedback without wasting time developing an initial version. This approach can speed up your discovery process by getting interactive examples in your customers’ hands as early as possible.</p>
+<p>Each AI tool will have very different outcomes based on their default settings and how specific you are. Here’s the exact same example with the same prompts using v0:</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/00ec3345-3c32-42dd-8891-d60a947973d0_2962x1626.png" /></p>
+<h3>Common use cases and prompt templates</h3>
+<p>Here are a few good templates you can use to get started with each of the tools I’ve highlighted:</p>
+<h4><strong>Task #1:</strong> Build a prototype from an existing Figma design</h4>
+<p><strong>Prompt:</strong></p>
+<p><code>Build a prototype to match this design. Match it exactly. Use Tailwindcss.</code></p>
+<p><code>Match styles, fonts, spacing, and colors.</code></p>
+<p><code>[Include a single screenshot from Figma]</code></p>
+<p><strong>Tool:</strong> Bolt</p>
+<p><strong>Example:</strong> <a href="https://spectacular-jelly-78231b.netlify.app/">Deployment manager</a></p>
+<h4><strong>Task #2:</strong> Build a prototype from scratch with good UI design defaults</h4>
+<p><strong>Prompt</strong></p>
+<p><code>Build a prototype for [x].</code></p>
+<p><code>This tool should:
+- [Behavior 1]</code></p>
+<p><code>- [Behavior 2]</code></p>
+<p><code>- [Behavior 3]</code></p>
+<p><code>Implement a simple initial iteration that meets these exact requirements.</code></p>
+<p><strong>Tool:</strong> v0</p>
+<p><strong>Example:</strong> <a href="https://v0.dev/chat/zMcDEi4HTuf?b=b_blmQipLxqTK">Sales calculator</a></p>
+<h4><strong>Task #3:</strong> Build a dashboard to visualize data</h4>
+<p><strong>Prompt:</strong></p>
+<p><code>Build a prototype for [x].</code></p>
+<p><code>Use Python and Streamlit.</code></p>
+<p><strong>Tool:</strong> Replit</p>
+<p><strong>Example:</strong> <a href="https://product-analytics-dashboard-colinmatthews2.replit.app/">Product analytics dashboard</a></p>
+<h4><strong>Task #4:</strong> Convert a hand-drawn mockup to a prototype</h4>
+<p><strong>Prompt:</strong></p>
+<p><code>Convert the hand-drawn sketch to a functional prototype. Focus on frontend functionality.</code></p>
+<p><code>Make it in the style of [product you like].</code></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/01579465-632f-4ffc-9656-25d4d2fd0a35_1600x1229.png" /></p>
+<p><strong>Tool:</strong> v0</p>
+<p><strong>Example:</strong> <a href="https://a4thjlf0qthccgos.vercel.app/">Netflix-inspired blog</a></p>
+<h4><strong>Task #5:</strong> Convert a PRD to prototype</h4>
+<p><strong>Prompt:</strong></p>
+<p>`Implement a prototype to match the features in this PRD. Follow the exact specifications in the document. Focus on front end functionality -- do not include a server or database. Use Tailwindcss</p>
+<p>[Copy/paste PRD. Include any relevant images]`</p>
+<p><strong>Tool:</strong> Bolt</p>
+<p><strong>Example:</strong> <a href="https://musical-pegasus-eb007e.netlify.app/">2-factor authentication UI</a></p>
+<h4><strong>Task #6:</strong> Build your personalized productivity tool</h4>
+<p><strong>Prompt:</strong></p>
+<p>`Build a tool that does [x].</p>
+<p>This tool should:<br />
+- [Behavior 1]`</p>
+<p><code>- [Behavior 2]</code></p>
+<p><code>- [Behavior 3]</code></p>
+<p><strong>Tool:</strong> Replit</p>
+<p><strong>Example:</strong> <a href="https://substack-image-resizer-colinmatthews2.replit.app/">Substack image resizer</a></p>
+<h2><strong>Solving prototyping problems—without knowing how to code</strong></h2>
+<p>Building your initial prototype is one thing. But one of the most common frustrations with AI prototyping is the errors the AI makes along the way toward a functional version. If you try to do anything even slightly complex, you’re likely to hit a wall. Knowing how to code becomes a superpower for debugging, but there are other approaches non-technical builders can use to still get great results.</p>
+<p>Let’s break down the four most effective ways to get to functional prototypes:</p>
+<ol>
+<li>Reflection</li>
+<li>Batching</li>
+<li>Be specific</li>
+<li>Lost context</li>
+</ol>
+<h3>Reflection</h3>
+<p>Reflection is the most important strategy for getting useful outputs from AI coding tools. These tools will respond to any question by writing code by default, which often means there’s no real plan. By forcing the AI to build a plan first vs. going straight to code, you’ll get much better results and have more visibility into what’s happening.</p>
+<p>Example:</p>
+<p><em>“Build me a calorie tracking app with only a front end. Start by detailing out the minimum requirements. Do not write any code.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/5c6d213c-43c8-42b3-9292-a8ffe447778b_1080x641.gif" /></p>
+<p>You can also use reflection to get out of a loop. Rather than asking the AI to fix your syntax errors, ask it to come up with a list of possible reasons an error exists. Be explicit about not wanting code, only an explanation of what’s happening.</p>
+<h3>Batching</h3>
+<p>Batching is a little unintuitive. Most people think that providing the most context up front will help the AI make the right decisions, but the opposite is true. You want to build the smallest iteration of something functional and then extend it. Try breaking down your prompts into smaller batches rather than asking for a complex prototype up front. I recommend starting with the data model first, as this is the backbone of how your prototype will store information.</p>
+<p>Example:</p>
+<p><em>“Implement only the client-side view for calorie tracking. Use a basic data model that tracks entries with a description and number of associated calories. Display a table of all current entries and the sum of total calories in the top right corner.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/5a687bf0-350c-47a6-8431-bb140450f7e4_3218x1910.gif" /></p>
+<h3>Be specific</h3>
+<p>The more specific you can be with AI, the more likely you are to get what you want. Just like if you were working with a junior engineer. Being specific comes in all forms—what technologies you’re using, what parts of the product should be built, and what files or even specific lines of code should change.</p>
+<p>Example:</p>
+<p><em>“Add the ability to track calories on each day.<br />
+- Extend the data model to include a date for the entry<br />
+- Display a date picker in the entry form, defaulted to today’s date<br />
+- Display today’s date inline with the total calorie amount<br />
+- Add a left and right navigation arrow inline with the calorie amount to switch days backward and forward<br />
+- The total calorie amount should show the sum of calories on the specified date.”</em></p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/89e8da38-877b-4808-9124-7528e659f871_3218x1910.gif" /></p>
+<h3>Lost context</h3>
+<p>One of the most frustrating experiences of using AI prototyping tools is when they rewrite entire sections of your prototype and you lose hours of work. This often happens when your instructions are not specific enough and the AI cannot figure out the correct changes to make, so it rewrites everything. Fortunately, most tools have built a checkpoint system, where you can easily roll back to a prior version.</p>
+<p><img alt="Image from A guide to AI prototyping for product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/c8855e71-6dc7-40f4-a77e-37ac3f9a2627_3218x1910.gif" /></p>
+<p>You can also avoid losing context by focusing the AI on specific parts of the product that need to change. This can be done using a combination of the above strategies:</p>
+<ol>
+<li>Reflection to determine what files need to change</li>
+<li>Batching to limit the changes in each iteration</li>
+<li>Being specific to minimize the chance of incorrect results</li>
+</ol>
+<h2><strong>Putting it all together</strong></h2>
+<p>AI prototyping is changing the way product teams work. Instead of spending weeks or months waiting for a feature to ship, you can build a prototype and get immediate feedback. Ship an internal tool in a day and see if it actually solves a problem. Sketch a mockup on a whiteboard and turn it into an app the same day.</p>
+<p>It sounds magical (and it definitely feels like magic), but there are limitations. Most product managers should use cloud development environments like:</p>
+<ul>
+<li>v0 for beautiful designs by default</li>
+<li>Bolt for quick prototypes with flexible designs</li>
+<li>Replit for internal or data-driven tools</li>
+<li>Lovable for building production apps and great integrations</li>
+</ul>
+<p>As you’re working on your prototype, you’re likely to run into issues. Be specific, reflect on the process, and try small incremental batches to get the best results.</p>
+<h3>📚 Further study</h3>
+<ol>
+<li><a href="https://vercel.com/blog/maximizing-outputs-with-v0-from-ui-generation-to-code-creation">Maximizing outputs with v0: From UI generation to code creation—Vercel</a></li>
+<li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">Prompt engineering overview—Anthropic</a></li>
+<li><a href="https://www.youtube.com/watch?v=cyFVtaLy-bA">Build a fullstack app in 7 minutes with v0 (Figma to code)</a></li>
+<li><a href="https://www.youtube.com/watch?v=1SfUMQ1yTY8&amp;t=1607s">Bolt tutorial for beginners with the Bolt CEO Eric Simons</a></li>
+<li><a href="https://www.builder.io/blog/windsurf-vs-cursor">Windsurf vs. Cursor: which is the better AI code editor?</a></li>
+</ol>
+<p><em>Thanks, Colin!</em></p>
+<p><em>If you’d like to learn more, Colin is teaching a free 30-minute lightning lesson on January 14th where he’ll show you how to build a functional prototype in 10 minutes (including a few advanced techniques). <a href="https://maven.com/p/30546f/ai-prototyping-for-product-managers-in-2025">Sign up here</a>. For much more hands-on learning, <a href="https://maven.com/tech-for-product/ai-prototyping-for-product-managers?promoCode=lennyslist">sign up for Colin’s live four-week cohort-based course on AI prototyping</a>, where you’ll master AI prototyping tools, debug common issues, and build a fundamental understanding of how coding works. Use code “LENNYSLIST” to get $100 off. Enrollment closes January 23rd.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>Hiring? 👀</h2>
+<p>I run a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), working with a few select companies to fill their open roles. If you’re hiring, apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

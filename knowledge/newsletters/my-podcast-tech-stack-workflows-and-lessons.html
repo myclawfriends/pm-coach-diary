@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My podcast tech stack, workflows, and lessons — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">My podcast tech stack, workflows, and lessons</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">My podcast tech stack, workflows, and lessons</div>
+    
+    <div class="article-meta">2024-03-12<span>·</span>4,679 words</div>
+    <div class="tags-row"><span class="mini-tag">職涯</span> <span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">Podcast</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">市場推廣</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome to this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career.</em></p>
+<p><em>P.S. Don’t miss </em><em><a href="https://www.lennybot.com/">Lennybot</a></em><em> (an AI chatbot trained on my newsletter posts, podcast interviews, and more), my </em><em><a href="https://www.lennysjobs.com/">PM recruiting service</a></em><em> (we help you hire Sr. PMs and VPs), and my </em><em><a href="https://lennyswag.com/">swag store</a></em>**<em>(great gifts for your favorite PM, or yourself!).</em></p>
+<blockquote>
+<h2>Q: What’s in your podcast stack?</h2>
+</blockquote>
+<p>I’m approaching two years of podcasting (and just crossed 10M downloads and 3M YouTube views!), so now feels like a good time to reflect on how I got here.</p>
+<p>I was incredibly hesitant to start a podcast. There are a trillion podcasts, they’re a lot of work, and it’s so dorky to tell people you have a podcast 🤦. But thanks to a nudge from <a href="https://twitter.com/HarryStebbings">Harry Stebbings</a>, and having a newsletter platform to help kickstart it, I took the leap. Two years in, I’ve learned a <em>ton</em>, and the podcast is consistently a <a href="https://chartable.com/charts/spotify/united-states-of-america-technology">top 10 technology podcast globally</a>, with a 5.0 average star rating across nearly 4,000 reviews. Even better, the messages I get daily from listeners melt my heart.</p>
+<p><img alt="Image from My podcast tech stack, workflows, and lessons" src="https://substack-post-media.s3.amazonaws.com/public/images/04ea17ca-4381-49eb-8942-591c7f1c6657_2819x1368.png" /></p>
+<p>In today’s post, I share my podcasting lessons (so far), along with my tech stack, workflows, things I wish I’d known when I started, and advice to anyone thinking about starting a podcast. My approach isn’t necessarily the best or smartest, but it’s what I do.</p>
+<p><em>A big thank-you to <a href="https://www.jordanbornstein.com/">Jordan Bornstein</a> and <a href="https://www.linkedin.com/in/kikigarthwaite/">Kiki Garthwaite</a> of <a href="https://penname.co/">Pen Name</a>, <a href="https://www.linkedin.com/in/zac-goodsir/">Zac Goodsir</a> and <a href="https://www.linkedin.com/in/xavier-e-15193a10b/">Xavier English</a> of <a href="https://supermix.io/">Supermix</a>, <a href="https://www.linkedin.com/in/jjbeshara">James Beshara</a>, <a href="https://twitter.com/HarryStebbings">Harry Stebbings</a>, <a href="https://www.armaziproductions.com/">Tommy Harron</a>, and <a href="https://www.linkedin.com/in/hanne-winarsky-2960921/">Hanne Winarsky</a> for helping me make this podcast what it is today.</em></p>
+<h2>My podcasting lessons so far</h2>
+<h3>1. <strong>Become</strong> 100 people’s favorite podcast</h3>
+<p>I forget who gave me this advice, but it was so important early on—and still is now: Instead of trying to make something a lot of people like, create something that 100 people <em>love</em>. It’s the same advice you hear when <a href="https://www.lennysnewsletter.com/p/consumer-business-super-specific-who">starting a company</a>.</p>
+<p>Why <em>100</em>? It may feel like 100 listeners is absurdly small, but most podcasts can’t even do that. And it turns out that when you focus on a small number of people, you can do a great job at giving them exactly what they want. Once you have that foothold, people who love your podcast tell their friends, better guests say yes, you get better at podcasting, and you grow from there.</p>
+<p>Why <em>love</em>? There are so many podcasts out there. If people don’t love your podcast, they’ll move on. You need to break into people’s podcast rotation, which often means bumping another podcast off their list. They’ll only do that if they love—and continue to love—your stuff.</p>
+<p>For my podcast, you might think: how many nerds would listen to a podcast about product management? But I knew there would be at least 100. So I focused on making it the best podcast out there on product management for those people. Then I began to expand into <a href="https://youtu.be/eMe_FWldQF0?si=xFEsWQbY5h1BnQvN">sales</a>, <a href="https://youtu.be/J4wguyJZI6A?si=V2nLu1KbrF72e90h">storytelling</a>, <a href="https://youtu.be/gfEEcssu304?si=8hT6BF7lCdo19Mei">design</a>, <a href="https://youtu.be/bCel0X2Ta7U?si=2cpWStvRgjGVOJCk">fear</a>, <a href="https://youtu.be/cuce7zvOFHY?si=Hf5AFYa87v_tqIJe">productivity</a>, and more. And the audience grew with me.</p>
+<h3>2. Your audio is your product—make it A+</h3>
+<p>If you boil podcasting down to its essence, your job is to create a great audio file. That’s basically it.</p>
+<p>What makes an A+ audio file? A+ content and A+ audio quality.</p>
+<p>I’ll share my lessons for creating great content and audio quality below, but first some advice: you don’t need to <em>start</em> at A+. What helped me get over the hump and finally give podcasting a shot was putting very little pressure on myself. I started with basic equipment, audio only (YouTube came later), and I set expectations with my early guests that it was an experiment—if the interview went great, amazing. If not, we’d scrap it.</p>
+<p>My advice is to aim for B+ to start, then work up from there.</p>
+<p><img alt="Image from My podcast tech stack, workflows, and lessons" src="https://substack-post-media.s3.amazonaws.com/public/images/71744b3c-2f81-4145-9f62-711a5f53bfc9_4596x1245.png" /></p>
+<p>To reinforce this lesson, here are the first episodes from some of your favorite tech podcasts. Clearly not A+ on day one.</p>
+<p><strong>Would you guess this person would later be interviewing Elon, Zuck, Altman, and Kanye and getting millions of downloads/views per episode?</strong></p>
+<p><a href="https://www.youtube.com/watch?v=Gi8LUnhP5yU">Watch on YouTube</a></p>
+<p><strong>Notice how sheepish Huberman looks early on (though he nailed that opening jingle):</strong></p>
+<p><a href="https://www.youtube.com/watch?v=H-XfCl-HpRM">Watch on YouTube</a></p>
+<p><strong>Notice the awkwardness:</strong></p>
+<p><strong>Notice the terrible audio quality:</strong></p>
+<blockquote>
+<p><strong>Pro tip:</strong> Pre-recording episodes is a good idea, but don’t pre-record too many—especially at first. I pre-recorded about 10 episodes before I launched the podcast, and that was a mistake. Once you launch, you learn what resonates, and notice issues with your audio/video or how you talk. By then it’s too late to improve that first batch. I’d recommend recording only three to five ahead of time, just so you aren’t immediately behind schedule.</p>
+</blockquote>
+<h3><strong>3. Become a good interviewer</strong></h3>
+<p>I do an interview-style podcast, so most of what I’ve learned about creating better content has come from improving my interviewing skills and booking great guests.</p>
+<p>But when it comes to interviewing, I’ve picked up a few tips (and have <em>so</em> much still to learn):</p>
+<ol>
+<li><strong>Be the listener’s home base.</strong> Make it easy for a listener to keep track of where you are in the conversation, mirror back what the guest is sharing, and ask questions the listener likely has in their head. When the conversation goes on a tangent, or gets complicated, reframe where you are and get back on track. Also, I try to be a calm and empathetic ear for the guest, and not interrupt them. Create space for guests to complete their thoughts, because some of the best stuff comes at the end.</li>
+<li><strong>Get to the gold quickly.</strong> Spend very little time on backgrounds, life stories, and introductions. Unless the guest is famous or wildly fascinating, no one cares much. Listeners care most about what you can teach them. Get to that part as soon as you can.</li>
+<li><strong>Look for “dropped facts.</strong>” I learned this trick from <a href="https://www.amazon.com/Stop-Asking-Questions-High-Impact-Entrepreneurs-ebook/dp/B09HRJ4SMX/ref=tmm_kin_swatch_0?qid=1667606471&amp;sr=1-3">a book on interviewing</a>. Guests sometimes mention something offhand that sounds interesting but then quickly move on for one reason or another (e.g. they don’t want to go off track, they don’t want to keep talking endlessly, they don’t want to sound egotistical). Come back to this “dropped fact” and see if there’s more <em>there</em> there. Often, the guest very much wants to talk about it.</li>
+<li>
+<p><strong>Prepare.</strong> Come into the conversation with a good sense of where the gold is going to be. I spend one to two hours preparing for each guest (more if they’re famous/fancy). I read all of their public posts and social media, listen to past interviews, and explore their LinkedIn. I also ask the guest a set of questions before the interview to help me uncover the juiciest bits to probe. Here are the questions I send every guest beforehand:</p>
+</li>
+<li>
+<p>Are there 2-3 topics you’d especially love to talk about?</p>
+</li>
+<li>Are there any frameworks, methods, or processes you’ve found to be especially useful in your work that others may find useful, too?</li>
+<li>Is there anything you have a contrarian opinion about that would be fun to share?</li>
+<li>Any super-fun, surprising, or wild stories from your career, or life?</li>
+<li>Anything you haven’t shared elsewhere that could be good to share, to make the conversation extra-special?</li>
+<li>If this were to be the one podcast episode you send everyone who wants to learn about how you think and operate, what would you want to include?</li>
+<li><strong>Just ask the next question.</strong> Though it may feel impolite, you don’t have to respond to each answer with “So interesting!” or “Thank you for sharing that” or “Amazing.” Instead, ask a great question, let the guest give a great answer, and then move on to the next question. Push yourself to not respond to every single answer unless you have something to add. Listen to <a href="https://conversationswithtyler.com/">Tyler Cowen</a>—maybe the best interviewer out there—to see how he does it.</li>
+<li><strong>Go off-script.</strong> Follow threads that are unexpected and interesting to you. Even if you’ve aligned on a set of questions ahead of time, stick with unexpected or intriguing lines of thought. Guests don’t mind, it often leads to the best stuff, and you can always cut that section in post-production if it doesn’t go anywhere.</li>
+<li><strong>Keep your ego in check.</strong> Don’t try to sound smart. Make your guests sound smart.</li>
+<li><strong>Be yourself.</strong> When I began podcasting, I tried imitating other podcast hosts I admired. Things got immediately better when I gave that up and let myself be myself.</li>
+</ol>
+<p>Disclaimer: If you have a different podcast format, these lessons may not apply.</p>
+<h3>4. Finding great guests</h3>
+<p>In addition to interviewing well, you need to get great guests to interview if you want to end up with great content. Some of my lessons so far:</p>
+<ol>
+<li><strong>Create a wishlist.</strong> You build the best products by working backward from the ideal experience (versus incrementally working forward). Likewise, with podcast guests, I work backward from a wishlist of dream guests, and slowly but surely find a connection to each of these people. I’ve made it through a ton of my original wishlist and now have folks like Satya Nadella, Tony Fadell, Jony Ive, Gwynne Shotwell, and Nikita Bier on there.</li>
+<li><strong>Mix fancy guests with under-the-radar amazing guests.</strong> People won’t listen if they don’t recognize your guests (sad, but true), but known people are already on many other podcasts. Creating a mix is a great strategy because it helps the world discover unknown-but-wisdom-rich people while still bringing listeners in with known names. Also, along these same lines, tech podcasts are infamous for having lots of white men, so if you make an effort to bring in a more diverse mix of guests, you’ll find tons of stellar people who may have gotten less exposure.</li>
+<li><strong>Most people say yes.</strong> It’s surprisingly easy to convince people to be a guest on a podcast. Obviously, you’re not going to get the most high-profile people on day one, but you’d also be surprised how many great people say yes with a simple cold DM or email.</li>
+<li><strong>Leverage your unfair advantage.</strong> I have access to ex-Airbnb people (I worked there for seven years), plus the folks I’ve collaborated with on the newsletter. You likely have some unfair advantage to get access to interesting people that other hosts don’t.</li>
+<li><strong>People will start to come to you. Say no to most of them.</strong> These days, I get one to three pings a day from people asking to come on the podcast, including from many comms/PR people. Some of these inbound requests have turned into great episodes, but I find this channel to be the least helpful for finding great guests. See point #1 above.</li>
+<li><strong>Keep trying.</strong> It took me a year to convince Brian Chesky to come on. Now that’s the most listened-to episode of the podcast. Currently, I’m focusing on Satya Nadella. 🤞</li>
+</ol>
+<p>To make this even more concrete, here’s how I got my top 12 most popular guests to come on the podcast:</p>
+<ol>
+<li><strong><a href="https://youtu.be/4ef0juAMqoE?si=znhSedt9l6Ns4zup">Brian Chesky</a>:</strong> I knew Brian from Airbnb, and we email occasionally. So I started floating the idea of coming on the podcast the next time they had a big launch. A year later, he agreed.</li>
+<li><strong><a href="https://youtu.be/YP_QghPLG-8?si=TxTDZqa5oJd_FjKm">Shreyas Doshi</a>:</strong> He was on my wishlist from day one. We collaborated on stuff in the past, so I reached out when I was scheming to start the podcast and pitched him on being my very first guest (alongside <a href="https://youtu.be/YLsxHa1dhSw?si=qVWpq4nixejFthJI">Julie Zhuo</a>).</li>
+<li><strong><a href="https://youtu.be/2XgU6T4DalY?si=yQivd5owEdMBgFKl">Elizabeth Stone</a>:</strong> Maybe the most random story of all. I was hanging out with an ex-Airbnb colleague (<a href="https://www.linkedin.com/in/ali-rauh/">Ali Rauh</a>), who suggested her friend Elizabeth for the podcast (before she was promoted to CTO of Netflix). This rarely ends up being a great channel for getting guests, but Elizabeth seemed incredible, so I asked for an introduction.</li>
+<li><strong><a href="https://youtu.be/ZoKLofsp8u0?si=Pgko8SP2KfYoalbr">Gustaf Alströmer</a>:</strong> We worked together at Airbnb before he became a YC Partner, so I emailed him.</li>
+<li><strong><a href="https://youtu.be/h-KVGHoQ_98?si=P9B5QLQc4B421Oiu">Marty Cagan</a>:</strong> Similar to Shreyas, he was on my wishlist from day one, so I cold-emailed him and he kindly agreed to come on a podcast that wasn’t even live yet.</li>
+<li><strong><a href="https://youtu.be/U_WQuUIYnJg?si=cBdfR9ybyHPRPEHn">Nikhyl Singhal</a>:</strong> A few of my past guests suggested Nikhyl for the podcast because he’s been really helpful in their careers. So I asked one of them for an introduction.</li>
+<li><strong><a href="https://youtu.be/bCel0X2Ta7U?si=CxwD9Y-WciPV8fnL">Matt Mochary</a>:</strong> He’d been on my wishlist, so I just cold DM’d him. And he agreed!</li>
+<li><strong><a href="https://youtu.be/mOY159TlYXM?si=-2lDVN66dSrD5Tih">Ethan Smith</a>:</strong> Several founders I work with mentioned they worked with Ethan on SEO and his work led to a massive impact, so I asked for an intro.</li>
+<li><strong><a href="https://youtu.be/GB0P0_nFPTA?si=2Hyf4so00aO0pR3r">Ethan Evans</a>:</strong> We collaborated on a popular newsletter post, so I asked him to come on the podcast. We originally met through his comments on my LinkedIn posts.</li>
+<li><strong><a href="https://youtu.be/qNPPoj1qUG0?si=pIcbg0flZQMlwQzH">Marily Nika</a>:</strong> Marily taught a popular course on <a href="https://maven.com/">Maven</a>, and the Maven team reached out to pitch Marily for the podcast. AI + product management? I couldn’t resist.</li>
+<li><strong><a href="https://youtu.be/aNJDZ_RzTVk?si=kj4Wi1StwtE6fjL-">Geoff Charles</a>:</strong> We collaborated on a popular newsletter post, so I asked him to come on the podcast. I’m pretty sure I originally cold DM’d Geoff about doing a newsletter post.</li>
+<li><strong><a href="https://youtu.be/Mv0o9o4MRh0?si=Vmb4EW8rN4p-iDyN">Claire Hughes Johnson</a>:</strong> She tweeted that she was coming out with a book, and I replied to the tweet with “Come on the podcast?” Her people followed up with me over DM and we made it happen. This method works really well.</li>
+</ol>
+<h3><strong>5. Evolve your podcast stack</strong></h3>
+<p>We’ve talked about how to create A+ content. Now let’s talk about how to create A+ audio quality. No matter how great your content, if the audio quality stinks, people will get annoyed and quickly bounce.</p>
+<p>Great audio quality comes from the right equipment, the right recording space, and editing.</p>
+<p>In terms of equipment, here’s my stack.</p>
+<h4>My software stack</h4>
+<p>The tools I use today to record, edit, host, and track the podcast:</p>
+<ol>
+<li><strong>Recording:</strong> <a href="https://riverside.fm/">Riverside</a>. This is what most podcasters use. I also occasionally use <a href="https://podcastle.ai/">Podcastle</a> as a backup, and <a href="https://www.descript.com/">Descript</a> to record solo portions (e.g. ads, guest introductions).</li>
+<li><strong>Editing:</strong> <a href="https://www.descript.com/">Descript</a>. I now have an editor who does this for me (more on this below), but they also use Descript.</li>
+<li><strong>Hosting:</strong> <a href="https://substack.com/podcasts">Substack</a>. This makes the most sense if you’re running a significant newsletter with Substack. Other platforms people like: <a href="https://podcasters.spotify.com/">Spotify for Podcasters</a> (free, but limited analytics), <a href="https://transistor.fm/">Transistor</a> (not free, but good data), <a href="https://www.simplecast.com/">Simplecast</a> (similar to Transistor).</li>
+<li><strong>Analytics:</strong> <a href="https://podstatus.com/">Podstatus</a> for charts, <a href="https://chartable.com/">Chartable</a> for general analytics, and your hosting provider will have most of your analytics baked in. The state of analytics in the podcasting space stinks.</li>
+<li><strong>Website:</strong> <a href="https://www.podpage.com/">Podpage</a>. It’s the service behind <a href="https://lennyspodcast.com/">LennysPodcast.com</a>.</li>
+</ol>
+<h4><strong>My hardware stack</strong></h4>
+<p>I started with simple hardware and then updated it once it felt like this podcast would last. My original kit was based on advice I got from a few podcasting friends, and it wasn’t very expensive.</p>
+<p>Here’s the equipment I started with, much of which I continue to use today:</p>
+<ol>
+<li><strong>Microphone:</strong> <a href="https://www.amazon.com/Shure-Microphone-Podcasting-Voice-Isolating-Technology/dp/B08G7RG9ML">Shure MV7 USB</a> [<em>still using this one</em>]<em>.</em> Most podcasters seem to use this mic. It sounds great, isn’t very expensive, and plugs in with USB.</li>
+<li><strong>Mic holders:</strong> I experimented with <a href="https://www.amazon.com/gp/product/B09737ZXMK">Elgato Wave Mic Arm</a> and <a href="https://www.amazon.com/Samson-MD5-Desktop-Microphone-Stand/dp/B000MYIIRG">Samson MD5 Desktop Microphone Stand</a> and ended up using the <a href="https://www.amazon.com/dp/B097BRGQPB">BILIONE Portable Foldable Tripod</a>. I suggest trying a few options to see what feels least awkward.</li>
+<li><strong>Headphones:</strong> <a href="https://www.amazon.com/gp/product/B000AJIF4E?th=1">Sony MDR7506</a> [<em>still using this one</em>]<em>.</em> You’ll notice many podcasters wearing these. They plug right into the mic.</li>
+<li><strong>Camera:</strong> <a href="https://opalcamera.com/">Opal</a>. I love this camera (disclaimer: I’m an investor) and it got me a long way, but eventually I upgraded (more below).</li>
+<li><strong>Light:</strong> <a href="https://www.amazon.com/Conferencing-lighting-Adjustable-Brightness-Temperature/dp/B09DKF5ST1/ref=sr_1_3?keywords=Lume+Cube&amp;qid=1667606634&amp;qu=eyJxc2MiOiI0LjMwIiwicXNhIjoiNC4xNSIsInFzcCI6IjMuODIifQ%3D%3D&amp;sr=8-3&amp;ufe=app_do%3Aamzn1.fos.fa474cd8-6dfc-4bad-a280-890f5a4e2f90">Lume Cube Edge</a>. I ended up sticking with this as part of my more sophisticated light setup.</li>
+</ol>
+<p>About six months into the podcast, it was going great, so I decided to invest my time and money into taking the production up a notch. I took <a href="https://dreamstudiocourse.com/?affcode=277113_nfnrwrb5">the Dream Studio course</a>, which I highly recommend (use code LENNY50 to get $50 off). My favorite lesson from the course was: the more work your studio seems like it took to make, the more professional it’ll look.</p>
+<p><img alt="Image from My podcast tech stack, workflows, and lessons" src="https://substack-post-media.s3.amazonaws.com/public/images/182afc58-4051-42ff-91ad-8d8916051e31_5712x4284.jpeg" /></p>
+<p>Everything below is advice from the course, though there are many variations and alternatives, depending on your budget and goals.</p>
+<ol>
+<li><strong>Microphone:</strong> <a href="https://www.amazon.com/Shure-Microphone-Podcasting-Voice-Isolating-Technology/dp/B08G7RG9ML">Shure MV7 USB</a> (same as I started with).</li>
+<li><strong>Headphones:</strong> <a href="https://www.amazon.com/gp/product/B000AJIF4E?th=1">Sony MDR7506</a> (same as I started with). Lots of people like the <a href="https://www.amazon.com/Audio-Technica-ATH-M30x-Professional-Monitor-Headphones/dp/B00HVLUQW8">Audio-Technica ATH-M30x</a> as an alternative.</li>
+<li><strong>Camera:</strong> <a href="https://www.amazon.com/dp/B08KSKCPNG">Canon EOS M50 Mark II</a> for the body, and a <a href="https://www.amazon.com/dp/B008NF8BRI">Canon EF-M 22mm f2</a> lens, with a <a href="https://www.amazon.com/dp/B0834NPHRY">tripod</a> to hold it all. Nothing too fancy. Reliable, affordable, and flexible.</li>
+<li><strong>Lights:</strong> Lights are shockingly essential for a great studio look. You’ll need three different lights: <a href="https://www.amazon.com/dp/B08RNW4L7G">Keylight</a> with <a href="https://www.amazon.com/dp/B09SCPWV19">soft box</a> and <a href="https://www.amazon.com/dp/B00UWDD0AW">stand</a>. <a href="https://www.amazon.com/dp/B08BLB2D8G">Hair light</a> with <a href="https://www.amazon.com/dp/B09PRB8X96">stand</a>. And <a href="https://www.amazon.com/Conferencing-lighting-Adjustable-Brightness-Temperature/dp/B09DKF5ST1/ref=sr_1_3?keywords=Lume+Cube&amp;qid=1667606634&amp;qu=eyJxc2MiOiI0LjMwIiwicXNhIjoiNC4xNSIsInFzcCI6IjMuODIifQ%3D%3D&amp;sr=8-3&amp;ufe=app_do%3Aamzn1.fos.fa474cd8-6dfc-4bad-a280-890f5a4e2f90">a side light</a>.</li>
+<li><strong>Teleprompter:</strong> This lets me look straight into the camera while talking. The rig is somewhat tricky to set up, but it’s easy to use once it’s up. <a href="https://www.amazon.com/dp/B01GOV3636">Here’s what holds the camera</a>, and <a href="https://www.amazon.com/dp/B07XCM26CP">here’s the screen it sits inside</a>. I’m looking into getting a larger teleprompter, so I’ll update this with the links if/when I do that.</li>
+<li><strong>Keyboard:</strong> <a href="https://www.amazon.com/gp/product/B0876MVKQC?th=1">Logitech K380 Multi-Device Bluetooth Keyboard</a>. You want this keyboard to be very quiet, so you can type during a recording.</li>
+<li><strong>Mouse:</strong> <a href="https://www.amazon.com/gp/product/B09KX66ZCD?th=1">Logitech Signature M650 Wireless Mouse</a>. Same advice as above.</li>
+<li><strong>Controls:</strong> This<a href="https://www.amazon.com/Elgato-Production-Controller-Streaming-Customizable/dp/B0BJL8SJ59?dib=eyJ2IjoiMSJ9.DnKGuy9SJK53bS0om0K6AIY-0UgtjJxKpnl-lo6S7s__HDfhK1DXSaW3RWpArD7xg3arb1hvEsfcp4cS3zevhvbRazgOxQeW83-bjhxA7sp-wmUcw0u19hHJk4qayQ6ehdf9oxm1IJO8qHUV5A_PLO2G6CHK63Se6i72fER4DhzSViSaoMePUV7P2njxdNU0OwIBnLUWyeK1YpYALj0Ebx5u2JvRO_3RYDKYyK3iR1A.MQJpkLWzwUy9h08RO6Y8DJ3618mUOW6KP6ifGg-t8M4&amp;dib_tag=se&amp;hydadcr=8348_13470685&amp;keywords=elgato+stream+deck+amazon&amp;qid=1709846688&amp;sr=8-2&amp;th=1">Elgato deck</a> is so handy (and fun) for quickly muting, toggling DND, and opening apps during your recordings.</li>
+<li><strong>Adapters and such:</strong> <a href="https://www.amazon.com/dp/B08FHY2XLR">Power your camera</a>, <a href="https://www.amazon.com/dp/B07K3FN5MR">connect your camera to your laptop</a>, <a href="https://www.amazon.com/dp/B087JMGSL2">USB hub</a>, <a href="https://www.amazon.com/dp/B089GM4JGK">HDMI cable</a>, <a href="https://www.amazon.com/dp/B01NASZ0UM">remote-controlled plugs</a>.</li>
+</ol>
+<p>In terms of room layout, <a href="https://www.descript.com/blog/article/how-to-set-up-the-ultimate-podcast-studio">some advice</a> from the fine folks at Descript:</p>
+<blockquote>
+<p><em>“Your recording space will have the biggest impact on your sound quality. Avoid large, empty spaces, which create echoes that will muddy your audio. Hard surfaces like mirrors, windows, and tile also bounce sound around. Instead, pick a smaller, secluded room with lots of soft surfaces, like carpeting, curtains, pillows, and upholstered furniture, which absorb sound and cut down on echo.”</em></p>
+</blockquote>
+<h3>6. Find help</h3>
+<p>The final piece of the puzzle for great audio is finding fantastic help—especially an experienced editor and/or producer. I work with <a href="https://penname.co/">Pen Name</a> on the core podcast production, with <a href="https://supermix.io/">Supermix</a> for IG/TikTok/Shorts clips and <a href="https://www.linkedin.com/posts/lennyrachitsky_elizabeth-stone-is-the-chief-technology-officer-activity-7166468408094416897-OGkJ/">podcast trailers</a>, an EA from <a href="https://withdouble.com/">Double</a> to coordinate guest schedules, and a (new) researcher to help me dig into guests.</p>
+<p>Initially, I only worked with an audio engineer (<a href="https://www.tommyharron.com/">Tommy Harron</a>), who made the audio sound great (that’s when I wasn’t doing video). I eventually brought on Pen Name and Supermix, who help me with so much:</p>
+<ol>
+<li><strong>Editing the audio and video:</strong> This used to take hours per episode, and now it takes just 10 to 30 minutes to review the producer’s work. They remove <em>um</em>s and <em>ah</em>s, point out boring parts we can cut, create smooth transitions, add music, insert ads and intros, and basically make the audio and video top-notch.</li>
+<li><strong>Writing titles/thumbnails/show notes:</strong> This used to take me one or two hours to write and iterate on, but now it takes 10 to 20 minutes to review and approve the producer’s work. On titles and thumbnails, we often go through many iterations until we land on one that feels right.</li>
+<li><strong>Creating clips:</strong> Check these out on <a href="https://www.instagram.com/lennyspodcast/">Instagram</a> and <a href="https://www.tiktok.com/@lennyrachitsky">TikTok</a>.</li>
+<li><strong>Creating episode trailers:</strong> Check these out on <a href="https://www.linkedin.com/posts/lennyrachitsky_elizabeth-stone-is-the-chief-technology-officer-activity-7166468408094416897-OGkJ/">LinkedIn</a> and <a href="https://x.com/lennysan/status/1766854960480989663?s=20">Twitter</a>.</li>
+<li><strong>Prepping guests:</strong> A week before we record, the guest gets a detailed set of instructions for joining the recording, what to expect during the recording, and advice for how to look and sound good during the recording (e.g. no AirPods, don’t sit in front of a bright window, turn on DND). We also offer to send the guest a great mic (for free, that they get to keep) and an option to schedule a call to help with audio/video setup.</li>
+<li><strong>Reviewing drafts:</strong> Before we publish, we give the guest a chance to review the final draft. We share the final audio and video, the title, description, show notes, thumbnail, and assets they can use if they’d like to share it once it’s live.</li>
+<li><strong>Guest research:</strong> I’ve started experimenting with having someone do the research on the more famous guests to save me time.</li>
+<li><strong>Staying organized:</strong> Production calendar in Notion, interview questions in Coda, Slack for communication, and Google Calendar for recordings.</li>
+</ol>
+<p>With this help, each episode takes me about 4 to 5 hours of total work. Here’s my workflow:</p>
+<ol>
+<li><strong>Select a guest:</strong> I’m always doing this in the background.</li>
+<li><strong>Coordinate recording schedule with guest:</strong> 30 minutes. EA sends the recording invite.</li>
+<li><strong>Prep questions:</strong> 1-2 hours. I send a draft of the agenda to the guest 3-7 days before we record, and I may iterate based on their feedback.</li>
+<li><strong>Prep the guest:</strong> See details above.</li>
+<li><strong>Record the interview:</strong> 1.5–2 hours. We do this in <a href="https://riverside.fm/">Riverside</a>. Once we finish recording, the producer exports it and whips it into ready-to-ship audio/video, which we then run by the guest before it goes live.</li>
+<li><strong>Record the guest introduction:</strong> 15 minutes.</li>
+<li><strong>Record ads:</strong> 15 minutes per ad.</li>
+<li><strong>Review draft:</strong> Guest reviews final draft (see above).</li>
+<li><strong>Ship and promote the episode:</strong> 10-30 minutes per episode. This includes writing a few X and LinkedIn posts.</li>
+</ol>
+<h3>7. Do YouTube!</h3>
+<p>Eventually, YouTube is a must. There’s no better way for new people to discover your podcast than through YouTube’s algorithms. Over half of my views are from YouTube sending new people my way. You won’t find a new-listener growth channel like this anywhere else.</p>
+<p><img alt="Image from My podcast tech stack, workflows, and lessons" src="https://substack-post-media.s3.amazonaws.com/public/images/af3712c4-b08b-43df-b032-78ac399a08c0_1016x864.png" /></p>
+<p>The sooner you get there, the better. I only started using YouTube (at the behest of my producer) about six months in, and I wish I’d started earlier. That being said, don’t let this keep you from just starting. You can always add video/YouTube later.</p>
+<p>As a bonus, once you record video, you can create TikTok/IG/Shorts clips (<a href="https://www.opus.pro/">here’s a cool tool that does this for you magically</a>), and then you can share clips on X/LinkedIn. Plus, having a following on multiple platforms (not just podcasting platforms) is good diversification.</p>
+<p>Video is definitely more work, especially the editing, but so it goes.</p>
+<p>—</p>
+<p>Podcasting has been an incredible experience for me. It’s pushed me out of my comfort zone, it’s taught me a ton about audio and video and editing, and it’s been the best excuse I can imagine for meeting interesting people. It’s a lot of work, yes, but the juice has been worth the squeeze. Who would have thought a niche podcast about product management would become a top global tech podcast?</p>
+<p>P.S. In a future post, I’ll cover advice for launching, growing, and monetizing the podcast, plus any new lessons I’ve learned since.</p>
+<p>P.P.S. If you got this far, I’d love your feedback! What’s one thing I can do to make the podcast more valuable for you? Please leave a comment 🙏 Also, if you have advice on better tools/hardware/workflows, please please please let me know.</p>
+<p><a href="https://www.lennysnewsletter.com/p/my-podcast-tech-stack-workflows-and/comments">Leave a comment</a></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2><strong>🔥 Featured open role: PM, Projects @ Notion</strong></h2>
+<p>We recently partnered with Notion to help them scale their PM team. <a href="https://boards.greenhouse.io/notion/jobs/5841932003">One role that’s particularly interesting to me</a> is an opportunity to own the end-to-end Project Management experience within Notion. If you’d like to get referred directly for this role, follow this button:</p>
+<p><a href="https://lennys-jobs.pallet.com/onboard/v3/0153c44c-b8c4-44b6-ba42-78fbcf220033/get-referred">Apply to Notion</a></p>
+<p><em>If you’re hiring and want to work with us, <a href="https://airtable.com/apprGaxWWPYU0068E/shr2WFo5UqJjA5dQ8">apply here</a>. Our team will reach out if we think it’s a good fit. Note, we primarily work with fast-growing U.S.-based startups.</em></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

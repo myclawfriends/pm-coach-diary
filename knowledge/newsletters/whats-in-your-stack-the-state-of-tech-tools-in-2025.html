@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What’s in your stack: The state of tech tools in 2025 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">What’s in your stack: The state of tech tools in 2…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">What’s in your stack: The state of tech tools in 2025</div>
+    
+    <div class="article-meta">2025-01-21<span>·</span>4,950 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">AI</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">策略</span> <span class="mini-tag">工程</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Welcome to this month’s ✨ </em><em>free edition</em><em> ✨ of Lenny’s Newsletter. Each week, I tackle reader questions about building product, driving growth, and accelerating your career. If you’re not a subscriber, here’s what you missed this month:</em></p>
+<ol>
+<li><em><a href="https://www.lennysnewsletter.com/p/a-guide-to-ai-prototyping-for-product">A guide to AI prototyping for product managers</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/introducing-core-4-the-best-way-to">Introducing Core 4: The best way to measure and improve your product velocity</a></em></li>
+<li><em><a href="https://www.lennysnewsletter.com/p/top-angel-investors-in-the-us">Top angel investors in the U.S.</a></em></li>
+</ol>
+<p><em>For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://lennyswag.com/">Swag</a> | <a href="https://www.lennysjobs.com/">Hire your next product leader</a></em><em> | </em><em><a href="https://maven.com/lenny">My favorite courses</a></em>**</p>
+<p>I’ve always been fascinated by what tools people choose to use in their work. What started as a casual survey of PMs on Twitter has grown into something much bigger. Today, with insights from over 6,500 of you (thank you! 🙏), I’m excited to share the results of my first-ever large-scale “What’s in your stack?” survey.</p>
+<p>The results are both surprising and telling. We’re seeing AI already transforming people’s jobs, watching the methodical disruption of incumbents by beautifully crafted alternatives, and witnessing a few seismic shifts in how teams collaborate.</p>
+<p>To help me design and run this survey, I pulled in my former colleague <a href="https://www.linkedin.com/in/noamsegal/">Noam Segal</a>, who’s been a UXR leader at Meta, X, Intercom, Airbnb, Wealthfront, Upwork, and, most recently, Zapier. I’m delighted to collaborate with him on this and, hopefully, many more surveys.</p>
+<p>Let’s get into it.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/331167af-934d-40f4-8f05-c7b4d408bad1_1456x1215.jpeg" /></p>
+<h2>The evolution of tech tools: A five-year journey</h2>
+<p>In 2020, Lenny conducted his <a href="https://www.lennysnewsletter.com/p/product-stacks">first (informal) survey</a> of technology tool preferences, gathering responses from hundreds of people on Twitter and LinkedIn. Surprises included Slack coming in first, Notion beating Google Docs, and Linear becoming a fast-growing up-and-comer.</p>
+<p>When Lenny <a href="https://x.com/lennysan/status/1507040234000760836">revisited the PM tool stack in 2022</a>, he noted the continuing dominance of tools like Slack and Notion and the rise of Figma, Zoom, and Loom, signaling a shift toward more collaborative and async workflows.</p>
+<p>Today, with Lenny’s Newsletter reaching nearly 1,000,000 subscribers, we present our most comprehensive analysis anywhere of the tools shaping modern tech workplaces.</p>
+<h2>What we asked and who responded</h2>
+<p>The survey covered 13 categories, from AI assistants to project management to CRM. Beyond just asking, “What do you use?” we asked people what tools they most love, what tools frustrate them, and what they’d change if they could.</p>
+<p>Of the respondents, 50% work in product, 11% are engineers, 10% are founders, and the rest work in other cross-functional roles, including marketing, design, and growth.</p>
+<p>Based on prior research, the breakdown of company size among Lenny’s community is as follows:</p>
+<ul>
+<li>~45% work in 1-to-100-employee companies</li>
+<li>~25% work in 101-to-1,000-employee companies</li>
+<li>~20% work in 1,001-to-5,000-employee companies</li>
+</ul>
+<p>If we define sub-1,000-employee companies as “not enterprise,” about 70% of Lenny’s community work in startups or midsize companies. You could say this is the early-adopter crowd.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/16475c40-1929-4cd2-9871-315ece0b7c8c_1588x1450.jpeg" /></p>
+<h2>The big 10 headlines 🗞️</h2>
+<p>Before we get into the details, here are 10 key themes that emerged:</p>
+<ol>
+<li><strong>ChatGPT has a commanding lead.</strong> 90% of respondents use ChatGPT regularly. Only 35% use Claude, and 24% use Gemini.</li>
+<li><strong>Cursor and other AI-native integrated development environment (IDE) tools are rapidly emerging.</strong> 17% of respondents already use Cursor regularly (launched just two years ago!). 10% of all participants use v0 and Replit. 5% use Bolt.</li>
+<li><strong>As the third-most-used tool overall, Slack continues to crush it.</strong> 72% of participants use Slack regularly. It’s only behind ChatGTP and Gmail 🤯</li>
+<li><strong>The Jira paradox and Linear’s insurgency.</strong> 68% of participants use Jira, <em>but</em> it also tops the “we wish we could use a different tool” list. Enter Linear: the fastest-growing alternative to Jira, and already used by over 10% of participants.</li>
+<li><strong>Figma Slides and Canva have become big players in presentations.</strong> They’re already far ahead of Apple Keynote and closing in on PowerPoint. We’re also seeing new AI-native entrants in this space.</li>
+<li><strong>Google Docs remains a go-to for collaboration, but Notion is gaining steam.</strong> Notion is seen as “good for everything,” and it’s catching up to the big players, with 37% of respondents preferring it. Notion also came in second place for project management after Jira and fourth place for CRM.</li>
+<li><strong>Figma continues to be the ubiquitous tool for design.</strong> 97% of designers report using it as their primary design tool. Canva is still well behind but catching up, thanks to massive popularity with marketers and founders for general design needs.</li>
+<li><strong>Miro continues to stay ahead of FigJam for virtual whiteboarding, just barely.</strong> But FigJam is gaining ground (because everyone’s using Figma…).</li>
+<li><strong>Notion and Slack are the CRM and customer support surprises.</strong> Turns out that even with powerful incumbents, tool flexibility counts for a lot.</li>
+<li><strong>Three meta-takeaways:</strong> bundling, craft, and mix-and-match. More on this below.</li>
+</ol>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/633ec6d6-395f-4261-8d62-53183f1350a5_1457x1516.jpeg" /></p>
+<p>Now, let’s break down what’s happening in each space.</p>
+<h2>ChatGPT has a commanding lead</h2>
+<p>The most striking shift <a href="https://x.com/lennysan/status/1507040234000760836">since 2022</a>? AI tools have become as essential as having a laptop. A whopping 90% of respondents use ChatGPT regularly. This is the most significant shift in the product team tool stack in recent memory. More participants use ChatGPT than Gmail (76%) or Slack (71%) 🤯</p>
+<p>Interestingly, over 50% of participants combine AI assistants for specific use cases:</p>
+<ul>
+<li>ChatGPT + Claude as a thought partner</li>
+<li>ChatGPT + Perplexity for deep research</li>
+<li>ChatGPT + Gemini for Google Workspace integration</li>
+</ul>
+<p>Role-specific AI tools are also gaining serious traction:</p>
+<ul>
+<li>40% of engineers use GitHub Copilot regularly</li>
+<li>21% of engineers have adopted Cursor</li>
+<li>Though they weren’t included in the response options, tools like ChatPRD and Grammarly are becoming popular and were mentioned by 5% to 10% of people who chose to add their AI assistant tools under “other”</li>
+</ul>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/abf52b0d-cd64-4190-92ae-4cc27720eca1_1588x820.jpeg" /></p>
+<h2>Cursor and other AI-native IDEs are rapidly emerging</h2>
+<p>The second most significant shift in the tool stack is the emergence of AI-native development environments, with tools like Cursor already being used by 17% of overall participants (and 21% of engineers in our sample), despite just being launched in 2023. Nearly 10% of respondents are already using tools like v0 and Replit, and 5% are using Bolt. Who’s using them? It’s a mix of ~60% product and ~40% other roles, including engineers, founders, consultants, marketers, designers, and UX researchers. Most of these tools were launched just over a year ago.</p>
+<p>This rapid adoption suggests developers are hungry for tools that make coding easier and that integrate into their coding workflow. It’ll be interesting to see how these AI-native coding tools fare in the next round of this survey.</p>
+<p>Almost two-thirds of participants use GitHub; however, the most popular “other” response was GitLab, GitHub’s primary competitor. Whoops. We’ll include GitLab next time to get a better sense of its use too.</p>
+<p>VS Code has established a strong position among engineers, with a 48% adoption rate. Its success reflects its technical capabilities and Microsoft’s successful platform evolution into a highly extensible, community-driven tool.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/bc53a82c-08e3-45cb-92f6-ef77f0e61f23_1588x1450.jpeg" /></p>
+<h2>As the third-most-used tool overall, Slack continues to crush it</h2>
+<p>The numbers tell the story:</p>
+<ul>
+<li>In Lenny’s <a href="https://x.com/lennysan/status/1507040234000760836">previous survey</a>, Slack emerged as #1 overall. This trend continued here, with an enormous 72% of respondents using Slack as their primary communication hub (just behind Gmail).</li>
+<li>Microsoft Teams technically holds about 33% market share (according to <a href="https://www.notta.ai/en/blog/microsoft-teams-statistics">financial statements</a>), but I believe this is due to their enterprise bundling strategy and their actual usage isn’t what people think. And as you’ll see below in the section on switching tools, users aren’t happy about using Teams. Also 👇🏻</li>
+</ul>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/caea52eb-a05b-49e8-beba-8d0c5f82f32a_1320x534.jpeg" /></p>
+<p>🤿 Deeper dive: Why is Slack winning? Two hypotheses:</p>
+<ol>
+<li>People do not think highly of the Teams user experience. We heard it’s cumbersome, slow, and even “impossible to use.” Slack is winning when it comes to user experience.</li>
+<li>According to publicly available data, Microsoft Teams is mostly used by non-tech companies and has been adopted by most large U.S.-based enterprise companies. Conversely, Slack is predominantly used by startups up to midsize companies. Most respondents to this survey work in companies where Slack dominates.</li>
+</ol>
+<p>🔍 Another interesting finding: WhatsApp is used by a whopping 20% of respondents in their work, and Telegram is making inroads in work communication, with 15% of respondents who chose “other” using it daily. WhatsApp and Telegram were never designed to be work communication tools, and yet a non-trivial number of people are using them as such 🤷‍♂️.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/2e9c170b-7e80-4231-a971-e584a344c4cd_1588x960.jpeg" /></p>
+<h2>The Jira paradox and Linear’s insurgency</h2>
+<p>Here’s an intriguing contradiction: Jira dominates the project management market (53% of technical teams use it, biggest share by far) but simultaneously tops the “please let us switch” list. Its deep integration with development workflows, bundling with other products, and enterprise-first feature set keep teams locked in.</p>
+<p>Respondents’ feedback shows that Jira is overly complex, making it hard to learn and use. One participant said, “Jira is a mess, bad performance, and hard to maintain. It’s convoluted, full of feature creep and bad UX decisions.” Another said, “Jira is just too complicated/bloated for our needs. I find it cumbersome and could be much more simplified for what it does.”</p>
+<p>Enter Linear: the fastest-growing alternative to Jira, founded in 2019 and already used by over 10% of participants (vs. receiving only 10 mentions <a href="https://x.com/lennysan/status/1507040234000760836">in the last survey</a>). Respondents praised its modern, intuitive interface and streamlined workflow management. One engineering manager said, “Just moved off the Atlassian suite to Linear, and we <em>love</em> it. <em>Much</em> more useful in terms of milestones and flexibility. Easier to filter views and build a personal workspace setup.” Linear’s popularity is on par with that of Asana, a company founded in 2008.</p>
+<p>Meanwhile, Notion is playing a clever game. It’s become the second-most-popular project management tool and the fourth-most-popular docs, and it’s gaining traction as a CRM tool. Participants consistently praised its flexibility (“It’s my go-to for … anything”) and how it enables teams to build a shared understanding.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/2220b1f6-dd5f-4438-b78f-51674b419de8_1588x1380.jpeg" /></p>
+<h2>Figma Slides and Canva have become big players in presentations</h2>
+<p>The way people craft presentations is evolving in fascinating ways. Three distinct approaches have emerged, each telling a different story about how we communicate visually in 2025.</p>
+<p>First, there’s the old guard. Google Slides (#1) and PowerPoint (#2) continue to dominate traditional presentation creation, doing what they’ve always done well.</p>
+<p>However, design tools are staging a quiet revolution in the presentation space. Figma and Canva have become serious contenders, running neck-and-neck in adoption rates. This might surprise folks who know these platforms primarily as design tools. But the numbers don’t lie. What’s driving this shift? Participants consistently report that these tools offer something traditional presentation software can’t: creative freedom without complexity.</p>
+<p>AI is also entering the presentation game. Newcomers like Pitch, Gamma, and Beautiful.ai are fundamentally rethinking how presentations come together. Instead of starting with blank slides, these tools use AI to shape your content into polished presentations. While they’re still finding their footing, early adoption signals hint at a major shift in how we’ll build decks in the future.</p>
+<p>Another trend emerged from the data: Miro kept showing up in our “other” category, suggesting people aren’t just switching presentation tools—they’re questioning whether they need traditional slides at all. The line between presentations, whiteboards, and collaborative spaces is blurring, and this might be just the beginning.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/c2a305ed-f562-4bf5-81d1-9a0ff812e3d2_1588x1100.jpeg" /></p>
+<h2>Google Docs remains a go-to for collaboration, but Notion is gaining steam</h2>
+<p>The docs space has consolidated around three platforms, each serving distinct needs:</p>
+<ol>
+<li>Google Docs remains the go-to for real-time collaboration.</li>
+<li>But Notion is an up-and-comer, capturing strongholds in team wikis, project management, and documentation. The most common sentiment about it is “It’s good for <em>everything</em>!”</li>
+<li>Confluence ... well, it’s hanging on in enterprise teams (though not for lack of complaints).</li>
+</ol>
+<p>Google Sheets keeps gaining ground in the spreadsheet landscape, but Excel shows surprising resilience. Meanwhile, tools like Evernote, Quip, Coda, and Dropbox Paper are fading into the background as companies seek to consolidate their tool stack.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/efbecb0b-e6a9-4dd0-b4ee-a7fbb100f687_1588x1240.jpeg" /></p>
+<h2>Figma continues to be the ubiquitous tool for design and UX</h2>
+<p>If you’re in design, you’re almost certainly using Figma. It’s that simple—90% of overall participants and 97%(!) of designers report using it as their primary tool.</p>
+<p>The surprise player is Canva. While it’s not competing directly with Figma for professional UX work, it’s democratizing design for everyone else. Product managers, marketers, and engineers are using it to create quick visuals without bothering their design teams.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/5f80f65a-66fd-449e-8bb4-93ae2ea6c628_1588x820.jpeg" /></p>
+<h2>Miro continues to stay ahead of FigJam in the virtual whiteboarding space, just barely</h2>
+<p>In the battle to be the place where tech professionals think together, Miro remains the leader, but barely. As you just read, Figma is where design work happens, so FigJam has an advantage that could force Miro out of its leadership spot in future years.</p>
+<p>Perhaps having observed Figma’s approach, Atlassian and Microsoft developed virtual whiteboard products, which, funny enough, are both called “Whiteboard.” About 5% of the responses mentioned these products.</p>
+<p>Conversely, Mural and Whimsical don't seem to be growing.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/4726c5e5-ea40-43a3-96cf-a5a6d21e51b6_1588x820.jpeg" /></p>
+<h2>Notion and Slack are the CRM and customer support surprises</h2>
+<p>Two companies dominate the CRM landscape, but there’s a surprise entrant to this market.</p>
+<p>Salesforce’s comprehensive enterprise features make it the default choice for large organizations, but smaller companies increasingly express frustration with its complexity and cost structure. This has created opportunities for alternatives that emphasize simplicity and specific use cases.</p>
+<p>HubSpot has stepped into this gap, particularly among small-to-midsize businesses. Participants said it’s more intuitive and streamlined than Salesforce, and accessible to teams without dedicated CRM specialists.</p>
+<p>But then comes a surprise. Coming in third, 11% of our participants selected Notion as their CRM of choice. According to the results, <em>flexibility</em> is the key to its success: “Notion offers a ton of flexibility that our team got, and perhaps would be the most difficult to replace.”</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/7448db9a-3201-4501-a6c5-7184a1771f4f_1588x1240.jpeg" /></p>
+<p>The customer support tool landscape shows similar patterns of established leaders, as Zendesk maintains its position as the primary support platform, with 29%.</p>
+<p>But what’s fascinating is that Slack is also at 29%. Why?</p>
+<p>We hypothesize that participants in this survey skew toward earlier-stage companies. Slack is a must, and Zendesk or Intercom are expensive and complicated, especially if you don’t have a customer support (or success) team.</p>
+<p>Slack lets you create an external shared channel for each customer or design partner, where co-founders or early employees can engage with their customers directly. This insight reveals another variable behind Salesforce’s decision to acquire Slack for nearly $30 billion several years ago.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/b445cf0c-4ee0-4dac-ab77-6887a097d517_1588x1100.jpeg" /></p>
+<h2>Three meta takeaways: bundling, craft, and mix-and-match</h2>
+<h3>1. Bundling is powerful, but it can get you only so far.</h3>
+<p>Some of the most-used tools, like Jira, Microsoft Teams, and Google Slides, are all bundled within their respective corporate stacks, which locks people in for the long term and creates a massive switching cost. Thanks to the bundle, they end up “winning,” but we’re seeing some of these products top the “least valued” and “most interested in switching from” lists, so it may be only a matter of time until a better-crafted and well-executing startup (e.g. Linear, Figma Slides) <a href="https://www.lennysnewsletter.com/p/wedge">finds a wedge in</a> and eats their lunch.</p>
+<h3>2. Well-crafted products are disrupting incumbents.</h3>
+<p>Linear, Notion, Figma Slides, and Slack are all praised for their user experience, fit to people’s workflows, and focus on the perfect set of features. They’re rising fast (or already winning) and topping respondents’ wish lists to switch to them.</p>
+<h3>3. People are mixing and matching different tools in the same space.</h3>
+<p>When we looked at the tool stack landscape more holistically, we saw that for core jobs, people use several (competing) tools within the same category, depending on their needs. For example, most respondents use more than one AI assistant, based on each assistant’s strengths.</p>
+<h2>The tools people value most, and the ones they’d ditch if they could</h2>
+<p>We asked participants to choose up to three tools they value most and least, expecting little overlap between the two lists. <strong>We were wrong.</strong> Tools like Slack, Jira, and even ChatGPT were mentioned often in both lists. We realized there was a need for a better metric to capture tool value while accounting for two critical things:</p>
+<ol>
+<li>How often tools were selected <em>in general</em>. For example, Slack topped the original “most valued” list, but it’s also used by a significantly higher number of people than Linear.</li>
+<li>How often tools made the <em>least</em> valued list in addition to the most valued one.</li>
+</ol>
+<p>Therefore, we adjusted the ranking based on the ratio of general popularity to most valued <em>and</em> the ratio of most valued to least valued, penalizing tools ranked highly on both lists.</p>
+<p>We ended up with the “adjusted most valued” (AMV) metric, and the top 5 tools tell a compelling story.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/41f1a808-8587-4451-a20e-f7757554647b_1457x1397.jpeg" /></p>
+<h4>Linear: Craft is winning</h4>
+<p>Participants love Linear’s user experience, its match to their workflows, and its relative simplicity and focus compared with Jira.</p>
+<h4>Cursor: The future of software development is AI-native</h4>
+<p>Cursor is rising at an astonishing pace, and there are at least five other AI-native coding platforms in the mix. Over 20% of engineers are already relying on Cursor, and it was chosen above most other legacy coding tools like JetBrains, IntelliJ, and even Xcode.</p>
+<h4>Slack: Where work happens</h4>
+<p>Look, it ain’t all love when it comes to Slack. Slack topped our “most valued” list, but it also topped our “<em>least</em> valued” list. People heavily rely on it for communication, but some also see it as a productivity killer. Some respondents described it as a “detriment to focus,” “adding tons of cognitive load,” and “a noise generator.” Still, at a time when people are telling us that communication is becoming increasingly speedy, Slack is where work happens.</p>
+<h4>Notion: Good enough at everything</h4>
+<p>There’s a new guard of modern tools.Notion stands out as representing a new breed of tools prioritizing collaboration, intuitive design, and the flexibility to accomplish a range of jobs, from docs to project management to collaboration.</p>
+<h4>Perplexity: Answers instead of links</h4>
+<p>Perplexity making the top 5, in addition to ChatGPT’s and Claude’s popularity, tells us something important: AI tools aren’t just shiny toys anymore—they're transforming people’s workflows, replacing well-established tools (e.g. Google), and becoming essential to the workday.</p>
+<h2><strong>The “please let us switch” list 😤</strong></h2>
+<p>We also asked participants what tools they’d ideally love to switch out, and which tools they’d love to get their hands on instead.</p>
+<p>The biggest winners here? Linear, Slack, and Notion, a lineup people seem to consider the modern stack for project management, communication, and collaboration. Atlassian’s Jira and Confluence did not fare well, nor did Microsoft Teams.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/a9cee6fd-e377-44e6-b3b0-e165fe8689e1_1456x2021.jpeg" /></p>
+<h2>Other significant insights: user research, analytics, email</h2>
+<h3>1. User research: glow-ups, who you research matters, and the rise of specialist tools</h3>
+<h4>Survey tools get a glow-up</h4>
+<p>Google Forms dominates the landscape, especially among PMs, potentially because it’s simple, has sufficient functionality, and is bundled with Google Workspace.</p>
+<p>However, Typeform is the perfect example of what happens when someone reimagines a tired format. With a richer feature set, a less traditional approach, and a better-crafted design, it reached third place in user research tools.</p>
+<h4>User Interviews is a recruitment game changer</h4>
+<p>User Interviews has climbed to the #2 spot by solving one of the biggest headaches in research: finding the right people to talk to. Think about it—what good is the perfect research plan if you can’t get the right participants? Respondents love it because it turns the messy process of finding, scheduling, and paying participants into something manageable.</p>
+<h4>The specialist squad</h4>
+<p>But here’s where the landscape gets really interesting. A whole crew of specialized tools is changing how teams understand their users:</p>
+<ul>
+<li>UserTesting still owns the usability space</li>
+<li>Qualtrics handles enterprise-grade customer experience research</li>
+<li>Dovetail has a stronghold on insight management</li>
+<li>Maze makes research easy and speedy</li>
+<li>Sprig is an always-on product experience platform</li>
+<li>Optimal Workshop tackles information architecture</li>
+<li>Dscout owns diary and longitudinal research</li>
+</ul>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/295ccc7a-3e78-463d-bc7e-9fa505c36163_1588x1520.jpeg" /></p>
+<h3>2. Analytics: power players vs. specialists</h3>
+<p>The data analytics landscape in 2025 tells a story of David vs. Goliath—or, more accurately, a few Goliaths vs. an army of Davids.</p>
+<p>Google Analytics remains the undisputed heavyweight champion, dominating general analytics usage. But here’s where it gets interesting: dig a little deeper, and you’ll find a thriving ecosystem of specialized tools carving out their territories.</p>
+<h4>The power players</h4>
+<p>When teams need to level up their business intelligence game, they’re increasingly turning to two leading players:</p>
+<ol>
+<li><strong>Tableau:</strong> The storyteller’s choice, a platform that simplifies turning complex data into compelling dashboards. “It’s effortless to slice and dice data. Tableau is our internal source of truth.”</li>
+<li><strong>Looker:</strong> The data scientist’s darling, Looker is helping democratize data across companies. “​​It’s the best way to make data accessible and usable across domains/functions without too much effort.”</li>
+</ol>
+<h4>The behavior tracking faves</h4>
+<p>Amplitude and Mixpanel remain the two biggest analytics players after Google Analytics, helping teams track everything from user behavior to feature adoption. One PM told us, “Amplitude empowers the product teams to learn instantly, finding answers on the spot.”</p>
+<h4>The specialists are carving out their niches 🎯</h4>
+<p>We’re also witnessing the rise of highly specialized tools:</p>
+<ul>
+<li>Hotjar is dominating the qualitative space with its heatmaps and session recordings</li>
+<li>Metabase has become a startup favorite for quick, no-nonsense dashboards</li>
+<li>Pendo owns a good chunk of the product feedback and onboarding niche</li>
+<li>Segment is the go-to for data pipeline management</li>
+<li>Fullstory and Heap are making names for themselves in behavioral data collection</li>
+</ul>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/e4d7152a-3b96-40ff-a615-476e2cde51ec_1588x1240.jpeg" /></p>
+<p>30% of the responses were in the “other” category. The two leading platforms, with around 200 responses each, were neck and neck:</p>
+<ul>
+<li><strong>Posthog:</strong> An open-source, all-in-one platform competing with the big players—Amplitude, Mixpanel, Fullstory, and Heap. Founded as a Y Combinator company almost five years ago, respondents seem to love them, and they’re <a href="https://x.com/daltonc/status/1865108608805146804">used by most YC companies</a>. They’re an intriguing up-and-comer that we’ll look at more closely next survey.</li>
+<li><strong>Power BI:</strong> Microsoft’s answer to Salesforce’s Tableau and Google’s Looker. Data analysis, visualization, dashboards... Often the default choice at companies using the Microsoft stack.</li>
+</ul>
+<h3>3. Email: The three camps</h3>
+<p>The email universe basically falls into three buckets:</p>
+<ol>
+<li>Gmail</li>
+<li>Microsoft Outlook</li>
+<li>Specialized tools for superusers</li>
+</ol>
+<p>Gmail is second in overall tool popularity rankings, behind ChatGPT but ahead of Slack (the previous survey’s winner) and every other email tool. Also, as an aside, Google’s Workspace was valued significantly higher than Microsoft’s Suite throughout the survey.</p>
+<p>Microsoft is maintaining its enterprise presence, but the satisfaction gap is widening. Their tools made several appearances in the “least valued” rankings, and, as one respondent put it with regard to Outlook specifically, “Everything about Outlook feels corporate and soulless compared to Google Suite, but enterprise inertia keeps us locked in.”</p>
+<p>Power users gravitate toward specialized tools like Superhuman and Front, which remain relatively niche, but their users report significant productivity gains that justify higher costs (“Superhuman is a game changer”).</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/a60c187b-fb9a-464f-8ab6-adf49df78bd5_1588x820.jpeg" /></p>
+<h2>The big picture</h2>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/642c30dd-1ac7-4cc4-9b8e-b5e61c883fae_2913x4548.jpeg" /></p>
+<p>When we zoom out of all this data, there are a few big ideas that become very clear. First, AI isn’t just the new normal; it’s ubiquitous. Teams aren’t just leveraging AI—they’re building entire workflows around it. ChatGPT isn’t just winning; it’s dominating. Respondents shared that ChatGPT packs a double punch: it expands their thinking when ideating or brainstorming and streamlines critical workflows like data analysis or writing.</p>
+<p>Another theme that’s coming through is that when it comes to picking tools, user experience trumps features. Teams are increasingly willing to sacrifice deep functionality for tools that are actually pleasant to use. The days of “but it has more features” are over. Tools like Linear, Notion, Slack, and Figma are appreciated for the craft that went into them and the flexibility they offer.</p>
+<p>Which is why we may see tool migrations accelerate. We’re noticing strong negative sentiment toward tools that aren’t up to par with the modern stack, and a strong willingness to switch from legacy tools to those modern alternatives. Bundling can get you only so far before well-built tools eat your lunch.</p>
+<p><img alt="Image from What’s in your stack: The state of tech tools in 2025" src="https://substack-post-media.s3.amazonaws.com/public/images/ef83f269-7795-4562-8c4b-e6bf6314f720_1174x288.png" /></p>
+<p>And we’re noticing that savvy teams and individuals are mixing and matching tools within the same space, choosing the perfect one for each nuanced context or need. For example, people are catching on to which AI assistant can help most for specific use cases and holding strong opinions on which presentation tool is best fit for the type of presentation they need.</p>
+<p>One thing’s for sure: people in tech will always have one eye out for better tools. Shiny object syndrome is impossible to avoid. 😉</p>
+<p>Special thanks to the more than 6,500 tech professionals who shared their insights for this survey. Your candid feedback will help everyone in Lenny’s community build better tool stacks 🙏</p>
+<p><em>Thank you, Noam! You can find Noam on <a href="https://www.linkedin.com/in/noamsegal/">LinkedIn</a> and <a href="https://x.com/noamseg">X</a>.</em></p>
+<p><em>Also, thank you to <a href="https://www.linkedin.com/in/benhawkins0/">Ben</a> for design and <a href="https://www.rebeccaackermann.com/">Rebecca</a> for editing.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><em>Disclaimer: I may be an investor in some of the abovementioned companies.</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><a href="https://www.delphi.ai/">Delphi</a> is hiring for a <a href="https://delphi-ai.notion.site/Delphi-Product-Manager-13fa9fbe9ec880218413f1b4f73322c4">Lead Product Manager</a> based out of San Francisco. As their Lead PM, you’d get the opportunity to collaborate directly with their CEO to build and own an entire product category.</p>
+<p><strong>Why I think the company is interesting:</strong></p>
+<ol>
+<li>Delphi powers <a href="https://www.lennybot.com/">Lennybot</a>! They allow anyone to upload their content, to create a digital representation of not only their knowledge base but also their way of thinking.</li>
+<li>With zero marketing spend, they’ve managed to go from 0 to nearly $2 million ARR in their first year.</li>
+<li>They are backed by Sequoia, Founders Fund, and a host of tier-one investors.</li>
+<li>They are still a small, scrappy, pre-series-A team. This is an opportunity to <em>actually</em> join at the ground floor and make a huge impact.</li>
+</ol>
+<p>If you’d like to get your profile sent directly to their team, just fill out this <a href="https://airtable.com/apppne9fUg8CKw6s2/pag2vapuCgpIGh6WB/form">quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p>—</p>
+<p>If you’re hiring, I run a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), working with a few select companies to fill their open roles. Apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

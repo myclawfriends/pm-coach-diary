@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Which companies produce the best product managers — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Which companies produce the best product managers</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Which companies produce the best product managers</div>
+    
+    <div class="article-meta">2025-03-18<span>·</span>1,778 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">職涯</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>For more: </em><em><a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.lennysnewsletter.com/podcast">Podcast</a> | <a href="https://maven.com/lenny">Courses</a> | <a href="https://www.lennysjobs.com/">Hiring</a> | <a href="https://lennyswag.com/">Swag</a></em>**</p>
+<p>My first-ever deep dive a few months ago into which <a href="https://www.lennysnewsletter.com/p/which-companies-accelerate-your-pm">companies accelerate PM careers most</a> led to a lot of great feedback and ideas, so I’m back with a follow-up, going one level deeper into the question: Which companies produce the best product managers? We arrived at the answer by triangulating a bunch of juicy data.</p>
+<h4><strong>In this post, we</strong>’<strong>ll look at:</strong></h4>
+<ol>
+<li>Which companies create the <strong>most successful PM alumni founders</strong></li>
+<li>Which companies <strong>accelerate PM careers most</strong>—with four new data points since the last deep dive</li>
+<li>Why Stripe PMs didn’t score higher—this one is fascinating</li>
+</ol>
+<h3>Across the board, here are the top companies that seem to produce the best PMs:</h3>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/339c7fbf-6760-4478-8ed6-294565235016_2913x2374.jpeg" /></p>
+<p>The big change we made in this updated edition was zeroing in on just the past 10 years vs. the company’s entire history. We also went deeper into the founder data, looking at not just the raw number of founders but also how they’ve done. And we added a few companies to the list (e.g. Airbnb, DoorDash, Salesforce, Dropbox) that people pointed out we missed.</p>
+<p>A big thank-you to <a href="https://www.livedatatechnologies.com/product-jobs">Live Data Technologies</a> (<a href="https://www.linkedin.com/in/jason-salt/">Jason Saltzman</a> and <a href="https://www.linkedin.com/in/ethan-elias-70021472/">Ethan Elias</a>) for sharing this data with us and for helping with the analysis.</p>
+<p><em>Caveats:</em></p>
+<ol>
+<li><em>We are looking only at companies that have enough data (i.e. enough PM alumni) to draw meaningful conclusions from. Your startup may be producing the best PMs ever—we just won’t know this yet.</em></li>
+<li><em>A confounding variable is the quality of PMs these companies hire. If a company hires only amazing senior PMs, they will naturally go on to do amazing things—and that doesn’t mean the company made these PMs great. However, if the goal of this post is to help you figure out where to work, getting a gig at one of the companies on this list will put you on a good track either way.</em></li>
+</ol>
+<h2>1. Which companies create the most founders—and the most <em>successful</em> founders?</h2>
+<p>First, we looked into which companies’ PM alumni go on to start the most companies, irrespective of how these companies do. <strong>Palantir</strong> dominates. Over a third of their PMs have started a company. 🤯</p>
+<p><strong>Intercom</strong> comes in second, at over 18% (almost one in every five alumni PMs!), followed by <strong>Dropbox</strong>, <strong>Plaid</strong>, <strong>N26</strong>, <strong>Revolut</strong>, <strong>Duolingo</strong>, <strong>Uber</strong>, <strong>LinkedIn</strong>, and <strong>Coinbase</strong>.</p>
+<p>I’ll also give props to <strong>Ramp</strong>, <strong>Airbnb</strong>, and <strong>Notion</strong>, which came in just below the top 10 but all have 10% of alumni PMs who start a company. That’s impressive as hell.</p>
+<p>Go work at one of these companies if your goal is to start your own company: <strong>Palantir</strong>, <strong>Intercom</strong>, <strong>Dropbox</strong>, <strong>Plaid</strong>, <strong>N26</strong>, <strong>Revolut</strong>, <strong>Duolingo</strong>, <strong>Uber</strong>, <strong>LinkedIn</strong>, <strong>Coinbase</strong>, <strong>Ramp</strong>, <strong>Airbnb</strong>, or <strong>Notion.</strong> But keep reading. . .</p>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/67eb925f-7188-4b0a-89ba-6c11e931dfa3_1457x2441.jpeg" /></p>
+<p>Next, we looked more closely at which companies create the most successful founders. It’s one thing to start a company—it’s another to start something that works.</p>
+<p>Based on the data we have available to us, the best proxy we found for measuring “successful” was to look at which companies have gone on to raise a Series A. Yes, some founders choose to stay bootstrapped and never raise money, and raising a Series A doesn’t mean you’re successful, but it’s a simple way to zero in on founders aiming to build large venture-scale companies.</p>
+<p>The headline is <strong>Chime</strong>. Wow. Over 20% (one in five) of Chime’s PM alumni go on to not just start a company but also raise a Series A.</p>
+<p><strong>Scale</strong>, <strong>Palantir</strong>, and <strong>Faire</strong> aren’t too far behind, at around 15%. And then we have <strong>Dropbox</strong>, <strong>Robinhood</strong>, <strong>Stripe</strong>, <strong>Block/Square</strong>, <strong>Coinbase</strong>, and <strong>Salesforce</strong> rounding out the top 10.</p>
+<p>Go work at one of these places if you want to build a venture-scale company: <strong>Chime</strong>, <strong>Scale</strong>, <strong>Palantir</strong>, <strong>Faire</strong>, <strong>Dropbox</strong>, <strong>Robinhood</strong>, <strong>Stripe</strong>, <strong>Block/Square</strong>, <strong>Coinbase</strong>, <strong>Salesforce</strong>.</p>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/7e857c7d-104f-4be7-b48a-7fe7b02ee916_1457x2159.jpeg" /></p>
+<h2>Which companies accelerate PM careers most?</h2>
+<p>Building on our analysis in <a href="https://www.lennysnewsletter.com/p/which-companies-accelerate-your-pm">the previous edition</a> and adding four new data points, below we’ve triangulated which companies’ alumni PMs create the biggest inflection in the career of their PMs by looking at:</p>
+<ol>
+<li>Rate of PMs getting promoted within the company</li>
+<li>Rate of alumni PMs getting promoted after leaving</li>
+<li>The average time to promotion after leaving</li>
+<li>The average time to reach a leadership position (e.g. VP of Product, Head of, CPO)</li>
+</ol>
+<h4>Takeaways:</h4>
+<ol>
+<li><strong>Intercom</strong> dominates. It’s the only company to rank in the top 10 on all four dimensions (1st in promotions internally, 5th in promotions externally, 7th in fastest to promotion, and 9th in fastest rise to leadership). 👏</li>
+<li><strong>Revolut</strong> and <strong>Nubank</strong> are tied for second place, both ranking in the top 10 in three different categories. Fintech? More like Win-tech. 🤣</li>
+<li><strong>N26</strong> comes in fourth, ranking in the top 10 in two categories: rate of promotion externally and fastest rise to leadership. Nice.</li>
+<li>A special mention to <strong>Palantir</strong>, <strong>Deel</strong>, <strong>HubSpot</strong>, <strong>Discord</strong>, <strong>Block/Square</strong>, <strong>Faire</strong>, <strong>Chime</strong>,and <strong>Cruise</strong> for ranking highly in at least one of the categories.</li>
+</ol>
+<p>Go work at one of these companies if you want the best education on the skill of product management: <strong>Intercom</strong>, <strong>Revolut</strong>, <strong>Nubank</strong>, <strong>N26</strong>, <strong>Palantir</strong>, <strong>Deel</strong>, <strong>HubSpot</strong>, <strong>Discord</strong>, <strong>Block/Square</strong>, <strong>Faire</strong>, <strong>Chime</strong>, <strong>Cruise</strong>.</p>
+<p>Here’s the data that informed the above:</p>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/5dcfca3f-e2e5-4b78-ae28-a365f5dc2d6c_1457x2486.jpeg" /><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/dc8e81e0-0c43-4280-912d-6211f524dddd_1457x2192.jpeg" /><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/263a6663-5eff-4890-9add-a57c28c2988f_1457x2527.jpeg" /><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/46673f66-0220-4f17-91d4-db10f8f2529d_1457x2277.jpeg" /></p>
+<h2>Which companies create the most product leaders?</h2>
+<p>Next, we looked at which companies’ alumni PMs go on to become product leaders most often (e.g. CPO, Head of Product, first PM hire at a startup).</p>
+<h4>Takeaways:</h4>
+<ol>
+<li><strong>eBay</strong>, <strong>Intercom</strong>, <strong>N26</strong>, <strong>Palantir</strong>,and <strong>Notion</strong> stand out as companies that produce the highest rate of product leaders across the board. Whatever they are doing we should try to learn from.</li>
+<li><strong>Revolut</strong> and <strong>Intuit</strong> are just a bit behind, with solid rankings but not quite as strong as the companies above.</li>
+<li><strong>PayPal</strong> and <strong>Dropbox</strong> get a special mention as the remaining companies ranked in at least two categories, though they ranked fairly low.</li>
+</ol>
+<p>Go work at one of these companies if you want to one day lead product at a company: <strong>eBay</strong>, <strong>Intercom</strong>, <strong>N26</strong>, <strong>Palantir</strong>, <strong>Notion</strong>, <strong>Revolut</strong>, <strong>Intuit</strong>, <strong>PayPal</strong>,or <strong>Dropbox</strong>.</p>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/4467cefd-c5d3-4a14-9edf-e4e301e8f7c2_1457x2023.jpeg" /><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/e1c29d38-2fad-4be2-bf8b-46b08ad94a5b_1457x2230.jpeg" /><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/0e374915-3514-430a-bd53-73bfc2cbb365_1457x2274.jpeg" /></p>
+<h2>Why didn’t Stripe PMs do better?</h2>
+<p>In this analysis and the previous edition, I was stumped as to why Stripe didn’t perform better. I’ve been nothing but impressed with every PM I’ve ever met from Stripe, and I’ve had more Stripe and ex-Stripe people on my podcast than any other company. WTF.</p>
+<p>Well, the answer is fascinating.</p>
+<p>It turns out Stripe’s PMs get hired to be star PMs at rocketship companies. Instead of starting their own companies or climbing the ladder, they go on to become key PMs at top companies like OpenAI, Anthropic, Mercury, Adyen, Scale, etc.</p>
+<p>Here’s a breakdown of where Stripe PM alumni go work:</p>
+<p><img alt="Image from Which companies produce the best product managers" src="https://substack-post-media.s3.amazonaws.com/public/images/47a8fb65-880c-4d41-ba50-c5cb196415f3_1456x1917.jpeg" /></p>
+<p>It’s interesting how many Stripe PM alumni go to earlier-stage companies and not to big tech companies (e.g. Google, Microsoft, Amazon, Meta). That may also explain why they see less career advancement on paper. This opens up some interesting opportunities for future explorations!</p>
+<p>I’m excited to hear what you think of this data, and what additional analysis you’d find valuable to guide your career if I were to continue this series. Leave a comment with suggestions and questions👇</p>
+<p><a href="https://www.lennysnewsletter.com/p/which-companies-produce-the-best/comments">Leave a comment</a></p>
+<p><em>Thank you, <a href="https://www.linkedin.com/in/jason-salt/">Jason Saltzman</a> and <a href="https://www.linkedin.com/in/ethan-elias-70021472/">Ethan Elias</a> from <a href="https://www.livedatatechnologies.com/product-jobs">Live Data Technologies</a>, for helping with this analysis. Have a fulfilling and productive week 🙏</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><strong><a href="https://bounce.com/">Bounce</a></strong> is hiring for a Head of Growth based out of San Francisco. As their Head of Growth, you’ll be expected to:</p>
+<ol>
+<li>Lead strategy and execution across multiple channels, including product-led growth, SEO, and paid acquisition</li>
+<li>Mix high-level thinking with hands-on execution as you build out Bounce’s growth team</li>
+</ol>
+<p><strong>Why I think the company is interesting:</strong></p>
+<ul>
+<li>Bounce is one of the fastest-growing European startups ever.</li>
+<li>They’re now in hypergrowth with a lean and scrappy team. This is an opportunity to join before they really mature.</li>
+<li>They are backed by a16z and a host of tier-one investors. They just raised a Series B and are quickly expanding into a global presence.</li>
+<li>This is not a 0-to-1 role; it’s a 1-to-10 role. Bounce’s growth is already epic, but they need a leader to take it to the next level.</li>
+</ul>
+<p>If you’d like to get your profile sent directly to their team, just fill out <a href="https://airtable.com/appTNAXC72V74HqPS/pagCczxszIZPdd00t/form">this quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p><em>If you’d like to get your role featured here, <a href="https://airtable.com/apphKJD0wLIHfPcZu/pag09IdQYrMpolMa5/form">apply here</a>. If you’re interested in working with my white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), apply to work with us <a href="https://www.lennysjobs.com/">here</a>.</em></p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

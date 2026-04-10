@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to show up in any room with a low heart rate: Silicon Valley’s missing etiquette playbook | Sam Lessin — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">How to show up in any room with a low heart rate: …</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">How to show up in any room with a low heart rate: Silicon Valley’s missing etiquette playbook | Sam Lessin</div>
+    
+    <div class="article-meta">2026-01-15<span>·</span>19,398 words<span>·</span>Sam Lessin</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">Podcast</span> <span class="mini-tag">B2C</span> <span class="mini-tag">AI</span> <span class="mini-tag">工程</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=KtKJ3A6DWTs" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Sam Lessin</strong> (00:00:00):<br />
+I just feel like no one's being honest in teaching founders this. Be early. Don't order the most expensive thing on the menu. For a video call, an appropriate background. Don't smell like shit. Tell me why you decided to spend time teaching people proper etiquette. You have a lot of really young people.</p>
+<p><strong>Sam Lessin</strong> (00:00:14):<br />
+They've been holed up in a room coding. And they show up encouraged by Silicon Valley to be in some way abrasive on purpose. You want to be able to show up in a way where people are like, "Okay, this is someone I can work with and trust." Etiquette is a skill for how to show up in a room with a low heart rate. You're at the Kleiner Perkins holiday party.</p>
+<p><strong>Sam Lessin</strong> (00:00:29):<br />
+You have all the venture capitalists in the world and all the CEOs. You're at your first company. You're like, "Oh my God, this is my shot, but I need to convince this person of that and make this connection." It becomes very transactional. If you show up like a little energizer bunny, you're going to scare one off.</p>
+<p><strong>Sam Lessin</strong> (00:00:44):<br />
+You're going to project totally the wrong vibe. This isn't your one shot. You'll have other opportunities. You kind of want to show up with the self-confidence and the calm of abundance. This is part of the story. This is not the entire story.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:58):<br />
+Today, my guest is Sam Lessin, partner at Slow Ventures, previous VP of Product at Facebook and two-time founder. This is an unconventional episode that may surprise you in how interesting and useful it is to your life. I asked Sam to come on the pod and talk about proper etiquette.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:15):<br />
+You'll hear the backstory of how Sam got into this stuff, but this is turning into a big thing for him. He's teaching classes around the world. He published a book on proper etiquette. I love his framing for why etiquette matters, that the goal of learning good etiquette is to show up in a room with a low heart rate. And we cover all kinds of social interactions like introductions, small talk, meals, meetings, and basically all of the most important things you need to know when it comes to etiquette.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:40):<br />
+I personally found these tips really, really useful and I learned a lot from this conversation and from his book. Sam is also hilarious and so fun. And I hope you enjoy this very unique episode. If you enjoy this podcast, don't forget to subscribe and follow it in your favorite podcasting app or YouTube. It helps tremendously. And if you become an annual subscriber of my newsletter, you get a year free of 19 incredible products, including a year free of Lovable, Replit, Bolt, Gamma, n8n, and Linear, Devin, PostHog, Superhuman, Descript, Wispr Flow, Perplexity, Warp, Granola, Magic Patterns, Raycast, ChatPRD, Mobbin and Stripe Atlas.</p>
+<p><strong>Sam Lessin</strong> (00:04:26):<br />
+Blessed to be here. I'm excited to have the conversation.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:29):<br />
+This is going to be a very different kind of conversation. I suspect this is actually going to be really, really useful and really, really interesting to a lot of people.</p>
+<p><strong>Sam Lessin</strong> (00:04:39):<br />
+Useful and interesting. That's so unlikely.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:41):<br />
+That's the Venn diagram that we aim for. I also think it's going to just be a lot of fun. So I really appreciate you doing this. I want to give you the opportunity to set the stage for why we're chatting through this. Just tell me why you decided to spend time on teaching people proper etiquette and why should people pay attention to this? Why is this important?</p>
+<p><strong>Sam Lessin</strong> (00:05:01):<br />
+I really enjoy things at the intersection of hilarious and useful. You kind of need both. And hilarious just because you should have fun in life. We should be working on things that are fun and interesting. Also, candidly, if we're being more honest about it's very hard to cut through the noise these days. So you need humor is a great way to cut through it, but humor just for the sake of being funny is not that useful.</p>
+<p><strong>Sam Lessin</strong> (00:05:25):<br />
+There has to be a deeper truth to it. And so with this etiquette thing that we've gotten into, it started as many things to do with a tweet. It got escalated into an event. It's gotten escalated into a book and a bunch of other stuff. I kind of believe that you should always ... There you go. You got it with you. I've got my coffee too.</p>
+<p><strong>Sam Lessin</strong> (00:05:42):<br />
+There's a rule, you always want to just double down in life. And so I'd say why etiquette? Look, there's a serious real narrative to why etiquette matters in 2025 for founders, almost 2026. One, we talk about software getting commoditized. We talk about all this fearmongering and scared people feel about Silicon Valley and AI and all the things that are going on.</p>
+<p><strong>Sam Lessin</strong> (00:06:06):<br />
+The net is if you want to do business and you want to do business and build great partnerships with team members, with companies you want to do business with, almost like with anyone, the reality is etiquette ironically matters a lot. There is a deep truth to this. Especially when you're asking people to trust you with their data, trust you with their business. And when technology is no longer some cute sideshow, but it's a major deal, people are worried about losing their jobs.</p>
+<p><strong>Sam Lessin</strong> (00:06:29):<br />
+Understanding how to meet people, where they're at, build trust, mirror kind of expected behaviors. These are all tools. And so that's the deep truth. The shallow truth is it's kind of funny to teach Silicon Valley people etiquette. The whole narrative for so long has been, none of this matters, just focus on your product.</p>
+<p><strong>Sam Lessin</strong> (00:06:48):<br />
+Saying, "Well, actually it does matter." And I'm wearing a T-shirt. I'm not exactly known as the most high etiquette personal, but I do know the rules, and I think it's fun and funny as well. And I think those things are both important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:07:02):<br />
+I want to get into the actual rules, but just to follow that thread, you had a really great line somewhere that etiquette is almost a skill for how to show up in a room with a low heart rate.</p>
+<p><strong>Sam Lessin</strong> (00:07:10):<br />
+Yeah, this is the thing I think about a lot. Again, again, you and I are now old people, right? But you're young.</p>
+<p><strong>Lenny Rachitsky</strong> (00:07:11):<br />
+I feel that.</p>
+<p><strong>Sam Lessin</strong> (00:07:18):<br />
+You feel it in your bones. It's like you're young, right? You're at the Kleiner Perkins holiday party. You have all the venture capitalists in the world and all the CEOs. You're at your first company, you're young, maybe you're from a different country. You're like, "Oh my God, this is my shot. I have all these people I need to talk to and I need to convince this person of that and make this connection."</p>
+<p><strong>Sam Lessin</strong> (00:07:39):<br />
+It becomes very transactional. If you show up like a little energizer bunny, you're going to scare one off. You're going to project totally the wrong vibe, but I can understand why you'd be a high intensity moment in a lot of ways. I think understanding how to show up, take a beat, come in with a mindset, not of scarcity, but of abundance, understand how to give more than you take, understand how to build a relationship, not collect business cards.</p>
+<p><strong>Sam Lessin</strong> (00:08:05):<br />
+These are things that actually serve you massively well. And I just feel like no one's being honest and teaching founders this. Instead, they're saying, "Oh no, all that matters is your product." I'm like, "The product does matter a lot, but if understanding these rules can be the difference between doing really well and missing a business deal, if you show up with too high a heart rate and you burn a bunch of mild relationship opportunities, I don't know why you wouldn't want these skills."</p>
+<p><strong>Lenny Rachitsky</strong> (00:08:30):<br />
+Yeah. Is one way to think about it. You can be successful not doing any of this, not knowing any of this. You're hurting yourself, you're making it harder.</p>
+<p><strong>Sam Lessin</strong> (00:08:39):<br />
+Yeah, I think you're creating an unnecessary uphill battery for yourself. I'd also say that, look, this goes back to technical differentiation where things are at. It is true that if you bring manna from heaven, you invent something that is literally the next Google or whatever out of pure thought that sometimes none of this stuff matters, that's it. It's literally like that happens. It happens very, very rarely, but it does happen.</p>
+<p><strong>Sam Lessin</strong> (00:09:07):<br />
+It is not what 99.9% of startups are doing. But if you have that, yeah, you basically can get away with anything. It is true. That doesn't mean you should. You shouldn't be a jerk. And candidly, over the course of history, you need to work with great people and you'll be more successful if you show up with good etiquette and rules and context. But there are ways in which that can trump all. It's just candidly not the experience of 99.9% of startups.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:30):<br />
+Awesome. Okay. So let's get into it. You divided this book into about 10 categories, 10 social situations is one way to describe it. So let's just go through each one and just give us some pieces of advice.</p>
+<p><strong>Sam Lessin</strong> (00:09:41):<br />
+Sure.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:41):<br />
+And something I didn't mention, the reason I'm excited to do this, the reason I reached out to you to do this, this wasn't you pitching me, "Hey, let's talk about this in your podcast." Is I was like, "Wow, this is really interesting. I did not know these things."</p>
+<p><strong>Sam Lessin</strong> (00:09:51):<br />
+Cheers. Again, I think the thing for us is I'm kind of a ship early, ship often guy. So V1, you should buy it now and study it because it's good and it's going to be a limited edition. The funny part about doing this is people come back with a bunch of other things we should cover. So I suspect that eventually this will evolve beyond it, but I think we're starting with some good stuff.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:10):<br />
+Let's do it. Okay. So introductions and entering a room.</p>
+<p><strong>Sam Lessin</strong> (00:10:13):<br />
+Yeah. Be early. That's the first one. Again, I say this as someone who, I'll be honest, again, hypocrisy ... I live with hypocrisy. I'm frequently not early, but you should be early. And you don't need to be half an hour early. That's a little weird, but making sure that you have some buffer time so that, again, think about low heart rate. If you come in racing in the room five minutes late, your heart rate is up.</p>
+<p><strong>Sam Lessin</strong> (00:10:37):<br />
+If you come in, you had a second to take a beat in the waiting room. They kept you waiting. That's the dynamic I think you want to cultivate. Now, if you're not late, I'm sorry, if you're not early, just apologize. It doesn't need to be like a 511, again, it goes back to this heart rate thing. You could just apologize simply and move on. I've seen people screw this up so many times when they come and flustered and all over the place, you're like, "It's okay. We understand."</p>
+<p><strong>Sam Lessin</strong> (00:11:02):<br />
+So I think that's another really kind of obvious one, but an important one. Something I've seen, I'll go for a few others that we talk a bunch about in kind of is, look, you want to have a strong handshake, firm, don't crush the person's hand. Again, this is not practice on your friends. You want to repeat names back is a really, really valuable thing to think about when you're meeting someone and say, "Hey, Lenny, it's great to meet you." Why? It shows that you're actually trying to remember the person's name.</p>
+<p><strong>Sam Lessin</strong> (00:11:31):<br />
+A lot of times people meet a lot of people. If it's like, nice to meet you, you move on. First, it's going to be harder for you to remember the person's name. Second, it actually shows you're meeting them and making an effort to actually connect and say, "Okay, I'm trying to focus on you. You're not just a number to me." You're not just a potential check for whatever it's going to be. So there's a bunch of things like that. I'm kind of curious. We can go through a bunch more, but those are some of the ones I would think about.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:52):<br />
+One that I loved was if somebody else is late, do not make them feel bad and do the opposite of what you're doing, of what you do.</p>
+<p><strong>Sam Lessin</strong> (00:11:59):<br />
+100%. And I think this is like, I've seen this with entrepreneurs. And I get I'm a VC. I do get scheduled in 30 minute chunks back to back all the time, especially on Zoom. Guess what? I am frequently late. I don't feel good about it, but it happens. And a lot of times, founders, most of the time I'd say founders know that if I'm late, I will always apologize. I'll try to email them ahead, et cetera, but then it is what it is and we kind of get right into it.</p>
+<p><strong>Sam Lessin</strong> (00:12:26):<br />
+Every once in a while, you'll have some founder who is super indignant about it. It's fine if you feel that way, but it's really not very productive to make a big deal out of it. If this is a deal breaker for you that I was a few minutes late, then now I feel like I'm wasting the next 25 minutes of my meeting time because this is going to be the wrong dynamic, and so I just think there's like, don't harp on it. It's okay.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:50):<br />
+Yeah, and also some advice on eye contact. Share that one.</p>
+<p><strong>Sam Lessin</strong> (00:12:54):<br />
+It's really important. Again, I think the thing I keep in mind is especially in an age where everyone's used to being in front of computer screens and looking at six different windows at the same time. Again, people are taking their time to meet with you or at a party, they're taking their time to listen to you. And it's just a matter of respect to be like, "I'm actually here in this conversation. I'm not off on my screen. I'm not glancing around the room."</p>
+<p><strong>Sam Lessin</strong> (00:13:17):<br />
+Now look, there are some people, we all know this who are literally quite neurodivergent and that's very hard for them. That happens, and a lot of founders have neurodivergence in some ways. So there is grace in this to a point, but it's a thing you should make at least an effort. I think one of the most important things about all this stuff is what matters in some ways is the signaling of the effort as much as the actual thing. I think it's a really big overarching theory. So it's like, "Look, if you have trouble with this, but you're really trying, that goes a long way." Versus just being like, whatever.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:48):<br />
+Maybe a final tip there is around partners, introducing the partner, saying hi to their partner, share that one.</p>
+<p><strong>Sam Lessin</strong> (00:13:53):<br />
+Yeah. So look, this happens all the time. And again, in the spirit of, I'm not permitted at this either, if you're with your partner, introduce them first. Bring them into the conversation. One great trick we talk about in the book, which I really unfortunately use all the time is there's this whole thing. Let's pretend you're with your partner or with someone who's a friend. It doesn't have to be romantic partner, whoever you're with. You're going to forget someone's name, and what you really should do is-</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:18):<br />
+All the time. All the time.</p>
+<p><strong>Sam Lessin</strong> (00:14:19):<br />
+You get the friend's name and that's what you're supposed to do. The etiquette is you say, "Lenny, please meet my wife, Jessica." And that kind of thing. Now here's the thing, this is where you start betting rules. What if I don't remember your name? If you have your partner with you, you can flip it around and say, "Jessica, I want to introduce you." And then you can kind of figure out how to frame it up so that you then Lenny extends your hand and say, "It's really nice to meet you, Jessica." And you get to pick up the name again or things like that. So there are some-</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:46):<br />
+You let it hang, that's the craziest-</p>
+<p><strong>Sam Lessin</strong> (00:14:47):<br />
+... which by the way-</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:48):<br />
+I love that.</p>
+<p><strong>Sam Lessin</strong> (00:14:48):<br />
+It's a great example of the fact that if you're really in tune socially, you kind of know what's going on. You know what I mean? You're not an idiot. You know, "Oh, what is proper? What this person is doing?" There's a gap between it. There's a reason. The reason is, but it's at least enough plausible deniability of semi-bad etiquette that leverages the social situation to be a better etiquette, that it's a useful thing to think about as a small queue.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:14):<br />
+I'm so bad at remembering names. I think I have a medical issue, so I just can't remember names. So this tip alone is so good. And just to reinforce it, so there's almost two ways to do this is what you're describing. Either it's like my wife's name's Michelle, so it's like, "Hey, Michelle. I meet my wife, Michelle." And then they're like, "Oh, I'm Bob. Nice to meet you, Michelle." Or make it a little more awkward of just, "Michelle, meet and then let it hang." Is that the thing?</p>
+<p><strong>Sam Lessin</strong> (00:15:41):<br />
+"Michelle, I want to introduce you." Or something like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:43):<br />
+I want to introduce you. Okay.</p>
+<p><strong>Sam Lessin</strong> (00:15:44):<br />
+Something like that, or I want to introduce you to Michelle. You look at them in the eye, and then your wife would be like, "Hi, I'm Michelle. Remind me your name or it's nice to meet you." Or whatever it ends up being. Look, I also, for what it's worth, I actually have such a clinical problem on name face recognition that actually runs in our family. I have this whole backstory, which is part ... and I worked at Facebook for a long time, was really into it early on.</p>
+<p><strong>Sam Lessin</strong> (00:16:06):<br />
+No kidding. I think part of my early attraction to the platform was it was the first time you walk around college and you're like, "I know these people, I just don't remember their names." You're like, "Oh my God, there's a resource I can study." And this was a very valuable social thing for me. So I'm with you. I have the same problem I think a lot of people do.</p>
+<p><strong>Lenny Rachitsky</strong> (00:16:21):<br />
+Okay. Let's move on to conversations. Give us some tips.</p>
+<p><strong>Sam Lessin</strong> (00:16:25):<br />
+So I mean, on the conversation front, I think the key again is to welcome people into the conversation. Consider it, especially you see this happen sometimes, especially when there's weird power dynamics at play. You'll see some famous VC or founder walk into the room, and then some young startup person will waylay them and almost flock them off and they're really excited to talk to this person, but you're like, there's a bunch of people around and the more you can be inclusive and low heart rate, it's not a scarcity mindset, it's an abundance mindset.</p>
+<p><strong>Sam Lessin</strong> (00:16:58):<br />
+I think that's kind of the tone to think about in terms of what a conversation is and how to show up in a room and meet with people. Another really big one we harp on a lot in the book in a bunch of the panels is ask questions, but there's a limit. So asking questions is great.</p>
+<p><strong>Sam Lessin</strong> (00:17:16):<br />
+You're coming in and says, "Hey, it's nice to meet you. Let me give you my four-minute startup spiel and everything I'm into da-da-da." So self-centered. It kind of misses the point that a conversation is a give and a get and it should be an exchange. And so when you go in with a mindset of I should ask questions, that's great.</p>
+<p><strong>Sam Lessin</strong> (00:17:32):<br />
+There is doing it too much, which is when it's done in a forced way, sometimes I feel this, you'll meet someone and you feel like it's the inquisition or all they're trying to do is extract information to you and giving you nothing in return. This happens sometimes. And so I think, again, this is about balance, this is about low heart rate. I do think questions are a great tool to engage someone, but don't make it six questions in a row and make sure there's always in some ways a give to get.</p>
+<p><strong>Sam Lessin</strong> (00:18:00):<br />
+If you can come in, the best conversations are coming, someone comes in and gives you an idea or has a point or sparks something, then it's like a game of ping pong, then you can kind of react to and it goes back and forth where there's openness and they're playing with you, not playing single player is almost the way I would think about it in a conversation.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:17):<br />
+So the tip here. So it's basically indexed towards asking questions, but not 100% you asking questions?</p>
+<p><strong>Sam Lessin</strong> (00:18:22):<br />
+Yeah, consider almost, put it this way, imagine you're playing ping pong or tennis or whatever you want. Hit the ball back, right? That's the question and they'll hit it back to you and then you hit it back to them. That's kind of what the flow should be. If you hit 10 balls at them in a row, you know what I mean? Or that's kind of not the vibe you want to go for.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:41):<br />
+Yep. Awesome.</p>
+<p><strong>Sam Lessin</strong> (00:18:42):<br />
+Look, we talk a lot about matching vocabulary. You're going to meet a lot of different people. You want to make people feel good and welcome. I'm not saying that you should walk into a room and start talking and jibe, but I am saying if you're speaking to a university professor versus a 12-year-old, if they're using a certain level of vocabulary words, again, the point is to meet people where they're at in a way that makes them feel relaxed and good, not try to mirror them, if that makes sense. But there is a subtlety that I think really matters to it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:16):<br />
+Cool. There's a few more I'll point out real quick. Connecting to this idea of asking questions, not trying to give your whole spiel constantly, this idea of leaving them wanting more.</p>
+<p><strong>Sam Lessin</strong> (00:19:25):<br />
+Yes. This is important. I think in the end of the day, most interactions, let's put it you meet someone you're really interested in or whatever. If we're being transactional about it, what's the real goal? The real goal is to leave people in a position where they're like, "Wow, that was a really interesting person. I'd love to hear from them again or meet with them again." Or maybe even better, every once in a while this will happen.</p>
+<p><strong>Sam Lessin</strong> (00:19:45):<br />
+It's like, "Wow, that's a really interesting person or idea." The person walks across the room someone else is like, "Hey, you really should talk to Lenny. Shout to Sam." You want to leave them being like, "That's interesting and I like to continue this or expand it." Not, "I just heard this entire person's life story, I never need to talk to them again." And so I do think there's, again, leave them wanting more, I think is important. And that is partially about knowing when to excuse yourself gracefully as much as it is about when to enter.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:12):<br />
+And again, this comes back to this idea of abundance. This isn't your one shot. You'll have other opportunities. People don't want to feel like you're just on them just trying to-</p>
+<p><strong>Sam Lessin</strong> (00:20:20):<br />
+I've had this conversation with so many, and I think it's a uniquely American and honestly a uniquely Silicon Valley thing. I'll go so far to say that, which is, look, we're used to, especially if you're young and these are big opportunities or big moments, people are kind of used to this environment of scarcity. It reminds me of the Eminem song when he talks about, I have one shot, one opportunity.</p>
+<p><strong>Lenny Rachitsky</strong> (00:20:43):<br />
+I think it's ... Oh, Eminem. Yeah, yeah, yeah.</p>
+<p><strong>Sam Lessin</strong> (00:20:44):<br />
+It's a great song. It's a great song. It's great beat. Every once in a while before a big presentation, you got to listen to it and pump yourself up. But actually, again, in terms of putting people at ease and building relationships and etiquette, even if in your heart of hearts, you're like, "This really is my one shot."</p>
+<p><strong>Sam Lessin</strong> (00:21:00):<br />
+You kind of want to show up with the self-confidence and the calm of abundance, being like, "This is not going to be my only opportunity. This is an opportunity. I'm excited to be here. I'm engaged. This is part of the story. This is not the entire story." And I think if you kind of remind yourself of that, you remind yourself that it's okay to not know everything, you keep focusing on low heart rate, engagement, eye contact, you get so much of the way there.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:26):<br />
+You also have a tip about how to handle famous people that you might meet.</p>
+<p><strong>Sam Lessin</strong> (00:21:29):<br />
+There's so many ways. There's a bunch of tips about, I think, generally famous people, but I think there's this thing which is not being sycophantic is what I basically say, but also not being ridiculous is almost the way I would frame it in this conversation, which the ridiculous is if you go up to Mark Zuckerberg and everyone knows what he looks like and who he is and you're like, "Hi, I'm Sam. And who are you?" You're like, "What are you doing?" It's ridiculous.</p>
+<p><strong>Sam Lessin</strong> (00:21:55):<br />
+On the other hand, going up and being like, "You're the most important person I've ever met." Is wrong. And so there's a way to, again, it's about grace as much as anything else and recognizing that they're people. And again, you're playing an iterative game and the best thing you can do is say, as much as it might actually be, this is not my only opportunity to meet Mark.</p>
+<p><strong>Sam Lessin</strong> (00:22:14):<br />
+And in an ideal world when I walk away, I'm like, "That was a pretty nice person. Maybe I want to talk to them again." Now going up and being like, "I need your email address and phone number." It's like, no, let him offer it. That type of stuff I think matters.</p>
+<p><strong>Lenny Rachitsky</strong> (00:22:28):<br />
+Maybe one last tip is you actually start with this one of this line of great to see you when you meet someone versus nice to see you again.</p>
+<p><strong>Sam Lessin</strong> (00:22:34):<br />
+Well, again, Lenny, you and I probably use this all the time, I bet, because I honestly, again, we go by name, face, whatever. It's really difficult social situation to put someone in. It just think about from their perspective. If you go up to someone and say, "Hey, it's really great. It's great to meet you. " And you're like, "We've met five times."</p>
+<p><strong>Sam Lessin</strong> (00:22:51):<br />
+It's quite embarrassing and for them, for you, for everyone. And so the more I love ... In fact, my wife of many, many years who have data since college has a really funny story about this, which is the first time right before we started dating, I went up to her and I basically did a nice to see you line and I very clearly couldn't remember if we had met before and we had and she remembered. And so for me, this is an important one to keep in mind.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:17):<br />
+My wife is constantly making fun of me of saying like, "Oh." And not knowing if I've met someone before not she's like, how can you ... I don't know what to do with you. So that's a great one. So the line there is great to see you because it works whether you meet them or not.</p>
+<p><strong>Sam Lessin</strong> (00:23:30):<br />
+Yeah. And again, it's one of those things where here's the thing. People aren't dumb. If you go around saying nice to see you to everyone, they're like, there's a small percent chance this person doesn't remind me who I ... remember who I am. And there are other ways or cute, but that's okay. That's part of the etiquette dance to some degree is like, that's fine. What's not fine is it's so nice to meet you and we've met six times, right?</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:54):<br />
+Yep. Okay. Let's talk hygiene. There's a couple there that stood out to me. Tell me if I'm missing any that you think are really important. One is just subtle fragrance.</p>
+<p><strong>Sam Lessin</strong> (00:24:04):<br />
+Yeah, don't smell like shit. It's like don't overpower it. You shouldn't smell like you just doused yourself in perfume or cologne or whatever it is, but you also shouldn't smell bad. And it's again, your scent should not be noticeable is almost the way I would put it in any direction. There's no advantage to that is basically what I would say.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:27):<br />
+By the way, this is a good question. Does this advice apply both equally to men and women? Is there anything that as maybe as we go through it?</p>
+<p><strong>Sam Lessin</strong> (00:24:33):<br />
+So it's an interesting question. I think broadly in this book, the answer is broadly yes. I will say that there is probably in January or February going to be a, what we've internally been calling the fem etiquette course because my wife and other women have said, "This is good, but there's a bunch of other stuff that women need to know." And so I can't speak to that yet. I think the fragrance one I would say, I don't think you want your fragrance to be memorable for anyone no matter what your gender is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:59):<br />
+Awesome. This is good. Let me take two tangents here real quick. One is, you told a story on your podcast about your kids and the impact this has had on them. Maybe share a story there.</p>
+<p><strong>Sam Lessin</strong> (00:25:09):<br />
+Well, look, here's the funny thing. I literally have realized in doing this, I love my children. They have terrible manners and there's certain things they're not bad at. But broadly speaking, I have an eight-year-old, a six-year-old, and a four-year-old. And I'm like, "Wow, you guys eat like animals. You don't know how to use a forklift knife properly." Again, it's not like at four or six, it's not like stopping them well in life. I'm like, "I can't be the etiquette guy if you guys are eating like." Some of them has been really cute.</p>
+<p><strong>Sam Lessin</strong> (00:25:37):<br />
+Others have been really funny. My six-year-old has started standing whenever my wife comes to the table, which is kind of arcane from an etiquette perspective. You can argue about whether it's actually even really etiquette anymore or not. But if you're being really formal when a woman comes to the table, you stand. And it's very funny to have the six-year-old do that. So in our household-</p>
+<p><strong>Lenny Rachitsky</strong> (00:25:56):<br />
+That is so funny.</p>
+<p><strong>Sam Lessin</strong> (00:25:56):<br />
+Don't judge me yet, but in a year you can judge me on my children's etiquette. Then it might have to be a children's etiquette book.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:01):<br />
+So good. I think actually at the end you say that whenever anyone joins you for meal, whether it's a man or woman, you stand up as a modern way of thinking about that.</p>
+<p><strong>Sam Lessin</strong> (00:26:09):<br />
+That might be better is what I would say. I will say that it's an ongoing, somewhat hilarious debate at our dinner table. I'm just trying to get them to not use a fork and knife like animals right now, but we're working on it. We're working on it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:22):<br />
+I was just speaking of that. I was just listening to Tyler Cowen had Alison Gopnik on this podcast and she studies kids and her whole thing is how kids learn scientists and she has a whole thing about how they figure out how to use a fork by just experimenting until something works.</p>
+<p><strong>Sam Lessin</strong> (00:26:36):<br />
+Right. To be clear, they're able to feed themselves. It works, but it's like you look at it and it's like, what are you doing?</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:43):<br />
+Yeah. Okay. The other tangent is you didn't share the class you actually taught to founders already. So maybe share a little bit about this class you taught.</p>
+<p><strong>Sam Lessin</strong> (00:26:49):<br />
+Yeah. So before the book, we did a class specifically initially for YC founders, right? Partially because YC, Garry Tan got very mad about this. So I'm like, well, now I have to do it because that's very funny. But yeah, we basically, we gave them all certificates of completion, but we did a class. We hosted, it was at the Four Seasons. We did some stuff that was fun and a little bit irreverent.</p>
+<p><strong>Sam Lessin</strong> (00:27:10):<br />
+We had some very fancy wokes basher people come in with models and show a talk about dress at different types of events and things like that, which was kind of tongue in cheek, but a lot of fun. We also did caviar and wine tasting type stuff. But then we also spent a lot of time focusing on the actual meat of the matter, which is things like how to show up with a low heart rate, how to have an abundance mindset, basic skills, like look people with the eye, shaking hands, how to eat that shows that you're being respectful, things like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:27:40):<br />
+Why do you think Garry Tan was so mad at it? Is it because he's like, "This is a waste of time, not worth it." Versus just build a thing that's successful?</p>
+<p><strong>Sam Lessin</strong> (00:27:46):<br />
+I don't know. I don't really understand what makes Garry Tan mad and it's fine. But from my perspective, I think he's just like, in some ways, again, to be clear, it's a little tongue in cheek. We're a little bit making fun of the fact that YC Founders do come out a little bit like animals. Having met with many of them, I guess it's not their fault.</p>
+<p><strong>Sam Lessin</strong> (00:28:01):<br />
+They're like young kids, they've been holed up in a room coding and that's all they've been thinking about for months or whatever. And so when they show up at your office to pitch you and they get a coffee or something and then they leave it on the table and don't ask you where to put it, it's a subtle sign of not being aware of your broader environment that you may or may not know, but I think it's valuable. Maybe they're like, "This is the wrong thing to focus on." I just think it's funny as much as anything else.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:29):<br />
+I love it. Okay. So on the hygiene thing, is there anything else?</p>
+<p><strong>Sam Lessin</strong> (00:28:30):<br />
+I think the hygiene stuff, you should get the book. I think it's fairly obvious hygiene stuff. Don't be covered in schmutz, you know what I mean? Show respect, try to anticipate how the room is going to be dressed and don't massively overdress or underdress. It's like if you show up to a business casual thing in a tuxedo, you're kind of trying to stand out. Don't be memorable from that perspective, but you also don't want to be memorable in the other direction. It's like, "Wow, that person really has no respect for the room."</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:59):<br />
+This actually, you're getting to the next category, which is dress, which I'm excited about.</p>
+<p><strong>Sam Lessin</strong> (00:29:02):<br />
+Yeah. Look, I got to say, again, in terms of know the rules, but don't always follow them. My first job out of college, I was an associate at a bathing company. This is a consulting firm and there was a business casual and I kind of came up with the snarky realization that there was a minimum dress code, but there wasn't a maximum dress code. So I started in the office as somewhat of a mini rebellion in the consulting firm, what we call tuxedo Tuesdays, where all the associates would wear tuxedos to work, which then meant we didn't have to go to the client meetings because they would never take us to client meetings and tuxedos.</p>
+<p><strong>Sam Lessin</strong> (00:29:32):<br />
+So it was like, again, you know the rules to break them, it was fun. But I do think from a dress perspective, again, I think the real thing is look put together, look like you cared, look like you made some effort, but you don't overdo it is basically the upshot of the most simple way to dress, unless you're trying to very intentionally break a rule, which maybe you are, but I think you should do that with a lot of cultural understanding. Let's put it that way.</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:57):<br />
+So here's a couple tips that I love. So one is just dress one Level up as a really simple tip.</p>
+<p><strong>Sam Lessin</strong> (00:30:01):<br />
+It's an easy way to win. Not two, not three, but one.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:05):<br />
+And oftentimes you can reduce that. If you have a suit on, you could take off the jacket and you're a little less formal.</p>
+<p><strong>Sam Lessin</strong> (00:30:11):<br />
+Sure. 100%.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:12):<br />
+And then you talk about fit of the item versus the brand.</p>
+<p><strong>Sam Lessin</strong> (00:30:16):<br />
+100%. At the end of the day, fit is everything. And I say this, again, you guys, all your listeners have to understand. Part of my joy at doing this is there's some level of hypocrisy in it, which is great. You got to have a little bit of that in your life in terms of how I myself behave sometimes. But look, in the end of the day, a well-fitting $20 shirt is way better than a misfitting $500 shirt.</p>
+<p><strong>Sam Lessin</strong> (00:30:41):<br />
+And candidly, it's the same thing. It's like if you're a startup founder, you do want to dress to the level of the room, but you kind of shouldn't show up and you shouldn't have a Rolex. It's very classless, if that makes sense, to show up as a startup founder with a Rolex. Again, it goes back to heart rates, trying too hard. You're not going to trick anyone is the upshot.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:06):<br />
+Yeah. This bit of our brand and just expensiveness of the item is such a big one that I think is ... I think people don't realize just it could be a pretty cheap thing that if you get tailored in some small way, it just looks so much better even if it's not the highest quality item.</p>
+<p><strong>Sam Lessin</strong> (00:31:20):<br />
+A hundred percent. Again, I would put differently, think about the average person, not every person in the world, but the average person in the world can look at a suit and be like intuitively that seems like it fits the person who doesn't. Most people can have no idea what things cost. And so in some ways, it's this weird thing where it's like if you show up at a super misfitting but very expensive item, you're like, "What signal are you setting?"</p>
+<p><strong>Sam Lessin</strong> (00:31:47):<br />
+It's like, well, you're not very aware culturally. You're not matching the room. You're not showing a lot of sensitivity to the situation and what people actually can prioritize. And it's like, are you trying to impress me because you have a fancy outfit? What are we talking about?</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:01):<br />
+One other tip you have is if you're not sure the level of dress, just ask.</p>
+<p><strong>Sam Lessin</strong> (00:32:04):<br />
+Yeah, this is a big thing in general, which is I think people are afraid to ask in all sorts of situations down to which forks should I use? Or what's the expect? It is absolutely fine to ask. In fact, if anything, it shows a level of confidence and calm and humility to ask if you don't know. So I actually think this is a great example. There's absolutely nothing wrong with asking about dress, about etiquette, about expectations. Again, it goes back to this whole give to get.</p>
+<p><strong>Sam Lessin</strong> (00:32:35):<br />
+If you get someone on the phone and you ask them a hundred questions about etiquette, at a certain point you're like, that's not a pit game of ping pong. But it's totally fine to call and be like, "Hey, what's this going to look like?" And by the way, it's important because in New York versus San Francisco, there's different expectations. People do things differently and your job, you're not expected to know every nuance of every culture you might enter.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:58):<br />
+So maybe as a final question in dress, do you have any just, I don't know, tips for dressing well? I know this is a big question that our professionals spend time teaching and charging for.</p>
+<p><strong>Sam Lessin</strong> (00:33:10):<br />
+I think the answer is find someone in your universe who you think dresses well. And again, ask them for help and what makes sense from that perspective. Again, the well-tailored, great. That makes a lot of sense. The basics I can say, yeah, have jeans that are clean and fit you, things like that. But again, when my wife listens to this podcast episode and hears me being asked about specifics of dress, she's going to be chuckling.</p>
+<p><strong>Lenny Rachitsky</strong> (00:33:39):<br />
+Great. That's a win. Okay. Let's talk about dining. Give us some advice for etiquette during dining.</p>
+<p><strong>Sam Lessin</strong> (00:33:49):<br />
+Tip well. Don't not tip, don't tip badly. Don't be super stingy about, "Okay, who ordered the flambe?" Split bills evenly, make things easy for waiters. In general, it's don't order the most expensive thing on the menu. Does it really matter? Especially to an investor, do they really care? No, they don't really care, but they do notice. And you're like, ah, you are the type of person that is truly insensitive to what things cost, even if it doesn't actually matter, and so I think there are things like that.</p>
+<p><strong>Sam Lessin</strong> (00:34:25):<br />
+Same with wine. And then I think, look, in the terms of asking, ideally, don't order first because I think if you see how someone ... Are we doing starters? How long is this meal going to be? There's a lot of times in dining situations you don't know. And the more you let someone else set the tone and then match that tone, the better. You kind of want to go middle of the pack to last, if that makes sense. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:49):<br />
+So this isn't a situation if someone takes you out to dinner, like it's a VC, another found, someone invites you to dinner.</p>
+<p><strong>Sam Lessin</strong> (00:34:50):<br />
+Or a partner or whatever it is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:34:50):<br />
+Yeah. Awesome.</p>
+<p><strong>Sam Lessin</strong> (00:34:58):<br />
+And look, I think I would say in terms of this, which I always think is important is like, look, within reason, always offer to pay. Now, you should be turned down. If you go out with a VC and you put a card down, 99% of the time they'll be like, "I got this. Please, don't worry about it." And that's the right vibe on it. You do not need to do this if it's a $10,000 dinner, if they've ordered a super expensive bottle of wine.</p>
+<p><strong>Sam Lessin</strong> (00:35:25):<br />
+There are limits to this, but if you go out to a normal dinner in a normal situation, you don't offer to split it, you just offer to pay for it. And then you should be declined on that, but there is a little bit of a risk there because someone might not decline you and then you kind of are on the hook for it, but that is, I think, the polite thing and the polite way to approach it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:44):<br />
+What if they're just a billionaire? I just had dinner with a very successful VC and I did not feel like offering to pay made sense, would you still-</p>
+<p><strong>Sam Lessin</strong> (00:35:52):<br />
+Yeah, I actually would. I think it depends what the dynamic is. If the billionaire ordered a $10,000 bottle of wine, you don't need to offer. If you had a normal meal, I actually think it's great to offer. And they'll almost certainly be like, "Of course not." But I will say, I'll tell you a funny story, which is when you go out with dinner to really fancy people or someone who's like ... There are two interesting dynamics.</p>
+<p><strong>Sam Lessin</strong> (00:36:19):<br />
+One is it's actually, I think, especially nice to offer and even sometimes pay because the reality is, if you think about it, they obviously don't care about the money, but no one does that. They're like, "Well, clearly you should pay." And so the more you're like, "Oh no, I'm treating us like this is a conversation and equals and I'd love to offer or just pay as big."</p>
+<p><strong>Sam Lessin</strong> (00:36:38):<br />
+The second thing, which is important is if you're, especially if you're out to dinner with someone who's very, very well known, you have to tip like crazy because the problem is, this is one thing, this is not in the book, this is a 201 course. But if you go out and start with someone that are like, okay, they're either known or relatively known known and you're making the gesture of buying it, not because they obviously don't care about the money.</p>
+<p><strong>Sam Lessin</strong> (00:37:01):<br />
+It's more like the gesture that's nice that you would offer that. You kind of have to tip the way they would tip and they're going to tip 100% of the bill because it's just the right thing to do. And so I do think if you're going to do that, you really have to tip well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:16):<br />
+Got it. Speaking of tipping, my God, I hate tipping so much as a concept. Obviously, people deserve to be paid well and I love that they make more money, but it's just so convoluted and just like, what the hell do I do? I never know.</p>
+<p><strong>Sam Lessin</strong> (00:37:30):<br />
+Tip a lot.</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:31):<br />
+Tip a lot. Okay.</p>
+<p><strong>Sam Lessin</strong> (00:37:32):<br />
+Just tip a lot. I think 10, 20% is the minimum. If you're out in a situation, I think you kind of want to tip in my mind to the level of no one you're effectively paying for would bat an eye that you're being stingy is the way I would think about it. 20% feels like the minimum. 30% sometimes, more seems a little bit silly, but it is a squirrely topic. And again, let me put it this way. I don't think you want your tip to be memorable is almost way to put it.</p>
+<p><strong>Sam Lessin</strong> (00:38:01):<br />
+This is not a thing to focus on. When the person that go out to dinner with thinks back on the dinner a month later, they want to think about the content of the conversation or what the ideas were or the business opportunity, they want to think about, "Oh my God, that guy tipped an incredible amount. What was that?"</p>
+<p><strong>Sam Lessin</strong> (00:38:17):<br />
+And by the way, I have stories in my own life where I've been out with people and they've tipped so much that a decade later I remember it. And I'm like, "It's fine. They can afford it." It's cool that they did that for the server, but honestly, the only thing I remember from the night is how much the person tips.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:34):<br />
+Okay. But I think if you're extremely rich, you do it. Don't even tell anyone basically, but feel free to do it, obviously.</p>
+<p><strong>Sam Lessin</strong> (00:38:40):<br />
+Sure. Yeah. The tip is not a point. The tip is like everyone should feel good about it. And again, it's about, again, putting people in a sense of ease and comfort and you might not like it and it might not be fair in the world, but people are like, everyone's being taken care of. I can be relaxed about this is kind of what you're going for.</p>
+<p><strong>Lenny Rachitsky</strong> (00:38:58):<br />
+I recommend your next book after this FamiKit edition is a tipping guide.</p>
+<p><strong>Sam Lessin</strong> (00:39:05):<br />
+A tipping guide. Well, you know what would be funny is there's a great episode of Seinfeld that's all about the tipping calculator. I don't know if you're a Seinfeld guy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:12):<br />
+I love Seinfeld. I don't remember that.</p>
+<p><strong>Sam Lessin</strong> (00:39:15):<br />
+It's a great tipping episode. I feel like you could honestly have a very funny modern LLM app that is only about tipping. Imagine a tipping app where instead of a tipping calculator, you take a picture of the bill, it geolocates where you are, you're like, "This is the situation." And it just tells you what to tip.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:35):<br />
+Well, a restaurant is one thing, but then it's like the garbage person, a gardener, the person that-</p>
+<p><strong>Sam Lessin</strong> (00:39:42):<br />
+Especially this time, end of year, at the end of year-</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:45):<br />
+Yeah, exactly.</p>
+<p><strong>Sam Lessin</strong> (00:39:45):<br />
+I think no one knows how to tip anymore.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:48):<br />
+Yeah, some guy that installs the shades in our house. Do I tip?</p>
+<p><strong>Sam Lessin</strong> (00:39:52):<br />
+I don't think you tip that person. Do you tip that person?</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:55):<br />
+No, I did not because you already paid a bunch of money for this thing.</p>
+<p><strong>Sam Lessin</strong> (00:39:58):<br />
+Yeah, no, I feel like that is weird. I wouldn't tip people like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:04):<br />
+That's why we need this book. You're just going to be a huge hit. What does [inaudible 00:40:08]?</p>
+<p><strong>Sam Lessin</strong> (00:40:08):<br />
+Why are you going to fund it? You want to fund it with me? We should fund an app. Talk about YC companies. If someone pitched me in the terms of funny but real, if someone pitched me the 2026 AI-driven tipping calculator, which gives the social situation and the details and all the things and it's like, this is how much to tip, that is hilarious and probably quite useful.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:28):<br />
+And probably not venture scale, but I don't care.</p>
+<p><strong>Sam Lessin</strong> (00:40:31):<br />
+You know what? It's 2026, it might be. Everyone has the problem. Everyone globally has the same problem, which is tipping.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:38):<br />
+Yeah, just the tokens cost of that.</p>
+<p><strong>Sam Lessin</strong> (00:40:40):<br />
+It actually reminds me, I'm reading one of my sons right now, the third book of Hitchhiker's Guide to the Galaxy.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:45):<br />
+Mm-hmm.</p>
+<p><strong>Sam Lessin</strong> (00:40:46):<br />
+And I don't know if you've read this series.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:47):<br />
+Yes.</p>
+<p><strong>Sam Lessin</strong> (00:40:48):<br />
+It's important stuff. Do you remember about the, what's Bristomatics Mathics?</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:48):<br />
+No.</p>
+<p><strong>Sam Lessin</strong> (00:40:53):<br />
+So basically the idea is that after the improbability drive, the way they're able to move across the universe very quickly is the most complicated math in the universe, which is the math of your bill at a restaurant. So I think we're onto something. It's in science fiction.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:10):<br />
+Oh, man. What other tip that I just thought of as around dining is you have this tip about sommeliers, give them a sip of your wine if you order something really well.</p>
+<p><strong>Sam Lessin</strong> (00:41:17):<br />
+Yeah. If you want to say nice, that I'm going to be very clear again in terms of, I don't order a very nice wine. No sommelier really cares what I'm drinking. But if you are doing that or you're into it, which is great, again, think about being generous. If they're like, "Oh, I would love to taste that." Have a taste. It's great.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:33):<br />
+I love that. I would love to do that. That sounds really nice.</p>
+<p><strong>Sam Lessin</strong> (00:41:36):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:37):<br />
+Yeah. Okay. And one other tip here I wrote down, B for bread, D for drinks. So explain that.</p>
+<p><strong>Sam Lessin</strong> (00:41:42):<br />
+Oh, BD. You just got to look at your hands, right? Bs and Ds for which was your bread plate is kind of the way to think about it. And look, people get this wrong all the time. You sit down at a big table and you're like, ah, which is mine? And you're kind of waiting for someone to pick it up and do the math. I'm like, "Okay, that's my bread." But the B and D is useful. Also, look, forks and knives, just knowing what side they go on, knowing one thing I always drive with me nuts that is related is the knife blade goes in.</p>
+<p><strong>Sam Lessin</strong> (00:42:11):<br />
+People, when they put their knives down, the knife blade goes in because you don't want to stab your partner next to you, but it was really funny. I had an entrepreneur, this is not yet a product. People have started sending me videos of them dining or in situations and asked for feedback. And I recently had to give feedback to an entrepreneur who was like, "You did a very nice job eating your soup. Good job. Your napkin should have been in your lap and your knife is pointed the wrong way."</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:38):<br />
+Okay. Napkin actually. Okay. So napkin in lap.</p>
+<p><strong>Sam Lessin</strong> (00:42:40):<br />
+Napkin in lap. Not in your neck, not off to the side. Napkin in lap.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:46):<br />
+I saw someone once had a napkin on just one leg versus both legs. Any opinion there?</p>
+<p><strong>Sam Lessin</strong> (00:42:51):<br />
+I don't think you want your napkin placement to be memorable. My biggest thing is the point about etiquette is that it gets out of the way. It shouldn't be memorable.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:59):<br />
+It's like the Kindle. You don't want to think about the technology.</p>
+<p><strong>Sam Lessin</strong> (00:43:02):<br />
+No, let the conversation flow.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:04):<br />
+Yeah. Okay. Amazing. Okay. Speaking of conversation, small talk and humor, give us some tips.</p>
+<p><strong>Sam Lessin</strong> (00:43:10):<br />
+Here's the thing. Humor's great. I love humor. It can be overdone. And again, it shouldn't be the point of things. And also, I'd say humor is quite conditional and subtle to the audience. So in the room you're in, dirty jokes. You don't want to tell a dirty joke in the wrong room. But I think the thing about humor is there's this interesting subtlety to why it's so useful in social settings, which is one, it kind of shows you the ultimate mastery of a social situation.</p>
+<p><strong>Sam Lessin</strong> (00:43:40):<br />
+If you're able to tell a joke, which is right up to the line or even pushes at one degree to show your own comfort in the space. So the ultimate demonstration of comfort in a space is to tell a joke that's a little over the line or a little off color, but not too off color. It's like the ultimate thing. So if you're really in it and feeling good, using humor is great.</p>
+<p><strong>Sam Lessin</strong> (00:44:02):<br />
+You should not be remembered as only the comedian. And again, the level of jokes that you're playing with is a very subtle thing. So you don't want to tell a knock-knock joke with adults, but the off-color sex joke that is hilarious, you better be pretty confident before you tell it in space. The last thing you want, a joke that everyone laughs at is great.</p>
+<p><strong>Sam Lessin</strong> (00:44:28):<br />
+A joke that no one laughs at, it's like a huge risk maneuver you failed. It's not the point. So it's a great tool. I love it. I think everyone should have their file of jokes. I do. I don't know about you, but I have a Evernote. It's not Evernote anymore. It's like a bear of my favorite jokes. And they're loosely ranked and from least offensive to most offensive because I forget the jokes, but you kind of want to use humor sparingly and smartly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:54):<br />
+This is your next book, this list of jokes.</p>
+<p><strong>Sam Lessin</strong> (00:44:56):<br />
+List of jokes ranked by social situation and level of extremeness.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:01):<br />
+Everyone's going to be telling you same jokes. Oh, man.</p>
+<p><strong>Sam Lessin</strong> (00:45:05):<br />
+Well, there is a funny joke about that, which is the whole, the prisoners. I won't even tell it. It's funny. There's a funny joke about people who know all the jokes. I'll leave it at that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:14):<br />
+I'll leave you hanging and wanting more for our next podcast conversation. Abundance. Okay. You also recommend self-deprecating as a-</p>
+<p><strong>Sam Lessin</strong> (00:45:22):<br />
+Make fun of yourself, not other people.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:24):<br />
+Yeah.</p>
+<p><strong>Sam Lessin</strong> (00:45:25):<br />
+It's just like you can make fun of yourself as much as you want. Again, making fun of other people shows an incredible level of familiarity. And if you're there with your business partner and you're really feeling the vibe, and again, it can be quite effective, but the second it feels disparaging or people aren't on the same wavelength, it's a very high risk maneuver, making fun of yourself is always fun.</p>
+<p><strong>Lenny Rachitsky</strong> (00:45:50):<br />
+Here's a puzzle for you. What do OpenAI, Cursor, Perplexity, Vercel, Plaid, and hundreds of other winning companies have in common? The answer is they're all powered by today's sponsor, WorkOS. If you're building software for enterprises, you've probably felt the pain of integrating single sign-on, Skim, RBAC, audit logs, and other features required by big customers. WorkOS turns those deal blockers into drop-in APIs with a modern developer platform built specifically for B2B SaaS.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:19):<br />
+Whether you're a seed stage startup trying to land your first enterprise customer or a unicorn expanding globally, WorkOS is the fastest path to becoming enterprise-ready and unlocking growth. They're essentially Stripe for enterprise features. Visit workos.com to get started or just hit up their Slack support where they have real engineers in there who answer your questions superfast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:39):<br />
+WorkOS allows you to build like the best with delightful APIs, comprehensive docs, and a smooth developer experience. Go to workows.com to make your app enterprise ready today. Also, so you said you had this kind of list of jokes that you ... Because I can't remember. I have zero jokes in my head that I'm like, "Okay, here I'm going to get one, so I should make a list."</p>
+<p><strong>Sam Lessin</strong> (00:46:57):<br />
+Make a list. I got some good ones for you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:00):<br />
+Okay. I love to borrow some. You also recommend having some stories, please read kind of stories to tell.</p>
+<p><strong>Sam Lessin</strong> (00:47:05):<br />
+Yeah, you want to have some easy stories that. Again, it shouldn't be 10 minutes. But again, I think the thing about it is imagine that the whole game in these social settings, again, is putting other people at ease, making them feel like you understand them and the room and you're a trustworthy person and on the same wavelength. And in some ways think about it as who's carrying the conversation.</p>
+<p><strong>Sam Lessin</strong> (00:47:25):<br />
+It shouldn't be your monologue. You shouldn't force them to monologue either. And that's where questions come in and back and forth. Having a fun build on story, they tell a story, you have a story to tell. Again, I really think of it as a conversation or these social interactions as a ping pong game and you kind of want to have a few of those in your arsenal.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:43):<br />
+Your last tip in that section was how to wind down a conversation, just the importance of realizing it's time to wind down any tips for how to do that.</p>
+<p><strong>Sam Lessin</strong> (00:47:49):<br />
+Yeah. Just like when the conversation is over, gracefully leave and basically the upshot. The worst is the conversation ends and the person just stands there and you're like, "I'm going to go get a drink." Or do you what I mean? And then whatever once in a while the person will be like, if someone says to you in a conversation they wind it down, it's like, "I'm going to go grab a drink."</p>
+<p><strong>Sam Lessin</strong> (00:48:09):<br />
+Most of the time, that is not an invitation saying, "I'd love one too and follow them to the bar." So I just think you have to recognize the signs effectively when the moment is passing or it's time to move on, et cetera, and then respect it is what I would say.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:27):<br />
+I use that one all the time. Is there any other ways you find useful to wind down in conversation just to get out of a conversation?</p>
+<p><strong>Sam Lessin</strong> (00:48:32):<br />
+Well, I think the other thing people do frequently, which again is totally fine if done respectfully, is bring someone else into the conversation. In some ways, give them their next partner and be like, "Oh, I've enjoyed this conversation. It's super cool. By the way, have you met Steve? Let's go meet Steve. Go talk to Steve for a bit and I'll pick you back on it." And like, "Okay, I'm going to go say hi to my wife."</p>
+<p><strong>Sam Lessin</strong> (00:48:55):<br />
+There's ways to handle it. Again, the key though is subtlety on these things, I think in all things. You want to basically let people feel respected as much as anything else. So if you're too overt about it, even if everyone kind of knows what's going on, the key is to give them plausible deniability to themselves and the community effectively that we've wound down this conversation. So you have to look for the signs.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:21):<br />
+Awesome. Okay. There's four more sections. The next one is scheduling etiquette. Give us some advice.</p>
+<p><strong>Sam Lessin</strong> (00:49:28):<br />
+Oh, well, I think I'd like to say that I'm fairly famous for hating Calendly. I actually, I think I am not overstating it when saying there was a period where calendar where I personally had driven most of their growth for the month. I got messages from the board because I went on this diatribe about how much I hate Calendly and how disrespectful it is. And apparently, this was such an internet fervor. I got millions of engagements that meaningfully drove their month. So they thanked me for it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:53):<br />
+Wow. No bad press.</p>
+<p><strong>Sam Lessin</strong> (00:49:54):<br />
+No bad press and no bad tweets. Yeah. So I think, look, there's a few obvious ones. Make sure you have availability. If you ask someone to schedule with you, it's not always wrong to be like, "Here's my availability or here's a link." But make it real. You have to give them real options. I really strongly believe the default should not be Calendly.</p>
+<p><strong>Sam Lessin</strong> (00:50:13):<br />
+The default in most situations, especially if you recognize the power hierarchy or the busyness hierarchy. If you're the less senior person, if you are the less busy person, you should let the other person tell you when they're free and then make it work on your end, is what I would say. And it's fine if the first thought doesn't work, but one of the first three really needs to.</p>
+<p><strong>Sam Lessin</strong> (00:50:33):<br />
+So I think that in some ways that it's important to respect that. It's better to ask what they can do and then move your schedule. If you really can't and you're going to use a scheduling agent or something, it just needs to actually have real options is basically, I think that comes up all the time. Look, rescheduling happens when you do it, give notice as much as possible.</p>
+<p><strong>Sam Lessin</strong> (00:50:55):<br />
+Once you're asking for rescheduling, you need to be even more accepting of what the other person can do, I think is really important. If you're asking to reschedule, you basically within reason need to make it work for them, is what I would say. And then look, I think there's obvious stuff that people should know and sometimes forget. Time zones are really tricky. People screw them up all the time. Check.</p>
+<p>It's worth the extra check to make sure you're not both scheduling, you're getting the numbers right, but then also really importantly, scheduling at reasonable times. Sometimes people are like, "I want to meet at this time." You're on EST, you're aware, that's like 4:00 in the morning for me. And so I think being respectful of that and just asking, I think is super important.</p>
+<p><strong>Sam Lessin</strong> (00:51:34):<br />
+It's not rocket science because it's important. Last point I make, which we make in the book is you really need to respect EAs and PAs and the whole people. The number one way to look extremely classless is to not respect people who are helping the other person. This is the number one thing. Now you don't need to be so over the top exuberant.</p>
+<p><strong>Sam Lessin</strong> (00:51:57):<br />
+You don't want to overdo it, but there should be this deep well of respect for anyone who's helping you, whether that's a server or a PA or an EA or whatever. This needs to come with an extra gesture of respect. That means saying thank you when they schedule and follow up with them and things like that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:14):<br />
+I'll tell a story when we were selling our company to Airbnb, we had this guy helping us sell the company and he made it a big point to build a good relationship with the EA and office manager at Airbnb because if they like you, it helps. It helps you get the thing.</p>
+<p><strong>Sam Lessin</strong> (00:52:31):<br />
+The general story of make the gatekeepers happy and like you is true. I do think there are ways to overdo that for what it's worth. It becomes almost too transactional. If you show up with flowers for the EA, you better be damn confident in what you're doing, if that makes sense. But just like the small things go a long way.</p>
+<p><strong>Sam Lessin</strong> (00:52:50):<br />
+You just make eye contact with them, thank them, respect them. If they bring you a coffee cup, ask them where to put it when you're done. Don't treat people who you might feel like the team or the staff feel that way, make them feel like part of the team it equals.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:08):<br />
+The Calendly stuff, I feel like that's its own separate book of Calendly Etiquette.</p>
+<p><strong>Sam Lessin</strong> (00:53:15):<br />
+Calendly is one of my favorite episodes of going hyperviral on something hilarious.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:20):<br />
+So one thing that Calendly does is you can embed. I don't do this yet, but I should. It feels like just embedding your times in the email feels like a good-</p>
+<p><strong>Sam Lessin</strong> (00:53:27):<br />
+Look, I'll be honest, I go the other way. I don't use any of that stuff. And look, I think scheduling is very complicated. This is part of it. I always think of these, it's like, when are you free? It totally depends on who's asking. If Barack Obama, or I don't know, I won't say Donald Trump, someone wants to meet with me and it's like 4:00 in the morning my time, or I'm totally, "You know what? I'm going to make it work."</p>
+<p><strong>Sam Lessin</strong> (00:53:55):<br />
+And so I do think I'm actually kind of against the flat hierarchy, all meetings are the same, da-da-da-da. That does mean, honestly, I think that you probably knocked me. My bet is that my calendar moves more than most people's, and I'm sure that feels disrespectful to some, and it is. I want to be really clear, but it's also the reality of trying to balance these things.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:16):<br />
+The other flaw with Calendly, I've realized someone once figured out my Calendly URL and just booked a meeting with me, like a founder wanting to pitch me, and it was on my calendar. I'm like, "Who is that?"</p>
+<p><strong>Sam Lessin</strong> (00:54:26):<br />
+The funny one I've had is there are people whose names are very similar to other people I know. And every once in a while, I've ended up accepting a cold meeting and showing up and be like, "You are not the person I expected." Because I was like, "Oh, your name is off by one letter." That's cool. That's not a thing to call out, by the way, from an etiquette perspective. Once you're committed to the meeting, you're doing the meeting, even if it's the wrong person.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:49):<br />
+Oh, man. Okay. Well, one last question with Calendly. Something I try to do, curious to get your take is like, okay, someone want a founder, I'm meeting with a founder and the way I approach it is like, okay, do you have a Calendly or something I could use to book a meeting with you? If not, in parentheses, here's my calendar in case that might make it easier.</p>
+<p><strong>Sam Lessin</strong> (00:55:08):<br />
+Yeah, I think that's perfectly fine in terms of the way to do it. I just think the key is to make it easy for the person you're trying to do business with.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:15):<br />
+And not make them feel like they have to do the work if they don't want to.</p>
+<p><strong>Sam Lessin</strong> (00:55:21):<br />
+No, you do the work. Basically, you're asking for something, you do the work is the upshot.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:23):<br />
+Okay, sweet. Moving on to the next topic, communication.</p>
+<p><strong>Sam Lessin</strong> (00:55:27):<br />
+Don't use emojis, try to proofread your stuff, get to the point quickly, assume the person you're reading is busy. Again, I think these are all the types of things that none of this is rocket science from my perspective, but people, it's just good to remember and be on top of it. I do think people have different things on this. I personally do think that on things like email, you kind of do have an SLA to respond.</p>
+<p><strong>Sam Lessin</strong> (00:55:53):<br />
+There's some people I know who are like, "Email does not mean I have to respond. You send me an email, you may or may not get a response. It's completely up to me. I have no contract to respond to your email." I personally go the other way, which I feel like from an etiquette perspective, I don't owe you a 12-page essay, but I do owe at least an acknowledgement quickly of what you've sent.</p>
+<p><strong>Sam Lessin</strong> (00:56:13):<br />
+You don't want to leave people hanging. But again, I just think it's like if you read an email, I'm sorry, if you write an email, imagine you're receiving it. How does it feel? Does it feel like you're asking a ton of the person you send it to? If you send them 10 paragraphs, it's annoying. You're like, "Okay, I have to read all this. What am I going to find time?"</p>
+<p><strong>Sam Lessin</strong> (00:56:33):<br />
+This is like you're asking a lot. It's kind of like a monologue and a conversation. You've just said, "I'm going to spend 10 minutes talking at you." And so I do think keeping it short and to the point, not being silly, not using emoji, trying to make it readable. These are all important things.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:47):<br />
+Say more about the emoji piece. Is your advice just know emojis if it's a business?</p>
+<p><strong>Sam Lessin</strong> (00:56:52):<br />
+I think emoji from my perspective, it's quite a step of familiarity, if that makes sense. From a business context, look, if someone sends you a smiley face, you can respond with it. You can kind of match. Again, it goes back to this matching vocabulary and language. I'm not saying you should be totally cut and dry, but it's kind of, I would say emojis almost feel like jokes to me, which is like, tell them at your own risk and they're probably not worth it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:20):<br />
+Awesome. Okay. I do use emojis. I use the thank you hands one a lot.</p>
+<p><strong>Sam Lessin</strong> (00:57:25):<br />
+Look, I think text is different. I think people might have slightly different takes on this. And so I wouldn't say anything I'm saying here is dogmatic, but I'm just saying that, again, emojis are not highly legible to most people. They can mean lots of different things.</p>
+<p><strong>Sam Lessin</strong> (00:57:39):<br />
+They usually have cultural connotation to them. And I would say that they're kind of harder to read than just a well-worded, simple to the point email, and I think you just want to come across as a literate to the point, simple, clear person.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:54):<br />
+And emoji sometimes kind of implies used AI to generate this thing because ChatGPT loves emojis.</p>
+<p><strong>Sam Lessin</strong> (00:57:59):<br />
+Totally. And I also say, look, there's a whole ... We want to get spicy for a second.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:04):<br />
+Yes.</p>
+<p><strong>Sam Lessin</strong> (00:58:05):<br />
+I don't know how I feel about people who have invested too much in their emojis. So you get people who have changed the colors of their emojis from the default or whatever. I'm not saying not to do it. I'm just saying it's quite a statement is my view that you've invested in your emoji pack or using special emojis people haven't seen before or it's like, again, it's a subtlety and you got to understand the room and the culture and what you're responding to, but I do think that people read more into that than people want to be read into it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:36):<br />
+You know what's crazy now? I don't know if you've seen this, you can create your own emojis now in iOS and emojis are so ... It's like a whole new world, just infinite emojis.</p>
+<p><strong>Sam Lessin</strong> (00:58:45):<br />
+But again, it's like if you choose to use those, you are going way out on a limb that people are going to be receptive to that and not be like, "This is a person who spent a lot of their time customizing their emoji pack when they probably should be doing something more interesting."</p>
+<p><strong>Lenny Rachitsky</strong> (00:58:58):<br />
+They should be finding product market fit.</p>
+<p><strong>Sam Lessin</strong> (00:59:00):<br />
+Yeah, or learning etiquette.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:03):<br />
+The other tip you had that I loved, which is think about the order of the emails when you're emailing somebody.</p>
+<p><strong>Sam Lessin</strong> (00:59:09):<br />
+Yeah, I do think you kind of want to think about ... There is a connotation to who you send it to and who you CC and the order in which people. Now, I don't want to overstate this, but put differently, it's like if you're sending an email and the first person on the email is the assistant and the fourth person on the email is the CEO, you've probably done it wrong.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:30):<br />
+And because the implication there is who you think is most important comes first. Who's first to mind?</p>
+<p><strong>Sam Lessin</strong> (00:59:35):<br />
+Well, who are you really sending this to? You know what I mean? It's almost the way I think and who's kind of included. So if I look at an email and I'm the first person in the two, candidly, I mildly pay more attention to it than when I'm the fifth, right? Because in my head I'm like, "Okay, well, this is really to Kevin and I'm on it."</p>
+<p><strong>Sam Lessin</strong> (00:59:53):<br />
+If you see an email sent to many, many, many people, almost by definition, it's not that important is almost the way I would put And so you have to be really careful with managing that. I think even the who do you send it to and who do you CC. There's a language to that from an etiquette perspective to understand. And I do think people sometimes miss that. The CC line is very, very valuable.</p>
+<p><strong>Sam Lessin</strong> (01:00:13):<br />
+It means, "Hey, you should have a copy of this. This is not really to you. I'm not expecting an immediate response." I even think there's even a subtlety who responds then. If you send an email to 10 people CC'd to the whole nine yards, there is a subtle etiquette to when you respond.</p>
+<p><strong>Sam Lessin</strong> (01:00:30):<br />
+If you are the fifth CC on an email, you're not expected to be the first response. Again, you can break this rule. There are times to break it. There's a subtlety to it, but it wasn't really sent to you. And so there's a whole language to who you send to and who you CC in the order that, again, it's very subtle, but is worth understanding.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:51):<br />
+So true. Man, and you would think nobody sees all these little things in the Gmail thread, but you do. They're just right there and you're like-</p>
+<p><strong>Sam Lessin</strong> (01:00:59):<br />
+This is the whole thing about etiquette is it's all this invisible stuff that you don't need to spend all ... In some ways, the whole story of doing this well is it should not occupy 80% of your brain. What you're saying is, "I've got this. We're on the same wavelength. My heart rate is low. I'm doing it properly and I'm doing it with intuitively almost." Which is a hard ask because what we're basically saying is these are unknown things, but intuitively you should just know them. And that is actually what you're signaling is you can trust me because intuitively, there's this well of knowledge and cultural connection and whatever that we can share effectively.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:33):<br />
+And if your BCC definitely do not reply all.</p>
+<p><strong>Sam Lessin</strong> (01:01:36):<br />
+Yeah. I have some unbelievably funny faux pas from my history with CC/BCC To lines. One of the worst etiquette/mistakes I ever made, never, ever, ever put someone you're talking about who's not on an email in the To line to check the spelling of their name and then hit send. That's a bad idea. So whatever you're doing, that's not even an etiquette thing. That's just being smart.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:04):<br />
+Proofreading thing.</p>
+<p><strong>Sam Lessin</strong> (01:02:04):<br />
+Proofread. Proofread. And don't send emails to people about them that they're not supposed to see.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:10):<br />
+And it's like Gmail makes it too easy to do that because it adds them automatically if you have their name.</p>
+<p><strong>Sam Lessin</strong> (01:02:15):<br />
+No, for me it was more just like the way to check the spelling of someone's name is not to put them in the To field, ever.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:20):<br />
+Yeah. Okay. Oh man. Well, you're still kicking, so it wasn't so bad.</p>
+<p><strong>Sam Lessin</strong> (01:02:27):<br />
+I'm still kicking.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:28):<br />
+Okay, great. Okay. Two more. Meeting etiquette.</p>
+<p><strong>Sam Lessin</strong> (01:02:33):<br />
+Yeah. Again, we've talked about arriving a little bit early. You should do that. Don't arrive up too, too early. Again, if you're an hour early, walk around the block. It's fine to walk around the block. You don't want to sit in someone's office, because then all of a sudden it feels like this person's been here a long time.</p>
+<p><strong>Sam Lessin</strong> (01:02:49):<br />
+It feels like even though they're not scheduled, we're leaving them hanging. You're six coffees deep with the receptionist. You don't want that. So I think you want to be 10 to 15 minutes early. You do not want to be much earlier than that. We talked about meeting other convenience. I do think it's fine to start with a little bit of small talk.</p>
+<p><strong>Sam Lessin</strong> (01:03:10):<br />
+There are times it's not or times people are running behind, but the pleasantry of the weather is nice or how is your weekend? Or something that kind of cuts the air a little bit and then you flip into business is a good thing. Even though it feels transparent, it's still useful is what I would say. And again, it's almost a signal of, I am here for business, but I am a normal person and I'm willing to have signaling like, "Oh, I know that we should start with a normal conversation." If that makes sense.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:41):<br />
+I don't know if you saw this on Twitter. Someone described small talk as the TCP/IP act handshake.</p>
+<p><strong>Sam Lessin</strong> (01:03:45):<br />
+I love it. It's a great description. I always describe it as like, imagine the modem crash from when we were kids on a 424. That old modem crash. That's what small talk is. It's a modem crash. We're trying to hit the wavelengths, et cetera, is the way-</p>
+<p><strong>Lenny Rachitsky</strong> (01:04:02):<br />
+And so that you're ready to talk, so they ready to really communicate.</p>
+<p><strong>Sam Lessin</strong> (01:04:04):<br />
+Yeah. For meetings, virtual ones, camera on. And again, I say this as someone who sometimes violates this. I violate it knowingly. I violate it knowing what it costs me, but you really should have your camera on. And again, you should dress appropriately for a video call. You should have an appropriate background. If you have your bed in your background, it should be nicely made. You know what I mean?</p>
+<p><strong>Sam Lessin</strong> (01:04:28):<br />
+In some ways it's like doing the easy stuff is the key. And I go a step further. I actually, this is less a hard rule. I actually really don't love virtual backgrounds for the same reason. I'm like, "Look, I'm not going to judge you if you're in your bedroom, if you're a startup founder. It's fine, but I would like to see that your bed is made." Or I'll give you another one that's classic that I see with founders all the time.</p>
+<p><strong>Sam Lessin</strong> (01:04:55):<br />
+Close your closet. People will get on Zoom calls and you'll be on a call and their closet is open and I'm like, "It's not a big deal, but do you see your own self picture here? Can you just close your closet? I don't want to see your shirts." That type of stuff I think goes further than people realize.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:15):<br />
+Awesome. One other tip you had was clean up after yourself if you're in a real meeting.</p>
+<p><strong>Sam Lessin</strong> (01:05:20):<br />
+The easiest way, and this is by the way, it's for my partner, Kevin Colleran, But the easiest way to come off badly is to not offer to put your coffee cup in the kitchen. And honestly, we do this because if you think about it, we work for LPs, limited partners. That's who we raise money from and then deploy it from.</p>
+<p><strong>Sam Lessin</strong> (01:05:40):<br />
+And my partner, Kevin, even more than me, has this thing, which is he is maniacal about this, which is no matter who's in the room, if we're with an LP, you take the coffee, you take the Diet Coke. Even if you know full well, someone's going to come in and clean up after you and you make a point of asking where we can put it or putting it on the side table, et cetera, and acknowledging that there is a mess.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:59):<br />
+I feel that. Final topic is exiting and leaving. What are some tips?</p>
+<p><strong>Sam Lessin</strong> (01:06:05):<br />
+You should stand where people leave the table, right? Not ridiculously. By the way, you should go stand with the table. Stand to shake hands. Don't be sitting when you're shaking your hands. It's just what you do. And it shows that you're aware of it.</p>
+<p><strong>Sam Lessin</strong> (01:06:16):<br />
+Follow up with gratitude. You should send people thank you notes. They shouldn't be long. They shouldn't be ridiculous, but we met. I got something out of it. Thank you for taking your time is always appreciated is what I would say. Obviously there's stuff like don't take calls, et cetera. This is the kind of obvious stuff in terms of exiting and how you think about it.</p>
+<p><strong>Sam Lessin</strong> (01:06:40):<br />
+Even if someone rings you and the meeting's over and you're overtime, you're like, "I got to pick up this call." You hit the button that says I'm calling you right back and then walk away. Don't just pick up the phone and wave, is what I would say. Yeah, and I think there's stuff like that that I would just keep in mind.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:57):<br />
+Also, don't make a production if you're exiting, just exit.</p>
+<p><strong>Sam Lessin</strong> (01:07:03):<br />
+Yes, I think that's really true. There's even a point to like, there are lots of scenarios where I think an Irish goodbye is the best goodbye where you just kind of disappear. Any large group setting I think is great. Maybe you thank one person on the way out of the host. But the I am leaving now,</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

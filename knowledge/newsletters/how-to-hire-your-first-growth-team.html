@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to hire your first growth team — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How to hire your first growth team</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How to hire your first growth team</div>
+    
+    <div class="article-meta">2023-08-22<span>·</span>3,884 words</div>
+    <div class="tags-row"><span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2B</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>Scheduling note: We’ll resume the “Kickstarting and scaling a B2B startup” series next week.</em></p>
+<blockquote>
+<h2>Q: How do I hire and build my first growth team?</h2>
+</blockquote>
+<p>This is a question that’s been asked and answered many times but, tbh, never super-well. To get you a full, complete, and lasting answer, I brought in the big guns—<a href="https://www.linkedin.com/in/elenaverna/">Elena Verna</a> (legendary growth advisor/leader) and <a href="https://www.linkedin.com/in/andreashuyuwang/">Andrea Wang</a> (former growth leader at Amplitude and Lime, now a partner at General Catalyst). Elena and Andrea far exceeded my expectations in answering this question by personally interviewing 12 of the top growth minds in the world (plus tapping into their own experience), to lay out a detailed step-by-step guide for building your first growth team. A huge thank-you to Elena and Andrea for going the extra mile with this post and for being such great collaborators.</p>
+<p><em>Elena is a growth advisor and angel investor—you can find her on <a href="https://www.linkedin.com/in/elenaverna/">LinkedIn</a> and <a href="https://twitter.com/ElenaVerna">Twitter</a>, and don’t miss her amazing newsletter, <a href="https://elenaverna.substack.com/">Elena’s Growth Scoop</a>. Andrea is a partner at General Catalyst, investing in early-stage B2B startups, who loves helping companies think about product and growth strategy—you can find her on <a href="https://www.linkedin.com/in/andreashuyuwang/">LinkedIn</a> and <a href="https://twitter.com/AndreaShuyuWang">Twitter</a>.</em></p>
+<p><img alt="Image from How to hire your first growth team" src="https://substack-post-media.s3.amazonaws.com/public/images/0c489b8d-d512-47ac-bc63-188b91a423f9_8000x4000.png" /></p>
+<p>Growth, as a function, is only a decade old. Many companies are establishing growth teams for the very first time, and there’s still very little practical advice for thinking through the timing and sequence of building your first growth team.</p>
+<p>We decided to leverage our experience and the expertise of top growth practitioners, including <a href="https://www.linkedin.com/in/adamjfishman/">Adam Fishman</a> (Lyft, Patreon), <a href="https://www.linkedin.com/in/akgrenier/">Adam Grenier</a> (Eventbrite, Uber), <a href="https://www.linkedin.com/in/semanticben/">Ben Williams</a> (Snyk), <a href="https://www.linkedin.com/in/caseywinters/">Casey Winters</a> (Pinterest, Grubhub, Eventbrite), <a href="https://www.linkedin.com/in/hilaqu/">Hila Qu</a> (GitLab), <a href="https://www.linkedin.com/in/lauraschaffer/">Laura Schaffer</a> (Amplitude, Twilio), <a href="https://www.linkedin.com/in/laurynisford/">Lauryn Isford</a> (Airtable, Notion), and <a href="https://www.linkedin.com/in/melissamtan/">Melissa Tan</a> (Webflow, Dropbox), to help you get started.</p>
+<h2>What does a growth team do?</h2>
+<p>Growth teams don’t build net new products or features. Instead, they work on creating distribution strategies that help acquire, activate, engage, and monetize customers on the existing product value.</p>
+<blockquote>
+<p>“<em>Most product and marketing teams are built to create or expand the core value provided to customers. Growth is connecting more people to the existing value.</em>” —<em><a href="https://www.linkedin.com/in/caseywinters/">Casey Winters</a> (ex-Eventbrite, Pinterest)</em></p>
+</blockquote>
+<p>Growth teams and pods are typically formed around (1) acquisition, (2) activation, (3) monetization, and/or (4) engagement goals. And 90% of the time, <em>acquisition</em> is the first goal new growth teams take on. This is our recommended approach as well, because:</p>
+<ol>
+<li>There is more user volume in the earlier stages of the customer journey for the growth team to take a scientific, data-driven approach to finding the best ways to increase distribution.</li>
+<li>Most businesses experience the biggest drop-offs around the acquisition parts of the user journey, giving a way to faster time-to-value for the newly formed growth team.</li>
+<li>Improved acquisition leads to healthier engagement and monetization; thus, by refining these initial stages, businesses can also enhance downstream metrics.</li>
+<li>Monetization is a complex issue involving all company stakeholders, so the growth team must build organizational trust before addressing this crucial element.</li>
+</ol>
+<h2>How does growth look at different company stages?</h2>
+<p>Growth efforts and team compositions vary depending on the stage of a company’s development. Just like with the first product or marketing hire, it is a difficult decision to determine when growth specialization and hiring are worthwhile. Here are our guidelines:</p>
+<h4><strong>Before PMF: Develop a growth model hypothesis</strong></h4>
+<p>Many founders get caught up in growth hype and try to hire growth talent as early as possible. Don’t fall victim to this trap—you will only waste precious capital and equity for lackluster results. Growth is about increasing the distribution of the core product. If there is no validation that the product has found PMF, growth has nothing to grow. PMF has to happen first, then growth.</p>
+<p>But that’s not to say you shouldn’t think about growth pre-PMF. As you explore potential product-market fit, it is crucial to have hypotheses on how you will distribute your product. For example, if you are planning to be product-led, then the product has to be designed with acquisition, monetization, and retention distribution goals in mind from the very beginning. If you are planning to be marketing/sales-led, then the product experience will look very different from inception, as you will have humans responsible for growth levers and distribution.</p>
+<p>Founders must assess their PMF strategy and develop the best-fitting ways to distribute the product to create predictable, sustainable, and defensible growth. It can be product-led, marketing-led, sales-led, or combinations thereof. But just like you wouldn’t outsource your PMF to a PM, you cannot outsource your initial growth ideas.</p>
+<h4><strong>Finding PMF: Founder-led growth</strong></h4>
+<p>During early signs of traction and initial scaling stages, it is important to validate that the growth model hypothesis was correct. Founder-led growth is the best path here, where the founder drives growth efforts across product-led, marketing-led, or sales-led motions.</p>
+<ul>
+<li><strong>Product-led growth:</strong> The founder prioritizes not only building core functionality but product experiences to resolve distribution goals, from acquisition to monetization.</li>
+<li><strong>Marketing-led growth:</strong> The founder prototypes third-party channels and content to enable the market with the information to drive acquisition, educate on engagement, and assist monetization.</li>
+<li><strong>Sales-led growth:</strong> The founder does sales themself.</li>
+</ul>
+<p>The benefit of founder-led growth at this stage is quick decision-making, tight alignment to vision and customer, and, perhaps most importantly, leading by example to set up the growth mindset within the company culture.</p>
+<p>At this stage, we recommend you don’t hire a team for growth, as it’s still too early in the PMF journey to warrant multiple headcounts, but if you still want to hire dedicated growth talent, look for someone with (1) high iteration/learning velocity; (2) a growth mindset; (3) strong execution skills, and a generalist who can execute across different growth problems; and, ideally, (4) someone internal who already has the business context.</p>
+<h4><strong>Scaling PMF: Hire your first full-time growth roles</strong></h4>
+<p>As your company efforts transition from a search for and validation of PMF to scaling work, you can begin hiring your growth team. In other words, the right time to think about the first growth hire is when you are ready to blow up the distribution of your current product-market fit and have initial validation of your distribution methods.</p>
+<p>Your first growth hire’s skill set should be anchored to the biggest growth lever that is currently experiencing friction: acquisition, activation, engagement, or monetization. Is your biggest bottleneck to growth today acquiring new users, activating those users, keeping them retained, or generating revenue?</p>
+<p>It is important not to hire growth team members just to “accelerate growth,” as it will likely result in a misfire. For example, if product-led growth is your main motion, hiring a marketer to accelerate growth will lead to disappointing results—because most of the growth work will need to be done in the product by the PM and eng teams. Knowing where you are experiencing friction will ensure that you have sufficient data tracking and understanding of your growth model to bring the right talent on board, enabling new hires to have a meaningful impact.</p>
+<p>Suggestions on whom to hire depending on the problem:</p>
+<p><img alt="Image from How to hire your first growth team" src="https://substack-post-media.s3.amazonaws.com/public/images/7ecb9b3e-1e46-4e21-a283-48f2f06cc4ce_1276x774.png" /></p>
+<h2>A growth leader should not be your first hire</h2>
+<p>Understanding why your business is not growing is incredibly difficult. Many founders want to shortcut this by hiring a growth leader to outsource solving this problem to them. Unfortunately, even the most experienced growth leaders will take at least 6 to 12 months to understand the local problem fully. The business ecosystem is incredibly complex, and learning about products, industries, markets, customers, and internal employee dynamics is not an easy feat. When growth leaders need immediate results, they are forced to simply copy-paste from their previous experiences, often resulting in initiatives that do not produce desired outcomes.</p>
+<p>Sustainable growth is about evolution, not revolution. Hiring a “builder” profile (e.g. Acquisition PM, Activation PM, Monetization PM, Acquisition Growth Marketer, Retention Growth Marketer) as your first hire is a better bet. A builder is a growth generalist focused on broad tactical and execution skills within a specific domain. These are the individuals you want on your team when you are standing up growth processes and systems from the ground up.</p>
+<h2>How to structure the growth team</h2>
+<p>Since growth is a result that the whole company contributes to, the question is how to structure the growth team to accelerate growth while also ensuring that the responsibility for growth is shared across the entire organization.</p>
+<p>Let’s take data analytics teams as an example. Although almost every company has data analysts, other team members also analyze data whenever possible. While the analysts may take ownership of the more complex data projects where they can provide unique insights, the entire company must take responsibility for data analytics if they want to make data-driven decisions.</p>
+<p>The same concept applies to growth teams. Growth teams take accountability over growth work where they can uniquely add value, yet the entire company should continue aligning to growth outcomes.</p>
+<p>There are two common archetypes of growth team structure:</p>
+<ol>
+<li><strong>Centralized growth team</strong></li>
+<li><strong>Decentralized growth team</strong></li>
+</ol>
+<p>Let’s explore the pros and cons of each archetype:</p>
+<h4><strong>Archetype 1: Centralized growth team</strong></h4>
+<p>Centralized growth teams are optimized for velocity.</p>
+<p><strong>Examples of companies that started with dedicated growth teams:</strong> Dropbox, HubSpot, GitLab, Miro, SurveyMonkey, Snyk</p>
+<p><strong>Reporting structure:</strong> Growth marketing, product, and analytics report to a Head of Growth. Dedicated engineering and design resources are embedded in the team or may even report directly to the Head of Growth. The reporting structure can be either reporting to the CEO or a Marketing/Product/Revenue leader.</p>
+<p><img alt="Image from How to hire your first growth team" src="https://substack-post-media.s3.amazonaws.com/public/images/ea80e9c3-f2db-4d6b-9b26-a20bdc8ac25f_1016x490.png" /></p>
+<p><strong>Superpower:</strong> Velocity. They operate as a lean, mean, execution-hungry machine.</p>
+<ol>
+<li>They have aligned priorities</li>
+<li>Are self-sufficient</li>
+<li>Have customized processes, rituals, and development lifecycles</li>
+<li>Can prioritize and re-prioritize on the fly</li>
+</ol>
+<p><strong>Drawbacks:</strong></p>
+<ol>
+<li>Centralization of responsibility: Dedicated teams often hoard growth responsibility because they can do it faster and better than anyone else. This often results in all growth outcome accountability falling on the dedicated team, alleviating the need for the rest of the company to contribute to growth success. The Product team may become a feature factory, and Marketing begins to fall back on the blind chase after traffic/MQLs.</li>
+<li>Resourcing: Resource constraints are often felt fairly quickly because the rest of the organization is not aligned to contribute.</li>
+<li>Career growth: Unclear career progression for people on the growth team—not all growth marketers and growth PMs want to be growth leaders.</li>
+</ol>
+<blockquote>
+<p><em>“At GitLab, the initial product growth team had four sub-teams: Acquisition, Activation, Retention, and Expansion. However, engineering resources were stretched too thin, so we consolidated them into two teams: Activation and Conversion. This led to increased velocity and impact without abandoning Expansion and Retention.</em></p>
+<p><em>We also established a dedicated product analytics team within growth, significantly improving productivity. Lastly, adding a ‘Head of Online Sales’ role in the sales organization helped align growth and sales efforts. For any B2B PLG growth team, it’s crucial to design a sales counterpart early in the process.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/hilaqu/">Hila Qu</a>, growth advisor and former Director of Growth at GitLab</em></p>
+<p><em>“Snyk formed a dedicated growth organization later in its journey, initially focusing on building the necessary foundation for growth work at scale and early growth hypotheses. The org was predominantly centralized, with multiple cross-functional growth pods designed to drive cultural change, establish growth practices, and maintain a platform-wide approach. Hiring team members with a specific mindset was crucial, although some personnel changes occurred in the first 12 months. Challenges included alignment due to rapid company growth and the ‘absolution effect,’ where the existence of a dedicated growth org seemed to relieve others of growth responsibility.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/semanticben/">Ben Williams</a>, growth advisor and former Head of Growth at Snyk [P.S. Read more about Ben’s take on PLG org structure <a href="https://plgeek.substack.com/p/a-best-in-class-plg-org">here</a>]</em></p>
+<p><em>“At Uber we were product-led and reported directly to Travis [Kalanick], the CEO. That included things like paid media, lifecycle, and SEO, where we opted to run them more like product sprints and experiment-to-build instead of experiment-to-optimize for the first couple years. This allowed us to take big swings aimed at any leverage point in the business (for instance, we had a few sprints focused on recruiting engineers because that was the biggest barrier to our company’s growth).”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/akgrenier/">Adam Grenier</a>, VP of Growth at Eventbrite, ex-Uber</em></p>
+</blockquote>
+<h4><strong>Archetype 2: Decentralized growth team</strong></h4>
+<p>Decentralized growth teams operate as tribes and are optimized for fostering a growth culture.</p>
+<p><strong>Examples of companies that started with decentralized growth teams:</strong> Amplitude, Airtable, Pinterest, Twilio, SurveyMonkey</p>
+<p><strong>Reporting structure:</strong> Each growth marketer or PM reports to their respective function (growth product into Product and growth marketing into Marketing), coming together as a “growth tribe.”</p>
+<p><img alt="Image from How to hire your first growth team" src="https://substack-post-media.s3.amazonaws.com/public/images/540ca6ef-7b73-488d-9fe9-f7f116d034cf_1018x546.png" /></p>
+<p><strong>Superpower:</strong> By building a decentralized growth tribe, you can cultivate a culture of growth throughout your organization, as members from various teams come together to share their expertise and insights. This collaborative approach leads to a more holistic understanding of growth opportunities. It also fosters a sense of ownership and accountability for driving growth, ultimately leading to more sustainable and scalable growth over the long term.</p>
+<p><strong>Drawbacks:</strong></p>
+<ol>
+<li>Priorities: Conflicting priorities of their respective departments will slow down the velocity.</li>
+<li>Complexity: As the number of participants in a growth tribe increases, it can become more challenging to coordinate and align everyone around a common goal or objective, leading to inefficiencies and slower decision-making.</li>
+<li>Communication breakdown: With participants coming from different departments or teams, miscommunication and misunderstandings can arise, particularly if there isn’t a clear and open line of communication established. This can lead to delays, missed opportunities, and even conflicts between team members.</li>
+</ol>
+<blockquote>
+<p><em>“At Pinterest, we started with growth product and engineering teams reporting into the head of product and the head of engineering, respectively. A couple years after forming, the decision was made to move the growth team into Marketing. It was quickly undone within six months because they realized that having a product-led-growth team report into Marketing was creating alignment issues. It was still early in Pinterest’s journey, and the core product was evolving. We found that with growth reporting into Marketing, a lot of growth product strategy was aligned with what the product was like today, and was not aligning with where it was going be six months from now. It created a communication and alignment gap.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/jwegan/">John Egan</a>, former Head of Growth Engineering at Pinterest</em></p>
+<p><em>“At Twilio, we had a growth product team focused on driving activation and monetization through efficient self-serve experiences. We evolved the team’s composition to suit our objectives, first targeting activation, then engagement and monetization.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/lauraschaffer/">Laura Schaffer</a>, Head of Growth at Amplitude, ex-Twilio</em></p>
+</blockquote>
+<p>At Amplitude, our growth team structure evolved from decentralized to centralized (Marketing and Product report into VP of Growth), and then back to decentralized (Growth Marketing reports into CMO; Growth Product and Analytics report into VP of Growth) over time. What we found works well for us, going from the centralized to decentralized structure, is spreading a growth mindset across the organization, especially within marketing, product, and design orgs. It also helped with getting more resourcing in areas like growth marketing, when it’s structured as a standalone team.</p>
+<p>At SurveyMonkey, at first, Elena ran a dedicated growth team across growth product (acquisition, activation, monetization), marketing (acquisition, engagement), and analytics teams. We operated as a lean, mean, high-velocity machine but lacked shared goals and support from the rest of the organization. At one point, we found ourselves to be solely responsible for the forecast, even though we made up less than 25% of the company, which was far from ideal. As I left the company, the growth team was split up into a cross-functional growth tribe. The goal was to instill a growth mindset across an entire organization and create shared accountability across growth outcomes.</p>
+<h4>Which growth team configuration is right for you?</h4>
+<p>It often depends on what problem you are trying to solve. The growth team is meant to solve the following:</p>
+<ol>
+<li>Increase learning velocity</li>
+<li>Begin experimentation practice</li>
+<li>Pressure-test existing business assumptions</li>
+<li>Connect initiatives to outcomes</li>
+<li>Create a data-driven growth mindset</li>
+</ol>
+<p>Dedicated growth teams best solve for 1-3. Growth tribes best solve for 4-5.</p>
+<p>If you go with the centralized growth team structure, there’s often the question of what functions related to growth should report to a growth leader. This often depends on the competency and experience of the growth leader and how that plays into the organizational dynamics.</p>
+<p>If a growth leader you already have has a strong marketing and product background, then you can have growth marketing and product teams report to this person. If the leader only has a strong data and product background but limited experience in marketing, you could have a decentralized structure where growth analytics and growth product report to a VP of Growth, and growth marketing reports to the CMO.</p>
+<p>We have seen companies oscillate between centralized and decentralized models as circumstances change.At Amplitude, we went through several iterations of the growth team. Initially, we went with a dedicated growth team that first focused on growth traffic and then took ownership of key growth areas in the core product, including activation, monetization awareness, and self-serve product feature engagement. Growth product and engineering reported into the Head of Growth; this helped us run faster and empowered the team to have more ownership in the core product, versus aligning with other product teams on every change. But we evolved into a decentralized org structure later, with each function reporting into the functional head, to spread growth mindset across the organization.</p>
+<p>When we started the growth team at SurveyMonkey, Elena ran just growth product and analytics teams. Growth marketing began reporting to her a few years later as we evolved to be a fully centralized team (reporting to the president). However, as Elena left, the team was decentralized, and a growth tribe was created.</p>
+<blockquote>
+<p><em>“Different structures are effective at varying times. Teams may transition between reporting to multiple functions, a single person, or back to a distributed approach. Success depends on whether the structure addresses the root cause at the right moment. Centralization is preferable for velocity issues, while distribution may be better for resolving cultural conflicts.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/adamjfishman/">Adam Fishman</a>, advisor and former Head of Growth at Lyft, Patreon</em></p>
+</blockquote>
+<p>The growth team structure is not static, and <strong>growth teams’ structure typically evolves based on business needs and organizational maturity</strong>.</p>
+<blockquote>
+<p><em>“At Webflow, we recently centralized all growth teams (e.g. Product Growth, Growth and Lifecycle Marketing) under one unified growth team, which has been very empowering for the team and has enabled better alignment and accountability. We’ve moved from teams locally optimizing their areas to now being able to consider and execute larger initiatives that would previously require a lot more alignment across teams.”</em></p>
+<p><em>—<a href="https://www.linkedin.com/in/melissamtan/">Melissa Tan</a>, Head of Self-Serve at Webflow, ex-Dropbox</em></p>
+</blockquote>
+<p><a href="https://www.linkedin.com/in/laurynisford/">Lauryn Isford</a>, Head of Growth at Notion, ex Airtable, also called out the need for revisiting the growth team structure as the business evolves:</p>
+<blockquote>
+<p><em>“The team structure could change if there were other areas the team wanted to work on. The org should spin up or down growth teams as business needs change. Teams should be staffed accordingly.”</em></p>
+</blockquote>
+<p>So don’t worry if you don’t get it right the first time. The right org structure changes over time as the business and org maturity in growth evolves; what serves you well today may not be the best structure in six months. You almost always encounter new challenges with the existing structure that may warrant a reorg.</p>
+<p>If you are not sure, we recommend starting with a decentralized growth team and, when you start to notice issues with velocity or decision-making, consider creating a centralized team.</p>
+<p>To conclude, our advice on structuring and hiring a growth team:</p>
+<ol>
+<li>Don’t hire too early, pre-scaling PMF.</li>
+<li>Hire the right type of talent to address your specific growth bottlenecks and challenges.</li>
+<li>There are trade-offs between decentralized vs. centralized team structures, and they address different organizational problems.</li>
+</ol>
+<h3><strong>📚 Further study</strong></h3>
+<ol>
+<li>Elena Verna: <a href="https://www.lennysnewsletter.com/p/hiring-growth">Six rules of hiring for growth</a></li>
+<li>Reforge: <a href="https://www.reforge.com/programs/growth-leadership">Growth Leadership course</a></li>
+<li>Reforge: <a href="https://www.reforge.com/previews/growth/growth-team-structure">How to pick your ideal growth team structure</a></li>
+<li>Adam Fishman: <a href="https://www.fishmanafnewsletter.com/p/hiring-your-first-growth-employeepart">Hiring your first Growth employee—part 1</a></li>
+<li>Andrew Chen: <a href="https://andrewchen-com.cdn.ampproject.org/c/s/andrewchen.com/hiring-head-of-growth/amp/">Hiring a Head of Growth</a></li>
+</ol>
+<p><em>Thank you, Elena and Andrea!</em></p>
+<p><em>Andrea is a partner at General Catalyst who loves helping companies think about growth strategy; Elena is an angel investor and growth advisor. If you are interested in chatting about your challenges and learning how we can help, feel free to get in touch. Find Andrea on <a href="https://www.linkedin.com/in/andreashuyuwang/">LinkedIn</a> and <a href="https://twitter.com/AndreaShuyuWang">Twitter</a>, and Elena on <a href="https://www.linkedin.com/in/elenaverna/">LinkedIn</a> and her <a href="https://elenaverna.substack.com/">newsletter</a>. Views expressed in this post are those of the individual General Catalyst personnel writing the blog herein and are not the views of General Catalyst Group Management, LLC, or its respective affiliates.</em></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application, and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How to hire your first growth team" src="https://substack-post-media.s3.amazonaws.com/public/images/8638d278-ac01-4f28-b2c9-39f1dd6e4724_1492x1194.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

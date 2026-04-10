@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meet your Lenny’s Newsletter Fellows ✨ — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Meet your Lenny’s Newsletter Fellows ✨</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Meet your Lenny’s Newsletter Fellows ✨</div>
+    
+    <div class="article-meta">2024-07-01<span>·</span>718 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">創業</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>When I announced <a href="https://x.com/lennysan/status/1777829703799418964">the launch of my fellowship program</a> three months ago, I had no clue how this idea would land—much less how popular it would turn out to be. The caliber of applicants and the effort they all put into their applications was beyond anything I could’ve hoped for. I received over 1,600 applications, many of which came with heart-melting messages, laugh-out-loud-funny videos, and even a ChatGPT injection attempt 🤣</p>
+<p><img alt="Image from Meet your Lenny’s Newsletter Fellows ✨" src="https://substack-post-media.s3.amazonaws.com/public/images/7558d683-9aed-4e1b-9163-e4d0a7c8a6cb_678x116.png" /></p>
+<p>I read every application, watched every video, and looked at every writing sample. I wasn’t <em>exactly</em> sure what profile I was looking for when I started, but I knew I wanted to find people who were senior enough to have had firsthand experience building world-class, successful, and impactful products (to have real-life lessons to share with others), while also not so senior that this fellowship wouldn’t meaningfully impact their career trajectory. Essentially, I designed the fellowship for product leaders with strong industry experience and lots of potential career upside.</p>
+<p><strong>I’m excited to share the inaugural Lenny’s Newsletter Fellows: <a href="https://www.linkedin.com/in/tarstarr/">Tara Seshan</a>, <a href="https://www.linkedin.com/in/nrothfels/">Natalie Rothfels</a>, and <a href="https://www.linkedin.com/in/juleswalter/">Jules Walter</a>.</strong></p>
+<p><img alt="Image from Meet your Lenny’s Newsletter Fellows ✨" src="https://substack-post-media.s3.amazonaws.com/public/images/85dd57d3-8aa8-4868-8a8a-fad267749b49_4000x2000.png" /></p>
+<p><strong>Tara Seshan</strong> has spent the past 10 years building software to solve hard problems in health care, finance, and climate. She spent two years as Head of Product at Watershed, seven years as an early PM and Business Lead at Stripe, and founded a health-care startup as an early Thiel Fellow. These days, she’s working on a new startup in the creative-tools space. She likes to throw <a href="https://x.com/tarstarr/status/1495959861317799940">pancake block parties</a> in San Francisco, record a podcast called <a href="https://podcasts.apple.com/us/podcast/red-queen-podcast/id1744818916">The Red Queen</a> with her friends, and write about the friction between our private and working selves at <a href="https://worktopia.substack.com">Working Assumptions</a>.</p>
+<p><strong>Natalie Rothfels</strong> is an executive coach working with co-founders and leadership teams to strengthen their relationships and build less toxic organizations. After a decade of building ed-tech products at Khan Academy and Quizlet, she felt the gravitational pull toward tending to the hearts of the humans behind the products. She is perpetually trying to sew the perfect pair of pants (still no dice) and recently launched a facilitation tool called <a href="https://rippledeck.com?ln=">The Ripple Deck</a>. Sorry in advance if she asks how you’re feeling and expects a real answer—you can blame that on being a Certified Internal Family Systems Practitioner and a facilitator for Stanford’s “Touchy Feely” course. In another life, she’d like to lead an angsty pop-punk band.</p>
+<p><strong>Jules Walter</strong> is a product leader at Google working on Gemini. Previously he was at YouTube, where he launched Primetime Channels with more than 40 streaming packages, such as NFL Sunday Ticket. Prior to Google, Jules spent four years as a product leader at Slack on their growth and monetization teams. While there, he was a key contributor to Slack’s 10x growth. Jules is passionate about building helpful products at scale and improving inclusion and diversity in the industry. He serves on the boards of <a href="https://www.codepath.org/">CodePath</a> and <a href="https://www.blackproductmanagers.com/">Black Product Managers</a>, two organizations he co-founded to support underrepresented people in tech. He lives with his wife and two kids in Berkeley, California.</p>
+<p>Please join me in welcoming Tara, Natalie, and Jules in the comments 👏</p>
+<p><a href="https://www.lennysnewsletter.com/p/meet-your-lennys-newsletter-fellows/comments">Leave a comment</a></p>
+<p><strong>What comes next:</strong> I’ll be looping in Tara, Natalie, and Jules on both the back end and front end of my newsletter and podcast operations—expect to see a handful of guest posts, podcast appearances, and some other fun surprises soon.</p>
+<p><em>P.S. If you applied for the fellowship, I’ve already sent you a note, but I just want to say thank you once more. There are so many incredible people who applied, and I’m thrilled to see that this newsletter and podcast have made such an impression on such an impressive group. Assuming all goes well, I’ll be kicking off another fellowship cohort later this year 👀</em></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

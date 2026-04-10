@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Three-Step Framework For Solving Problems 👌 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">A Three-Step Framework For Solving Problems 👌</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">A Three-Step Framework For Solving Problems 👌</div>
+    
+    <div class="article-meta">2019-06-14<span>·</span>2,974 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">策略</span> <span class="mini-tag">設計</span> <span class="mini-tag">組織</span> <span class="mini-tag">市場推廣</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><a href="https://substackcdn.com/image/fetch/$s_!z_HZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fec85cabc-5222-4a71-9e48-159f1981c07e_1600x800.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/ec85cabc-5222-4a71-9e48-159f1981c07e_1600x800.png" /></a></p>
+<p>It’s 2012 and our team has just joined Airbnb. We’re tasked with building out a “social travel” experience for Airbnb travelers. The thinking is that travelers on Airbnb are siloed across the city, and if we make it easier for guests to meet up and do things together, Airbnb trips would be significantly more meaningful. We work long and hard to design an amazing experience for travelers to discover fun local things to do with other travelers.</p>
+<p>Fast forward to 6 months later when we launch the V1 in San Francisco. The product is beautiful and the experiences smooth. Adoption however…not so much 📉. A small percentage of travelers give it a shot, and it generally goes OK, however it’s far from the reaction we were looking for. We iterate a bit, make some incremental improvements, but a few months later we end it and move on.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!XzE0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F999571b9-9839-4cd5-9c65-892caa844a3e_1280x853.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/999571b9-9839-4cd5-9c65-892caa844a3e_1280x853.png" /></a></p>
+<p>An early design of the product we launched, giving Airbnb travelers an easy way to find fun things to do with other travelers — designs courtesy of <a href="https://shaunmodi.com/meetups">Shaun Modi</a></p>
+<p>I personally took many learnings away from that experience, but most of all it instilled in me the importance of getting the problem statement right. Though many factors contribute to a project’s failure, <strong>nothing is more certain to cause a project to fail than a misunderstanding of the problem you are solving</strong>.In the example above, we recognized too late that the real problem we should have been solving was not “travelers want to hang out with other travelers”, but instead, “travelers want to find high quality non-touristy things to do.” Hanging out with other travelers is one solution to this, not the actual problem. Luckily another team recognized this and ended up launching a much better solution, <a href="https://www.airbnb.com/s/experiences">Airbnb Experiences</a>, a few years later.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!ijA4!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F5684d902-5fc3-4540-9df8-a46fff2d3277_179x166.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/5684d902-5fc3-4540-9df8-a46fff2d3277_179x166.png" /></a></p>
+<p>As I noted in <a href="https://medium.com/@lennysan/what-seven-years-at-airbnb-taught-me-about-building-a-company-e1d035d49c56">my last post</a>, I firmly believe that nailing the problem statement is the single most important step in solving any problem. It’s deceptively easy to get wrong, and when done well it’s a superpower of the best leaders.Luckily all it takes is three simple steps:</p>
+<ul>
+<li><strong>Step 1: Crystallize the problem you are solving</strong></li>
+<li><strong>Step 2: Align on the problem with your team and stakeholders</strong></li>
+<li><strong>Step 3: Keep coming back to the problem</strong></li>
+</ul>
+<blockquote>
+<p>“True happiness occurs only when you find the problems you enjoy having and enjoy solving.” — Mark Manson (<a href="https://www.amazon.com/dp/B019MMUA8S/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">The Subtle Art of Not Giving a F*ck</a>)</p>
+</blockquote>
+<h4>A little bit of context first</h4>
+<p>This framework is most effective when you have a project in mind, either a new product or a new feature. Before you dive into design or engineering, go through the following steps to set your project up for success.</p>
+<p>If your team doesn’t have a clear vision (i.e. where you’re going) or overall strategy (i.e. how you’ll get there), pause here and figure these things out first; <a href="https://boz.com/articles/strategy-tactics.html">this</a>, <a href="https://www.salesforce.com/blog/2013/04/how-to-create-alignment-within-your-company.html">this</a>, and <a href="https://www.amazon.com/Good-Strategy-Bad-Difference-Matters-ebook/dp/B004J4WKEC/ref=sr_1_1?crid=3SUB4MWG7602M&amp;keywords=good+strategy+bad+strategy&amp;qid=1554495219&amp;s=gateway&amp;sprefix=good+strategy+bad%2Caps%2C204&amp;sr=8-1">this</a> will help.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!a8Xu!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F142f4c29-c178-438e-b699-f8102c43f3bf_358x300.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/142f4c29-c178-438e-b699-f8102c43f3bf_358x300.png" /></a></p>
+<h1>Step 1: Crystallize the problem you are solving</h1>
+<p>Start by answering these questions about your project:</p>
+<ul>
+<li><em>Description: What is it?</em></li>
+<li><em>Problem: What problem is this solving?</em></li>
+<li><em>Why: How do we know this is a real problem and worth solving?</em></li>
+<li><em>Success: How do we know if we’ve solved this problem?</em></li>
+<li><em>Audience: Who are we building for?</em></li>
+<li><em>What: What does this look like in the product?</em></li>
+</ul>
+<p>You can also use this handy <a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/edit">1-Pager template</a> (<a href="https://docs.google.com/document/d/1541V32QgSwyCFWxtiMIThn-6n-2s7fVWztEWVa970uo/copy">copy it here</a>). I find it most effective if a single person takes the first pass (usually the PM, but doesn’t have to be). Below is a bit more detail on question.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!FvYp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Ff40339af-0497-4c78-8355-90215b6bbfd8_182x200.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f40339af-0497-4c78-8355-90215b6bbfd8_182x200.png" /></a></p>
+<h4><strong>Description: What is it?</strong></h4>
+<p>This is just a brief description of what you’re thinking, so that folks reading this doc can quickly grok what this project is all about. Keep it brief.</p>
+<h4>Problem: What problem is this solving?</h4>
+<p>The problem statement itself is foundational so spend extra time there. Think of the problem like a hypothesis. What do you believe the problem you are solving is, and why? You’ll add more context later. Key attributes of a strong problem statement include:</p>
+<ol>
+<li><strong>It’s short.</strong>Aim for a single sentence to describe the actual problem. The more you need to explain it, the less clear the problem ends up being.</li>
+<li><strong>It’s focused.</strong> It includes just a single clear problem that can be owned by a single team and solved in a reasonable amount of time. It’s often very helpful to add some examples of what problem you are *not* solving.</li>
+<li><strong>It references a “need” that is not being fulfilled.</strong> Try to focus this around a user need, but can also be a business need if necessary. The <a href="https://jtbd.info/2-what-is-jobs-to-be-done-jtbd-796b82081cca">Jobs-To-Be-Done framework</a> is especially useful here.</li>
+<li><strong>It includes a what and a why.</strong> What’s going wrong, and why is it a problem? You’ll need to back this up in the next section.</li>
+<li><strong>It’s agnostic of a solution.</strong> Resist the urge to jump to a solution this early.</li>
+</ol>
+<p>Examples of good problem statements:</p>
+<ul>
+<li>Lyft drivers are cancelling rides too often because the passengers are too far away.</li>
+<li>Airbnb hosts are feeling frustrated because they want to improve, but are finding it difficult to figure out how.</li>
+<li>Users are dropping off at too high a rate at the final step of the signup flow.</li>
+</ul>
+<p>Examples of bad problem statements:</p>
+<ul>
+<li>User growth is slowing. [Issue: Too broad for this process, see advice on approaching big picture strategy <a href="https://boz.com/articles/strategy-tactics.html">here</a> and <a href="https://www.amazon.com/Good-Strategy-Bad-Difference-Matters-ebook/dp/B004J4WKEC/ref=sr_1_1?crid=3SUB4MWG7602M&amp;keywords=good+strategy+bad+strategy&amp;qid=1554495219&amp;s=gateway&amp;sprefix=good+strategy+bad%2Caps%2C204&amp;sr=8-1">here</a>. Also not user-centric.]</li>
+<li>Build a loyalty program. [Issue: Assumes a solution. What’s the problem this is solving?]</li>
+<li>Users are bouncing from the signup flow. [Issue: Not focused enough, and missing a hypothesis of the why. Go one level deeper.]</li>
+</ul>
+<h4>Why: How do we know this is a real problem and worth solving?</h4>
+<p>This is where you collect evidence backing up your problem statement, aka hypothesis. What initially convinced you that this was a problem? What makes it clear to you that this problem needs to be tackled?</p>
+<p>Sometimes at this step you realize this problem isn’t actually worth prioritizing right now, or that you need to adjust how you think about the problem. That’s the whole point of this exercise, so don’t resist it. There are infinite problems to tackle — your goal is to feel confident that this problem is worth your team’s time right now.</p>
+<p>A few tips for this step:</p>
+<ol>
+<li><strong>Look at both quantitative and qualitative evidence.</strong> Collect all data points that point to this being a real and important problem.</li>
+<li><strong>Quality over quantity.</strong>Three to five strong data points is far better than a dozen tangentially related points. Your case ends up being weaker with too many items because often you end up filling it with minor and unrelated data points to make it look like a lot of evidence. Your case doesn’t have to be perfect or air-tight.</li>
+<li><strong>Play devil’s advocate with yourself.</strong> Try to convince yourself that this isn’t actually a real or big enough problem. What gaps do you have in your evidence? Is the evidence truly telling you what you think? Push yourself here.</li>
+</ol>
+<p>In the end it’ll be judgement call amongst many tradeoffs. Your job is to make the best case you can with the data you have. Continue refining the problem statement as you learn more.</p>
+<h4>Success: How do we know if we’ve solved this problem?</h4>
+<p>Did you achieve what you set out to achieve? How will you know? Answer that question and write it down in this section.</p>
+<blockquote>
+<p>“Did I do that or did I not do that? Yes? No? Simple.” — Andy Grove</p>
+</blockquote>
+<p>This criteria becomes incredibly important throughout the project because it helps you make decisions and prioritize. Does feature X increase the chances of achieving the goal you set? If not, cut it.</p>
+<p>Ideally this is a specific metric, with a defined goal, that you can easily measure. Ideally it directly connects to your team’s KPI’s. Ideally it is based on hard data about the opportunity size, investment size, and a heuristic from past experiments. Rarely is it ever ideal. Here is some advice for defining your success criteria:</p>
+<ul>
+<li>Try hard to make it a concrete number, e.g., 10% increase in X, 50% decrease in Y, 20% adoption of feature Z within 3 months.</li>
+<li>Pick a goal that’s believable, but ambitious. What’s a goal that if you were to hit, your team and your leaders would be excited about?</li>
+<li>If you don’t think a metric makes sense for your goal (think long and hard about this), write out what concretely the world would look like if this was a big success. Make that the success criteria.</li>
+</ul>
+<h4>Audience: Who are we building for?</h4>
+<p>This is pretty self-explanatory. It should rarely be for all of your users. Is it for new or returning users? Is it for casual or power users? Is it for users on mobile or web? etc.</p>
+<h4>What: What does this look like in the product?</h4>
+<p>This is where you take a shot at describing the solution to the problem.Depending on the way your team operates, and how much is already known, this can be very high level or very detailed. In my experience the key here is aligning with your designer(s) to figure out how much detail they want and what would be most helpful in the process.</p>
+<h1><strong>Step 2: Align on the problem with your team and stakeholders</strong></h1>
+<p>Have you ever seen those Chipotle billboards along the highway (pictured below)? Years ago my co-worker <a href="https://twitter.com/PeterKirwan">Peter</a> pointed out the trick behind these ads — each of us is picturing our most ideal and delicious ideal burrito inside of that silver burrito. We all see what we want to see.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!M3TL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Ffa02a4b4-62fd-4230-969a-df4d59fe785a_1280x960.jpeg"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/fa02a4b4-62fd-4230-969a-df4d59fe785a_1280x960.jpeg" /></a></p>
+<p><strong>Problem statements are like silver burritos.</strong>Everyone on your team has a unique version of the problem in their heads. Sometimes they are nearly identical. Sometimes they are very different. The larger and more complex the project, them more likely they are different. Your job is to eradicate this misalignment early and often. Open up the wrapper and make sure everyone agrees on the burrito inside. Luckily we have a great document from Step 1 that will make your job 10x easier.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!jxPB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F20564a84-e510-47d9-8db1-6ee7b5b2a810_274x200.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/20564a84-e510-47d9-8db1-6ee7b5b2a810_274x200.png" /></a></p>
+<p>I usually approach this step like so:</p>
+<ol>
+<li>I take a crack at Step 1 (but again, it can be anyone on your team that’s passionate about the particular problem)</li>
+<li>Share the draft with the entire team that’ll be involved in this project. Ask for feedback (in comments, in email, or in person). Integrate the feedback, and re-share.</li>
+<li>If the feedback is converging and the team seems aligned, great. If not, pull everyone together and chat through disagreements in person.</li>
+<li>Once your team is aligned, share with your stakeholders. It’s extremely important that your team and the folks judging your success are aligned on the problem you are solving before you get too deep into design/eng.</li>
+<li>Bring the team together for an in-person kickoff where you again review the problem statement, answer any outstanding questions, and make sure your team has everything they need to get rolling.</li>
+</ol>
+<h1><strong>Step 3: Keep coming back to the problem</strong></h1>
+<p>The classic Seinfeld clip below, where Jerry and Elaine attempt to get a car they previously reserved, is a great metaphor for a classic trap in product development.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!B-YK!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe69548b1-b8b0-4678-bcd4-2847c2b3ea7a_478x350.gif"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e69548b1-b8b0-4678-bcd4-2847c2b3ea7a_478x350.gif" /></a></p>
+<p><strong>We often start with great intentions and alignment, but when it counts most — when the work is actually being done — we often don’t hold on to the problem we set out to solve.</strong> And that’s the most important part of the problem.</p>
+<p><a href="https://substackcdn.com/image/fetch/$s_!IVt7!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fafb3ac94-1466-4d09-9d49-f1a37f0c8d07_320x200.png"><img alt="Image from A Three-Step Framework For Solving Problems 👌" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/afb3ac94-1466-4d09-9d49-f1a37f0c8d07_320x200.png" /></a></p>
+<p>A number of years ago I remember working on a project where we were building a dashboard for Airbnb hosts. The initial problem we defined and aligned around was reducing host response time —shrinking the average time it took a host to respond to a guest’s message. Our hypothesis was that hosts would respond more quickly if their unread messages were more prominent, and were also reminded that reply time impacts their search ranking. In the end we were right, but throughout the project, as the scope and complexity grew (pro tip: dashboards are a classic “silver burrito” problem), I found myself having to repeatedly remind the team what problem we set out to solve.Nothing helps reduce scope creep more than coming back to the problem statement and the success metrics.<strong>You can solve many problems in many ways, but you can also build a beautiful product that solves no problems.</strong></p>
+<p>Avoid this trap with a few good habits:</p>
+<ol>
+<li>In every design review, make sure the designers start by reviewing the problem statement. If it’s not clear, ask “What problem are we trying to solve?”</li>
+<li>In every progress update to stakeholders, review the problem statement to make sure everyone continues to be aligned on the outcome.</li>
+<li>Before finalizing designs make sure to ask yourself: “Am I feeling confident this is going to solve the problem we set out to solve?”</li>
+</ol>
+<h1><strong>A final note</strong></h1>
+<p>We are all professional problem solvers—technical problems, interpersonal problems, organizational problems, etc. You won’t escape solving problems.</p>
+<blockquote>
+<p>“Problems are constant in life. When you solve your health problem by buying a gym membership, you create new problems, like having to get up early to get to the gym on time, sweating like a meth-head for thirty minutes on an elliptical, and then getting showered and changed for work so you don’t stink up the whole office. When you solve your problem of not spending enough time with your partner by designating Wednesday night “date night”, you generate new problems, such as figuring out what to do every Wednesday that you both won’t hate…Problems never stop; they merely get exchanged and/or upgraded.”</p>
+<p>— Mark Manson (<a href="https://www.amazon.com/dp/B019MMUA8S/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">The Subtle Art of Not Giving a F*ck</a>)</p>
+</blockquote>
+<p>Any time spent refining your problem-solving skill, in yourself and in your team, is time well spent. If you’d like to take this even further there are five books I highly recommend:</p>
+<ol>
+<li><a href="https://www.amazon.com/dp/B00X47ZVXM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Deep Work</a></li>
+<li><a href="https://www.amazon.com/dp/B019MMUA8S/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">The Subtle Art of Not Giving a F*ck</a></li>
+<li><a href="https://www.amazon.com/Good-Strategy-Bad-Difference-Matters-ebook/dp/B004J4WKEC/ref=sr_1_1?crid=3SUB4MWG7602M&amp;keywords=good+strategy+bad+strategy&amp;qid=1554495219&amp;s=gateway&amp;sprefix=good+strategy+bad%2Caps%2C204&amp;sr=8-1">Good Strategy, Bad Strategy</a></li>
+<li><a href="https://www.amazon.com/dp/B078FZ9SYB/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">Measure What Matters</a></li>
+<li><a href="https://www.amazon.com/Lean-Analytics-Better-Startup-Faster/dp/1449335675">Lean Analytics</a></li>
+</ol>
+<p>If you’ve found additional habits, tools, or docs that help you tackle problems more effectively I’d love to hear it — <strong><a href="https://twitter.com/lennysan">tweet at me</a></strong>.</p>
+<p>Sincerely,<br />
+<a href="https://twitter.com/lennysan">Lenny</a></p>
+<p><em>Big thank you to <a href="https://twitter.com/sean_lynch?lang=en">Sean</a>, <a href="https://matterapp.com/">Brett</a>, and <a href="https://twitter.com/yelenart?lang=en">Yelena</a> for reviewing early drafts.</em></p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

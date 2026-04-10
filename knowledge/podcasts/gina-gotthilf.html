@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scaling Duolingo, embracing failure, and insight into Latin America’s tech scene | Gina Gotthilf (Latitud, Duolingo) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Scaling Duolingo, embracing failure, and insight i…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Scaling Duolingo, embracing failure, and insight into Latin America’s tech scene | Gina Gotthilf (Latitud, Duolingo)</div>
+    
+    <div class="article-meta">2023-10-19<span>·</span>19,823 words<span>·</span>Gina Gotthilf</div>
+    <div class="tags-row"><span class="mini-tag">創業</span> <span class="mini-tag">設計</span> <span class="mini-tag">成長</span> <span class="mini-tag">策略</span> <span class="mini-tag">B2C</span> <span class="mini-tag">職涯</span></div>
+    <a class="external-link" href="https://www.youtube.com/watch?v=sWClFYdbkRA" target="_blank">▶ YouTube 原影片</a>
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Gina Gotthilf</strong> (00:00:00):<br />
+Communication is constantly underrated.</p>
+<p><strong>Gina Gotthilf</strong> (00:00:02):<br />
+And communication isn't about being able to convey a message, it's about being able to convey a message in a way that the listener receives it, and understands it, and remembers it. And that's really hard to do.</p>
+<p><strong>Gina Gotthilf</strong> (00:00:13):<br />
+One of the things I've helped employ at Duolingo that I think is still there today, it's definitely not just me, it was an amazing team, is a unique voice. And what that means is not just another language learning app where we give you instructions and you follow directions.</p>
+<p><strong>Gina Gotthilf</strong> (00:00:25):<br />
+There is always a quirk, like it's unexpected. The way we talk to you is a little bit funny. It doesn't take ourselves too, seriously and it makes the person receiving this message feel something. Again, it's about how you make people feel. And you feel like either you giggle, or you're like, wait what? They just did what? And using that to your benefit.</p>
+<p><strong>Lenny</strong> (00:00:48):<br />
+Today my guest is Gina Gotthilf. Gina is most known for leading growth and marketing at Duolingo, helping take them from 3 million to over 200 million users, primarily through organic and non-paid growth channels, which we explore in depth.</p>
+<p><strong>Lenny</strong> (00:01:01):<br />
+She also worked on the Mike Bloomberg presidential campaign, where she oversaw a historic digital ad budget, and she shares learnings from that experience. She also led growth in community for Tumblr in Latin America.</p>
+<p><strong>Lenny</strong> (00:01:12):<br />
+Currently, she's the co-founder and COO of Latitude, which is a company dedicated to helping build the next generation of iconic tech startups in Latin America. In our wide-ranging conversation, Gina shares a ton of new insights and tactics on how Duolingo grew early on, how they grow today, and most interestingly, what they did to become one of the very rare successful consumer subscription businesses.</p>
+<p><strong>Lenny</strong> (00:01:35):<br />
+We also talk about how every life and career has an A-side and A B-side. Also, why PR and brand are way underappreciated by most startups. She shares a bunch of stories of failed experiments, and also some of her biggest wins. Also, why Latin America is so interesting right now as a hub for startups and for innovation. Also, there's a bit of philosophy sprinkled in, and a bunch of real talk.</p>
+<p><strong>Gina Gotthilf</strong> (00:04:39):<br />
+Lenny, I'm so excited to be here. It's been awesome to see how you've built this, and just how far it's gone. Thank you for inviting me.</p>
+<p><strong>Lenny</strong> (00:04:47):<br />
+Really appreciate that. I'm more excited to have you on the podcast. And I know you just came off hosting a massive event somewhere in Latin America, I think you had 5,000-something people. You had Ben Horowitz keynoting.</p>
+<p><strong>Lenny</strong> (00:04:59):<br />
+And I wanted to start with the talk you gave. I think you described it as people having this A-side and B-side to their life, kind of like a record as an A-side and B-side. So could you just share what it was this conference? And then two, kind of just briefly share this concept as much as you can</p>
+<p><strong>Gina Gotthilf</strong> (00:05:17):<br />
+For sure, and thanks for that Lenny.</p>
+<p><strong>Gina Gotthilf</strong> (00:05:18):<br />
+Look, I think for those of us here in the US, I became an American last year. I love the US. I've been here for 19 years. It's hard to imagine just how much is going on south of the border. There's actually 660 million people living across Latin America, and it's an economy of $6 trillion.</p>
+<p><strong>Gina Gotthilf</strong> (00:05:36):<br />
+And Brazil is a huge market, just in terms of sheer size, over 200 million people. And also in terms of where the ecosystem is. I am Brazilian, so I am Latin American, even though sometimes Brazilians are not sure if they are Latin American because we speak Portuguese.</p>
+<p><strong>Gina Gotthilf</strong> (00:05:52):<br />
+And so the future of the region really matters to me. And helping people get the opportunities that I've had, in terms of access to information and resources that could help them build scalable, very successful startups, can really change the economy across the board. I believe in that much more than I believe in government, and whether we're going to vote this guy or that guy next.</p>
+<p><strong>Gina Gotthilf</strong> (00:06:14):<br />
+And so that's sort of the impetus for the company. The conference was a conference put together by my company. I'm a co-founder. We're three, Brian, Yuri, and I. We put this conference together to bring together the top entrepreneurs, operators and investors across Latin America, but also people who are interested in investing in the region, of which there are more and more here in the US and abroad.</p>
+<p><strong>Gina Gotthilf</strong> (00:06:34):<br />
+More than 5,000 people came. We had over 70 speakers. It was across two days. We had amazing people like Ben Horowitz, who never gave a talk, or did a fireside specifically for and about Latin America and the opportunity. But we also had incredible founders who you, in terms of US operators, may not be as familiar with.</p>
+<p><strong>Gina Gotthilf</strong> (00:06:54):<br />
+But if you've ever heard of Rappi, it's a really important delivery company in Latin America. So the founder of Rappi flew down from Miami for that. And then we had VCs from a lot of the top names that you've heard here in the region as well. And then a lot of unicorns. We've had a lot of unicorns in the region.</p>
+<p><strong>Gina Gotthilf</strong> (00:07:09):<br />
+So they were all there. And the idea was to share learnings along the way, successes and failures, so that people can skip by not making the same mistakes as others. And I was asked to open both days. And then the first day, the opening talk that I ended up giving was this concept that I really like, which is the A-side and the B-side of a story. Which is that if you are old like me, and maybe you Lenny, I think we're similar age, you remember what a CD or what a mixtape was like. And we had the A and the B-side.</p>
+<p><strong>Gina Gotthilf</strong> (00:07:41):<br />
+We are very encouraged in our lives, especially professionally, to talk about our A-sides all the time. Because that's what impresses people, that's what opens doors, that's what allows us to keep growing and it's so important. It means that a lot of what you hear in podcasts and on stage ends up being the Instagramable version of someone, or a company, or a country's trajectory. It's just the highlights.</p>
+<p><strong>Gina Gotthilf</strong> (00:08:06):<br />
+And when I talk about my A-side, it's very impressive. I did things like we'll talk about, I met President Obama, I worked on the Mike Bloomberg presidential campaign. I helped Duolingo scale from three to 200 million users. I worked with Tumblr, helping them scale in Latin America. Andreessen Horowitz invested in my company, et cetera.</p>
+<p><strong>Gina Gotthilf</strong> (00:08:22):<br />
+But between all of those highlights, there were so many B-moments that get shoved under the rug because it's just easier for me and it's more impressive for others. But I really like to highlight those. Because I think that most of us have a lot of B-moments every day, every week, every month and every period of our lives. And it's easy to think that things aren't just not going to work out for us because we're in one of those B-moments, if we don't recognize them as moments.</p>
+<p><strong>Gina Gotthilf</strong> (00:08:47):<br />
+And the story I ended up telling was how, much I have these A and B-sides that I don't talk about my B-side so much. Latin America also has A and B-sides. Because it's really easy to focus on, it's dangerous, we're behind the governments are a mess. There's financial insecurity.</p>
+<p><strong>Gina Gotthilf</strong> (00:09:04):<br />
+But there's a lot of A side in there, and a lot of the A-side is the opportunity we have in terms of tech. Because in terms of percentage of GDP that tech occupies compared to other markets, it's very promising. We're at one third of India, one 10th of China, one 30th of the United States. Meaning that tech companies can grow a lot so that they occupy that space in terms of the GDP, which is believable. So that was the concept of the talk and the reason for this conference.</p>
+<p><strong>Lenny</strong> (00:09:34):<br />
+I love this concept. We're going to talk, as you expected about a lot of your A-side stuff. Is there any example of a B-side story of your life that would be interesting to share?</p>
+<p><strong>Gina Gotthilf</strong> (00:09:44):<br />
+Look, I think those are the most interesting, because they're funny or ridiculous. But I'll just say that I had a lot of B-sides and I still do. For example, I had no idea what I wanted to do. I actually, I thought I wanted to be an actress. I either wanted to be that person in SeaWorld who goes like this with a dolphin, this was before SeaWorld was canceled. Or I wanted to be an actress. But then my parents convinced me that I was probably not going to succeed because the odds weren't in my favor.</p>
+<p><strong>Gina Gotthilf</strong> (00:10:13):<br />
+I applied to schools. I didn't get into any Ivy League, I didn't get into any of the top schools I wanted to go to. When I got to college, I actually ended up dropping out because I got so depressed, incredibly depressed. Couldn't get out of bed, depressed.</p>
+<p><strong>Gina Gotthilf</strong> (00:10:26):<br />
+Ironically, I dropped out of Reed College, which is the same college that Steve Jobs dropped out of. So I was just destined for greatness. I knew it at that moment.</p>
+<p><strong>Lenny</strong> (00:10:35):<br />
+It all makes sense looking backwards, as he said.</p>
+<p><strong>Gina Gotthilf</strong> (00:10:37):<br />
+Totally. I was dropping out, being like, yes, this is exactly the path. No, I was miserable. I thought there was no path forward.</p>
+<p><strong>Gina Gotthilf</strong> (00:10:44):<br />
+And when I finally went back and graduated, the college counselor looked at my curriculum and said, "What have you even done with your life? There's nothing to show for." And it was shocking. Because I was always the overachiever who wanted to do the maximum curriculum, and ace all of my classes, and do whatever. I did three diplomas in high school, the international, the American, the Brazilian. My one learning there that has stuck with me, and I think can work for other people too, is that it's not just about doing things that actually matter, and learning. It's about being able to tell the story, and it's about understanding what other people perceive as valuable.</p>
+<p><strong>Gina Gotthilf</strong> (00:11:22):<br />
+I'm not talking about net value. But I'm talking about, if you want to grow in the world, it's understanding that psychology of how humans react to what you're showing them. So that was one lesson.</p>
+<p><strong>Gina Gotthilf</strong> (00:11:32):<br />
+But then I went on to, I applied to a hundred companies. I didn't hear back from most of them. I finally got an internship at kind of like a tier B-slash-C digital marketing agency in New York City, because I wanted to live in New York so badly. And they forgot to apply for my visa on time, so I lost my visa and had to go back to Brazil.</p>
+<p><strong>Gina Gotthilf</strong> (00:11:53):<br />
+And then I ended up leaving that organization to go work for another one. And I won't even go into the details of the shadiness of that company that I worked for, but then they ended up laying me off. So I lost my visa again, had to go back home. Found another opportunity, got fired that time. So there was just a lot of rockiness in my start that I don't think you would imagine when you see someone up on stage leading a conference for 5,000 people. That, I think, is important.</p>
+<p><strong>Gina Gotthilf</strong> (00:12:19):<br />
+And even when I started working for Tumblr, I was like, this is it. I made it. This is a really interesting company. This is going to work out. That was super rocky because it was an early stage startup. So for example, they couldn't figure out how to wire money to Brazil. So I was not paid for six months. And at one point me and my colleagues were trying to get money out of the teller to pay contractors, because we had no money to pay them. And we borrowed money from people. And finally they also laid me off because they decided to sell to Yahoo.</p>
+<p><strong>Gina Gotthilf</strong> (00:12:47):<br />
+And then I had to figure out, what am I going to do? No one's going to hire me. I've been fired and laid off so many times. This is all before I started an agency to help US-based tech companies and startups grow in Latin America, because I figured I was in this really great place to make that happen.</p>
+<p><strong>Gina Gotthilf</strong> (00:13:02):<br />
+And it eventually worked for, well-known companies such as Duolingo. At the time, they weren't well known. They were a tiny little startup. They didn't have an Android app. And that's how I started working with Duolingo. Because their head of marketing connected with someone they had worked with at Flickr and said, "I noticed Tumblr grew a lot in Brazil last year. Can you recommend a company or an agency to help?" And they said, this girl. And I was 26.</p>
+<p><strong>Gina Gotthilf</strong> (00:13:26):<br />
+And so that's how they connected me with Duolingo, and I started helping them grow in Brazil as a consultant. They were like, this is great. Can you help us grow in Chile, Argentina? And I was like, yes.</p>
+<p><strong>Gina Gotthilf</strong> (00:13:35):<br />
+They were like, how about Mexico? And I was like, yes. Did I know anything about these places, Lenny? Did I know people there? No, but you can figure it out.</p>
+<p><strong>Gina Gotthilf</strong> (00:13:44):<br />
+And then they ended up asking me to come on full-time, do that across the world. In Japan, China, Korea, Turkey, Spain, France, et cetera. And then to own growth, which ended up meaning communications, social media, government partnerships, anything to grow.</p>
+<p><strong>Gina Gotthilf</strong> (00:13:58):<br />
+And then eventually became an AB testing growth engine with engineers, and PMs, and designers of which I knew nothing about. And even after that, I left Duolingo five years later, didn't know what to do with my life. You'd think, oh wow, you have it figured out now. You left Duolingo, you have the world in front of you.</p>
+<p><strong>Gina Gotthilf</strong> (00:14:18):<br />
+And I'm like, maybe I can finally go work for nonprofits, which is what I actually wanted to do in the first place. Tried my hand at that, had a couple of experiences before going to work for the Mike Bloomberg campaign.</p>
+<p><strong>Gina Gotthilf</strong> (00:14:29):<br />
+Working for the Mike Bloomberg campaign is impressive, but you know what? Mike Bloomberg didn't win. He's not the president. So that was not a successful campaign, if you really look at it. And yeah, latitude seems like it's a really promising path. But there's A days and B days.</p>
+<p><strong>Gina Gotthilf</strong> (00:14:46):<br />
+So it's just a lot of that, and just staying resilient, and believing in yourself, and getting back on the horse when you fall on your face.</p>
+<p><strong>Lenny</strong> (00:14:53):<br />
+Amazing. That's such an important message. I think one of the threads from what you're describing, something that I think about a lot, is people kind of underestimate how long their career is. There's just so much time to do stuff, and for things to start to work.</p>
+<p><strong>Lenny</strong> (00:15:05):<br />
+This is going to sound really fancy, but I think Marcus Aurelius has this quote about how our life is actually very long, we just use it really badly. And we just waste a lot of our time.</p>
+<p><strong>Gina Gotthilf</strong> (00:15:14):<br />
+Wow. I think you're so right, Lenny and I love that. Because people are going around being like, life is short, life is short. But that's so true. We waste so much time. But also I think we don't recognize how much opportunity we have in front of us. And as a 26-year-old, I definitely thought my career was over. I was like, I blew it. And looking back, it's funny.</p>
+<p><strong>Lenny</strong> (00:15:33):<br />
+Yeah, I know exactly what you mean. I spent nine years at my first job, at a random company in San Diego in a startup. And I was like, what am I doing here so long? And it turned out that was really useful for the thing I did next. And then eventually, wow, things started to really take off.</p>
+<p><strong>Lenny</strong> (00:15:48):<br />
+So I think that's a really good lesson for people, just for a long time. This is my fourth career. I've switched careers many times. I was an engineer, then I was a founder, then I was a product manager. And now I'm whatever this is, whatever you call this thing.</p>
+<p><strong>Gina Gotthilf</strong> (00:16:01):<br />
+Okay, cool.</p>
+<p><strong>Lenny</strong> (00:16:03):<br />
+Yeah.</p>
+<p><strong>Gina Gotthilf</strong> (00:16:03):<br />
+I guess me too. I was an operator. I was a consultant. Well, I was an employee, I was a consultant. Then I was an operator, which is a fancy way to say employee at a startup. And then, now I'm a founder and a VC. And an angel, and whatever this is.</p>
+<p><strong>Lenny</strong> (00:16:20):<br />
+Awesome, awesome. So I think that's a really important takeaway. Just, there's a lot of time to do stuff. And don't stress if things aren't moving as fast as you want.</p>
+<p><strong>Lenny</strong> (00:16:28):<br />
+I want to try to bounce around between A side and B side in this conversation, that'd be a cool framework. And so we're going to definitely talk about Duolingo, and a little bit more about Latin America.</p>
+<p><strong>Lenny</strong> (00:16:36):<br />
+I wanted to touch on this Mike Bloomberg story. So what I understand from your experience there is, you deployed a historic amount of money into paid ads as a part of that campaign. I am just curious what you learned from running paid ads at that scale for a campaign or just broadly.</p>
+<p><strong>Gina Gotthilf</strong> (00:16:53):<br />
+So we deployed historic amounts of money in the campaign. It wasn't me, Gina, personally.</p>
+<p><strong>Lenny</strong> (00:17:02):<br />
+It wasn't just you spending that money, yeah.</p>
+<p><strong>Gina Gotthilf</strong> (00:17:03):<br />
+I think that's important to share. So my Bloomberg presidential campaign was spending roughly a million dollars a day. Which is crazy. And you can do a lot with a million dollars a day.</p>
+<p><strong>Lenny</strong> (00:17:11):<br />
+It's good to be Google.</p>
+<p><strong>Gina Gotthilf</strong> (00:17:12):<br />
+It's good to be Google. But yes, it's good to be Facebook. I'll share what I think is most useful here, and also what my experience ended up being.</p>
+<p><strong>Gina Gotthilf</strong> (00:17:22):<br />
+Which is, they brought together a lot of great talent from across the US, especially in terms of tech. This is an organization called Hawk Fish, that they started working with the Mike Bloomberg. Basically, he created it. I don't know, it was embedded in there.</p>
+<p><strong>Gina Gotthilf</strong> (00:17:37):<br />
+There were a lot of us who had large eagles, and had been sharks in our previous organizations, who had to figure out how to come together and work and in a very short amount of time. That was a very interesting experience, because it's hard to do that. It's not just important to be great and smart, but it's also important to understand how to most effectively deploy your resources and talent across an organization.</p>
+<p><strong>Gina Gotthilf</strong> (00:18:02):<br />
+And that sort of takes a little bit of time to happen. And for a presidential campaign, I find that very hard to do, from that one experience. That said, it also meant that when you're looking at the paid ads, and the fact that we were deploying this massive amount of money, there were a lot of cooks in the kitchen when it came to figuring out exactly what we were going to do with those ads.</p>
+<p><strong>Gina Gotthilf</strong> (00:18:23):<br />
+And how we were going to target them, and what are the campaigns we're going to run, and what's the copy, and what's the design? And after maybe a few days there, I realized that my best bet in terms of actually adding value was not to be another cook in the kitchen trying to figure that out, but to move into the next step of the journey, which nobody was paying attention to.</p>
+<p><strong>Gina Gotthilf</strong> (00:18:45):<br />
+Which is, once you click on an ad, you land somewhere. And then whatever happens there is super important. Because if people then take the action you want them to take on that landing page, or don't, is definitive. But everyone spends all of their effort and money on the ads. And I think that this is true of almost everything. We forget to think about the step-by-step in growth, and what that experience looks like. And even just the second or third screen in an experience are as, if not more, important than the first one. Because that's where your "leaky buckets" can happen.</p>
+<p><strong>Gina Gotthilf</strong> (00:19:17):<br />
+So if you're able to 2X the effectiveness of a landing page, you are able to actually, in a compounded way, increase the effectiveness of that first ad. So I spent a lot of time going rogue and figuring out how to make landing pages. Because the designers and the copywriters were all allocated to the actual ad.</p>
+<p><strong>Gina Gotthilf</strong> (00:19:36):<br />
+So I was just there being like, I'm going to do copywriting and design, and figure out how we can increase these conversion rates. And the cool thing about that level of dollar deployment is that you're able to reach statistical significance very quickly.</p>
+<p><strong>Gina Gotthilf</strong> (00:19:50):<br />
+Whereas in a company like Duolingo, where you already have a lot of users and you can reach statistical significance on an AB test within two weeks, at the Mike Bloomberg presidential campaign on a landing page, we could see that three times a day, so four times a day.</p>
+<p><strong>Gina Gotthilf</strong> (00:20:04):<br />
+So I would be able to do something and be like, oh wow, this has a 3% conversion rate. And then get approval for a new version and deploy it and then be like, okay, we're at 6% now. And then actually improve. There was one day where I brought one page from three to 12% conversion rate with statistical significance. So that's, I think, the biggest benefit of having those dollar amounts.</p>
+<p><strong>Gina Gotthilf</strong> (00:20:25):<br />
+I think the drawback, and that's the same for startups that have a lot of money to spend, is you start going a little wild in terms of like, oh, the world's our oyster. We can do whatever we want. And you lose sight a little bit about effectiveness, which is where growth is so magical.</p>
+<p><strong>Lenny</strong> (00:20:40):<br />
+What was that change on the landing page you did that increased conversion so much, do you remember?</p>
+<p><strong>Gina Gotthilf</strong> (00:20:44):<br />
+None of this is going to blow anyone's minds, I think, because it's very best practices. But it's easy to overlook when you're so focused on so many different steps of a process. The first one is making it mobile-optimized.</p>
+<p><strong>Gina Gotthilf</strong> (00:20:56):<br />
+People who are working, are working on their computers, on desktop computers, even today. We forget that most people are looking at pages on our phones. And that has been the case for a while, and I think it's just increasing. So you need to make sure that that experience of looking at something on your phone, whatever your phone is, is great.</p>
+<p><strong>Gina Gotthilf</strong> (00:21:11):<br />
+And what that means is from a landing page perspective, super simple. First, the core copy, the message and button need to be above the fold. Or, if you're not going to keep the button above the fold, which I still recommend, but if you're not going to do that for whatever reason, then you need to have a very clear indicator that there's something to scroll towards on your page.</p>
+<p><strong>Gina Gotthilf</strong> (00:21:35):<br />
+The second thing, applies to both desktop and mobile, is people skim. And copywriters don't like to believe that, much like journalists don't like to believe that people just read headlines. It's just how it is. People are busy and lazy, myself included.</p>
+<p><strong>Gina Gotthilf</strong> (00:21:47):<br />
+So you can write all of this beautiful messaging that you've thought through, but if people are not going to read it, it doesn't matter. So you have to approach a landing page with that perspective in as much as possible.</p>
+<p><strong>Gina Gotthilf</strong> (00:21:58):<br />
+And so for me, what makes something particularly skimmable is first restricting copy a lot. And even copy that seems short is probably not short enough. Second, so people normally like to have a title, some sort of subtitle, and then an image and a button. Those are kind of core pieces of some sort of landing page experience. Having the title and the button speak to each other is really cool. Because if people only read the title and the button, they got it.</p>
+<p><strong>Gina Gotthilf</strong> (00:22:24):<br />
+It can't be like, "Wouldn't you like the next President of the United States to blah blah blah?" And then a whole explanation of what. And then the button is like, I don't know, apply. Whatever, right? It's like, apply for what? Now I have to go read the thing and I didn't get it.</p>
+<p><strong>Gina Gotthilf</strong> (00:22:36):<br />
+So just keeping those two things super speaking to each other. And then of course, making sure that that landing page speaks to the ad experience. And that's something that I think people do pay some attention to.</p>
+<p><strong>Gina Gotthilf</strong> (00:22:47):<br />
+Finally, there's an element of emotion to it. Which I didn't get super deep in, but just very basic. My job was to create a landing page that made people ... So it was actually, funnily enough, before Covid hit the US. And then Covid hit the US. Half the people in the campaign got Covid on our sad goodbye Mike Bloomberg party. And I had already bounced, and I left New York. I was scared. I was like, the city's going to be a Petri dish.</p>
+<p><strong>Gina Gotthilf</strong> (00:23:13):<br />
+And I spent months trying to convince the whole United States, as much as I could, that Covid was going to hit the United States. And there were going to be a lot of deaths unless we had a different president. And so I, of course, convinced myself very effectively that we were in grave danger.</p>
+<p><strong>Gina Gotthilf</strong> (00:23:28):<br />
+And so to do that, we had images in the background of different sorts, Mike Bloomberg and whatever. But fear really inspires people, and that's just a truth about human psychology. Especially when it comes to a presidential campaign.</p>
+<p><strong>Gina Gotthilf</strong> (00:23:43):<br />
+So having dark colors like black, having Trump in sort of a black scenario, kind of looking down and looking a little menacing is more powerful than having Trump looking ridiculous, for example. In the context of, we need to take action, otherwise there will be deaths because of this.</p>
+<p><strong>Gina Gotthilf</strong> (00:24:02):<br />
+So it depends on the concept, but don't underplay the importance of understanding how people are going to feel when they see something, and whether that's going to lead them to take action. Keeping it super, super simple.</p>
+<p><strong>Gina Gotthilf</strong> (00:24:13):<br />
+Because also the other thing I see is a lot of images. It is like, no, the image can't distract from your core message. It has to be a background thing that aids in the digestion of that message.</p>
+<p><strong>Lenny</strong> (00:24:22):<br />
+I feel like all these startups are going to start adding Trump, menacing Trump to their landing pages because they worked for you guys.</p>
+<p><strong>Gina Gotthilf</strong> (00:24:31):<br />
+Well, they're going to alienate 50% of the American population.</p>
+<p><strong>Lenny</strong> (00:24:34):<br />
+True. There's a few other things I wanted to dig into. One is obviously Duolingo, so let's just spend some time here.</p>
+<p><strong>Lenny</strong> (00:24:40):<br />
+So it's really interesting. With my newsletter, I've written over 200 posts. The number one, most popular post of all time, did not expect this, was about the story of Duolingo. And the way that the team reignited growth after it started to plateau.</p>
+<p><strong>Lenny</strong> (00:24:55):<br />
+This was by Jorge Mazal.</p>
+<p><strong>Gina Gotthilf</strong> (00:24:55):<br />
+Mazal.</p>
+<p><strong>Lenny</strong> (00:24:56):<br />
+Mazal, okay, cool.</p>
+<p><strong>Gina Gotthilf</strong> (00:24:59):<br />
+Jorge Mazal, yes.</p>
+<p><strong>Lenny</strong> (00:25:00):<br />
+Okay, there's the right pronunciation. And so...</p>
+<p><strong>Lenny</strong> (00:25:01):<br />
+There's the right pronunciation. And so clearly, there's a lot of interest in the Duolingo story. And you were there before Jorge. You were there really early. I think you were there from 3 million users to 200 million. That's what I hear you describe it as.</p>
+<p><strong>Gina Gotthilf</strong> (00:25:16):<br />
+That's right. That's my claim to fame.</p>
+<p><strong>Lenny</strong> (00:25:18):<br />
+Great. That's a large growth trajectory. So one thing I wanted to ask broadly is it feels like B to C subscription apps never work. They never last. There's so few success stories of consumer subscription apps. There's Duolingo there, Calm maybe, but I don't know, it feels like it's slowing down, Headspace, Grammarly. And there's a few that are okay, but most die. I guess I'm mostly curious, what is it that you think Duolingo did right to make it basically and continue to thrive, even these days?</p>
+<p><strong>Gina Gotthilf</strong> (00:25:56):<br />
+Very few people really believed that we were going to make it, not surprisingly. Even though we had this amazing team, et cetera, now it looks almost obvious, it's like B to C language learning just seems so niche. And plus education, there's no money in education. It's been stuck for so long. And what I kept hearing, "You guys, did you hear about Rosetta Stone? This solution already exists." So I think that there are a couple of things that really made Duolingo's success, which are very hard to replicate.</p>
+<p><strong>Gina Gotthilf</strong> (00:26:25):<br />
+Number one, an obsession for the mission. That sounds cliche. I think a lot of founders and startup people like to talk about the mission, and I get it, and I think it's real. But I really mean it, because this obsession for solving a problem for hundreds of millions of people, and the problem wasn't just a vitamin. It was a problem in the sense that if you don't know English in today's world, your opportunities to get out of your socioeconomic zone are very diminished. More specifically, you can double or triple your income potential by learning English in a developing market like Latin America. And there are lots of those around the world. That belief that education should be free and that people should have access to that opportunity, not just in developing countries, but of course, also in the US really drove the organization in a way that drove how we built our marketing, how we spoke to our users, how we designed the experience, how we put barriers in front of taking decisions that would actually impact that mission. It helped our users rally around the business. It helped us hire the best people even if we were based in Pittsburgh and couldn't necessarily pay the Google dollars. So it's really hard to measure the importance of just really being obsessed about that mission. But I speak to a lot of education founders, ed tech founders, and I am very biased probably because of this experience. I will say that I had one of those, what's it called, the experiment where they looked at all of the shots that some plane got when it came back from war and then started fixing the plane. There's a name for this. And then they realized that-</p>
+<p><strong>Lenny</strong> (00:28:04):<br />
+I forget the name, but it's the pictures. The pictures are famous with the red dots.</p>
+<p><strong>Gina Gotthilf</strong> (00:28:06):<br />
+You shouldn't fix those spots because if they got back, they survived, they were missing the plane that fell. So I got to ride in a plane that survived. So I have, oh, it's called survivor bias, maybe?</p>
+<p><strong>Lenny</strong> (00:28:18):<br />
+That sounds right.</p>
+<p><strong>Gina Gotthilf</strong> (00:28:19):<br />
+I have survivor bias, but I really believe in this-</p>
+<p><strong>Lenny</strong> (00:28:19):<br />
+Survivorship bias.</p>
+<p><strong>Gina Gotthilf</strong> (00:28:22):<br />
+Survivorship bias. So if I speak to a founder and I can tell that they're building an ed tech because they believe that they will be able to make money from it, there's nothing wrong with making money, nothing. I want to make money. I think it's a capitalist world that we live in, and it's fine, but just that drive is what brings people to you, and it's what leads you to make long-term thinking decisions that really end up mattering. And it's what allowed us in many ways to grow organically versus with paid ads, which I think is crucial for an early stage tech startup. It's not the only thing, but I think it's one of them that's super important.</p>
+<p><strong>Lenny</strong> (00:28:59):<br />
+Just to follow that thread, that's something that I actually found. I wrote a post about this looking into of the ones that made it, what did they do consistently across them all? And one is just stay very lean and scrappy for a long time. Because to your point, it's so hard to build a big business, and you can't afford, like you said, the best people, you can't pay them as much as everyone else. So essentially it's just a long time of just being very lean and scrappy. That was the most consistent pattern across all these B to C subscription apps.</p>
+<p><strong>Gina Gotthilf</strong> (00:29:27):<br />
+Agree. And that's number two. When I was hired by Duolingo as a consultant and as an employee, my mandate was make Duolingo grow. Here is no budget. I had no budget. And people are shocked. They're like, "Oh, but when did you turn on the ads?" We're like, "We just didn't." Because I know this is between you and me, Lenny, I actually am quite bad at paid ads. It's just not a muscle that I ever developed.</p>
+<p><strong>Lenny</strong> (00:29:48):<br />
+We won't tell anyone.</p>
+<p><strong>Gina Gotthilf</strong> (00:29:49):<br />
+I'm only good at ... huh?</p>
+<p><strong>Lenny</strong> (00:29:51):<br />
+We won't tell anyone.</p>
+<p><strong>Gina Gotthilf</strong> (00:29:54):<br />
+Please keep this a secret. I think I could develop that muscle if one day I need it, but I'm particularly good at thinking about organic growth because I've had to, because that's what Tumblr and Duolingo required of me. And the logic behind it was, listen, with Duolingo, we started monetizing the platform very late, and it was a luxury because we had so much venture capital money to sustain us for a while. But we had some bets that we made in the early days that we thought were going to help really sustain the company, like translations that didn't end up panning out. And then the Duolingo English test that we started developing really early with Burr Settles, an amazing guy who basically was developing this test, we realized that was going to be super long-term. We didn't start really charging for subscriptions or having ads until, I don't know exactly, but something like year three.</p>
+<p><strong>Gina Gotthilf</strong> (00:30:47):<br />
+So we didn't have an LTV, which meant that having a CAC made no sense. So that's number one. You need that CAC-to-LTV ratio that everyone talks about. That's an important thing. But it's more than that. First, I think there's the CAC-to-LTV ratio thing. The second thing is that even if you have a low CAC, I was just talking to an entrepreneur this morning, he was like, "Oh, we were able to hit a 10-cent CAC." And I'm like, "Yeah, but that grows." As you start targeting more people, the low hanging fruit dry out, and you end up having to pay more money. And then once you have those users coming in because of those paid ads, you can't cut it off because you still need that growth, because you're trying to prove to your investors that you're growing, or you need those users in order to continue AB testing or whatever. Then you become completely dependent, and it's really hard to turn it off. So it's almost like an addiction, that as much as you're able to limit in the beginning, the better.</p>
+<p><strong>Gina Gotthilf</strong> (00:31:38):<br />
+And the third thing is that I really believe that ... I don't believe. I think we all know at this point that the most important thing for the growth of anything tech, maybe in general, is retention. Of course, you need acquisition, but retention is important. And I simplify it a little bit because retention, I don't think of it in terms of like, wow, I must retain this user. It's like, is this thing valuable or not? That's what retention is to me. Either it's actually providing real value or it's not. If it's providing real value, people stick around. It's as simple as that.</p>
+<p><strong>Gina Gotthilf</strong> (00:32:11):<br />
+And if you don't force yourself to pay attention to retention and finding the users to whom this is the most useful really early on, you risk convincing yourself of metrics and glossing over some of this other important stuff, which means that even if you succeed at acquisition, you're just not going to succeed long-term because those users fall through. And you won't really understand why because you were building retention based on acquired users that weren't the ones who weren't necessarily going to ... And I don't mean to say that I don't believe in paid at all. I think paid has its value, I think especially when it comes to testing. Sometimes you don't have as many users as you need to run statistically significant tests. But with paid users you could, or you could just use paid ads to understand messaging and images and even value prop. On a landing page, that's super valuable. Or you find an amazing niche, and you know exactly who your target users are, and you figure out a way that makes sense. But then again, I would argue that if you found your perfect user and where they are, you should go figure out a way to get them organically, because if you can really provide them value, they would come and they would stay.</p>
+<p><strong>Lenny</strong> (00:33:16):<br />
+So far I've heard be really focused around a mission and be very clear about what you're trying to achieve. Two is just very low spend, essentially don't expect to grow this into venture scale business. Focus on a sustainable profitable business for as long as you can and constrain your spend basically. And then third is this focus on retention, which I think is a really important point. And this is true for any app you're building, but I think especially true for consumer business where people are just like, "Nah, this is cool. Okay, what's next? Okay, let's check out Snapchat."</p>
+<p><strong>Gina Gotthilf</strong> (00:33:47):<br />
+Totally. And I was going to have a different three, but I think it's related, so maybe we can add it as three B or four.</p>
+<p><strong>Lenny</strong> (00:33:54):<br />
+Three B. Let's do it.</p>
+<p><strong>Gina Gotthilf</strong> (00:33:56):<br />
+An obsession for the product. Again, sounds obvious but isn't. When we look back to products that existed before the internet, before the app store, you built this thing, you made it, and then you tried to convince people to buy it. That was it. So look, I made a chair, this is a beautiful chair. And then you spend all this money trying to get it out into the world, and people buy the chair. And you hire all these salespeople, and you hire an amazing marketing agency, and you try to sell the chair. It's no longer at all that because products are constantly in motion and evolving. And unless you're able to own that data and understand what it can tell you, you're never going to win.</p>
+<p><strong>Gina Gotthilf</strong> (00:34:33):<br />
+So I hear a lot of people come to me and say, "Gina, Gina, we built Duolingo for this." And I'm like, "Okay, cool." And then they show it to me, and it looks exactly like Duolingo. And I'm like, "Okay, cool." And then I'm like, "How did you get to this design?" They're like, "Oh yeah, we used Duolingo." So I'm like, "Great." But then as I started talking to them, I understand they don't have the engineers and PMs there looking at Mixpanel or whatever it is that they're using every day, understanding how every single change is leading to other changes that enables them to ask the questions and come up with the hypotheses that allow them to get to the next step. So it's almost like they just copy-pasted something.</p>
+<p><strong>Gina Gotthilf</strong> (00:35:09):<br />
+You know how I think of that? It's like those students who are able to copy the best student's answer on the math test, and then they get frustrated that they didn't get an A because the work wasn't there, but they copied the answer. But if you don't know how to do the work, you get another math question and you're not going to get it right. And so that I think still misses, and I would venture to say most early stage tech startups out there. It's certainly the case in Latin America, where people think they can outsource the code or outsource the growth, and they're not just looking like hawks at the quality of the data and statistical significance and running hypotheses and questioning them. And that rigor is a culture at Duolingo that was there from day one before me and continues to be there today.</p>
+<p><strong>Lenny</strong> (00:35:58):<br />
+Amazing. So I think if a listener is trying to build a subscription consumer app, I would suggest just rewind and listen to that again. I think there's so much gold there. And in my experience, I get a lot of decks because I do a bunch of angel investing. I just discount consumer subscription apps because they never work, except when they do once in a while. And so my advice is if you're building something in this space, just listen to exactly what you just said. There's a lot of important stuff, and actually internalize it. Stay really lean, stay really focused, obsessed with retention, obsessed with making sure the product is solving the problem you're going after.</p>
+<p><strong>Gina Gotthilf</strong> (00:36:33):<br />
+I'm so glad that you agree, Lenny. I really admire you. So it makes me very happy.</p>
+<p><strong>Lenny</strong> (00:36:37):<br />
+Well, we're both happy then. I wanted to switch to the B side, and I'm curious, what's a mess-up or a big mistake maybe that you made or your team made that was like, "Oh, wow, that was a big waste of time?"</p>
+<p><strong>Gina Gotthilf</strong> (00:36:50):<br />
+Look, a lot of things didn't work out. More than 50% of our AB tests didn't work out. We made bets that didn't make sense. I will say, though, that in the spirit of A and B sides, I, and think in general, we are really good at forgetting the B stuff. I talk so much about all the stuff that worked that it's hard to remember all of those moments that didn't actually work. And the thing that I tend to talk about, which is this mistake that we made as the growth team, is almost like one of those, when you get asked in an interview, "What's your biggest weakness?" And you're like, "I'm a perfectionist." It's one of those things that actually makes you sound good because it's the story about how my team really wanted to implement badges. We spent a lot of time playing all the games that were popular at the time, trying to understand how those gamification growth hacks that we could find in those apps would potentially overlay onto Duolingo and how we would do that.</p>
+<p><strong>Gina Gotthilf</strong> (00:37:48):<br />
+And badges was just pervasive in all of the top games. And so it seemed like a no-brainer. But since we ranked all of our experiments in terms of ROI and return being how many users we think we're going to get from this, DAUs and time investments, it never made sense to focus on this, because we thought that the time sink would be too high. So I actually ended up not letting the team run this experiment for six months so that we focus on lower hanging fruit. So that's a mistake on my end. Then we decided to run this experiment in the most lean way possible. We're like, "You know what? There's MVPs, there's minimum viable experiments. We don't have to run a whole badges thing. We can just do something more simple and actually see if that leads to growth in an interesting way, and then we'll know."</p>
+<p><strong>Gina Gotthilf</strong> (00:38:32):<br />
+And we ran this very simple experiment that was like, "You sign up and then you get a badge." And it was like this girl with a balloon, I don't know, she was happy or whatever. And of course, in retrospect, it led to no results, because no one is proud of signing up. It's not an exciting moment, and you don't even have badges to collect. You can't show it to other people. None of the things that make badges compelling were there, but we were like, "Well, we does it. It didn't work." And then we moved on. So we moved on for another, I don't know, eight months, and we didn't look back. And then when we did look back, first of all, at that point, we discovered that we hadn't been dogfooding, which also was embarrassing.</p>
+<p><strong>Gina Gotthilf</strong> (00:39:06):<br />
+Looking back, we hadn't been dogfooding in the growth team. We'd just come up with hypotheses. We were super careful about prioritizing them and making sure that we were doing the best possible write-ups and all these things. But the dogfooding piece just, I didn't come from a product background. I was a marketer, and I didn't really understand the term dogfooding. But when we had a conversation, we were like, "You know what? If we had just tested that, we would have all known that this was a super lame badge." And I was like, "Why are we not testing our experiments?" And so that became part of our practice.</p>
+<p><strong>Gina Gotthilf</strong> (00:39:38):<br />
+It's still relevant. I just had a conversation yesterday with engineers at Latitude. I haven't explained what we're building yet. Maybe we'll get there. But I was talking yesterday to engineers at Latitude, and they're awesome. In terms of product team, we have have the number eight employee at NewBank. You might have heard of NewBank, but it's this massive banking fin tech in Latin America, and we have people from other fin techs, and then we have this guy who's a lead PM at Twilio, and I was explaining to them why we should be dogfooding. And they were all like, "Oh yeah, we should dogfood." It's just easy to forget stuff like that.</p>
+<p><strong>Gina Gotthilf</strong> (00:40:10):<br />
+So that was a mistake that we could have probably gotten to the growth that we got to with badges much earlier on. And not only did we get to growth with badges, but it became this amazing treasure trove of opportunity. Because once you have badges and people want them, you can now ask people to do anything like go find friends, go buy things, whatever it is. And so we impacted almost all metrics across the company positively, including some we hadn't expected, but it's easy to talk about a mistake that ended up being a win. So that's why I compared it to the interview thing in the beginning. But we tried making Duolingo a social app really early on and failed. It was called Duels, DuoDuels. You could duel.</p>
+<p><strong>Lenny</strong> (00:40:55):<br />
+Very clever.</p>
+<p><strong>Gina Gotthilf</strong> (00:40:56):<br />
+I know. We were clever, but people didn't use it, and we didn't figure out why. We tried making a Duolingo for Schools platform. We couldn't get it to pick up. I went and launched Duolingo in China, and it got downloaded by a million people in the first day, and then the app got blocked because of the government, and then we couldn't figure out what to do. And then everyone rated the app one star because it didn't work, and so then we had a lot of trouble actually recovering from that. We launched Duolingo in India and didn't realize because we couldn't have unless we went there, which we finally did, that most people set their phone UI in India to English, because typing in Hindi is hard, and of course there's a lot of languages throughout India. And we were making it so that when you downloaded Duolingo, whatever UI your phone was set to, we offered not that language for you to learn. That was your base language.</p>
+<p><strong>Gina Gotthilf</strong> (00:41:48):<br />
+So we were telling people learn French, Spanish, German from English, and they were all trying to learn English, so they didn't find what they were looking for and they left. There were so many mistakes, and luckily I think we were able to bounce back from most of them in terms of how Duolingo is doing today.</p>
+<p><strong>Lenny</strong> (00:42:05):<br />
+Man, there's so much there. That was awesome. I like that you're like, "Oh, I don't remember any of my failures." And then like, "Oh, here's all these awesome stories." That was great. Just one thread there that comes up again and again in this podcast is the dogfooding piece, especially I think people don't trust their gut and personal instinct enough. I think a lot of times PMs are just like, "I need to do user research to understand what we should be doing." Versus just use the thing, see what feels wrong and keeps you from being excited and really trust that. I find that more and more. I don't know. When I read a thing and when I'm writing, I'm just like, "Oh, I don't like that. I should change that. I don't need to run this by three people." So I think that's a really good lesson there. Just don't underestimate the power of you just using it and relying on instincts and feelings you have when you're trying to use it.</p>
+<p><strong>Gina Gotthilf</strong> (00:42:50):<br />
+Totally. And that's so hard to do, especially when you're young. And I think I'll add that, especially when you're female as well, or maybe other minorities. It's just really hard to trust your instinct because you're constantly telling yourself, do I really know anything or am I just being lucky? But you have to, and I think that forcing yourself to pretend that you know answers and just finding out what this pretend person who would know all the answers would think is really helpful because it helps you develop your point of view, your voice, and to trust yourself, even when you're working on something that you don't fully understand.</p>
+<p><strong>Gina Gotthilf</strong> (00:43:22):<br />
+As in we're building a banking platform at Latitude, I was looking at it, and they were having trouble understanding why people were having problems with wires. And I told them all about how I'm an idiot when it comes to wires, and I make these mistakes A, B, C, because I don't match the line. It's like, whatever. There's all this information you're supposed to input, and sometimes the information you get is not in the same order. And they're like, "Wow." And I'm like, "This is just me as a user making dumb mistakes." But that is our forte. When you're able to understand that when you don't get something, probably other people don't get it too at scale.</p>
+<p><strong>Lenny</strong> (00:43:56):<br />
+Absolutely. It's like if you're thinking about asking a question in class, many people are thinking of that same question, and they will appreciate you asking it. The other thing that stood out there, so the Hindi mistake you made, I actually made the same mistake with my podcast recently. I was noticing that the second biggest market of listeners is in India. So I'm like, how do I lean into that and help people in India find this podcast even better? So I added subtitles in Hindi to a number of the episodes and tweeted it being, "Oh, look at me go, I'm going to make this so great for people in India." And everyone's like, "We don't need this. We prefer English. People in tech in India, we know English."</p>
+<p><strong>Gina Gotthilf</strong> (00:44:33):<br />
+That's true.</p>
+<p><strong>Lenny</strong> (00:44:33):<br />
+"This is even harder." They're like, "I can read a lot faster in English, so please don't do this." So that was a really good learning-</p>
+<p><strong>Gina Gotthilf</strong> (00:44:39):<br />
+There's so many languages in India.</p>
+<p><strong>Lenny</strong> (00:44:41):<br />
+That, too.</p>
+<p><strong>Gina Gotthilf</strong> (00:44:42):<br />
+Really, it's crazy how people don't speak the same languages across the whole country, but also it means that people in India are fluent in so many different languages.</p>
+<p><strong>Lenny</strong> (00:44:52):<br />
+We live, we learn. I want to go back to the A side and just a couple more questions about Duolingo. You said that most of the growth was organic and you basically had to grow it organically. Is there anything that you can share that worked really well? Because everybody wants to grow organically through word-of-mouth. Is there anything tactical you did that really helped Duolingo that other startups can do and try?</p>
+<p><strong>Gina Gotthilf</strong> (00:45:12):<br />
+Absolutely. So first of all, I would actually say that AB testing and product-led growth is organic growth, because you're not spending money on it. And so the first thing that you can do, no matter what stage your startup is, is make sure that you are not overlooking the importance of people in your product team who really know how to evaluate data and how to use that and learn. And if you're too early stage, you're not looking at 5% growth, you're looking at 20, 30% growth opportunities. But I think that's number one.</p>
+<p><strong>Gina Gotthilf</strong> (00:45:44):<br />
+Number two, actually, this is something I might have said is something that Duolingo did really well, but I think it goes hand-in-hand with mission. But throwing the mission thing aside, brand and PR. So the importance of building a lovable brand that really resonates with people and makes people feel something and want to stand behind an idea that's bigger than themselves is not easy to do, but possible and core to being able to increase word-of-mouth.</p>
+<p><strong>Gina Gotthilf</strong> (00:46:19):<br />
+So at the bottom of this is the mission, which is Duolingo, the mission was always originally to bring free language education to the world, then to build the best education to make it accessible to everyone. I don't know how they're wording it today, but that's something most people can get behind. It doesn't matter if you think Bloomberg or Trump should be president. Do you think everyone should have access to great education? Most people would say yes. And so that's much more powerful than, do you want to download an app and learn a new language?</p>
+<p><strong>Gina Gotthilf</strong> (00:46:48):<br />
+So if you're able to have that and things that you really believe in about what you're building that's changing lives or impacting the world, even if it is just helping business people do their jobs better in a way that's going to improve their lives and their ability to make a living, or it's going to improve a company's ability, whatever it is, the bigger idea behind it and focusing on creating something that people like, whichever your audience is. It might be a more serious audience and something like Duolingo, but for Duolingo it meant we have this owl, the colors, and then the way that the owl talks and the notifications and the emails that you get and the product experience.</p>
+<p><strong>Gina Gotthilf</strong> (00:47:26):<br />
+All of that ties back into how people feel about your brand, which makes it so that people are more likely to talk about it, which makes it so that you are much more likely to get a reporter to write a story about you, if you have something that's meaningful outside of like, "Hey, TechCrunch, did you know that my app grew by 20% last month?" They're like, "I don't care." But if you're able to tell a story about people whose lives are completely transformed or something like that, that's much more interesting and has played an important role in, honestly, my work at Tumblr, at Duolingo, not my Bloomberg presidential campaign, but definitely Latitude as well.</p>
+<p><strong>Lenny</strong> (00:48:02):<br />
+That's amazing. I was going to ask, what does that actually mean, and how do you build a lovable brand? And so what I've heard so far is there's this personality and voice that was really fun that you all lead into make it not just a generic translation app. It's like, oh, this is really fun and interesting. And then this other piece is these stories of transformation.</p>
+<p><strong>Gina Gotthilf</strong> (00:48:21):<br />
+Yeah, there's more, there's more. So I think a brand that stands for something, that truly stands for something, that's where the mission piece comes in.</p>
+<p><strong>Lenny</strong> (00:48:30):<br />
+How do you communicate that? How do you people even know that the brand stands for that?</p>
+<p><strong>Gina Gotthilf</strong> (00:48:34):<br />
+So that has to be an integral part of your communication. In the early days, we tested a lot of stuff on social media. We made, again, mistakes. At one point we were posting photos of our team on Facebook being like, "Check out the behind the scenes." Guess what? No one cares. But we had a calendar, this is very tactical, but a social media calendar where one post a week is about effectiveness, because we knew that proving that Duolingo was an effective way to learn a language and actually having data behind that moved the needle. So making sure that was part of our communication in terms of our social media calendar, in terms of the PR pitches that we were making, in terms of whatever we were able to communicate out into the world, and then make sure that one post a week was something about the mission and what we were actually trying to accomplish.</p>
+<p><strong>Gina Gotthilf</strong> (00:49:17):<br />
+But it also got embedded into a lot of things. For example, when we were testing screens to get people to convert into paid users on Duolingo, we found that including something like, "By paying for Duolingo, you're making language learning accessible to millions of people," that actually improved the metric. People cared enough to make the payment. So it really can be anywhere. In addition to that, I love copywriting, and I believe that communication is constantly underrated, and communication isn't about being able to convey a message. It's about being able to convey a message in a way that the listener receives it and understands it and remembers it. And that's really hard to do. And one of the things I've helped employ at Duolingo that I think is still there today, it's definitely not-</p>
+<p><strong>Gina Gotthilf</strong> (00:50:00):<br />
+I've helped employ at Duolingo, that I think is still there today, it's definitely not just me, we're an amazing team, but I've helped employ that I've used at Latitud in other places is a unique voice and what that means is exactly what you said, Lenny, not just another language learning app where we give you instructions and you follow directions. There is always a quirk. It's unexpected. The way we talk to you is a little bit funny. It doesn't take ourselves too seriously and it makes the person receiving this message feel something. It's about how you make people feel and you feel like either you giggle or you're like, "Wait, what? They just did what?" And using that to your benefit. We use that a lot at Latitud today as well in terms of especially our newsletter, just self-deprecating humor and that's what's helped us grow so quickly in Latin America in such a short amount of time. People identify with it, they see themselves as part of that. Again, much like the mission versus your company, and I'm a consumer.</p>
+<p><strong>Lenny</strong> (00:50:59):<br />
+<strong>Gina Gotthilf</strong> (00:52:09):<br />
+Look, I think for Duolingo we constantly looked at every copy we wrote and asked, "Could this have been written by other companies? Could this have been any other company or is it Duolingo? What makes this Duolingo?" And it was tough because the more people you hire who come from other backgrounds, they're not used to that style and they might even think it's unprofessional or whatever. You're like, "Nope, this is the Duolingo way." So, it helps figuring out, exactly what does that voice, what does it sound like? What are some words that it tends to use? Why yes, why not? What's too much, what's too little? In terms of specific examples, this is something that I didn't write myself, but I wrote a lot of notifications for Duolingo for the passive-aggressive messages that I'm sure people have received, which started and then became a meme and then Duolingo used as well, but the whole, "This doesn't seem to be working. We'll stop sending them for now," message, which you got after five days of inactivity. In addition to that message, around the same time we decided to send an email to people in New Year's because that's when people make a resolution to do things and we wanted them to make learning a language a resolution for the year. So, we created an email and it had Sad Duo because there was... I don't know if the screen is still there, I haven't used Duolingo in a while, but there was always a screen of Duo really sad when you fail something and that [inaudible 00:53:24]-</p>
+<p><strong>Lenny</strong> (00:53:23):<br />
+Duo the owl.</p>
+<p><strong>Gina Gotthilf</strong> (00:53:25):<br />
+Duo is the owl, sorry. The green owl will cry and we A/B tested the size of the puddle and the number of tears that came out of his eyes in terms of effectiveness. So, we used Sad Duo in one of those emails and then someone picked it up on Twitter and the passive-aggressive message and this Sad Duo, they started making their own versions, which was like, "Study now or Duo will eat a poisoned loaf of bread," or, "The next email will be a funeral e-vite," things like that.</p>
+<p><strong>Gina Gotthilf</strong> (00:53:58):<br />
+And so that's an example, I think, to me, which can now be seen very much throughout Duolingo's brand where we could have just said, "Oh no, this is a PR disaster. We need to go back to being this friendly, nice little fluffy thing that everyone loves." Instead being like, "No, we get that people think this is funny and we're just going to run with it," because using the Duo voice, it gives us the permission to do that because we're not square, we're not going to do that thing that you read in the textbook in school. We're kind of going to play along with it.</p>
+<p><strong>Lenny</strong> (00:54:29):<br />
+That's an incredible lesson. It reminds me of this famous Duolingo meme that I'm sure you've seen where someone shared these... They got these two notifications in a row, I just pulled it up here, where first they got this Duolingo push notification, "It looks like you forgot your Spanish lessons again, you know what happens now," and then the next push was from their security system, "Intruder alert, backdoor, proceed with caution," and I imagine Duolingo even leaned into that, I think when this started spreading.</p>
+<p><strong>Gina Gotthilf</strong> (00:54:54):<br />
+100%, and it wasn't an easy decision because of course a lot of people in the company were really concerned about the brand image and, what are people doing and how do we revert this, that kind of thing. So, it was a bet that we made where we're just going to, "No, we're going to lean into it because that's what having this unique voice means. It's about getting it. It's about being part of something bigger. It's about connecting with people outside of just teaching them a word a day," or whatever it is. And with Latitud, I think we do that all the time in our newsletter and it's a lot of self-deprecating humor for Latinos and using expressions that could be almost offensive, but they're not in terms of Latinos only, but also the tech world, making fun of being a tech founder and the things that we do that we think are okay and it's just a lot of that where I think I would call it irreverent.</p>
+<p><strong>Gina Gotthilf</strong> (00:55:45):<br />
+It's a tough line, it's a lot easier to be, I think, a copywriter in a place that doesn't want to do that because the lines are a lot clearer and you don't have to take as many risks, but it's so less fun, which I think makes it so less fun for the user because people are used to getting emails from their banks with corporate lingo that you don't understand, but if they get an email from their bank that's funny, ironic, but also very informative, that's a bank email I'm going to read.</p>
+<p><strong>Lenny</strong> (00:56:12):<br />
+I think that's a really good lesson. Part of this is just taking a risk. I think that's one of the big takeaways here is just take some risks. We had Lulu Cheng on the podcast who is a huge advocate of that. She is a PR comms person that's worked at Substack and Blizzard now, and that was her advice to people-</p>
+<p><strong>Gina Gotthilf</strong> (00:56:27):<br />
+Take risks?</p>
+<p><strong>Lenny</strong> (00:56:28):<br />
+Take risks, do things that are a little controversial because that'll get attention. I definitely want to talk about Latitud, just a couple more questions on Duolingo. One is, today feels like one of the most interesting things about Duolingo is their TikTok presence and it feels like they're doing so well, kind of leaning into exactly what you're talking about, just being really silly and different with the owl especially. I guess the question there is just, what is it that you think allows for that? Is it just this very special social media person they hired that was just incredibly good at this thing and being irreverent as you said, or is there something else that contributes and allows a company to win in social media the way that Duolingo has?</p>
+<p><strong>Gina Gotthilf</strong> (00:57:07):<br />
+Look, I haven't met the person who does a TikTok and they're fantastic. I definitely don't want to demerit their work. It's awesome, I don't think it's easy to do, especially on a consistent basis. So I think, yes, finding someone who gets humor, who gets the platform, who's able to produce content quickly, but also reacts to learnings, all of that is not easy to do. However, I do think that everything we just talked about is at the bottom of that because if Duolingo didn't have this unique voice and leaned into the humor and wanted to be irreverent as a brand and was so focused on connecting with people where they were and ready to take risks that might seem maybe unorthodox, especially in terms of education, then an opportunity to build a TikTok like that wouldn't exist. So it's both, and I think it goes back to the brand DNA, it goes back to the culture of the company and to the attention, as I said, to every single text that was published and whether or not it wasn't the right voice or not.</p>
+<p><strong>Gina Gotthilf</strong> (00:58:06):<br />
+It has to do with having those conversations with the executive team where you talk about who is Duo and what are they like and how do they talk and what do they sound like and is this a Duo thing to say, is this not a Duo thing to say? And committing to this idea that you're going to be remembered, that you're going to do things that sometimes are going to rub people the wrong way, and you're not just going to sit squarely in one place. I think that opens the possibility for a TikTok like the one that Duolingo has today to exist, but again, whoever's running the TikTok, you're amazing.</p>
+<p><strong>Lenny</strong> (00:58:42):<br />
+That's such a good lesson. A lot of people are looking at Duolingo, we need to find that person at our company. And what you're saying is it takes a lot more than that. That person is not going to have a good time if the culture of the company isn't set up to be that... To have that approach to try to just take risks and be irreverent, so that's a really good point. One final question around internationalization, you said that you helped drive internationalization of Duolingo, and I read somewhere that one of the learnings you had there was essentially treat everyone the same almost across countries, which I think people think is the counter. They should often like, "No, we should be super personalized for every country we're in." What did you learn there?</p>
+<p><strong>Gina Gotthilf</strong> (00:59:22):<br />
+I think this is very controversial because not only is it the case that when you're working in regulated industries, maybe in more B2B situations, looking at specific countries is important. Looking at specific countries and elements of these countries are important, especially when you're looking at, I don't know, laws and if you need legal differences and there's a lot of things that make countries different is what I'm trying to get. However, humans are very similar and we think we're very different. I don't think we're that different. I think that maybe we were brought up differently, and so for example, in Brazil we like to dance. In Mexico, we like to dance salsa, in some places it's okay to hug and other places it's not okay to hug. Yes, there are cultural differences and it's important to love everyone and to adapt, et cetera, but a lot of these differences when it comes to core human behavior are that final 5% of understanding people.</p>
+<p><strong>Gina Gotthilf</strong> (01:00:27):<br />
+And if as a startup, whether it be early stage, but as a startup you focus too much on those marginal differences between groups of people, you can run the risk of making big mistakes, which is making too many changes too soon and learning very little and adding crazy amounts of code complexity and overall organizational complexity to what you're building. And with Duolingo, because it was a consumer app, because we weren't dealing with a lot of regulatory issues, except for China where we had to watch out for certain words and phrases, in general, people want to learn a language and people learn a certain way and people use apps a certain way. So, there's a lot of commonality. We just found that by treating the world as one, and whenever we deployed an A/B test or tried something new in terms of marketing, we would just look at it as like, "Well, if this worked here, it will work there and we should just try it out everywhere," which meant every time I went and launched Duolingo new market, I got the same feedback.</p>
+<p><strong>Gina Gotthilf</strong> (01:01:27):<br />
+Whatever country it was, "Here, it's different. People are different. You don't understand and what you're doing is not going to work and here's why you need to change." And if we had actually listened to that, it would cause all kinds of problems. In our country, we think that green is a negative color, owls are poorly seen as an animal, or here people think that free things are actually of low value, they like things that are expensive. Oh, people here really like free things and I'm like, "Everyone likes free things." They're like, "Oh, in this country..." Whatever, so yes, I think that countries are different, but it's more important to realize that people like to think they're different and people like to think their countries are different and highlight those because it makes them feel special, unique. We're all special and unique in all of our amazing ways, but this is not necessarily it.</p>
+<p><strong>Gina Gotthilf</strong> (01:02:13):<br />
+And when you're trying to be super cautious of your resources, you have to ignore some of that because then you're able to roll out things once, which is important, but in addition to that, every new A/B test you want to run or every new hypothesis you have, if you now have a version of your app that's different in Mexico, in China, in India, whatever, you're going to have to run that test and whatever change you have in all of those versions, and then you just start having all of these different versions of the app everywhere and good luck managing that in terms of code, in terms of processes, in terms of personnel, in terms of costs, and most importantly in terms of time because now every single experiment or hypothesis is going to take you way longer to be able to deploy, and time is almost more important than money when you're a startup. So, it's important to keep things super simple, and this was something that we did that actually ended up paying off with few exceptions like India and China.</p>
+<p><strong>Lenny</strong> (01:03:12):<br />
+That is such cool advice. It reminds me of a quote that I think of that a friend of mine shared once, "Life is maintenance. Anything you add to your life is just something you're going to have to maintain from that point forward," and similar in products. Any time you add new code, you're going to maintain that code forever, and the more you can not add anything new and not make things really different, the easier everything gets. People forget that. It's like, "Oh, we're just going to spend a bunch of time to make it awesome in China or Brazil," and then, oh, they have to maintain that forever and every you feature has to...</p>
+<p><strong>Gina Gotthilf</strong> (01:03:42):<br />
+And it's an 80/20, so just focus on what will get you the 80 and not the 20. And then when you have the luxury of focusing on the 20, then you can.</p>
+<p><strong>Lenny</strong> (01:03:52):<br />
+So, speaking of different cultures and people being different but not that different, you pivoted your career basically to focus on Latin America. First of all, why did you decide to do that? That's a pretty unique path and what pulled you there?</p>
+<p><strong>Gina Gotthilf</strong> (01:04:09):<br />
+So Lenny, I don't see it as a pivot because as we were joking in the beginning, I've been an employee, I was an operator there at early stage startups and now I'm a founder and I'm a VC, so I'm still kind of in this little stack of roles that we have in our little tech ecosystem. And in my time working with Tumblr and my agency and Duolingo, I had the pleasure of speaking with entrepreneurs all over the world, in part because I started getting some media because of the work that I've been doing starting at Tumblr, so a lot of entrepreneurs reached out to me, but also because I became a mentor for an organization called Endeavor, which is global. So, I started working with entrepreneurs in Japan and Brazil on my free time, just mentoring. And I know that the opportunity for growth in terms of tech in Latin America is huge because first of all, the opportunity for growth in tech is huge all over the world, meaning there's just more and more to do.</p>
+<p><strong>Gina Gotthilf</strong> (01:05:09):<br />
+There's more pieces of our lives that can become more efficient or better or cheaper by making them digital in some way, shape or form because digital products scale. We are behind when it comes to that in terms of Latin America, and our economy is also not doing super great right now. There's a number of things that make it tougher to succeed in Latin America, but make the outcome of potential success much higher. And simply put, there's a lot of low hanging fruit because a lot of what has already been digitized and productized in the US and more developed markets just hasn't in Latin America. And every time I took these calls, I would think like, "Well, this is not very efficient for me to be doing this one-to-one call. I feel very good about myself, I feel great, and this entrepreneur learned a lot, but I wish I could do this more at scale."</p>
+<p><strong>Gina Gotthilf</strong> (01:05:56):<br />
+And also it doesn't seem like this is what's going to help this entrepreneur succeed. Maybe it's a little bit of advice, but it's like... And not only that, but I had a lot of experiences where I would mention something about growth that I had learned and that would blow the entrepreneur's mind. And I would think, "Why do I know this, but not this entrepreneur who honestly is smarter and more ambitious than me?" Oh, it's because I've had a career in Silicon Valley. It's because I've gotten to work with some of the best people in the world and I have access to this information just free flowing in my way all the time, and we take it for granted. So, how can we make this more accessible to Latin America's entrepreneurs, so that they can have access to that? What else is hard to get access to that could really get in the way?</p>
+<p><strong>Gina Gotthilf</strong> (01:06:34):<br />
+Oh, like access to capital. So, what's the VC in the angel ecosystem looking like and what can we do that can actually impact that at scale? And then there's other pieces of the ecosystem that are missing, like if you're going to start a company, you have to incorporate it. It sounds super boring, but Brazil is one of the countries that takes the longest time to incorporate a company in the world, but then if you're going to get investment, you probably can't get investment in your Brazil entity because investors are like, "I don't know anything about Brazil, and sounds like a lot of employers get sued by their employees and lose," which is totally true, "And there's all this liability. I feel much more comfortable investing in a Delaware company." So then entrepreneurs are like, "Oh man, now I have to create this entity in Delaware. I don't even know where that is and what's the C-core? What's this other thing?"</p>
+<p><strong>Gina Gotthilf</strong> (01:07:19):<br />
+So, there's just stuff that needs to happen for Latin Americans that we don't think about here, "Silicon Valley" talking about it as in the cloud in the US and developed markets, but also then you're able to raise money, how do you get money down to your country? That's not simple at all. How do you think about the FX transactions and not get screwed in the process and who's going to do it? And so anyway, there's a number of these things that make it super hard. And so, that's some of the problems that we wanted to solve.</p>
+<p><strong>Gina Gotthilf</strong> (01:07:47):<br />
+Why it matters to me? I'm Brazilian, I'm Latin American, and I know that I had all of the opportunities in the world. I went to an American school, I got to go to school in the US, I got to work with some of the best tech companies in the world, and 99.9% of people in Latin America will not have these opportunities. And so for me, if I don't use this privilege to somehow make a huge impact where I came from, that will last, then I kind of wasted my life. So, that's why this matters so much to me, and I met my co-founder, Brian Requarth at On Deck. If you've heard of On Deck before, I'm a big fan.</p>
+<p><strong>Lenny</strong> (01:08:24):<br />
+I'm wearing On Deck socks right now. Yeah, I am.</p>
+<p><strong>Gina Gotthilf</strong> (01:08:28):<br />
+I love their socks, and I just had a conversation with them yesterday. I am a big fan of what they built. I met Brian doing On Deck... I actually was thinking of starting a completely different company, but also focused on community. As we were talking about, people want to find connection, and I think that there's a lot of business opportunity there, but I met my co-founder and he was working with our third co-founder, Yuri, who was actually the guy... We joke he's the guy who builds things.</p>
+<p><strong>Gina Gotthilf</strong> (01:08:53):<br />
+He's the CTO, he actually knows how to build and started talking about what it is that we can do to make an impact in the speed at which tech startups succeed in Latin America because we think we can have a huge impact on the GDP of the whole region, developments, job opportunities, and so on and so forth. So to me, that's what motivates me. It's like figuring out how I can use my time as leverage to make the biggest impact possible in terms of socioeconomical mobility for people in the world and focusing on the part of the world that I came from made the most sense.</p>
+<p><strong>Lenny</strong> (01:09:26):<br />
+So you referenced this company, that you started Latitud. Maybe just describe briefly, just broadly, how do you pitch what Latitud does to folks that might find it useful?</p>
+<p><strong>Gina Gotthilf</strong> (01:09:35):<br />
+I will, and I still do a pretty bad job with pitching it, but the pitch is basically we're building the operating system for Latin American early stage tech startups, and what that means is that building a startup is hard anywhere, but it's extra hard in Latin America for some of the reasons that I outlined. Some of the things that we decided to solve for are one, it's super lonely to be a founder. And if you're able to meet great founders who are just a step ahead of you in anything, be it in product or growth or marketing or incorporation or finances, you can save yourself so much time from trying to read books and Google if they can just tell you what to do or connect you with the right person, that if we were able to connect these people meaningfully, we could make a huge impact.</p>
+<p><strong>Gina Gotthilf</strong> (01:10:16):<br />
+So, that's number one, it's lonely. And number two, you build a startup in Brazil and you're like, "Wow, this is working. I'm going to go to Silicon Valley." I've seen this happen a lot in the past decade, and Silicon Valley is a completely different place. The US, it's a different place, the competition's different. 3% of people in Brazil only, and that varies in Latin America, speak English. So, the likelihood of you being taken seriously is low. Your chances of success are low, but at the same time, Latin America has so much in common as a region, but we don't actually actually see that if we're Latin Americans. We just think we're countries, especially Brazilians don't think that they're part of the rest, and Mexicans don't think about Brazil. It's so far, look at it on the map. In the US you're like, oh Latin America."</p>
+<p><strong>Gina Gotthilf</strong> (01:10:58):<br />
+But if you're there, it's just not at all connected, but the opportunities of growth are huge and dependent on whether you meet the right people are able to open doors and understand that our problems are so similar that a solution for one part of this region could potentially be great for another part of the region. I'm not doing a great job of pitching, but in addition to it being lonely and it being difficult to find the right resources and really trustworthy knowledge, it's really hard to raise capital and it's really hard to do things like incorporate and bring your money down, et cetera. So, that's what we do. First, we have a fellowship program. We have 1,500 entrepreneurs who got in, we run four cohorts a year, about 600 applicants per, and so you get in and you get access to all of these resources we've put together.</p>
+<p><strong>Gina Gotthilf</strong> (01:11:44):<br />
+You get to find out what everyone thinks about other investors in the region because I think it's important to disseminate that information. You get access to introductions to investors through each other and advice and events. In addition, we have a fund, so we've invested in 100 startups and we're raising our second fund now. It's going to be around $25 million with a $30 million cap, so that's another thing. So we invest, you figure out your investment game, but you might becom</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

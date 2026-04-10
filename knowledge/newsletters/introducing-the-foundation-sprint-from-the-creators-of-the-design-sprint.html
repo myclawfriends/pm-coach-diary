@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introducing the Foundation Sprint: From the creators of the Design Sprint — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Introducing the Foundation Sprint: From the creato…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Introducing the Foundation Sprint: From the creators of the Design Sprint</div>
+    
+    <div class="article-meta">2025-01-28<span>·</span>4,422 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">領導</span> <span class="mini-tag">創業</span> <span class="mini-tag">策略</span> <span class="mini-tag">職涯</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>Everyone working in product today knows about the Design Sprint—a five-day method for teams to design, prototype, and test new products. The process goes back to 2010, when <a href="https://www.linkedin.com/in/jake-knapp/">Jake Knapp</a> came up with the steps while helping build Gmail and Google Meet. His <em>New York Times</em> best-selling book, <em>Sprint,</em> has sold over 500,000 copies, been translated into more than 20 languages, and is a staple of product team bookshelves worldwide.</p>
+<p>I’m honored to share an exclusive excerpt from his new book, <strong><em>Click</em></strong>, the anticipated sequel to <em>Sprint</em> that will hit bookshelves in April<strong><em>.</em></strong> But this is not just an excerpt. Jake and his co-author <a href="https://www.linkedin.com/in/johnzeratsky/">John Zeratsky</a> are sharing their new sprint method, the <strong>Foundation Sprint</strong>, for the first time ever, in this newsletter<strong>.</strong> Jake and John created the Foundation Sprint based on lessons from working with over 300 companies in the past 20 years. You’ll also learn about a framework I now encourage every founder to use—and that Jake used himself to create Google Meet: <strong>the Founding Hypothesis</strong>.</p>
+<p>If you <a href="https://www.theclickbook.com/">pre-order</a> the book before January 31st, you’ll get instant access to a bunch of resources, including detailed guides and tools for running your own Foundation Sprint. Pre-order and claim these bonuses at <a href="https://www.theclickbook.com/">TheClickBook.com</a>.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/fe39ea34-d1a7-4df0-b51a-80a125045630_1600x993.png" /></p>
+<p>Now, here’s your sneak preview of <em>Click,</em> starting with a fun story about one crazy week in Stockholm when Jake and two other Googlers co-founded Google Meet.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/cd4d9478-bd18-467c-80fa-6f78ceef9b12_1456x1103.jpeg" /></p>
+<h3><strong>The Stockholm solution</strong></h3>
+<p>In January 2009, I took a weeklong business trip to Stockholm. At the time, I was a design lead on Gmail—a job I loved—and I was in Stockholm to work on an exciting side project I’d started with two fellow Googlers. But as I walked to the Google office on that cold January morning, trudging through the miserable snow in the miserable dark, I was miserable too, because that exciting project was about to die.</p>
+<p>My colleagues were Serge Lachapelle and Mikael Drugge. We’d met a couple of years earlier, in 2007, when Google bought their startup. The three of us started talking about an idea for a new product: video conferencing software that could run in a web browser. In those days, multi-way video calls were a hassle, so hardly anybody used them. We thought easy video calls could change the way people worked.</p>
+<p>So we started a project to bring this idea to life. We compiled a giant slide deck. We wanted to come up with the perfect strategy to get the rest of the company excited. I became obsessed with the idea of a 3D virtual conference room, and we added more and more ideas on top of it. Interactive documents and agendas and whiteboards and on and on… But folks at Google never quite got it.</p>
+<p>Weeks went by. Months went by. A year and a half went by. We kept improving our pitch deck, showing it to team after team, trying to make our proposal perfect.</p>
+<p>Then the global financial crisis hit. In January 2009, Google announced it was closing its offices in Trondheim, Norway, and Lulea, Sweden. I freaked out. I figured Stockholm was next, and, if so, Serge and Mikael would be gone. And we still didn’t have a coherent strategy. It was now or never. I booked a trip to Stockholm.</p>
+<p>So there I was, in the dark and the slush. I slogged down crooked streets until I found the Google office. I climbed the stairs of a drab gray building and found Serge and Mikael waiting for me with big smiles and a cup of hot coffee. This felt like our last chance. But what should we do?</p>
+<p>It was do-or-die. We had one week to make people care about our idea. What would grab their attention? It wasn’t the complex bells and whistles. It wasn’t the 3D virtual conference room, or the interactive meeting tools. No, our core hypothesis was simple: We believed people would want our product because it would be the fastest and easiest video call software on the market.</p>
+<p>So we set an audacious goal. It was Monday morning. By Friday, we agreed, we’d have a prototype of our software. Not a proposal, not a slide deck. A prototype. We would <em>show</em> everyone how great video calls in the browser could be with a prototype that made dead-simple multi-way video calls and nothing more.</p>
+<p>We didn’t have time to get things perfect, so we made quick decisions. We hashed out a design that was good enough. Then Mikael, an engineering genius, built the prototype. I remember the moment he got it working. He emailed me a link. I clicked and … boom. There was Mikael. There was Serge. Mikael said hello, Serge said hello, I said hello. We could see each other!</p>
+<p>At the end of the week, we shared our prototype, and finally—finally!—people understood. And they wanted it, immediately. Googlers started using our prototype for actual meetings, it spread across the company, and eventually the software launched to the public. Today it’s called Google Meet and has hundreds of millions of users.</p>
+<h3><strong>The quest for the perfect start</strong></h3>
+<p>I remember flying home from Stockholm and thinking, “Wow. That was different.” After wasting <em>two years</em> chasing a vague idea, we hit warp speed with a single week focused on the basics. Realization struck me—<em>bang</em>—like a two-by-four between the eyes: <em>Teams need a better way to start projects.</em></p>
+<p>I couldn’t get that idea out of my head. Several months later, I created the Design Sprint—my attempt to turn the magic of Stockholm into a repeatable recipe. The method took off, and guiding teams through Design Sprints became my full-time job, first at Google, then as a partner at Google Ventures, and today as co-founder of the venture fund Character Capital.</p>
+<p>But shortly after we started Character, I noticed that, while Design Sprints are awesome for solving problems, building prototypes, and testing ideas, founders at the very beginning of big projects need more. They need a plan for standing out from the competition and they need to choose a direction for their first steps. In other words, they need the same kind of clear hypothesis that allowed Mikael, Serge, and I to cut away the fancy stuff and get to our core idea. Every team needs their own version of “the fastest and easiest video call.”</p>
+<p>I realized this was the next stage of my quest. So I sat down with my co-founder and co-author John Zeratsky (JZ). We re-examined the most successful projects we’ve seen firsthand as designers and investors. Early in our careers, JZ and I had the good fortune to work on products like Gmail, Google Ads, and YouTube, each of which found product-market fit quickly and clicked with customers for the long haul. As partners at Google Ventures, we had a hand in smash hits like Flatiron Health, Gusto, One Medical, Blue Bottle Coffee, and Slack. We knew what they had in common, and it started with a clear hypothesis.</p>
+<h3><strong>The Founding Hypothesis</strong></h3>
+<p>Teams that build winning products share some fundamental traits. They know their customers—and what problem they can solve for them. They know which approach to take—and why it’s superior to the alternatives. And they know what they’re up against—and how to radically differentiate from the competition.</p>
+<p>JZ and I call this combination of customer, approach, and differentiation a <strong>Founding Hypothesis</strong>. The Founding Hypothesis is a handy Mad Libs–style sentence that we can fill in to understand and test a team’s strategy.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/56fa747d-40b3-40fd-a03c-afa670e9a03e_1478x866.png" /></p>
+<p>Yes, the Founding Hypothesis is simple, but that’s exactly what makes it so powerful. Products click with customers when they make a compelling promise—and that promise must be simple, or customers won’t pay attention.</p>
+<p>Every winning team JZ and I worked with made one of these simple, compelling promises. For example, when I worked on Gmail in the 2000s, our promise to customers was “We’ll solve your overflowing inbox problems better than Outlook, Hotmail, and Yahoo because we offer more storage and great search.” The promise was simple. People found it compelling, so they tried Gmail, and it delivered, so they told their friends, and so on. Today, Gmail is one of the world’s most used products. It clicked.</p>
+<p>Looking back today, we can easily reverse engineer Gmail’s Founding Hypothesis:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/a6e0add6-a418-465c-bd76-e323f9c90b3b_1600x1023.png" /></p>
+<p>In our book <em>Sprint</em>,we profiled several startups that built products that clicked. Again, looking back, it’s easy to identify the simple promise each one made to customers<em>.</em></p>
+<p>Here’s how the Founding Hypothesis could have looked for Blue Bottle Coffee, a startup we worked with in 2012:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/6c81a8b9-7fd3-4697-b306-abd81b44a4aa_1600x991.png" /></p>
+<p>For Flatiron Health, a startup we worked with in 2014:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/b9f455fb-598c-4b5e-8d17-71b4a7f056b5_1386x830.png" /></p>
+<p>And for Slack, a startup we worked with in 2015:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/53ffa743-2707-48d0-9437-43b840249488_1600x1007.png" /></p>
+<p>Each of these startups turned into a valuable business, and each was eventually acquired for hundreds of millions, or even billions, of dollars. In each case, they made a simple promise that clicked.</p>
+<p>Unfortunately, the simple stuff is <em>not</em> easy. When I first began working with startups, I was embarrassed to ask founders basic questions like “Who are your competitors?” or “How will you differentiate?” because I didn’t want to waste their time or appear naive.</p>
+<p>But once I worked up the courage, I learned a surprising thing: If I asked three co-founders to write down their startup’s target customer, I got three different answers. If I asked a team what differentiated their product from the competition, I got a 60-minute debate. Smart, motivated people who respect their colleagues can still struggle to get on the same page. The obvious stuff is not always so obvious.</p>
+<p>And even if a team <em>does</em> have a plan, there is no guarantee it will work. For every Gmail, thousands of new products fizzle. Most teams can’t find the right promise. They don’t build what people want. There are just <em>so many ways</em> to get it wrong.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/29e7dd40-77d6-4fe8-9de9-d700a2e77c14_1600x771.png" /></p>
+<p>Every big project is full of predictions, but they normally remain hidden behind the scenes. With the Founding Hypothesis, you grab those predictions, drag them onto center stage, and hit them with a dazzling spotlight. And you might not like what you see. Remember the Google Meet story? Imagine the unspoken Founding Hypothesis behind my original idea for a 3D virtual conference room:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/59f154c9-47cd-475d-a50d-7781e4759d95_1408x822.png" /></p>
+<p>What was I thinking? “3D aficionados”? That’s absurd! But when you shine a spotlight on a hidden hypothesis, you might not like what you see. Compare that with the hypothesis we formed in Stockholm:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/ce3518cd-2f6d-4afc-a274-b4503d2e7072_1486x976.png" /></p>
+<p>The pressure in Stockholm pushed us to get real and clarify our strategy. But how can you create the best possible hypothesis if you’re not facing an existential risk, like, <em>right now</em>?</p>
+<p>This is where the Foundation Sprint comes in.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/7455f511-e527-497f-a424-a704317316d7_1600x919.png" /></p>
+<h1>The Foundation Sprint</h1>
+<p>The Foundation Sprint is a two-day workshop for a team at the beginning of a big project. On the morning of day one, you’ll define the <strong>basics</strong> of your project; then, in the afternoon, you’ll craft <strong>differentiation</strong> to help you stand out from the competition. On day two, you’ll evaluate multiple options and choose an <strong>approach</strong> to your project. By the end, you’ll have a Founding Hypothesis: a clear statement of what you believe that can be proved (or disproved) with Design Sprints.</p>
+<p>The Foundation Sprint creates an artificial—but very effective—series of deadlines that force you to make big decisions fast. Here’s how it works:</p>
+<h3>Get ready</h3>
+<p>❏ <strong>Form a tiny team</strong></p>
+<p>Gather the leaders of the team: no more than five people, including the Decider (the real decision maker on the team).</p>
+<p>❏ <strong>Block two full days on the calendar</strong></p>
+<p>Six hours per day provides plenty of breathing room to finish the activities <em>and</em> take ample breaks. Some teams will finish these activities faster, but it’s good to have the full time available to ensure you can get into deep focus mode.</p>
+<p>❏ <strong>Stock up on supplies</strong></p>
+<p>You’ll need a real or virtual whiteboard, sticky notes, blank white paper, and dot stickers for voting.</p>
+<h2>Day 1</h2>
+<h3>Morning: Basics</h3>
+<p>The Foundation Sprint starts with the Basics. The Basics are the so-obvious-they-get-ignored fundamentals that should inform every big decision about your project. Who, precisely, is your customer? What problem are you solving for them? What’s your advantage? Who or what are you up against? On the morning of day one, you’ll make it all crystal clear.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/c53b69b2-d18e-479c-a272-64ecc183ff9e_1116x1446.png" /></p>
+<h4>10:00 a.m.</h4>
+<p>❏ <strong>Choose a target customer (about 15 minutes)</strong></p>
+<p>Use plain language to make sure you’re talking about real people (for example, instead of “distributed enterprise orgs,” just say “teams with people in different locations”).</p>
+<p>❏ <strong>Choose an important customer problem (about 15 minutes)</strong></p>
+<p>Trying a new solution will cost your customers time, energy, and/or money. What problem causes enough pain to justify that cost? What is the biggest way you can help them?</p>
+<p>❏ <strong>Identify your advantage (about 20 minutes)</strong></p>
+<p>What gives you and your team an advantage over anyone else who might try to solve this problem? What capability, insight, and motivation set you far apart?</p>
+<p>❏ <strong>List your competitors (about 20 minutes)</strong></p>
+<p>What options do customers have for solving the target problem? These might be other products, workarounds, or even “do nothing” (which can be a warning sign, since it indicates the problem may not be important enough to merit a solution). Be sure to identify the most challenging competitor—the 800-pound gorilla that will be most difficult for your product to beat.</p>
+<p><strong>Note-and-Vote for fast, smart decisions</strong></p>
+<p>Use our “<a href="https://www.character.vc/note-and-vote">Note-and-Vote</a>” technique for all of the above steps, and throughout the sprint: For each question, give everyone five minutes to think in silence and write answers on separate sticky notes. Then review the answers in silence, using dot stickers to vote for the best. Finally, the Decider calls for a short debate and makes a decision (regardless of the votes).</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/d56a2687-bc27-4a41-bb38-d0e982008a0d_1280x1600.png" /></p>
+<h4>11:30 a.m.-ish</h4>
+<p>❏ <strong>Take a break (about 30 minutes)</strong></p>
+<p>Get a snack or lunch. Stand up and stretch or take a walk.</p>
+<h3>Afternoon: Differentiation</h3>
+<p>Next is the crux of your hypothesis: differentiation. How can you best use your advantage? How can you reframe the decision for customers and make the 800-pound gorilla look like junk?</p>
+<h4>12:00 p.m.-ish</h4>
+<p>❏ <strong>Differentiation classics (about 20 minutes)</strong></p>
+<p>Use dot voting to mark where your solution couldstack up against the competition on these classic differentiators. Be very optimistic and aggressive—but also realistic.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/c61fe39f-d82d-47fd-9590-779f16d5e7a1_1600x1069.png" /></p>
+<p>❏ <strong>Choose your own differentiators (about 20 minutes)</strong></p>
+<p>Next, write your own differentiators, using criteria at which your solution could excel—and which would make the competition look crummy.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/f2dd51f2-4a2f-480d-a57a-71ffec9a5ba1_1600x871.png" /></p>
+<p>❏ <strong>Score your differentiators, part 2 (about 10 minutes)</strong></p>
+<p>Review the custom differentiators. Once again, mark where your solution could stack up against the competition.</p>
+<p>❏ <strong>Choose differentiators (about 5 minutes)</strong></p>
+<p>Vote in silence, then the Decider chooses two differentiators to try first.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/cc4bd064-18c0-48ff-8bf9-b2c5acee29f9_1600x688.png" /></p>
+<p>❏ <strong>Take a break (about 60 minutes)</strong></p>
+<p>Get a snack or lunch. Stand up and stretch or take a walk.</p>
+<h4>2:00 p.m.-ish</h4>
+<p>❏ <strong>Make a 2x2 differentiation chart (about 30 minutes)</strong></p>
+<p>Differentiation charts are typically unhelpful slide deck filler. But a 2x2 chart focused on customer perception can be a powerful expression of your product hypothesis. Keep experimenting until you find differentiators that put you all alone in that top right quadrant and push the competition into the other three quadrants (which form an “L” shape that I like to think of as Loserville). But be honest. Differentiation only works if you can deliver what you promise.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/267b8fb4-07a8-44ef-8533-d25f2dc0cafa_1600x914.png" /></p>
+<p>❏ <strong>Write principles (about 45 minutes)</strong></p>
+<p>To end the day, use the Note-and-Vote method to write two or three practical principles that will help you make decisions and deliver on your differentiation. For example, if one of your differentiators is “fast,” you might choose the principle “Fast is better than slow” to guide your future decisions.</p>
+<h4>3:30 p.m.-ish</h4>
+<p>❏ <strong>Fill out a Mini Manifesto</strong></p>
+<p>Combine your differentiation and principles on one page. Hang it on the wall—this is the Mini Manifesto for your first prototype.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/67402c3e-320c-49d4-8621-c832c1c29757_1244x1600.png" /></p>
+<h2>Day 2: Approach</h2>
+<h3>Morning: Options</h3>
+<p>On day two of the Foundation Sprint, you’ll execute what you might think of as a “pre-pivot.” Before you commit to one direction, you’ll generate alternatives and consider which is best. By the end of the day, you’ll choose an approach and be ready to experiment.</p>
+<h4>10:00 a.m.</h4>
+<p>❏ <strong>List all possible approaches (about 60 minutes)</strong></p>
+<p>Use a Note-and-Vote to generate multiple alternative approaches to the project. These might be approaches you’ve previously considered or brand-new ideas. Write a one-page summary of each approach (what it is, why it’s a good idea in one sentence, and a doodle that shows how it might work).</p>
+<p>❏ <strong>Assign a color to each approach (about 5 minutes)</strong></p>
+<p>The Decider chooses up to seven options. Assign each a letter or a color (or both). This will make it easier to spot patterns later.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/f6bcb2fb-e057-4e84-88ae-3c2e8e1a3902_1600x672.png" /></p>
+<p>❏ <strong>Take a break (about 60 minutes)</strong></p>
+<p>Get a snack or lunch.</p>
+<h3>Afternoon: Lenses</h3>
+<p>In the afternoon, you’ll choose an approach using our “Magic Lenses” technique. We developed Magic Lenses to help teams make complex decisions. Instead of trying to hold different perspectives and arguments in your head, you can use Magic Lenses to <em>see</em> those perspectives, then analyze, compare, and make a quick but good decision.</p>
+<h4>12:00 p.m.-ish</h4>
+<p>❏ <strong>Make classic charts (about 15 minutes)</strong></p>
+<p>Start with four classic perspectives: customer lens, pragmatic lens, growth lens, and money lens. Make a 2x2 chart for each, like this:</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/eea7018a-f5a4-47c1-be56-fcff15cd18a6_1600x1040.png" /></p>
+<p>❏ <strong>Place your options on each chart (about 45 minutes)</strong></p>
+<p>JZ and I find it easiest to plot one axis at a time, asking an expert on the team or the Decider to help with relative placement. “Where does this go? Higher or lower than this one? Sounds like more of a six than a five?” Feel free to adjust the criteria on the charts as you go—the default labels above are just a starting point.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/edf7d23e-301e-4c13-af45-36679f92d5b0_1600x1035.png" /></p>
+<p>❏ <strong>Take a break (about 30 minutes)</strong></p>
+<p>Get a snack or lunch.</p>
+<h4>1:30 p.m.-ish</h4>
+<p>❏ <strong>Make custom 2x2 charts (about 45 minutes)</strong></p>
+<p>What other perspectives could help you decide which approach is best? Consider what criteria might make for a good decision. We’ve seen teams plot their options using all kinds of criteria, from <em>no advertising required</em> to <em>founder excitement</em>, <em>customer pain</em>, <em>unique to us</em>,or <em>delivers on our mission</em>.It can also be interesting to try plotting your options using your differentiation chart from day one. Most teams try at least one or two additional charts beyond the four classics.</p>
+<p>❏ <strong>Zoom out and review (about 10 minutes)</strong></p>
+<p>Stand back or zoom out in your whiteboard software. Look for patterns. Does one approach win every time? Does one 2x2 strike you as the most useful lens? Do one or more contradict the others?</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/7067f8c0-d55c-45d0-b641-9515f7cd9213_1600x307.png" /></p>
+<p>❏ <strong>The Decider decides (about 5 minutes)</strong></p>
+<p>Choose one top bet (your first-choice approach for the project) and one backup plan (the next approach to consider if you need to pivot).</p>
+<h4>3:00 p.m.-ish</h4>
+<p>❏ <strong>Fill in the Founding Hypothesis</strong></p>
+<p>At the end of day two, you have all the elements for your Founding Hypothesis. Fill out this sentence: <em>If we help [</em><em>customer</em><em>] solve [</em><em>problem</em><em>] with [</em><em>approach</em><em>], they will choose it over [</em><em>competitors</em><em>] because our solution is [</em><em>differentiators</em><em>].</em></p>
+<h2>After the Foundation Sprint</h2>
+<h3>Test (and adjust) your Founding Hypothesis until it clicks</h3>
+<p>A good Founding Hypothesis should pass the common-sense test. But that’s not enough. Every time I look at a Founding Hypothesis, I think, “Prove it!” Each prediction in the Founding Hypothesis lends itself to an existential, testable question about the project.</p>
+<p>To make these questions plain, JZ and I give startup founders a scorecard that adds a question to each prediction: Do you have the right customer? Right problem? Right approach? Will people <em>really</em> choose your solution over the competition? Do they care about your chosen differentiators, and will they believe your solution is radically better when judged by those criteria? And of course, above all: Does it click?</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/6de8121b-8dbc-40c3-ad8e-d20db67bbd05_1600x796.png" /></p>
+<p>At the beginning of a big project, every team’s top priority should be identifying their Founding Hypothesis and running experiments to check off those damn boxes. You shouldn’t have to waste two years—like I did—and wait until your project is about to fail to figure this out. You, and your team and your customers, deserve better.</p>
+<p>Here’s how JZ and I do it with the startups in our portfolio: After a <strong>Foundation Sprint</strong>,we run <strong>Design Sprints</strong> to answer the questions on the scorecard and prove—or disprove—the Founding Hypothesis. Every week, founders test prototypes (using <a href="https://www.lennysnewsletter.com/p/finding-your-bullseye-customer-michael-margolis">techniques</a> we learned from Michael Margolis during our time at GV), adjusting and repeating until the product clicks with customers.</p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/b95eea4e-4f64-47cd-a4c2-fc92c8e1a05e_1600x753.png" /></p>
+<p>These sprints allow teams to establish confidence that people want their solution <em>before</em> they spend loads of time and money building it. Yes, it’s just a simulation—but for our money, it’s a heck of a lot better than relying on a hunch. And sure, clearing the calendar for several consecutive days can be challenging, but it’s a bargain compared with wasting months building the wrong product.</p>
+<p>—</p>
+<p><em>Thank you, Jake and JZ!</em></p>
+<p>Click <em>comes out in April, but if you <a href="https://theclickbook.com">order now</a>, you’ll get instant access to free guides, templates, and resources that will show you exactly how to run a Foundation Sprint, step-by-step. <a href="https://theclickbook.com">Order</a></em> <a href="https://theclickbook.com">Click</a> <em><a href="https://theclickbook.com">and learn more about the free bonuses here.</a></em></p>
+<p><img alt="Image from Introducing the Foundation Sprint: From the creators of the Design Sprint" src="https://substack-post-media.s3.amazonaws.com/public/images/c8985368-d5d5-4cc3-ae67-200d24b05bf2_1600x993.png" /></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<h2>🏅 Featured role of the week</h2>
+<p><a href="https://www.delphi.ai/">Delphi</a> is hiring for a <a href="https://delphi-ai.notion.site/Delphi-Product-Manager-13fa9fbe9ec880218413f1b4f73322c4">Lead Product Manager</a> based out of San Francisco. As their Lead PM, you’d get the opportunity to collaborate directly with their CEO to build and own an entire product category.</p>
+<p><strong>Why I think the company is interesting:</strong></p>
+<ol>
+<li>Delphi powers <a href="https://www.lennybot.com/">Lennybot</a>! They allow anyone to upload their content, to create a digital representation of not only their knowledge base but also their way of thinking.</li>
+<li>With zero marketing spend, they’ve managed to go from 0 to nearly $2 million ARR in their first year.</li>
+<li>They are backed by Sequoia, Founders Fund, and a host of tier-one investors.</li>
+<li>They are still a small, scrappy, pre-series-A team. This is an opportunity to <em>actually</em> join at the ground floor and make a huge impact.</li>
+</ol>
+<p>If you’d like to get your profile sent directly to their team, just fill out this <a href="https://airtable.com/apppne9fUg8CKw6s2/pag2vapuCgpIGh6WB/form">quick form</a>. All submissions from my readers get priority (but no guarantees beyond that).</p>
+<p>—</p>
+<p>If you’re hiring, I run a white-glove recruiting service specializing in senior product roles (e.g. Directors, VPs, and Heads of Product), working with a few select companies to fill their open roles. Apply to work with us below.</p>
+<p><a href="https://www.lennysjobs.com/">Start hiring</a></p>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. There are <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a>, <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>, and <a href="https://www.lennysnewsletter.com/leaderboard">referral bonuses</a> available.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

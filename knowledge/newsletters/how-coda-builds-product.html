@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Coda builds product — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How Coda builds product</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How Coda builds product</div>
+    
+    <div class="article-meta">2023-01-31<span>·</span>4,935 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">組織</span> <span class="mini-tag">策略</span> <span class="mini-tag">數據分析</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p>I’m often asked how to best set up a product development process, and since I’ve only had first-hand experience with a few approaches, I’ve embarked on an ongoing series to learn how the best product teams build product. Part one was on <a href="https://www.lennysnewsletter.com/p/how-figma-builds-product">Figma</a> (which quickly became my fourth-most-read post of all time), and today I’m excited to bring you a deep dive into <a href="https://coda.io/">Coda</a>’s unique approach to product.</p>
+<p>Having spoken with many PMs from Coda over the years, plus having <a href="https://www.lennysnewsletter.com/p/the-rituals-of-great-teams-shishir#details">Coda’s CEO, Shishir Mehrotra, on my podcast</a>, I’ve always seen Coda as an incredibly thoughtful, deliberate, first-principled product culture. After digging into their approach, this proved to be absolutely true. I’ve never seen a product development process this well-thought-out and executed.</p>
+<p>A big thank-you to <a href="https://www.linkedin.com/in/laneshackleton/">Lane Shackleton</a>, the CPO at Coda, for sitting down with me and answering all of my (very detailed) questions—and also for sharing a dozen plug-and-play templates 🤯</p>
+<p>Enjoy!</p>
+<h1>How Coda builds product</h1>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/c5669255-2846-40ac-8703-7a61be9e9205_4001x4021.jpeg" /></p>
+<h3><strong>1. How far out do you plan in detail, and how has that evolved over the years?</strong></h3>
+<p>The planning motion you need to build a nascent product with few customers is quite different from that of a more developed product with lots of established customers. As we progressed along that journey over the past seven years, the way we plan evolved a lot.</p>
+<p>As a general rule, though, our view is that planning should take up no more than 10% of the execution time period. So if you’re planning for a quarter, your planning period should be slightly less than nine days.</p>
+<p>In the early days, we started with two-week sprints. We’d get small teams together, and they’d run a daily standup to figure out what to accomplish that day. The two-week sprints felt fast and like the team was on the hook to deliver a lot of product and learning in a short span. Then, every three sprints (or six weeks), we’d pop our heads up and do a check-in. The six-week check-ins provided a good moment to reflect on what we learned, improve our team’s rituals, and quickly plan for the next two weeks. The team was composed of two or three PMs and 10 to 15 engineers during this period.</p>
+<p>Later, the company grew to roughly 30 engineers and four or five PMs. By this time, we had beta customers that the team was working closely with, and the shape of the product was more known. The two-week sprints started to feel a little frantic, and we felt the need to create space to strategize on the longer arc of what we wanted to accomplish. At that time, we moved to six-week sprints, along with H1 and H2 planning. During H1 (first half of the year) and H2 (second half of the year) planning, we made the space we needed to do more long-term strategy work for the company. At the same time, six-week sprints felt like the right window for running fast against specific commitments where we had confidence or something specific we wanted to learn.</p>
+<p><img alt="Coda Planning.png" src="https://substack-post-media.s3.amazonaws.com/public/images/abe75d02-1842-4472-8c14-dc00937113f4_5133x2766.png" /></p>
+<p>For the past two years or so, with a PM team of 12 to 15, we do what I call “Quarterly Plus” planning. We couple that with our annual Big Bets. We start with Big Bets, and those ladder into Quarterly Plus planning (more on this below).</p>
+<p>To arrive at Big Bets, we use a strategy process that is inspired by one of my favorite strategy books, called <em>Good Strategy Bad Strategy</em>. One of the core ideas behind the book is that good strategy is an answer to a specific challenge. So we start our annual planning by reviewing our best insights from our Customers team and Data and Insights team with the goal of determining the most important challenges to address. As a group, we enumerate and rank the key challenges facing the business. Then smaller groups of leaders develop strategies against those key challenges, and the group reviews them together. We run a few <a href="https://coda.io/@lshackleton/100-dollar-voting-exercise">$100 voting exercises</a> to get a pulse on where we may have some alignment versus not, then we debate further and ultimately decide. By the end of the process, we have a small set of Big Bets.</p>
+<p>Our Big Bets serve as the foundation for team-level quarterly planning. We ask teams to plan concrete commitments for what they will get done, then provide a look ahead to what’s coming the next quarter—hence, Quarterly Plus. The observation is that it’s very hard to plan six months out in a scenario where you’re learning week to week. But you often have a sense of where you’re headed, what the probable decision points are, and what risks lie ahead. So while it’s not a committed plan, it gives the team and the broader company a look at the longer arc and helps them contextualize your current quarter’s OKRs.</p>
+<p><img alt="Screen Shot 2023-01-19 at 11.44.30 AM.png" src="https://substack-post-media.s3.amazonaws.com/public/images/68fe2ab2-192a-4acb-8574-ce62316dc956_1954x1096.png" /></p>
+<p>I love the creativity our teams bring to this exercise. We commonly see fun patterns of <a href="https://help.coda.io/en/articles/4919307-adding-reactions-to-your-docs-and-tables">reactions</a> where the teams will intersperse things like heart, question, clap, question reactions in the text of their writeup to get the reader engaged and provide lightweight feedback. Oh, and one team is notorious for including catchy songs about their goals. Last year, this team rewrote the lyrics of <a href="https://www.youtube.com/watch?v=NrI-UBIB8Jk">“Hooked on a Feeling”</a> to turn their OKR presentation into a memorable music video. Sometimes we’ll even replay it during meetings just for fun. :)</p>
+<p>The artifact that gets produced is a two-pager, in <a href="https://coda.io/@lshackleton/two-way-writeups-coda-s-secret-to-shipping-fast">two-way writeup</a> style, with two classic Coda rituals: a pulse for gathering sentiment and Dory for asking questions (named after the fish in <em><a href="https://en.wikipedia.org/wiki/Finding_Nemo">Finding Nemo</a></em> who asks all the questions). You can see how it looks below, and <a href="https://coda.io/@lshackleton/two-way-writeups-coda-s-secret-to-shipping-fast/example-inline-toolbar-3">here’s a real example from a product discussion</a>. Here’s also <a href="https://coda.io/@codatemplates/dory-and-pulse">a template</a>, or just type <em>/dory and pulse</em> in any Coda doc.</p>
+<p><img alt="Dory.png" src="https://substack-post-media.s3.amazonaws.com/public/images/2af9e9ec-62ce-4510-bf3a-987a21a68db3_2154x1200.png" /></p>
+<p>Stepping back, the main drivers of increasing the cycle times, and thus forcing us to plan further out, were:</p>
+<ol>
+<li><strong>Customers</strong>—As we spent more time with more customers, we developed a better understanding and more certainty that we were solving the right customer problems. In turn, this understanding enabled us to think further ahead.</li>
+<li><strong>Product</strong>—As the product matured and PDE challenges became better-known to our teams.</li>
+<li><strong>Strategy cadence</strong>—As the company grew, the feeling of when and how to have deeper strategy conversations changed. When we were small and in the same office, we’d have deep strategy conversations over lunch. As we started to have larger groups across offices, teams needed to be grounded in longer-term plans and naturally accepted less ambiguity.</li>
+<li><strong>Decentralization</strong>—As teams got bigger, it made less sense to plan in a centralized way. Initially, the Product, Design, and Engineering leads centralized prioritization stack ranking. As it became more bottom-up and decentralized, we needed to plan further out. Overall, I’m a big believer in decentralized leadership and giving teams autonomy to solve problems.</li>
+<li><strong>Dependencies</strong>—An increasing number of dependencies across teams, though we always try to minimize the need for these.</li>
+</ol>
+<h3><strong>2. Do you use OKRs (e.g. objectives, key results, 70% goals, etc.) in some form?</strong></h3>
+<p>Yes, though we’re always tweaking and evolving <a href="https://coda.io/@lshackleton/quarterly-plus-okrs">our approach</a> to them.</p>
+<p>Importantly, we make it clear that OKRs are not a strategy. Strategy planning happens independent of OKR planning. I think it’s very easy to fall into the trap where OKRs seem like a reasonable replacement for a strategy doc or presentation that describes the broader challenges you’re addressing with a clear why and how.</p>
+<p>When it comes to OKRs, we throw out the piece about 70% of hitting your goal being considered success. I believe this is a luxury you have when there is a money-printing machine in your basement (like Google, where I worked for nine years). Instead, we goal around getting to 100% of our commitments. Obviously we don’t always hit 100% of our OKRs in practice, but the expectation is that you’ve set the OKR because you believe you can deliver on it. Of course, we let people defer or carry over an OKR to the next quarter, or explain why we’ve learned something new that caused us to rewrite or remove it.</p>
+<p>On the metrics side of OKRs, we try to ensure that teams are distinguishing between “input” and “output” metrics. I find these often get confused. For example, someone might say, “It’s so hard to move activation in OKRs.” But that’s because it’s a lagging output metric, influenced by lots of different inputs, which rarely changes in a single quarter. So we want teams to goal themselves around metrics they have control over. If the team has control over the metric, the question becomes more tractable: Do we believe the input metric will move the output metric?</p>
+<p>At the end of the planning process, teams present an <a href="https://coda.io/@lshackleton/quarterly-plus-okrs/template-team-okrs-writeup-13">OKR writeup</a> that describes where they are headed and why it matters to our Big Bets, and include a brief look ahead at the next quarter. Then we embed their OKRs as a table within that writeup. I find this makes it much easier to understand the why behind the detailed rows of OKRs you’re seeing. We also put a Dory at the bottom of these writeups so that anyone can ask any question. For years, we’d review these in a central OKR review meeting, but these days we have people ask and answer questions asynchronously.</p>
+<p>Here’s a sanitized example of what that feels like for one of our teams, the “Ecosystem Team.”</p>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/8ab9e4c2-3504-4db7-b0da-85c92590273b_3798x2970.png" /></p>
+<h3><strong>3. How do your product/design review meetings work?</strong></h3>
+<p>We strongly believe in autonomy for each team, and so our approach to product and design review meetings trickles down from that. There are two main review forums where product and design work is reviewed: Catalyst and Design Huddle.</p>
+<p>The forum we call <a href="https://coda.io/@david/catalyst-meeting">Catalyst</a> starts from a few hard-earned lessons from years of running review forums. Most review forums have common problems like not having the right people, or not starting with the right context, or being bulldozed by a senior leader. So we designed Catalyst to solve for some of the problems we’ve observed in past companies.</p>
+<p>It’s an hour block on the calendar, three times per week at 1 p.m. PT. The foundation is having three hours per week where you can get anyone in the company to review and provide feedback on any type of plans, including product. Anyone can sign up for a Catalyst slot, but we’ve evolved some very clear roles:</p>
+<ul>
+<li><strong>Driver:</strong> runs the meeting and facilitates the decision-making process; often the PM</li>
+<li><strong>Makers:</strong> the “doers” who will be executing on the results of the meeting</li>
+<li><strong>Braintrust:</strong> pulled in to guide and provide context for the Makers; often other leaders</li>
+<li><strong>Interested:</strong> people who want to follow along on the topic</li>
+</ul>
+<p>Below is our Catalyst schedule, with the option to join as “Interested.” If you’re a Driver, Maker, or Braintrust, it gets auto-added to your calendar by the doc.</p>
+<p><img alt="Coda catalyst add buttons.png" src="https://substack-post-media.s3.amazonaws.com/public/images/f7a4dc1f-856d-48d0-b844-f3ab6fea3e7a_4833x1602.png" /></p>
+<p>One little detail I love is the automated reminder that the doc sends the day before reviews. It’s a Slack message that tells you the topic and the links you need to review and reminds you of the expectations of your role in the meeting. The descriptions include some of my favorite reminders for people in review forums, like “Add lift, not drag,” with a clear description of what that means.</p>
+<p><img alt="Catalyst slack.png" src="https://substack-post-media.s3.amazonaws.com/public/images/b07f1aeb-6a4f-4cc5-9986-37bbfa79fd99_3057x3045.png" /></p>
+<p>The other review meeting is called Design Huddle. It’s a once-per-week forum where designers can bring work at any stage for feedback. A Slack notification goes out from the doc the day before, reminding people to sign up. Designers specify the topics, the project phase, the time they need, and the type of feedback they are looking for. We usually get to two to four topics from various designers per meeting, in a round-robin style. We also encourage designers to invite their PM partners so that they get to hear the feedback directly too.</p>
+<p>In the meeting, the group usually jumps into Figma and follows the designer around the file, adding comments, riffing, and reflecting on the work.</p>
+<p>In addition, as we’ve grown, individual teams will have their own Design Huddles or Design Jams. For example, our Core Product team is our largest Design and Product team, so they have a Design Huddle specific to their area. Designers choose which audiences are most appropriate given the topic.</p>
+<p><img alt="Design huddle.png" src="https://substack-post-media.s3.amazonaws.com/public/images/bb90cdc7-43d2-43af-99a5-6e3834274402_3180x2736.png" /></p>
+<p>In addition to the meetings listed above, a lot of our product and design work is done asynchronously through docs. It gives teams a way to clearly document their ideas and get fast feedback. One core example is our product brief. We list out a few high-level stages that most projects go through (below).</p>
+<ol>
+<li><strong>Problem</strong>—articulating the problem and how it’s experienced by customers.</li>
+<li><strong>Press release</strong>—articulating how we’ll describe the value to customers and aligning on this early.</li>
+<li><strong>Approach</strong>—describing the high-level approach we may take and gathering early feedback.</li>
+<li><strong>Details</strong>—describing detailed decisions, tradeoffs, and open questions.</li>
+<li><strong>Journey</strong>—walking through the customer experience and how our decisions feel in practice.</li>
+<li><strong>Retrospective</strong>—reflecting on the effort, what we learned, and what we’ll do next.</li>
+</ol>
+<p>Teams may use parts of the brief or the whole thing depending on the size of the effort involved. The asynchronous reviews or meetings tend to focus on one of these stages at a time. So for example, we may have a Catalyst meeting that is focused on aligning on the overall approach.</p>
+<p>Most efforts start with a problem brief. Here’s the intro to the Product Brief template that sets context:</p>
+<p><img alt="Product brief - about.png" src="https://substack-post-media.s3.amazonaws.com/public/images/9d57e77d-8986-4772-83a1-4ccc82e64f0a_2894x1766.png" /></p>
+<p>Here’s our problem page of the brief as an example of how each page is structured:</p>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/63b8881f-fa68-440e-b7a8-151eb52da051_3573x3521.png" /></p>
+<p>We sometimes also write a <a href="https://coda.io/@lshackleton/gathering-feedback-on-product-directions-using-press-release-opt">press release</a>. I find that teams can quickly explore broad directions simply by writing two or three versions of a press release. It forces us all to do two things. First, we can read the problem statement and the press release and make sure these things align. Second, as a group, we can get clear on the value we think we’re delivering to customers early in the process.</p>
+<p><img alt="Product brief - Press release.png" src="https://substack-post-media.s3.amazonaws.com/public/images/bd13a569-ff4c-4b49-b533-e0d66c83827c_2894x1892.png" /></p>
+<p>And finally, if you want to look across all upcoming launches, we have a centralized <a href="https://coda.io/@codatemplates/launch-calendar-with-slack-summary">launch calendar</a>. One thing we noticed early in Coda’s history is that we should have a central source of truth for anything that is going out to customers. So it includes a mix of new features, improvements, partner launches, and even email campaigns and blog posts. It’s a highly customized version of tools we’ve seen in other companies, like Google’s LaunchCal. The doc has lots of automations that send reminders to individuals so that they keep the details of their launches up to date. It’s one doc that is always open in my browser. :)</p>
+<p>Below is a look at our real launch calendar with the actual launches blurred out. We make lots of different views of this table, customized to the needs of different teams. My favorite email every week is a summary that gets sent from this doc of past and upcoming launches.</p>
+<p><img alt="Coda launch cal.png" src="https://substack-post-media.s3.amazonaws.com/public/images/04e71137-ab5a-49b7-bb73-56abff99642d_4593x2775.png" /></p>
+<h3><strong>4. Who do PMs report to, ultimately? And are product and design part of the same org? Has this changed over the years?</strong></h3>
+<p>We have a joint Product and Design team. PMs report to PM leads, and PM and Design leads report to me. I report to <a href="https://www.lennysnewsletter.com/p/the-rituals-of-great-teams-shishir#details">Shishir</a>, the CEO.</p>
+<p>The joint team is based on an observation from Google and YouTube.</p>
+<p>There, PMs were often the de facto decision makers on most decisions. Designers were often secondary in the team and decision-making process. I was always frustrated by this dynamic and worked to change it. There were many strong designers who were capable decision makers, and personally I’ve always had a deep interest in the interplay between brand, design, and product. (Early in my career I built a wine business to channel this interest.)</p>
+<p>My reflection was that the orientation of PMs as decision makers wasn’t due to bad intent on anyone’s part. Instead, PMs were just the people with the most context. They spoke with customers, partners, executives, designers, engineers, and more, so they built up a body of context that no one else had.</p>
+<p>So that’s part of the principle in deciding to build a joint product and design team. The idea is to enable better product decisions by having PMs and designers share the same context and information. We’re building an incredibly interconnected product, so it’s critical that our internal approach is one where everyone on our team understands how the parts fit together.</p>
+<p>We’re a few years into the experiment, and I think it works pretty well. The roles of designers and PMs are fluid and focused around high-quality work and enabling their teammates, instead of arbitrary definitions of what makes a PM or a designer. Sometimes, designers write specs. Sometimes, PMs draw in Figma. Our aim is to keep teams focused and moving quickly, with a default-open mentality so that their peers can see and provide engaged feedback on each other’s work in real time.</p>
+<p>In a related aside, and as a Rick Rubin fan, this made me laugh recently :)</p>
+<h3><strong>5. How do you balance resources between new product work vs. maintenance/bugs?</strong></h3>
+<p>We let our teams decide based on their unique situations and cultures. The only real rule of thumb is how we handle P0 bugs, which get addressed immediately. The most important cultural element is that Eng teams own their part of the codebase and feel a sense of pride about keeping it in good shape.</p>
+<p>Beyond that, teams have developed various creative ways of handling maintenance and bugs. Some examples include: regular quality weeks where teams focus only on burning down their list of P2 and P3 bugs, reserving a small number of engineers to always be burning down debt and bugs, or a team intentionally placing themselves in “bug jail,” where once they hit a threshold, they can only work on bugs until the number dips below a certain threshold.</p>
+<p>From my side, I spend time understanding a team’s portfolio of efforts and helping them think through the tradeoffs of how to invest in normal product improvements versus ongoing maintenance or quality work.</p>
+<h3><strong>6. Broadly, do you structure your teams around products, user types, user journey, outcomes, or something else? Has this changed over the years?</strong></h3>
+<p>Teams are structured around outcomes. For example, we have a team focused on driving revenue that is a mix of PDE and Customer roles. Within broader teams, we have investment areas (IAs) that can be focused on specific customer journeys like onboarding, or specific long-term outcomes like creating a thriving ecosystem via <a href="https://coda.io/product/packs">Packs</a>.</p>
+<p>We tend to do some iteration on our structure about once per year, but the core elements have remained consistent for several years now.</p>
+<p>Regardless of broader team structures, we’ve learned that small teams with autonomy tend to work best. By a small team, I mean roughly one PM, one designer, and two to four engineers. Depending on the effort, they may also have help from our Data and Insights team.</p>
+<h3><strong>7. What’s your primary tool for task management, and bug tracking?</strong></h3>
+<p>Coda for basically everything.</p>
+<p>One of the observations behind Coda the product plays out in the way we work. The observation is that despite teams buying lots of packaged software, people usually end up back in the most flexible surface: docs and sheets. Unfortunately, that creates silos and out-of-date copies of all types of important information.</p>
+<p>One of my favorite things about using Coda for everything, and a reason I’d never want to go back to that world, is that a team can have it all in one place. So the PM is no longer sending lots of different links to docs for specs, bug-tracking links, dashboard links, etc. Our teams usually start by creating a <a href="https://coda.io/@codatemplates/product-team-hub">team hub</a>. Then something cool happens—it organically grows with the needs of the team.</p>
+<p>So they may start with a brief writeup or some meeting notes. And then an engineer goes in and creates a page with a tasks table. And the group starts working off that. Then the designer may embed a Figma prototype into the original spec. And a researcher might write a research plan in a new page. Then an embed of a dashboard may get added as soon as the project has customers. And finally, the team will continue to do things like write meeting notes, create more specs, and do retrospectives in the same doc.</p>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/d294f0db-c627-495b-9348-f7f9b6281d0a_1920x1080.jpeg" /></p>
+<p>There are two awesome things about this as a PM. First, there is never confusion about where to go if you’re on the team; it’s always in your team’s hub. Second, if you want to get your team’s eyes on something, you can add a page in that team hub. Then the team is naturally going to encounter it while they do their work.</p>
+<p>One unexpected outcome of using team hubs for years is that it also creates a nice historical record as new people join the company. So a new person joins and says, “Why did we make that decision?” and in a world of lots of tools, you have to go try to reconstruct history across a bunch of tools. And in our case, you just go find the team hub from that effort, and often it will have good meeting notes or a <a href="https://coda.io/@lshackleton/decision-log">decision log</a>.</p>
+<p>In a meeting, I may ask a team about a metric or upcoming plans or OKRs, and instead of searching frantically for the link (like they would in a world of lots of tools), the PM will casually shift one page over in the same doc, and we’ll get right to the discussion.</p>
+<p>It’s interesting to see the contrast between this decentralized style and some other companies. The team can evolve their workspace as the project or team evolves, versus having to fit into the constructs of several different systems. When you live in the world where your notes, goals, and specs are disconnected from your task management system, you may have a problem that you don’t know exists.</p>
+<h3><strong>8. How many PMs do you have at this point?</strong></h3>
+<p>About 15.</p>
+<h3><strong>9. Is there a philosophy to how your product team builds product that’s unique or core to how you think about product development?</strong></h3>
+<p>Three things come to mind.</p>
+<p>First, my view is that it’s the job of our PMs and designers to turn ambiguity into clarity. Shishir, our CEO, who I’ve worked with for a long time, instilled this in me. In building product, ambiguity is everywhere. It’s in the little things like leaving a meeting without clear next steps. It’s in big things like understanding whether a thing we’re building is actually solving a customer problem. Great PMs and designers, and great teams, relentlessly take ambiguous things, prioritize them, and make them clear—first clear to themselves, then clear to their teams, and ultimately clearer to customers.</p>
+<p>The second is that Coda is a very “first principles” culture. We have a value called “Right vs. Familiar,” where the basic idea is that the world tends toward the familiar. Our job is to understand whether the familiar thing makes sense, or whether to tear something down and build up our view of what’s “right” from first principles. That sounds pretty philosophical, but in practice it’s a very real tradeoff we experience every day. We’ve taken a first-principles approach in everything from how company equity is structured, to the building blocks in our product, to tiny interaction details in the product.</p>
+<p>Lastly, practice and preparation. As someone who grew up playing team sports, the value of constant practice and preparation seems obvious. One of the things I’m constantly re-enforcing with our product team, and especially our managers, is the value of excellent preparation. It’s always surprising to me when PMs think they can become great without lots of reps. People are familiar with practicing a presentation, but preparation extends to nearly everything we do. Have a hard conversation with an engineering manager coming up? Practice it 20 times with a peer or your manager. Want to become great at influencing your cross-functional peers? Practice your pitch 10 times until it’s convincing. Or you might write and do four or five iterations of edits to your written communications. The point is, if you want to be great at your craft of building product, your preparation should look more like a pro athlete’s than like someone who’s winging it. Overall, I’ve found that people who take pride in their work often lean heavily into this and prepare 10 times better than the rest.</p>
+<h3><strong>10. What are some fun or unique traditions or rituals on your product team?</strong></h3>
+<p>We’re a company that loves improving our rituals. We talk a lot about <a href="https://www.kleinerperkins.com/people/bing-gordon/">Bing Gordon</a>’s definition of a company’s golden rituals. The three criteria he has for rituals are: they are named, every employee knows them by their first Friday at the company, and they are templated. For us, as a company, that’s probably Dory and Pulse. We’ve been collecting and publishing lots of other team rituals in the past year and are <a href="https://coda.io/@shishir/join-the-rituals-of-great-teams-braintrust">writing a book on the topic</a>.</p>
+<p>Some rituals specific to our product teams are things like:</p>
+<ul>
+<li><a href="https://coda.io/@helena/remote-team-kickoff-template">Fun remote kickoffs</a>, since we’re a hybrid-work culture.</li>
+<li><a href="https://coda.io/@lshackleton/decision-log">Decision logs</a> to capture key questions and decisions as we build.</li>
+<li>A set of specific methodologies around research that we put into <a href="https://coda.io/@alissa-doose/coda-for-research-medium-study-kit">a research kit</a>.</li>
+<li>We also alternate who drives our team meeting every week, so that everyone gets a chance to lead.</li>
+</ul>
+<p>And of course, it’s a maker-y bunch, so when we gather in person, we tend to make stuff together. At our last get-together, the team made dozens of their own pizzas at my house. And at work, we have a regular session we call MakerClass where we host internal and external guests who help us improve our craft.</p>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/357d18c7-d820-4aca-b8eb-18fbc5a0deeb_1200x723.gif" /></p>
+<p>Thank you, Lane!</p>
+<p>Have a fulfilling and productive week 🙏</p>
+<p><em>P.S. Who else should I cover in this series? What companies have the best or most unique product development processes, and what questions would you like me to ask them? Leave a comment with your thoughts 👇</em></p>
+<p><a href="https://www.lennysnewsletter.com/p/how-coda-builds-product/comments">Leave a comment</a></p>
+<h2>📣 Join Lenny’s Talent Collective 📣</h2>
+<p>If you’re hiring, <a href="https://www.lennysjobs.com/talent/welcome">join Lenny’s Talent Collective</a> to start getting weekly drops of world-class product and growth people who are passively open to new opportunities. I hand-review every application and accept less than 10% of candidates who apply.</p>
+<p><img alt="Image from How Coda builds product" src="https://substack-post-media.s3.amazonaws.com/public/images/e77cdc85-4a67-491a-9ae6-ee0fee2add2b_1498x1234.png" /></p>
+<p>If you’re looking for a new gig, apply to join! You’ll get personalized opportunities from hand-selected companies. You can join anonymously, hide yourself from companies, and leave anytime.</p>
+<p><a href="https://www.lennysjobs.com/talent">Apply to join</a></p>
+<h3>🔥 Featured job opportunities</h3>
+<ol>
+<li><strong>DX:</strong> <a href="https://www.lennysjobs.com/jobs/d88460d1-d9e0-4f13-b939-968d22d5a85e">Content Lead</a> (Park City, UT; Remote)</li>
+<li><strong>Surfer:</strong> <a href="https://www.lennysjobs.com/jobs/f6ebf2d0-c425-4690-95de-01b9c6568092">Senior Product Manager</a> (Remote)</li>
+<li><strong>Zendoor:</strong> <a href="https://www.lennysjobs.com/jobs/192a2c6c-e46c-4190-9d81-9a527273c89d">Product Designer</a>(Remote)</li>
+</ol>
+<h2><strong>🧠 Inspiration for the week ahead</strong></h2>
+<ol>
+<li><strong>Watch:</strong> <a href="https://youtu.be/J5oZ80Daduc">Hania Rani live at Invalides</a></li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=J5oZ80Daduc">Watch on YouTube</a></p>
+<ol>
+<li><strong>Read:</strong> <a href="https://www.reddit.com/r/AskReddit/comments/elal2/comment/c18z0z2/?context=3">“Today you ... tomorrow me”</a> via <a href="https://trungphan.substack.com/p/today-youtomorrow-me">Trung Phan</a></li>
+<li><strong>Read</strong>: <a href="https://kk.org/thetechnium/12-assumptions-for-extraterrestrial-life/">12 Assumptions for Extraterrestrial Life</a> by Kevin Kelly</li>
+</ol>
+<p><strong>If you’re finding this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

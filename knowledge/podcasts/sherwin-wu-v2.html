@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sherwin Wu V2 — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">Sherwin Wu V2</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">Sherwin Wu V2</div>
+    
+    <div class="article-meta">2026-02-12<span>·</span>15,820 words<span>·</span>Sherwin Wu V2</div>
+    <div class="tags-row"><span class="mini-tag">工程</span> <span class="mini-tag">AI</span> <span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">創業</span> <span class="mini-tag">數據分析</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Sherwin Wu</strong> (00:00:00):<br />
+95% of engineers use Codex. 100% of our PRs are reviewed by Codex.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:04):<br />
+For engineers, I don't know what job has changed more in the past couple years.</p>
+<p><strong>Sherwin Wu</strong> (00:00:09):<br />
+Engineers are becoming tech leads. They're managing fleets and fleets of agents. It literally feels like we're wizards casting all these spells and these spells are kind of like going out and doing things for you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:17):<br />
+What do you think people aren't pricing in yet?</p>
+<p><strong>Sherwin Wu</strong> (00:00:19):<br />
+The second or third order effects of the one person billion dollar startup. To enable a one person billion dollar startup, there might be a hundred other small startups building bespoke software. So I think we might actually enter into a golden age of B2B SaaS.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:31):<br />
+I've been hearing more and more there's this stress people feel when their agents aren't working.</p>
+<p><strong>Sherwin Wu</strong> (00:00:35):<br />
+There's a team that's actually doing an experiment right now within OpenAI where they are maintaining a 100% Codex-written code base. They run into the exact problems that you're describing. And so usually you're like, "All right, I'll roll up my sleeves and figure it out." This team doesn't have that escape hatch.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:47):<br />
+You've shared that. Listening to customers is not always the right strategy in AI.</p>
+<p><strong>Sherwin Wu</strong> (00:00:51):<br />
+The field and the models themselves are just changing so, so quickly. They tend to disrupt themselves. The models will eat your scaffolding for breakfast.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:59):<br />
+What's your advice to folks that are like, "Okay, I don't want to miss the boat."</p>
+<p><strong>Sherwin Wu</strong> (00:01:02):<br />
+Make sure you're building for where the models are going and not where they are today. There's a quote from Kevin Weil, our VP of science here, and he likes saying, "This is the worst the models will ever be."</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:11):<br />
+Today, my guest is Sherwin Wu, Head of Engineering for OpenAI's API and Developer Platform. Considering that essentially every AI startup integrates with OpenAI's APIs, Sherwin has an incredibly unique and broad view into what is going on and where things are heading. Let's get into it after a short word from our wonderful sponsors.</p>
+<p><strong>Sherwin Wu</strong> (00:03:20):<br />
+Thank you. Thank you for having me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:03:21):<br />
+I want to start with what's feeling like a barometer of progress in AI, especially in engineering. What percentage of your code, if you even write code anymore, and your team's code is written by AI at this point?</p>
+<p><strong>Sherwin Wu</strong> (00:03:34):<br />
+I do write code occasionally now still. And I'd actually say for managers like myself, it's way easier to use these AI tools than to manually code at this point. And so I know for myself and some of the other EMs, engineering managers at OpenAI, all of our code is written by Codex at this point. But more broadly, there's just so much energy. There's a tangible energy internally around just how far these tools have gotten, how good Codex as a tool has gotten for us. And it's a little hard for us to exactly measure how much of the code is written because the vast majority of it, I'd say close to 100% is usually generated by AI first. What we do track though is at this point, the vast majority of engineers use Codex on a daily basis. So 95% of engineers use Codex.</p>
+<p><strong>Sherwin Wu</strong> (00:04:21):<br />
+100% of our PRs are reviewed by Codex daily as well. So basically any code that goes into production that's merged in, Codex kind of has its eyes on and suggests improvements, suggests changes in the PRs. And so that's kind of what we're seeing internally, but by and large, the most exciting is just the energy that there is.</p>
+<p><strong>Sherwin Wu</strong> (00:04:40):<br />
+Another observation that we've had is engineers who tend to use Codex more open way more PRs. So they're actually opening 70% more PRs than the engineers who aren't using Codex as much. And the gap is widening. So I feel like the people who are opening more PRs are starting to learn how to use the tool more and more, get more efficient, and that 70% gap keeps growing over time. And so might've actually increased since I last looked at the number.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:07):<br />
+Okay. So just to make sure we hear what you're saying, you're saying all of the code of these 95% engineers at OpenAI is written by AI, it's written and then they review it.</p>
+<p><strong>Sherwin Wu</strong> (00:05:18):<br />
+Yep. Yep.</p>
+<p><strong>Lenny Rachitsky</strong> (00:05:19):<br />
+It's crazy that that's almost not crazy anymore, that we're just getting used to this.</p>
+<p><strong>Sherwin Wu</strong> (00:05:26):<br />
+I think there's still some getting used to, to be clear. There's also, I think, some engineers who I think trust Codex a little bit less, but basically every day I talk to someone who is blown away by something that I can do and their bar of trust or how much they trust the model to do on its own goes up over and over, over time. And there's a quote from Kevin Weil, our VP of science here, and he likes saying, "This is the worst the models will ever be." And so this is the worst that the models will ever be for software engineering as well. And so over time, you just see people trusting it more and more, and then we'll see the models get better and better as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:04):<br />
+Yeah. Kevin Weil, former podcast guest. He said exactly that line on this podcast a few times.</p>
+<p><strong>Sherwin Wu</strong> (00:06:04):<br />
+Yeah. It's a great one.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:10):<br />
+Yeah. Peter, the Clawdbot/Moltbot/OpenClaw is what it's called now developer recently shared that he uses Codex for his work and he feels like anytime it does anything, he just trusts that it has done the right job, and he's just almost certain he could just commit it to master and it'll be great.</p>
+<p><strong>Sherwin Wu</strong> (00:06:28):<br />
+Yeah. Yeah. He's a great user of Codex. I know he's in close touch with the team, gives us great feedback. Not surprised that he uses it. I mean, sorry, it's called OpenClaw now.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:38):<br />
+OpenClaw. Yeah.</p>
+<p><strong>Sherwin Wu</strong> (00:06:38):<br />
+OpenClaw is a great product. And then I saw that this morning, I mean, this is very recent, but this morning, I think the moltbook kind of like we've shared as well and seeing all of the AI agents talk to each other is pretty surreal.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:50):<br />
+It's basically Her is happening in real life is what I'm hearing.</p>
+<p><strong>Sherwin Wu</strong> (00:06:50):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:54):<br />
+So just coming back to this crazy moment we are living through for engineers in particular, we've gone from, you write every line of code to now AI is writing all of your code. I don't know what job has changed more in the past couple years, like job that we didn't expect to change this much where just like the job of an engineer is so different in the entire lifespan of an engineer. In the past couple years, it's now shifted to, "I don't write any more code." How do you imagine the role of an engineer and the job of a software engineer looks in the next couple of years? Just like what is that job?</p>
+<p><strong>Sherwin Wu</strong> (00:07:28):<br />
+Yeah, I mean, it's honestly been really cool to see. And it's part of where the excitement is because the job is likely going to change pretty significantly over the next one to two years. It kind of feels like we're still figuring things out though. And so there's this excitement, I know, especially from some of the software engineers of like, we're in this rare moment, maybe over the next 12 to 24 months where we'll kind of get to figure things out ourselves and set our standards for ourselves.</p>
+<p><strong>Sherwin Wu</strong> (00:07:52):<br />
+In terms of where I see this moving, so I think there's the common thing that everyone's saying, which is people are generally... IC engineers are becoming tech leads. They're basically like managers now. They're managing fleets and fleets of agents. I know many of the engineers on my team basically have like 10 to 20 threads kind of being pulled on at the same time. Obviously not active running Codex jobs, but just a lot of parallel threads. They're checking in on what they're doing. They're steering the agents and Codex and giving it feedback. And so their job has kind of really changed from just writing the code itself into being almost like a manager.</p>
+<p><strong>Sherwin Wu</strong> (00:08:32):<br />
+In terms of where I think this will go one to two years from now, so one kind of metaphor that I always come back to here is actually is from this programming textbook that I read back in college called SICP. I don't know if you've heard of it, Structure and Interpretation of Computer Programs. So SICP. At MIT, it was really popular and it was actually used as the introductory... It was the textbook for the intro programming course for a very long time. And it kind of has this cult following. It teaches you programming, it teaches you a dialect of Lisp called Scheme. And so it introduces you to functional programs. It's like very mind-opening in that way.</p>
+<p><strong>Sherwin Wu</strong> (00:09:14):<br />
+But the thing that was memorable for me about that book, so I kind of read it in college. The very beginning of it kind of describes programming as a discipline and draws this metaphor to basically like sorcery. It says like software engineers are like wizards and programming languages are like incantations and you're like, you're issuing these spells and these spells are kind of like going out and doing things for you. And the challenge is like, what incantation do you have to say to make the program do what you want?</p>
+<p><strong>Sherwin Wu</strong> (00:09:43):<br />
+And this book was written in 1980, so this is a while ago. And I think that metaphor has actually kind of persisted over time. And I think it's actually playing out as we move into this new era of vibe coding or just like what software engineering will look like because programming languages were basically using incantations. They've changed over time. And the trend has been that it's been easier and easier to get the computer to do what you want via programming.</p>
+<p><strong>Sherwin Wu</strong> (00:10:07):<br />
+And I think the current wave of AI is probably the next stage of that evolution. It is now literally incantations because you can tell Codex, you can tell Cursor exactly what you want to do and then it will go do it for you. And I particularly like the wizard and the sorcery analogy because I think our current state is starting to move towards kind of like The Sorcerer's Apprentice from Fantasia where Mickey Mouse is like, he finds the Sorcerer's hat and he tries to do all these things.</p>
+<p><strong>Sherwin Wu</strong> (00:10:36):<br />
+And I just think it's a really apt analogy because one, it's really powerful now. These incantations you can do is extremely high leverage, but you kind of have to know what you're doing. In Sorcerer's Apprentice, the whole plot is like Mickey goes wild, the brooms go crazy and everything's flooding. I think he literally sets the brooms off on a task and then goes to sleep. And so it's like vibe coding at its greatest. And then eventually the old sorcerer comes back and cleans everything up.</p>
+<p><strong>Sherwin Wu</strong> (00:11:06):<br />
+And when I see engineers kind of like doing these 20 different Codex threads at a time, there is some skill and there's some seniority and a lot of thought that needs to go into this because you want to make sure that the models aren't going off the rails. You definitely don't want to just completely go away and ignore the thing, but it's also extremely high leverage. A very senior engineer who's really proficient with these tools can now just do way more things via what they're doing. And I think this is also what makes it fun. It literally feels like we're wizards now. It feels like we're closer to making it feel like this magical experience where we're casting all these spells and having software do all these things for you.</p>
+<p><strong>Lenny Rachitsky</strong> (00:11:51):<br />
+I was thinking of The Sorcerer's Apprentice exactly as the metaphor as you were describing that. So I'm glad you went there. A previous podcast guest described it as you have a genie that grants you wishes, and it's a useful frame because you have to be very clear about the wish you want. If you want to be big, how big-</p>
+<p><strong>Sherwin Wu</strong> (00:12:05):<br />
+Yeah. Or it might be like The Monkey's Paw type thing where it's like you got what you want, but what are the side effects?</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:12):<br />
+Right.</p>
+<p><strong>Sherwin Wu</strong> (00:12:12):<br />
+Yeah. I think that the analogy is great. And yeah, the crazy thing for me is just the staying power of that book, SICP. It's called the wizard book. People call it the wizard book because that is the metaphor that they kind of weave throughout the book. And we've basically reached that point now, which is really cool.</p>
+<p><strong>Lenny Rachitsky</strong> (00:12:27):<br />
+There's two kind of threads I want to follow here. One is I've been hearing more and more, there's this stress that people feel when their agents aren't working. You fire off all these Codex agents and then you have to stay on top of them, "Oh, shit, one's not working. I'm wasting time." Do you feel that? Do you feel that across your team at all?</p>
+<p><strong>Sherwin Wu</strong> (00:12:44):<br />
+Yeah, I mean, it happens all the time. And I actually think this is where the interesting part of all of this lies right now because these models aren't perfect, these tools aren't perfect, and we're still trying to figure out how to best interact with Codex or with these AI agents to get work done. We see this come up all the time. There's a particularly interesting team that we have internally.</p>
+<p><strong>Sherwin Wu</strong> (00:13:05):<br />
+So there's a team that's actually doing an experiment right now with an OpenAI where they are basically maintaining a 100% Codex written code base. So you'll have the AI write code, but you'll obviously end up rewriting a lot of it and you might need to double-check and change things, but this team is just fully Codex-pilled and just leaning in entirely, and they run into the exact problems that you're describing, which is like, their challenge is, "I want to get this thing, this feature built, but I can't get the agent to do it."</p>
+<p><strong>Sherwin Wu</strong> (00:13:36):<br />
+And so usually there's an escape hatch where then you're like, "All right, I'll roll up my sleeves and figure it out." And then instead of using Codex, I might use tab complete and Cursor and things like that. But this team, for the experiment, this team doesn't have that escape hatch. And so then the challenge, how do I get the agent to do this? And I actually think we're going to be publishing a blog post from some of our learnings here, but a lot of fascinating paradigms and best practices are falling out of this.</p>
+<p><strong>Sherwin Wu</strong> (00:14:03):<br />
+One interesting thing that we've noticed, and I don't know if this is what you kind of feel, but we definitely feel it here is a lot of the time when the coding agent is not doing what you want, it's usually a problem with context and just like information that you've given it. It's just you've either underspecified or there's just not enough information around how to do something available to the agent, available to Codex.</p>
+<p><strong>Sherwin Wu</strong> (00:14:25):<br />
+And so when you have to solve it through that, the challenge is then to add documentation and actually work around this limitation and basically encode more tribal knowledge that's in your head somehow into the code base, either via code comments itself or code structure itself, or via text files like .md files, Skills, any type of additional resources within the repository so that the model can better do its task.</p>
+<p><strong>Sherwin Wu</strong> (00:14:53):<br />
+There's a whole bunch of other learnings from this group, which I think is fascinating to explore, but yeah, removing that escape hatch of no longer using the AI has allowed them to start piecing together a lot of the problems that we'll have to solve if we really want to lean into agents.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:08):<br />
+Another issue people run into, you talked about how people are shipping PRs like crazy, a lot more PRs if they're working with AI. Obviously code review is becoming a bigger challenge. Is there anything you've figured out in your team to help speed that up to make that scale and not just create this terrible job for people where they're just sitting there reviewing PRs all day?</p>
+<p><strong>Sherwin Wu</strong> (00:15:27):<br />
+Yeah. I mean, one thing is Codex reviews 100% of all of our PRs at this point. And so I actually think, so one really interesting thing that's happened is the things that we tend to hand to the models immediately tend to be the things that annoy us or are the most boring parts of software engineering. It's also why it's more fun now because we get to do more of the fun things.</p>
+<p><strong>Sherwin Wu</strong> (00:15:50):<br />
+For me, speaking more for myself, I really hated code reviews. It was like one of the worst things for me. And then I remember in my first job out of college, it was at Quora, I was working on the newsfeed and so I owned the code for the newsfeed. And so I was a reviewer for newsfeed and it was just like the central piece of code that everyone would touch. And so I would just, every morning I'd log in and be like 20 to 30 code reviews. I was just like, oh my goodness, I got to get through all of these. I would procrastinate and then it grows to like 50. And so there's just like a lot of code reviews.</p>
+<p><strong>Sherwin Wu</strong> (00:16:24):<br />
+Codex is really good at reviewing code. So actually one thing that we've noticed that 5.2 in particular has gotten extremely strongly adept at is reviewing code and especially when you kind of steer it in the right direction. And so for code reviews, yeah, we create a lot of PRs, but Codex reviews all of them and it makes code reviews go from a, I don't know, 10, 15 minute task to sometimes even just like a two to three minute task because you have a bunch of suggestions already baked in.</p>
+<p><strong>Sherwin Wu</strong> (00:16:50):<br />
+A lot of the times people will, especially for small PRs, you actually don't even need people to review. We kind of trust Codex in this way. The original author kind of looks at Codex. The benefit of code reviews to have a second pair of eyes to make sure that you're not doing anything dumb. Codex is a pretty smart second pair of eyes at this point. And so that's something that we've heavily leaned into.</p>
+<p><strong>Sherwin Wu</strong> (00:17:10):<br />
+The general CI process and the post kind of push and deployment process has also been heavily automated via Codex internally at this point. If you talk to a lot of engineers, the thing that annoys them the most is after you've written your beautiful code, how do you get it into production? You got to run through all these tests, you got to lint errors, code review. There's a lot of automated stuff you can do with Codex. And so we've actually built some tools internally that help automate that process, automate the lint. If there's like a lint error, it's a very easy Codex fix and it could just patch it and then kind of restart the CI process. So all of that is, we're trying to collapse into as little work for an engineer as possible, and the byproduct of which is they can now merge and push out a lot more PRs.</p>
+<p><strong>Lenny Rachitsky</strong> (00:17:53):<br />
+Codex writing the code, Codex reviewing its own code. I'm curious if you are open to using other models to review your model's work. Is that a path or is it just, it's good enough, we don't need anything else.</p>
+<p><strong>Sherwin Wu</strong> (00:18:03):<br />
+So I will say there's definitely a circular thing here. And going back to Sorcerer's Apprentice, you want to make sure you're not letting the brooms go crazy here. And so we're very thoughtful, I'd say, around which PRs are completely just Codex-reviewed. Most people still obviously take a look at their PRs. And so it's not like it's going to zero. It's more like going from 100% attention to 30% attention, which just helps things push through.</p>
+<p><strong>Sherwin Wu</strong> (00:18:30):<br />
+In terms of multiple models, so we obviously test a lot of models internally, and so we have a lot of those. We use external models less. We think it's important to dog food our own models and get feedback there, but you can also, there are a lot of internal variants of models that you can use to give you a different perspectives here as well, and we found that to work quite well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:51):<br />
+Okay. So just to make sure we get a barometer of today's world at OpenAI in terms of AI and code, just so I understand, and then I want to move on to different topic. 100% of code across OpenAI is written by Codex at this point. Is that the way to frame it?</p>
+<p><strong>Sherwin Wu</strong> (00:19:08):<br />
+I wouldn't make the statement that 100% of code running in production today is written by AI. And it's kind of hard to do attribution there, but almost every engineer heavily uses Codex in all of their tasks at this point. And so if I were to guesstimate, just the vast majority of code at this point was probably authored by AI.</p>
+<p><strong>Lenny Rachitsky</strong> (00:19:28):<br />
+Incredible. Okay. So there's a lot of talk, and we've been talking about the IC role, the work of an IC engineer. There's less talk about the changing role of a manager, especially an engineering manager. How has your life as a manager changed with the rise of AI? And just where do you think managers, what's the role of a manager in the future?</p>
+<p><strong>Sherwin Wu</strong> (00:19:48):<br />
+It's definitely changed less than an engineer. There's no Codex for managers just yet. However, I use Codex quite a bit for some of the more managery tasks that I do. I'd say a couple things are changing. There are like some trends. So I don't think it's changed that much yet, but I see trends, and I think if you play it out, you can see where a lot of this is going. One thing that's becoming increasingly clear is Codex really empowers top performers to be a lot more productive. And I think this is maybe true for AI more broadly across society, which is the people who really lean in or the people who have high agency or will really get good at these tools, will kind of supercharge themselves. And so I'm kind of noticing this now as well, which is like the top performers kind of end up being a lot more productive. And so you see a broader spread in team productivity in this way.</p>
+<p><strong>Sherwin Wu</strong> (00:20:50):<br />
+So one thing that I've always done as a management philosophy is to spend actually the majority of my time with top performers, just like make sure they're unblocked, make sure they're happy, make sure they feel productive and they feel heard. I think this is even more true in an AI world where your top performers are going to just really be shooting ahead using these tools. I think one example is the team that's maintaining a 100% Codex generated code base, just letting them rip and see what's happening there. It is something that's paid dividends.</p>
+<p><strong>Sherwin Wu</strong> (00:21:20):<br />
+So I think that's kind of one trend that I'm seeing where spending even more time with top performers for managers I think is likely going to continue. The other thing is, so this is more an observation, but my sense is with a lot of these AI tools available to managers, so less like writing code, but just things like ChatGPT with organizational knowledge, like being able to do research and understanding organizational context a lot better.</p>
+<p><strong>Sherwin Wu</strong> (00:21:50):<br />
+Another good example is we're doing performance reviews right now and it's actually really easy to use ChatGPT with internal knowledge hooked up to GitHub and our Notion Docs and Google Docs to get a really good sense of what this person has done over the last 12 months and writing a little deep research report for it. My sense is I think managers will be able to manage much larger teams in this world, kind of like how software engineers are managing 20 to 30 Codexes. My sense of these tools will allow managers, people managers to be higher leveraged and it will allow them to manage teams of way more than the current best practice of, I think it's like six to eight for software engineering.</p>
+<p><strong>Sherwin Wu</strong> (00:22:30):<br />
+You kind of see this applied to the non-engineering domains like support or operations where previously the size of a support team might be limited, but as you can pass off more things to agents, you can actually do more work and also manage more people this way.</p>
+<p><strong>Sherwin Wu</strong> (00:22:50):<br />
+I think the same thing might happen for people management as well, especially in tech companies. And we're already seeing this. There's some teams where there are EMs managing quite a few people and they're doing it pretty adeptly because of some of these tools where they can get higher leverage and understand what their team's doing, understand organizational context a little bit better and operate in that way.</p>
+<p><strong>Lenny Rachitsky</strong> (00:23:09):<br />
+I love this advice that the way you described it is you've always leaned into top performers and spent more time with them, unblocked them, make sure they're happy. The way Marc Andreessen was just on the podcast, the way he phrased it is AI makes good people better and it makes great people exceptional. And what you're saying here is just doing this more and more is probably the right move, spending more time with the best people on your team to unblock them, make sure they have everything they need.</p>
+<p><strong>Sherwin Wu</strong> (00:23:33):<br />
+Yeah. A very good example right now is there are, I would say, a group of engineers internally who are really Codex-pilled and are thinking through what the best practices are for interacting with this model. And that is just an extremely high leverage thing for them to do. And so just like as a manager, I'm just like, yeah, go explore this. Whatever best practices come out of this, we have to share with the org. We do all these knowledge sharing sessions, we'll share documents and best practices everywhere. So things like that just elevate everyone. And so I view that as another example of this trend that we're seeing where the top performers really get exceptional.</p>
+<p><strong>Lenny Rachitsky</strong> (00:24:14):<br />
+People just have a sense, this is big. AI is changing so much. The world is changing. It's going to be a huge deal. What do you think people aren't pricing in yet into what will change and to where things are heading? Just like what's an example of something you think are like, okay, we're not realizing this yet.</p>
+<p><strong>Sherwin Wu</strong> (00:24:30):<br />
+So one of my favorite kind of phrases or things that have come out of this whole AI wave is the idea of the one person billion dollar startup. I actually think Sam may have keyed it or Sam may have been the first one to say it, but it's fascinating to think about. It's like, yeah, if people are so high leveraged, at some point there will likely be a one person billion dollar startup.</p>
+<p><strong>Sherwin Wu</strong> (00:24:53):<br />
+And while I think that's really, really cool, I think people aren't really pricing the second or third order effects of this. And really, because what the one person billion dollar startup implies is that one person can just have so much more agency and so much more leverage using one of these tools that it is just super easy for them to get everything done that they need to for their business to ultimately create something that's a billion dollars.</p>
+<p><strong>Sherwin Wu</strong> (00:25:19):<br />
+But I think there are a couple other implications of this. So one of them is if it's easy for a person to create a one person... or if it's possible for a person to create a one person billion dollar startup, it also means it's way easier for people to just create startups in general. I actually think this will... One second order effect of this is I think there's just going to be a huge startup boom and small SMB style boom where anyone can build software for anything.</p>
+<p><strong>Sherwin Wu</strong> (00:25:45):<br />
+One, you're kind of starting to see this play out in the AI startup scene where software's became a lot more vertical oriented, where these verticals, like creating some AI tool for some vertical tends to work quite well because you really lean into that particular domain, you really understand the use case for it. And so if you play out AI, there's no reason why you can't have like 100x more of these startups.</p>
+<p><strong>Sherwin Wu</strong> (00:26:13):<br />
+And so I think one world that we might end up seeing happen is in order to enable a one person billion dollar startup, there might be like a hundred other small startups building bespoke software that works extremely well to support other types of small one person billion dollar startups. And so I think we might actually enter into a golden age of like B2B SaaS and just like software and startups in general.</p>
+<p><strong>Sherwin Wu</strong> (00:26:38):<br />
+And so I think that's a really interesting trend to kind of see because as it gets easier and easier to build software, as it's easier and easier to run a company, you might actually just end up seeing way more of these startups. And so the way I've been thinking about is like, yeah, there might be one one person billion dollar startup, but there might be like 100 $100 million startups. There might be tens of thousands of $10 million startups. And as an individual, it's actually pretty great to have a $10 million business. That's like enough for... You're set for life at that point. And so we might really see an explosion in that way. And I feel like people aren't really pressing that in.</p>
+<p><strong>Sherwin Wu</strong> (00:27:20):<br />
+There's another kind of third order effect of this. And again, all of these, as you get to the further and further out predictions, I think there's a lot of uncertainty. I think if we end up moving to this world where you end up with these kind of micro companies building software that works for one or two people who own the company and are working there, I think the startup ecosystem will change. I think the VC ecosystem will change. We might end up in a world where there's just like a handful of big players that are offering platforms and supporting all of these startups, but the types of venture scale return startups that can really 100 or 1,000x your investment might actually end up shrinking if you end up having a bunch of these smaller 10 to 50 million dollar companies, which are not great for venture startup returns, but are great for the individuals, the high agency individuals who are now really leaning into AI to build these businesses for themselves.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:12):<br />
+I love how many order effects we've been through. I want to hear the fourth order effect now, Sherwin. I'm just joking.</p>
+<p><strong>Sherwin Wu</strong> (00:28:22):<br />
+Fourth order is too giga-brain for me. I can't think that far ahead.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:26):<br />
+It's like inception where just everything gets slower every time you go deeper into selling every layer. Okay. So the billion dollar startup, I think about this a lot because I'm not going to be a billion dollar startup because what I'm doing is not venture scale in any way and not super high leveraged, but just seeing how many support tickets I get from just the most ridiculous things, it's hard for me to imagine one person... Like I'm bearish on this billion dollar startup. I just want to share this thought simply because of the support costs. Even if AI is helping you at a billion dollars, just like unless your ACVs are very high and you have very few customers, just dealing with support. And people are like, they can solve their own problems, but they're like, "Eh, I'll email support, ask about this thing."</p>
+<p><strong>Lenny Rachitsky</strong> (00:29:12):<br />
+Just dealing with that is hard to scale is in my experience. So in my opinion, unless you have a bunch of contractors, which I don't know, does that count as a single person company, I feel like it's very difficult to scale a billion dollar startup and not have someone helping you with at least the support work. And AI I think will only take you so far.</p>
+<p><strong>Sherwin Wu</strong> (00:29:31):<br />
+So I think that's true. And actually, I think my view on it is slightly different, which is I think that Lenny's Podcast might end up becoming a billion dollar startup, but what I think might happen is instead of you kind of being the one person who has to dispatch an AI to solve and fix those support tickets, I think what might end up happening is there might be a whole smattering of other startups that are building software and super tailored towards what you might need. And so there might be 10 or 20 startups that build support software for podcasts and newsletters. And that might be a one person startup. It doesn't need to be a big one. And they might be able to just code up this product very, very easily. They're able to build their own thing. And because it's so tailored and unique and hopefully useful for you, it might be something that you purchase as the one person billion dollar startup.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:29):<br />
+I would buy that. I would buy that.</p>
+<p><strong>Sherwin Wu</strong> (00:30:30):<br />
+Yeah. There's a question of what you in-house and what you outsource. And what I think might happen is because the cost of running software and building products is collapsing so much, you might end up outsourcing a lot of this. And in doing so, reducing the size of your company. And so that's kind of the world that I think might end up happening. Again, there's high certainty in what might play out here, but the end result still might be one person driving this high massive leveraged company that might actually reach a billion dollars.</p>
+<p><strong>Lenny Rachitsky</strong> (00:30:57):<br />
+I could see that. I also think about Peter at Clawdbot/Moltbot/OpenClaw of just how barraged he is right now by all these asks and emails and pings and DMs and PRs, just like, I'm curious to... And he's not even making any money off this thing.</p>
+<p><strong>Sherwin Wu</strong> (00:31:11):<br />
+Yeah, I can't imagine what it's like to be him right now. It must be absolutely insane. It's probably like the months after we launched ChatGPT, the craziness that was.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:21):<br />
+As one man. He's coming out on the pod, by the way, in a week.</p>
+<p><strong>Sherwin Wu</strong> (00:31:25):<br />
+Oh, that's exciting. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:26):<br />
+Maybe the fourth order effect is distribution becomes increasingly important because there are so many freaking things trying to get your attention. So people with an audience and platform I think become more and more valuable, which is good stuff.</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:40):<br />
+Okay. I wanted to come back actually to your management stuff. So I really loved your insight about spending more time with top performers has been really successful to you. Just thinking about you as a manager of a team that is building the platform that powers basically the entire AI economy, like every AI startup is building on your API. Clearly you're doing a great job. What other kind of core management lessons have you learned? What do you find is really important and key to your success as a manager of engineers and just people?</p>
+<p><strong>Sherwin Wu</strong> (00:32:12):<br />
+Yeah. I think a lot of the lessons that I've learned here, I don't know how specific it is to the OpenAI API or some of our enterprise products in particular. I think my management philosophy has obviously changed over time, but I think it's probably stayed the same more than it's changed over time.</p>
+<p><strong>Sherwin Wu</strong> (00:32:31):<br />
+One of these principles is what I talked to you about before, which is spending a lot of time with top performers, like actually spending... And to be very concrete, it's like more than 50% of your time with your top performers, with maybe your top 10% performers, and really, really trying your best to empower them.</p>
+<p><strong>Sherwin Wu</strong> (00:32:48):<br />
+The way that I think about it is kind of come back to this analogy of software engineer as a surgeon, which comes from The Mythical Man-Month. So actually, it's funny. So I pull it from the book, but in the book, they actually described this world where I think they were predicting the future because I think the book was written in the '70s or something.</p>
+<p><strong>Sherwin Wu</strong> (00:33:10):<br />
+They said that software engineering might end up moving into a world where that software engineers are like surgeons or in a surgery room, there's one person doing the work and there's the one person cutting or whatever and doing all the surgery, and everyone else in the room is there to just support them. It's like the nurse and the assistant and the resident and the fellow and then the surgeon's like, "I need a scalpel," and they give them scalpel and then they're like, "I need this tool and this machine," and they'll bring it over." Everyone's there to just support the one surgeon. A.</p>
+<p><strong>Sherwin Wu</strong> (00:33:40):<br />
+Nd so The Mythical Man-Month actually predicted that that is kind of the direction that software engineering's going to go. I don't think that's exactly played out where it's much more collaborative and it's not only one person doing the work, but I've always really liked that analogy. And that analogy is actually what I strive to emulate in my own management philosophy, which is software engineering isn't really like surgery where it's not just one person doing the work, but the way in which I like treating the people on my team and the way that I act as a manager is I want to empower them, make them feel like they're a surgeon. And insofar as making sure that I'm supporting them and making sure they have everything that they need to do their work, and it feels like they have an army of people kind of supporting them and looking around corners and giving them everything that they need when it's really just me as the manager.</p>
+<p><strong>Sherwin Wu</strong> (00:34:27):<br />
+And so the example that I give is looking around corners and unblocking people, especially from an organizational perspective, is extremely, extremely useful. And again, going back to the AI conversations, even more important nowadays, right? If people are just cranking PR after PR, the main thing bottlenecking progress and shipping something tends to be organizational or process oriented. And if you as a manager can look around corners and kind of unblock the team, if the surgeon needs a scalpel, but the manager already has a scalpel ready for them, that's the best case scenario. That's kind of the way that I approach management and especially engineering management. And so that's something that's really, really stuck with me over time. And even though software engineers aren't exactly surgeons, that metaphor has always stayed in my mind as I've progressed in my career.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:18):<br />
+I love that. And I feel like, I wonder if that's something AI can help with is look around corners and predict, here, this engineer is going to be blocked by this decision. We need to figure this out. We need to get-</p>
+<p><strong>Sherwin Wu</strong> (00:35:26):<br />
+Yeah, that's actually a really good point. I haven't tried this yet, but I wonder what would happen if I ask ChatGPT hooked up to company knowledge, what are the active blockers? Look through all the Notion Docs, what are maybe Slack messages, it's probably in Slack somewhere, what are the active blockers on my team and is there something I can do to help? Now, that's very interesting. I have not thought about that, but you're right.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:48):<br />
+We just had an insight right here.</p>
+<p><strong>Sherwin Wu</strong> (00:35:49):<br />
+Yeah. Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:51):<br />
+And I think even more interestingly, what do you anticipate will be a blocker for this engineer or this team in the coming months?</p>
+<p><strong>Sherwin Wu</strong> (00:35:56):<br />
+Yeah, you asked the model, you ask the AI to do the second and third order.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:59):<br />
+There we go.</p>
+<p><strong>Sherwin Wu</strong> (00:36:01):<br />
+Anticipate that and anticipate what the blockers will be next month too.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:06):<br />
+I think we've got a good idea right here.</p>
+<p><strong>Sherwin Wu</strong> (00:36:07):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:08):<br />
+<strong>Sherwin Wu</strong> (00:37:59):<br />
+Yeah. So to be clear, I don't explicitly see quantitative numbers around this. It's actually really hard to measure these things, but especially from observing some companies trying to do AI, I would not be surprised if a lot of AI deployments are actually negative ROI. I mean, part of this too is I think there's also general sentiment from folks around the country, like basically outside of tech that AI is being forced onto them. And I think part of this is probably a symptom of some negative ROI AI deployments.</p>
+<p><strong>Sherwin Wu</strong> (00:38:35):<br />
+A couple of things I've observed around this. So one thing is, and I come back to this again and again, I think we in Silicon Valley just forget that we live in a bubble. Twitter is a bubble, sorry X is a bubble, Silicon Valley is a bubble, software engineering's a bubble.</p>
+<p><strong>Sherwin Wu</strong> (00:38:51):<br />
+Most people in the world, most people in the US are not software engineers, are not very AI-pilled, are not following every single model release. And so are just highly out of the loop on how to use this technology. And so we always talk about all these best practices for Codex, all these Codex-pilled people within OpenAI. I'm sure everyone on X who posts are like crazy power users of these AI tools. They lean into Skills, they lean into AGENTS.md.</p>
+<p><strong>Lenny Rachitsky</strong> (00:39:20):<br />
+MCPs.</p>
+<p><strong>Sherwin Wu</strong> (00:39:22):<br />
+Yes. Yeah. All of that. And when I talk to some of these companies and I talk to the actual employees using these, it's like the most basic thing that they're trying to do and they have very little understanding of exactly how this technology works. And so that's kind of like one big observation for me, which is like, they're asking very simple questions of these things. They're really not pushing it just yet. And so that kind of ties into what I think more companies do or like what should do or what a more ideal AI deployment setup looks like. And this is kind of how we've run things within OpenAI too.</p>
+<p><strong>Sherwin Wu</strong> (00:40:02):<br />
+The companies where I think it started to work really well have a combination of both top-down buy-in. So it's like the C-suite's like, "We want to become an AI first company." So there's buy-in, they buy the tools, they have exec support, but it also has bottoms-up adoption and buy-in.</p>
+<p><strong>Sherwin Wu</strong> (00:40:18):<br />
+And so what I mean by that is it has actual employees doing the work who are really excited about this technology and are willing to learn, evangelize, build best practices and kind of like knowledge share within the organization. We've seen this a lot internally. So obviously OpenAI has always wanted to be a very AI-centric company, but when it really started taking off was with the introduction of Codex and these tools where actual employees themselves could start applying it to their work.</p>
+<p><strong>Sherwin Wu</strong> (00:40:48):<br />
+And I think you really need this because at the end of the day, everyone's work is very different. It's like very unique. Software engineering is different than finance is different than operations is different than go-to-market and sales. And so there's like a lot of these last mile intricacies of work that needs to really be done in a bottoms-up fashion.</p>
+<p><strong>Sherwin Wu</strong> (00:41:07):<br />
+And so my sense is a lot of these AI deployments don't have bottoms-up adoption. It was like an exec mandate and it's extremely top-down and is very divorced from what the actual work looks like. And as an end result, you end up with a giant workforce that doesn't really understand the technology, is like, "I know I'm supposed to use this and maybe it's like on my performance review too, but I'm not sure what to do." And they look around, no one else is doing it. There's no one else to learn from.</p>
+<p><strong>Sherwin Wu</strong> (00:41:32):<br />
+And so my recommendation for companies kind of pushing this is find, or maybe even staff a full-time team internally that is this kind of tiger team internally that can explore the full extent of the capabilities, apply to specific workflows, do the knowledge sharing, create excitement within folks who might want to use this technology. Because in the absence of that, it's actually very difficult to pick up.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:56):<br />
+And who would you put on this tiger team? Is it like engineer-led, do you find in your experience? Is it a cross-functional sort of team?</p>
+<p><strong>Sherwin Wu</strong> (00:42:03):<br />
+Yeah, it's interesting. So also a lot of companies don't have software engineers. And so the pattern I've seen is it tends to be these like software engineering adjacent, like basically technical people, but are not software engineers. I think those are the ones who tend to get most excited around this.</p>
+<p><strong>Sherwin Wu</strong> (00:42:22):<br />
+It's like maybe the support team operations lead who doesn't code, but loves using these tools and is like an Excel wizard or something. And so it's like technical adjacent or like coding adjacent and pretty technical. Those are the kinds of people I've seen in these companies who just really light up and get excited around this. And you can usually build a team around that.</p>
+<p><strong>Sherwin Wu</strong> (00:42:46):<br />
+But yeah, it's like oftentimes not software engineers. Software engineers I think will understand this, but not every company has software engineers. It's actually kind of a rarity. They're hard to find, they're expensive. And so it's these other types of folks.</p>
+<p><strong>Lenny Rachitsky</strong> (00:42:58):<br />
+What I'm hearing is the anti-pattern is top-down, this very, the CEO found an exec team just like, "We are going to go AI-first. We're going to lead into AI. Everyone's going to be judged on their performance using AI tools, how much your productivity is increasing thanks to AI." And with that being just top-down and not creating a team that is bottom-up, spreading the gospel, you find that doesn't work.</p>
+<p><strong>Sherwin Wu</strong> (00:43:23):<br />
+Yeah. Yeah, exactly. Exactly.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:25):<br />
+And the advice is find the people that are most excited and instead of having them spread out through the organization, what you find works is create a little AI kind of evangelist team that finds ways to use it and kind of spreads it across the work.</p>
+<p><strong>Sherwin Wu</strong> (00:43:39):<br />
+Yeah. I mean, another, just kind of like hearing you play back to me, another way to think about it, kind of tying back to my own management philosophy, is find the high performers in AI adoption and empower them. Let them build hackathons, let them hold seminars, do knowledge sharing, create the seeds of excitement internally.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:57):<br />
+Okay, amazing. There's a couple hot takes I want to hear from you, something that I've seen you talk about and share. One is you've shared that talking to customers and listening to customers is not always the right strategy in AI, and it might often lead you astray.</p>
+<p><strong>Sherwin Wu</strong> (00:44:13):<br />
+I don't know if it's that hot of a take. I think the main thing here is, so obviously you should talk to your customers. It's like you still talk to customers. I just think the AI field, especially what I've seen over the last three years working on the API and seeing all that evolve, is the field and the models themselves are just changing so, so quickly, they tend to disrupt themselves, especially around the tooling and the scaffolding space. So there's this quote that I read actually earlier this week, it's from an X article by this guy named Nicolas, who's the founder of a startup called Fintool, where I think he was sharing a lot of the best practices that he has learned through building AI agents for financial services, I think at his startup Fintool.</p>
+<p><strong>Sherwin Wu</strong> (00:44:58):<br />
+And this phrase that I thought was really good, which is the models will eat your scaffolding for breakfast. If you rewind back to 2022, right when ChatGPT launched, these models are pretty raw and there was like all this product scaffolding and things, especially in the developer space, to basically try and steer the model and build a scaffolding around it to get it to do what you want. Like agent frameworks, there's like vector stores I think was like really popular back then and just like a whole smattering of tools here.</p>
+<p><strong>Sherwin Wu</strong> (00:45:30):<br />
+And as you've kind of seen the field play out, the models have just changed so much and gotten so much better that they ended up literally eating some of the scaffolding. And I think this is even true today. So I think that the article from Nicolas actually, the current scaffolding which is fashionable is Skills, files-based context management. I could see a world where at some point that's no longer useful, where the model can actually manage all that themselves, or there might be, it's hard to predict, but might move on to some new paradigm where you'll already need this file-based Skills type thing.</p>
+<p><strong>Sherwin Wu</strong> (00:46:05):<br />
+You have literally seen this play out where like the agent frameworks I think are a little less useful now. There was a period of time in like 2023 where we thought vector stores is going to be like the main way for you to bring organizational context into the models and you need to vectorize and embed every bit of your corpuses and then you need to do all this work to figure out the vector search to optimize that to fill out the right information at the right time.</p>
+<p><strong>Sherwin Wu</strong> (00:46:29):<br />
+All of that is scaffolding because the model was not good enough. And turns out, in this case, it turns out as the models get better, a better approach is actually to take out a lot of that logic and trust the model and give it a set of tools for search. It doesn't need to be a vector store. You could actually just hook it up to any type of search. It could literally be files on a file system like Skills and AGENTS.md to kind of steer it as well. Obviously there's still a place for vector stores. I know a lot of companies still using it, but the entire scaffolding around that and building an entire ecosystem around that and assuming that's the only scaffolding that you need has really changed.</p>
+<p><strong>Sherwin Wu</strong> (00:47:05):<br />
+And so tying this back to the like, you don't always have to listen to your customers. Because the field is changing so much at any point in time, a lot of people are kind of in this local maximum. And if you just blindly listen to your customers, they'll be like, "Yeah, I want a better vector store. I want a better agent framework for this." And if you had just kind of only chased down that path, it actually would've led you to build something that again is the local maxima.</p>
+<p><strong>Sherwin Wu</strong> (00:47:31):<br />
+Whereas as the models get better, we've had to reinvent and kind of rethink the right abstractions and the right tools and frameworks to build around these models. And the cool/exciting/kind of crazy annoying part is it's a moving target. And so yeah, the current smattering of tools and frameworks right now will likely need to evolve and change pretty significantly over time as the models get smarter and better. But that is just the nature of building in this space. I think that's what makes it exciting, but it also means when you talk to customers, you kind of need to balance the exact feedback that they want with where you think the models are going and where you think things will trend over the next one to two years.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:10):<br />
+It's interesting how this is, the bitter lesson is this big lesson that AI and ML folks learned, which is just like, the less you overcomplicate, the less logic you add to machine learning and to AI, the more it'll be able to scale and grow and just take it all away and let it just compute basically. Just give it more power to get smarter on its own.</p>
+<p><strong>Sherwin Wu</strong> (00:48:31):<br />
+Yeah. There's literally a version of the bitter lesson applied to building with AI where we were trying to architect all this stuff around and it turns out the models will just kind of eat it all away. And honestly, OpenAI API team has been guilty of this where we kind of took some left and right turns when we shouldn't have. But yeah, the models still end up, the models get better and we're all learning the bitter lesson day in and day out.</p>
+<p><strong>Lenny Rachitsky</strong> (00:48:57):<br />
+So what would be the key takeaway for folks building on say the API or just building agents and having to build a little bit of this around for now, is it just, yeah, what would be the advice?</p>
+<p><strong>Sherwin Wu</strong> (00:49:08):<br />
+My general advice, and I've been giving this to people for a while and I think it's still true today is make sure you're building for where the models are going and not where they are today. It's clearly a moving target. And I think a lot of the companies that I've seen, startups that I've seen really, really do well is they build a product for an ideal type of capability that is like maybe 80% of the way there today. And they end up having a product that kind of works, but is just almost there.</p>
+<p><strong>Sherwin Wu</strong> (00:49:39):<br />
+But then as the models get better, suddenly it might click and then their product now is incredible because it works like maybe with like o3, at some point it suddenly works with 5.1, 5.2, suddenly it unlocks it, but they're building these products with the model capability improvements in mind. And with that, you end up creating an experience that's way better than if you had assumed that it's static in the first place.</p>
+<p><strong>Sherwin Wu</strong> (00:50:02):<br />
+And so that'd be my general advice, which is build for where the models are going and not where they are today. You end up building a better product. You may need to wait a little bit, but the models are getting so much better so quickly, you often don't need to wait that long.</p>
+<p><strong>Lenny Rachitsky</strong> (00:50:16):<br />
+So to follow that thread, like in the next 6 to 12 months, where is the API heading? Where's the platform heading? Where are the models heading? As much as you can share, I know there's a lot of secrets here, that maybe you're most excited about, or you think that people should start to prepare for and however much you can share?</p>
+<p><strong>Sherwin Wu</strong> (00:50:34):<br />
+I mean, so the obvious one is how long of a task these models can do coherently. So there's like the METR benchmark that I think tracks software engineering tasks and how long of a task can these models do 50% of the time, 80% of the time. I think we're at something like multi-hour tasks being able to be done by... software engineering tasks being able to be done by these frontier models 50% of the time. And then I think 80% is something like just under an hour.</p>
+<p><strong>Sherwin Wu</strong> (00:51:06):<br />
+But the sobering thing about that chart is they plot all the previous models on this chart as well. So you can really see the trend of this. That's something that I'm really excited about, which is, I actually think products today really optimize for tasks that the model can do for minutes at a time. Even Codex and the coding tools, I'd say, it's in the CLI, you're kind of seeing it be interactive.</p>
+<p><strong>Sherwin Wu</strong> (00:51:28):<br />
+It's really quite optimized well for maybe at most 10 minute type tasks. I have seen people push Codex to the limit and do multi-hour long tasks. But again, I think that's more of the exception. But if you follow this trend, I think in the next 12, 18 months, we could see models that could do multi-hour long tests very, very coherently. At some point it might reach like six hours, a day long task where you kind of like dispatch it and have it do things on its own for a while. The types of products you build around that will look very different. You want to give the model feedback. You obviously don't want it to completely run wild for a day. Maybe you do, but you probably don't. And then the universe of things you can have the model do really expand. So that's something that I'm really, really excited about seeing.</p>
+<p><strong>Sherwin Wu</strong> (00:52:15):<br />
+Another thing over the next 12 to 18 months, what I think would be really cool is improvements in the multimodal models. And actually by multimodality, I'm mostly thinking about audio here where the models are pretty good at audio, I think they're going to get a lot better at audio over the next 6 to 12 months, especially the native multimodal models, the speech to speech ones. I think there's also interesting work being done around new types of models and architectures on the multimodal audio side as well.</p>
+<p><strong>Sherwin Wu</strong> (00:52:48):<br />
+But audio, especially in the enterprise and in a business setting, I think is a hugely underrated domain still. Everyone talks about coding, it's all text, but we're talking in audio. A lot of the world's business is done via audio. A lot of services and operations are done via talking and audio. And so I think that area is going to look very exciting in the next 12, 18 months. And I think there will be even more unlock for what we can do with audio models there as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:17):<br />
+Amazing. So quick summary, expect agents and AI tools to run longer, that trajectory to continue to increase, and then audio and speech becoming a bigger deal, more first party and native and better and core to the experience.</p>
+<p><strong>Sherwin Wu</strong> (00:53:34):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (00:53:35):<br />
+Extremely cool. Okay. I want to go back to one of your hot takes, another hot take that I've seen you discuss. You're very bullish on business process automation as an opportunity in the world of AI. Talk about that.</p>
+<p><strong>Sherwin Wu</strong> (00:53:47):<br />
+Yeah, this goes back to the thing that I said previously, which is we live in a bubble in Silicon Valley and a lot of the work that we do that we're used to, software engineering, product management, building products is very differently shaped than the work that goes on that runs our entire economy. And I see this day in and day out when I talk to customers. If you talk to any company that's not based in, it's not a tech company, there's a lot of business processes.</p>
+<p><strong>Sherwin Wu</strong> (00:54:18):<br />
+And so what I mean by this is, I generally delineate it as software engineering is kind of like open-ended knowledge work, right? And this is why I think tools like Codex tend to be quite good because it's exploring and you're giving it these open-ended things, but software engineering is fundamentally pretty open-ended and is not very repeatable. So you build a feature, you're not trying to build the exact same feature over and over again.</p>
+<p><strong>Sherwin Wu</strong> (00:54:42):<br />
+And a lot of tech jobs are in this space. I think data science is kind of in this space as well, even some of the strategic finance stuff. But as you move further and further away from software engineering and like what is core in tech, a lot of jobs are just business processes. They're like repeatable things, repeatable operations that some manager at a company has kind of like iterated on. There's usually a standard operating procedure that people want to do and you don't want to deviate from it that much. In software engineering, the ingenuity is in deviating, but a lot of the work being done in the world is actually just running through these procedures and operations. If I call a support line, they're running through one of these. If I call my utility company, there's a bunch of processes and things that they can and cannot do for me.</p>
+<p><strong>Sherwin Wu</strong> (00:55:35):<br />
+And so I'm just extremely bullish on this general category of like... And I think it's underrated because it's so different from what we think about in Silicon Valley, people tend to not think about it, but how can we apply AI and some of the tools and frameworks that we have towards this business process automation, towards automating and making easier repeatable business processes with high determinism that is fully integrated with business data and business decisions and different systems within an enterprise and how can we actually make that process better? Because I actually think there's a lot of opportunity and a lot of work to be done in that area. And we just don't talk about it because it's a little bit less in our wheelhouse.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:20):<br />
+So your take here, just to make sure I fully understand it, is you think there's a much bigger opportunity outside of engineering for AI to impact productivity of companies and also jobs of these folks that are doing these kind of repetitive, easily automated tasks?</p>
+<p><strong>Sherwin Wu</strong> (00:56:35):<br />
+Impact jobs and also just impact how work is done. So much of work is done in this way. Basically, I talk to customers all the time, big enterprises, like, "How will AI transform my company? How will it run in a world with AI in 20 years?" And software engineering is part of the story, but there's so much more on the business process side. And I actually think it might look even more different on the business process side and the work there is pretty substantial.</p>
+<p><strong>Sherwin Wu</strong> (00:57:04):<br />
+It's actually interesting. I don't know if from an absolute percentage or absolute basis, I don't know if it's bigger or smaller than software engineering. Software is pretty huge and pretty expensive as well, but it is pretty massive and it's definitely bigger than... It's bigger than you would think it is based off of how people talk about it or don't talk about it on X or Twitter.</p>
+<p><strong>Lenny Rachitsky</strong> (00:57:23):<br />
+Okay. And going in a slightly different direction, having built a platform, building the API, people building on API, the biggest question on people's minds is always just, how do I not have OpenAI squash my idea and build their own thing and then destroy this market I created? What's the general policy, what's the general philosophy of how startups should think about where OpenAI is unlikely to go?</p>
+<p><strong>Sherwin Wu</strong> (00:57:49):<br />
+My general answer here is the market is so big and so massive. I actually think startups should just not overly think about where OpenAI or these labs are going. I've talked to a lot of startups that have not worked out, startups that are doing really well. Every startup that I've seen that is kind of fizzled out is not because OpenAI or a big lab or Google or something has come and squashed them. It's because they built something and it really didn't resonate with the customers. Whereas the ones that take off, even in very competitive spaces like coding, Cursor is huge at this point and it's because they built something that people really love. And so my general advice is like, don't overly stress about this. Just build something that people like and you will have a space in this.</p>
+<p><strong>Sherwin Wu</strong> (00:58:35):<br />
+I can't overstate how big of an opportunity there is right now. The opportunity space in building with AI is so big. A good example of this is the space is so big that the Overton window of what is acceptable and not acceptable for VCs to do has completely changed here. VCs are investing in competitive companies left and right. It's just like the space is so big because the opportunity is unlike anything that we've seen before.</p>
+<p><strong>Sherwin Wu</strong> (00:58:59):<br />
+And while that affects how VCs operate, from a startup perspective, it's like the most empowering thing in the world because even if you just build something that some people really, really love, you will end up with a massively valuable business. And so that's why I tell people, "Don't overthink about it." The other thing I also think is important to remember, at least from an OpenAI perspective, one thing that we've always held very near and dear, which both Sam and Greg helped reinforce from the top as well, is we actually view ourselves fundamentally as a ecosystem platform company. The API was our first product.</p>
+<p><strong>Sherwin Wu</strong> (00:59:34):<br />
+We think it's really important for us to foster this ecosystem and continue to support it and not squash it. And so if you kind of look at the decisions we make, this is all weaved through it. Every single model we've released in one of our products gets released in the API. Even we release these Codex models now that are a little bit more optimized for the Codex harness, but they always find their way into the API and all of our customers end up using those. We don't hold back on any of that. I We think it's really important to keep our platform neutral. And so we don't block competitors. We allow people to have access to our models. We also want, we've recently been testing more of the sign-in with ChatGPT product as well. And so we want to foster this ecosystem. I think it's really important that we do so.</p>
+<p><strong>Sherwin Wu</strong> (01:00:19):<br />
+The general thinking about this is a rising tide lifts all boats. And we might be an aircraft carrier. We're pretty big at this point, but we think it's important to raise the tide because everyone kind of benefits and I think we'll benefit as well. Our API itself has grown pretty significantly because we act in this way. And so I'd really encourage people not to view OpenAI as this kind of thing that'll just shove people out of the way, but instead focus on building something valuable. And we remain committed to providing an open ecosystem.</p>
+<p><strong>Lenny Rachitsky</strong> (01:00:51):<br />
+Why is that important to OpenAI? Just this focus on building a platform, creating a way for people to build businesses? Is that just that's been the vision from the beginning? We want this to be a platform?</p>
+<p><strong>Sherwin Wu</strong> (01:01:04):<br />
+It's been the vision from the beginning. It goes back to our charter actually, like our mission. So OpenAI's mission has always been, one, to build AGI, so we're obviously doing that. But then the second thing is to spread the benefits of it to all of humanity. And the main part there is all of humanity. And obviously ChatGPT is trying to do this. We're trying to reach however many, the whole world. But very early on, and this is why we launched the API back in, I think it was like 2020 or something really early. We don't think we as a company will be able to reach all of humanity. I don't know, every corner of the world's pretty deep. And so we actually feel like in order for us to fulfill our mission, we need to have some platform style thing here where we can empower other people to build the customer support bot for podcasters and newsletter hosts because we're not going to be able to do it ourselves.</p>
+<p><strong>Sherwin Wu</strong> (01:01:58):<br />
+And so we've largely seen this play out with the API. This is why we talk to so many of our customers and really love seeing the diversity of things built on. But yeah, it's been there since day one because we view it as an expression of our mission.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:12):<br />
+And you haven't even mentioned the app store that you guys are launching, the ChatGPT app store.</p>
+<p><strong>Sherwin Wu</strong> (01:02:16):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:17):<br />
+Is that under your umbrella, by the way, or is that a different org and team?</p>
+<p><strong>Sherwin Wu</strong> (01:02:20):<br />
+It's a different team. So it's under ChatGPT. We obviously collaborate very closely with them. And they built an apps SDK, which was built in close collaboration with our team. But that is more within the ChatGPT umbrella. But that's another example of this. It's like ChatGPT is... We kind of have these 800 million weekly active users who are just coming over and over again. It's a great asset to have as a business, but man would it be better if we could somehow allow other companies to come in and take advantage of this as well and build for this audience as well. And then ultimately, we think it'll help us expand that group as well. And so it all kind of comes back to the mission and we find that being a platform being open tends to help here.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:05):<br />
+Just that number, 800 million, I think it's MAs just like-</p>
+<p><strong>Sherwin Wu</strong> (01:03:09):<br />
+No, no, no. It's weekly. Weekly active users.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:11):<br />
+Weekly active.</p>
+<p><strong>Sherwin Wu</strong> (01:03:12):<br />
+Yeah, it's crazy.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:13):<br />
+Almost a billion people using weekly. It's absurd how these numbers we're just used to now, but that's insane. Unprecedented.</p>
+<p><strong>Sherwin Wu</strong> (01:03:22):<br />
+Yeah. It's mind-boggling for me to think about from a scale perspective, honestly. And the way I think about it is 10% of the world, and growing, by the way, it's shooting up, come to ChatGPT and use it every day, or sorry, every week.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:37):<br />
+And this point, I just want to double down on this point you're making. OpenAI's mission was to make AI available to all of humanity. And I think some people diss that, they're like, "Oh, it costs money." And the fact that there's a free version of ChatGPT that anybody can use that is not so different from the most powerful AI model that exists in the world for free, that's not gated, that anyone can use. If you're a billionaire, there's only so much more you can get out of AI than what someone in a village in Africa can get. And I know that's always been really important to OpenAI.</p>
+<p><strong>Sherwin Wu</strong> (01:04:11):<br />
+Yeah. Yeah. I mean, look, that's why I think we've leaned into the health work, we've leaned into education's going to be very interesting here. The other insane kind of trend here is the free model has gone so smart over time. The free model back in 2022 was good at the time, but it's like nothing compared to what you get today because you get GPT-5 today. And so the raising the floor across the world is kind of something that we're really trying to do. And we view it as part of our mission.</p>
+<p><strong>Sherwin Wu</strong> (01:04:42):<br />
+The other flip side of this, by the way, is talking about the billionaires or whatever. I know people love saying you're using the same iPhone that Mark Zuckerberg's probably using or what the billionaires are using, but for like $20 a month, you're basically using the same AI that the billionaires are using. For $200 a month, you get the same pro model that all the billionaires are using, but they're probably not using Pro for everything. They're probably just using the plus tier ones for their day in and day out. And so yeah, this kind of democratization and just spreading of this benefit across all of the world is something that's really meaningful to us and something that drives a lot of what we do.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:22):<br />
+One last question, just for folks that are thinking about building on the API are just like, "Oh wait, I could do cool stuff with OpenAI's models and APIs." What does your API and platform allow people to do? I know you can build agents on top of the platform. Just talk about what you allow.</p>
+<p><strong>Sherwin Wu</strong> (01:05:37):<br />
+So fundamentally, the API offers a bunch of developer endpoints, and these developer emperors basically let you sample from our models. The most popular one that we have right now is one called Responses API. And so this is an endpoint and it's optimized for building long running agents, so agents that'll work for a while. So what you can basically do is at a very low level, you're basically just giving the model text. The model will work for a while. You can kind of pull it to see what it'll do, and then you'll get the model response back at some point. That's like the lowest level primitive that we have for people. And that's actually what a lot of people use. That's the most popular way of building on top of our API. With that, it is super unopinionated and you can do basically whatever you want. It's like the lowest level thing.</p>
+<p><strong>Sherwin Wu</strong> (01:06:24):<br />
+We've also started building more and more layers of abstraction on top to help people build some of these. And so next layer up, we have this thing called the Agents SDK, which has also gotten extremely, extremely popular. This allows you to use the Responses API or some other API endpoints that we have to build what you might more traditionally think of as an agent, like an AI working in an infinite loop. It might have sub-agents that it delegates to. It starts building all this framework, all the scaffolding actually. We'll see where this all goes, but it makes it a lot easier for you to build these kind of agents, giving it guardrails, allowing it to farm out sub-tasks to other agents and kind of orchestrate a swarm of agents. The Agents SDK allows you to do that.</p>
+<p><strong>Sherwin Wu</strong> (01:07:08):<br />
+And then above that, we've now started building tools to help also with the meta level of deploying an agent. So we have this product called AgentKit and widgets, which are basically a bunch of UI components that you can use to very easily build a very beautiful UI on top of either our API or Agents SDK because a lot of times these agents look very similar from a UI perspective. And so there's AgentKit. We also have a smattering of evals products, like an evals API where if you want to test and see if your agent or your workflow's working, you can test it in a very quantitative way using our evals product.</p>
+<p><strong>Sherwin Wu</strong> (01:07:50):<br />
+And so yeah, I view it as these various layers. They're all kind of helping you build what you want with our AI, with our models, and with increasing levels of abstraction and how opinionated it is. And so you can use the whole stack and it very quickly allows you to build an agent, or you can go down the stack as low as you want to basically Responses API and build whatever you want because of how low low level it is.</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:17):<br />
+Sherwin, is there anything else that you want to share? Anything else you want to leave listeners with? Anything we haven't touched on that you think might be helpful before we get to our very exciting lightning round?</p>
+<p><strong>Sherwin Wu</strong> (01:08:26):<br />
+The only thing I'd leave folks with is, yeah, I think the next two to three years are going to be some of the most fun in tech and in the startup world that we'll have in a very long time. And I would just encourage people to not take it for granted. I entered the workforce in 2014. It was great for a couple years. I felt like there was a period of five to six years where it wasn't very exciting in tech. And then in the last three years, it's just been the most insanely exciting, energizing period of my career. And I think the next two to three years is going to be a continuation of that.</p>
+<p><strong>Sherwin Wu</strong> (01:09:01):<br />
+And so would encourage people not take it for granted, I'm trying to not take it for granted. At some point, this wave's going to play out and it's going to be a lot more incremental, but in the meantime, we're going to get to explore a lot of really cool things, invent a lot of new things and change the world and change how we work. And so that's the main thing I'd leave folks with.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:19):<br />
+I love this message. I want to spend a little more time on it. When you say don't miss it, what do you recommend people do? Is it just build, lean in, learn, join a company building really interesting things? What's your advice to folks that are like, "Okay, I don't want to miss the boat."</p>
+<p><strong>Sherwin Wu</strong> (01:09:32):<br />
+Yeah, I would just say engage with it. So it's basically like what you said, lean in. Building tools on top of this is part of the story. Just using the tools, you don't need to be a software engineer to lean into this. I think a lot of jobs are going to change here. So just using the tools, understanding the limitations of what it can and cannot do so that you can kind of watch the trend of what it can start to do as the models improve. And so it's basically getting used to this technology and getting familiar with it instead of laying back and letting it pass you.</p>
+<p><strong>Lenny Rachitsky</strong> (01:10:07):<br />
+On the flip side of that, there's a lot of, I think, stress and just anxiety around, "There's so much happening, how do I keep up? I got to learn Clawdbot this week. Oh God." Is there something you learned about it just not... You're at the center of this. How do you not get overly stressed and worried about missing things that are going on and just you stay on top of news? What are some things you've done and learned?</p>
+<p><strong>Sherwin Wu</strong> (01:10:28):<br />
+Yeah. So I think I'm personally a bad example of this because I'm basically chronically online on X and our company Slack. So I actually try and absorb. I end up absorbing a lot of it. What I will say though, just from observing other folks who are less addicted to this stuff like I am. Yeah, a lot of it is noise. You don't need to have 110% of this kind of pass your mind, go into your mind. Honestly, just leaning into one or two different tools, starting small is already more than you need.</p>
+<p><strong>Sherwin Wu</strong> (01:11:02):<br />
+Here, I think just the combination of the frenetic pace of the industry, X as a product just creates this insane pace of news, which is honestly very overwhelming. The main thing is you don't need to know all of that to really engage with what's happening right now. And even something as simple as just like install the Codex Cline and play around with it. Install ChatGPT and connect it to a couple of your internal data sources, Notion, Slack, GitHub, and see what it can and cannot do. All of that I think is a part of it.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:39):<br />
+Amazing. Sherwin, with that we've reached our very exciting lightning round. I've got five questions for you. Are you ready?</p>
+<p><strong>Sherwin Wu</strong> (01:11:44):<br />
+Yeah. Yeah, absolutely.</p>
+<p><strong>Lenny Rachitsky</strong> (01:11:46):<br />
+First question, what are two or three books that you find yourself recommending most to other people?</p>
+<p><strong>Sherwin Wu</strong> (01:11:50):<br />
+I'll talk about one nonfiction and one fiction book. The fiction book was I just finished reading it. I really recommend it. There Is No Antimemetics Division by qntm. I think it's like an online author, but I saw it being shared on X. It's like a science fiction-y kind of book and I basically devoured it in like two days. It's super, super well written, super fascinating. It's about a government agency that's fighting things that make you forget it. And so it's just a very smart creative book and fresh, honestly, in terms of source material that I really like. So I'd recommend that one. The book is also unintentionally hilarious. So it's meant to be this sci-fi, almost like horror style book, but it made me laugh a couple times. So that's the fiction book.</p>
+<p><strong>Sherwin Wu</strong> (01:12:43):<br />
+Non-fiction, so I'm going to cheat and I'm going to recommend two of them. So in the last year, I've been reading a lot more about China and the US-China relations. And I think there are two books that came out in the last year that have been really, really eye-opening for me in that regard. First one is the Dan Wang book, Breakneck. That one was really, really good. I really liked his analogy of the lawyerly, US is the lawyerly society, China is the engineering society, and there are pros and cons to each. I read it and I was like, hmm, yeah, it does seem like we're run by lawyers in the US. So then that's one.</p>
+<p><strong>Sherwin Wu</strong> (01:13:14):<br />
+And the other one is the Patrick McGee book on Apple in China. It was super, super interesting. I'm a huge Apple fanboy. If you could see my desk right now, it's all Apple stuff. But just one, it was just super fascinating learning about Apple's relationship to China. And then two, it just had a lot of inside information about Apple as a company that I found fascinating. So it was also quite a page-turner and also a very, very timely book as well.</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:39):<br />
+The antimemetics book sounds amazing. I'm buying it right now as you're talking.</p>
+<p><strong>Sherwin Wu</strong> (01:13:43):<br />
+Yeah. Yeah. I think it's only a couple hundred pages. I literally finished it in two days.</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:47):<br />
+Perfect. The dream.</p>
+<p><strong>Sherwin Wu</strong> (01:13:47):<br />
+It was just so, so good.</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:49):<br />
+Okay. Great tip. Okay. Favorite recent movie or TV show you have really enjoyed?</p>
+<p><strong>Sherwin Wu</strong> (01:13:53):<br />
+Yeah, that one's tough because I have two kids and a busy job, and so I really haven't had much time to watch TV shows. I will say in the last couple weeks, I watched a couple episodes. I'm actually a big anime guy. And so I watched a couple episodes. There's a new season of this anime called Jujut</p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The art of influence: The single most important skill that AI can’t replace | Jessica Fain (Webflow, ex-Slack) — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/podcasts/">🎙 Podcast</a><span>›</span><span style="color:#aaa">The art of influence: The single most important sk…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/podcasts/">← 返回Podcast列表</a>
+  <div class="article-header">
+    <div class="en-title">The art of influence: The single most important skill that AI can’t replace | Jessica Fain (Webflow, ex-Slack)</div>
+    
+    <div class="article-meta">2026-03-22<span>·</span>17,445 words<span>·</span>Jessica Fain</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">職涯</span> <span class="mini-tag">組織</span> <span class="mini-tag">AI</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><strong>Jessica Fain</strong> (00:00:00):<br />
+As product managers, one of our best sets of skills is curiosity and empathy and trying to understand our users. But the moment that we're talking to an executive, we forget those skills and those talents.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:11):<br />
+It's your fault if the leaders didn't buy into your idea.</p>
+<p><strong>Jessica Fain</strong> (00:00:14):<br />
+People completely misunderstand how executives make decisions. What is going on in the head side? Describe an executive's calendar as a stroke light going off. You wake up at 8:00 AM, you've already got a huge list of urgent things going on. They have not had the time, the energy, the wherewithal to center your problems.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:34):<br />
+What are their goals? What are they trying to do? How are they measured, connect the thing you're pitching them with that success?</p>
+<p><strong>Jessica Fain</strong> (00:00:39):<br />
+There's ways for us to ask much more interesting questions of our executives. Tell me what the board is pushing you on. Execs want to be successful too. They want to be good at their jobs.</p>
+<p><strong>Lenny Rachitsky</strong> (00:00:50):<br />
+Sometimes you have the best idea and they just don't bite.</p>
+<p><strong>Jessica Fain</strong> (00:00:52):<br />
+One of the biggest things you can do to build trust is kill things, deprioritize things. If you're thinking about how do you be more senior, how do you show up in a way that is in a leadership mindset, you get paid to be a domain expert. Your executive is looking for you to be the deepest person in the room. Bringing your expertise to bear is absolutely crucial. You have to act like a CPO.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:17):<br />
+Today, my guest is Jessica Fain, who's been a product leader at Box and Slack and Brightwheel, and now at Webflow. And she has gotten very, very uniquely good at the art and science of influence, and in particular, influencing executives.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:33):<br />
+Influence might be the single highest leverage skill for product leaders outside of AI. We actually get into how AI is changing the skill of influence. I've never heard a podcast conversation get deep into the art and science of influence, how to actually change people's minds, and the mistakes that people make when they're trying to influence leaders.</p>
+<p><strong>Lenny Rachitsky</strong> (00:01:53):<br />
+We get very tactical and very specific. There's a bunch of stuff in this conversation that I've never heard before or thought about. I am very excited for you to learn from Jessica. Before we get into it, don't forget to check out lennysproductpass.com for an incredible set of deals available exclusively to Lenny's newsletter subscribers.</p>
+<p><strong>Lenny Rachitsky</strong> (00:02:11):<br />
+Now, let's get into it after a short word from our wonderful sponsors.</p>
+<p><strong>Jessica Fain</strong> (00:04:01):<br />
+Thanks for having me.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:02):<br />
+It's my pleasure. Let's set this conversation up. We're going to be talking about the skill and the art of influence, and in particular, influencing executives and leaders. People above you that you want to convince to do things you want them to do. Help us understand why this is worth people's time. Why is this worth the next hour of someone listening to this? Why is this skill so important to people's careers?</p>
+<p><strong>Jessica Fain</strong> (00:04:26):<br />
+I think as product builders, there's almost not a skill that's more important. Influence and building momentum behind great ideas is the way that great products actually get built. And if you don't have that influence, if you don't have the buy-in and the backing of your key stakeholders, of your executives, you can't build great products.</p>
+<p><strong>Lenny Rachitsky</strong> (00:04:49):<br />
+Something that I personally went through is just like... I was in a period of like, I don't need to work on this skill. I'm just like, I'm just going to do amazing work. It's going to show itself, of everyone's going to recognize it. And everyone run into this wall of like, oh man, all these other people are getting promoted. Maybe talk about that because it feels like that's a big trap. People run into you.</p>
+<p><strong>Jessica Fain</strong> (00:05:09):<br />
+I think why I wanted to talk to you about this is, when I was an ICPM, I was putting forth ideas. I was trying to reflect what I was hearing from my customers. I was trying to get sort of buy-in and excitement about the work that I thought was really going to move us forward. And at the time that I'm thinking about, I was a PM at Slack, and some of my ideas got people really excited, got me funding and backing, and just really a sense that we could accomplish something great.</p>
+<p><strong>Jessica Fain</strong> (00:05:39):<br />
+And some of my ideas and the things that I really, really believed in died on the vine. They went nowhere. And I was so confused and frustrated, honestly. Because I felt like, "Hey, I really get this user base. I really understand what's going to move the ball forward and I don't understand how these decisions are actually being made behind the scenes." And I was eight months pregnant, eight and a half months pregnant, April Underwood, who had just been named CPO of Slack. She had just come back from maternity leave. We had a two-day overlap and I sort of got up my courage and I said to her, "April, I've admired you for a long time. I love the way you work. I really love the way you think. And I really want to understand it better. If you'd ever consider having a chief of staff, I'd love for you to consider me."</p>
+<p><strong>Jessica Fain</strong> (00:06:28):<br />
+And when I came back from that maternity leave, I came into a stint as April's chief of staff and was later chief of staff to Tamar Yehoshua who succeeded April.</p>
+<p><strong>Lenny Rachitsky</strong> (00:06:38):<br />
+Who has been on the podcast.</p>
+<p><strong>Jessica Fain</strong> (00:06:39):<br />
+Who's been on the podcast, and is now a CPO and head of AI at Atlassian. Tamar, don't be mad if I mess up your title. And what I learned through that process is that people completely misunderstand how executives make decisions, what is going on in the heads, in the calendars, in the incentive structures of executives. And, instead of really understanding where that exec or stakeholder is coming from, they center themselves, they center their own desires, their own motivations, their own slice of the world. And they end up just not being as successful both in their career, but also in the types of products that they're building.</p>
+<p><strong>Lenny Rachitsky</strong> (00:07:21):<br />
+What's an example of that when you talk about, people don't understand how product leaders actually make decisions, how they decide what to do, what to listen to, what's an example?</p>
+<p><strong>Jessica Fain</strong> (00:07:29):<br />
+Oh my gosh. I think the biggest example of this is people don't understand executive calendars. A lot of times on Google Calendar, it's blocked. You can't see what they're working on, but I describe an executive's calendar as like a strobe light going off. You wake up at 8:00 AM, you've already got a huge list of urgent things going on. You go from a meeting with finance on a budget, to an interview for another executive, to a people problem, to a legal problem, to a product review.</p>
+<p><strong>Jessica Fain</strong> (00:08:01):<br />
+And the product manager coming to that product review, or the leader who's trying to make a pitch, thinks, "I've been prepping for this meeting for two weeks, three weeks, maybe six weeks since we last spoke," but the executive coming into that session hasn't thought about you since. They may not have gone to the bathroom today, right? And you have to understand that they have not had the time, the energy, the wherewithal to center your problems and you have to help them get into that mindset.</p>
+<p><strong>Jessica Fain</strong> (00:08:33):<br />
+So this is as simple as, execs are people too, right? They are running around context switching in the most insane ways I've ever seen, and everything that comes across their plate is an emergency. So one of the biggest tactics I think is so important is, just take 30 seconds at the top of a meeting. Why are we here? What happened the last time we talked? Why is this important to you? Why is this meaningful? And really remember that they are not thinking just about you. They are optimizing for a global maximum and not for the local that you're optimizing for.</p>
+<p><strong>Lenny Rachitsky</strong> (00:09:06):<br />
+Essentially, this is how to help someone in this world that is running around from meeting to meeting without context on most things, maybe hasn't have time to go to the bathroom. How do we help them see what you want them to see, and maybe buy into your vision and suggestions?</p>
+<p><strong>Jessica Fain</strong> (00:09:21):<br />
+Yeah. I think that one of the ways that I phrase this is, how do you get the best out of your exec? How do you help them be their best selves? We often think about how we show up in a meeting, or the doc that we wrote, or the prototype that we've got ready, but we don't think about how they can be at their best. How do we give them the right kind of information in the way that they communicate?</p>
+<p><strong>Jessica Fain</strong> (00:09:43):<br />
+We as product leaders have to be communication chameleons. We have to be speaking their language, like love languages, but appropriate for work. And you have to think about, do they really turn a spark with a design, with a customer story, with a dashboard, with an experiment? And how do you understand how their best brain, how their best expertise, gets turned on to give you the best of themselves?</p>
+<p><strong>Jessica Fain</strong> (00:10:12):<br />
+But part of that is literally just setting up the meeting effectively, so that they can have the context, the wherewithal, the sort of breadth at the beginning of the meeting, to dive into it.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:23):<br />
+The other thing I always tell people I managed is, it's your fault if the leaders didn't buy into your idea. You can't just be like, "Ah, they just don't see it. It's not my fault." They agreed to do something else. I always tell them, "That's just you're not able to influence them and convince them that you're right."</p>
+<p><strong>Jessica Fain</strong> (00:10:40):<br />
+Yeah. And Annie Pearl, who was my first PM manager back at Box.</p>
+<p><strong>Lenny Rachitsky</strong> (00:10:47):<br />
+Also former podcast guest.</p>
+<p><strong>Jessica Fain</strong> (00:10:48):<br />
+Also former podcast guest, former CPO at Calendly and Glassdoor and now at Microsoft, and Annie's just the best. She always said to me, "It's not my fault, but it is my problem." And I think that that's the vantage point that a product leader has to have, especially if they're trying to put themselves in the shoes of an executive.</p>
+<p><strong>Jessica Fain</strong> (00:11:05):<br />
+As product managers, one of our best sets of skills is curiosity, and empathy, and trying to understand our users. But the moment that we're talking to an executive or to a stakeholder, we forget those skills and those talents, and we begin to think about our ideas, getting that approval, getting to the next meeting, whatever it might be, the incentive that we are driving. We don't think about the curiosity and empathy for what they're thinking about, for what their incentives are, for how their day has been.</p>
+<p><strong>Jessica Fain</strong> (00:11:36):<br />
+And, if we can take some of those skills of building great products and think about our executive as our key user here, then we can have a much, much more productive conversation. I think one of the most disastrous things you can do is going into a meeting just looking for approval for your plan. Instead, if what you go in with is, how can I learn? How can I strengthen this plan? How can I use the domain expertise, the context, the experience that this person brings to the table, and imbue that into my product work? Both the executive will like you better, because they will feel like you have actually built product alongside them. But, you will also end up with a better product.</p>
+<p><strong>Jessica Fain</strong> (00:12:20):<br />
+I often hear people say to me, "Oh, they just don't get it. They don't see what I see. They're not in my meetings. They don't know how hard this is." Fine. If you don't respect that person, if you don't believe they know something you don't, you need to quit. You need to go work somewhere else. But if you respect them, if you think they have something to offer you, that they got to the place that they're at because they learned and they developed a skill that you're trying to gain, awesome. Take the feedback, take the insight, ask questions, and don't just treat it like a rubber stamp, because that's a failure state, and it's a failure state that they don't like.</p>
+<p><strong>Lenny Rachitsky</strong> (00:13:00):<br />
+I want to dive deeper into this stuff, but first, something on my mind is some people might be turned off by this topic in terms of, it may feel icky of just like, "Oh, I don't want to try to be this manipulative person, and deal with politics and influence. I just want to do awesome work. Why do I have to do this?" Speak to that person that's kind of just feels icky about building this and working on this and being this person.</p>
+<p><strong>Jessica Fain</strong> (00:13:24):<br />
+Yeah. I think that when people frame this as politics, they're completely missing the point. Politics is manipulating outcomes and people for your own gain. Influence is about increasing the odds that your good ideas survive. And I think what happens is people actually let ego and let their own narrative, their own scope of influence, get in the way of empathy.</p>
+<p><strong>Jessica Fain</strong> (00:13:51):<br />
+So, this isn't politicking, this is learning. If we treat our stakeholder conversations as discovery interviews as a way to strengthen our ideas, then we end up in a much, much better place. And if we do that in a genuine and low ego way, I'll give an example here. Noah Weiss, who succeeded Tamar Yehoshua, CPO of Slack and also former podcast guest.</p>
+<p><strong>Lenny Rachitsky</strong> (00:14:17):<br />
+Also former podcast guest. What a run we're on.</p>
+<p><strong>Jessica Fain</strong> (00:14:21):<br />
+Yeah. I've learned so much from Noah. We sat down to write product principles for Slack. And Ethan Eisman, our head of design, was leading that initiative, but really this was a lot about codifying the early ideas that made Slack great, especially from a product principles and sort of craft perspective.</p>
+<p><strong>Jessica Fain</strong> (00:14:41):<br />
+And we started talking about this and Noah had been at Slack early on, and he pulls out a small notebook that he kept in his bag and he said, "I actually have a section of this notebook that I've been keeping things I learned from Stuart over the years." Now, he hadn't been keeping that notebook because he said to himself, "Oh, one day we're going to write product principles, and I'm going to want these quotes on hand." Or, "I'm going to show off that I have this." No, it was for genuine learning and growth of his own ideas and place as a product leader that he was taking those.</p>
+<p><strong>Jessica Fain</strong> (00:15:13):<br />
+And what it allowed him to do was, reflect back to Stuart ideas and principles that he had, but also grow his own product sense intuition. And as an organization, it then allowed us to scale those principles, and I think was a really, really important part. And we worked with a lot of the sort of early Slack folks and the people that had really developed that culture, but it was folks who had really tried to grow and learn. They weren't trying to politic, they were trying to build great products. And that's the approach we have to take.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:45):<br />
+Okay. So what if you're not working for Stuart, which most people... Stuart also former podcast guests. I feel like just the alumni of Slack, holy moly, just like this is a...</p>
+<p><strong>Jessica Fain</strong> (00:15:55):<br />
+We had a really good run.</p>
+<p><strong>Lenny Rachitsky</strong> (00:15:56):<br />
+The fact that, just the fact that I have so many of these people on the podcast, what a sign of an incredible team. Okay. So yeah, so most people do not work for a Stewart that has incredible product sense, really cares about craft. And most people are like, "He or she is so wrong about what we're doing, this is such a mistake. They don't listen, they don't know what they're talking about." How do you deal with that?</p>
+<p><strong>Jessica Fain</strong> (00:16:19):<br />
+One assumption I have of how folks may misunderstand this skill is that they have to be a yes man. They have to take everything that the leader said and do exactly that. That is absolutely wrong. You get paid to have an opinion, you get paid to be a domain expert. And in a lot of ways, your executive is looking for you to be the deepest person in the room, especially if they're good at their job, right? They're looking for you to be the expert.</p>
+<p><strong>Jessica Fain</strong> (00:16:48):<br />
+And so, bringing your expertise to bear is absolutely crucial. Elon Frank, who was my boss at Slack as well, is now CPO of Checker, he always had a customer anecdote in his back pocket. I can hear him in my head saying, "I was just on site last week with so-and-so and they said blah, blah, blah." He always brought his expertise to bear, and many of the executives at Slack were not from a strong enterprise background, so he could bring that to the forefront.</p>
+<p><strong>Jessica Fain</strong> (00:17:17):<br />
+I think that has to be married again with that curiosity and empathy. If you hear something that you don't agree with, this is something that a guy my team does super, super well right now. He'll hear something that flies in the face of the data he's seeing, the insights he's gotten, his experience in his domain expertise, and he'll say, "That's so interesting. What led you to believe that?"</p>
+<p><strong>Jessica Fain</strong> (00:17:42):<br />
+That kind of question is actually curious, about this person said something that I think is dumb, but there must be something behind it. And so if I actually care what's behind it, and what you end up doing in that question is co-creating with the person who offered the opinion in the first place. You're able to say to them, "I'm interested in what led you to that belief, your experience. Did you have a meeting last week? Are you getting pressure from the board right now in a certain way? What is leading you to that belief?"</p>
+<p><strong>Jessica Fain</strong> (00:18:15):<br />
+I think one thing that really trips people up is execs are so good at seeming certain. They say things in an authoritative way with confidence, with surety, because so much of their work is having to make those ultra-fast decisions with little information. But if this is someone who is also a learner, who also has a growth mindset, then if you are able to help them unpack why they believe something and then respond with your own domain expertise, you are able to get to a better solution together.</p>
+<p><strong>Lenny Rachitsky</strong> (00:18:50):<br />
+I love these very tactical phrases and tips for how to deal with someone, say a leader. Let's just say this is like they're a director of product, VP of product, CEO that you're trying to convince to agree to plan. So the phrase you're suggesting here is, "That's so interesting. What led you to believe that?" Anything else along these lines, say you're pitching a product or an idea to say a VP of product and they're just like, "Hmm. What else works?"</p>
+<p><strong>Jessica Fain</strong> (00:19:17):<br />
+The earlier that you can understand the belief system and the things that are important to them, the better off you're going to be. So very, very early on in this process, what is top of mind for them? I can count on one hand when I was chief of staff, how many people asked me for advice before going into a product review with our CPO or our other executive team to say, "What do you think is most important to them right now?"</p>
+<p><strong>Jessica Fain</strong> (00:19:42):<br />
+Use the people around them, their EA, their chief of staff, the people who have successfully pitched ideas in the past and say, "What worked? What do you think they're worried about? What are the risks?" And in an age of the tools of AI that we have, this is so much easier than it's ever been, right? You can ask Slackbot, "What has Rachel been posting about lately? What do you think is most important to her?"</p>
+<p><strong>Jessica Fain</strong> (00:20:06):<br />
+A colleague of mine, a peer on our product leadership team, trained at GPT on a bunch of transcripts from past product reviews that are all publicly available, and we expect that our PMs are running their PRDs or their pitches through that, to say, "What's Rachel going to push back on? Where are their weaknesses in these ideas?"</p>
+<p><strong>Jessica Fain</strong> (00:20:25):<br />
+You can also train things on, "Where are your own weaknesses? I know I've gotten feedback in the past that my data is a little thin or that this kind of UX thinking is thin. Give me feedback on that." Claude's amazing for this.</p>
+<p><strong>Jessica Fain</strong> (00:20:37):<br />
+And so, I think that the first step is actually just saying, what's important to them? What do they want to hear and anchor on that? I think the second piece is going in to learn not to convince. And the earlier on you do that, the better.</p>
+<p><strong>Jessica Fain</strong> (00:20:53):<br />
+So we have something at Webflow called Office Hours. As early as you can, you are having these conversations to align on strategic direction, maybe even before you have a one-pager. We implemented something at Slack with Stuart, because we realized we were coming to him with done designs and he was like, "What the fuck is this? This is completely different than how I had this in my mind."</p>
+<p><strong>Jessica Fain</strong> (00:21:17):<br />
+So Allie Rail, early Slack employee implemented something called, "Hey, Stuart, what do you think?" And we would just sit with him for half an hour and say, "What do you think on this topic? What's your belief system? What's your past experience?" And we started with a user interview, right? We started with, "We actually want to download your expertise here." And I think that when you engage execs in that way, it's really, really valuable.</p>
+<p><strong>Jessica Fain</strong> (00:21:39):<br />
+One of the things I see people do poorly is, they don't ask for the time. This is sort of in counterpoint to what we were talking about before with how busy their calendars are, but they're afraid to ask for more time to get that insight. But sometimes if you don't, you miss the point.</p>
+<p><strong>Lenny Rachitsky</strong> (00:21:57):<br />
+Something that we hear a lot on this podcast, is as a product leader, as a leader of any kind, you want to have a point of view, you want to come into a discussion with, "Here's our options, here's what I think is the right solution." And then at the same time, as you're describing, you want to come across as, I want to learn. I'm not here to convince you. I'm here to just help understand your worldview and where you think the right path is. How do you think about just those two, that balance of, I have something I believe is right and, okay, but I'm here to learn and get your feedback and see what you think makes sense.</p>
+<p><strong>Jessica Fain</strong> (00:22:30):<br />
+Okay. So my advice on this may be a little paradoxical, because I think people make mistakes in both directions on the polls here. On the one hand, I think there's an error people make of trying to show too much work, trying to tell too much upfront proof point. We talked to 16 participants from these 15 GOs and this is the statistically significant and the exec is like, "I'm so bored, I'm going to die."</p>
+<p><strong>Jessica Fain</strong> (00:22:56):<br />
+I remember I did this in a review once and literally the person I was most trying to convince glazed over, got on their phone and I totally blew the meeting because I was trying to prove that I had done my homework. Put it in the appendix, right? They don't need to know every single detail. The baseline expectation is that you did your job, and that this is built on a solid foundation of your domain expertise.</p>
+<p><strong>Jessica Fain</strong> (00:23:21):<br />
+On the flip side, I think there's some balance of showing your work, that helps elucidate why your solution is best. So one of the mistakes I see people is doing is giving only one option. I think that people, if you say, I mean, this is also like classic pricing and packaging strategy, give three options and the Goldilocks in the middle is the perfect one, right? But I think that what that actually allows you to do is say, "Hey, we considered. We are not dumb. We did not miss something. You think we missed something, but no, no, no, we actually considered this."</p>
+<p><strong>Jessica Fain</strong> (00:23:56):<br />
+So we had a recent product review with my manager, Rachel Woolen, she was a recent guest on How I AI, and-</p>
+<p><strong>Jessica Fain</strong> (00:24:03):<br />
+... she was a recent guest on How I AI, and we brought a doc, a sort of reasonable approach to what we thought was the sort of problem and strategic space we were going after. It didn't go well. It really didn't match her expectations. And the feedback she gave us, which was really, really the right feedback, was I don't understand how you're thinking about the permutations if possible here because we had only given one option set. And so what we did following that review is we said, "Hey, we really want to sort this out. We want to get moving. We want to show that we can really get building on this product. And alignment is the next stepping stone for that. Can you meet in two days?" And we turned around a new doc in two days that actually showed all of the options we had considered, but hadn't brought to that first review.</p>
+<p><strong>Jessica Fain</strong> (00:24:52):<br />
+And once we elucidated all the things we considered, and why we thought they would or wouldn't serve the outcomes we were driving and the technical complexity behind them, she was like, "Oh yeah, okay. I see why the solution that you're proposing makes the most sense for what we're trying to accomplish." But in the first version, in the first meeting, we hadn't shown that and we hadn't workshopped it through her. And so sometimes really tactically you want to have that available to you. It's not necessary to put all 15 options you considered, but at least be ready to show them. Have them in an appendix, have them in a draft Figma file, whatever it is. We used to have this rule after a design review with Stuart. We'd go through the design review and he'd say, "No, do it exactly like this. I want the button here and the interaction to be this."</p>
+<p><strong>Jessica Fain</strong> (00:25:45):<br />
+And frankly, he always had better ideas than we did, but we would come back and we called it Stuart plus two more. So we did exactly what he asked for and then two other versions that we felt good about. And then it gave us a forum for conversation to debate the merits of each type of approach.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:06):<br />
+Awesome. Okay. So there's a bunch of advice here. One is the default is don't go in with, here's our whole process that landed on this suggestion, but have that ready because they may ask for that if they don't buy into it. Another is present options. And then there's, here's my point of view, here's why I think this is the right one. And then if they dig in, you have to be ready for more options. Have you ever looked into the Minto Pyramid way of presenting stuff?</p>
+<p><strong>Jessica Fain</strong> (00:26:31):<br />
+No, I don't know what that is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:26:33):<br />
+Okay. So there's this lady Barbara Minto. She's like from the 50s, I think. She was the first female consultant at McKinsey or something like that. And she figured out the best way to present information to execs is backwards. Essentially, it's instead of here's our process, here's all the things we did, here's our set of conclusions, and then here's our recommendation. It's flip it, start with, here's our recommendation, and then here's the things we explored, and then here's the evidence behind that. It feels like that's what you're describing.</p>
+<p><strong>Jessica Fain</strong> (00:27:04):<br />
+Yeah. I think that's a really good way of doing it. I think my only gloss on that would be that people are really different. Execs are people too. And so one of the things that I think is really important is understanding what is the literal format, storytelling, pre-work that is going to work for that person. Some people hate a PowerPoint and it's just going to crush their soul if you start doing that. Some people only want to see the data and not the qualitative research. And so I do think it is about really understanding their communication style. And execs, if you're listening to this, it's really fucking helpful if you tell people, because you actually know what you like and don't like. And so just tell people, "I prefer a doc. I want no upfront explanation. I want 10 minutes of quiet reading time, and then we can come back together." That's a particularly effective means for very busy people and short meetings, and especially in remote work where presentations just don't work very well.</p>
+<p><strong>Jessica Fain</strong> (00:28:09):<br />
+Some execs are willing to do pre-read, some aren't. And I think you just have to be willing to accept that they are also human, and you're trying to give them the best shot at inculcating the information in the way that is meaningful to them.</p>
+<p><strong>Lenny Rachitsky</strong> (00:28:23):<br />
+So there's a bunch of tips here that I want to summarize for how to set yourself up for success. One is what you just described, which is just think about how do they respond best? What kind of setup do they respond best to? Is it a presentation? Is it a here's what we recommend, here's three options. Is it data, something else? So there's just understand, here's what this person likes. They want a five minutes fast conclusion. Why? Then there's your advice of ask people that know them, what is top of mind for them right now? Because they may be like, "This is the big bet we're making right now. If it's not aligned with that, they're not going to care." So it's like either ask them or ask people around them, what's top of mind for them right now. And then there's this idea of simulate almost, simulate them, feed all the previous meetings with them into say a Claude project or something like that, create a little GPT and run your idea by them. And like, what would you say?</p>
+<p><strong>Jessica Fain</strong> (00:29:22):<br />
+I will tell you, I am not a big fan of the what's top of mind for you question. This is a hot take because I think that what often people do is they think through their top priorities, their top experiences. If we were trying to do a research study to understand the day-to-day lives of our users, we probably wouldn't say what's top of mind for you. We'd say, "Tell me how you spent your day." We'd say, "What's the most urgent priority for you right now that you're really scared about messing up? What pressures are you facing?" And so I think there's ways for us to ask much more interesting questions of our executives. I recently did this with our CEO. I said, "Tell me what the board is pushing you on because everyone's got a boss. And even a CEO who seems so powerful and competent and sure is getting pressures, right?</p>
+<p><strong>Jessica Fain</strong> (00:30:20):<br />
+What are you seeing as the key inputs to your success?" The other thing people don't realize is execs want to be successful too. They want to be good at their jobs. And how can you help them? In the best case scenario, your incentives at a local team level or product organization level really closely align with their incentives that you're working on something that really matters to the company. If you're not, you really should be having that conversation because you'll be in misalignment from the start. But if you actually have alignment, point out that alignment. How is the metric that they're trying to move, the OKR they're responsible for, the board pressure that they're under going to be improved by the thing that you are proposing and how do you get there together? So I think that one of the things people really miss out on here is what are the success criteria for an exec? And how do you model your world to amplify that success so that both of you can be more successful?</p>
+<p><strong>Lenny Rachitsky</strong> (00:31:25):<br />
+Okay. And that is such an important lesson before I follow that thread. Just to clarify this question of what is top of mind, your advice was ask people around them, what is top of mind for them? Don't ask them directly this question.</p>
+<p><strong>Jessica Fain</strong> (00:31:37):<br />
+Top of mind has become this sort of trope, right? It's execs write a weekly writeup of what's top of mind. And it becomes this generic, uninteresting, neutralized frame. And so I think the question, what's top of mind for you has actually lost some of its firepower. And instead, we have to get at what is the emotion, the drive behind it, and what's the spicier question that'll get a more interesting answer.</p>
+<p><strong>Lenny Rachitsky</strong> (00:32:11):<br />
+So then going back to this incentives piece, such a powerful lever for basically to get anyone to agree to what you want, which is what are their goals? What are they trying to do? How are they measured? How is the success for them? And then how's the thing you're pitching them aligning with that and will help them achieve that specific goal?</p>
+<p><strong>Jessica Fain</strong> (00:32:33):<br />
+And in building products together, your incentives should be making your users successful, making your business successful because of that. And so what do they actually believe about that? It's not just about, oh, they want a promotion or they don't want to get fired or they want to hit their KR. Those are very, very real human things. But in an ideal world, in product work, it is really based on building incredible products for your users and therefore great outcomes for your business. And so I think a big part of this is actually understanding their strategic insights and what they believe is going to move the business forward most effectively. So after I was chief of staff, I took over Slack's core product team. We worked on channels and emoji and search and messaging. And there was a real feeling from our executive team that we had a bit lost our mojo around product craft.</p>
+<p><strong>Jessica Fain</strong> (00:33:28):<br />
+And we talked about painting the insides of the cabinets. We really wanted such an amazing experience for our users. That was one of the things that made Slack great in the first place was just it really felt like a product that took that usability to a 10X place. And there was a sense that I had heard from our leadership that we weren't quite there, and we had lost some of that. And that was so, so important to who we were and how we showed up for our users. And so we implemented something called the customer love sprint. We said, "Okay, engineering, stop what you're doing. As an entire team, we're going to spend two weeks just painting the inside of the cabinets." The only rule was engineers got to pick what they worked on. We supported them from a PM and design and customer support perspective.</p>
+<p><strong>Jessica Fain</strong> (00:34:20):<br />
+We gave them tons of ideas that engineers could pick what they worked on. The only rule was that you had to ship something. You had to ship something that was good for users. And what we did is you could call this a bugbash. You could say, "Okay, you got to fix these rough edges, these misses in the product." But we made it a huge deal. We made it really exciting and fun, and we had a big, really fun judging competition that our executives took part of. And we really brought back that part of our culture that we had lost out on a bit. And it spoke to what our executives believed was a differentiation for us and how we were going to show up in the market, show up to our users, grow our user base by making it feel special. And we were able to say, "Oh, we shipped 65 improvements this week, this sprint." And that felt really, really aligned with what they were trying to accomplish from a company perspective as well.</p>
+<p><strong>Lenny Rachitsky</strong> (00:35:18):<br />
+Okay. So to summarize the tactics so far, one is align your pitch with the person you're trying to pitch is incentives. I don't know if the grammar on that sentence works, but what does success look like for them? Connect the thing you're pitching them with that success.</p>
+<p><strong>Jessica Fain</strong> (00:35:37):<br />
+Yeah. I think that aligning your incentives is, yes, really, really important in a product pitch. If you're thinking about a product pitch, how does it connect to the company goals? Are you trying to improve conversion rates? Are you trying to grow enterprise customers? Are you trying to be perceived in brand? Are you trying to break into some new category? Of course, you have to align on a new pitch. I think the inverse of this is how do you use that incentive structure to also inform regular roadmap, not just net new product ideas or net new pitches, but you're actually imbuing your entire team and your thought process with that incentive structure. It's a deep understanding. How did the OKRs get to be the way they are? How did the positioning statement get to be that way? How do I understand that and deeply embed it into my team's culture, so that we're reflecting what our exec team, our leadership has said is important?</p>
+<p><strong>Lenny Rachitsky</strong> (00:36:35):<br />
+So basically everything should feel like it's a cohesive set of priorities based on some outcome y'all agreed to in the mission.</p>
+<p><strong>Jessica Fain</strong> (00:36:43):<br />
+Yeah. And I think a big part of this is also metrics and data and what you're actually measuring your own teams on. We talk a lot about leading and lagging indicators. Or in the nonprofit world, this is called theory of change. There are many steps. You yourself and your individual team may not be able to directly move enterprise revenue or directly move conversion rate, but you believe, and the company has a belief, that painting the inside of the cabinets, having an exceptional customer experience will be the thing that leads to customer retention, customer conversion, user satisfaction. And so how do you make sure that your metrics and the things that you are proposing to actually shift ladder up really, really clearly to those and that your executive agrees to that?</p>
+<p><strong>Lenny Rachitsky</strong> (00:37:34):<br />
+Okay. And then a second lever is trying to not go into a conversation, even though you are trying to influence them. It's to go into it with an open mind and a learning mindset. You use this phrase. That's so interesting. What led you to believe that?</p>
+<p><strong>Jessica Fain</strong> (00:37:50):<br />
+Right. And I think in that is a disarming of the executive. Again, going back to how do you get the best out of them? You want them to feel comfortable. You want them to feel like they can be honest with you. I think something I see people miss often is they don't follow the subtle threads that executives lead them, the sort of breadcrumbs of opinions. In a more clear cut scenario, your leader, your executive will say to you, "Okay, I'd like a brief on exactly this thing. Write it generally this way. Let's review it in a week." That's a very clear cut ask. But very, very often the asks are more subtle. I wonder if I'm thinking about, have you considered? And what I find is that people don't take the bait. And the best people do. So I'll give you an example.</p>
+<p><strong>Jessica Fain</strong> (00:38:45):<br />
+Just last week, we've been working a lot on as skills get democratized across Webflow, everyone can do design, everyone can ship code, everyone can write a PRD. How are we enabling people to move as fast as their brains and tools will make them? Rachel, our CPO said, "Hey, Kev." Our head of design, "We're going to have to think about design reviews at some point." And within an hour, Kev had had a loom put together of, "Hey, here's a framework of high risk design changes, low risk design changes, blast radius, release processes, and how we might allow anyone in the organization to have designs shipped to production." That was a thread. She didn't ask him to do that. He didn't need to follow up in that timeframe, but he recognized that the organization's incentives are to keep empowering people, to keep everyone moving fast, to keep everyone really excited about what they're building as well.</p>
+<p><strong>Jessica Fain</strong> (00:39:41):<br />
+And he knew that he could slot in and respond to this feedback really, really quickly. A lot of times I see people don't take that invitation from the executive to actually engage on the subtle feedback they're giving. An example from my past where this didn't go as well was we were in a strategy review, sort of a quarterly strategy review, and it was probably the fourth time I had heard Tamara ask, "I'm interested in seeing the top 10 use cases on X." And the fourth time it happened, she got really frustrated. She said, "We've talked about this so many times before. Why don't we have this documented?" And I think it's because people are not picking up on the cue that there's really something deep underneath. There's really an important piece of feedback or a question that they're not pulling on. Maybe you think that that's not an important thing to do, and then you need more information about why they think it's important.</p>
+<p><strong>Jessica Fain</strong> (00:40:39):<br />
+Because if you just let it go and you don't respond to the feedback or respond to the ask, that person loses faith in you, that you're going to follow up on a thing that they believe is important.</p>
+<p><strong>Lenny Rachitsky</strong> (00:40:51):<br />
+And it also sounds like a really good way to influence is you take the reins and here's where I think we could go with this, and here's the answer to your question.</p>
+<p><strong>Jessica Fain</strong> (00:41:00):<br />
+Absolutely. I think if you're thinking about how do you be more senior, how do you show up in a way that is in a leadership mindset? You have to act like a CPO. You have to come in with that perspective. You have to come in with a solution. You have to follow the thread that they've asked about. You have to do it quickly. One of the missteps here is people treat these interactions as so high stakes. And sometimes they are, but one of the ways that you fail at that interaction is you wait too long to engage on the feedback. If you wait a week for the follow-up items that you discussed in the meeting, that exec has moved on. And you've missed your chance to actually respond to the feedback in a quick manner, you will get so much more excitement, enthusiasm, brain power from them if you keep the ball rolling in a timely manner.</p>
+<p><strong>Lenny Rachitsky</strong> (00:41:54):<br />
+And obviously, everyone's so busy. There's already so much work on their plates. You can't just hop on it. Everything an exec says. There's also this classic advice of sometimes execs just say something and everyone takes it so seriously. "Oh, I have to do that." And sometimes they're just saying it in passing. So it's a balance of take the opportunities, don't [inaudible 00:42:13] single thing.</p>
+<p><strong>Jessica Fain</strong> (00:42:13):<br />
+Yeah. And a great question to ask in that scenario is how strongly do you feel about this? So if you hear something that they say really strongly, or how urgent do you think that is? Or, "Hey, here's what the team is working on now. Do you think that that trumps these priorities?" And if they say," Yes, listen, do the thing that they say trumps it. "It's not about jumping on every request or taking every piece of feedback, it's about contextualizing it and why they believe that, what they think the urgency is, and then actually responding to that. So more often than not, they'll say," I wonder if we could do this kind of study. "And people will go and say, "Oh my gosh, we have to go run that study right now. We have to deprioritize everything else." But if you say to them, "Hey, that's a really cool idea.</p>
+<p><strong>Jessica Fain</strong> (00:43:01):<br />
+I like that. Do you think that that's more important than these three other studies or three other projects that we're working on now?" And they'll say, "Oh no, no, no. That's a random idea. Put it on the backlog." I think that execs are moving so quickly that they won't always give you that context of urgency and so you have to ask for it. This is something I've been working on getting better at as a leader. This is just an idea, this is a mandate, this is something I want to see, but it's hard. Sometimes it's hard to remember to do that because your brain is spinning with ideas.</p>
+<p><strong>Lenny Rachitsky</strong> (00:43:33):<br />
+This comes back to your point about getting into the mind of the person in the meeting, the leader. They're running around all day. I think you call it a strobe. You're just like, bam, another meeting next meeting, next meeting, next meeting without a lot of context and they just say things, and sometimes it's important to them, sometimes not, which comes back to one of your tips at the beginning of this chat is spend 30 to 60 seconds at the beginning just giving them a little context on what the heck. What would you recommend in that 30, 60 seconds? What are some key bullet points of what you want to communicate?</p>
+<p><strong>Jessica Fain</strong> (00:44:02):<br />
+Yeah. In the 30 seconds, I would say, we're here to discuss X, Y, Z. Last time we met, we left it off here. The goals of today's meetings are ZYX. Here's how we're going to run this meeting. And then stop talking Because the moment you go off over 60 seconds, you've lost them. And oh, I think the other really important thing I would add there is to say, was there anything else you were hoping to cover today?</p>
+<p><strong>Lenny Rachitsky</strong> (00:44:27):<br />
+That was awesome. I love this advice. I'm excited to tweet this out just to summarize these bullet points you just shared. That is so cool. I love that. And to your point, if 60 seconds flies by, you may think you're talking for 60 seconds. It often ends up being five minutes. So your advice of keep it under 60 seconds, just try to actually do that.</p>
+<p><strong>Jessica Fain</strong> (00:44:46):<br />
+Try to actually do that. I think the other thing here is this often depends on what kind of meeting, what you're actually doing. In our culture, we do a lot of silent read of docs or watching a loom in the meeting, and then coming back for conversation. I think one of the things that I've seen be really effective in coming back for that conversation is oftentimes a leader will smatter your doc with 100 comments and you're like, "Oh my gosh, what is actually important here?" So what I often do is I have a section at the top to say themes for discussion. I bubble up some of the biggest and most controversial pieces that can only be discussed live and anything they've said that they're just curious about. What's the timeframe for this? What's the staffing need for why? I can answer offline.</p>
+<p><strong>Jessica Fain</strong> (00:45:32):<br />
+I can answer in a follow-up. What I can't get again is the time for discussion with that group. "And the safer that they feel in that discussion and the more that they think that you've understood what is the most spicy or controversial, that's where you get to the good stuff and you really get their insight and input. So I put a section at the top and say topics for discussion that I'm reading through the comments. Rachel, was that right? Did I get your thoughts right? Anything you would add to this? And then we can talk about the really good stuff that gets us to a better outcome.</p>
+<p><strong>Lenny Rachitsky</strong> (00:46:07):<br />
+My podcast guest and I love talking about craft and taste and agency and product market fit. You know what we don't love talking about? SOC 2. That's where Vanta comes in. Vanta helps companies of all sizes get compliant fast and stay that way with industry leading AI, automation, and continuous monitoring. Whether you're a startup tackling your first SOC 2 or ISO 2701 or an enterprise managing vendor risk, Vanta's trust management platform makes it quicker, easier, and more scalable. Vanta also helps you complete security questionnaires up to five times faster so that you could win bigger deals sooner. The result, according to a recent IDC study, Vanta customers slashed over $500,000 a year and are three times more productive. Establishing trust isn't optional. Vanta makes it automatic. Get $1,000 off at vanta.com/ lenny.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:01):<br />
+We've talked about aligning your incentives and goals with their goals, going in with open mind, setting context at the beginning of the meeting, understanding how they like to be presented to. What else can we learn to become better at influencing execs? And let me just do a quick tangent. As people are listening to this, they may again be like, "Oh my God, all this BS I have to do. I just want to do awesome work. Why am I spending all this time learning all this meta work? I've had to convince someone of a freaking thing. I just want to build awesome products, drive growth for the business and the product, and this sucks." I think it's, again, important to remind people this is just the way things go. You need to influence people in power to agree with your approach. That's just the way it is.</p>
+<p><strong>Lenny Rachitsky</strong> (00:47:47):<br />
+You can't just be like, "Nah, no one understands me. It sucks. It's not my fault."</p>
+<p><strong>Jessica Fain</strong> (00:47:52):<br />
+It's literally your job. I think the way that product management has worked for a long time is you basically get funding for your ideas in the...</p>
+<p><strong>Jessica Fain</strong> (00:48:03):<br />
+You basically get funding for your ideas in the form of engineering, design, cross-functional resourcing. That is, you should consider that VC money that's been invested in you, and your CFO, your CPO, your CEO is expecting a return. And so what is the way that you are showing that you are building great products that honors that investment in you?</p>
+<p><strong>Jessica Fain</strong> (00:48:26):<br />
+And sure, you can go into a startup and be the sole decision maker, and that is a very, very valid way to work. But if you work with other people, having them excited, interested, passionate, bought in to what you're doing, will make everything easier. It is also the job, right? You also have to. But I think the thing I want people to take away is that it's really the way to build well. When people are motivated, when they feel purpose, when they feel like this is really something that I believe in, they work harder, they support you more, they talk about you in rooms that you're not in. And so it's just actually the way you deliver great results.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:15):<br />
+I think that's such an important framing. Okay. What other tactics, what other techniques work in helping leaders get influenced?</p>
+<p><strong>Jessica Fain</strong> (00:49:24):<br />
+Yeah. Get influenced. I love that. I love that.</p>
+<p><strong>Lenny Rachitsky</strong> (00:49:27):<br />
+Be influenced.</p>
+<p><strong>Jessica Fain</strong> (00:49:29):<br />
+Yeah. We should have a stamp, like influenced, at the end.</p>
+<p><strong>Jessica Fain</strong> (00:49:35):<br />
+So I think one of the things that people misunderstand is the constraints that they are bound by versus their leadership. Execs are not ... They don't have the same boundaries of budget and headcount and timeline that you feel. They can move people around in the organization. They can ask for more resourcing. They can get creative. They can elevate projects, kill projects.</p>
+<p><strong>Jessica Fain</strong> (00:50:04):<br />
+And so you have to come to them with that mindset of, "Hey, with today's resourcing, with this many engineers or this kind of tooling or this kind of investment, here's what I can get. But I'm thinking of the 10X case. I'm thinking of the accelerated case. And if that's what you want, and if that's aligned with your incentives, here's what I need to be successful."</p>
+<p><strong>Jessica Fain</strong> (00:50:28):<br />
+And so I think that people think, "Okay, well, I've got my pizza team and I've got my four engineers and what you're asking is not possible." Well, if it's not possible, tell them why not. Come back and say, "The thing that you're asking for, I'm super stoked about that. I need eight more people. I need you twice a week for an hour. I need much closer alignment with our marketing team, and I'm not sure how to get that."</p>
+<p><strong>Jessica Fain</strong> (00:50:53):<br />
+You have to think about what are the constraints that hold you back that they can actually help you a lot with. And people miss out on this all the time, of not asking for what they need to be successful, especially when the ask from the executive seems unreasonable.</p>
+<p><strong>Lenny Rachitsky</strong> (00:51:09):<br />
+This is such a good piece of advice. Just if you get them excited enough, things can significantly change in terms of resources and prioritization. Your job is to help them see how massive an opportunity this is and not just give you what you want, but just like, wow, okay, here's the way to unblock this thing. Here's how we can go like, okay, this is going to be our new big bet. Let's go big here.</p>
+<p><strong>Jessica Fain</strong> (00:51:31):<br />
+Yeah, absolutely. This is going to be our new big bet. And this comes back to aligning with what the company's trying to accomplish and also the urgency. So some things, if you added a dozen more people or perfect alignment with go to-market, yeah, you could get them to market faster.</p>
+<p><strong>Jessica Fain</strong> (00:51:46):<br />
+But is that the most important thing for the company goals? Is right now the answer? Is accelerating this in this way actually going to do more? Or is it something else that's actually more aligned? And so I think it's still being so rooted in the company goals and what the exec is trying to accomplish and what your users really need to be successful so that you can say, "In order to accelerate our goals, here's what we can do."</p>
+<p><strong>Lenny Rachitsky</strong> (00:52:13):<br />
+Like if you were in charge of a company, you'd be so excited if someone came to you with a 10X idea that's going to change the trajectory of your product. That's what everybody wants. And so that is a really powerful way of approaching all these things. Obviously not every idea is going to be a big idea. Not every idea is a great idea. A lot of times these take time also. Maybe speak to that. Just like say you have a big idea and they're like, "Nah," what are some expectations to set for people that come up with a big idea that just isn't getting any traction?</p>
+<p><strong>Jessica Fain</strong> (00:52:47):<br />
+It really depends on what kind of organization you're working in. If you're working in a smaller organization, if that big idea is something that you can build on your own or you can build within, versus if you need a large scale investment ... I think the real thing about building toward a big idea, towards something net new, the key is really outside and around the executive.</p>
+<p><strong>Jessica Fain</strong> (00:53:10):<br />
+So if the executive is the decision maker on whether we're going to invest here, they also want to understand from their peers, from other experts, why this actually matters. If you have something net new that you want to bring to market and customer success thinks it would really accelerate expansion rates, or the marketing team thinks that signups would be 10X because of this, if you have that cross-functional alignment, and this is where a lot of these lessons don't just apply if you're going into a product executive meeting, but that if you're influencing your cross-functional execs and your cross-functional stakeholders to be advocates on your behalf, I think that we now have more tools than ever to, as product folks, build out the V1, prototype something, build your own app, build the messy version of it, get feedback, iterate, and be socializing that in a way that creates a groundswell of buy-in to the point that the exec can't say no to the funding.</p>
+<p><strong>Lenny Rachitsky</strong> (00:54:19):<br />
+Along those lines, it feels like to me, the biggest reason that a leader doesn't buy into your pitch is you just have different information. They don't see what you see, you don't see what they see. They have all this other stuff that they're looking at and trying to decide. Maybe speak to just that skill of trying to clarify information on both sides.</p>
+<p><strong>Jessica Fain</strong> (00:54:43):<br />
+I'm thinking about a tool April Underwood taught me. She said she used to go into product strategy meetings with Stewart and was really trying to extract some of his ideas, but she was always holding the whiteboard marker. And so there was this back and forth between them in the conversation of, I'm trying to understand deeply what you're seeing in the market, what you're feeling in the business, what your instincts are, but I'm also going to package that in a way that is translatable, is actionable, is in a framework that you might not have had in your head. And so that is like a great tool for marrying that leader's instincts with your ability to sort of not synthesize their approach, but really take that approach and accelerate it for marrying what you know about the world and what they know about the world.</p>
+<p><strong>Lenny Rachitsky</strong> (00:55:41):<br />
+So what I'm hearing is take it upon yourself to help them to kind of align your world view with their world view. And there's this question coming back just like, "Help me understand what I don't ... What was the question you had? Oh, that's so interesting. What led you to believe that?" These are the kind of questions that help you extract what you don't know that they know.</p>
+<p><strong>Jessica Fain</strong> (00:56:01):<br />
+Yes. And I think there are also really different phases of a relationship. There's a phase when you're new, you may not have so much face time with that person, you don't really know them that well, but I think that this is a place where time spent together really just accelerates your trust with them, your ability to speak freely, to ask difficult questions, to get real feedback.</p>
+<p><strong>Jessica Fain</strong> (00:56:24):<br />
+And so especially if you're in a position where you can ask for that time, more casual time, less fraught, that you're not always pitching an idea, but you can have real conversations, that is also the groundwork for the pitch down the line. I think people devalue that, that time upfront spent together, because it pays dividends for the later pitch.</p>
+<p><strong>Lenny Rachitsky</strong> (00:56:48):<br />
+Yeah. I'm glad you went there. That's exactly where I was going to actually go is this idea of trust and building and giving the person a reason to assume that you know what you're doing. Obviously hard to build trust. And the reason I think this is important is sometimes you have the best idea and they just don't buy it because they just don't know anything about ... They don't know what you've been up to. They don't know how awesome you are, how smart you are, how successful you've been your whole life and career, maybe because you're new. What are some tips for trying to build trust with the leaders so that these things become easier?</p>
+<p><strong>Jessica Fain</strong> (00:57:20):<br />
+I think in terms of building trust, it's really important to ground yourself in what they believe. If you are pitching an idea that is wildly different than something they believe, don't bother. You probably have nine other good ideas that are more aligned with the beliefs that they already hold. Follow those instead. So there's something about just engaging from a baseline assumption. If they feel strongly about something, okay, maybe you can come back to them once or twice and say, "Are you sure you feel strongly about that? I really see this data." And if they say, "Yeah, I feel really strongly," you probably have to drop it.</p>
+<p><strong>Jessica Fain</strong> (00:57:58):<br />
+But in terms of building that long-term trust, I think the biggest things that do that are really hearing them out and actioning on the feedback that you've gotten in the past. Having results. It cannot be overstated that impact in the organization, building great products, shipping amazing things quickly, feeding that back to the leader to say, "Hey, we worked with you on this. We shipped it. It went well. Here's the results." That builds you momentum to be able to go back with the more novel approach or the scarier one.</p>
+<p><strong>Jessica Fain</strong> (00:58:33):<br />
+I think the other thing I would say is one of my favorite ... Well, actually one of the only business books I've ever liked is called Switch. It's about change management, and they talk a lot about shrinking the change, which is this brilliant idea. If something seems scary and overwhelming, how do you make it so much smaller so that it's an experiment? It's a one week proof of concept. It's something that feels really small that can get people over the hump of, "Well, I'm not going to invest in six months for this project if I don't know if it's going to work."</p>
+<p><strong>Jessica Fain</strong> (00:59:05):<br />
+So shrinking the change is a huge way to build momentum and trust. And I think this applies to the way that we develop all products, especially if you're doing something that lasts longer than a month. What are your milestones? What are the chunks at which you're showing outcomes and fit? And this is easier than ever to do with the tools that we have at our disposal. How are we showing that we are taking a much more iterative approach so that you can build that momentum, build that buy-in, and get that trust to do the bigger thing?</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:36):<br />
+That's an awesome, very tactical piece of advice here to convince someone to do something, is just reduce the risk essentially, reduce the investment to help build trust in, okay, this is showing success because obviously it's much easier to bite off on something that's going to take two weeks or-</p>
+<p><strong>Jessica Fain</strong> (00:59:52):<br />
+Absolutely.</p>
+<p><strong>Lenny Rachitsky</strong> (00:59:52):<br />
+... have a very low risk and impact if it's not a good idea.</p>
+<p><strong>Jessica Fain</strong> (00:59:55):<br />
+Yeah, I think that's absolutely right. And I think what is the type of risk that they are most afraid of too? Is it wasting time? Is it time to market? Is it that they don't actually think this is going to work with customers? So if you can start to, and you can and should ask this, what are the outcomes you're most afraid of? What would a failure state be for you in this experiment?</p>
+<p><strong>Jessica Fain</strong> (01:00:19):<br />
+There's a concept of red teaming, which is originally a military tactic and now being applied to businesses. How do you take an outsider's perspective to your idea and not just be so obsessed with your own thinking, with your own concept? Because so often we get wrapped around the axle, especially ... I actually find this happens even more with prototyping. You build a prototype and you're like, "Oh, it looks so beautiful. I would've never been able to build that before." It's actually not a very good idea, but you get obsessed with it and you're unwilling to accept that it could fail.</p>
+<p><strong>Jessica Fain</strong> (01:00:53):<br />
+I think one of the biggest things you can do to build trust is kill things, deprioritize things. That is a very, very senior way of thinking, and it shows that you have the same aligned incentives as the executive who's thinking about the good of the company outcome, the user outcome, and not just your own.</p>
+<p><strong>Lenny Rachitsky</strong> (01:01:13):<br />
+That is such a good one because everyone's always just trying to acquire more resources, more investment, just like more features and showing that, "Okay, this is a terrible idea. I know I spent months on this, but no, we should kill this because it's not working."</p>
+<p><strong>Jessica Fain</strong> (01:01:26):<br />
+Right. It's not working. And here's how I'm going to know that it's not working. Here's when I'm going to come back to you with a decision. So sometimes we don't know that. Well, a lot of times we don't know the outcome, especially with AI native products. And if we can say, "We're going to test this. Here's how we're going to know it's working. We'll come back to you on X date." I think one thing that really spirals people out of control is a desire for certainty. As human beings, many of us have a huge desire for certainty. Now more than ever, that is not possible.</p>
+<p><strong>Jessica Fain</strong> (01:01:57):<br />
+And so one trick that I learned, especially working with engineers who often have a very, very high desire for certainty, is to say, "I don't know the answer right now. I don't know if this is going to be successful. I'm going to check in with you on X date. That's when we're going to come back and have another conversation." And so at least there's certainty about the next check-in point, and that can be a really powerful tool for deescalating the fears and risks around a given initiative or idea.</p>
+<p><strong>Lenny Rachitsky</strong> (01:02:28):<br />
+Okay. Before we get into AI's impact and all this stuff, are there any other common mistakes people make when they are trying to get better at the skill of influence or just any other really powerful tactics for increasing your ability to influence leaders?</p>
+<p><strong>Jessica Fain</strong> (01:02:45):<br />
+Something people miss is the extremely broad context that execs bring to bear from not only their experiences, but the things that they are hearing in their day-to-day life. They understand what other product teams are working on better than you. They understand the conversation at the e-staff level. They've been to executive round tables and [inaudible 01:03:08]. And one of your jobs is to extract that insight and information and apply it to your ideas.</p>
+<p><strong>Jessica Fain</strong> (01:03:15):<br />
+And they want to feel like you care, like you respect that, like you can apply it to your own thinking. And so this keeps coming back to that curiosity and empathy. What do they know that you don't, that you can actually apply to strengthen your thinking or inform the direction that you want to take your team?</p>
+<p><strong>Jessica Fain</strong> (01:03:36):<br />
+And I think people just often don't ask those things of their executives. They don't show a curiosity for the expertise that that person has brought to bear. And frankly, I think often they don't really care, which is the chief mistake. They should really actually take it into account to strengthen their own thinking.</p>
+<p><strong>Lenny Rachitsky</strong> (01:03:59):<br />
+Yeah. So much of this is about just coming into it with like, here's what I ... It's just like having the same information. And I think there's a point about just believe they know what they're doing is so underappreciated. There's a reason they're in this role. There's a reason you're not there. There's a reason this company's doing as well as it is. And even if they are wrong, they believe they're right. So it's important to understand what they think and know and what information they have access to.</p>
+<p><strong>Jessica Fain</strong> (01:04:27):<br />
+Yeah. And I think the other piece of this is for anyone thinking about how they grow their career, how did that person get into the role that they are in? They broadened their context. They saw, sort of had great peripheral vision, and that is a way to show up in a room that is much more senior than you are, is keep your domain expertise, keep the things that you know best, but broaden your perspective, broaden your vantage point to think about it in the context of the whole ecosystem, the whole organization, the whole industry, which you often don't get a chance to stay in.</p>
+<p><strong>Jessica Fain</strong> (01:05:08):<br />
+And what happens at that point is you get seen as a strategic thinker. You get seen as somebody who really cares about the company's success and not just your own. And so it is actually a really, really important tool for growth, especially ... I had told April when I originally pitched her on being our chief of staff that I wanted to take the job because I wanted to know if I wanted to be a CPO when I grew up.</p>
+<p><strong>Jessica Fain</strong> (01:05:31):<br />
+And it's true. I still don't know because it's a really, really hard job and I have just way more respect than I ever did before that. But I think that if you want to grow into a product leadership role, expanding your viewpoint, expanding the way that you see problems, and thinking about it from a global perspective is a way to show up as that strategic leader that you say you want to be.</p>
+<p><strong>Lenny Rachitsky</strong> (01:05:58):<br />
+I love this advice. Just to make it very clear for people, because it's easy to just like, "Yeah, okay, I'll just expand my horizon," basically, the advice here is just think on behalf of the entire business, not just your feature, not just your little goal. It's like, what is the business trying to do? Here's how this fits into it. Here's what the CEO broadly is thinking about.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:22):<br />
+The epitome of this to me is Jeff Weinstein, I think is how you pronounce his last name, or Weinstein, at Stripe. He's just like a PM on a product and he's just constantly tweeting and sharing Stripe as a business. He's just thinking about Stripe as the company and then here's this thing I work on that helps the company.</p>
+<p><strong>Jessica Fain</strong> (01:06:40):<br />
+Absolutely. And Jeff and I worked together at Box.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:43):<br />
+Oh, you did? Oh, that is so cool.</p>
+<p><strong>Jessica Fain</strong> (01:06:43):<br />
+Yeah.</p>
+<p><strong>Lenny Rachitsky</strong> (01:06:44):<br />
+Okay. So would you agree he's like the epitome of this?</p>
+<p><strong>Jessica Fain</strong> (01:06:47):<br />
+Oh yeah. I mean, he's so charismatic and able to really put himself in other people's shoes. I think that it is just a way to ... We just redid our PM career ladder for this year and I led that effort. And one of the things that we noted as a trait of becoming more senior is your product citizenship and how much you are embedding back in the organization and giving back best practices, mentoring others, broadening people's horizons on tooling, technology, storytelling, and of course strategy.</p>
+<p><strong>Jessica Fain</strong> (01:07:25):<br />
+And I think that this is such an important part of people's growth that they often undersell, but you can do it at every level in your own area. And it's about connecting the dots back up to what is important to the company. So many times I see docs that are like, "Okay, our KR is to ship this thing." And I'm like, "Why does that matter? Does anyone care?"</p>
+<p><strong>Jessica Fain</strong> (01:07:55):<br />
+You have to tell a story. And even if that's true, that shipping is the care, sometimes that's the case, right? But even if that's true, why are you doing that? What is the outcome for the business? Why would the CEO be excited about shipping that? It's usually because of some business outcome or user outcome that you have to tie back to their perspective of.</p>
+<p><strong>Jessica Fain</strong> (01:08:18):<br />
+And then I think the flip side of is if you're working on something that doesn't shift one of those outcomes or isn't urgent for the business, do you need to change course? Do you need to say, "Hey, actually, I don't think this is the highest leverage thing right now. We could actually do X to be much more effective for our broader goals."</p>
+<p><strong>Lenny Rachitsky</strong> (01:08:40):<br />
+That's where I was going to go, is just like that's the ultimate trust building move is to tell the leaders, "Okay, here's our goal, here's all these ideas, but we don't think this is the right goal and here's how this doesn't fit in and here's why we should kill this product."</p>
+<p><strong>Jessica Fain</strong> (01:08:51):<br />
+Right, exactly. Right. Think like a CPO. Put yourself in their shoes. You had Stewart on a few weeks ago and he talked about how the CEO is kind of the only one who can really kill things, things that already exist, or really make some of those super, super tough decisions. I think that is oftentimes our culture, but is a mistake. If we each think of ourselves as owners and as contributors to the business and as leaders, we will bring those opportunities up as well to both amplify the business or save it from itself.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:30):<br />
+Do the job you want versus the job you have. Classic.</p>
+<p><strong>Jessica Fain</strong> (01:09:31):<br />
+Yes.</p>
+<p><strong>Lenny Rachitsky</strong> (01:09:36):<br />
+Okay. Let's talk AI. I feel like you cannot do anything these days without mentioning AI in some way. How is AI changing the skill of influence? What's changed in the past couple years in trying to convince people to do the things you're hoping them to do?</p>
+<p><strong>Jessica Fain</strong> (01:09:51):<br />
+I think that we are entering a golden age of product management, not of product managers, but of product management and the core skills that made this function the thing that I love to do. More than ever, what we have to do is have really interesting ideas that are grounded in user empathy, curiosity, testing, iteration, but we will still be working in organizations where getting buy-in to those ideas and influencing people to fund not just the V1, but the much more expensive V2, three, four, and ongoing support become 10x more important.</p>
+<p><strong>Jessica Fain</strong> (01:10:33):<br />
+And as execution basically plummets in complexity and everyone can be a builder, PMs and product thinkers, which I think is far beyond the product management function, can be so incredibly influenced by those core skills of bringing people along for the ride. So I think that product managers for a long time have made their careers on being the most type A, the Gantt chart master, the best note taker in the business. And if AI is better than you at analyzing data or taking meeting notes or running experiments, what's your job now?</p>
+<p><strong>Jessica Fain</strong> (01:11:21):<br />
+So the leverage actually shifts from doing that work and being the synthesizer to deciding what work actually survives and encouraging other people to buy into that process. And I actually think it's just so incredibly exciting because PMs and other functions, engineers, designers are so empowered to bring that first version to bear to get that momentum, to get that signal on product market fit, on user benefit, and then build momentum from that point in a much faster cycle. And so it's actually an incredibly exciting place, but the act of influence, the act of stakeholder management, the act of learning...</p>
+<p><strong>Jessica Fain</strong> (01:12:03):<br />
+... active influence. The act of stakeholder management, the act of learning is the 10X skill.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:06):<br />
+Awesome. This is such a fun topic. The way I've been thinking about this is just where are human brains going to continue to be necessary and useful in this new world?</p>
+<p><strong>Jessica Fain</strong> (01:12:15):<br />
+I'm terrified.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:18):<br />
+Maybe nowhere.</p>
+<p><strong>Jessica Fain</strong> (01:12:19):<br />
+Maybe nowhere.</p>
+<p><strong>Lenny Rachitsky</strong> (01:12:20):<br />
+But the way you described it, which I totally agree with, is essentially it's deciding what to do, and getting everyone on the same page, alignment around that. We're all on the same page, here's what we're prioritizing. And then it's like, cool, now let's build it. And that happens so quickly now.</p>
+<p><strong>Jessica Fain</strong> (01:12:36):<br />
+Yeah. And what can you notice that AI can't? AI is not good at being an anthropologist yet. It is based on a corpus of existing knowledge. And I think the best product thinkers, again, across functions that I've worked with, really are able to get to novel insights through that user empathy, through that understanding and through deep understanding of the business dynamics, changing industry, and bringing those together to prioritize ideas that actually really, really matter. We're going to have so much software we won't even know what to do with it, but what software actually works, what software actually matters, what software gets marketed or sold? Or we're going to have to think about not just that the software exists, but that it can get to its final state, and that is going to require people's buy- in to that idea working.</p>
+<p><strong>Lenny Rachitsky</strong> (01:13:32):<br />
+Yeah. The way I think about this right now is just where humans are still necessary and great product thinkers are still necessary is on the front end deciding what to prioritize and build, on the back end, determining if this is good and ready, essentially judgment and taste. And then there's distribution I think is such an underappreciated new bottleneck, because as you said, there's so much shit out there. Just like, how do we get anyone to pay attention to any of this stuff? Every day, there's a new life-changing product. So I feel like that's going to be a big problem.</p>
+<p><strong>Jessica Fain</strong> (01:14:06):<br />
+Oh, I want you to do a whole episode on distribution because I feel this so much. If everyone thinks they can build the next sales force on their own, by the way, I don't believe that, then you're going to have just a flood of available tools. And who gets the attention? It is still going to be who has the marketing dollars, who has the brand reputation, who is the existing customer base. Distribution is everything. And I think the quintessential example we've seen here is with Gemini and Google's tools and just their total continued dominance in that market because of tools of distribution. And I think it's really fun to see. I think the other piece I would say that's underrated there is trust building, trust with your users, but also with your internal teams. We're seeing even model companies hire at a huge rate right now. So you are still working with colleagues. You are still working with millions of users, and alongside distribution is trust, and that is a function of influence and empathy.</p>
+<p><strong>Lenny Rachitsky</strong> (01:15:11):<br />
+Along these lines, what I wonder is, we talked about these other two kind of areas, humans are still valuable and great product leaders are still valuable deciding what to build, knowing if it's ready and awesome. I wonder how good AI will get at those things because we never thought AI would be amazing at coding and now it's 100% of code will be soon written by AI. And I've actually been building a bunch of stuff and I just find Codex and Claude Code are so good at actually giving you ideas for what to build. I'm just like, "What should I do to make this better?" And it's like, "Here's 10 ideas." And then they're like, "That is a really good idea." So I think it'll get there. People underestimate how good it'll get at these things, I think.</p>
+<p><strong>Jessica Fain</strong> (01:15:49):<br />
+Yeah. I do think that as ideas proliferate and as there just becomes so many ideas and so much feedback, we're going through a strategy doc rewrite. I think we have like 40 versions now because it's so easy to rev on a 15-page doc. Actually, when these decisions are happening faster, building is happening faster, the flip side of that is mistakes compound faster as well. And strategy clarity becomes so much more important to anchor people on. If you want to have an empowered EPDI organization or company, that clarity of what you believe, what are the most important problems to invest time and energy into, where we want to invest compute and dollars, that is the mechanism for letting people go and run at as fast a velocity as they're capable of. So if you have that corpus of shared beliefs that you update on a pretty fast clip, because I think that's the mode we're in, that is actually what enables teams to build the right stuff as opposed to just the idea that Claude had.</p>
+<p><strong>Lenny Rachitsky</strong> (01:17:00):<br />
+I love this point because there's a lot of talk on Twitter actually just today in the PM community about PRDs are dead. And I think it's exactly the opposite, which is being very clear about what we are doing and the strategy is now the most important thing, because once you have that, then it's cool. Fire off a hundred agents and we'll go build it and launch it.</p>
+<p><strong>Jessica Fain</strong> (01:17:20):<br />
+Totally. Strategy clarity is so, so important. I am not in the Twitter verse. I find it exhausting, partially because I think takes like PRDs are dead or software is dead is like really dumb. I find it a little insufferable if I'm being spicy, because I still think what matters is understanding users, understanding business and economic dynamics, understanding strategy and what we're trying to accomplish, and then really thinking through what is the right way to do that together.</p>
+<p><strong>Lenny Rachitsky</strong> (01:17:56):<br />
+Okay. Maybe one more question along these lines, just agents now running as colleagues. Everyone's got all these Claudes running, Codexes, all kinds of agent platforms. Now that agents are a part of the workforce and increasingly, is there anything there around influence that is valuable for people to start thinking about to learn how to do?</p>
+<p><strong>Jessica Fain</strong> (01:18:18):<br />
+I love that question. We talk about this a lot, especially when we think about identity, security, compliance, that agents are a teammate for accelerating work, and the risks that that also provides because of the places where agents fall down. I think agents are absolutely something we have to think about with relation to influence, because we are basically all directors of work now, right? If we have </p></div>
+  <button class="expand-btn" id="expand-btn">▼ 展開完整內容</button>
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

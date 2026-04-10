@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Getting buy-in — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">Getting buy-in</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">Getting buy-in</div>
+    
+    <div class="article-meta">2021-06-10<span>·</span>1,968 words</div>
+    <div class="tags-row"><span class="mini-tag">領導</span> <span class="mini-tag">設計</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">組織</span> <span class="mini-tag">成長</span> <span class="mini-tag">Newsletter</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hello, I’m <a href="https://twitter.com/lennysan">Lenny</a>, and welcome to a</em>🔓 <strong><em>bonus free edition</em></strong> 🔓<em>of my weekly newsletter. Each week I tackle reader questions about product, growth, working with humans, and anything else that’s stressing you out at the office.</em></p>
+<blockquote>
+<h2>Q: I’m a PM and I’m having a hard time getting buy-in for my ideas. My teammates quickly shoot me down, or disregard my recommendations. Any advice?</h2>
+</blockquote>
+<p>That sounds rough! I’d be super-discouraged if I were in your shoes. But I’m inspired that you’re using this as a learning opportunity instead of calling it quits.</p>
+<p>To help you build your getting-buy-in muscles, I pulled in Shivani Berry, the CEO and Founder of <a href="https://d56wlb04.na1.hs-sales-engage.com/Ctc/UD+23284/d56WLB04/Jks2-6qcW69sMD-6lZ3lhN7PwN52LVkjSW8ccvkj2ZRwb0W7sPTy84z_qJSW1bq-Vs74xMLQW6T4mY018MmdgW1B3zQg80MF-HW7N_JLH1btDHVW5vRJq74qG5CkW6c01gn3q_PsBW50f2Xk3ddpKbW7SH0Z97kQ9PhW90LnR54t_g4JW1kcWbx59WLsBW7BBLhx5KR5wwN9lHvD_GtxxrW2qPLb58h_-JVW5Kr9JV7RylcWN1W9WPhTKrX5W5F1HtV535xn7VWz28y3_S99Ff80BqzR04">Arise Leadership</a>, to share her tactical, practical, field-tested advice. Shivani was a longtime PM and now teaches aspiring and new women leaders how to influence stakeholders. Unsurprisingly, this topic comes up <em>often</em> in her courses. We’re lucky to have her share her frameworks, and I hope you find this as valuable as I did.</p>
+<p><em>For more from Shivani, check out the <a href="https://d56wlb04.na1.hs-sales-engage.com/Ctc/UD+23284/d56WLB04/Jks2-6qcW69sMD-6lZ3lhN7PwN52LVkjSW8ccvkj2ZRwb0W7sPTy84z_qJSW1bq-Vs74xMLQW6T4mY018MmdgW1B3zQg80MF-HW7N_JLH1btDHVW5vRJq74qG5CkW6c01gn3q_PsBW50f2Xk3ddpKbW7SH0Z97kQ9PhW90LnR54t_g4JW1kcWbx59WLsBW7BBLhx5KR5wwN9lHvD_GtxxrW2qPLb58h_-JVW5Kr9JV7RylcWN1W9WPhTKrX5W5F1HtV535xn7VWz28y3_S99Ff80BqzR04">Arise Leadership Accelerator</a> for women, <a href="https://ariseleadership.com/">sign up here</a> to learn more, or reach out to her on <a href="https://twitter.com/shivanisberry">Twitter</a> or <a href="https://www.linkedin.com/in/shivaniberry/">LinkedIn</a>.</em></p>
+<h2><strong>Getting buy-in for your ideas</strong></h2>
+<p><em>By Shivani Berry</em></p>
+<p><img alt="Image from Getting buy-in" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/93f614f7-0f11-4381-aece-363ec56e1c5a_500x636.jpeg" /></p>
+<p>Buy-in is the lifeblood of Product Management. I learned this the hard way. As a new PM, I walked into my first roadmap planning meeting confident and excited. I was about to recommend that we build a new search feature, and I knew it was a slam-dunk idea.</p>
+<p>As I shared my recommendation with the product team, I was met with confused stares and irritated faces. After I was done, I was peppered with questions and comments: “Why should we prioritize this over another feature that’s easier to build?” and “I don’t get why we should offer this at all.”</p>
+<p>Yikes.</p>
+<p>I left the meeting defeated and stressed. My team felt like I was forcing ideas on them and undervaluing their expertise.</p>
+<p>This is a common problem, and one you can learn how to fix. I’ll let you in on the painfully obvious secret: <em>Buy-in is the result of showing your team why your idea achieves their goals</em>. It sounds trite, but it’s true.</p>
+<p>In practice, however, it is difficult to do. In fact, over the years, I’ve realized there are three common reasons leaders fail to get buy-in. In this case, I was guilty of all three:</p>
+<ol>
+<li><strong>Assuming everyone is thinking what you’re thinking.</strong> We assume the “right answer” must be obvious, but it almost never is.</li>
+<li><strong>Feeling time-crunched.</strong> We believe there isn’t enough time to get everyone fully bought in before you have to move forward.</li>
+<li><strong>Fear of disagreement.</strong> We’re afraid someone will dissent, so we try to sneak the plan through. Sometimes we do this subconsciously, and we aren’t even aware of this fear!</li>
+</ol>
+<p>To avoid these pitfalls, I’ll share the three tactics that I’ve found to have the largest impact on getting buy-in:</p>
+<ol>
+<li><strong>Co-creation</strong></li>
+<li><strong>Presence</strong></li>
+<li><strong>Storytelling</strong></li>
+</ol>
+<h3><strong>1. Co-creation</strong></h3>
+<p>If you co-create your idea with your team, your team will be infinitely more receptive to your suggestions. Co-creation means collaborating with others to identify the best solution or plan of action.</p>
+<p>Co-creation is important for two reasons:</p>
+<ul>
+<li>First, you create a better idea. Every day, you work with smart people with diverse perspectives. Leverage that! You don’t need to come up with the best idea; you need to execute on the best idea.</li>
+<li>Second, when you co-create, people feel invested in the idea, so they have a stake in the outcome.</li>
+</ul>
+<p>After my failed attempt to rally my team around the feature I thought we should prioritize, I changed my approach and co-created with them. I walked them through the data, and we aligned on which part of the funnel had the biggest opportunity to improve conversion. They saw what I saw.</p>
+<p>We then brainstormed potential features and concluded, as a team, that we should prioritize building an improved search feature. In the end, we had a better solution than the one I initially proposed and everyone was bought in.</p>
+<p>You can co-create in practically any scenario: aligning with your team on quarterly OKRs, aligning with stakeholders on project status, asking for resources from a cross-functional partner, gaining support for your recommendation, or keeping a meeting on track.</p>
+<p><strong>Three strategies to co-create effectively:</strong></p>
+<ol>
+<li><strong>Start early.</strong> It’s so common to start working on a project and do everything yourself before talking to others. This is shortsighted! Again, your goal isn’t to come up with a great idea; it is to execute on a great idea. So once you have a straw-man proposal to tackle a problem, bring together the group that’s affected. Run a brainstorming session to jointly iterate on the draft proposal and align on what success looks like. That will get everyone’s brain churning and help you co-create. Stakeholders will feel valued. You’ll stop hearing “I wish you’d looped us in earlier.”</li>
+</ol>
+<p><img alt="Image from Getting buy-in" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e2a26a80-474d-4f6d-9708-83ad580b985e_1200x1600.jpeg" /></p>
+<ol>
+<li><strong>Show your work while you work.</strong> Remember math class where your teacher would require you to show the process of solving the problem, instead of just writing down the solution? Take “show your work” one step further. As you are coming up with ideas and thinking through the problem, get used to sharing updates along the way. You can do this by dropping a summary of user interview results in Slack or sharing learnings and challenges in casual conversations in between meetings or formal weekly check-ins.</li>
+</ol>
+<p><img alt="Image from Getting buy-in" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e2551a4c-2972-44a6-95d7-a0c117e7a2e5_1112x502.png" /></p>
+<p>I used to share a slide like this to highlight key learnings and the associated conclusions with the working group and executives.</p>
+<ol>
+<li>
+<p><strong>Be curious.</strong> It’s easy to mentally write off a stakeholder who expresses concerns about your idea. You may think, “They just don’t get it.” This gets you nowhere. Invest the time to understand people’s concerns and motivations. Ask open-ended questions to gain insights to create a compelling pitch. Questions include:</p>
+</li>
+<li>
+<p>“What am I missing?”</p>
+</li>
+<li>“How can we make this stronger?”</li>
+<li>“Can you please walk us through your thinking?”</li>
+</ol>
+<h3><strong>2. Presence</strong></h3>
+<p>Presence is an elusive trait. We know it when we see it. It’s our ability to own the room. The <em>Harvard Business Review</em> describes it as “your ability to project mature self-confidence; a sense that you can take control of difficult, unpredictable situations, make tough decisions in a timely way, and hold your own with other talented and strong-willed team members.”</p>
+<p>Presence is important because it shapes how colleagues perceive us. This impacts our ability to influence.</p>
+<p>Presence is a combination of verbal cues, body language, and mindset. One of the actions you can take to improve your presence is to stop saying “sorry” when it’s not warranted. Our words impact how stakeholders perceive us and how we perceive ourselves. Instead of apologizing, say the following phrases:</p>
+<blockquote>
+<p>🙈 Instead of: “Sorry to bother you”</p>
+<p>💪 Say: “Do you have a minute?”</p>
+<p>🙈 Instead of: “Sorry, I messed up”</p>
+<p>💪 Say: “I’ll fix that now”</p>
+<p>🙈 Instead of: “Sorry, I didn’t realize”</p>
+<p>💪 Say: “Thanks for pointing that out”</p>
+<p>🙈 Instead of: “Sorry, I didn’t understand”</p>
+<p>💪 Say: “Can you help me understand?”</p>
+</blockquote>
+<p>Natalie, a senior engineer at Salesforce, realized she said “sorry” all the time when we were discussing this in the Arise Leadership Accelerator. She practiced not saying it as her default response. Within a week, her team commented that she presented more compelling ideas and showed up stronger. A seemingly simple change can have a powerful impact.</p>
+<p>In addition, own your voice by getting rid of qualifiers like “actually,” “quickly,” or “just.” For example: “I actually have an idea,” “I just think that…” or “I have a quick question.”</p>
+<ul>
+<li>“Just” demeans what you have to say. It shrinks your power and influence.</li>
+<li>“Actually” communicates a sense of surprise that you have something to contribute.</li>
+<li>“Quickly” assumes by default you’re imposing on others.</li>
+</ul>
+<p>Don’t minimize yourself. Trust yourself—share your ideas and ask the questions.</p>
+<h3><strong>3. Storytelling</strong></h3>
+<p>One big reason we fail to get buy-in is that we assume everyone else is thinking what we’re thinking. Storytelling helps break through this roadblock.</p>
+<p>Good storytelling means you present a narrative that resonates with your audience.</p>
+<p><strong>Focus on why stakeholders should care about the idea.</strong> For example, prioritizing a recommendation feature will improve conversion or changing the sprint process will free up time to reduce tech debt.</p>
+<p><strong>When you present your message, cut the backstory to prevent meeting attendees from zoning out.</strong> Ask yourself: What context does the stakeholder <em>need to know</em> to make a decision? Eliminate everything else (or put it in the appendix). You can always share more information if needed.</p>
+<p>Reflect on these questions to help you craft a streamlined meeting agenda:</p>
+<p><img alt="Image from Getting buy-in" src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/84dff4d2-5132-45eb-b2d4-d758d876ab18_1204x670.png" /></p>
+<p>To drive alignment, always focus on co-creating, showcasing presence, and storytelling. It’s an ongoing process. The more you practice, the more natural it will get. Influencing is the best way to drive a larger impact at your company and move up faster in your career. Good luck and happy influencing!</p>
+<p><em>Special thanks to Lenny, Ellen Fishbein, and Gagan Biyani for reviewing.</em></p>
+<p>—</p>
+<p>Thanks, Shivani!</p>
+<p>If you want to get your manager and team excited about your ideas and eager to implement them, definitely check out the Arise Leadership Accelerator for women, led by Shivani. To learn more about the upcoming program, <a href="https://d56wlb04.na1.hs-sales-engage.com/Ctc/UD+23284/d56WLB04/Jks2-6qcW69sMD-6lZ3lhN7PwN52LVkjSW8ccvkj2ZRwb0W7sPTy84z_qJSW1bq-Vs74xMLQW6T4mY018MmdgW1B3zQg80MF-HW7N_JLH1btDHVW5vRJq74qG5CkW6c01gn3q_PsBW50f2Xk3ddpKbW7SH0Z97kQ9PhW90LnR54t_g4JW1kcWbx59WLsBW7BBLhx5KR5wwN9lHvD_GtxxrW2qPLb58h_-JVW5Kr9JV7RylcWN1W9WPhTKrX5W5F1HtV535xn7VWz28y3_S99Ff80BqzR04">sign up here</a>. For more from Shivani, you can reach her on <a href="https://twitter.com/shivanisberry">Twitter</a> or <a href="https://www.linkedin.com/in/shivaniberry/">LinkedIn</a>.</p>
+<p>Have a fulfilling and productive week 🙏</p>
+<h2><strong>🔥 Featured job opportunities</strong></h2>
+<h4>Product Management</h4>
+<ol>
+<li><strong>Shift</strong>: <a href="https://pallet.xyz/job/2907defd-bb4b-4972-86d5-024eda23dcd6?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (Remote)</li>
+<li><strong>Postlight</strong>: <a href="https://pallet.xyz/job/c205c9c1-b4e8-4a43-a538-adaa2bfe974d?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Manager</a> (NYC, Remote)</li>
+<li><strong>Noyo</strong>: <a href="https://pallet.xyz/job/7e49a835-3b73-4bc2-a397-feea3e8d3e80?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">VP of Product</a> (Remote)</li>
+<li><strong>Polygence:</strong><a href="https://pallet.xyz/job/55046525-1bd3-4901-8452-45fc1c643d82">Head of Product</a> (Palo Alto)</li>
+<li><strong>Metafy:</strong><a href="https://pallet.xyz/job/3bd02acf-9da4-4769-9dd7-fed6a81045c8">Principal Product Manager</a> (Remote)</li>
+<li><strong>Brex:</strong><a href="https://pallet.xyz/job/5a8a0c07-552b-49a0-ac12-e588280790c5">Senior Product Manager on Growth</a> (Remote)</li>
+<li><strong>LawnStarter:</strong><a href="https://pallet.xyz/job/e55f36fa-2103-4ebf-bbe4-dbd4fc63fa4a">Founding Product Manager</a> (Remote)</li>
+<li><strong>Immuta:</strong><a href="https://pallet.xyz/job/7e71effa-1f76-4607-a9de-57ca1b07f261">Senior Technical Product Manager</a> (Remote)</li>
+<li><strong>6ix:</strong><a href="https://pallet.xyz/job/5322e118-bba3-4a9f-ac38-da61d5b4cab8">Project Manager</a> (Remote/Toronto)</li>
+</ol>
+<h4>Growth</h4>
+<ol>
+<li><strong>Brex:</strong><a href="https://pallet.xyz/job/5a8a0c07-552b-49a0-ac12-e588280790c5">Senior Product Manager on Growth</a> (Remote)</li>
+<li><strong>Free Agency:</strong><a href="https://pallet.xyz/job/3445e94f-d760-4b3b-9c47-393a6f4702e8">Community Manager</a> (NYC)</li>
+<li><strong>Coda:</strong><a href="https://pallet.xyz/job/bba22fae-9ec5-47a2-b6dd-157f498b1fba">Growth Associate Program</a> (SF)</li>
+</ol>
+<h4>Engineering</h4>
+<ol>
+<li><strong>Mage</strong>: <a href="https://pallet.xyz/job/d41acc31-b5fa-4e68-8c5a-7973c29ad712?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Front-end engineer</a> (Santa Clara, CA)</li>
+</ol>
+<h4>Design</h4>
+<ol>
+<li><strong>Panther:</strong><a href="https://pallet.xyz/job/fb5d0f95-eadf-44b2-8968-d2ad35ed5ab9?n=Lenny%27s+Job+Board+&amp;r=%2Flist%2Flennys-jobs%2Fjobs">Senior Product Designer</a> (Remote)</li>
+</ol>
+<p><em>Browse all open roles (and add your own) at <a href="https://lennysnewsletter.com/jobs">Lenny’s Job Board</a>.</em></p>
+<h4><strong>How would you rate this week's newsletter? 🤔</strong></h4>
+<p><a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4Hp2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Great</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4vX2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Good</a> • <a href="https://t.sidekickopen82.com/s1t/c/5/f18dQhb0S7kF8cV_VXW1CdjwB59hl3kW7_k2847sD3qkVNxJHk1CX2ZcW2bzNJl8lkfc1101?te=W3R5hFj4cm2zwW4cQKtC3KcLnYW4hLZp03ZVbTxW1JB0ML1--tKxW20ZTw51-YpBFW1W_jBk1ZmvHBW21j9tt1-_j_TW1Vnkcj1V3fMvw1V21pC4kr2&amp;si=7000000001348012&amp;pi=6174bab6-7009-4402-a497-3d6f867fbea1">Meh</a></p>
+<p><strong>If you’re finding this newsletter valuable, consider sharing it with friends, or subscribing if you haven’t already.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

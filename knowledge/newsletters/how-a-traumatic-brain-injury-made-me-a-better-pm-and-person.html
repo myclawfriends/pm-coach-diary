@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a traumatic brain injury made me a better PM—and person — Lenny's Knowledge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#111;border-bottom:1px solid #1e1e1e;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:700;color:#fff}
+.logo span{color:#60a5fa}
+.breadcrumb{color:#555;font-size:.85rem}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{color:#444;margin:0 6px}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;font-weight:600;color:#e0e0e0;margin:32px 0 16px}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px}
+.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.section-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:24px;transition:border-color .2s}
+.section-card:hover{border-color:#3b82f6}
+.section-card h3{font-size:1.1rem;color:#fff;margin-bottom:6px}
+.section-card .count{color:#60a5fa;font-size:.85rem;margin-bottom:12px}
+.section-card p{color:#888;font-size:.85rem;line-height:1.6}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.tag{background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.75rem;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.tag:hover,.tag.active{background:#1e3a5f;border-color:#3b82f6;color:#93c5fd}
+.tag .cnt{color:#555;margin-left:4px}
+.article-list{display:flex;flex-direction:column;gap:12px}
+.article-card{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.article-card:hover{border-color:#2563eb}
+.article-card .meta{flex:1;min-width:0}
+.article-card .en-title{font-size:.95rem;color:#d0d0d0;font-weight:500;margin-bottom:4px}
+.article-card .zh-title{font-size:.82rem;color:#60a5fa;margin-bottom:6px}
+.article-card .info{font-size:.75rem;color:#555;display:flex;gap:10px;flex-wrap:wrap}
+.article-card .tags-row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.mini-tag{background:#1a1a1a;border:1px solid #252525;color:#666;font-size:.68rem;padding:2px 8px;border-radius:10px}
+.date{color:#555;font-size:.75rem;white-space:nowrap}
+/* Article detail */
+.article-header{margin-bottom:32px}
+.article-header .en-title{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
+.article-header .zh-title{font-size:1.1rem;color:#60a5fa;margin-bottom:16px}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#555;margin-bottom:20px}
+.zh-summary{background:#0d1b2e;border:1px solid #1e3a5f;border-left:3px solid #3b82f6;border-radius:8px;padding:20px 24px;margin-bottom:32px}
+.zh-summary h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#3b82f6;margin-bottom:12px}
+.zh-summary .content{color:#c0cfe0;font-size:.95rem;line-height:1.8}
+.zh-summary .generating{color:#555;font-style:italic}
+.divider{border:none;border-top:1px solid #1e1e1e;margin:32px 0}
+.en-content{color:#bbb;font-size:.92rem;line-height:1.9;max-height:60vh;overflow-y:auto;padding-right:8px}
+.en-content h1,.en-content h2,.en-content h3{color:#e0e0e0;margin:1.5em 0 .6em}
+.en-content h1{font-size:1.2rem}
+.en-content h2{font-size:1.05rem}
+.en-content h3{font-size:.95rem}
+.en-content p{margin-bottom:1em}
+.en-content strong,.en-content b{color:#d0d0d0}
+.en-content ul,.en-content ol{margin:0 0 1em 1.5em}
+.en-content li{margin-bottom:.4em}
+.en-content blockquote{border-left:3px solid #2a2a2a;padding-left:16px;color:#777;margin:1em 0}
+.en-content code{background:#161616;padding:2px 6px;border-radius:4px;font-size:.85em;color:#a5f3fc}
+.expand-btn{margin-top:12px;background:#161616;border:1px solid #2a2a2a;color:#666;font-size:.8rem;padding:6px 16px;border-radius:6px;cursor:pointer}
+.expand-btn:hover{color:#ccc;border-color:#444}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#555;font-size:.85rem;margin-bottom:24px}
+.back-link:hover{color:#60a5fa;text-decoration:none}
+.external-link{display:inline-flex;align-items:center;gap:6px;background:#161616;border:1px solid #2a2a2a;color:#888;font-size:.8rem;padding:6px 14px;border-radius:6px;margin-top:8px}
+.external-link:hover{color:#60a5fa;border-color:#3b82f6;text-decoration:none}
+.stats-row{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.stat{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:16px 20px;text-align:center;min-width:120px}
+.stat .num{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:.75rem;color:#555;margin-top:2px}
+/* Search */
+#search-box{width:100%;background:#111;border:1px solid #2a2a2a;color:#e0e0e0;padding:10px 16px;border-radius:8px;font-size:.9rem;margin-bottom:20px;outline:none}
+#search-box:focus{border-color:#3b82f6}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 24px;color:#333;font-size:.75rem;border-top:1px solid #111}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/pm-coach-diary/knowledge/">Lenny's <span>Knowledge</span></a>
+    <span class="breadcrumb"><a href="/pm-coach-diary/knowledge/">Home</a><span>›</span><a href="/pm-coach-diary/knowledge/newsletters/">📰 Newsletter</a><span>›</span><span style="color:#aaa">How a traumatic brain injury made me a better PM—a…</span></span>
+  </div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="/pm-coach-diary/knowledge/newsletters/">← 返回Newsletter列表</a>
+  <div class="article-header">
+    <div class="en-title">How a traumatic brain injury made me a better PM—and person</div>
+    
+    <div class="article-meta">2023-06-06<span>·</span>6,302 words</div>
+    <div class="tags-row"><span class="mini-tag">設計</span> <span class="mini-tag">Newsletter</span> <span class="mini-tag">產品管理</span> <span class="mini-tag">成長</span> <span class="mini-tag">領導</span> <span class="mini-tag">組織</span></div>
+    
+  </div>
+
+  <div class="zh-summary">
+    <h3>中文重點整理</h3>
+    <div class="generating">中文重點整理生成中，請稍後重新整理頁面...</div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#444;margin-bottom:16px">English Original</h2>
+  <div class="en-content" id="en-content"><p><em>👋 Hey, <a href="https://twitter.com/lennysan">Lenny</a> here! Welcome this month’s ✨ </em><em>free edition</em><em>✨ of Lenny’s Newsletter. Each week I tackle reader questions about building product, driving growth, and accelerating your career.</em></p>
+<p>If you’re getting this post, that means my wife’s due date is very near (😮‍💨), or our kid was just born (🥹). To give my new family my undivided attention, I’ll be taking a month or so of parental leave. To make sure you continue to receive exceptional value from the newsletter during this period, a few months back I <a href="https://twitter.com/lennysan/status/1635437392349007873?s=20">put out a call</a> for guest posts. Out of 500+ pitches, I whittled it down to six extraordinary posts. Today’s post is the first of the series and comes from <a href="https://www.linkedin.com/in/amolavasare/">Amol Avasare</a>, who runs B2B growth at <a href="https://www.masterclass.com/">MasterClass</a>. Amol was previously an investment banker, chief of staff, and a founder, and last year Amol suffered a serious brain injury. His story of recovery has stuck with me ever since I read the first draft. Enjoy ✨</p>
+<p><em>For more from Amol, make sure to follow him on <a href="https://www.linkedin.com/in/amolavasare/">LinkedIn</a> and <a href="https://twitter.com/theamolavasare?lang=en">Twitter</a>. He also writes a great newsletter, <a href="https://www.timetoship.co/">Time to Ship</a>, which is a daily digest of the latest features shipped by your favorite product teams.</em></p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/afc5e5d5-5f71-4952-8ae7-979f888df863_8000x4000.png" /></p>
+<p><em>“The real troubles in your life are apt to be things that never crossed your worried mind—the kind that blindside you at 4 p.m. on some idle Tuesday.”</em> —Baz Luhrmann, <a href="https://www.youtube.com/watch?v=sTJ7AzBIJoI">“Everybody’s Free”</a></p>
+<p>My life was turned upside down when I suffered a <a href="https://www.mayoclinic.org/diseases-conditions/traumatic-brain-injury/symptoms-causes/syc-20378557">traumatic brain injury</a> (TBI) during a Muay Thai sparring session in San Francisco. I immediately suspected something was wrong as I felt a strange sensation in my head, but as I had no other symptoms, I didn’t think too much of it and kept going on with my life as normal.</p>
+<p>Two weeks later, I suddenly felt extremely dizzy and started to get painful headaches. I knew I was in big trouble when I tried to read a book but couldn’t understand what the sentences meant. Individual words were fine, but when I tried to string together a whole sentence, it just wouldn’t click. My symptoms began to spiral, and before I knew it I found myself in the emergency room.</p>
+<p>What I thought would be a quick stint on the sidelines turned into the most difficult and prolonged ordeal of my life. I was on disability leave for nearly a year, and even today I’m still not fully recovered. It’s been a tough experience, but one that in a strange way I’m immensely grateful for. What I’ve learned from the process, which I’ll be sharing in today’s post, has been a huge unlock both as a PM and in life more broadly.</p>
+<p>—</p>
+<p>Most mild TBIs heal within weeks, but for <a href="https://journals.plos.org/plosmedicine/article?id=10.1371%2Fjournal.pmed.1003652">10% to 20%</a> of people, including yours truly, symptoms don’t get better and persist for a much longer time. Everyone’s symptoms vary, but generally, the body’s capacity for stimuli falls to a much lower level. This makes it a lot harder to engage in daily life activities. For example, while most people would feel nauseous if they worked on their laptop for 16 hours straight, a TBI patient may feel the same way after just a few minutes of screen time.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/847899a6-040a-4749-b538-9a4543cb0985_1440x982.png" /></p>
+<p>My main physical symptoms were dizziness, nausea, headaches, noise sensitivity, fatigue, and a range of GI issues.</p>
+<p>For several months I couldn’t read, listen to audio, or do screen time, as even a few seconds of these activities would set off my symptoms. For over half a year I could barely walk, as any movement would trigger extreme symptoms of dizziness. I was generally unable to take care of myself, and without the support of my amazing partner, I’m really not sure how I would have gotten by.</p>
+<p>I found myself in a very dark place as I could no longer do the activities that brought me joy. I couldn’t stop worrying about whether I’d get better, and the thought of being disabled and unable to work for the rest of my life was overwhelming. I also became very withdrawn, as social contact would trigger my symptoms.</p>
+<p>It’s been a brutal journey requiring very “active” rehab, but I’m glad to say that I’m now about 90% recovered and can yet again do most things in life. I’m back at work, and apparently I’m now also writing 5,000-word posts for Lenny’s Newsletter!</p>
+<p>Here’s what I’ve learned during my recovery.</p>
+<h1><strong>Lessons from the journey</strong></h1>
+<p>Reorienting my life to compensate for my injury has left me with some invaluable knowledge across both my personal and professional life. In this post, I’m going to share a range of frameworks and actionable tips that’ll help you better manage your energy and emotions as a PM, while becoming a happier human being in general.</p>
+<p>Before I jump into specific tactics, a quick primer on an integral part of our physiology that many of my learnings tie back to—the autonomic nervous system.</p>
+<h3><strong>The autonomic nervous system</strong></h3>
+<p>Have you ever felt waves of anxiety and stress before an important meeting? And what about that conversation you had with your difficult coworker that felt like pulling teeth? Did you notice your blood boiling or heart pounding as nerves or frustration set in? If so, you can thank the <a href="https://my.clevelandclinic.org/health/body/23273-autonomic-nervous-system">autonomic nervous system</a> (ANS).</p>
+<p>The ANS regulates a range of involuntary processes throughout our bodies. Examples include heart rate, blood flow, digestion, and our internal threat response. There are two parts to the ANS:</p>
+<ol>
+<li><strong>Sympathetic nervous system:</strong> The “fight or flight” response, which ramps up our body’s response to a perceived threat and keeps us on edge if it thinks we’re unsafe</li>
+<li><strong>Parasympathetic nervous system:</strong> The “rest and digest” response, which relaxes our body, conserves energy, and promotes digestion</li>
+</ol>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/36159c3d-f486-464e-80af-255d7b199912_1540x1430.png" /></p>
+<p>In a healthy ANS, these systems are in a state of flux and balance each other as situations arise.</p>
+<p>After my TBI, I developed ANS dysfunction, with my nervous system getting stuck in “sympathetic dominance.” In other words, the fight-or-flight response became my default state. This led to a range of issues, including excessive anxiety, insomnia, digestive issues, higher cortisol, and more.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/752b294a-98ad-4e2e-84c0-087e44b9c252_1492x758.png" /></p>
+<p>Why is this relevant to you? Turns out that chronic stress also results in sympathetic dominance, where your fight-or-flight response gets stuck in overdrive. If you’re dealing with higher baseline stress levels than you’d like, this system is playing a key role.</p>
+<p>So. . . what can you do about this? The answer lies in stimulating the parasympathetic rest-and-digest system. This response reduces baseline levels of stress and is also a useful tool to remain calm in high-stakes situations—such as a contentious product review. A decent chunk of my recovery journey and what I cover below ties back to this core, overarching principle.</p>
+<h2><strong>Managing energy</strong></h2>
+<p>After nine months of working up my tolerance for screen time and cognitively challenging tasks, I finally restarted my job as a growth PM at MasterClass. <em>Side note: I’m immensely grateful to the MasterClass team for how much they went above and beyond in supporting me throughout my recovery!</em></p>
+<p>Soon after returning to work, my symptoms began to get worse. Due to my reduced physical tolerance, I kept running into strong headaches and nausea, and I’d generally end the workday feeling shattered. These symptoms would often carry over to the following day, and before I knew it, I was progressively crumbling over the course of the week.</p>
+<p>I found a few tactics to be effective at maintaining optimal energy across the course of the day, allowing me to work in a much more sustainable manner.</p>
+<h3><strong>Structuring my calendar for energy</strong></h3>
+<p>The frame of viewing my calendar as a tool for energy management was a game changer. I had to systematically think through how to manage energy troughs and maintain the right levels of energy across the week.</p>
+<p>One simple exercise here is to map out your working energy levels. For one week, at the end of each day draw a curve of how your energy levels fluctuated over the course of that day. Make note of anything that preceded increases or decreases in energy.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/cb29b9b6-e692-4152-bbf3-117e172e8446_1600x733.png" /></p>
+<p>At the end of the week, draw a curve of how your energy levels fluctuated over the course of the week.</p>
+<p>The next step is to ask yourself the question, “Am I happy with what I see?” If the answer is yes, then you’re doing great! If not, you have an opportunity to restructure your week and adjust activities that are crushing your energy.</p>
+<p>In my situation, there were a few obvious energy killers:</p>
+<ol>
+<li>Meeting-heavy Mondays</li>
+<li>Many back-to-back meetings in a row</li>
+<li>More than 1 to 1.5 hours of continuous screen time</li>
+</ol>
+<p>I was progressively losing energy throughout the week. I’d start off strong, but given the meeting-heavy nature of Monday and the start-of-week surprises that can spring up, I’d end up exhausted by the end of the day. This fatigue would carry forward and snowball over the course of the week.</p>
+<p>I moved non-critical one-on-ones to later in the week and front-loaded some of my planned work for Monday to the weekend. Everyone has different views on weekend work, but for me, the benefits of having a lighter start to the week outweighed the inconvenience of a few hours of work on Sunday.</p>
+<p>To help with back-to-back meetings, I started switching some Zoom meetings to phone calls and also made sure to limit myself to a maximum of three back-to-back meetings.</p>
+<p>Also note—if you’re serious about optimizing for energy, Matt Mochary has a killer energy audit exercise that’s completely free:</p>
+<p><a href="https://www.youtube.com/watch?v=emAXGqwtPCk">Watch on YouTube</a></p>
+<h3><strong>Taking breaks</strong></h3>
+<p>One of the biggest hacks I’ve discovered is to take structured breaks throughout the workday. I put two 30-minute “DNS–Break” blocks on my calendar each day. I have one around mid-morning and the other around mid-afternoon so as to most evenly chunk up my day.</p>
+<p>During these breaks, I disconnect from screens and focus on activities that stimulate the rest-and-digest response. For me, this has included meditation (I practice <a href="https://www.lionsroar.com/how-to-practice-vipassana-insight-meditation/">Vipassana</a>), listening to calming music (<a href="https://open.spotify.com/playlist/12fZU4mVdFdj6Nt1NaoRcy?si=6db621eaa79449fe">here’s</a> my go-to playlist), and deep breathing (<a href="https://yogainternational.com/article/view/soothe-your-nervous-system-with-2-to-1-breathing/#:~:text=Inhalation%20emphasizes%20sympathetic%20activity%20(the,rest%2C%20and%20digestion%20branch).">two-one</a> breathing). More on these later.</p>
+<p>I’ve found that I often go into these breaks feeling somewhat frenetic, with anxious energy, but generally leave being much more at peace and rocking “no big deal” vibes.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/9ca88adb-9aaf-4bc1-907a-ddf7004dc6ab_1600x702.png" /></p>
+<p>For the first few months back at work, I was ultra-strict with taking breaks, as I just couldn’t function without them. Over time, I’ve relaxed this as my physical capacity has improved. I still try my best to take at least 15 minutes mid-morning and mid-afternoon to disconnect and chill out, but nowadays I’ll schedule over my blocks if I have to.</p>
+<p>If you often feel run-down at the end of your workday, I challenge you to add structured breaks to your calendar, even if they’re only 5 or 10 minutes long. If you’re anything like me, if it’s not on your calendar, it’s not going to happen!</p>
+<h3><strong>Ruthlessly prioritizing my time</strong></h3>
+<p><a href="https://en.wikipedia.org/wiki/Parkinson%27s_law">Parkinson’s law</a> refers to the observation that work expands to fill the time that’s available for its completion. The corollary here is that work shrinks if we’re given less time in which to complete a task.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/b14a0ac3-c405-478e-82c3-a9e2b19eca02_1040x694.png" /></p>
+<p>In my case, the TBI meant that in my first few months back at work, I simply didn’t have the physical tolerance that I had in the past. I needed to take breaks, I couldn’t work long hours, and I had to prioritize my health and recovery over anything else (yes, that included my OKRs!).</p>
+<p>One of the most helpful changes I made was to set a limit of how much I would work in a day. I restricted myself to working around two hours less per day than my pre-injury baseline. I took additional breaks during the day and avoided working late into the evening.</p>
+<p>Shorter hours raised the bar for what I considered worthy enough to invest my time in, which naturally led to better prioritization of my work. I hear this sentiment a lot from friends who’ve had kids, as they’ve similarly been forced into prioritizing more effectively to avoid completely losing their shit!</p>
+<blockquote>
+<p><em>“It’s not prioritization unless it hurts.”</em></p>
+<p>—Ami Vora, <a href="https://amivora.substack.com/p/its-not-prioritization-until-it-hurts">The Hard Parts of Growth</a></p>
+</blockquote>
+<p>On a tactical level, I started applying <a href="https://www.bluelabellabs.com/blog/a-primer-on-prioritization/">p0/p1/p2 priorities</a> to my daily and weekly tasks. I’ve found this helpful in reorienting myself toward higher-leverage tasks, while still making sure that I don’t drop any important balls. I limit myself to two p0 items each day, which I absolutely must get done before clocking off. I try my best to get through the p1 items on any given day but will let them slip if I have to. The p2 items are more of a stretch that I’ll only get to if my schedule permits.</p>
+<p>Note: If a p2 task keeps getting pushed back day after day, it’s worth digging in to understand the cause. Sometimes it becomes clear to me that a task is very low-ROI and that I’m better off cutting it entirely. Other times I realize that aversion and anxiety are the real reasons why I’m delaying an important task, such as aligning with a difficult cross-functional stakeholder. In these cases, I elevate the task to a p0 to force myself to get it done.</p>
+<p>I also started giving my talented design and engineering counterparts more ownership of work that I ordinarily covered. The key here was to work with each engineer and designer to understand their personal goals and what types of work excited them the most. For some, this included taking on more XFN comms to improve their leadership presence. For others, this involved having greater responsibility over data and analytics, or doing the work to help define our north-star vision.</p>
+<p>I’ve found that the changes to my schedule and prioritization tactics, combined with empowering the team around me, has made me a more effective operator. It’s been a strong win-win, as I’ve given my body the space to recover while also improving our team’s performance and satisfaction levels.</p>
+<h2><strong>Managing emotions</strong></h2>
+<p>During the earlier stages of my recovery, I struggled to adjust to my newfound reality that life was going to be very different. The fear around whether I’d ever get better was crippling. I felt a deep frustration at my disability pressing pause on my career and life progression.</p>
+<p>In TBI recovery, excessive anxious and depressive feelings kick off a self-reinforcing negative loop that impedes recovery. Higher stress leads to sympathetic dominance of the nervous system as the fight-or-flight response gets stuck in overdrive. Sympathetic dominance causes insomnia, which has a huge impact, given how critical sleep is for TBI recovery. Sympathetic dominance also causes digestive issues such as irritable bowel syndrome and nausea, both of which in turn lead to more anxiety and stress.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/ebcaecd1-1248-4442-becc-39d4b3c1486d_1600x1058.png" /></p>
+<p>There are a few tactics that I now consider table stakes in how I manage my psychology, both in a work context and in life more broadly.</p>
+<h3><strong>Vipassana meditation</strong></h3>
+<p>The meditation bandwagon has hit escape velocity over the past decade. Despite how prevalent meditation has become, I find that there’s still a lot of confusion around what exactly it entails. Contrary to popular belief, meditation doesn’t require that you sit completely still for long periods of time. Nor does the inability to “clear your mind” mean that you’re doing meditation “wrong.”</p>
+<p>Here’s one definition of meditation that I find particularly helpful:</p>
+<blockquote>
+<p><em>“Awareness that arises through paying attention, on purpose, in the present moment, non-judgmentally”</em></p>
+<p>—Jon Kabat-Zinn, <a href="https://www.mindful.org/jon-kabat-zinn-defining-mindfulness/#:~:text=The%20Definition%20of%20Mindfulness%3A,self%2Dunderstanding%20and%20wisdom.%E2%80%9D">Defining Mindfulness</a></p>
+</blockquote>
+<p>Breaking this down into its inputs gives us four items:</p>
+<ol>
+<li>Attention: To emotions, thoughts, and physical sensations</li>
+<li>Intention: Being deliberate with guiding attention</li>
+<li>Presence: Staying with what’s true in the moment</li>
+<li>Attitude: Being curious and non-judgmental toward reality</li>
+</ol>
+<p>Learning how to observe difficult thoughts and physical symptoms without judgment was a huge unlock for my recovery. In the earlier stages of my journey, overwhelming physical pain would cause me a lot of emotional strife. I’d desperately want the pain to stop, and when it didn’t I’d feel extremely frustrated about not being able to live my life.</p>
+<p>While meditation didn’t solve all my problems, it helped me become much less reactive to all the difficulties associated with my condition. Meditation also reduced the amount of emotional pain I experienced, as I learned to struggle less against reality.</p>
+<blockquote>
+<p><em>“True freedom is learning how to be at peace when you don’t get what you want.”</em></p>
+<p>—Dr. Nikki Mirghafori, <a href="https://www.spiritrock.org/nikki-mirghafori">Spirit Rock</a></p>
+</blockquote>
+<p>With Vipassana practice, I focus on an object of attention (breath in my abdomen). When my mind gets distracted, I gently investigate my thought patterns before coming back to the breath. While I choose to sit cross-legged on the floor, there’s nothing wrong with sitting in a chair, or meditating while walking or lying down. It’s important to be comfortable when you meditate, so I use a <a href="https://www.amazon.com/gp/product/B08CZXNS6D">zabuton</a> (floor mat) and <a href="https://www.amazon.com/gp/product/B09LMRKZ5C">zafu</a> (sitting cushion). If physical discomfort prevents you from meditating, I highly recommend getting on these!</p>
+<p>I aim to meditate daily for 20 minutes. Having a dedicated meditation space helps here, as does having the same scheduled time slot each day. If I’m just too busy on a certain day, I still meditate at the same time, albeit for a shorter length (even if just a few minutes). It’s important to be kind to ourselves and recognize that we’re humans, and so I do skip a day here or there and don’t see it as a huge problem. However, I’ve found that if I start to skip days too often, I become a lot less present and a lot more reactive.</p>
+<h3><strong>Tactical deep breathing</strong></h3>
+<p>In a work context, one of the most important tactics I’ve relied on is deep diaphragmatic breathing. There are many different types of deep breathing, and all probably work fine enough. However, two factors should be considered to best calm the nervous system:</p>
+<ol>
+<li><strong>Exhaling for longer than you inhale.</strong> Breathing in stimulates the sympathetic response, while breathing out stimulates the parasympathetic rest-and-digest response. Testing this using a heart-rate monitor will show that your heart rate rises when you breathe in and falls as you breathe out. Maintaining a <a href="https://yogainternational.com/article/view/soothe-your-nervous-system-with-2-to-1-breathing/#:~:text=Inhalation%20emphasizes%20sympathetic%20activity%20(the,rest%2C%20and%20digestion%20branch).">2-to-1 ratio</a> of exhalation to inhalation ensures that deep breathing indexes your body’s systems toward rest.</li>
+<li><strong>Diaphragmatic “belly” breathing.</strong> Slow diaphragmatic breathing stimulates the <a href="https://www.uclahealth.org/medical-services/gastro/wellness/wellness-approaches/relaxation-therapies">vagus nerve</a>, which further activates the parasympathetic nervous system. To execute this most effectively, you want to focus your breath in the region where the upper belly meets the lowest ribs.</li>
+</ol>
+<p>I’ll often do this type of breathing to calm myself down before product reviews or important meetings where I expect things to get a little spicy. It’s also been very helpful after difficult meetings when I leave with anxious energy and major WTF vibes. Even just 20 to 30 seconds of this type of deep breathing can bring me closer to baseline and prevent my emotions from spiraling out. Andrew Huberman’s breathing techniques to reduce stress are also a great reference here:</p>
+<p><a href="https://www.youtube.com/watch?v=kSZKIupBUuc">Watch on YouTube</a></p>
+<h3><strong>Working with fears exercise</strong></h3>
+<p>One of the most pervasive and anxiety-inducing fears I faced during the earlier stages of my recovery was the question of whether I’d ever get better. As I was still extremely limited several months after my injury, it was easy to get caught in the “I’m going to be like this forever” narrative.</p>
+<p>Working with a therapist and learning to accept my lack of control played an important part here, as did a “working with fears” exercise that’s similar to Tim Ferriss’s thoughts on <a href="https://tim.blog/2017/05/15/fear-setting/">fear setting</a>:</p>
+<ol>
+<li>Write out your fear</li>
+<li>Estimate the probability of that fear happening</li>
+<li>Run a thought experiment of the concrete steps you’d take to survive and navigate the situation if the fear does ends up playing out</li>
+</ol>
+<p>My primary fear was that I’d never be able to return to work. While my doctors were unclear on how long my recovery would take, they did believe that there was a decent chance I’d eventually recover enough to get back to a job. Nonetheless, I played out the scenario of never being able to work again. I had long-term disability coverage and was lucky enough to have a very supportive partner who could help take care of me. I reasoned that in the worst case, I could move to my native country, Australia, and at least have health-care coverage and some degree of welfare support. I knew that while not being able to work would be a very painful future, I would find a way to survive if it did end up happening.</p>
+<p>If you want to reduce the emotional impact of fear the next time you worry about something not going your way, try working through this exercise and see where you land.</p>
+<h3><strong>Creating a “parasympathetic space” in your house</strong></h3>
+<p>So much of managing my emotions comes back to stimulating the rest-and-digest response. One hack that I’ve found to be very effective has been to create a dedicated space in my house with “relaxing vibes” that I use to do my deep breathing, meditation, and general chilling out.</p>
+<p>This tip stems from the <a href="https://www.verywellmind.com/classical-conditioning-2794859">classical conditioning</a> principle of psychology, courtesy of Pavlov’s well-known <a href="https://www.verywellmind.com/pavlovs-dogs-2794989">experiment</a>. In that experiment, it was discovered that feeding dogs soon after ringing a bell would eventually lead to the dogs salivating at the sound of the bell alone, even with no food present. Why? Because they began to associate the sound of the bell with food.</p>
+<p>The same principle applies with setting up a parasympathetic space in your house. If you have a specific place you go to where you stimulate your rest-and-digest response, over time that response will begin to fire just by going to that space.</p>
+<p>I set up part of my room for this specific purpose with the following props:</p>
+<ul>
+<li>Futon to lie down on</li>
+<li>Cushion and mat (zafu and zabuton) for meditation</li>
+<li>Essential-oils diffuser for stimulating smell</li>
+<li>Speaker to play calming music</li>
+<li>Steel tongue drum if I want to actively play music</li>
+</ul>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/622d9e5e-2aa7-41aa-b996-010acde69f8b_1200x1600.png" /></p>
+<p>I use this space to calm my nerves before a meeting, chill out whenever I’m feeling a bit frenetic, and during my scheduled breaks over the course of a day. Sometimes Taco (the cat) is helpful, other times he most certainly is not. . .</p>
+<h2><strong>Managing physical health</strong></h2>
+<p>To increase the speed of my healing and to maximize the chances of making a full recovery, I made some major lifestyle changes.</p>
+<p>Given I’m about 90% recovered today, I no longer “have” to stick to these lifestyle changes, but I nonetheless plan to. After suffering so much from health issues, I want to maximize my probability of having a healthy life, and as such I’ve oriented toward a lifestyle that optimizes for my long-term health.</p>
+<h3><strong>Exercise</strong></h3>
+<blockquote>
+<p><em>“Exercise is the single most potent tool we have in the health-span-enhancing toolkit—and that includes nutrition, sleep, and meds.”</em></p>
+<p>—<a href="https://www.menshealth.com/fitness/a43137717/peter-attia-outlive-exercise-longevity/">Dr. Peter Attia</a></p>
+</blockquote>
+<p>TBI <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6089233/">best practices</a> take the view that after an initial two- to three-day period of rest, daily cardio is the most important recovery activity for patients. In particular, brain injury experts <a href="https://www.cognitivefxusa.com/blog/brain-injury-exercise">recommend</a> heart-rate-based high-intensity cardio intervals.</p>
+<p>I worked with a physical therapist on an exercise program designed to slowly increase the maximum heart rate at which I could exercise without causing symptom onset. This involved doing one-minute-on intervals where I’d try to get my heart rate up to a target range followed by one-minute-off intervals where I’d rest and focus on deep breathing to bring my heart rate down. As walking would trigger my symptoms, the stationary bike was my poison of choice.</p>
+<p>These short bursts of intense cardio increase <a href="https://home.hellodriven.com/articles/neuroplasticity-why-you-should-care-about-your-bdnf/">brain-derived neurotrophic factor</a>, also known as neuroplasticity. Rapidly bringing down your heart rate during the off-intervals helps stimulate the parasympathetic nervous system response.</p>
+<p>After my injury, I was unable to lift weights, as the movement and exertion required would trigger my symptoms. The benefits of weightlifting are <a href="https://www.healthline.com/health/fitness/benefits-of-strength-training">well documented</a>, so over the course of a few months I worked with my physical therapist to slowly get back into light weightlifting. Being able to once again lift five times per week was a turning point that brought with it significant physical and mental health benefits.</p>
+<h3><strong>Anti-inflammatory diet</strong></h3>
+<p>Leading TBI <a href="https://completeconcussions.com/team/dr-cameron-marshall/">experts</a> argue that TBI recovery is held back unless diet is adequately addressed, and most agree that the best bet is the <a href="https://www.arthritis.org/health-wellness/healthy-living/nutrition/anti-inflammatory/anti-inflammatory-diet">anti-inflammatory diet</a>.</p>
+<p>In a nutshell, the anti-inflammatory diet favors fruits, vegetables, whole grains, lean protein, and healthy fats. On the other hand, processed foods, added sugar, red meats, and alcohol are discouraged.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/554fce99-9f6b-4b8a-93b9-2b21965311a5_1440x1496.png" /></p>
+<p>While acute inflammation is essential to our body’s healing process, inflammation that doesn’t go away can be a big problem. <a href="https://www.health.harvard.edu/staying-healthy/understanding-acute-and-chronic-inflammation#:~:text=Research%20has%20shown%20that%20chronic,to%20know%20its%20exact%20impact.">Chronic inflammation</a>, a common byproduct of our modern diet and lifestyle, is associated with heart disease, diabetes, cancer, arthritis, and bowel diseases such as Crohn’s disease and ulcerative colitis.</p>
+<p>For the first six months after my injury, reducing inflammation in my brain and gut was a key goal of recovery. As a result, I was ultra-strict with adhering to the anti-inflammatory diet.</p>
+<p>Fast-forwarding to today, the anti-inflammatory diet still makes up the core of what I eat, but I’m not going to say no to the occasional ice cream or burger. You gotta enjoy life and follow a diet that’s sustainable over the long run!</p>
+<h3><strong>Quitting alcohol and caffeine</strong></h3>
+<p>While the literature on whether one can drink alcohol and caffeine after a TBI is mixed, I was advised by my doctor and TBI specialists to avoid both.</p>
+<p>In the case of alcohol, many TBI patients experience a spike in symptoms after having as little as one or two drinks. Alcohol also affects sleep, causes inflammation, and increases the chances of re-injury due to impaired coordination.</p>
+<p>Caffeine is another sleep culprit, although the bigger issue for me was that caffeine exacerbates nervous system issues, as increased adrenaline stimulates the body’s fight-or-flight response.</p>
+<p>I’ve long been aware that I have an addictive personality. I’d previously experimented with quitting alcohol and caffeine, so I thought “fuck it, why not” and decided to follow the doctors’ advice and completely avoid both substances.</p>
+<p>It’s now been over a year and a half since I last drank alcohol or caffeinated beverages, and I couldn’t be happier with my decision.</p>
+<p>Since giving up alcohol, I’ve absolutely loved getting up early on weekends and being hangover-free. I feel better and have more energy throughout the day, and also save a lot of money. Socializing while sober was tough at the start, but I’ve gotten used to it over time. Today, I’m generally very much at ease in social settings despite being fully sober. The increasing popularity of non-alcoholic beer and cocktails with 0.0% ABV makes it even easier.</p>
+<p>Caffeine has been slightly harder. Getting back to work was a tough jolt to the system, and the fatigue I was running into definitely made me miss drinking caffeine. Having said that, my energy has improved over time, and I can now work at a high-output level without needing any caffeine. I do miss a good matcha latte, though. 😢</p>
+<h2><strong>Other helpful frames</strong></h2>
+<p>Beyond managing my energy and emotions, I’ve also realized how important of a role perspective plays. Being intentional with perspective-taking improves life satisfaction, while making it easier to undertake desired life changes.</p>
+<h3><strong>Taking on something positive that you enjoy</strong></h3>
+<p>The first few months after my accident were the toughest. I couldn’t play sports, work, listen to music, watch Netflix, travel, hang out with friends, and so on. It felt like I’d lost all the joy in my life, as I could no longer do most of the activities that I ordinarily loved.</p>
+<p>My lesson here is that when life goes south, you need to find at least one activity that brings positivity to your life. Having just one positive thing to look forward to can flip your perspective on life, even if everything else is completely fucked.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/35e492f7-f8d7-456e-a799-4380ff253919_1200x846.png" /></p>
+<h4><strong>Meditation</strong></h4>
+<p>Initially when I couldn’t do anything else, meditation was my savior. I’d been meditating on and off for a decade and had always wanted to go much deeper into the practice. In this sense, my injury was a blessing, as I had months on end where I couldn’t do much else. It just so happened that meditation was also beneficial to my recovery.</p>
+<p>For the longest time, I’d wanted to do a meditation retreat but couldn’t find the time to prioritize it. After my injury, I had nothing but time. A few months into my recovery, I mustered up the courage to go on my first seven-day silent Vipassana retreat at Spirit Rock, a well-known meditation center in Northern California. I had such a blast that I went on another silent retreat at Spirit Rock just two months after my first!</p>
+<p>Because I was finally able to go deeper on meditation, the feeling of months going by where I did “nothing” no longer felt like wasted time. Instead, it began to feel like a unique opportunity to pursue a lifelong passion.</p>
+<h4><strong>Writing</strong></h4>
+<p>Another long-term unfulfilled desire had been to start writing online in some capacity. I’d just never found the time or the right moment to get started.</p>
+<p>As I slowly increased my screen time tolerance, my doctor told me to take on more cognitively challenging tasks to prepare myself for eventually going back to a full-time job. After initial hesitation, I started writing about my injury and recovery on a blog. As my recovery progressed and I started to think about returning to work, I switched over to writing about recent product and experiment launches.</p>
+<p>This slowly evolved into <a href="https://www.timetoship.co/">Time to Ship</a>, a short-form daily digest where I recap the latest features shipped by product teams. Writing has brought me immense joy and satisfaction, and mind-blowingly, the newsletter is now read by thousands of PMs around the world!</p>
+<p>If you’re feeling like you’re in a bit of a rut or that you’re not getting enough joy in life, I’d encourage you to think about what you can take on that you feel excited and motivated by.</p>
+<h3><strong>Taking a wider perspective</strong></h3>
+<p>They say that success rarely looks linear, and instead more closely resembles a squiggly chaotic line that goes all over the place before eventually heading up and to the right (in the ideal world).</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/5e467463-280f-480c-b26a-af411abad95a_1600x1031.png" /></p>
+<p>My recovery process was a squiggly line in every regard. So many times, just when things were starting to get better, I’d have a major setback and feel like I lost months of progress. To say this was demoralizing would be the understatement of the year.</p>
+<p>In these moments, it was very difficult to not lose hope, as the “I’m never going to get better” narrative would take hold. During one of these setbacks, my therapist asked me an important question.</p>
+<p>“How wide is your frame of reference?”</p>
+<p>When suffering from strong and painful symptoms, I often defaulted to a very narrow view of my recovery. What I would miss was that even if the preceding days or weeks had not been great, if I zoomed out to take a wider frame of reference, it was clear that the overall trend line was positive.</p>
+<p>Learning to take a wider frame was extremely helpful when the going got tough, and this principle has strong applicability in a broader life context.</p>
+<p>Let’s say you’ve been hard at work on a project or improving some aspect of yourself. If the goal is lofty enough, you’ll inevitably run into major obstacles. You’ll feel like you’re hitting a wall and question whether you’ll ever reach your goal.</p>
+<p>Zooming out and taking a wider frame of reference is helpful in a bi-directional way. Looking at progress over months and years instead of days and weeks may help you realize that in fact you are progressing, and that it makes sense to stay the course.</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/3e278799-0e1c-40ce-be45-5347b012d7f1_725x448.png" /></p>
+<p>However, the converse is also true here. After zooming out and taking a multi-year view, you might realize that you’ve gotten stuck and aren’t progressing as quickly as you’d like. This can act as a wakeup call to start taking stronger actions to make a difficult change.</p>
+<h2><strong>A new lease on life</strong></h2>
+<p>It’s been a tough ride, to say the least, but I’m immensely grateful for my TBI journey. There was no escaping my situation, and being forced to face my challenges head-on has left me with knowledge that has significantly improved the quality of my personal and professional life.</p>
+<p>I’m thankfully continuing to get better and better over time. Last month I went scuba diving in the Great Barrier Reef, and in December I’m flying to Nepal to do Everest Base Camp. In true growth PM fashion, I also successfully converted my girlfriend to fiancée!</p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/8d606484-6bf2-4c1d-9c9c-f7d92d1fc528_1200x1600.png" /></p>
+<p>All of us will experience a major decline in health at some point. That’s life, until the day we’re no longer here. However, we can maximize the probability of staying healthy over the long run by maintaining positive habits and lifestyle choices.</p>
+<p>Working hard is undoubtedly important, but it’s also critical to do whatever you can to reduce the physical and emotional load caused by an ambitious career.</p>
+<p>I consider myself fortunate to have experienced firsthand what it’s like to be disabled for an extended period of time, and I now have a much deeper appreciation of just how awesome life is when you have great health. Do not take it for granted.</p>
+<p><em>Thank you, Amol, for sharing this story with us. For more from Amol, follow him on <a href="https://www.linkedin.com/in/amolavasare/">LinkedIn</a> and <a href="https://twitter.com/theamolavasare">Twitter</a>, and check out his newsletter <a href="https://www.timetoship.co/">Time to Ship</a>, a daily digest of the latest features shipped by your favorite product teams.</em></p>
+<p><em>Finally, here’s a handy checklist of all of Amol’s lessons:</em></p>
+<p><img alt="Image from How a traumatic brain injury made me a better PM—and person" src="https://substack-post-media.s3.amazonaws.com/public/images/5986b10d-565a-4abc-ab79-8fc9cecd07af_1545x2000.png" /></p>
+<p><em>Have a fulfilling and productive week 🙏</em></p>
+<p><strong>If you find this newsletter valuable, share it with a friend, and consider subscribing if you haven’t already. Check out <a href="https://www.lennysnewsletter.com/subscribe?group=true">group discounts</a> and <a href="https://www.lennysnewsletter.com/subscribe?gift=true">gift options</a>.</strong></p>
+<p>Sincerely,</p>
+<p>Lenny 👋</p></div>
+  
+</div>
+<footer>642 articles · Lenny Rachitsky · Built by PM Coach</footer>
+<script>
+(function(){
+  var searchBox = document.getElementById('search-box');
+  var tagBtns = document.querySelectorAll('.tag[data-tag]');
+  var cards = document.querySelectorAll('.article-card[data-tags]');
+  var activeTag = '';
+
+  function filter(){
+    var q = searchBox ? searchBox.value.toLowerCase() : '';
+    cards.forEach(function(c){
+      var tags = (c.dataset.tags||'').split(',');
+      var text = (c.dataset.search||'').toLowerCase();
+      var tagOk = !activeTag || tags.indexOf(activeTag) >= 0;
+      var qOk   = !q || text.indexOf(q) >= 0;
+      c.classList.toggle('hidden', !(tagOk && qOk));
+    });
+  }
+
+  tagBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(activeTag === b.dataset.tag){ activeTag = ''; b.classList.remove('active'); }
+      else { tagBtns.forEach(function(x){x.classList.remove('active')}); activeTag = b.dataset.tag; b.classList.add('active'); }
+      filter();
+    });
+  });
+
+  if(searchBox) searchBox.addEventListener('input', filter);
+
+  // Expand transcript
+  var expandBtn = document.getElementById('expand-btn');
+  var enContent = document.getElementById('en-content');
+  if(expandBtn && enContent){
+    expandBtn.addEventListener('click', function(){
+      enContent.style.maxHeight = 'none';
+      expandBtn.style.display = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>
